@@ -1,0 +1,7 @@
+{  
+  "require": {
+  },
+  "autoload": {
+    "files": ["incl/functions.php"]
+  }
+}
