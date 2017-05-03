@@ -1,0 +1,16 @@
+div.wrapper {
+    width: 100%;
+
+    div.container {
+        width: 80%;
+        margin: 0 auto;
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+    }
+}
