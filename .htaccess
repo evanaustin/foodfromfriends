@@ -3,7 +3,7 @@ Options +FollowSymLinks
 RewriteEngine On
 
 # Set project base
-RewriteBase /
+# RewriteBase /
 
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=index.php
