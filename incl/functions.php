@@ -19,6 +19,10 @@ function layer($language, $files) {
     }
 }
 
+function img($path, $ext = 'jpg') {
+    return '<img src="media/' . $path . '.' . $ext . '"/>';
+}
+
 function quit($message) {
     $json['error'] = $message;
     $json['success'] = false;
