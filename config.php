@@ -24,7 +24,7 @@ switch(ENV) {
         ]; break;
     case 'dev':
         $env_constants = [
-            'PUBLIC_ROOT' => '/Projects/skelly/',
+            'PUBLIC_ROOT' => '/Projects/foodfromfriends/',
             'DB_HOST'   => 'localhost',
             'DB_NAME'   => '',
             'DB_USER'   => 'root',
