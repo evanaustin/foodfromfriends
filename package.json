@@ -1,0 +1,12 @@
+{
+  "name": "foodfromfriends",
+  "version": "1.0.0",
+  "description": "Connecting locavores with local growers",
+  "main": "index.php",
+  "repository": "https://EvanGrinde@bitbucket.org/EvanGrinde/food-from-friends.git",
+  "author": "EvanGrinde <evan.grinde@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
