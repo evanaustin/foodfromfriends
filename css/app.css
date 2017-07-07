@@ -1,0 +1,195 @@
+/**
+* Fonts
+**/
+@import url("https://fonts.googleapis.com/css?family=Signika:300,400,600,700");
+@font-face {
+  font-family: 'Cherie Bomb';
+  src: url("../cherie-bomb/CherieBomb-Regular.otf") format("otf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Gineva';
+  src: url("../gineva/gineva-regular-webfont.woff2") format("woff2"), url("../gineva/gineva-regular-webfont.woff") format("woff"), url("../gineva/Gineva-Regular.otf") format("otf"), url("../gineva/Gineva-Regular.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Lucky Dream';
+  src: url("../lucky-dream/lucky_dream-webfont.woff2") format("woff2"), url("../lucky-dream/lucky_dream-webfont.woff") format("woff"), url("../lucky-dream/Lucky Dream.otf") format("otf"), url("../lucky-dream/Lucky Dream.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Twin Pines';
+  src: url("../twin-pines/twinpines-regular.woff2") format("woff2"), url("../twin-pines/twinpines-regular.woff") format("woff"), url("../twin-pines/twinpines-regular.svg") format("svg"), url("../twin-pines/twinpines-regular.eot") format("eot"), url("../twin-pines/Twin Pines-regular.otf") format("otf"), url("../twin-pines/Twin Pines-regular.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Scenders';
+  src: url("../scenders/Scenders-Regular.woff") format("woff"), url("../scenders/Scenders-Regular.svg") format("svg"), url("../scenders/Scenders-Regular.eot") format("eot"), url("../scenders/Scenders-Regular.otf") format("otf"), url("../scenders/Scenders-Regular.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Snap Dragon';
+  src: url("../Snap-Dragon.otf") format("otf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Riya';
+  src: url("../Riya-Black.otf") format("otf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Le Fontaine';
+  src: url("../LeFontaine-Regular.otf") format("otf");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Coffee';
+  src: url("../I-Need-Coffee.otf") format("otf");
+  font-weight: normal;
+  font-style: normal; }
+/**
+* Mixins
+**/
+/**
+* General & Colors
+**/
+body {
+  margin: 0;
+  font-family: 'Signika'; }
+
+.align-left {
+  text-align: left; }
+
+.align-right {
+  text-align: right; }
+
+/**
+* Component Styles
+**/
+#header {
+  position: absolute;
+  background: white;
+  width: 100%;
+  padding: 10px 25px;
+  text-align: left; }
+  #header img {
+    width: 55px; }
+
+/**
+* View Styles
+**/
+div.row > div {
+  padding: 0; }
+
+div.split-left {
+  height: 100%;
+  padding: 125px 0 125px;
+  background-color: #005434;
+  color: #00A669;
+  border: solid transparent;
+  border-width: 0 5px 0 0;
+  border-image: url("../media/patterns/brush-border-full.svg") 5 repeat; }
+  div.split-left button {
+    background-color: #00A669;
+    color: #005434; }
+
+div.split-right {
+  height: 100%;
+  padding: 125px 0 125px;
+  background-color: #00A669;
+  color: #005434; }
+  div.split-right button {
+    background-color: #005434;
+    color: #00A669; }
+
+section.hero div.split-left {
+  padding-top: 250px;
+  text-align: right; }
+  section.hero div.split-left img.logo {
+    padding-right: 2.5em;
+    width: 300px; }
+section.hero div.split-right {
+  padding-top: 250px;
+  text-align: left; }
+  section.hero div.split-right img.business-name {
+    padding-left: 2.5em; }
+
+section.vision div.split-left h1 {
+  padding-right: 0.15em; }
+section.vision div.split-right h1 {
+  padding-left: 0.15em; }
+
+section.intro p {
+  margin: 0 auto;
+  width: 66.66%;
+  font-size: 18px; }
+
+section.user-types {
+  text-align: center; }
+  section.user-types h3 {
+    margin: 1.25em 0;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: .15px; }
+    section.user-types h3 strong {
+      font-weight: 600; }
+  section.user-types p, section.user-types ul {
+    margin-left: auto;
+    margin-right: auto; }
+  section.user-types p {
+    width: 66.66%;
+    margin-top: 1.25em;
+    margin-bottom: 0;
+    font-size: 16px; }
+  section.user-types ul {
+    width: 40%;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300; }
+  section.user-types form {
+    margin-top: 30px; }
+    section.user-types form input, section.user-types form button {
+      width: 55%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-family: 'Signika';
+      border: 0; }
+      section.user-types form input[type="text"], section.user-types form button[type="text"] {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+        background-color: rgba(255, 255, 255, 0.8); }
+
+section.footer {
+  text-align: center;
+  font-weight: 300; }
+  section.footer div.split-left {
+    padding-bottom: 15px; }
+  section.footer div.split-right {
+    padding-bottom: 15px; }
+
+section.break {
+  text-align: center; }
+
+h1 {
+  font-size: 36px;
+  font-family: 'Riya'; }
+
+/*div.hr {
+    height: 45px;
+    background-repeat: round space;
+    background-clip: border-box;
+}*/
+div.wrapper {
+  width: 100%; }
+  div.wrapper div.container {
+    width: 80%;
+    margin: 0 auto; }
+    div.wrapper div.container h1 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: sans-serif; }
+
+/*# sourceMappingURL=app.css.map */
