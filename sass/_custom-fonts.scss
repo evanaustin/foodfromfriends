@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Signika:300,400,600,700');
+
 @font-face {
     font-family: 'Cherie Bomb';
     // src: url('../cherie-bomb/cheriebomb-regular-webfont.woff2') format('woff2'),
@@ -35,6 +37,17 @@
          url('../twin-pines/twinpines-regular.eot') format('eot'),
          url('../twin-pines/Twin Pines-regular.otf') format('otf'),
          url('../twin-pines/Twin Pines-regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Scenders';
+    src: url('../scenders/Scenders-Regular.woff') format('woff'),
+         url('../scenders/Scenders-Regular.svg') format('svg'),
+         url('../scenders/Scenders-Regular.eot') format('eot'),
+         url('../scenders/Scenders-Regular.otf') format('otf'),
+         url('../scenders/Scenders-Regular.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
