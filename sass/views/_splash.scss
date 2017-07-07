@@ -1,0 +1,157 @@
+div.row > div {
+    padding: 0;
+}
+
+div.split-left {
+    height: 100%;
+    padding: 125px 0 125px;
+
+    background-color: $dark-green;
+    color: $light-green;
+
+    border: solid transparent; 
+    border-width: 0 5px 0 0;
+    border-image: url('../media/patterns/brush-border-full.svg') 5 repeat;
+
+    button {
+        background-color: $light-green;
+        color: $dark-green;
+    }
+}
+
+div.split-right {
+    height: 100%;
+    padding: 125px 0 125px;
+
+    background-color: $light-green;
+    color: $dark-green;
+
+    button {
+        background-color: $dark-green;
+        color: $light-green;
+    }
+}
+
+section.hero {
+    div.split-left {
+        padding-top: 250px;
+        text-align: right;
+        
+        img.logo {
+            padding-right: 2.5em;
+            width: 300px;
+        }
+    }
+
+    div.split-right {
+        padding-top: 250px;
+        text-align: left;
+        
+        img.business-name {
+            padding-left: 2.5em;
+        }
+    }
+}
+
+section.vision {
+    div.split-left {
+        h1 {
+            padding-right: 0.15em;
+        }
+    }
+    
+    div.split-right {
+        h1 {
+            padding-left: 0.15em;
+        }
+    }
+}
+
+section.intro {
+    p {
+        margin: 0 auto;
+        width: 66.66%;
+        font-size: 18px;
+    }
+}
+
+section.user-types {
+    text-align: center;
+
+    h3 {
+        margin: 1.25em 0;
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: .15px;
+
+        strong {
+            font-weight: 600;
+        }
+    }
+
+    p, ul {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    p {
+        width: 66.66%;
+        margin-top: 1.25em;
+        margin-bottom: 0;
+        font-size: 16px;
+    }
+
+    ul {
+        width: 40%;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    form {
+        margin-top: 30px;
+
+        input, button {
+            width: 55%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-family: 'Signika';
+            border: 0;
+
+            &[type="text"] {
+                margin-top: 7.5px;
+                margin-bottom: 7.5px;
+                background-color: rgba(255,255,255,0.8);
+            }
+        }
+    }
+}
+
+section.footer {
+    text-align: center;
+    font-weight: 300;
+
+    div.split-left {
+        padding-bottom: 15px;
+    }
+    
+    div.split-right {
+        padding-bottom: 15px;
+    }
+}
+
+section.break {
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    font-family: 'Riya';
+}
+
+/*div.hr {
+    height: 45px;
+    background-repeat: round space;
+    background-clip: border-box;
+}*/
