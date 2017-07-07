@@ -7,14 +7,14 @@ if (ENV == 'prod' && (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on')) {
     exit();
 }
 
-$path = (empty($_GET['path']) ? 'home' : $_GET['path']);
+$path = (empty($_GET['path']) ? 'splash' : $_GET['path']);
 $page = str_replace('/', '-', $path);
 
 $template       = SERVER_ROOT . 'routes/template.php';
 $initializer    = SERVER_ROOT . 'routes/initializers/' . $path . '.php';
 
 $body = [
-    'header'    => SERVER_ROOT . 'routes/components/header.php',
+    // 'header'    => SERVER_ROOT . 'routes/components/header.php',
     'view'      => SERVER_ROOT . 'routes/views/' . $path . '.php',
     'footer'    => SERVER_ROOT . 'routes/components/footer.php',
     'modal'     => SERVER_ROOT . 'routes/modals/' . $path . '.php',
