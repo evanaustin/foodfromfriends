@@ -125,7 +125,7 @@
                         so you can search our local offerings of fresh, homegrown food.
                     </p>
 
-                    <form>
+                    <form id="locavore"> 
                         <input type="text" class="form-control" name="email" placeholder="Your email"/>
                     
                         <button type="submit" class="btn form-control">
@@ -162,7 +162,7 @@
                         so you can list your food with us and let the hungry people come.
                     </p>
 
-                    <form>
+                    <form id ="grower">
                         <input type="text" class="form-control" name="email" placeholder="Your email"/>
                         
                         <button type="submit" class="btn form-control">
@@ -206,5 +206,6 @@
                 </div>
             </div>
         </div>
+
     </section>
 </div>
