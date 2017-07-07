@@ -7,7 +7,13 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo $settings['title']; ?></title>
-        <?php layer('css', ['css/app']); ?>
+        <?php layer('css', [
+            'css/thirdparty/bootstrap/bootstrap-reboot',
+            'css/thirdparty/bootstrap/bootstrap-grid',
+            'css/thirdparty/bootstrap/bootstrap',
+            'css/thirdparty/fontawesome-4.7/font-awesome',
+            'css/app'
+        ]); ?>
     </head>
     <body class="<?php echo $page; ?>">
         <?php
