@@ -23,6 +23,30 @@
     white-space: nowrap;
 }
 
+// Input placeholders
+// @include placeholder()
+@mixin placeholder() {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+    
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+
+    &.placeholder {
+        @content;
+    }
+}
+
 // Gradient Backgrounds
 // @include horizontal(COLOR, COLOR)
 @mixin horizontal($startColor: $white, $endColor: $lightergrey) {

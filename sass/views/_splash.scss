@@ -119,6 +119,12 @@ section.user-types {
             font-family: 'Signika';
             border: 0;
 
+            &:focus {
+                @include placeholder() {
+                    color: transparent;
+                }
+            }
+
             &[type="text"] {
                 margin-top: 7.5px;
                 margin-bottom: 7.5px;

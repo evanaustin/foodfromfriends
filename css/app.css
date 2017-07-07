@@ -155,6 +155,16 @@ section.user-types {
       text-align: center;
       font-family: 'Signika';
       border: 0; }
+      section.user-types form input:focus::-webkit-input-placeholder, section.user-types form button:focus::-webkit-input-placeholder {
+        color: transparent; }
+      section.user-types form input:focus:-moz-placeholder, section.user-types form button:focus:-moz-placeholder {
+        color: transparent; }
+      section.user-types form input:focus::-moz-placeholder, section.user-types form button:focus::-moz-placeholder {
+        color: transparent; }
+      section.user-types form input:focus:-ms-input-placeholder, section.user-types form button:focus:-ms-input-placeholder {
+        color: transparent; }
+      section.user-types form input:focus.placeholder, section.user-types form button:focus.placeholder {
+        color: transparent; }
       section.user-types form input[type="text"], section.user-types form button[type="text"] {
         margin-top: 7.5px;
         margin-bottom: 7.5px;
