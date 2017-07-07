@@ -19,8 +19,8 @@ function layer($language, $files) {
     }
 }
 
-function img($path, $ext = 'jpg') {
-    return '<img src="media/' . $path . '.' . $ext . '"/>';
+function img($path, $ext = 'jpg', $class = "") {
+    echo '<img src="media/' . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
 
 function quit($message) {
