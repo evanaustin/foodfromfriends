@@ -1,7 +1,30 @@
 /**
 * Fonts
 **/
-@import url("https://fonts.googleapis.com/css?family=Signika:300,400,600,700");
+@font-face {
+  font-family: 'Signika';
+  src: url("../fonts/signika/Signika-Regular-webfont.eot");
+  src: url("../fonts/signika/Signika-LiRegularght-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/signika/Signika-Regular-webfont.woff") format("woff"), url("../fonts/signika/Signika-Regular-webfont.ttf") format("truetype"), url("../fonts/signika/Signika-Regular-webfont.svg#signikasemibold") format("svg");
+  font-weight: 400;
+  font-style: normal; }
+@font-face {
+  font-family: 'Signika';
+  src: url("../fonts/signika/Signika-Light-webfont.eot");
+  src: url("../fonts/signika/Signika-Light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/signika/Signika-Light-webfont.woff") format("woff"), url("../fonts/signika/Signika-Light-webfont.ttf") format("truetype"), url("../fonts/signika/Signika-Light-webfont.svg#signikasemibold") format("svg");
+  font-weight: 300;
+  font-style: normal; }
+@font-face {
+  font-family: 'Signika';
+  src: url("../fonts/signika/Signika-Semibold-webfont.eot");
+  src: url("../fonts/signika/Signika-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/signika/Signika-Semibold-webfont.woff") format("woff"), url("../fonts/signika/Signika-Semibold-webfont.ttf") format("truetype"), url("../fonts/signika/Signika-Semibold-webfont.svg#signikasemibold") format("svg");
+  font-weight: 600;
+  font-style: normal; }
+@font-face {
+  font-family: 'Signika';
+  src: url("../fonts/signika/Signika-Bold-webfont.eot");
+  src: url("../fonts/signika/Signika-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/signika/Signika-Bold-webfont.woff") format("woff"), url("../fonts/signika/Signika-Bold-webfont.ttf") format("truetype"), url("../fonts/signika/Signika-Bold-webfont.svg#signikasemibold") format("svg");
+  font-weight: 700;
+  font-style: normal; }
 @font-face {
   font-family: 'Cherie Bomb';
   src: url("../cherie-bomb/CherieBomb-Regular.otf") format("otf");
@@ -92,6 +115,10 @@ div.split-left {
   div.split-left button {
     background-color: #00A669;
     color: #005434; }
+  @media (max-width: 767px) {
+    div.split-left {
+      border-width: 0 0 5px 0;
+      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
 
 div.split-right {
   height: 100%;
@@ -101,7 +128,14 @@ div.split-right {
   div.split-right button {
     background-color: #005434;
     color: #00A669; }
+  @media (max-width: 767px) {
+    div.split-right {
+      border: solid transparent;
+      border-width: 0 0 5px 0;
+      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
 
+section.hero img {
+  width: 100%; }
 section.hero div.split-left {
   padding-top: 250px;
   text-align: right; }
@@ -111,12 +145,25 @@ section.hero div.split-left {
 section.hero div.split-right {
   padding-top: 250px;
   text-align: left; }
+  @media (max-width: 767px) {
+    section.hero div.split-right {
+      padding-top: 125px; } }
   section.hero div.split-right img.business-name {
     padding-left: 2.5em; }
+    @media (max-width: 767px) {
+      section.hero div.split-right img.business-name {
+        padding-right: 2.5em; } }
 
 section.vision div.split-left h1 {
+  text-align: right;
   padding-right: 0.15em; }
+  @media (max-width: 767px) {
+    section.vision div.split-left h1 {
+      text-align: center;
+      font-size: 1.5em;
+      padding: 0 2.5em; } }
 section.vision div.split-right h1 {
+  text-align: left;
   padding-left: 0.15em; }
 
 section.intro p {
@@ -145,7 +192,7 @@ section.user-types {
     width: 40%;
     text-align: left;
     font-size: 16px;
-    font-weight: 300; }
+    font-weight: lighter; }
   section.user-types form {
     margin-top: 30px; }
     section.user-types form input, section.user-types form button {
@@ -169,17 +216,46 @@ section.user-types {
         margin-top: 7.5px;
         margin-bottom: 7.5px;
         background-color: rgba(255, 255, 255, 0.8); }
+  @media (max-width: 767px) {
+    section.user-types div.split-left {
+      background-color: #00A669;
+      color: #005434;
+      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; }
+      section.user-types div.split-left button {
+        background-color: #005434;
+        color: #00A669; }
+    section.user-types div.split-right {
+      background-color: #005434;
+      color: #00A669;
+      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
+      section.user-types div.split-right button {
+        background-color: #00A669;
+        color: #005434; }
+    section.user-types h3, section.user-types p {
+      width: 100%;
+      padding-left: 2em;
+      padding-right: 2em; }
+    section.user-types ul {
+      width: 80%; }
+    section.user-types form input, section.user-types form button {
+      width: 80%; } }
 
 section.footer {
   text-align: center;
   font-weight: 300; }
   section.footer div.split-left {
     padding-bottom: 15px; }
+    @media (max-width: 767px) {
+      section.footer div.split-left {
+        padding: 50px 0;
+        border: 0; } }
   section.footer div.split-right {
     padding-bottom: 15px; }
 
 section.break {
   text-align: center; }
+  section.break div.split-left, section.break div.split-right {
+    padding: 25px 0; }
 
 h1 {
   font-size: 36px;
