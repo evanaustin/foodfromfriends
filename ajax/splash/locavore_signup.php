@@ -1,39 +1,44 @@
 <?php 
 
-$email = $_POST['email'];
-// $Locavore = new Locavore([
-//     'DB' => $DB
-// ]);
+$config = 'config.php';
+while (!file_exists($config)) $config = '../' . $config;
+require $config;
 
-// $Locavore->add('locavores', [
-//     'email' => $email
-// ]);
+$json['error'] = null;
+$json['success'] = true;
 
-// $json['error'] = null;
-// $json['success'] = true;
+foreach ($_POST as $k => $v) if (isset($v) && !empty($v)) ${$k} = rtrim($v);
 
-print $email;
-echo $email;
-print 'foo';
-echo 'foo';
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  echo "Invalid email format"; 
+  quit('Could not add locavore!');
+  
+}
 
 
- // echo json_encode($json);
+$Locavore = new Locavore([
+    'DB' => $DB
+]);
 
-// $query = "SELECT email FROM locavores WHERE email = '$email'";
-// $result = mysqli_query($db, $query); 
 
-// if (!$result){
-//     $email_verification = "passed";
-// }
-// else{
-// 	$email_verification = "failed";
-// }
+$results = $Locavore->exists('locavores','email', $email );
 
-// if(!empty($email) && $email_verification=="passed"){
+if ($results== false){  
 
-//     insert($table, $email);  
+    $results = $Locavore->add('locavores', [
+        'email' => $email
+    ]);
 
-//     }
+    if (!$results) {
+        quit('Could not add locavore!');
+    }
+
+}
+else{
+
+      quit('Could not add locavore!');
+}
+
+ echo json_encode($json);
 
 ?>
