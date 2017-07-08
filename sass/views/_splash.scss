@@ -51,7 +51,7 @@ div.split-right {
 
 section.hero {
     img {
-        width: 100%;
+        max-width: 100%;
     }
 
     div.split-left {
@@ -74,6 +74,7 @@ section.hero {
 
         img.business-name {
             padding-left: 2.5em;
+            width: 400px;
 
             @include phones() {
                 padding-right: 2.5em;

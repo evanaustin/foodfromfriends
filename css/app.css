@@ -135,7 +135,7 @@ div.split-right {
       border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
 
 section.hero img {
-  width: 100%; }
+  max-width: 100%; }
 section.hero div.split-left {
   padding-top: 250px;
   text-align: right; }
@@ -149,7 +149,8 @@ section.hero div.split-right {
     section.hero div.split-right {
       padding-top: 125px; } }
   section.hero div.split-right img.business-name {
-    padding-left: 2.5em; }
+    padding-left: 2.5em;
+    width: 400px; }
     @media (max-width: 767px) {
       section.hero div.split-right img.business-name {
         padding-right: 2.5em; } }
