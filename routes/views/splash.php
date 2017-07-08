@@ -97,7 +97,7 @@
         </div>
     </section>
 
-    <section class="user-types">
+     <section class="user-types">
         <div class="row">
             <div class="col-md-6">
                 <div class="split-left">
@@ -132,6 +132,7 @@
                             <i class="fa fa-shopping-basket"></i> 
                             I'm interested in buying
                         </button>
+                          <p id="locavore_message"></p>
                     </form>
                 </div>
             </div>
@@ -169,6 +170,7 @@
                             <i class="fa fa-leaf"></i> 
                             I'm interested in selling
                         </button>
+                        <p id="grower_message"></p>
                     </form>
                 </div>
             </div>
