@@ -25,5 +25,6 @@ class Grower extends Base {
     
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
+}
 
-    ?>
+?>
