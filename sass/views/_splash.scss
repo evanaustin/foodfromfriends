@@ -1,3 +1,13 @@
+@mixin light-on-dark() {
+    background-color: $dark-green;
+    color: $light-green;
+}
+
+@mixin dark-on-light() {
+    background-color: $light-green;
+    color: $dark-green;
+}
+
 div.row > div {
     padding: 0;
 }
@@ -6,16 +16,19 @@ div.split-left {
     height: 100%;
     padding: 125px 0 125px;
 
-    background-color: $dark-green;
-    color: $light-green;
+    @include light-on-dark();
 
     border: solid transparent; 
     border-width: 0 5px 0 0;
     border-image: url('../media/patterns/brush-border-full.svg') 5 repeat;
 
     button {
-        background-color: $light-green;
-        color: $dark-green;
+        @include dark-on-light();
+    }
+
+    @include phones() {
+        border-width: 0 0 5px 0;
+        border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
     }
 }
 
@@ -23,16 +36,24 @@ div.split-right {
     height: 100%;
     padding: 125px 0 125px;
 
-    background-color: $light-green;
-    color: $dark-green;
+    @include dark-on-light();
 
     button {
-        background-color: $dark-green;
-        color: $light-green;
+        @include light-on-dark();
+    }
+    
+    @include phones() {
+        border: solid transparent;
+        border-width: 0 0 5px 0;
+        border-image: url('../media/patterns/brush-border-full-horizontal2.svg') 5 repeat;
     }
 }
 
 section.hero {
+    img {
+        width: 100%;
+    }
+
     div.split-left {
         padding-top: 250px;
         text-align: right;
@@ -47,8 +68,16 @@ section.hero {
         padding-top: 250px;
         text-align: left;
         
+        @include phones() {
+            padding-top: 125px;
+        }
+
         img.business-name {
             padding-left: 2.5em;
+
+            @include phones() {
+                padding-right: 2.5em;
+            }
         }
     }
 }
@@ -56,12 +85,20 @@ section.hero {
 section.vision {
     div.split-left {
         h1 {
+            text-align: right;
             padding-right: 0.15em;
+
+            @include phones() {
+                text-align: center;
+                font-size: 1.5em;
+                padding: 0 2.5em;
+            }
         }
     }
     
     div.split-right {
         h1 {
+            text-align: left;
             padding-left: 0.15em;
         }
     }
@@ -105,7 +142,7 @@ section.user-types {
         width: 40%;
         text-align: left;
         font-size: 16px;
-        font-weight: 300;
+        font-weight: lighter;
     }
 
     form {
@@ -132,6 +169,42 @@ section.user-types {
             }
         }
     }
+
+    @include phones() {
+        div.split-left {
+            @include dark-on-light();
+            border-image: url('../media/patterns/brush-border-full-horizontal2.svg') 5 repeat;
+
+            button {
+                @include light-on-dark();
+            }
+        }
+        
+        div.split-right {
+            @include light-on-dark();
+            border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
+            
+            button {
+                @include dark-on-light();
+            }
+        }
+
+        h3, p {
+            width: 100%;
+            padding-left: 2em;
+            padding-right: 2em;
+        }
+
+        ul {
+            width: 80%;
+        }
+
+        form {
+            input, button {
+                width: 80%;
+            }
+        }
+    }
 }
 
 section.footer {
@@ -140,6 +213,11 @@ section.footer {
 
     div.split-left {
         padding-bottom: 15px;
+        
+        @include phones() {
+            padding: 50px 0;
+            border: 0;
+        }
     }
     
     div.split-right {
@@ -149,6 +227,10 @@ section.footer {
 
 section.break {
     text-align: center;
+    
+    div.split-left, div.split-right {
+        padding: 25px 0; 
+    }
 }
 
 h1 {
