@@ -31,7 +31,7 @@ if ($results== false){
     }
 }
 else{
-      quit('This email was already used!');
+      quit('This email was already used.');
 }
 echo json_encode($json);
 
