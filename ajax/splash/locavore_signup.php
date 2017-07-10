@@ -10,8 +10,7 @@ $json['success'] = true;
 foreach ($_POST as $k => $v) if (isset($v) && !empty($v)) ${$k} = rtrim($v);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  echo "Invalid email format"; 
-  quit('Could not add locavore!');
+    quit('Please enter a valid email.');
   
 }
 
@@ -35,8 +34,8 @@ if ($results== false){
 
 }
 else{
-
-      quit('Could not add locavore!');
+     
+      quit('This email was already used!');
 }
 
  echo json_encode($json);
