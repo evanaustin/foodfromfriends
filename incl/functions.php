@@ -19,7 +19,7 @@ function layer($language, $files) {
     }
 }
 
-function img($path, $ext = 'jpg', $class = "") {
+function img($path, $ext, $class = "") {
     echo '<img src="media/' . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
 
