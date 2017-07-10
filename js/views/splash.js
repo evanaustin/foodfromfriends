@@ -7,7 +7,7 @@
     console.log($(this).serialize())
     App.Ajax.post('splash/locavore_signup', $(this).serialize(), 
 		function(response){ 
-			$('#locavore_message').text('Thanks for your interest!');
+			$('#locavore_message').text('Awesome! We will be in touch. ');
 		},
 		function(response){ 
 			$('#locavore_message').text(response.error);
@@ -21,7 +21,7 @@
 	console.log('submit');
 	App.Ajax.post('splash/grower_signup', $(this).serialize(), 	
 		function(response){ 
-			$('#grower_message').text('Thanks for your interest!');
+			$('#grower_message').text('Awesome! We will be in touch. ');
 		},
 		function(response){ 
 			$('#grower_message').text(response.error);
