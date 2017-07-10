@@ -1,15 +1,17 @@
 <div class="container-fluid">
     <section class="hero">
         <div class="row">
-            <div class="col-md-6">
+            <div class="hidden-md-down col-lg-6">
                 <div class="split-left">
                     <?php img('logos/artichoke','svg', 'logo'); ?>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-right">
-                    <?php img('logos/text','svg', 'business-name'); ?>
+                    <?php img('logos/text','svg', 'business-name hidden-md-down'); ?>
+                    
+                    <?php img('logos/full_simplified','svg', 'business-name hidden-lg-up'); ?>
                 </div>
             </div>
         </div>
@@ -17,16 +19,21 @@
     
     <section class="vision">
         <div class="row">
-            <div class="col-md-6">
-                <div class="split-left align-right">
+            <div class="col-md-12 col-lg-6">
+                <div class="split-left">
                     <h1>
                         Food the way it used to be
+
+                        <span class="hidden-lg-up">
+                            <br class="hidden-xs-down">
+                            in a way never done before
+                        </span>
                     </h1>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="split-right align-left">
+            <div class="hidden-md-down col-lg-6">
+                <div class="split-right">
                     <h1>
                         in a way never done before
                     </h1>
@@ -37,23 +44,19 @@
 
     <section class="veggie break">
         <div class="row">
-            <div class="col-md-6">
+            <div class="hidden-md-down col-lg-6">
                 <div class="split-left">
                     <div class="veggie-break">
                         <?php img('icons/veggie_group1_lg','svg'); ?>
                     </div>
-
-                    <!--div class="hr"></div-->
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-right">
                     <div class="veggie-break">
                         <?php img('icons/veggie_group2_dg','svg'); ?>
                     </div>
-
-                    <!--div class="hr"></div-->
                 </div>
             </div>
         </div>
@@ -61,7 +64,7 @@
     
     <section class="intro">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-left">
                     <p>
                         Up until 1946, nearly 50% of produce in America was grown in home gardens. Nowadays almost 
@@ -70,7 +73,7 @@
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-right">
                     <p>
                         We're building a neighbor-to-neighbor marketplace, using the internet to enable 
@@ -83,13 +86,13 @@
 
     <section class="veggie break">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-left">
                     <?php img('icons/veggie_group2_lg','svg'); ?>
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="hidden-md-down col-lg-6">
                 <div class="split-right">
                     <?php img('icons/veggie_group1_dg','svg'); ?>
                 </div>
@@ -99,19 +102,20 @@
 
      <section class="user-types">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-left">
                     <h1>
                         Locavores
                     </h1>
 
                     <h3>
-                        <strong>Locavores</strong> are individuals who buy and eat <br>
+                        <strong>Locavores</strong> are individuals who buy and eat <br class="hidden-xs-down">
                         food sourced from their own community
                     </h3>
 
                     <p>
-                        <strong>Buying on Food From Friends helps them to:</strong>
+                        <strong>Buying on Food From Friends<!--br class="hidden-lg-up"--> 
+                        helps them to:</strong>
                     </p>
                     
                     <ul>
@@ -121,7 +125,7 @@
                     </ul>
 
                     <p>
-                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br>
+                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-lg-down">
                         so you can search our local offerings of fresh, homegrown food.
                     </p>
 
@@ -137,14 +141,14 @@
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-right">
                     <h1 class="user-type">
                         Local Growers
                     </h1>
 
                     <h3>
-                        <strong>Local Growers</strong> are individuals who produce food for their<br>
+                        <strong>Local Growers</strong> are individuals who produce food for their<br class="hidden-xs-down">
                         community at some scale &mdash; small, medium, or large
                     </h3>
 
@@ -159,7 +163,7 @@
                     </ul>
 
                     <p>
-                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br>
+                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-lg-down">
                         so you can list your food with us and let the hungry people come.
                     </p>
 
@@ -179,13 +183,13 @@
 
     <section class="veggie break">
         <div class="row">
-            <div class="col-md-6">
+            <div class="hidden-md-down col-lg-6">
                 <div class="split-left">
                     <?php img('icons/veggie_group1_lg','svg'); ?>
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-right">
                     <?php img('icons/veggie_group2_dg','svg'); ?>
                 </div>
@@ -195,13 +199,19 @@
 
     <section class="footer">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="split-left">
                     © 2017. All rights reserved.
+
+                    <span class="hidden-lg-up">
+                        <br>
+                        <i class="fa fa-car" aria-hidden="true"></i> 
+                        Made on the road
+                    </span>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="hidden-md-down col-lg-6">
                 <div class="split-right">
                     <i class="fa fa-car" aria-hidden="true"></i> 
                     Made on the road
