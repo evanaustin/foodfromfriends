@@ -10,8 +10,8 @@ $json['success'] = true;
 foreach ($_POST as $k => $v) if (isset($v) && !empty($v)) ${$k} = rtrim($v);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $emailErr = "Invalid email format"; 
-  quit('Could not add grower!');
+ 
+  quit('Please enter a valid email.');
 }
 
 $Grower = new Grower([
@@ -31,7 +31,7 @@ if ($results== false){
     }
 }
 else{
-      quit('Could not add grower!');
+      quit('This email was already used!');
 }
 echo json_encode($json);
 
