@@ -26,7 +26,7 @@ switch(ENV) {
         $env_constants = [
             'PUBLIC_ROOT' => '/Projects/foodfromfriends/',
             'DB_HOST'   => 'localhost',
-            'DB_NAME'   => '',
+            'DB_NAME'   => 'foodfromfriends',
             'DB_USER'   => 'root',
             'DB_PW'     => 'root'
         ]; break;

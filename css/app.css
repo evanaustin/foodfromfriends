@@ -80,6 +80,9 @@ body {
   margin: 0;
   font-family: 'Signika'; }
 
+button {
+  cursor: pointer; }
+
 .align-left {
   text-align: left; }
 

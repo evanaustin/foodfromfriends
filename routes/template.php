@@ -21,6 +21,7 @@
         foreach ($body as $part) if (file_exists($part)) include $part;
         
         layer('js', [
+            'node_modules/jquery/dist/jquery',
             'js/app',
             'js/ajax',
             $localScript
