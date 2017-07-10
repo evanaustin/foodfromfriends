@@ -104,6 +104,10 @@ body {
 div.row > div {
   padding: 0; }
 
+h1 {
+  font-size: 36px;
+  font-family: 'Riya'; }
+
 div.split-left {
   height: 100%;
   padding: 125px 0 125px;
@@ -115,7 +119,7 @@ div.split-left {
   div.split-left button {
     background-color: #00A669;
     color: #005434; }
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     div.split-left {
       border-width: 0 0 5px 0;
       border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
@@ -128,7 +132,7 @@ div.split-right {
   div.split-right button {
     background-color: #005434;
     color: #00A669; }
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     div.split-right {
       border: solid transparent;
       border-width: 0 0 5px 0;
@@ -136,33 +140,33 @@ div.split-right {
 
 section.hero img {
   max-width: 100%; }
+section.hero div.split-left, section.hero div.split-right {
+  padding-top: 250px; }
 section.hero div.split-left {
-  padding-top: 250px;
   text-align: right; }
   section.hero div.split-left img.logo {
-    padding-right: 2.5em;
     width: 300px; }
 section.hero div.split-right {
-  padding-top: 250px;
   text-align: left; }
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     section.hero div.split-right {
       padding-top: 125px; } }
   section.hero div.split-right img.business-name {
-    padding-left: 2.5em;
     width: 400px; }
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
       section.hero div.split-right img.business-name {
-        padding-right: 2.5em; } }
+        display: block;
+        margin: 0 auto; } }
 
 section.vision div.split-left h1 {
   text-align: right;
-  padding-right: 0.15em; }
-  @media (max-width: 767px) {
+  line-height: 1.25;
+  margin-left: auto;
+  margin-right: auto; }
+  @media (max-width: 991px) {
     section.vision div.split-left h1 {
       text-align: center;
-      font-size: 1.5em;
-      padding: 0 2.5em; } }
+      font-size: 1.5em; } }
 section.vision div.split-right h1 {
   text-align: left;
   padding-left: 0.15em; }
@@ -174,50 +178,50 @@ section.intro p {
 
 section.user-types {
   text-align: center; }
+  section.user-types h3, section.user-types p, section.user-types ul, section.user-types input, section.user-types button {
+    margin-left: auto;
+    margin-right: auto; }
   section.user-types h3 {
-    margin: 1.25em 0;
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    line-height: 1.25;
     font-size: 18px;
     font-weight: 300;
     letter-spacing: .15px; }
     section.user-types h3 strong {
       font-weight: 600; }
-  section.user-types p, section.user-types ul {
-    margin-left: auto;
-    margin-right: auto; }
   section.user-types p {
     width: 66.66%;
     margin-top: 1.25em;
     margin-bottom: 0;
     font-size: 16px; }
   section.user-types ul {
-    width: 40%;
+    max-width: 300px;
     text-align: left;
     font-size: 16px;
     font-weight: lighter; }
   section.user-types form {
     margin-top: 30px; }
-    section.user-types form input, section.user-types form button {
-      width: 55%;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      font-family: 'Signika';
-      border: 0; }
-      section.user-types form input:focus::-webkit-input-placeholder, section.user-types form button:focus::-webkit-input-placeholder {
-        color: transparent; }
-      section.user-types form input:focus:-moz-placeholder, section.user-types form button:focus:-moz-placeholder {
-        color: transparent; }
-      section.user-types form input:focus::-moz-placeholder, section.user-types form button:focus::-moz-placeholder {
-        color: transparent; }
-      section.user-types form input:focus:-ms-input-placeholder, section.user-types form button:focus:-ms-input-placeholder {
-        color: transparent; }
-      section.user-types form input:focus.placeholder, section.user-types form button:focus.placeholder {
-        color: transparent; }
-      section.user-types form input[type="text"], section.user-types form button[type="text"] {
-        margin-top: 7.5px;
-        margin-bottom: 7.5px;
-        background-color: rgba(255, 255, 255, 0.8); }
-  @media (max-width: 767px) {
+  section.user-types input, section.user-types button {
+    width: 55%;
+    text-align: center;
+    font-family: 'Signika';
+    border: 0; }
+    section.user-types input:focus::-webkit-input-placeholder, section.user-types button:focus::-webkit-input-placeholder {
+      color: transparent; }
+    section.user-types input:focus:-moz-placeholder, section.user-types button:focus:-moz-placeholder {
+      color: transparent; }
+    section.user-types input:focus::-moz-placeholder, section.user-types button:focus::-moz-placeholder {
+      color: transparent; }
+    section.user-types input:focus:-ms-input-placeholder, section.user-types button:focus:-ms-input-placeholder {
+      color: transparent; }
+    section.user-types input:focus.placeholder, section.user-types button:focus.placeholder {
+      color: transparent; }
+    section.user-types input[type="text"], section.user-types button[type="text"] {
+      margin-top: 7.5px;
+      margin-bottom: 7.5px;
+      background-color: rgba(255, 255, 255, 0.8); }
+  @media (max-width: 991px) {
     section.user-types div.split-left {
       background-color: #00A669;
       color: #005434;
@@ -231,22 +235,20 @@ section.user-types {
       border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
       section.user-types div.split-right button {
         background-color: #00A669;
-        color: #005434; }
-    section.user-types h3, section.user-types p {
-      width: 100%;
-      padding-left: 2em;
-      padding-right: 2em; }
-    section.user-types ul {
-      width: 80%; }
-    section.user-types form input, section.user-types form button {
-      width: 80%; } }
+        color: #005434; } }
+  @media (min-width: 768px) and (max-width: 991px) {
+    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
+      width: 60%; } }
+  @media (max-width: 767px) {
+    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
+      width: 85%; } }
 
 section.footer {
   text-align: center;
   font-weight: 300; }
   section.footer div.split-left {
     padding-bottom: 15px; }
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
       section.footer div.split-left {
         padding: 50px 0;
         border: 0; } }
@@ -257,10 +259,6 @@ section.break {
   text-align: center; }
   section.break div.split-left, section.break div.split-right {
     padding: 25px 0; }
-
-h1 {
-  font-size: 36px;
-  font-family: 'Riya'; }
 
 /*div.hr {
     height: 45px;

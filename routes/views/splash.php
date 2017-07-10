@@ -23,7 +23,11 @@
                 <div class="split-left">
                     <h1>
                         Food the way it used to be
-                        <span class="hidden-lg-up"> &hellip; in a way never done before</span>
+
+                        <span class="hidden-lg-up">
+                            <br class="hidden-xs-down">
+                            in a way never done before
+                        </span>
                     </h1>
                 </div>
             </div>
@@ -105,7 +109,7 @@
                     </h1>
 
                     <h3>
-                        <strong>Locavores</strong> are individuals who buy and eat <br class="hidden-md-down">
+                        <strong>Locavores</strong> are individuals who buy and eat <br class="hidden-xs-down">
                         food sourced from their own community
                     </h3>
 
@@ -121,7 +125,7 @@
                     </ul>
 
                     <p>
-                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-md-down">
+                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-lg-down">
                         so you can search our local offerings of fresh, homegrown food.
                     </p>
 
@@ -143,7 +147,7 @@
                     </h1>
 
                     <h3>
-                        <strong>Local Growers</strong> are individuals who produce food for their<br class="hidden-md-down">
+                        <strong>Local Growers</strong> are individuals who produce food for their<br class="hidden-xs-down">
                         community at some scale &mdash; small, medium, or large
                     </h3>
 
@@ -158,7 +162,7 @@
                     </ul>
 
                     <p>
-                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-md-down">
+                        <strong>Sign up</strong> to be the first to know when we launch in your area,<br class="hidden-lg-down">
                         so you can list your food with us and let the hungry people come.
                     </p>
 
