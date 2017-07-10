@@ -9,13 +9,7 @@ abstract class Base {
         }
     }
     
-    public function add($table, $fields) {
-        $results = $this->DB->insert($table, $fields);
-        
-        return (isset($results)) ? $results : false;
-    }
-    
-    public function exists($table,$field, $data) {
+    public function exists($table, $field, $data) {
         $bind = [
             'data' => $data
         ];
@@ -23,13 +17,15 @@ abstract class Base {
         $results = $this->DB->run("
             SELECT * FROM {$table} WHERE {$field}=:data LIMIT 1
         ", $bind);
-
+        
         return (isset($results[0])) ? true : false;
     }
 
+    public function add($table, $fields) {
+        $results = $this->DB->insert($table, $fields);
+        
+        return (isset($results)) ? $results : false;
+    }
 }     
-
-
-
 
 ?>
