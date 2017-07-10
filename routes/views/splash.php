@@ -114,7 +114,7 @@
                     </h3>
 
                     <p>
-                        <strong>Buying on Food From Friends<!--br class="hidden-lg-up"--> 
+                        <strong>Buying on Food From Friends
                         helps them to:</strong>
                     </p>
                     
@@ -129,14 +129,15 @@
                         so you can search our local offerings of fresh, homegrown food.
                     </p>
 
-                    <form id="locavore"> 
+                    <form id="locavore-signup"> 
                         <input type="text" class="form-control" name="email" placeholder="Your email"/>
                     
                         <button type="submit" class="btn form-control">
                             <i class="fa fa-shopping-basket"></i> 
                             I'm interested in buying
                         </button>
-                          <p id="locavore_message"></p>
+
+                        <p class="signup-message"></p>
                     </form>
                 </div>
             </div>
@@ -167,14 +168,15 @@
                         so you can list your food with us and let the hungry people come.
                     </p>
 
-                    <form id ="grower">
+                    <form id="grower-signup">
                         <input type="text" class="form-control" name="email" placeholder="Your email"/>
                         
                         <button type="submit" class="btn form-control">
                             <i class="fa fa-leaf"></i> 
                             I'm interested in selling
                         </button>
-                        <p id="grower_message"></p>
+
+                        <p class="signup-message"></p>
                     </form>
                 </div>
             </div>
