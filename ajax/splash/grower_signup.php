@@ -10,30 +10,27 @@ $json['success'] = true;
 foreach ($_POST as $k => $v) if (isset($v) && !empty($v)) ${$k} = rtrim($v);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
- 
-  quit('Please enter a valid email.');
+    quit('<i class="fa fa-exclamation-triangle"></i> Please enter a valid email.');
 }
 
 $Grower = new Grower([
     'DB' => $DB
 ]);
 
-$results = $Grower->exists('growers','email', $email );
+$exists = $Grower->exists('growers','email', $email );
 
-if ($results== false){  
-
+if (!$exists){
     $results = $Grower->add('growers', [
         'email' => $email
     ]);
 
     if (!$results) {
-        quit('Could not add grower!');
+        quit('<i class="fa fa-exclamation-triangle"></i> Could not add local grower!');
     }
+} else {
+    quit('<i class="fa fa-exclamation-triangle"></i> This email is already in use.');
 }
-else{
-      quit('This email was already used.');
-}
-echo json_encode($json);
 
+echo json_encode($json);
 
 ?>
