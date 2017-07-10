@@ -1,31 +1,38 @@
- 
-
- 
- $('#locavore').on('submit', function(e){
+// Register locavore signup form
+$('#locavore-signup').on('submit', function(e) {
 	e.preventDefault();
-	console.log('submit');
-    console.log($(this).serialize())
+
     App.Ajax.post('splash/locavore_signup', $(this).serialize(), 
-		function(response){ 
-			$('#locavore_message').text('Awesome! We will be in touch. ');
+		function(response) {
+			// disable submit
+			$('#locavore-signup button[type="submit"]').attr('disabled', 'disabled');
+
+			// success message
+			$('#locavore-signup p.signup-message').html('<i class="fa fa-check"></i> Awesome! We\'ll be in touch.');
 		},
-		function(response){ 
-			$('#locavore_message').text(response.error);
+		function(response) {
+			// error message
+			$('#locavore-signup p.signup-message').html(response.error);
 		}
 	 );	
-  });	
+});	
 
-
- $('#grower').on('submit', function(e){
+// Register grower signup form
+ $('#grower-signup').on('submit', function(e) {
 	e.preventDefault();
-	console.log('submit');
+
 	App.Ajax.post('splash/grower_signup', $(this).serialize(), 	
-		function(response){ 
-			$('#grower_message').text('Awesome! We will be in touch. ');
+		function(response) {
+			// disable submit
+			$('#grower-signup button[type="submit"]').attr('disabled', 'disabled');
+
+			// success message
+			$('#grower-signup p.signup-message').html('<i class="fa fa-check"></i> Awesome! We\'ll be in touch.');
 		},
-		function(response){ 
-			$('#grower_message').text(response.error);
+		function(response) {
+			// error message
+			$('#grower-signup p.signup-message').html(response.error);
 		}
 	);	
-  });	
+});	
 
