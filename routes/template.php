@@ -7,6 +7,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo $settings['title']; ?></title>
+        <link rel="shortcut icon" href="media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
