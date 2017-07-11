@@ -17,10 +17,10 @@ switch(ENV) {
     case 'prod':
         $env_constants = [
             'PUBLIC_ROOT' => '/',
-            'DB_HOST'   => '',
-            'DB_NAME'   => '',
-            'DB_USER'   => '',
-            'DB_PW'     => ''
+            'DB_HOST'   => 'localhost',
+            'DB_NAME'   => 'varaloka_foodfromfriends',
+            'DB_USER'   => 'varaloka_fff',
+            'DB_PW'     => 'ux2JJkIfs;,@'
         ]; break;
     case 'dev':
         $env_constants = [
