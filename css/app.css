@@ -121,7 +121,8 @@ section.hero div.split-right {
     @media (max-width: 991px) {
       section.hero div.split-right img.business-name {
         display: block;
-        margin: 0 auto; } }
+        margin: 0 auto;
+        padding-right: 1em; } }
 
 section.vision div.split-left h1 {
   text-align: right;
