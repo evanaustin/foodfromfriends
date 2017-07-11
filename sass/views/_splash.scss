@@ -68,6 +68,7 @@ section.hero {
         
         img.logo {
             width: 300px;
+            padding-right: 1em;
         }
     }
 
@@ -80,6 +81,7 @@ section.hero {
 
         img.business-name {
             width: 400px;
+            padding-left: 1em;
 
             @include phones-tablets() {
                 display: block;

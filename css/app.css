@@ -148,14 +148,16 @@ section.hero div.split-left, section.hero div.split-right {
 section.hero div.split-left {
   text-align: right; }
   section.hero div.split-left img.logo {
-    width: 300px; }
+    width: 300px;
+    padding-right: 1em; }
 section.hero div.split-right {
   text-align: left; }
   @media (max-width: 991px) {
     section.hero div.split-right {
       padding-top: 125px; } }
   section.hero div.split-right img.business-name {
-    width: 400px; }
+    width: 400px;
+    padding-left: 1em; }
     @media (max-width: 991px) {
       section.hero div.split-right img.business-name {
         display: block;
