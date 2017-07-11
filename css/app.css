@@ -167,13 +167,15 @@ section.vision div.split-left h1 {
   text-align: right;
   line-height: 1.25;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  padding-right: 0.15em; }
   @media (max-width: 991px) {
     section.vision div.split-left h1 {
       text-align: center;
       font-size: 1.5em; } }
 section.vision div.split-right h1 {
   text-align: left;
+  line-height: 1.25;
   padding-left: 0.15em; }
 
 section.intro p {

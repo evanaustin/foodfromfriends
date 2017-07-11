@@ -98,6 +98,7 @@ section.vision {
             line-height: 1.25;
             margin-left: auto;
             margin-right: auto;
+            padding-right: 0.15em;
 
             @include phones-tablets() {
                 text-align: center;
@@ -109,6 +110,7 @@ section.vision {
     div.split-right {
         h1 {
             text-align: left;
+            line-height: 1.25;
             padding-left: 0.15em;
         }
     }
