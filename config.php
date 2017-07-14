@@ -63,6 +63,15 @@ try {
 
 
 /**
+ * AWS
+ **/
+
+$AWS = new Aws();
+$S3 = new S3($AWS);
+
+
+
+/**
  * User session
  **/
 
