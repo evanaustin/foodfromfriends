@@ -3,15 +3,15 @@
         <div class="row">
             <div class="hidden-md-down col-lg-6">
                 <div class="split-left">
-                    <?php img('logos/artichoke','svg', 'logo'); ?>
+                    <?php img('logos/artichoke', 'svg', 'local', 'logo'); ?>
                 </div>
             </div>
 
             <div class="col-md-12 col-lg-6">
                 <div class="split-right">
-                    <?php img('logos/text','svg', 'business-name hidden-md-down'); ?>
+                    <?php img('logos/text', 'svg', 'local', 'business-name hidden-md-down'); ?>
                     
-                    <?php img('logos/full_simplified','svg', 'business-name hidden-lg-up'); ?>
+                    <?php img('logos/full_simplified', 'svg', 'local', 'business-name hidden-lg-up'); ?>
                 </div>
             </div>
         </div>
