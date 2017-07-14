@@ -87,4 +87,12 @@ if ($LOGGED_IN) {
     ]);
 }
 
+
+
+/**
+* Sendgrid
+**/
+
+define('SENDGRID_APIKEY', '');
+
 ?>
