@@ -63,6 +63,15 @@ try {
 
 
 /**
+ * AWS
+ **/
+
+$AWS = new Aws();
+$S3 = new S3($AWS);
+
+
+
+/**
  * User session
  **/
 
@@ -77,5 +86,13 @@ if ($LOGGED_IN) {
         'id' => $USER['id']
     ]);
 }
+
+
+
+/**
+* Sendgrid
+**/
+
+define('SENDGRID_APIKEY', '');
 
 ?>
