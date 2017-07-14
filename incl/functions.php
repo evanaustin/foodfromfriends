@@ -19,8 +19,8 @@ function layer($language, $files) {
     }
 }
 
-function img($path, $ext, $class = "") {
-    echo '<img src="media/' . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
+function img($path, $ext, $server = 'local', $class = '') {
+    echo '<img src="' . (($server == 'local') ? 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
 
 function quit($message) {
