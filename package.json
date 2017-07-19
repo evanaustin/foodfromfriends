@@ -7,6 +7,7 @@
   "author": "EvanGrinde <evan.grinde@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "tether": "^1.4.0"
   }
 }
