@@ -43,81 +43,9 @@
 }
 
 @font-face {
-    font-family: 'Cherie Bomb';
-    // src: url('../cherie-bomb/cheriebomb-regular-webfont.woff2') format('woff2'),
-        //  url('../cherie-bomb/cheriebomb-regular-webfont.woff') format('woff'),
-    src: url('../cherie-bomb/CherieBomb-Regular.otf') format('otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Gineva';
-    src: url('../gineva/gineva-regular-webfont.woff2') format('woff2'),
-         url('../gineva/gineva-regular-webfont.woff') format('woff'),
-         url('../gineva/Gineva-Regular.otf') format('otf'),
-         url('../gineva/Gineva-Regular.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lucky Dream';
-    src: url('../lucky-dream/lucky_dream-webfont.woff2') format('woff2'),
-         url('../lucky-dream/lucky_dream-webfont.woff') format('woff'),
-         url('../lucky-dream/Lucky Dream.otf') format('otf'),
-         url('../lucky-dream/Lucky Dream.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Twin Pines';
-    src: url('../twin-pines/twinpines-regular.woff2') format('woff2'),
-         url('../twin-pines/twinpines-regular.woff') format('woff'),
-         url('../twin-pines/twinpines-regular.svg') format('svg'),
-         url('../twin-pines/twinpines-regular.eot') format('eot'),
-         url('../twin-pines/Twin Pines-regular.otf') format('otf'),
-         url('../twin-pines/Twin Pines-regular.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Scenders';
-    src: url('../scenders/Scenders-Regular.woff') format('woff'),
-         url('../scenders/Scenders-Regular.svg') format('svg'),
-         url('../scenders/Scenders-Regular.eot') format('eot'),
-         url('../scenders/Scenders-Regular.otf') format('otf'),
-         url('../scenders/Scenders-Regular.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Snap Dragon';
-    src: url('../Snap-Dragon.otf') format('otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'Riya';
-    src: url('../Riya-Black.otf') format('otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Le Fontaine';
-    src: url('../LeFontaine-Regular.otf') format('otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Coffee';
-    src: url('../I-Need-Coffee.otf') format('otf');
-    font-weight: normal;
+    src: url('../fonts/riya/Riya-Black.woff') format('woff'),
+         url('../fonts/riya/Riya-Black.otf') format('otf');
+    font-weight: 400;
     font-style: normal;
 }
