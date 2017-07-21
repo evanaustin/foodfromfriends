@@ -1,0 +1,13 @@
+@charset 'utf-8';
+
+/**
+* SASS Dependencies
+**/
+@import 'mixins';
+@import 'colors';
+
+/**
+* View Styles
+**/
+@import 'views/front/splash';
+@import 'views/front/home';
