@@ -1,0 +1,29 @@
+/**
+* SASS Dependencies
+**/
+/**
+* Architecture Styles
+**/
+body.grower div.wrapper {
+  display: flex; }
+  body.grower div.wrapper div.side-left {
+    width: 20%; }
+  body.grower div.wrapper div.side-right {
+    width: 80%; }
+
+/**
+* Component Styles
+**/
+body.grower div.sidebar {
+  background-color: #007349;
+  height: 1000px; }
+
+body.grower div.subheader {
+  height: 40px;
+  background-color: #00A669; }
+
+/**
+* View Styles
+**/
+
+/*# sourceMappingURL=grower.css.map */
