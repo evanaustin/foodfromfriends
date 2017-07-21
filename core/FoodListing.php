@@ -1,6 +1,6 @@
 <?php
  
-class Food_listing extends Base {
+class FoodListing extends Base {
     
     protected
         $class_dependencies,
@@ -12,8 +12,6 @@ class Food_listing extends Base {
         $price,
         $description;
      
-        
-    
     function __construct($parameters) {
         $this->class_dependencies = [
             'DB',
