@@ -13,6 +13,7 @@
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
             'css/thirdparty/fontawesome-4.7/font-awesome',
+            'node_modules/tether/dist/css/tether.min',
             'css/app'
         ]); ?>
     </head>
@@ -23,6 +24,9 @@
         
         layer('js', [
             'node_modules/jquery/dist/jquery',
+            'node_modules/tether/dist/js/tether.min',
+            'node_modules/parsleyjs/dist/parsley.min',
+            'js/thirdparty/bootstrap.min',
             'js/app',
             'js/ajax',
             $localScript
