@@ -1,11 +1,17 @@
-#header {
-    position: absolute;
-    background: rgba(255,255,255,1);
-    width: 100%;
-    padding: 10px 25px;
-    text-align: left;
+nav.navbar {
+    background-color: #fff;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 
-    img {
-        width: 55px;
+    a.navbar-brand {
+        height: 40px;
+        line-height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        svg {
+            height: 40px !important;
+            width: 320px !important;
+        }
     }
 }
