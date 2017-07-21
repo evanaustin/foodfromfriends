@@ -1,6 +1,7 @@
 /**
 * Fonts
 **/
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i");
 @font-face {
   font-family: 'Signika';
   src: url("../fonts/signika/Signika-Regular-webfont.eot");
@@ -34,14 +35,47 @@
 * Mixins
 **/
 /**
-* General & Colors
+* Colors & General
 **/
 body {
   margin: 0;
-  font-family: 'Signika'; }
+  font-family: 'Rubik';
+  font-weight: 300;
+  color: #404040; }
 
-button {
+h1, h2, h3, h4, h5, h6 {
+  font-weight: inherit; }
+
+a:focus, button:focus {
+  outline: 0; }
+
+form .form-control-feedback {
+  font-size: 0.75rem; }
+
+.btn {
   cursor: pointer; }
+  .btn:focus, .btn.focus {
+    -webkit-box-shadow: 0 0 0 transparent;
+    -moz-box-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent; }
+
+div.modal-content {
+  border: 0px;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
 
 .align-left {
   text-align: left; }
@@ -52,187 +86,198 @@ button {
 /**
 * Component Styles
 **/
-#header {
-  position: absolute;
-  background: white;
-  width: 100%;
-  padding: 10px 25px;
-  text-align: left; }
-  #header img {
-    width: 55px; }
+nav.navbar {
+  background-color: #fff;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem; }
+  nav.navbar a.navbar-brand {
+    height: 40px;
+    line-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0; }
+    nav.navbar a.navbar-brand svg {
+      height: 40px !important;
+      width: 320px !important; }
 
 /**
 * View Styles
 **/
-div.row > div {
-  padding: 0; }
-
-h1 {
-  font-size: 36px;
-  font-family: 'Riya'; }
-
-div.split-left {
-  height: 100%;
-  padding: 125px 0 125px;
-  background-color: #005434;
-  color: #00A669;
-  border: solid transparent;
-  border-width: 0 5px 0 0;
-  border-image: url("../media/patterns/brush-border-full.svg") 5 repeat; }
-  div.split-left button {
+body.splash {
+  /*div.hr {
+      height: 45px;
+      background-repeat: round space;
+      background-clip: border-box;
+  }*/ }
+  body.splash div.row > div {
+    padding: 0; }
+  body.splash h1 {
+    font-size: 36px;
+    font-family: 'Riya'; }
+  body.splash div.split-left {
+    height: 100%;
+    padding: 125px 0 125px;
+    background-color: #005434;
+    color: #00A669;
+    border: solid transparent;
+    border-width: 0 5px 0 0;
+    border-image: url("../media/patterns/brush-border-full.svg") 5 repeat; }
+    body.splash div.split-left button {
+      background-color: #00A669;
+      color: #005434; }
+    @media (max-width: 991px) {
+      body.splash div.split-left {
+        border-width: 0 0 5px 0;
+        border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
+  body.splash div.split-right {
+    height: 100%;
+    padding: 125px 0 125px;
     background-color: #00A669;
     color: #005434; }
-  @media (max-width: 991px) {
-    div.split-left {
-      border-width: 0 0 5px 0;
-      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
-
-div.split-right {
-  height: 100%;
-  padding: 125px 0 125px;
-  background-color: #00A669;
-  color: #005434; }
-  div.split-right button {
-    background-color: #005434;
-    color: #00A669; }
-  @media (max-width: 991px) {
-    div.split-right {
-      border: solid transparent;
-      border-width: 0 0 5px 0;
-      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
-
-section.hero img {
-  max-width: 100%; }
-section.hero div.split-left, section.hero div.split-right {
-  padding-top: 250px; }
-section.hero div.split-left {
-  text-align: right; }
-  section.hero div.split-left img.logo {
-    width: 300px;
-    padding-right: 1em; }
-section.hero div.split-right {
-  text-align: left; }
-  @media (max-width: 991px) {
-    section.hero div.split-right {
-      padding-top: 125px; } }
-  section.hero div.split-right img.business-name {
-    width: 400px;
-    padding-left: 1em; }
-    @media (max-width: 991px) {
-      section.hero div.split-right img.business-name {
-        display: block;
-        margin: 0 auto;
-        padding-right: 1em; } }
-
-section.vision div.split-left h1 {
-  text-align: right;
-  line-height: 1.25;
-  margin-left: auto;
-  margin-right: auto;
-  padding-right: 0.15em; }
-  @media (max-width: 991px) {
-    section.vision div.split-left h1 {
-      text-align: center;
-      font-size: 1.5em; } }
-section.vision div.split-right h1 {
-  text-align: left;
-  line-height: 1.25;
-  padding-left: 0.15em; }
-
-section.intro p {
-  margin: 0 auto;
-  width: 66.66%;
-  font-size: 18px; }
-
-section.user-types {
-  text-align: center; }
-  section.user-types h3, section.user-types p, section.user-types ul, section.user-types input, section.user-types button {
-    margin-left: auto;
-    margin-right: auto; }
-  section.user-types h3 {
-    margin-top: 1.25em;
-    margin-bottom: 1.25em;
-    line-height: 1.25;
-    font-size: 18px;
-    font-weight: 300;
-    letter-spacing: .15px; }
-    section.user-types h3 strong {
-      font-weight: 600; }
-  section.user-types p {
-    width: 66.66%;
-    margin-top: 1.25em;
-    margin-bottom: 0;
-    font-size: 16px; }
-  section.user-types ul {
-    max-width: 300px;
-    text-align: left;
-    font-size: 16px;
-    font-weight: lighter; }
-  section.user-types form {
-    margin-top: 30px; }
-  section.user-types input, section.user-types button {
-    width: 55%;
-    text-align: center;
-    font-family: 'Signika';
-    border: 0; }
-    section.user-types input:focus::-webkit-input-placeholder, section.user-types button:focus::-webkit-input-placeholder {
-      color: transparent; }
-    section.user-types input:focus:-moz-placeholder, section.user-types button:focus:-moz-placeholder {
-      color: transparent; }
-    section.user-types input:focus::-moz-placeholder, section.user-types button:focus::-moz-placeholder {
-      color: transparent; }
-    section.user-types input:focus:-ms-input-placeholder, section.user-types button:focus:-ms-input-placeholder {
-      color: transparent; }
-    section.user-types input:focus.placeholder, section.user-types button:focus.placeholder {
-      color: transparent; }
-    section.user-types input[type="text"], section.user-types button[type="text"] {
-      margin-top: 7.5px;
-      margin-bottom: 7.5px;
-      background-color: rgba(255, 255, 255, 0.8); }
-  @media (max-width: 991px) {
-    section.user-types div.split-left {
-      background-color: #00A669;
-      color: #005434;
-      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; }
-      section.user-types div.split-left button {
-        background-color: #005434;
-        color: #00A669; }
-    section.user-types div.split-right {
+    body.splash div.split-right button {
       background-color: #005434;
-      color: #00A669;
-      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
-      section.user-types div.split-right button {
-        background-color: #00A669;
-        color: #005434; } }
-  @media (min-width: 768px) and (max-width: 991px) {
-    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
-      width: 60%; } }
-  @media (max-width: 767px) {
-    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
-      width: 85%; } }
-
-section.footer {
-  text-align: center;
-  font-weight: 300; }
-  section.footer div.split-left {
-    padding-bottom: 15px; }
+      color: #00A669; }
     @media (max-width: 991px) {
-      section.footer div.split-left {
-        padding: 50px 0;
-        border: 0; } }
-  section.footer div.split-right {
-    padding-bottom: 15px; }
+      body.splash div.split-right {
+        border: solid transparent;
+        border-width: 0 0 5px 0;
+        border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
+  body.splash section.hero img {
+    max-width: 100%; }
+  body.splash section.hero div.split-left, body.splash section.hero div.split-right {
+    padding-top: 250px; }
+  body.splash section.hero div.split-left {
+    text-align: right; }
+    body.splash section.hero div.split-left img.logo {
+      width: 300px;
+      padding-right: 1em; }
+  body.splash section.hero div.split-right {
+    text-align: left; }
+    @media (max-width: 991px) {
+      body.splash section.hero div.split-right {
+        padding-top: 125px; } }
+    body.splash section.hero div.split-right img.business-name {
+      width: 400px;
+      padding-left: 1em; }
+      @media (max-width: 991px) {
+        body.splash section.hero div.split-right img.business-name {
+          display: block;
+          margin: 0 auto;
+          padding-right: 1em; } }
+  body.splash section.vision div.split-left h1 {
+    text-align: right;
+    line-height: 1.25;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 0.15em; }
+    @media (max-width: 991px) {
+      body.splash section.vision div.split-left h1 {
+        text-align: center;
+        font-size: 1.5em; } }
+  body.splash section.vision div.split-right h1 {
+    text-align: left;
+    line-height: 1.25;
+    padding-left: 0.15em; }
+  body.splash section.intro p {
+    margin: 0 auto;
+    width: 66.66%;
+    font-size: 18px; }
+  body.splash section.user-types {
+    text-align: center; }
+    body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types ul, body.splash section.user-types input, body.splash section.user-types button {
+      margin-left: auto;
+      margin-right: auto; }
+    body.splash section.user-types h3 {
+      margin-top: 1.25em;
+      margin-bottom: 1.25em;
+      line-height: 1.25;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: .15px; }
+      body.splash section.user-types h3 strong {
+        font-weight: 600; }
+    body.splash section.user-types p {
+      width: 66.66%;
+      margin-top: 1.25em;
+      margin-bottom: 0;
+      font-size: 16px; }
+    body.splash section.user-types ul {
+      max-width: 300px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: lighter; }
+    body.splash section.user-types form {
+      margin-top: 30px; }
+    body.splash section.user-types input, body.splash section.user-types button {
+      width: 55%;
+      text-align: center;
+      font-family: 'Signika';
+      border: 0; }
+      body.splash section.user-types input:focus::-webkit-input-placeholder, body.splash section.user-types button:focus::-webkit-input-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus:-moz-placeholder, body.splash section.user-types button:focus:-moz-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus::-moz-placeholder, body.splash section.user-types button:focus::-moz-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus:-ms-input-placeholder, body.splash section.user-types button:focus:-ms-input-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus.placeholder, body.splash section.user-types button:focus.placeholder {
+        color: transparent; }
+      body.splash section.user-types input[type="text"], body.splash section.user-types button[type="text"] {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+        background-color: rgba(255, 255, 255, 0.8); }
+    @media (max-width: 991px) {
+      body.splash section.user-types div.split-left {
+        background-color: #00A669;
+        color: #005434;
+        border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; }
+        body.splash section.user-types div.split-left button {
+          background-color: #005434;
+          color: #00A669; }
+      body.splash section.user-types div.split-right {
+        background-color: #005434;
+        color: #00A669;
+        border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
+        body.splash section.user-types div.split-right button {
+          background-color: #00A669;
+          color: #005434; } }
+    @media (min-width: 768px) and (max-width: 991px) {
+      body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types input, body.splash section.user-types button {
+        width: 60%; } }
+    @media (max-width: 767px) {
+      body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types input, body.splash section.user-types button {
+        width: 85%; } }
+  body.splash section.footer {
+    text-align: center;
+    font-weight: 300; }
+    body.splash section.footer div.split-left {
+      padding-bottom: 15px; }
+      @media (max-width: 991px) {
+        body.splash section.footer div.split-left {
+          padding: 50px 0;
+          border: 0; } }
+    body.splash section.footer div.split-right {
+      padding-bottom: 15px; }
+  body.splash section.break {
+    text-align: center; }
+    body.splash section.break div.split-left, body.splash section.break div.split-right {
+      padding: 25px 0; }
 
-section.break {
-  text-align: center; }
-  section.break div.split-left, section.break div.split-right {
-    padding: 25px 0; }
+body.home .search {
+  position: relative;
+  padding: 200px 0;
+  background-color: #00A669; }
+  body.home .search:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("../media/backgrounds/humps.jpg") repeat;
+    background-size: 200px 200px;
+    opacity: .2; }
 
-/*div.hr {
-    height: 45px;
-    background-repeat: round space;
-    background-clip: border-box;
-}*/
 div.wrapper {
   width: 100%; }
   div.wrapper div.container {
@@ -244,5 +289,38 @@ div.wrapper {
       font-size: 18px;
       font-weight: bold;
       font-family: sans-serif; }
+
+/**
+* Modal Styles
+**/
+#sign-up-modal div.modal-header h3, #log-in-modal div.modal-header h3 {
+  font-weight: 400;
+  color: #7f7f7f; }
+#sign-up-modal div.modal-body div.input-group span.input-group-addon, #log-in-modal div.modal-body div.input-group span.input-group-addon {
+  width: 50px; }
+#sign-up-modal div.modal-body input, #sign-up-modal div.modal-body button, #sign-up-modal div.modal-body select, #log-in-modal div.modal-body input, #log-in-modal div.modal-body button, #log-in-modal div.modal-body select {
+  font-family: inherit;
+  font-weight: inherit;
+  height: auto; }
+  #sign-up-modal div.modal-body input:not(.btn-sm), #sign-up-modal div.modal-body button:not(.btn-sm), #sign-up-modal div.modal-body select:not(.btn-sm), #log-in-modal div.modal-body input:not(.btn-sm), #log-in-modal div.modal-body button:not(.btn-sm), #log-in-modal div.modal-body select:not(.btn-sm) {
+    padding-top: 1rem;
+    padding-bottom: 1rem; }
+#sign-up-modal div.modal-body div.select-row, #log-in-modal div.modal-body div.select-row {
+  margin-top: 1rem; }
+  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
+    padding-left: 7.5px; }
+  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
+    padding-right: 7.5px; }
+  #sign-up-modal div.modal-body div.select-row select, #log-in-modal div.modal-body div.select-row select {
+    width: 100%; }
+#sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
+  margin: 1rem 0; }
+#sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {
+  font-weight: 300; }
+#sign-up-modal div.modal-body div#forgot-password, #log-in-modal div.modal-body div#forgot-password {
+  text-align: center; }
+#sign-up-modal div.modal-footer, #log-in-modal div.modal-footer {
+  text-align: center;
+  display: block; }
 
 /*# sourceMappingURL=app.css.map */
