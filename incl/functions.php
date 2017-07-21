@@ -23,6 +23,11 @@ function img($path, $ext, $server = 'local', $class = '') {
     echo '<img src="' . (($server == 'local') ? 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
 
+function svg($path) {
+    $src = 'media/' . $path . '.svg';
+    echo file_get_contents($src);
+}
+
 function quit($message) {
     $json['error'] = $message;
     $json['success'] = false;
