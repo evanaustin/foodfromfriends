@@ -11,12 +11,17 @@
 @import 'mixins';
 
 /**
-* General & Colors
+* Colors & General
 **/
-@import 'general';
 @import 'colors';
+@import 'general';
 
 /**
 * Component Styles
 **/
 @import 'components/header';
+
+/**
+* Modal Styles
+**/
+@import 'modals/account';

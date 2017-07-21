@@ -1,0 +1,62 @@
+#sign-up-modal, #log-in-modal {
+    div.modal-header {
+        h3 {
+            font-weight: 400;
+            color: #7f7f7f;
+        }
+    }
+
+    div.modal-body {
+        div.input-group {
+            span.input-group-addon {
+                width: 50px;
+            }
+        }
+
+        input, button, select {
+            font-family: inherit;
+            font-weight: inherit;
+            height: auto;
+
+            &:not(.btn-sm) {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+        div.select-row {
+            margin-top: 1rem;
+
+            > div.row {
+                > div:not(:first-child) {
+                    padding-left: 7.5px;
+                }
+                
+                > div:not(:last-child) {
+                    padding-right: 7.5px;
+                }
+            }
+            
+            select {
+                width: 100%;
+            }
+        }
+
+        button[type="submit"] {
+            margin: 1rem 0;
+        }
+
+        small {
+            font-weight: 300;
+        }
+
+        div#forgot-password {
+            text-align: center;
+        }
+    }
+
+    div.modal-footer {
+        text-align: center;
+        display: block;
+    }
+}
