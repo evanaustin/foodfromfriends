@@ -1,4 +1,16 @@
-<?php if (file_exists($initializer)) include $initializer; ?>
+<?php
+
+$Template = new Template($Routing);
+
+foreach ([
+    $Template->initializer,
+    $Template->architecture
+] as $path) {
+    $file = SERVER_ROOT . $path . '.php';
+    if (file_exists($file)) include $file;
+}
+
+?>
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -6,26 +18,31 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo $settings['title']; ?></title>
-        <link rel="shortcut icon" href="media/logos/favicon-32.png" type="image/x-icon">
+        <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
+        <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
             'css/thirdparty/fontawesome-4.7/font-awesome',
-            'css/app'
+            'css/app',
+            $Template->styles
         ]); ?>
     </head>
-    <body class="<?php echo $page; ?>">
+
+    <body class="<?php echo $Routing->template . ' ' . $Routing->page; ?>">
         <?php
         
-        foreach ($body as $part) if (file_exists($part)) include $part;
-        
+        foreach ($body as $part) {
+            $file = SERVER_ROOT . $part . '.php';
+            if (file_exists($file)) include $file;
+        }
+
         layer('js', [
             'node_modules/jquery/dist/jquery',
             'js/app',
             'js/ajax',
-            $localScript
+            $Template->script
         ]);
             
         ?>
