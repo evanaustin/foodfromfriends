@@ -1,0 +1,13 @@
+body.grower {
+    div.wrapper {
+        display: flex;
+
+        div.side-left {
+            width: 20%;
+        }  
+        
+        div.side-right{
+            width: 80%;
+        }  
+    }
+}
