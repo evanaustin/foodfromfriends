@@ -15,12 +15,60 @@ body.grower div.wrapper {
 * Component Styles
 **/
 body.grower div.sidebar {
-  background-color: #007349;
-  height: 1000px; }
+  height: auto;
+  padding-left: 0;
+  padding-right: 0;
+  border-right: 1px solid #eee; }
+  body.grower div.sidebar a.nav-link {
+    padding: 15px 30px;
+    color: #8ca3ad;
+    font-size: 14px;
+    border-left: 2px solid transparent; }
+    body.grower div.sidebar a.nav-link:hover {
+      color: #58707b; }
+    body.grower div.sidebar a.nav-link[aria-expanded="true"] {
+      background-color: #f9f9fe;
+      color: #00b371;
+      font-weight: 500; }
+    body.grower div.sidebar a.nav-link.parent:after {
+      float: right; }
+    body.grower div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+      content: '\002b'; }
+    body.grower div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+      content: '\2013'; }
+    body.grower div.sidebar a.nav-link.child {
+      padding: 10px 30px; }
+      body.grower div.sidebar a.nav-link.child.active {
+        background-color: rgba(0, 179, 113, 0.25);
+        border-color: #007349;
+        color: #007349;
+        font-weight: 400; }
+  body.grower div.sidebar div.collapse {
+    background-color: #f9f9fe; }
 
+body.grower main {
+  padding: 0; }
 body.grower div.subheader {
-  height: 40px;
-  background-color: #00A669; }
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem; }
+  body.grower div.subheader a.nav-link {
+    padding: 15px 0;
+    color: #8ca3ad;
+    font-size: 14px;
+    font-weight: 500; }
+    body.grower div.subheader a.nav-link:hover {
+      color: #58707b; }
+    body.grower div.subheader a.nav-link.active {
+      color: #00A669;
+      position: relative; }
+      body.grower div.subheader a.nav-link.active:after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        height: 5px;
+        width: 100%;
+        background-color: #007349; }
 
 /**
 * View Styles
