@@ -1,5 +1,8 @@
 // Create the root namespace
 var App = function() {
+	/*
+	* Parsley
+	*/
 	$('form[data-parsley-validate]').parsley({
 		errorClass: 'has-danger',
 		successClass: 'has-success',
@@ -19,6 +22,14 @@ var App = function() {
 
 	window.Parsley.on('field:success', function() {
 		this.$element.addClass('form-control-success');
+	});
+
+	/*
+	* Collapse
+	*/
+	var $nav = $('.nav-item');
+	$nav.on('show.bs.collapse','.collapse', function() {
+		$nav.find('.collapse').collapse('hide');
 	});
 
 	return {};
