@@ -9,7 +9,7 @@ if (ENV == 'prod' && (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on')) {
 
 $Routing = new Routing([
     'path'      => $_GET['path'],
-    'landing'   => 'landing',
+    'landing'   => 'home',
     'backside'  => [
         'grower'
     ]
