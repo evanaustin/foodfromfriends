@@ -31,7 +31,7 @@ foreach ([
         ]); ?>
     </head>
 
-    <body class="<?php echo $Routing->template . ' ' . $Routing->page; ?>">
+    <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
         <?php
         
         foreach ($body as $part) {
