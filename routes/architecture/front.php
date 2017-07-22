@@ -1,10 +1,15 @@
 <?php
 
 $body = [
-    'header'    => SERVER_ROOT . 'routes/components/header.php',
-    'view'      => SERVER_ROOT . 'routes/views/' . $path . '.php',
-    'footer'    => SERVER_ROOT . 'routes/components/footer.php',
-    'modal'     => SERVER_ROOT . 'routes/modals/' . $path . '.php',
+    'header'    => 'routes/components/header',
+    'view'      => 'routes/views/' . $Routing->path,
+    'footer'    => 'routes/components/footer',
+    'modal'     => 'routes/modals/' . $Routing->path
 ];
+
+if (!$LOGGED_IN) {
+    $body['sign_up'] = 'routes/modals/sign-up';
+    $body['log_in'] = 'routes/modals/log-in';
+}
 
 ?>
