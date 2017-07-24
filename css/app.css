@@ -104,170 +104,162 @@ button {
 /**
 * View Styles
 **/
-div.row > div {
-  padding: 0; }
-
-h1 {
-  font-size: 36px;
-  font-family: 'Riya'; }
-
-div.split-left {
-  height: 100%;
-  padding: 125px 0 125px;
-  background-color: #005434;
-  color: #00A669;
-  border: solid transparent;
-  border-width: 0 5px 0 0;
-  border-image: url("../media/patterns/brush-border-full.svg") 5 repeat; }
-  div.split-left button {
+body.splash {
+  /*div.hr {
+      height: 45px;
+      background-repeat: round space;
+      background-clip: border-box;
+  }*/ }
+  body.splash div.row > div {
+    padding: 0; }
+  body.splash h1 {
+    font-size: 36px;
+    font-family: 'Riya'; }
+  body.splash div.split-left {
+    height: 100%;
+    padding: 125px 0 125px;
+    background-color: #005434;
+    color: #00A669;
+    border: solid transparent;
+    border-width: 0 5px 0 0;
+    border-image: url("../media/patterns/brush-border-full.svg") 5 repeat; }
+    body.splash div.split-left button {
+      background-color: #00A669;
+      color: #005434; }
+    @media (max-width: 991px) {
+      body.splash div.split-left {
+        border-width: 0 0 5px 0;
+        border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
+  body.splash div.split-right {
+    height: 100%;
+    padding: 125px 0 125px;
     background-color: #00A669;
     color: #005434; }
-  @media (max-width: 991px) {
-    div.split-left {
-      border-width: 0 0 5px 0;
-      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; } }
-
-div.split-right {
-  height: 100%;
-  padding: 125px 0 125px;
-  background-color: #00A669;
-  color: #005434; }
-  div.split-right button {
-    background-color: #005434;
-    color: #00A669; }
-  @media (max-width: 991px) {
-    div.split-right {
-      border: solid transparent;
-      border-width: 0 0 5px 0;
-      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
-
-section.hero img {
-  max-width: 100%; }
-section.hero div.split-left, section.hero div.split-right {
-  padding-top: 250px; }
-section.hero div.split-left {
-  text-align: right; }
-  section.hero div.split-left img.logo {
-    width: 300px; }
-section.hero div.split-right {
-  text-align: left; }
-  @media (max-width: 991px) {
-    section.hero div.split-right {
-      padding-top: 125px; } }
-  section.hero div.split-right img.business-name {
-    width: 400px; }
+    body.splash div.split-right button {
+      background-color: #005434;
+      color: #00A669; }
     @media (max-width: 991px) {
-      section.hero div.split-right img.business-name {
-        display: block;
-        margin: 0 auto; } }
-
-section.vision div.split-left h1 {
-  text-align: right;
-  line-height: 1.25;
-  margin-left: auto;
-  margin-right: auto; }
-  @media (max-width: 991px) {
-    section.vision div.split-left h1 {
-      text-align: center;
-      font-size: 1.5em; } }
-section.vision div.split-right h1 {
-  text-align: left;
-  padding-left: 0.15em; }
-
-section.intro p {
-  margin: 0 auto;
-  width: 66.66%;
-  font-size: 18px; }
-
-section.user-types {
-  text-align: center; }
-  section.user-types h3, section.user-types p, section.user-types ul, section.user-types input, section.user-types button {
+      body.splash div.split-right {
+        border: solid transparent;
+        border-width: 0 0 5px 0;
+        border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; } }
+  body.splash section.hero img {
+    max-width: 100%; }
+  body.splash section.hero div.split-left, body.splash section.hero div.split-right {
+    padding-top: 250px; }
+  body.splash section.hero div.split-left {
+    text-align: right; }
+    body.splash section.hero div.split-left img.logo {
+      width: 300px; }
+  body.splash section.hero div.split-right {
+    text-align: left; }
+    @media (max-width: 991px) {
+      body.splash section.hero div.split-right {
+        padding-top: 125px; } }
+    body.splash section.hero div.split-right img.business-name {
+      width: 400px; }
+      @media (max-width: 991px) {
+        body.splash section.hero div.split-right img.business-name {
+          display: block;
+          margin: 0 auto; } }
+  body.splash section.vision div.split-left h1 {
+    text-align: right;
+    line-height: 1.25;
     margin-left: auto;
     margin-right: auto; }
-  section.user-types h3 {
-    margin-top: 1.25em;
-    margin-bottom: 1.25em;
-    line-height: 1.25;
-    font-size: 18px;
-    font-weight: 300;
-    letter-spacing: .15px; }
-    section.user-types h3 strong {
-      font-weight: 600; }
-  section.user-types p {
-    width: 66.66%;
-    margin-top: 1.25em;
-    margin-bottom: 0;
-    font-size: 16px; }
-  section.user-types ul {
-    max-width: 300px;
-    text-align: left;
-    font-size: 16px;
-    font-weight: lighter; }
-  section.user-types form {
-    margin-top: 30px; }
-  section.user-types input, section.user-types button {
-    width: 55%;
-    text-align: center;
-    font-family: 'Signika';
-    border: 0; }
-    section.user-types input:focus::-webkit-input-placeholder, section.user-types button:focus::-webkit-input-placeholder {
-      color: transparent; }
-    section.user-types input:focus:-moz-placeholder, section.user-types button:focus:-moz-placeholder {
-      color: transparent; }
-    section.user-types input:focus::-moz-placeholder, section.user-types button:focus::-moz-placeholder {
-      color: transparent; }
-    section.user-types input:focus:-ms-input-placeholder, section.user-types button:focus:-ms-input-placeholder {
-      color: transparent; }
-    section.user-types input:focus.placeholder, section.user-types button:focus.placeholder {
-      color: transparent; }
-    section.user-types input[type="text"], section.user-types button[type="text"] {
-      margin-top: 7.5px;
-      margin-bottom: 7.5px;
-      background-color: rgba(255, 255, 255, 0.8); }
-  @media (max-width: 991px) {
-    section.user-types div.split-left {
-      background-color: #00A669;
-      color: #005434;
-      border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; }
-      section.user-types div.split-left button {
-        background-color: #005434;
-        color: #00A669; }
-    section.user-types div.split-right {
-      background-color: #005434;
-      color: #00A669;
-      border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
-      section.user-types div.split-right button {
-        background-color: #00A669;
-        color: #005434; } }
-  @media (min-width: 768px) and (max-width: 991px) {
-    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
-      width: 60%; } }
-  @media (max-width: 767px) {
-    section.user-types h3, section.user-types p, section.user-types input, section.user-types button {
-      width: 85%; } }
-
-section.footer {
-  text-align: center;
-  font-weight: 300; }
-  section.footer div.split-left {
-    padding-bottom: 15px; }
     @media (max-width: 991px) {
-      section.footer div.split-left {
-        padding: 50px 0;
-        border: 0; } }
-  section.footer div.split-right {
-    padding-bottom: 15px; }
+      body.splash section.vision div.split-left h1 {
+        text-align: center;
+        font-size: 1.5em; } }
+  body.splash section.vision div.split-right h1 {
+    text-align: left;
+    padding-left: 0.15em; }
+  body.splash section.intro p {
+    margin: 0 auto;
+    width: 66.66%;
+    font-size: 18px; }
+  body.splash section.user-types {
+    text-align: center; }
+    body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types ul, body.splash section.user-types input, body.splash section.user-types button {
+      margin-left: auto;
+      margin-right: auto; }
+    body.splash section.user-types h3 {
+      margin-top: 1.25em;
+      margin-bottom: 1.25em;
+      line-height: 1.25;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: .15px; }
+      body.splash section.user-types h3 strong {
+        font-weight: 600; }
+    body.splash section.user-types p {
+      width: 66.66%;
+      margin-top: 1.25em;
+      margin-bottom: 0;
+      font-size: 16px; }
+    body.splash section.user-types ul {
+      max-width: 300px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: lighter; }
+    body.splash section.user-types form {
+      margin-top: 30px; }
+    body.splash section.user-types input, body.splash section.user-types button {
+      width: 55%;
+      text-align: center;
+      font-family: 'Signika';
+      border: 0; }
+      body.splash section.user-types input:focus::-webkit-input-placeholder, body.splash section.user-types button:focus::-webkit-input-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus:-moz-placeholder, body.splash section.user-types button:focus:-moz-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus::-moz-placeholder, body.splash section.user-types button:focus::-moz-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus:-ms-input-placeholder, body.splash section.user-types button:focus:-ms-input-placeholder {
+        color: transparent; }
+      body.splash section.user-types input:focus.placeholder, body.splash section.user-types button:focus.placeholder {
+        color: transparent; }
+      body.splash section.user-types input[type="text"], body.splash section.user-types button[type="text"] {
+        margin-top: 7.5px;
+        margin-bottom: 7.5px;
+        background-color: rgba(255, 255, 255, 0.8); }
+    @media (max-width: 991px) {
+      body.splash section.user-types div.split-left {
+        background-color: #00A669;
+        color: #005434;
+        border-image: url("../media/patterns/brush-border-full-horizontal2.svg") 5 repeat; }
+        body.splash section.user-types div.split-left button {
+          background-color: #005434;
+          color: #00A669; }
+      body.splash section.user-types div.split-right {
+        background-color: #005434;
+        color: #00A669;
+        border-image: url("../media/patterns/brush-border-full-horizontal1.svg") 5 repeat; }
+        body.splash section.user-types div.split-right button {
+          background-color: #00A669;
+          color: #005434; } }
+    @media (min-width: 768px) and (max-width: 991px) {
+      body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types input, body.splash section.user-types button {
+        width: 60%; } }
+    @media (max-width: 767px) {
+      body.splash section.user-types h3, body.splash section.user-types p, body.splash section.user-types input, body.splash section.user-types button {
+        width: 85%; } }
+  body.splash section.footer {
+    text-align: center;
+    font-weight: 300; }
+    body.splash section.footer div.split-left {
+      padding-bottom: 15px; }
+      @media (max-width: 991px) {
+        body.splash section.footer div.split-left {
+          padding: 50px 0;
+          border: 0; } }
+    body.splash section.footer div.split-right {
+      padding-bottom: 15px; }
+  body.splash section.break {
+    text-align: center; }
+    body.splash section.break div.split-left, body.splash section.break div.split-right {
+      padding: 25px 0; }
 
-section.break {
-  text-align: center; }
-  section.break div.split-left, section.break div.split-right {
-    padding: 25px 0; }
-
-/*div.hr {
-    height: 45px;
-    background-repeat: round space;
-    background-clip: border-box;
-}*/
 div.wrapper {
   width: 100%; }
   div.wrapper div.container {
@@ -279,5 +271,156 @@ div.wrapper {
       font-size: 18px;
       font-weight: bold;
       font-family: sans-serif; }
+
+div.placeholder {
+  width: 100%;
+  height: 65px;
+  margin-bottom: 35px;
+  background-color: #e4e4e4; }
+
+div.container {
+  width: 80%;
+  margin: 0 auto; }
+  div.container h1 {
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif; }
+
+div.profile-picture img.profile-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px; }
+
+div.food-listing.hide-food-listing {
+  display: none; }
+
+div.food-listing {
+  background-image: url("https://images.unsplash.com/photo-1444731961956-751ed90465a5?dpr=1.25&amp;auto=format&amp;fit=crop&amp;w=1500&amp;h=2250&amp;q=80&amp;cs=tinysrgb&amp;crop=");
+  background-size: cover;
+  height: 250px;
+  width: 100%;
+  border-radius: 5%;
+  margin-top: 19px; }
+  div.food-listing div.food-listing-banner {
+    background-color: black;
+    opacity: .7;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    height: 75px;
+    margin-top: 129px; }
+    div.food-listing div.food-listing-banner h4 {
+      color: white;
+      padding-top: 23px;
+      padding-left: 26px; }
+  div.food-listing p {
+    font-weight: bolder;
+    color: white;
+    padding-left: 165px;
+    padding-top: 3px; }
+
+div.reviewer-picture {
+  width: 100%;
+  height: 70px;
+  border-radius: 5%;
+  background-image: url("https://images.unsplash.com/photo-1492627223639-6e980361988c?dpr=1.25&amp;auto=format&amp;fit=crop&amp;w=1500&amp;h=844&amp;q=80&amp;cs=tinysrgb&amp;crop=");
+  background-size: cover; }
+
+div.profile-name {
+  width: 100%;
+  font-family: 'Signika'; }
+
+div.profile-location {
+  width: 100%; }
+
+div.profile-review-count {
+  width: 100%; }
+
+div.profile-badge {
+  width: 100%;
+  height: 100%;
+  background-color: darkslategray;
+  color: white; }
+
+div.profile-bio {
+  padding-top: 18px; }
+  div.profile-bio p {
+    font-weight: 300; }
+
+div.profile-foodlisting-title {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+div.profile-foodlisting-title-count {
+  padding-top: 15px;
+  padding-bottom: 10px; }
+
+div.profile-review-title {
+  padding-top: 27px; }
+
+div.profile-review-title-count {
+  padding-top: 31px; }
+
+div.profile-review {
+  padding-top: 15px; }
+  div.profile-review p.reviewer-name {
+    text-align: center;
+    font-weight: 100;
+    padding-top: 5px; }
+  div.profile-review p {
+    font-weight: 300; }
+
+div.profile-left-content {
+  width: 100%;
+  height: 100%;
+  border-color: lightgrey;
+  border-radius: 8px;
+  border-style: dotted;
+  border-width: 1px;
+  border-top: none;
+  font-weight: 100; }
+  div.profile-left-content h6 {
+    background-color: #e1e1e1;
+    color: black;
+    height: 25px;
+    padding-bottom: 6px;
+    text-align: center;
+    border-radius: 8px;
+    border-color: lightgrey;
+    border-radius: 8px;
+    border-style: dotted;
+    height: 45px;
+    padding: 15px;
+    border-width: 1px;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%; }
+  div.profile-left-content iframe.map {
+    width: 100%;
+    height: 250px;
+    border: none;
+    padding: 14px; }
+  div.profile-left-content ul.veri-check {
+    padding-left: 10px; }
+  div.profile-left-content p {
+    padding-left: 15px; }
+
+div.delivery {
+  margin-top: 25px;
+  border-radius: 8px; }
+  div.delivery p {
+    font-weight: 300;
+    padding-left: 15px; }
+
+div.map-display {
+  margin-top: 25px;
+  border-radius: 8px; }
+
+body.user_profile {
+  font-family: 'Signika'; }
+
+p.show-less {
+  display: none; }
 
 /*# sourceMappingURL=app.css.map */
