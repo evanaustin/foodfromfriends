@@ -1,0 +1,193 @@
+div.placeholder {
+    width: 100%;
+    height: 65px;
+    margin-bottom: 35px;
+    background-color:#e4e4e4;
+}
+
+    div.container {
+        width: 80%;
+        margin: 0 auto;
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            width:100%;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+
+    }
+
+div.profile-picture {
+  
+    img.profile-picture{
+        width: 100%;
+        height:100%;
+        border-radius: 8px;
+    }
+}
+
+div.food-listing.hide-food-listing{
+    display:none;
+}
+
+div.food-listing{
+    background-image: url("https://images.unsplash.com/photo-1444731961956-751ed90465a5?dpr=1.25&amp;auto=format&amp;fit=crop&amp;w=1500&amp;h=2250&amp;q=80&amp;cs=tinysrgb&amp;crop=");
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+    border-radius: 5%;
+    margin-top: 19px;
+    
+    div.food-listing-banner{
+        background-color: black;
+        opacity: .7;
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 14px;
+        height: 75px;
+        margin-top: 129px;
+      
+        h4{
+            color: white;
+            padding-top: 23px;
+            padding-left: 26px;
+           
+        }
+    }    
+        
+    p{
+        font-weight: bolder;
+        color:white;
+        padding-left: 165px;
+        padding-top:3px;
+    }  
+}
+
+
+div.reviewer-picture{
+    width: 100%;
+    height:70px;
+    border-radius: 5%;
+    background-image: url("https://images.unsplash.com/photo-1492627223639-6e980361988c?dpr=1.25&amp;auto=format&amp;fit=crop&amp;w=1500&amp;h=844&amp;q=80&amp;cs=tinysrgb&amp;crop=");
+    background-size: cover;
+}
+
+div.profile-name {
+    width: 100%;
+    font-family: 'Signika';
+}
+div.profile-location {
+    width: 100%; 
+}
+div.profile-review-count {
+    width: 100%;
+    
+}
+div.profile-badge {
+    width: 100%;
+    height:100%;
+    background-color:darkslategray;
+    color: white;
+}
+div.profile-bio {
+    padding-top:18px;
+    p{
+        font-weight: 300;
+    }  
+}  
+
+div.profile-foodlisting-title {
+    padding-top:10px;
+    padding-bottom: 10px;
+}   
+div.profile-foodlisting-title-count {
+    padding-top:15px;
+    padding-bottom: 10px;
+}     
+
+div.profile-review-title {
+    padding-top:27px;
+    
+}  
+div.profile-review-title-count {
+    padding-top:31px;
+    
+}     
+
+div.profile-review{
+    padding-top:15px;
+    p.reviewer-name{
+        text-align: center;
+        font-weight: 100;
+        padding-top: 5px;
+    }
+    p{
+        font-weight: 300;
+    }
+}    
+
+div.profile-left-content{
+    width: 100%;
+    height:100%;
+    border-color:lightgrey; 
+    border-radius: 8px;
+    border-style: dotted;
+    border-width: 1px;
+    border-top: none;
+    font-weight: 100;
+     
+    h6{
+        background-color: #e1e1e1;
+        color: black;
+        height: 25px;
+        padding-bottom: 6px;
+        text-align: center;
+        border-radius: 8px;
+        border-color: lightgrey;
+        border-radius: 8px;
+        border-style: dotted;
+        height: 45px;
+        padding: 15px;
+        border-width: 1px;
+        border-bottom-left-radius: 0%;
+        border-bottom-right-radius: 0%;
+        }
+        iframe.map{
+            width:100%;
+            height:250px;
+            border: none;
+            padding: 14px;
+
+        }
+        ul.veri-check{
+        padding-left: 10px;
+        }
+        p{
+            padding-left: 15px;
+        }
+    } 
+
+div.delivery{
+    margin-top:25px;
+    border-radius: 8px;
+    p{
+        font-weight:300;
+        padding-left: 15px;
+    }
+}
+
+div.map-display{
+    margin-top:25px;
+    border-radius: 8px;
+}
+
+body.user_profile{
+    font-family: 'Signika';
+    
+}
+
+p.show-less{
+    display: none;
+}
