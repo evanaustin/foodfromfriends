@@ -8,237 +8,239 @@
     color: $dark-green;
 }
 
-div.row > div {
-    padding: 0;
-}
-
-h1 {
-    font-size: 36px;
-    font-family: 'Riya';
-}
-
-div.split-left {
-    height: 100%;
-    padding: 125px 0 125px;
-
-    @include light-on-dark();
-
-    border: solid transparent; 
-    border-width: 0 5px 0 0;
-    border-image: url('../media/patterns/brush-border-full.svg') 5 repeat;
-
-    button {
-        @include dark-on-light();
+body.splash {
+    div.row > div {
+        padding: 0;
     }
 
-    @include phones-tablets() {
-        border-width: 0 0 5px 0;
-        border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
-    }
-}
-
-div.split-right {
-    height: 100%;
-    padding: 125px 0 125px;
-
-    @include dark-on-light();
-
-    button {
-        @include light-on-dark();
-    }
-    
-    @include phones-tablets() {
-        border: solid transparent;
-        border-width: 0 0 5px 0;
-        border-image: url('../media/patterns/brush-border-full-horizontal2.svg') 5 repeat;
-    }
-}
-
-section.hero {
-    img {
-        max-width: 100%;
-    }
-
-    div.split-left, div.split-right {
-        padding-top: 250px;
+    h1 {
+        font-size: 36px;
+        font-family: 'Riya';
     }
 
     div.split-left {
-        text-align: right;
-        
-        img.logo {
-            width: 300px;
+        height: 100%;
+        padding: 125px 0 125px;
+
+        @include light-on-dark();
+
+        border: solid transparent; 
+        border-width: 0 5px 0 0;
+        border-image: url('../media/patterns/brush-border-full.svg') 5 repeat;
+
+        button {
+            @include dark-on-light();
+        }
+
+        @include phones-tablets() {
+            border-width: 0 0 5px 0;
+            border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
         }
     }
 
     div.split-right {
-        text-align: left;
+        height: 100%;
+        padding: 125px 0 125px;
+
+        @include dark-on-light();
+
+        button {
+            @include light-on-dark();
+        }
         
         @include phones-tablets() {
-            padding-top: 125px;
-        }
-
-        img.business-name {
-            width: 400px;
-
-            @include phones-tablets() {
-                display: block;
-                margin: 0 auto;
-            }
-        }
-    }
-}
-
-section.vision {
-    div.split-left {
-        h1 {
-            text-align: right;
-            line-height: 1.25;
-            margin-left: auto;
-            margin-right: auto;
-
-            @include phones-tablets() {
-                text-align: center;
-                font-size: 1.5em;
-            }
-        }
-    }
-    
-    div.split-right {
-        h1 {
-            text-align: left;
-            padding-left: 0.15em;
-        }
-    }
-}
-
-section.intro {
-    p {
-        margin: 0 auto;
-        width: 66.66%;
-        font-size: 18px;
-    }
-}
-
-section.user-types {
-    text-align: center;
-
-    h3, p, ul, input, button {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    h3 {
-        margin-top: 1.25em;
-        margin-bottom: 1.25em;
-        line-height: 1.25;
-        font-size: 18px;
-        font-weight: 300;
-        letter-spacing: .15px;
-
-        strong {
-            font-weight: 600;
-        }
-    }
-
-    p {
-        width: 66.66%;
-        margin-top: 1.25em;
-        margin-bottom: 0;
-        font-size: 16px;
-    }
-
-    ul {
-        max-width: 300px;
-        text-align: left;
-        font-size: 16px;
-        font-weight: lighter;
-    }
-
-    form {
-        margin-top: 30px;
-    }
-
-    input, button {
-        width: 55%;
-        text-align: center;
-        font-family: 'Signika';
-        border: 0;
-
-        &:focus {
-            @include placeholder() {
-                color: transparent;
-            }
-        }
-
-        &[type="text"] {
-            margin-top: 7.5px;
-            margin-bottom: 7.5px;
-            background-color: rgba(255,255,255,0.8);
-        }
-    }
-
-    @include phones-tablets() {
-        div.split-left {
-            @include dark-on-light();
+            border: solid transparent;
+            border-width: 0 0 5px 0;
             border-image: url('../media/patterns/brush-border-full-horizontal2.svg') 5 repeat;
+        }
+    }
 
-            button {
-                @include light-on-dark();
+    section.hero {
+        img {
+            max-width: 100%;
+        }
+
+        div.split-left, div.split-right {
+            padding-top: 250px;
+        }
+
+        div.split-left {
+            text-align: right;
+            
+            img.logo {
+                width: 300px;
+            }
+        }
+
+        div.split-right {
+            text-align: left;
+            
+            @include phones-tablets() {
+                padding-top: 125px;
+            }
+
+            img.business-name {
+                width: 400px;
+
+                @include phones-tablets() {
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+
+    section.vision {
+        div.split-left {
+            h1 {
+                text-align: right;
+                line-height: 1.25;
+                margin-left: auto;
+                margin-right: auto;
+
+                @include phones-tablets() {
+                    text-align: center;
+                    font-size: 1.5em;
+                }
             }
         }
         
         div.split-right {
-            @include light-on-dark();
-            border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
-            
-            button {
-                @include dark-on-light();
+            h1 {
+                text-align: left;
+                padding-left: 0.15em;
             }
         }
     }
 
-    @include tablets() {
-        h3, p, input, button {
-            width: 60%;
+    section.intro {
+        p {
+            margin: 0 auto;
+            width: 66.66%;
+            font-size: 18px;
         }
     }
-    
-    @include phones() {
-        h3, p, input, button {
-            width: 85%;
+
+    section.user-types {
+        text-align: center;
+
+        h3, p, ul, input, button {
+            margin-left: auto;
+            margin-right: auto;
         }
-    }
-}
 
-section.footer {
-    text-align: center;
-    font-weight: 300;
+        h3 {
+            margin-top: 1.25em;
+            margin-bottom: 1.25em;
+            line-height: 1.25;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: .15px;
 
-    div.split-left {
-        padding-bottom: 15px;
-        
-        @include phones-tablets() {
-            padding: 50px 0;
+            strong {
+                font-weight: 600;
+            }
+        }
+
+        p {
+            width: 66.66%;
+            margin-top: 1.25em;
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        ul {
+            max-width: 300px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: lighter;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        input, button {
+            width: 55%;
+            text-align: center;
+            font-family: 'Signika';
             border: 0;
+
+            &:focus {
+                @include placeholder() {
+                    color: transparent;
+                }
+            }
+
+            &[type="text"] {
+                margin-top: 7.5px;
+                margin-bottom: 7.5px;
+                background-color: rgba(255,255,255,0.8);
+            }
+        }
+
+        @include phones-tablets() {
+            div.split-left {
+                @include dark-on-light();
+                border-image: url('../media/patterns/brush-border-full-horizontal2.svg') 5 repeat;
+
+                button {
+                    @include light-on-dark();
+                }
+            }
+            
+            div.split-right {
+                @include light-on-dark();
+                border-image: url('../media/patterns/brush-border-full-horizontal1.svg') 5 repeat;
+                
+                button {
+                    @include dark-on-light();
+                }
+            }
+        }
+
+        @include tablets() {
+            h3, p, input, button {
+                width: 60%;
+            }
+        }
+        
+        @include phones() {
+            h3, p, input, button {
+                width: 85%;
+            }
         }
     }
-    
-    div.split-right {
-        padding-bottom: 15px;
-    }
-}
 
-section.break {
-    text-align: center;
-    
-    div.split-left, div.split-right {
-        padding: 25px 0; 
-    }
-}
+    section.footer {
+        text-align: center;
+        font-weight: 300;
 
-/*div.hr {
-    height: 45px;
-    background-repeat: round space;
-    background-clip: border-box;
-}*/
+        div.split-left {
+            padding-bottom: 15px;
+            
+            @include phones-tablets() {
+                padding: 50px 0;
+                border: 0;
+            }
+        }
+        
+        div.split-right {
+            padding-bottom: 15px;
+        }
+    }
+
+    section.break {
+        text-align: center;
+        
+        div.split-left, div.split-right {
+            padding: 25px 0; 
+        }
+    }
+
+    /*div.hr {
+        height: 45px;
+        background-repeat: round space;
+        background-clip: border-box;
+    }*/
+}
