@@ -9,6 +9,8 @@ $dark_green: #005434;
 $brand-primary: $light_green;
 $brand-inverse: $dark_green;
 
+$font-weight-normal: 300;
+
 $link-color: $brand-primary;
 $link-hover-color: darken($link-color, 15%);
 $link-hover-decoration: none;
@@ -21,3 +23,5 @@ $custom-control-active-indicator-bg: lighten($brand-primary, 5%);
 $custom-select-focus-border-color: lighten($brand-primary, 5%);
 $custom-control-checked-indicator-bg: $brand-primary;
 $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $brand-primary;
+
+$dropdown-link-color: #7f7f7f;
