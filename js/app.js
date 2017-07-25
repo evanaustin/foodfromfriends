@@ -47,5 +47,15 @@ var App = function() {
 		);
 	});
 
+	/*
+	* Watch file input
+	* Refactor and move elsewhere
+	*/
+	$('.custom-file-input').on('change', function(){
+		var fileName = $(this).val();
+		console.log($(this).val());
+		$(this).next('.custom-file-control').text('').html(fileName);
+	})
+
 	return {};
 }();
