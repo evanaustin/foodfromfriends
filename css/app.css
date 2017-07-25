@@ -50,6 +50,9 @@ h1, h2, h3, h4, h5, h6 {
 a:focus, button:focus {
   outline: 0; }
 
+div.alert {
+  display: none; }
+
 form .form-control-feedback {
   font-size: 0.75rem; }
 
@@ -87,19 +90,34 @@ div.modal-content {
 /**
 * Component Styles
 **/
-nav.navbar {
+nav#header.navbar {
   background-color: #fff;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid #eee; }
-  nav.navbar a.navbar-brand {
+  nav#header.navbar a.navbar-brand {
     height: 40px;
     line-height: 40px;
     padding-top: 0;
     padding-bottom: 0; }
-    nav.navbar a.navbar-brand svg {
+    nav#header.navbar a.navbar-brand svg {
       height: 40px !important;
       width: 320px !important; }
+  nav#header.navbar li.nav-item div.profile {
+    height: 40px;
+    width: 40px;
+    border: 2px solid #f2f2f2;
+    background-image: url("https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg");
+    background-size: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%; }
+  nav#header.navbar div.dropdown-menu {
+    margin-top: 0.75rem;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-color: #eee; }
 
 /**
 * Modal Styles
