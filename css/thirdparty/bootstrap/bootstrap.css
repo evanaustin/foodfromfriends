@@ -491,7 +491,7 @@ hr {
 small,
 .small {
   font-size: 80%;
-  font-weight: normal; }
+  font-weight: 300; }
 
 mark,
 .mark {
@@ -2196,7 +2196,7 @@ fieldset[disabled] a.btn {
     border-color: #d9534f; }
 
 .btn-link {
-  font-weight: normal;
+  font-weight: 300;
   color: #00A669;
   border-radius: 0; }
   .btn-link, .btn-link:active, .btn-link.active, .btn-link:disabled {
@@ -2310,8 +2310,8 @@ tbody.collapse.show {
   width: 100%;
   padding: 3px 1.5rem;
   clear: both;
-  font-weight: normal;
-  color: #292b2c;
+  font-weight: 300;
+  color: #7f7f7f;
   text-align: inherit;
   white-space: nowrap;
   background: none;
@@ -2520,7 +2520,7 @@ tbody.collapse.show {
   padding: 0.5rem 0.75rem;
   margin-bottom: 0;
   font-size: 1rem;
-  font-weight: normal;
+  font-weight: 300;
   line-height: 1.25;
   color: #464a4c;
   text-align: center;
@@ -3801,7 +3801,7 @@ button.close {
   display: block;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   letter-spacing: normal;
   line-break: auto;
   line-height: 1.5;
@@ -3883,7 +3883,7 @@ button.close {
   padding: 1px;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   letter-spacing: normal;
   line-break: auto;
   line-height: 1.5;
@@ -6518,7 +6518,7 @@ a.bg-inverse:focus, a.bg-inverse:hover {
   text-transform: capitalize !important; }
 
 .font-weight-normal {
-  font-weight: normal; }
+  font-weight: 300; }
 
 .font-weight-bold {
   font-weight: bold; }

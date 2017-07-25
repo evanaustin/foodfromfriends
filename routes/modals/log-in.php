@@ -10,10 +10,12 @@
             </div>
             
             <div class="modal-body">
+                <div class="alert"></div>
+
                 <form id="log-in" class="parsley" data-parsley-validate>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
+                            <input type="email" name="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                             <span class="input-group-addon">
                                 <i class="fa fa-envelope"></i>
@@ -23,7 +25,7 @@
                     
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" required>
+                            <input type="password" name="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
                             
                             <span class="input-group-addon">
                                 <i class="fa fa-key"></i>
@@ -31,20 +33,20 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="custom-control custom-checkbox">
                             <input type="checkbox" name="remember_me" class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Remember me</span>
                         </label>
-                    </div>
+                    </div> -->
                     
                     <button type="submit" class="btn btn-primary btn-block">Log in</button>
                 </form>
 
-                <div id="forgot-password">
+                <!-- <div id="forgot-password">
                     <a href="">Forgot password?</a>
-                </div>
+                </div> -->
             </div>
 
             <div class="modal-footer">
