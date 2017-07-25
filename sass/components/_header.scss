@@ -1,4 +1,4 @@
-nav.navbar {
+nav#header.navbar {
     background-color: #fff;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
@@ -14,5 +14,22 @@ nav.navbar {
             height: 40px !important;
             width: 320px !important;
         }
+    }
+
+    li.nav-item {
+        div.profile {
+            height: 40px;
+            width: 40px;
+            border: 2px solid #f2f2f2;
+            background-image: url('https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg');
+            background-size: cover;
+            @include rounded(50%);
+        }
+    }
+
+    div.dropdown-menu {
+        margin-top: 0.75rem;
+        @include rounded(0px);
+        border-color: #eee;
     }
 }
