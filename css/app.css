@@ -53,6 +53,20 @@ a:focus, button:focus {
 div.alert {
   display: none; }
 
+form label:not(.custom-radio):not(.custom-file) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  color: #7f7f7f; }
+form label.custom-file {
+  width: 100%; }
+form input, form textarea, form select, form button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300; }
+form div.radio-box {
+  margin: 0.5rem 0; }
+  form div.radio-box span.custom-control-indicator {
+    top: 0.2rem; }
 form .form-control-feedback {
   font-size: 0.75rem; }
 

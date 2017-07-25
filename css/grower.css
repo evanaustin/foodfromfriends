@@ -10,6 +10,9 @@ body.grower div.wrapper {
     width: 20%; }
   body.grower div.wrapper div.side-right {
     width: 80%; }
+body.grower h4.title {
+  font-weight: 500;
+  color: #555; }
 
 /**
 * Component Styles
@@ -73,5 +76,7 @@ body.grower div.subheader {
 /**
 * View Styles
 **/
+#other-option {
+  display: none; }
 
 /*# sourceMappingURL=grower.css.map */
