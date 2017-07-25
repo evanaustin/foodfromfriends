@@ -10,10 +10,12 @@
             </div>
             
             <div class="modal-body">
-                <form id="log-in" data-parsley-validate>
+                <div class="alert"></div>
+
+                <form id="sign-up" data-parsley-validate>
                     <div class="form-group">
                          <div class="input-group"> 
-                            <input type="text" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
+                            <input type="text" name="first_name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
                              <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
@@ -23,7 +25,7 @@
                     
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
+                            <input type="text" name="last_name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                             <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
@@ -33,7 +35,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
+                            <input type="email" name="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                             <span class="input-group-addon">
                                 <i class="fa fa-envelope"></i>
@@ -43,7 +45,7 @@
                     
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
+                            <input type="password" name="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
                             
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
@@ -59,7 +61,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select class="custom-select" data-parsley-trigger="submit" required>
+                                    <select name="month" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Month</option>
                                         
                                         <?php 
@@ -75,12 +77,12 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select class="custom-select" data-parsley-trigger="submit" required>
+                                    <select name="day" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Day</option>
                                         
                                         <?php 
                                             for ($i=1; $i <= 31; $i++) {
-                                                echo "<option val='{$i}'>{$i}</option>";
+                                                echo "<option value='{$i}'>{$i}</option>";
                                             }
                                         ?>
                                     </select>
@@ -89,12 +91,12 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select class="custom-select" data-parsley-trigger="submit" required>
+                                    <select name="year" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Year</option>
                                         
                                         <?php 
                                             for ($i = (date('Y') - 18); $i >= (date('Y') - 120); $i--) {
-                                                echo "<option val='{$i}'>{$i}</option>";
+                                                echo "<option value='{$i}'>{$i}</option>";
                                             }
                                         ?>
                                     </select>
