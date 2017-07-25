@@ -45,10 +45,11 @@ foreach ([
             'node_modules/parsleyjs/dist/parsley.min',
             'js/thirdparty/bootstrap.min',
             'js/app',
-            'js/ajax',
-            $Template->script
+            'js/ajax'
         ]);
             
+        layer('js', $Template->scripts);
+
         ?>
 
         <script>var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?></script>
