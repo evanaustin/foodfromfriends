@@ -15,6 +15,10 @@ a, button {
     }
 }
 
+div.alert {
+    display: none;
+}
+
 form {
     .form-control-feedback {
         font-size: 0.75rem;
