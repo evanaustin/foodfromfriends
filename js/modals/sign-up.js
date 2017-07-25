@@ -5,11 +5,11 @@ $('#sign-up').on('submit', function(e) {
     
     console.log($form.serialize());
     App.Ajax.post('account/sign_up', $form.serialize(), 
-		function(response) {
-            window.location.replace(PUBLIC_ROOT + '/dashboard');
-		},
-		function(response) {
+      function(response) {
+            window.location.replace(PUBLIC_ROOT + 'dashboard');
+      },
+      function(response) {
             $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
-		}
+      }
     ); 
 });	
