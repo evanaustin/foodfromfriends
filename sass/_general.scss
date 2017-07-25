@@ -20,6 +20,30 @@ div.alert {
 }
 
 form {
+    label:not(.custom-radio):not(.custom-file) {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.25px;
+        color: #7f7f7f;
+    }
+
+    label.custom-file {
+        width: 100%;
+    }
+
+    input, textarea, select, button {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+    }
+
+    div.radio-box {
+        margin: 0.5rem 0;
+
+        span.custom-control-indicator {
+            top: 0.2rem;
+        }
+    }
+
     .form-control-feedback {
         font-size: 0.75rem;
     }
