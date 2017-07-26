@@ -76,6 +76,9 @@ body.grower div.subheader {
 /**
 * View Styles
 **/
+body.grower-dashboard-exchange-settings-delivery form > div:not(#delivery-setting) {
+  display: none; }
+
 #other-option {
   display: none; }
 
