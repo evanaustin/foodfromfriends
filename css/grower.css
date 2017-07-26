@@ -79,4 +79,7 @@ body.grower div.subheader {
 #other-option {
   display: none; }
 
+body.grower-dashboard-exchange-settings-pickup form > div:not(#pickup-setting) {
+  display: none; }
+
 /*# sourceMappingURL=grower.css.map */
