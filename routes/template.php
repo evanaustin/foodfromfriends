@@ -45,7 +45,11 @@ foreach ([
             'node_modules/parsleyjs/dist/parsley.min',
             'js/thirdparty/bootstrap.min',
             'js/app',
-            'js/ajax'
+            'js/ajax',
+            'js/account',
+            'js/bootstrap',
+            'js/form',
+            'js/domready'
         ]);
             
         layer('js', $Template->scripts);
