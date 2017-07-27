@@ -6,22 +6,18 @@
 @import 'custom-fonts';
 
 /**
-* Mixins
+* Dependencies
 **/
 @import 'mixins';
+@import 'colors';
 
 /**
-* Colors & General
+* Universal
 **/
-@import 'colors';
 @import 'general';
+@import 'forms';
 
 /**
 * Component Styles
 **/
 @import 'components/header';
-
-/**
-* Modal Styles
-**/
-@import 'modals/account';
