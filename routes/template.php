@@ -26,6 +26,7 @@ foreach ([
             'css/thirdparty/bootstrap/bootstrap',
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
+            'node_modules/toastr/build/toastr',
             'css/app',
             $Template->styles
         ]); ?>
@@ -43,9 +44,14 @@ foreach ([
             'node_modules/jquery/dist/jquery',
             'node_modules/tether/dist/js/tether.min',
             'node_modules/parsleyjs/dist/parsley.min',
+            'node_modules/toastr/build/toastr.min',
             'js/thirdparty/bootstrap.min',
             'js/app',
-            'js/ajax'
+            'js/ajax',
+            'js/account',
+            'js/bootstrap',
+            'js/form',
+            'js/domready'
         ]);
             
         layer('js', $Template->scripts);
