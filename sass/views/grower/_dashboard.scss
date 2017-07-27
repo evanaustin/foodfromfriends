@@ -1,3 +1,19 @@
 #other-option {
     display: none;
 }
+
+body.grower-dashboard-exchange-settings-meetup{
+    
+    form {
+        >div:not(#meetup-setting) {
+            display: none;
+        }
+    }
+    .add-meetup{
+        display:none;
+    }
+    #add3{
+        display: none;
+    }
+}
+

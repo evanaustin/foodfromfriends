@@ -79,4 +79,11 @@ body.grower div.subheader {
 #other-option {
   display: none; }
 
+body.grower-dashboard-exchange-settings-meetup form > div:not(#meetup-setting) {
+  display: none; }
+body.grower-dashboard-exchange-settings-meetup .add-meetup {
+  display: none; }
+body.grower-dashboard-exchange-settings-meetup #add3 {
+  display: none; }
+
 /*# sourceMappingURL=grower.css.map */
