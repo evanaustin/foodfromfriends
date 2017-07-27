@@ -1,12 +1,14 @@
 $('#add-listing').on('submit', function(e) {
 	e.preventDefault();
-     console.log($(this).serialize());
-    App.Ajax.post('grower_dashboard', $(this).serialize(), 
+    
+    $form = $(this);
+    
+    App.Ajax.post('dashboard/food-listings/add-new', $form.serialize(), 
 		function(response) {
-			$('#add-listing p.listing-message').html('<i class="fa fa-check"></i> Awesome!');
+            toastr.success('Your listed has been created!')
 		},
 		function(response) {
-			$('#locavore-signup p.listing-message').html(response.error);
+            $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
 		}
 	 );	
 });	
@@ -36,4 +38,14 @@ $('#food-subcategories').on('change', function() {
     } else {
         $('#other-option').hide();
     }
+});
+
+$('#quantity').on('change', function() {
+    if ($(this).val() == 0) {
+        $('#available').prop('checked', false);
+        $('#unavailable').prop('checked', true);
+    } else {
+        $('#available').prop('checked', true);
+        $('#unavailable').prop('checked', false);
+    } 
 });
