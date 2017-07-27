@@ -10,17 +10,17 @@ abstract class Base {
     }
 
     protected function configure_object($id) {
-        $results = $this->DB->run('
+        $results = $this->DB->run("
             SELECT * FROM {$this->table} WHERE id=:id LIMIT 1
-        ', [
+        ", [
             'id' => $id
         ]);
-
+        
         if (!isset($results[0])) return false;
 
-        foreach ($results[0] as $k => $v) $this->{$k} = $v;
+        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
-    
+
     public function exists($field, $data) {
         $results = $this->DB->run("
             SELECT * FROM {$this->table} WHERE {$field}=:data LIMIT 1
