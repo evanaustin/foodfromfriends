@@ -9,8 +9,7 @@ App.Account = function() {
                     window.location.replace(PUBLIC_ROOT);
                 },
                 function(response) {
-                    // should implement toastr here
-                    // console.log(response.error);
+                    toastr.error(response.error);
                 }
             );
         });
