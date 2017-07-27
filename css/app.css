@@ -33,10 +33,10 @@
   font-weight: 400;
   font-style: normal; }
 /**
-* Mixins
+* Dependencies
 **/
 /**
-* Colors & General
+* Universal
 **/
 body {
   margin: 0;
@@ -50,28 +50,9 @@ h1, h2, h3, h4, h5, h6 {
 a:focus, button:focus {
   outline: 0; }
 
-div.alert {
-  display: none; }
-
-form label:not(.custom-radio):not(.custom-file) {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25px;
-  color: #7f7f7f; }
-form label.custom-file {
-  width: 100%; }
-form input, form textarea, form select, form button {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300; }
-form div.radio-box {
-  margin: 0.5rem 0; }
-  form div.radio-box span.custom-control-indicator {
-    top: 0.2rem; }
-form .form-control-feedback {
-  font-size: 0.75rem; }
-
 .btn {
-  cursor: pointer; }
+  cursor: pointer;
+  font-weight: inherit; }
   .btn:focus, .btn.focus {
     -webkit-box-shadow: 0 0 0 transparent;
     -moz-box-shadow: 0 0 0 transparent;
@@ -100,6 +81,78 @@ div.modal-content {
 
 .align-right {
   text-align: right; }
+
+div.alert {
+  display: none; }
+
+form label:not(.custom-radio):not(.custom-file) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  color: #7f7f7f; }
+form label.custom-file {
+  width: 100%; }
+  form label.custom-file input {
+    cursor: pointer; }
+  form label.custom-file span.custom-file-control {
+    cursor: pointer;
+    height: calc(2.25rem + 2px);
+    line-height: 1.25; }
+    form label.custom-file span.custom-file-control:before {
+      height: inherit;
+      line-height: inherit; }
+    form label.custom-file span.custom-file-control:after {
+      cursor: pointer;
+      content: attr(data-content) !important;
+      color: #4c4c4c; }
+form input, form textarea, form select, form button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300; }
+  form input:focus, form textarea:focus, form select:focus, form button:focus {
+    outline: 0; }
+form .form-control {
+  color: #4c4c4c; }
+  form .form-control::-webkit-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control::-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-ms-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control.placeholder {
+    color: #4c4c4c; }
+form div.radio-box {
+  margin: 0.5rem 0; }
+  form div.radio-box span.custom-control-indicator {
+    top: 0.2rem; }
+form div.input-group-btn .btn {
+  background-color: #eceeef; }
+form select.input-group-addon {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right 50%;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+  padding: .5em;
+  padding-right: 1.5em;
+  -webkit-border-top-right-radius: 0.25rem;
+  -webkit-border-bottom-right-radius: 0.25rem;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0.25rem;
+  -moz-border-radius-bottomright: 0.25rem;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
+form .form-control-feedback {
+  font-size: 0.75rem; }
 
 /**
 * Component Styles
@@ -132,38 +185,5 @@ nav#header.navbar {
     -moz-border-radius: 0px;
     border-radius: 0px;
     border-color: #eee; }
-
-/**
-* Modal Styles
-**/
-#sign-up-modal div.modal-header h3, #log-in-modal div.modal-header h3 {
-  font-weight: 400;
-  color: #7f7f7f; }
-#sign-up-modal div.modal-body div.input-group span.input-group-addon, #log-in-modal div.modal-body div.input-group span.input-group-addon {
-  width: 50px; }
-#sign-up-modal div.modal-body input, #sign-up-modal div.modal-body button, #sign-up-modal div.modal-body select, #log-in-modal div.modal-body input, #log-in-modal div.modal-body button, #log-in-modal div.modal-body select {
-  font-family: inherit;
-  font-weight: inherit;
-  height: auto; }
-  #sign-up-modal div.modal-body input:not(.btn-sm), #sign-up-modal div.modal-body button:not(.btn-sm), #sign-up-modal div.modal-body select:not(.btn-sm), #log-in-modal div.modal-body input:not(.btn-sm), #log-in-modal div.modal-body button:not(.btn-sm), #log-in-modal div.modal-body select:not(.btn-sm) {
-    padding-top: 1rem;
-    padding-bottom: 1rem; }
-#sign-up-modal div.modal-body div.select-row, #log-in-modal div.modal-body div.select-row {
-  margin-top: 1rem; }
-  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
-    padding-left: 7.5px; }
-  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
-    padding-right: 7.5px; }
-  #sign-up-modal div.modal-body div.select-row select, #log-in-modal div.modal-body div.select-row select {
-    width: 100%; }
-#sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
-  margin: 1rem 0; }
-#sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {
-  font-weight: 300; }
-#sign-up-modal div.modal-body div#forgot-password, #log-in-modal div.modal-body div#forgot-password {
-  text-align: center; }
-#sign-up-modal div.modal-footer, #log-in-modal div.modal-footer {
-  text-align: center;
-  display: block; }
 
 /*# sourceMappingURL=app.css.map */

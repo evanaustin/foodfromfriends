@@ -1,5 +1,5 @@
 /**
-* SASS Dependencies
+* Dependencies
 **/
 /**
 * Architecture Styles
@@ -17,54 +17,54 @@ body.grower h4.title {
 /**
 * Component Styles
 **/
-body.grower div.sidebar {
+body.back div.sidebar {
   height: auto;
   padding-left: 0;
   padding-right: 0;
   border-right: 1px solid #eee; }
-  body.grower div.sidebar a.nav-link {
+  body.back div.sidebar a.nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
     font-size: 14px;
     border-left: 2px solid transparent; }
-    body.grower div.sidebar a.nav-link:hover {
+    body.back div.sidebar a.nav-link:hover {
       color: #58707b; }
-    body.grower div.sidebar a.nav-link[aria-expanded="true"] {
+    body.back div.sidebar a.nav-link[aria-expanded="true"] {
       background-color: #f9f9fe;
       color: #00b371;
       font-weight: 500; }
-    body.grower div.sidebar a.nav-link.parent:after {
+    body.back div.sidebar a.nav-link.parent:after {
       float: right; }
-    body.grower div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+    body.back div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
       content: '\002b'; }
-    body.grower div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+    body.back div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
       content: '\2013'; }
-    body.grower div.sidebar a.nav-link.child {
+    body.back div.sidebar a.nav-link.child {
       padding: 10px 30px; }
-      body.grower div.sidebar a.nav-link.child.active {
+      body.back div.sidebar a.nav-link.child.active {
         background-color: rgba(0, 179, 113, 0.25);
         border-color: #007349;
         color: #007349;
         font-weight: 400; }
-  body.grower div.sidebar div.collapse {
+  body.back div.sidebar div.collapse {
     background-color: #f9f9fe; }
 
-body.grower main {
+body.back main {
   padding: 0; }
-body.grower div.subheader {
+body.back div.subheader {
   border-bottom: 1px solid #eee;
   margin-bottom: 1.5rem; }
-  body.grower div.subheader a.nav-link {
+  body.back div.subheader a.nav-link {
     padding: 15px 0;
     color: #8ca3ad;
     font-size: 14px;
     font-weight: 500; }
-    body.grower div.subheader a.nav-link:hover {
+    body.back div.subheader a.nav-link:hover {
       color: #58707b; }
-    body.grower div.subheader a.nav-link.active {
+    body.back div.subheader a.nav-link.active {
       color: #00A669;
       position: relative; }
-      body.grower div.subheader a.nav-link.active:after {
+      body.back div.subheader a.nav-link.active:after {
         content: '';
         position: absolute;
         display: block;
@@ -79,4 +79,4 @@ body.grower div.subheader {
 #other-option {
   display: none; }
 
-/*# sourceMappingURL=grower.css.map */
+/*# sourceMappingURL=back.css.map */
