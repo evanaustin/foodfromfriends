@@ -3,11 +3,12 @@
         <!-- cont main -->
             <div class="container">
                 <h4 class="title">Add a new food listing</h4>
+
                 <hr>
 
                 <div class="alert"></div>
 
-                <form id="add-listing" class="food_listing_form" data-parsley-validate>
+                <form id="add-listing" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-12">
                             <label for="food-categories">What kind of food do you have?</label>
@@ -40,35 +41,42 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="price">Listing price</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input id="price" type="number" name="price" class="form-control" placeholder="Enter a price for your food">
+                                    <input id="price" type="number" name="price" class="form-control" placeholder="Enter a price for your food" min="0" data-parlsey-min="0" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Upload a listing image</label>
-                                
-                                <div id="listing-image">
-                                    <label class="custom-file">
-                                        <input type="file" name="listing-image" class="custom-file-input form-control">
-                                        <span class="custom-file-control"></span>
-                                    </label>
+                                <label for="weight">Average weight per item</label>
+                                <div class="input-group">
+                                    <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="0" data-parsley-min="0" required>
+                                    <select name="units" class="input-group-addon" data-parsley-excluded="true">
+                                        <?php foreach ([
+                                            'lbs',
+                                            'oz',
+                                            'fl oz',
+                                            'liters',
+                                            'gallons'
+                                        ] as $unit) { ?>
+                                            <option val="<?php echo $unit; ?>"><?php echo $unit; ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock">
+                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" data-parsley-min="0" data-parsley-type="number" required>
                             </div>
                         </div>
 
@@ -78,13 +86,13 @@
                                 
                                 <div class="radio-box">
                                     <label class="custom-control custom-radio">
-                                        <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                                        <input id="available" name="is-available" value="1" type="radio" class="custom-control-input" required>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Available</span>
                                     </label>
 
                                     <label class="custom-control custom-radio">
-                                        <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                        <input id="unavailable" name="is-available" value="0" type="radio" class="custom-control-input" required>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Unavailable</span>
                                     </label>
@@ -98,7 +106,17 @@
                         <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <div class="form-group">
+                        <label>Upload a listing image</label>
+                        <div id="listing-image">
+                            <label class="custom-file">
+                                <input type="file" name="listing-image" class="custom-file-input" accept="image/png/jpg" data-toggle="custom-file" data-target="#file-upload-value">
+                                <span id="file-upload-value" class="custom-file-control" data-content="Upload listing image&hellip;"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
                         Create listing
                     </button>
                 </form>
