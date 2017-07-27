@@ -1,0 +1,23 @@
+@charset 'utf-8';
+
+/**
+* Dependencies
+**/
+@import 'mixins';
+@import 'colors';
+
+/**
+* Architecture Styles
+**/
+@import 'architecture/back';
+
+/**
+* Component Styles
+**/
+@import 'components/back/sidebar';
+@import 'components/back/subheader';
+
+/**
+* View Styles
+**/
+@import 'views/back/dashboard';
