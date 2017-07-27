@@ -11,7 +11,11 @@ $Routing = new Routing([
     'path'      => $_GET['path'],
     'landing'   => 'home',
     'backside'  => [
-        'grower'
+        'dashboard',
+        'stats',
+        'profile',
+        'account'
+        // 'messages'
     ]
 ]);
 
