@@ -82,7 +82,11 @@ body.grower-dashboard-exchange-settings-delivery form > div:not(#delivery-settin
 #other-option {
   display: none; }
 
-body.grower-dashboard-exchange-settings-pickup form > div:not(#pickup-setting) {
+body.grower-dashboard-exchange-settings-meetup form > div:not(#meetup-setting) {
+  display: none; }
+body.grower-dashboard-exchange-settings-meetup .add-meetup {
+  display: none; }
+body.grower-dashboard-exchange-settings-meetup #add3 {
   display: none; }
 
 /*# sourceMappingURL=grower.css.map */
