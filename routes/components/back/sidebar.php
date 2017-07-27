@@ -44,7 +44,7 @@
                                     <?php foreach($v as $l) { ?>
                                         <li class="nav-item">
                                             <a 
-                                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k . '/' . $l; ?>"
+                                                href="<?php echo PUBLIC_ROOT . $Routing->section . '/' . $k . '/' . $l; ?>"
                                                 class="nav-link child <?php if ($Routing->page == $l) echo 'active'; ?>">
                                                 <?php echo ucfirst(str_replace('-', ' ', $l)); ?>
                                             </a>
@@ -54,7 +54,7 @@
                             </div>
                         <?php } else { ?>
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
+                                href="<?php echo PUBLIC_ROOT . $Routing->section . '/' . $v; ?>"
                                 class="nav-link <?php if ($Routing->subsection == $v) echo 'active'; ?>">
                                 <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
                             </a>
