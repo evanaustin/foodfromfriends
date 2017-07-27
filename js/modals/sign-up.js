@@ -3,7 +3,6 @@ $('#sign-up').on('submit', function(e) {
     
     $form = $(this);
     
-    console.log($form.serialize());
     App.Ajax.post('account/sign_up', $form.serialize(), 
       function(response) {
             window.location.replace(PUBLIC_ROOT + 'dashboard');
