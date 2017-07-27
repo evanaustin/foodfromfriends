@@ -9,3 +9,15 @@ body.grower-dashboard-exchange-settings-delivery{
 #other-option {
     display: none;
 }
+<<<<<<< HEAD
+=======
+
+body.grower-dashboard-exchange-settings-pickup{
+    
+    form {
+        >div:not(#pickup-setting) {
+            display: none;
+        }
+    }
+}
+>>>>>>> pickup

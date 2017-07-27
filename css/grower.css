@@ -82,4 +82,7 @@ body.grower-dashboard-exchange-settings-delivery form > div:not(#delivery-settin
 #other-option {
   display: none; }
 
+body.grower-dashboard-exchange-settings-pickup form > div:not(#pickup-setting) {
+  display: none; }
+
 /*# sourceMappingURL=grower.css.map */
