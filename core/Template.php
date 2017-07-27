@@ -13,7 +13,7 @@ class Template {
             'initializer'   => 'routes/initializers/' . $Routing->path,
             'architecture'  => 'routes/architecture/' . $Routing->template,
             'scripts'       => [
-                'js/views/' . $Routing->path
+                'js/views/' . $Routing->template . '/' .$Routing->path
             ]
         ];
 
