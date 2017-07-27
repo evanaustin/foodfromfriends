@@ -15,12 +15,12 @@ class Routing {
 
         $exp_path  = explode('/', $this->path);
 
-        $this->template = ($this->path == 'home' || !in_array($exp_path[0], $parameters['backside'])) ? 'front' : $exp_path[0];
+        $this->template = (in_array($exp_path[0], $parameters['backside'])) ? 'back' : 'front';
 
-        if ($this->template != 'front') {
-            $this->section = (isset($exp_path[1])) ? $exp_path[1] : null;
-            $this->subsection = (isset($exp_path[2])) ? $exp_path[2] : null;
-            $this->page = (isset($exp_path[3])) ? $exp_path[3] : null;
+        if ($this->template == 'back') {
+            $this->section = (isset($exp_path[0])) ? $exp_path[0] : null;
+            $this->subsection = (isset($exp_path[1])) ? $exp_path[1] : null;
+            $this->page = (isset($exp_path[2])) ? $exp_path[2] : null;
         }
     }
 }
