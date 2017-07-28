@@ -26,12 +26,12 @@ $('#food-categories').on('change', function() {
         } 
     }, this);
 
-    $('#food-subcategories').append('<option value="other">Other</option>');
+    $('#food-subcategories').append('<option value="0">Other</option>');
 });
 
 // Display other input field
 $('#food-subcategories').on('change', function() {
-    if ($(this).val() == 'other') {
+    if ($(this).val() == '0') {
         $('#other-option').show(function() {
             $('#other-subcategory').focus();
         });

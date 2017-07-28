@@ -37,7 +37,7 @@
 
                     <div id="other-option" class="form-group">
                         <label for="other-subcategory">Can't find the food you're trying to list?</label>
-                        <input id="other-subcategory" type="text" name="other" class="form-control" placeholder="Add your food type">
+                        <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
                     </div>
 
                     <div class="row">

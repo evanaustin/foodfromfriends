@@ -24,9 +24,12 @@ foreach ([
     if (!isset(${$required})) quit('The ' . strtoupper(str_replace('_', ' ', $required)) . ' field is required');
 }
 
+// what if other value entered is an existing subcategory?
+
 $added = $FoodListing->add([
     'user_id' => $User->id,
     'food_subcategory_id' => $food_subcategory,
+    'other_subcategory' => (($food_subcategory == 0) ? $other_subcategory : '' ),
     'price' => $price,
     'weight' => $weight,
     'units' => $units,
