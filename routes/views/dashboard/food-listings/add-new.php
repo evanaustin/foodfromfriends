@@ -37,7 +37,7 @@
 
                     <div id="other-option" class="form-group">
                         <label for="other-subcategory">Can't find the food you're trying to list?</label>
-                        <input id="other-subcategory" type="text" name="other" class="form-control" placeholder="Add your food type">
+                        <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
                     </div>
 
                     <div class="row">
@@ -46,7 +46,7 @@
                                 <label for="price">Listing price</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input id="price" type="number" name="price" class="form-control" placeholder="Enter a price for your food" min="0" data-parlsey-min="0" required>
+                                     <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
                                 </div>
                             </div>
                         </div>
@@ -55,11 +55,11 @@
                             <div class="form-group">
                                 <label for="weight">Average weight per item</label>
                                 <div class="input-group">
-                                    <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="0" data-parsley-min="0" required>
+                                    <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" required> 
                                     <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                         <?php foreach ([
-                                            'lbs',
                                             'oz',
+                                            'lbs',
                                             'fl oz',
                                             'liters',
                                             'gallons'
@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" data-parsley-min="0" data-parsley-type="number" required>
+                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
                             </div>
                         </div>
 
