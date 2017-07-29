@@ -1,6 +1,6 @@
 $gray: #7f7f7f;
+$light-gray: lighten($gray, 20%);
 $dark-gray: darken($gray, 20%);
-// $gray: blue;
 
 div.alert {
     display: none;
@@ -54,7 +54,7 @@ form {
         color: $dark-gray;
 
         @include placeholder() {
-            color: $dark-gray;
+            color: $light-gray;
         }
     }
 
