@@ -63,6 +63,15 @@ try {
 
 
 /**
+ * GUMP Validator
+ **/
+
+// include 'vendor/wixel/gump/gump.class.php';
+$Gump = new GUMP();
+
+
+
+/**
  * AWS
  **/
 
@@ -81,6 +90,7 @@ $LOGGED_IN = isset($_SESSION['user']);
 
 if ($LOGGED_IN) {
     $USER = $_SESSION['user'];
+    
     $User = new User([
         'DB' => $DB,
         'id' => $USER['id']
