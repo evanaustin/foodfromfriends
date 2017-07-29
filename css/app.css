@@ -113,15 +113,15 @@ form input, form textarea, form select, form button {
 form .form-control {
   color: #4c4c4c; }
   form .form-control::-webkit-input-placeholder {
-    color: #4c4c4c; }
+    color: #b2b2b2; }
   form .form-control:-moz-placeholder {
-    color: #4c4c4c; }
+    color: #b2b2b2; }
   form .form-control::-moz-placeholder {
-    color: #4c4c4c; }
+    color: #b2b2b2; }
   form .form-control:-ms-input-placeholder {
-    color: #4c4c4c; }
+    color: #b2b2b2; }
   form .form-control.placeholder {
-    color: #4c4c4c; }
+    color: #b2b2b2; }
 form div.radio-box {
   margin: 0.5rem 0; }
   form div.radio-box span.custom-control-indicator {

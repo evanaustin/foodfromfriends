@@ -399,17 +399,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.31.2",
-        "version_normalized": "3.31.2.0",
+        "version": "3.32.1",
+        "version_normalized": "3.32.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "582e7764e0fa389c3248450cd6db2564dd656d99"
+            "reference": "ca8791495696a1620fe2275df4983d063627aba7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/582e7764e0fa389c3248450cd6db2564dd656d99",
-            "reference": "582e7764e0fa389c3248450cd6db2564dd656d99",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ca8791495696a1620fe2275df4983d063627aba7",
+            "reference": "ca8791495696a1620fe2275df4983d063627aba7",
             "shasum": ""
         },
         "require": {
@@ -440,7 +440,7 @@
             "ext-curl": "To send requests using cURL",
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages"
         },
-        "time": "2017-07-06T21:11:49+00:00",
+        "time": "2017-07-27T19:46:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -478,5 +478,45 @@
             "s3",
             "sdk"
         ]
+    },
+    {
+        "name": "wixel/gump",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Wixel/GUMP.git",
+            "reference": "50e26cd9c9c4d7904667d70e81b2c17010709ac4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Wixel/GUMP/zipball/50e26cd9c9c4d7904667d70e81b2c17010709ac4",
+            "reference": "50e26cd9c9c4d7904667d70e81b2c17010709ac4",
+            "shasum": ""
+        },
+        "time": "2017-07-25T15:40:27+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "gump.class.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sean Nieuwoudt",
+                "homepage": "https://wixelhq.com"
+            },
+            {
+                "name": "Filis Futsarov",
+                "homepage": "https://filis.me"
+            }
+        ],
+        "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
+        "homepage": "https://wixelhq.com/"
     }
 ]

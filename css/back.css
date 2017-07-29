@@ -79,4 +79,15 @@ body.back div.subheader {
 #other-option {
   display: none; }
 
+body.dashboard-exchange-settings-meetup form > div:not(#meetup-setting) {
+  display: none; }
+body.dashboard-exchange-settings-meetup .add-meetup {
+  display: none; }
+
+body.dashboard-exchange-settings-pickup form > div:not(#pickup-setting) {
+  display: none; }
+
+body.dashboard-exchange-settings-delivery form > div:not(#delivery-setting) {
+  display: none; }
+
 /*# sourceMappingURL=back.css.map */
