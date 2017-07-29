@@ -39,6 +39,21 @@ class FoodListing extends Base {
 
         return (isset($results)) ? $results : false;
     }
+
+    function other_exists($other) {
+        $results = $this->DB->run("
+            SELECT fc.title 
+            FROM food_categories fc
+            JOIN food_subcategories fsc
+                ON fc.id = fsc.food_category_id
+            WHERE fsc.title = :other
+            LIMIT 1
+        ", [
+            'other' => $other
+        ]);
+        
+        return (isset($results[0])) ? $results[0]['title'] : false;
+    }
 }
 
 ?>
