@@ -4,7 +4,8 @@ class FoodListing extends Base {
     
     protected
         $class_dependencies,
-        $DB;
+        $DB,
+        $S3;
         
     public
         $id,
@@ -17,6 +18,7 @@ class FoodListing extends Base {
 
         $this->class_dependencies = [
             'DB',
+            'S3'
         ];
 
         parent::__construct($parameters);
@@ -73,6 +75,17 @@ class FoodListing extends Base {
         ]);
         
         return (isset($results[0])) ? $results[0]['title'] : false;
+    }
+
+    public function add_image($fields, $file) {
+        $results = $this->DB->insert('food_listing_images', $fields);
+        
+        if (!isset($results)) return false;
+
+        $full_filename = 'user/' . $fields['filename'] . '.' . $fields['ext'];
+        $img_saved = $this->S3->save_object($full_filename, $file);
+
+        return (isset($img_saved)) ? $results : false;
     }
 }
 

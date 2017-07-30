@@ -17,8 +17,7 @@ $Gump->validation_rules([
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
 	'units'             => 'required|alpha',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean',
-	// 'listing-image'     => 'alpha_dash'
+	'is-available'      => 'required|boolean'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -35,8 +34,7 @@ $Gump->filter_rules([
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
 	'stock'             => 'trim|whole_number',
-	'description'       => 'trim|sanitize_string',
-	// 'listing-image'     => 'trim|sanitize_string'
+	'description'       => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -44,7 +42,8 @@ $prepared_data = $Gump->run($validated_data);
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $FoodListing = new FoodListing([
-    'DB' => $DB
+    'DB' => $DB,
+    'S3' => $S3
 ]);
 
 if ($other_subcategory) {
@@ -55,9 +54,7 @@ if ($other_subcategory) {
     }
 }
 
-// what if other value entered is an existing subcategory?
-
-$added = $FoodListing->add([
+$listing_added = $FoodListing->add([
     'user_id' => $User->id,
     'food_subcategory_id' => $food_subcategory,
     'other_subcategory' => strtolower($other_subcategory),
@@ -66,12 +63,25 @@ $added = $FoodListing->add([
     'units' => $units,
     'quantity' => $quantity,
     'is_available' => $is_available,
-    'description' => $description,
-    // 'image_path' => $listing_image
+    'description' => $description
 ]);
 
- if (!$added) {
+if (!$listing_added) {
     quit('Could not add listing');
+}
+
+// $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg' ? 'jpg' : 'png');
+// $img_name = 'fl.' . $listing_added['last_insert_id'] . '.fc.' . $food_category . '.fsc.' . (empty($other_subcategory) ? $food_subcategory : $other_subcategory) . '.u.' . $User->id;
+$file = file_get_contents($_FILES['listing-image']['tmp_name']);
+
+$img_added = $FoodListing->add_image([
+    'food_listing_id' => $listing_added['last_insert_id'],
+    'filename' => 'fl.' . $listing_added['last_insert_id'] . '.fc.' . $food_category . '.fsc.' . (empty($other_subcategory) ? $food_subcategory : $other_subcategory) . '.u.' . $User->id,
+    'ext' => (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg' ? 'jpg' : 'png')
+], $file);
+
+if (!$img_added) {
+    quit('Could not save image');
 }
     
 echo json_encode($json);

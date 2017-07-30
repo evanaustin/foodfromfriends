@@ -57,8 +57,14 @@ $('#add-listing').on('submit', function(e) {
     
     $form = $(this);
 
-    if ($(this).parsley().isValid()) {
-        App.Ajax.post('dashboard/food-listings/add-new', $form.serialize(), 
+    if (window.FormData){
+        data = new FormData($form[0]);
+    } else {
+        data = $form.serialize();
+    }
+
+    if ($form.parsley().isValid()) {
+        App.Ajax.postFiles('dashboard/food-listings/add-new', data, 
             function(response) {
                 toastr.success('Your listed has been created!');
                 
