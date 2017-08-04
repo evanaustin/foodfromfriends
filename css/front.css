@@ -180,18 +180,6 @@ body.home .search {
     background-size: 200px 200px;
     opacity: .2; }
 
-div.wrapper {
-  width: 100%; }
-  div.wrapper div.container {
-    width: 80%;
-    margin: 0 auto; }
-    div.wrapper div.container h1 {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 18px;
-      font-weight: bold;
-      font-family: sans-serif; }
-
 /**
 * Modal Styles
 **/

@@ -52,8 +52,7 @@ body.back div.sidebar {
 body.back main {
   padding: 0; }
 body.back div.subheader {
-  border-bottom: 1px solid #eee;
-  margin-bottom: 1.5rem; }
+  border-bottom: 1px solid #eee; }
   body.back div.subheader a.nav-link {
     padding: 15px 0;
     color: #8ca3ad;
@@ -76,6 +75,13 @@ body.back div.subheader {
 /**
 * View Styles
 **/
+body.back div.titlebar {
+  padding: 1em 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  font-weight: 100;
+  color: #4c4c4c; }
+
 #other-option {
   display: none; }
 

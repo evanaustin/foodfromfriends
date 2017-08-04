@@ -58,6 +58,14 @@ a:focus, button:focus {
     -moz-box-shadow: 0 0 0 transparent;
     box-shadow: 0 0 0 transparent; }
 
+div.card-deck {
+  margin-top: 2em; }
+  div.card-deck::first-child {
+    margin-top: 1em; }
+
+img.card-img-top {
+  width: 100%; }
+
 div.modal-content {
   border: 0px;
   -webkit-border-top-right-radius: 0;
@@ -151,6 +159,21 @@ form select.input-group-addon {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box; }
+form div.image-box {
+  cursor: pointer; }
+  form div.image-box img {
+    width: 100%;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    border-radius: 0.3rem; }
+  form div.image-box div.cropFrame {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    border-radius: 0.3rem; }
+  form div.image-box input[type="file"] {
+    position: absolute;
+    left: -9999px; }
 form .form-control-feedback {
   font-size: 0.75rem; }
 
