@@ -53,9 +53,21 @@ abstract class Base {
         }
     }
 
-    public function add($fields) {
-        $results = $this->DB->insert($this->table, $fields);
+    public function add($fields, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
         
+        $results = $this->DB->insert($table, $fields);
+        
+        return (isset($results)) ? $results : false;
+    }
+    
+    public function update($info, $field, $data) {
+        $results = $this->DB->update($this->table, $info, "{$field}=:data", [
+            'data' => $data
+        ]);
+
         return (isset($results)) ? $results : false;
     }
 }     
