@@ -23,21 +23,55 @@ class FoodListing extends Base {
 
         parent::__construct($parameters);
     
-        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
+        if (isset($parameters['id'])) {
+            $this->configure_object($parameters['id']);
+            $this->populate_fully($parameters['id']);
+        }
     }
 
-    function get_listings($user_id) {
+    private function populate_fully($id) {
         $results = $this->DB->run('
             SELECT 
                 fl.*,
                 fsc.title AS subcategory_title,
                 fsc.food_category_id,
-                fc.title AS category_title
+                fc.title AS category_title,
+                fli.filename,
+                fli.ext
             FROM food_listings fl
             LEFT JOIN food_subcategories fsc
                 ON fl.food_subcategory_id = fsc.id
             LEFT JOIN food_categories fc
                 ON fsc.food_category_id = fc.id
+            LEFT JOIN food_listing_images fli
+                ON fl.id = fli.food_listing_id
+            WHERE fl.id = :id
+            LIMIT 1
+        ', [
+            'id' => $id
+        ]);
+
+        if (!isset($results[0])) return false;
+
+        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+    }
+
+    public function get_listings($user_id) {
+        $results = $this->DB->run('
+            SELECT 
+                fl.*,
+                fsc.title AS subcategory_title,
+                fsc.food_category_id,
+                fc.title AS category_title,
+                fli.filename,
+                fli.ext
+            FROM food_listings fl
+            LEFT JOIN food_subcategories fsc
+                ON fl.food_subcategory_id = fsc.id
+            LEFT JOIN food_categories fc
+                ON fsc.food_category_id = fc.id
+            LEFT JOIN food_listing_images fli
+                ON fl.id = fli.food_listing_id
             WHERE fl.user_id = :user_id
         ', [
             'user_id' => $user_id
@@ -46,7 +80,7 @@ class FoodListing extends Base {
         return (isset($results[0])) ? $results : false;
     }
 
-    function get_categories() {
+    public function get_categories() {
         $results = $this->DB->run('
             SELECT * FROM food_categories
         ');
@@ -54,7 +88,7 @@ class FoodListing extends Base {
         return (isset($results)) ? $results : false;
     }
 
-    function get_subcategories() {
+    public function get_subcategories() {
         $results = $this->DB->run('
             SELECT * FROM food_subcategories
         ');
@@ -62,7 +96,7 @@ class FoodListing extends Base {
         return (isset($results)) ? $results : false;
     }
 
-    function other_exists($other) {
+    public function other_exists($other) {
         $results = $this->DB->run('
             SELECT fc.title 
             FROM food_categories fc
@@ -75,17 +109,6 @@ class FoodListing extends Base {
         ]);
         
         return (isset($results[0])) ? $results[0]['title'] : false;
-    }
-
-    public function add_image($fields, $file) {
-        $results = $this->DB->insert('food_listing_images', $fields);
-        
-        if (!isset($results)) return false;
-
-        $full_filename = 'user/' . $fields['filename'] . '.' . $fields['ext'];
-        $img_saved = $this->S3->save_object($full_filename, $file);
-
-        return (isset($img_saved)) ? $results : false;
     }
 }
 
