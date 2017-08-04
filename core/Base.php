@@ -53,10 +53,38 @@ abstract class Base {
         }
     }
 
-    public function add($fields) {
-        $results = $this->DB->insert($this->table, $fields);
+    public function add($fields, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+        
+        $results = $this->DB->insert($table, $fields);
         
         return (isset($results)) ? $results : false;
+    }
+
+    public function update($info, $field, $data, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+
+        $results = $this->DB->update($table, $info, "{$field}=:data", [
+            'data' => $data
+        ]);
+
+        return (isset($results)) ? $results : false;
+    }
+
+    public function add_image($filepath, $file) {
+        $img_saved = $this->S3->save_object($filepath, $file);
+
+        return (isset($img_saved)) ? $results : false;
+    }
+    
+    public function remove_image($filepath, $file) {
+        $img_saved = $this->S3->delete_objects($filepath, $file);
+
+        return (isset($img_saved)) ? $results : false;
     }
 }     
 
