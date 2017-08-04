@@ -24,6 +24,7 @@ foreach ([
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
+            'css/thirdparty/cropbox/cropbox',
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
@@ -45,12 +46,14 @@ foreach ([
             'node_modules/tether/dist/js/tether.min',
             'node_modules/parsleyjs/dist/parsley.min',
             'node_modules/toastr/build/toastr.min',
-            'js/thirdparty/bootstrap.min',
+            'js/thirdparty/bootstrap/bootstrap.min',
+            'js/thirdparty/cropbox/cropbox',
             'js/app',
             'js/ajax',
             'js/account',
             'js/bootstrap',
             'js/form',
+            'js/util',
             'js/domready'
         ]);
             
