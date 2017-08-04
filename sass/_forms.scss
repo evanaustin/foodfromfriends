@@ -1,7 +1,3 @@
-$gray: #7f7f7f;
-$light-gray: lighten($gray, 20%);
-$dark-gray: darken($gray, 20%);
-
 div.alert {
     display: none;
 }
@@ -82,6 +78,25 @@ form {
         padding-right: 1.5em;
         
         @include border-radius(0.25rem, 0.25rem, 0, 0);
+    }
+
+    div.image-box {
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            @include rounded(0.3rem);
+        }
+
+        div.cropFrame {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            @include rounded(0.3rem);
+        }
+
+        input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
     }
 
     .form-control-feedback {
