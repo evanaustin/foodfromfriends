@@ -7,21 +7,18 @@ if (ENV == 'prod' && (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on')) {
     exit();
 }
 
-$path = (empty($_GET['path']) ? 'splash' : $_GET['path']);
-$page = str_replace('/', '-', $path);
+$Routing = new Routing([
+    'path'      => $_GET['path'],
+    'landing'   => 'home',
+    'backside'  => [
+        'dashboard',
+        'stats',
+        'profile',
+        'account'
+        // 'messages'
+    ]
+]);
 
-$template       = SERVER_ROOT . 'routes/template.php';
-$initializer    = SERVER_ROOT . 'routes/initializers/' . $path . '.php';
-
-$body = [
-    // 'header'    => SERVER_ROOT . 'routes/components/header.php',
-    'view'      => SERVER_ROOT . 'routes/views/' . $path . '.php',
-    'footer'    => SERVER_ROOT . 'routes/components/footer.php',
-    'modal'     => SERVER_ROOT . 'routes/modals/' . $path . '.php',
-];
-
-$localScript    = 'js/views/' . $path;
-
-include $template;
+include SERVER_ROOT . 'routes/template.php';
 
 ?>

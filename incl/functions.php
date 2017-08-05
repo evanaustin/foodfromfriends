@@ -19,8 +19,13 @@ function layer($language, $files) {
     }
 }
 
-function img($path, $ext, $class = "") {
-    echo '<img src="media/' . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
+function img($path, $ext, $server = 'local', $class = '') {
+    echo '<img src="' . (($server == 'local') ? PUBLIC_ROOT . 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
+}
+
+function svg($path) {
+    $src = 'media/' . $path . '.svg';
+    echo file_get_contents($src);
 }
 
 function quit($message) {

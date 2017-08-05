@@ -1,6 +1,8 @@
 /**
 * Fonts
 **/
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i");
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i");
 @font-face {
   font-family: 'Signika';
   src: url("../fonts/signika/Signika-Regular-webfont.eot");
@@ -26,62 +28,53 @@
   font-weight: 700;
   font-style: normal; }
 @font-face {
-  font-family: 'Cherie Bomb';
-  src: url("../cherie-bomb/CherieBomb-Regular.otf") format("otf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Gineva';
-  src: url("../gineva/gineva-regular-webfont.woff2") format("woff2"), url("../gineva/gineva-regular-webfont.woff") format("woff"), url("../gineva/Gineva-Regular.otf") format("otf"), url("../gineva/Gineva-Regular.ttf") format("ttf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Lucky Dream';
-  src: url("../lucky-dream/lucky_dream-webfont.woff2") format("woff2"), url("../lucky-dream/lucky_dream-webfont.woff") format("woff"), url("../lucky-dream/Lucky Dream.otf") format("otf"), url("../lucky-dream/Lucky Dream.ttf") format("ttf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Twin Pines';
-  src: url("../twin-pines/twinpines-regular.woff2") format("woff2"), url("../twin-pines/twinpines-regular.woff") format("woff"), url("../twin-pines/twinpines-regular.svg") format("svg"), url("../twin-pines/twinpines-regular.eot") format("eot"), url("../twin-pines/Twin Pines-regular.otf") format("otf"), url("../twin-pines/Twin Pines-regular.ttf") format("ttf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Scenders';
-  src: url("../scenders/Scenders-Regular.woff") format("woff"), url("../scenders/Scenders-Regular.svg") format("svg"), url("../scenders/Scenders-Regular.eot") format("eot"), url("../scenders/Scenders-Regular.otf") format("otf"), url("../scenders/Scenders-Regular.ttf") format("ttf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Snap Dragon';
-  src: url("../Snap-Dragon.otf") format("otf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
   font-family: 'Riya';
-  src: url("../Riya-Black.otf") format("otf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Le Fontaine';
-  src: url("../LeFontaine-Regular.otf") format("otf");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'Coffee';
-  src: url("../I-Need-Coffee.otf") format("otf");
-  font-weight: normal;
+  src: url("../fonts/riya/Riya-Black.woff") format("woff"), url("../fonts/riya/Riya-Black.otf") format("otf");
+  font-weight: 400;
   font-style: normal; }
 /**
-* Mixins
+* Dependencies
 **/
 /**
-* General & Colors
+* Universal
 **/
 body {
   margin: 0;
-  font-family: 'Signika'; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #404040; }
 
-button {
-  cursor: pointer; }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: inherit; }
+
+a:focus, button:focus {
+  outline: 0; }
+
+.btn {
+  cursor: pointer;
+  font-weight: inherit; }
+  .btn:focus, .btn.focus {
+    -webkit-box-shadow: 0 0 0 transparent;
+    -moz-box-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent; }
+
+div.modal-content {
+  border: 0px;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
 
 .align-left {
   text-align: left; }
@@ -89,6 +82,7 @@ button {
 .align-right {
   text-align: right; }
 
+<<<<<<< HEAD
 /**
 * Component Styles
 **/
@@ -271,6 +265,111 @@ div.wrapper {
       font-size: 18px;
       font-weight: bold;
       font-family: sans-serif; }
+=======
+div.alert {
+  display: none; }
+
+form label:not(.custom-radio):not(.custom-file) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  color: #7f7f7f; }
+form label.custom-file {
+  width: 100%; }
+  form label.custom-file input {
+    cursor: pointer; }
+  form label.custom-file span.custom-file-control {
+    cursor: pointer;
+    height: calc(2.25rem + 2px);
+    line-height: 1.25; }
+    form label.custom-file span.custom-file-control:before {
+      height: inherit;
+      line-height: inherit; }
+    form label.custom-file span.custom-file-control:after {
+      cursor: pointer;
+      content: attr(data-content) !important;
+      color: #4c4c4c; }
+form input, form textarea, form select, form button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300; }
+  form input:focus, form textarea:focus, form select:focus, form button:focus {
+    outline: 0; }
+form .form-control {
+  color: #4c4c4c; }
+  form .form-control::-webkit-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control::-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-ms-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control.placeholder {
+    color: #4c4c4c; }
+form div.radio-box {
+  margin: 0.5rem 0; }
+  form div.radio-box span.custom-control-indicator {
+    top: 0.2rem; }
+form div.input-group-btn .btn {
+  background-color: #eceeef; }
+form select.input-group-addon {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right 50%;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+  padding: .5em;
+  padding-right: 1.5em;
+  -webkit-border-top-right-radius: 0.25rem;
+  -webkit-border-bottom-right-radius: 0.25rem;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0.25rem;
+  -moz-border-radius-bottomright: 0.25rem;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
+form .form-control-feedback {
+  font-size: 0.75rem; }
+
+/**
+* Component Styles
+**/
+nav#header.navbar {
+  background-color: #fff;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee; }
+  nav#header.navbar a.navbar-brand {
+    height: 40px;
+    line-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0; }
+    nav#header.navbar a.navbar-brand svg {
+      height: 40px !important;
+      width: 320px !important; }
+  nav#header.navbar li.nav-item div.profile {
+    height: 40px;
+    width: 40px;
+    border: 2px solid #f2f2f2;
+    background-image: url("https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg");
+    background-size: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%; }
+  nav#header.navbar div.dropdown-menu {
+    margin-top: 0.75rem;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-color: #eee; }
+>>>>>>> grower_dashboard
 
 div.placeholder {
   width: 100%;

@@ -7,6 +7,7 @@ class User extends Base {
         $DB;
         
     public
+        $table,
         $id,
         $email,
         $password,
@@ -17,6 +18,8 @@ class User extends Base {
         $is_admin;
     
     function __construct($parameters) {
+        $this->table = 'users';
+
         $this->class_dependencies = [
             'DB',
         ];
@@ -26,55 +29,25 @@ class User extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
     
-    private function configure_object($id) {
-        $bind = [
-            'id' => $id
-        ];
-        
-        $results = $this->DB->run('
-            SELECT * FROM users WHERE id=:id LIMIT 1
-        ', $bind);
-
-        if (!isset($results[0])) return false;
-
-        foreach ($results[0] as $k => $v) $this->{$k} = $v;
-    }
-    
-    public function add($fields) {
-        $results = $this->DB->insert('users', $fields);
-        
-        return (isset($results)) ? $results : false;
-    }
-    
-    public function exists($email) {
-        $bind = [
-            'email' => $email
-        ];
-        
-        $results = $this->DB->run('
-            SELECT * FROM users WHERE email=:email LIMIT 1
-        ', $bind);
-        
-        return (isset($results[0])) ? true : false;
-    }
-
-    public function authenticate($data) {
-        $bind = [
-            'email' => $data['email'],
-            'password' => hash('sha256', $data['password']) 
-        ];
-
+    public function authenticate($email, $password) {
         $results = $this->DB->run('
             SELECT * FROM users WHERE email=:email AND password=:password LIMIT 1
-        ', $bind);
+        ', [
+            'email' => $email,
+            'password' => hash('sha256', $password) 
+        ]);
 
         if (isset($results[0])) {
-            $_SESSION['user']['id'] = $results[0]['id'];
-
-            return true;
+            return $this->log_in($results[0]['id']);
         }
         
         return false;
+    }
+
+    public function log_in($id) {
+        $_SESSION['user']['id'] = $id;
+
+        return ($_SESSION['user']['id']) ? true : false;
     }
 
     public function log_out() {

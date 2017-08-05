@@ -6,15 +6,16 @@
 @import 'custom-fonts';
 
 /**
-* Mixins
+* Dependencies
 **/
 @import 'mixins';
+@import 'colors';
 
 /**
-* General & Colors
+* Universal
 **/
 @import 'general';
-@import 'colors';
+@import 'forms';
 
 /**
 * Component Styles

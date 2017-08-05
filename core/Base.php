@@ -8,23 +8,33 @@ abstract class Base {
             if (isset($parameters[$class])) $this->{$class} = $parameters[$class];
         }
     }
-    
-    public function exists($table, $field, $data) {
-        $bind = [
-            'data' => $data
-        ];
 
+    protected function configure_object($id) {
         $results = $this->DB->run("
-            SELECT * FROM {$table} WHERE {$field}=:data LIMIT 1
-        ", $bind);
+            SELECT * FROM {$this->table} WHERE id=:id LIMIT 1
+        ", [
+            'id' => $id
+        ]);
+        
+        if (!isset($results[0])) return false;
+
+        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+    }
+
+    public function exists($field, $data) {
+        $results = $this->DB->run("
+            SELECT * FROM {$this->table} WHERE {$field}=:data LIMIT 1
+        ", [
+            'data' => $data
+        ]);
         
         return (isset($results[0])) ? true : false;
     }
 
-    public function retrieve($table, $field = null, $data = null) {
+    public function retrieve($field = null, $data = null) {
         if (!isset($field) && !isset($data)) {
             $results = $this->DB->run("
-                SELECT * FROM {$table}  
+                SELECT * FROM {$this->table}  
             ");
         
             return (isset($results)) ? $results : false;
@@ -34,7 +44,7 @@ abstract class Base {
             ];
             
             $results = $this->DB->run("
-                SELECT * FROM {$table} WHERE {$field}=:data 
+                SELECT * FROM {$this->table} WHERE {$field}=:data 
             ", $bind);
             
             return (isset($results)) ? $results : false;
@@ -43,9 +53,21 @@ abstract class Base {
         }
     }
 
-    public function add($table, $fields) {
+    public function add($fields, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+        
         $results = $this->DB->insert($table, $fields);
         
+        return (isset($results)) ? $results : false;
+    }
+    
+    public function update($info, $field, $data) {
+        $results = $this->DB->update($this->table, $info, "{$field}=:data", [
+            'data' => $data
+        ]);
+
         return (isset($results)) ? $results : false;
     }
 }     

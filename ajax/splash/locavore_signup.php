@@ -31,6 +31,14 @@ if (!$exists) {
     quit('<i class="fa fa-exclamation-triangle"></i> This email is already in use.');
 }
 
+$Mail = new Mail([
+    'fromName' => 'Food From Friends',
+    'fromEmail' => 'foodfromfriendsco@gmail.com',
+    'toEmail' => $email
+]);
+
+$json['mail'] = $Mail->thanks_locavore_signup(); 
+
 echo json_encode($json);
 
 ?>
