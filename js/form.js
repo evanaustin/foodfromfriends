@@ -24,10 +24,11 @@ App.Form = function() {
             this.$element.addClass('form-control-success');
         });
 
+
         /*
         * File input
         */
-        $('input[type="file"][data-toggle="custom-file"]').on('change', function (ev) {
+        $('input[type="file"][data-toggle="custom-file"]').on('change', function(ev) {
             const $input = $(this);
             const target = $input.data('target');
             const $target = $(target);
