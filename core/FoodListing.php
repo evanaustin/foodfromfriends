@@ -8,7 +8,6 @@ class FoodListing extends Base {
         
     public
         $id,
-<<<<<<< HEAD
         $user_id,
         $food_subcategory_id,
         $price,
@@ -16,24 +15,17 @@ class FoodListing extends Base {
         $description;
      
         
-    
-    function __construct($parameters) {
-=======
-        $food_subcategory,
-        $price,
-        $description;
-     
     function __construct($parameters) {
         $this->table = 'food_listings';
 
->>>>>>> grower_dashboard
+
         $this->class_dependencies = [
             'DB',
         ];
 
         parent::__construct($parameters);
     
-<<<<<<< HEAD
+
         if (isset($parameters['user_id'])) $this->configure_object($parameters['user_id']);
     }
 
@@ -54,10 +46,9 @@ class FoodListing extends Base {
         return (isset($foodlistings)) ? $foodlistings : false;
         }
 
-        }   
+           
 
-    }
-=======
+
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 
@@ -77,6 +68,7 @@ class FoodListing extends Base {
         return (isset($results)) ? $results : false;
     }
 }
->>>>>>> grower_dashboard
+
+
 
 ?>
