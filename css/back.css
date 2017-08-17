@@ -49,9 +49,8 @@ body.back div.sidebar {
   body.back div.sidebar div.collapse {
     background-color: #f9f9fe; }
 
-body.back main {
-  padding: 0; }
 body.back div.subheader {
+  background-color: #fff;
   border-bottom: 1px solid #eee; }
   body.back div.subheader a.nav-link {
     padding: 15px 0;
@@ -75,15 +74,43 @@ body.back div.subheader {
 /**
 * View Styles
 **/
-body.back div.titlebar {
-  padding: 1em 0;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
-  font-weight: 100;
-  color: #4c4c4c; }
-
-#other-option {
-  display: none; }
+body.back {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em));
+  /* footer font-size + footer padding + link padding */ }
+  body.back div.container-fluid {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0; }
+    body.back div.container-fluid > div.row {
+      flex-grow: 1; }
+  body.back main {
+    padding: 0;
+    background-color: #fafafb; }
+    body.back main div.page-title {
+      padding: 0.5rem 0;
+      font-weight: 400;
+      color: #4c4c4c; }
+    body.back main div.controls {
+      float: right;
+      margin: 0.5rem 0; }
+      body.back main div.controls .btn {
+        display: block;
+        min-width: 175px;
+        color: #fff;
+        font-size: 0.875rem; }
+        body.back main div.controls .btn:first-child {
+          margin-bottom: 0.5rem; }
+        body.back main div.controls .btn i.pre {
+          float: left; }
+        body.back main div.controls .btn i.post {
+          margin-top: 1px;
+          float: right; }
+    body.back main div.main.container {
+      padding: 15px;
+      margin-bottom: 1.75rem; }
 
 body.dashboard-exchange-settings-meetup form > div:not(#meetup-setting) {
   display: none; }
@@ -95,5 +122,41 @@ body.dashboard-exchange-settings-pickup form > div:not(#pickup-setting) {
 
 body.dashboard-exchange-settings-delivery form > div:not(#delivery-setting) {
   display: none; }
+
+div.listings div.col-md-4:nth-child(-n+3) div.card {
+  margin-top: 0.25em; }
+div.listings div.col-md-4:nth-child(n+4) div.card {
+  margin-top: 2em; }
+
+div.card-block {
+  padding: 0; }
+  div.card-block h6.card-subtitle {
+    color: #b2b2b2;
+    padding: 0.25rem 0; }
+  div.card-block p.card-text {
+    margin-top: 0.25rem;
+    color: #7f7f7f; }
+    div.card-block p.card-text span.quantity {
+      padding: 0.15rem 0.25rem;
+      -webkit-border-radius: 0.15rem;
+      -moz-border-radius: 0.15rem;
+      border-radius: 0.15rem; }
+
+div.listing-info {
+  flex-grow: 2;
+  justify-content: center;
+  padding: 1.25rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.15); }
+
+div.listing-controls {
+  flex-grow: 1; }
+  div.listing-controls a {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; }
+    div.listing-controls a:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
 
 /*# sourceMappingURL=back.css.map */
