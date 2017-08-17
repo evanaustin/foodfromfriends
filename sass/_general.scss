@@ -1,4 +1,17 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
 body {
+    position: relative;
+    min-height: 100%;
     margin: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
@@ -24,16 +37,13 @@ a, button {
     }
 }
 
-div.card-deck {
-    margin-top: 2em;
-
-    &::first-child {
-        margin-top: 1em;
-    }
+div.card {
+    flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
 }
 
 img.card-img-top {
     width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 div.modal-content {
@@ -47,4 +57,17 @@ div.modal-content {
 
 .align-right {
     text-align: right;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexgrow {
+    flex-grow: 1;
+}
+
+.hidden {
+    display: none !important;
 }
