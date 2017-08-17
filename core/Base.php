@@ -63,6 +63,18 @@ abstract class Base {
         return (isset($results)) ? $results : false;
     }
 
+    public function delete($field, $data, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+
+        $success = $this->DB->delete($table, "{$field}=:data", [
+            'data' => $data
+        ]);
+
+        return ($success) ? true : false;
+    }
+
     public function update($info, $field, $data, $table = null) {
         if (!isset($table)) {
             $table = $this->table;
