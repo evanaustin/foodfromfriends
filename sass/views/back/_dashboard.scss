@@ -1,15 +1,62 @@
 body.back {
-    div.titlebar {
-        padding: 1em 0;
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid $off-white;
-        font-weight: 100;
-        color: $dark-gray;
-    }
-}
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em)); /* footer font-size + footer padding + link padding */
 
-#other-option {
-    display: none;
+    div.container-fluid {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: 0;
+
+        > div.row {
+            flex-grow: 1;
+        }
+    }
+
+    main {
+        padding: 0;
+        background-color: #fafafb;
+        
+        div.page-title {
+            padding: 0.5rem 0;
+            // font-weight: 100;
+            font-weight: 400;
+            color: $dark-gray;
+        }
+
+        div.controls {
+            float: right;
+            margin: 0.5rem 0;
+
+            .btn {
+                display: block;
+                min-width: 175px;
+                color: #fff;
+                font-size: 0.875rem;
+
+                &:first-child {
+                    margin-bottom: 0.5rem;
+                }
+
+                i {
+                    &.pre {
+                        float: left;
+                    }
+                    
+                    &.post {
+                        margin-top: 1px;
+                        float: right;
+                    }
+                }
+            }
+        }
+    
+        div.main.container {
+            padding: 15px;
+            margin-bottom: 1.75rem;
+        }
+    }
 }
 
 body.dashboard-exchange-settings-meetup{
