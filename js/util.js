@@ -27,7 +27,7 @@ App.Util = function() {
     } */
     
     function msg(message, alert_type) {
-        $('div.alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-' + alert_type).text(message).show();
+        $('div.alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-' + alert_type).html(message).fadeIn();
     }
 
     // Leave msg_type blank to clear all alerts
@@ -37,16 +37,16 @@ App.Util = function() {
         var msg_type = msg_type || 'all';
         switch (msg_type) {
             case 'all':
-                fadeAndRemove(container + '.alert');
+                $(container + '.alert').fadeOut();
                 break;
             case 'error':
-                fadeAndRemove(container + '.alert-danger');
+                $(container + '.alert-danger').fadeOut();
                 break;
             case 'success':
-                fadeAndRemove(container + '.alert-success');
+                $(container + '.alert-success').fadeOut();
                 break;
             case 'info':
-                fadeAndRemove(container + '.alert-info');
+                $(container + '.alert-info').fadeOut();
                 break;
         }
     }
@@ -57,32 +57,42 @@ App.Util = function() {
         });
     };
 
-    // ************************************************************************
-    // * LOADING: NEW STYLE
-    // * Use font-awesome spinner icon if it exists.  If it doesn't, use 
-    // * the old PNG image
-    // * TODO: update all loading spinners to the <i> then remove cruft here
-    // ************************************************************************
+    function animation(element, animation, direction = undefined, remove = false, rmEl = undefined) {
+        element.addClass('animated ' + animation);
+
+        if (direction == 'in') {
+            element.removeClass('hidden');
+        }
+
+        element.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+            element.removeClass('animated ' + animation);
+
+            if (direction == 'out') {
+                element.addClass('hidden');
+            }
+            
+            if (remove === true) {
+                if (rmEl !== undefined) {
+                    rmEl.remove();
+                } else {
+                    element.remove();
+                }
+            }
+        });
+    }
 
     function loading(element, display_type) {
         var spinner = element || '';
 
         if ($('i.loading-icon' + spinner).length > 0) {
-            $('i.loading-icon' + spinner).fadeIn(200).css('display', 'inline-block');
-        } else {
-            var spinner      = element || '.loading';
-            var display_type = display_type || 'block';
-            $(spinner).css('display', display_type).fadeIn(200);
+            $('i.loading-icon' + spinner).css('visibility', 'visible').css('opacity', '1');
         }
     }
 
     function finishedLoading(element) {
         var spinner = element || '';
         if ($('i.loading-icon' + spinner).length > 0) {
-            $('i.loading-icon' + spinner).fadeOut(200);
-        } else {
-            var spinner = element || '.loading';
-            $(spinner).fadeOut(200);
+            $('i.loading-icon' + spinner).css('visibility', 'hidden').css('opacity', '0');
         }
     }
 
@@ -297,13 +307,6 @@ App.Util = function() {
         $('html,body').animate({scrollTop: anchor.offset().top - $('header').height() + slider_offset}, 'slow');
     };
 
-    function alignCarouselIndicators() {
-        var coefficient = 10;
-        var num_bullets = $('.carousel-indicators.bwc li').length;
-        var width = coefficient * num_bullets + 'px';
-        $('.carousel-indicators.bwc').css('marginLeft', '-'+width);
-    };
-
     // JS doesn't have multidimensional arrays, it has objects.
     // Use this function to return the length of an object.
     function objectLength(obj) {
@@ -382,7 +385,6 @@ App.Util = function() {
     }
 
     function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback, cancelCallback) {
-
         var confirmModal = 
           $('<div class="modal hide fade">' +    
               '<div class="modal-header">' +
@@ -879,18 +881,22 @@ App.Util = function() {
         loadRetinaGraphics: loadRetinaGraphics,
         msg: msg,
         hideMsg: hideMsg,
-        htmlDecode: htmlDecode,
-        parseVideoURL: parseVideoURL,
-        parseURL: parseURL,
-        isNumber: isNumber,
-        mailto: mailto,
-        appendUserAgentClasses: appendUserAgentClasses,
-        userAgent: getUA,
-        scrollToAnchor: scrollToAnchor,
-        alignCarouselIndicators: alignCarouselIndicators,
-        objectLength: objectLength,
+        fadeAndRemove: fadeAndRemove,
+        animation: animation,
         loading: loading,
         finishedLoading: finishedLoading,
+        htmlDecode: htmlDecode,
+        parseVideoURL: parseVideoURL,
+        urlParams: urlParams,
+        parseURL: parseURL,
+        rot13: rot13,
+        mailto: mailto,
+        browserDetect: BrowserDetect,
+        userAgent: getUA,
+        appendUserAgentClasses: appendUserAgentClasses,
+        scrollToAnchor: scrollToAnchor,
+        objectLength: objectLength,
+        isNumber: isNumber,
         convertToSlug: convertToSlug,
         scrollToTop: scrollToTop,
         closePopovers: closePopovers,
@@ -902,10 +908,10 @@ App.Util = function() {
         saveTabState: saveTabState,
         fixFixedPositioning: fixFixedPositioning,
         trim: trim,
+        arraysEqual: arraysEqual,
         extractMarkdown: extractMarkdown,
         slideOver: slideOver,
         d: d,
-        arraysEqual: arraysEqual,
         getISOString: getISOString,
         confirmAnalyticsIdentity: confirmAnalyticsIdentity,
         formatDollarAmount: formatDollarAmount,
