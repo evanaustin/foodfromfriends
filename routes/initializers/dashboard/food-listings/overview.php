@@ -6,4 +6,6 @@ $FoodListing = new FoodListing([
 
 $listings = $FoodListing->get_listings($User->id);
 
+$listing_count = count(array_filter($listings));
+
 ?>
