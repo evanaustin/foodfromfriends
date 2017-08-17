@@ -54,45 +54,148 @@ if (!$listing_edited) {
     quit('Could not edit listing');
 }
 
-$file = file_get_contents($_FILES['listing-image']['tmp_name']);
-$filename = 'fl.' . $id . '.fc.' . $FoodListing->food_category_id . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $$FoodListing->other_subcategory) . '.u.' . $User->id;
-$ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
+$Image = new Image();
 
-// check file size
+if (isset($_POST['images'])) {
+    // decode stringified JSON
+    $_POST['images'] = html_entity_decode($_POST['images']);
+    $images = json_decode($_POST['images'], true);
 
-// check file type
-
-// check other stuff
-
-// crop file dimensions
-
-if (!empty($FoodListing->filename)) {
-    $img_removed = $S3->delete_objects([
-        'user/' . $FoodListing->filename . $FoodListing->ext
-    ], $file);
-
-    if (!$img_removed) quit('Could not remove old image');
-    
-    $record_edited = $FoodListing->update([
-        'ext' => $ext
-    ], 'id', $id, 'food_listing_images');
-
-    if (!$record_edited) quit('Could not edit image record');
-} else {
-    $record_added = $FoodListing->add([
-        'food_listing_id' => $id,
-        'filename' => $filename,
-        'ext' => $ext
-    ], 'food_listing_images');
-
-    if (!$record_added) {
-        quit('Could not add image record');
+    // make sure the user didn't tamper with the data
+    if (!ctype_digit((string)$images['frame']['w']) || !ctype_digit((string)$images['frame']['h'])) {
+        quit('We were unable to crop your images');
     }
+
+    // only one image so key is always 0
+    $key = 0;
+
+    // get image
+    $image = $images['images'][$key];
+
+    // validate image
+    $valid = validate_image($image);
+
+    if (!$valid) {
+        quit($valid);
+    }
+
+    // compile file data
+    $file = [
+        'name' => $_FILES['img' . $image['key']]['name'],
+        'type' => $_FILES['img' . $image['key']]['type'],
+        'tmp'  => $_FILES['img' . $image['key']]['tmp_name'],
+        'size' => $_FILES['img' . $image['key']]['size']
+    ];
+    
+    // set filename
+    $filename = 'fl.' . $id . '.fc.' . $FoodListing->food_category_id . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $FoodListing->other_subcategory) . '.u.' . $User->id;
+    
+    // determine file type
+    $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';
+
+    // set temporary storage paths
+    $tmp1 = SERVER_ROOT . 'media/tmp/food-listings/';
+    $tmp2 = SERVER_ROOT . 'media/tmp/final/';
+
+    // set temporary image names
+    $tmp1_image = $tmp1 . $filename . '.' . $ext;
+    $tmp2_image = $tmp2 . $filename . '.' . $ext;
+
+    // temporarily store the file
+    move_uploaded_file($file['tmp'], $tmp1_image);
+
+    // convert to JPG if PNG
+    if ($ext == 'png') {
+        // Since this is the first time we open the file, ensure that it isn't
+        // corrupted at this point with a temporary custom error handler.
+        // Don't forget to call restore_error_handler() after checking.
+        set_error_handler(function($errno, $errstr, $errfile, $errline, array $errcontext) {
+            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        });
+
+        try {
+            $Image->load($tmp1_image);
+            $jpg_filesize = $Image->convert_png_to_jpg($tmp1 . $filename . '.jpg');
+        } catch(ErrorException $e) {
+            quit('We were unable to process your image');
+        }
+        
+        restore_error_handler();
+
+        // proceed with the smaller file
+        if ($jpg_filesize < $file['size']) {
+            // delete the PNG
+            if (file_exists($tmp1_image)) {
+                unlink($tmp1_image);
+            }
+
+            // set up the JPG as the image to proceed with
+            $tmp1_image = $tmp1 . $filename . '.jpg';
+            $tmp2_image = $tmp2 . $filename . '.jpg';
+        } else {
+            // delete the JPG
+            if (file_exists($tmp1 . $filename . '.jpg')) {
+                unlink($tmp1 . $filename . '.jpg');
+            }
+        }
+    }
+
+    list($true_width, $true_height, $type, $attr) = getimagesize($tmp1_image);
+
+    if ($image['crop']['x'] == 0 
+    && $image['crop']['y'] == 0
+    && $image['crop']['w'] == $true_width
+    && $image['crop']['h'] == $true_height
+    ) {
+        copy($tmp1_image, $tmp2_image);
+    } else {
+        $Image->load($tmp1_image);
+        $Image->crop($image['crop']['x'], $image['crop']['y'], $image['crop']['w'], $image['crop']['h']);
+        $Image->save($tmp2_image);
+    }
+
+    $final = [
+        'w' => 630,
+        'h' => 540,
+        'file' => $tmp2 . $filename . '.cropped.' . $ext
+    ];
+
+    if ($true_width == $final['w'] && $true_height == $final['h']) {
+        copy($tmp2_image, $final['file']);
+    } else {
+        $Image->load($tmp2_image);
+        $Image->resize($final['w'], $final['h'], 'exact');
+        $Image->save($final['file']);
+    }
+
+    if (!empty($FoodListing->filename)) {
+        $record_edited = $FoodListing->update([
+            'ext' => $ext
+        ], 'id', $id, 'food_listing_images');
+
+        if (!$record_edited) quit('Could not edit image record');
+        
+        $img_removed = $S3->delete_objects([
+            'user/' . $FoodListing->filename . $FoodListing->ext
+        ], $file);
+    } else {
+        $record_added = $FoodListing->add([
+            'food_listing_id' => $id,
+            'filename' => $filename,
+            'ext' => $ext
+        ], 'food_listing_images');
+
+        if (!$record_added) {
+            quit('Could not add image record');
+        }
+    }
+
+    $img_added = $S3->save_object('user/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+
+    if (!$img_added) quit('Could not add new image');
+
+    // unlink tmp imgs
 }
-
-$img_added = $S3->save_object('user/' . $filename . '.' . $ext, $file);
-
-if (!$img_added) quit('Could not add new image');
 
 echo json_encode($json);
 
