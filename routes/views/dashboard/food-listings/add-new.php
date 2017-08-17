@@ -1,18 +1,36 @@
 <!-- cont div.container-fluid -->
     <!-- cont div.row -->
         <!-- cont main -->
-            <div class="titlebar">
-                <div class="container">
-                    Add new food listing
+            <div class="main container animated fadeIn">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title">
+                            Add new food listing
+                        </div>
+
+                        <div class="page-description text-muted small">
+                            Yippie-ki-yay! Let's list some food. Select a food type (or create your own), enter the listing details, and upload an image. Only foods marked as available can be purchased by buyers.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="controls">
+                            <button type="submit" form="add-listing" class="btn btn-primary">
+                                <i class="pre fa fa-upload"></i>
+                                Create listing
+                                <i class="post fa fa-gear loading-icon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="container">
+                
+                <hr>
+
                 <div class="alert"></div>
 
                 <form id="add-listing" data-parsley-validate>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12"> 
                                     <label for="food-categories">What kind of food do you have?</label>
@@ -39,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <div id="other-option" class="form-group">
+                            <div id="other-option" class="form-group hidden">
                                 <label for="other-subcategory">Can't find the food you're trying to list?</label>
                                 <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
                             </div>
@@ -100,10 +118,22 @@
                              </div> 
                         </div>
 
-                        <div class="col-md-5">
-                            <div class="image-box">
-                                <?php img('placeholders/default-thumbnail', 'jpg', 'local', 'file'); ?>
-                                <input type="file" name="listing-image" accept="image/png/jpg">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Listing photo</label>
+                                    
+                                <a href="" class="remove-image float-right hidden" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
+
+                                <div class="image-box slide-over">
+                                    <?php img('placeholders/default-thumbnail', 'jpg', 'local', 'file'); ?>
+                                    
+                                    <input type="file" name="listing-image" accept="image/png/jpg">
+                                    
+                                    <div class="overlay-slide">
+                                        <i class="fa fa-camera"></i>
+                                        Add new listing photo
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -112,20 +142,6 @@
                         <label for="description">Listing description</label>
                         <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"></textarea>
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label>Upload a listing image</label>
-                        <div id="listing-image">
-                            <label class="custom-file">
-                                <input id="listing-file" type="file" name="listing-image" class="custom-file-input" accept="image/png/jpg" data-toggle="custom-file" data-target="#file-upload-value">
-                                <span id="file-upload-value" class="custom-file-control" data-content="Upload listing image&hellip;"></span>
-                            </label>
-                        </div>
-                    </div> -->
-
-                    <button type="submit" class="btn btn-primary btn-block btn-lg">
-                        Create listing
-                    </button>
                 </form>
             </div> <!-- end main -->
         </div> <!-- end div.row -->
