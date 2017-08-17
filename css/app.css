@@ -82,18 +82,109 @@ div.modal-content {
 .align-right {
   text-align: right; }
 
-<<<<<<< HEAD
+div.alert {
+  display: none; }
+
+form label:not(.custom-radio):not(.custom-file) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  color: #7f7f7f; }
+form label.custom-file {
+  width: 100%; }
+  form label.custom-file input {
+    cursor: pointer; }
+  form label.custom-file span.custom-file-control {
+    cursor: pointer;
+    height: calc(2.25rem + 2px);
+    line-height: 1.25; }
+    form label.custom-file span.custom-file-control:before {
+      height: inherit;
+      line-height: inherit; }
+    form label.custom-file span.custom-file-control:after {
+      cursor: pointer;
+      content: attr(data-content) !important;
+      color: #4c4c4c; }
+form input, form textarea, form select, form button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300; }
+  form input:focus, form textarea:focus, form select:focus, form button:focus {
+    outline: 0; }
+form .form-control {
+  color: #4c4c4c; }
+  form .form-control::-webkit-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control::-moz-placeholder {
+    color: #4c4c4c; }
+  form .form-control:-ms-input-placeholder {
+    color: #4c4c4c; }
+  form .form-control.placeholder {
+    color: #4c4c4c; }
+form div.radio-box {
+  margin: 0.5rem 0; }
+  form div.radio-box span.custom-control-indicator {
+    top: 0.2rem; }
+form div.input-group-btn .btn {
+  background-color: #eceeef; }
+form select.input-group-addon {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right 50%;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+  padding: .5em;
+  padding-right: 1.5em;
+  -webkit-border-top-right-radius: 0.25rem;
+  -webkit-border-bottom-right-radius: 0.25rem;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0.25rem;
+  -moz-border-radius-bottomright: 0.25rem;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
+form .form-control-feedback {
+  font-size: 0.75rem; }
+
 /**
 * Component Styles
 **/
-#header {
-  position: absolute;
-  background: white;
-  width: 100%;
-  padding: 10px 25px;
-  text-align: left; }
-  #header img {
-    width: 55px; }
+nav#header.navbar {
+  background-color: #fff;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee; }
+  nav#header.navbar a.navbar-brand {
+    height: 40px;
+    line-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0; }
+    nav#header.navbar a.navbar-brand svg {
+      height: 40px !important;
+      width: 320px !important; }
+  nav#header.navbar li.nav-item div.profile {
+    height: 40px;
+    width: 40px;
+    border: 2px solid #f2f2f2;
+    background-image: url("https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg");
+    background-size: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%; }
+  nav#header.navbar div.dropdown-menu {
+    margin-top: 0.75rem;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-color: #eee; }
 
 /**
 * View Styles
@@ -254,123 +345,6 @@ body.splash {
     body.splash section.break div.split-left, body.splash section.break div.split-right {
       padding: 25px 0; }
 
-div.wrapper {
-  width: 100%; }
-  div.wrapper div.container {
-    width: 80%;
-    margin: 0 auto; }
-    div.wrapper div.container h1 {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 18px;
-      font-weight: bold;
-      font-family: sans-serif; }
-=======
-div.alert {
-  display: none; }
-
-form label:not(.custom-radio):not(.custom-file) {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25px;
-  color: #7f7f7f; }
-form label.custom-file {
-  width: 100%; }
-  form label.custom-file input {
-    cursor: pointer; }
-  form label.custom-file span.custom-file-control {
-    cursor: pointer;
-    height: calc(2.25rem + 2px);
-    line-height: 1.25; }
-    form label.custom-file span.custom-file-control:before {
-      height: inherit;
-      line-height: inherit; }
-    form label.custom-file span.custom-file-control:after {
-      cursor: pointer;
-      content: attr(data-content) !important;
-      color: #4c4c4c; }
-form input, form textarea, form select, form button {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300; }
-  form input:focus, form textarea:focus, form select:focus, form button:focus {
-    outline: 0; }
-form .form-control {
-  color: #4c4c4c; }
-  form .form-control::-webkit-input-placeholder {
-    color: #4c4c4c; }
-  form .form-control:-moz-placeholder {
-    color: #4c4c4c; }
-  form .form-control::-moz-placeholder {
-    color: #4c4c4c; }
-  form .form-control:-ms-input-placeholder {
-    color: #4c4c4c; }
-  form .form-control.placeholder {
-    color: #4c4c4c; }
-form div.radio-box {
-  margin: 0.5rem 0; }
-  form div.radio-box span.custom-control-indicator {
-    top: 0.2rem; }
-form div.input-group-btn .btn {
-  background-color: #eceeef; }
-form select.input-group-addon {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-position: right 50%;
-  background-repeat: no-repeat;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
-  padding: .5em;
-  padding-right: 1.5em;
-  -webkit-border-top-right-radius: 0.25rem;
-  -webkit-border-bottom-right-radius: 0.25rem;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 0.25rem;
-  -moz-border-radius-bottomright: 0.25rem;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box; }
-form .form-control-feedback {
-  font-size: 0.75rem; }
-
-/**
-* Component Styles
-**/
-nav#header.navbar {
-  background-color: #fff;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #eee; }
-  nav#header.navbar a.navbar-brand {
-    height: 40px;
-    line-height: 40px;
-    padding-top: 0;
-    padding-bottom: 0; }
-    nav#header.navbar a.navbar-brand svg {
-      height: 40px !important;
-      width: 320px !important; }
-  nav#header.navbar li.nav-item div.profile {
-    height: 40px;
-    width: 40px;
-    border: 2px solid #f2f2f2;
-    background-image: url("https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg");
-    background-size: cover;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%; }
-  nav#header.navbar div.dropdown-menu {
-    margin-top: 0.75rem;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    border-color: #eee; }
->>>>>>> grower_dashboard
-
 div.placeholder {
   width: 100%;
   height: 65px;
@@ -409,7 +383,7 @@ div.food-listing {
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
     height: 75px;
-    margin-top: 129px; }
+    margin-top: 106px; }
     div.food-listing div.food-listing-banner h4 {
       color: white;
       padding-top: 23px;
