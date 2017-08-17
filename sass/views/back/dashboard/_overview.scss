@@ -1,0 +1,59 @@
+div.listings {
+    div.col-md-4 {
+        &:nth-child(-n+3) {
+            div.card {
+                margin-top: 0.25em;
+            }
+        }
+
+        &:nth-child(n+4) {
+            div.card {
+                margin-top: 2em;
+            }
+        }
+    }
+}
+
+div.card-block {
+    padding: 0;
+
+    h6.card-subtitle {
+        color: $light-gray;
+        padding: 0.25rem 0;
+    }
+
+    p.card-text {
+        margin-top: 0.25rem;
+        color: $gray;
+
+        span.quantity {
+            padding: 0.15rem 0.25rem;
+            // background: $light_green;
+            // color: #fff;
+            @include rounded(0.15rem);
+        }
+    }
+}
+
+div.listing-info {
+    flex-grow: 2;
+    justify-content: center;
+    padding: 1.25rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+div.listing-controls {
+    flex-grow: 1;
+
+    a {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        }
+    }
+}
