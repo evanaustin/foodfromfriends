@@ -2,6 +2,11 @@
 
 $Template = new Template($Routing);
 
+if ($Routing->template == 'back' && !$LOGGED_IN) {
+    header('Location: ' . PUBLIC_ROOT);
+    die();
+}
+
 foreach ([
     $Template->initializer,
     $Template->architecture
@@ -24,6 +29,7 @@ foreach ([
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
+            'css/thirdparty/animate/animate',
             'css/thirdparty/cropbox/cropbox',
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
@@ -43,6 +49,9 @@ foreach ([
 
         layer('js', [
             'node_modules/jquery/dist/jquery',
+            'node_modules/jquery.ui.widget/jquery.ui.widget',
+            'node_modules/bootbox/bootbox.min',
+            'node_modules/imagesloaded/imagesloaded.pkgd.min',
             'node_modules/tether/dist/js/tether.min',
             'node_modules/parsleyjs/dist/parsley.min',
             'node_modules/toastr/build/toastr.min',
