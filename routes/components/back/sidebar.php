@@ -17,7 +17,10 @@
                         ]
                     ],
                     'profile' => [
-                        'about'
+                        'edit',
+                        'photos',
+                        'verification',
+                        'reviews'
                     ],
                     'account' => [
                         'settings'
@@ -26,7 +29,7 @@
 
                 foreach($sidebar[$Routing->section] as $k => $v) { ?>
                     <li class="nav-item">
-                        <?php if (!empty($k)) { ?>
+                        <?php if (!empty($k) && gettype($k) == 'string') { ?>
                             <a 
                                 href="" 
                                 class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
