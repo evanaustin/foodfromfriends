@@ -4,17 +4,17 @@
             <div class="subheader">
                 <ul class="nav nav-fill">
                     <?php foreach ([
-                        'dashboard',
-                        'stats',
-                        'profile',
-                        'account',
-                    ] as $title) { ?>
+                        'dashboard' => 'food-listings/overview',
+                        'stats' => '',
+                        'profile' => '',
+                        'account' => '',
+                    ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $title; ?>" 
-                                class="nav-link <?php if ($Routing->section == $title) echo 'active'; ?>"
+                                href="<?php echo PUBLIC_ROOT . $section . '/' . $subsection; ?>" 
+                                class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                             >
-                                <?php echo ucfirst($title) ?>
+                                <?php echo ucfirst($section) ?>
                             </a>
                         </li>
                     <?php } ?>
