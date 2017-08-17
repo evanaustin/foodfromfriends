@@ -1,7 +1,14 @@
 App.Bootstrap = function() {
 	function listener() {
 		/*
-		* Collapse
+		* Enable tooltips
+		*/
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		});
+		
+		/*
+		* Activate collapse
 		*/
 		var $nav = $('.nav-item');
 
