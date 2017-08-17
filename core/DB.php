@@ -85,7 +85,7 @@ class DB extends PDO {
     
     public function delete($table, $where, $bind='') {
 		$sql = "DELETE FROM {$table} WHERE {$where};";
-		$this->run($sql, $bind);
+		return $this->run($sql, $bind);
 	}
     
     public function update($table, $info, $where, $bind='') {
