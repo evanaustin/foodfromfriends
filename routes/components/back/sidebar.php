@@ -17,7 +17,7 @@
                         ]
                     ],
                     'profile' => [
-                        'about'
+                        'edit-profile'
                     ],
                     'account' => [
                         'settings'
