@@ -8,7 +8,7 @@
 </head>
   <pre>
   <?php 
-  print_r($user_info);?>
+  print_r($ProfileUser_info);?>
   </pre>
 <div class="container">
     <div class="row">   
