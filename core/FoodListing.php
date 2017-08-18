@@ -9,12 +9,16 @@ class FoodListing extends Base {
         
     public
         $id,
-        $food_subcategory,
+        $user_id,
+        $food_subcategory_id,
         $price,
+        $stock,
         $description;
      
+        
     function __construct($parameters) {
         $this->table = 'food_listings';
+
 
         $this->class_dependencies = [
             'DB',
@@ -27,6 +31,26 @@ class FoodListing extends Base {
             $this->configure_object($parameters['id']);
             $this->populate_fully($parameters['id']);
         }
+    }
+
+
+    public function join_foodlistings($data) {
+        if (isset($data)) {
+            $bind = [
+                'data' => $data
+            ];
+            $foodlistings = $this->DB->run("
+                SELECT * 
+                FROM food_listings fl
+                JOIN food_subcategories fs
+                ON fl.food_subcategories_id = fs.id
+                    WHERE fl.user_id = :data
+            ", $bind);
+
+        return (isset($foodlistings)) ? $foodlistings : false;
+        }
+
+        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 
     private function populate_fully($id) {
@@ -111,5 +135,7 @@ class FoodListing extends Base {
         return (isset($results[0])) ? $results[0]['title'] : false;
     }
 }
+
+
 
 ?>

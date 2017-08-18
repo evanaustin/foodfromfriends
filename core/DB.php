@@ -74,7 +74,7 @@ class DB extends PDO {
 		foreach($fields as $field) {
 			$bind[":{$field}"] = $info[$field];
 		}
-
+		
 		return $this->run($sql, $bind);
 	}
 

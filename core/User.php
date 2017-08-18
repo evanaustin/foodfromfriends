@@ -13,6 +13,9 @@ class User extends Base {
         $password,
         $first_name,
         $last_name,
+        $city,
+        $state,
+        $zip,
         $validation,
         $registered_on,
         $is_admin;

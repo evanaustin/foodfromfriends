@@ -17,10 +17,7 @@
                         ]
                     ],
                     'profile' => [
-                        'edit',
-                        'photos',
-                        'verification',
-                        'reviews'
+                        'edit-profile'
                     ],
                     'account' => [
                         'settings'

@@ -7,21 +7,20 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="alert"></div>
-
-                    <form id="add-delivery-preference" class="delivery-form" data-parsley-validate>
+                    <form id="save-delivery" class="delivery-form" data-parsley-validate>
                         <div id="delivery-setting">
                             <div class="form-group">
                                 <label>Want to make extra money by offering delivery?</label>
                                 
                                 <div class="radio-box">
                                     <label class="custom-control custom-radio">
-                                        <input id="delivery-yes" name="delivery-setting" type="radio" value="1" class="custom-control-input">
+                                        <input id="delivery-yes" name="is-offered" type="radio" value="1" class="custom-control-input" <?php if($details['is_offered'] == 1){echo 'checked';}?>>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Yes</span>
                                     </label>
 
                                     <label class="custom-control custom-radio">
-                                        <input id="delivery-no" name="delivery-setting" type="radio" value="0" class="custom-control-input">
+                                        <input id="delivery-no" name="is-offered" type="radio" value="0" class="custom-control-input"  <?php if($details['is_offered'] == 0){echo 'checked';}?> >
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">No</span>
                                     </label>
@@ -32,25 +31,25 @@
                         <div id="distance-and-free-delivery-option">
                             <div class="form-group">
                                 <label for="distance">Distance to buyer (miles)</label>
-                                <input id="distance" type="number" name="distance-to-buyer" class="form-control " placeholder="Enter how many miles you would be willing to travel (one way)">
+                                <input id="distance" type="number" name="distance" class="form-control " placeholder="Enter how many miles you would be willing to travel (one way)" value="<?php echo (!empty($details) ? ($details['distance']) : '' ); ?>" min="0" data-parsley-min="0" data-parsley-trigger disabled>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group">  
                                 <label>Want to offer free delivery?</label>
                                 
                                 <div class="radio-box">
                                     <label class="custom-control custom-radio">
-                                        <input id="free-delivery" name="free-delivery-option"type="radio" value="free" class="custom-control-input">
+                                        <input id="free-delivery" name="free-delivery" type="radio" value="1" class="custom-control-input"  <?php if($details['free_delivery'] == 1){echo 'checked';} ?> data-parsley-trigger disabled >
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Yes</span>
                                     </label>
 
                                     <label class="custom-control custom-radio">
-                                        <input id="no-free-delivery" name="free-delivery-option" type="radio"  value="no-free" class="custom-control-input">
+                                        <input id="no-free-delivery" name="free-delivery" type="radio"  value="2" class="custom-control-input" <?php if($details['free_delivery'] == 2){echo 'checked';}?>  data-parsley-trigger disabled >
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">No</span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input id="conditional-free-delivery" name="free-delivery-option" type="radio"  value="conditional-free" class="custom-control-input">
+                                        <input id="conditional-free-delivery" name="free-delivery" type="radio"  value="conditional" class="custom-control-input" <?php if($details['free_delivery'] == 'conditional'){echo 'checked';}?>  data-parsley-trigger disabled >
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Only under a certain distance</span>
                                     </label>
@@ -61,7 +60,7 @@
                         <div id="conditional-free-delivery-option">
                             <div class="form-group">
                                 <label for="free-distance">Free delivery distance (Miles)</label>
-                                <input id="free-distance" type="number" name="free-distance" class="form-control " placeholder="Enter how many miles you would be willing to travel for free (one way)">
+                                <input id="free-distance" type="number" name="free-miles" class="form-control " placeholder="Enter how many miles you would be willing to travel for free (one way)" value="<?php echo (!empty($details) ? ($details['free_miles']) : '' ); ?>"   min="0.1" data-parsley-min="0.1" step="0.1" data-parsley-trigger disabled>
                             </div>
                         </div> <!--close out class conditional free delivery -->
 
@@ -70,39 +69,32 @@
 
                             <div class="radio-box">
                                 <label class="custom-control custom-radio">
-                                    <input id="per-mile-fee"  name="fee-option" type="radio"  value="per-mile-fee" class="custom-control-input">
+                                    <input id="per-mile-fee"  name="pricing-rate" type="radio"  value="mile" class="custom-control-input" data-parsley-trigger disabled <?php if($details['pricing_rate'] == 'mile'){echo 'checked';}?>>
                                     <span class="custom-control-indicator"></span>
                                     <span class="custom-control-description">Price per mile</span>
                                 </label>
 
                                 <label class="custom-control custom-radio">
-                                    <input id="set-fee"  name="fee-option" type="radio" value="set-fee" class="custom-control-input">
+                                    <input id="set-fee"  name="pricing-rate" type="radio" value="flat" class="custom-control-input"data-parsley-trigger disabled <?php if($details['pricing_rate'] == 'flat'){echo 'checked';}?>>
                                     <span class="custom-control-indicator"></span>
                                     <span class="custom-control-description">Set Price</span>
                                 </label>
                             </div>
                         </div> <!--close choose delivery --> 
-
-                        <div id="set-fee-option">
-                            <div class="form-group">
-                                <label for="setprice"> Set delivery fee</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    <input id="set-price" type="number" name="set-delivery-price" class="form-control" placeholder="Enter a set delivery fee">
-                                </div>
-                            </div>
-                        </div> <!--close out set option -->
-
                         <div id="per-mile-option">
+                            <label for="fee"> Delivery fee per mile</label>  
+                        </div>
+                        <div id="set-fee-option">
+                            <label for="setprice"> Set delivery fee</label>
+                        </div>
+                        <div id='fee'>
                             <div class="form-group">
-                                <label for="perprice"> Delivery fee per mile</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input id="per-mile-price" type="number" name="per-mile-delivery-price" class="form-control" placeholder="Enter a delivery fee per mile">
+                                    <input type="number" name="fee" class="form-control" placeholder="Enter a delivery fee" value="<?php echo (!empty($details) ? ($details['fee']) : '' ); ?>"   min="0.01" data-parsley-min="0.01" step="0.01"data-parsley-trigger disabled>
                                 </div>
                             </div>
-                        </div> <!--close out per option -->
-
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block ">
                             Add delivery preference
                         </button>
