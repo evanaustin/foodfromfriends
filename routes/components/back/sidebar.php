@@ -17,7 +17,7 @@
                         ]
                     ],
                     'profile' => [
-                        'edit-profile'
+                        'edit' => 'edit-profile'
                     ],
                     'account' => [
                         'settings'
@@ -26,7 +26,7 @@
 
                 foreach($sidebar[$Routing->section] as $k => $v) { ?>
                     <li class="nav-item">
-                        <?php if (!empty($k) && gettype($k) == 'string') { ?>
+                        <?php if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'array') { ?>
                             <a 
                                 href="" 
                                 class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
@@ -52,6 +52,12 @@
                                     <?php } ?>
                                 </ul>
                             </div>
+                        <?php } else if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string') { ?>
+                            <a 
+                                href="<?php echo PUBLIC_ROOT . $Routing->section . '/' . $k; ?>"
+                                class="nav-link <?php if ($Routing->subsection == $k) echo 'active'; ?>">
+                                <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                            </a>
                         <?php } else { ?>
                             <a 
                                 href="<?php echo PUBLIC_ROOT . $Routing->section . '/' . $v; ?>"
