@@ -40,7 +40,7 @@
 
                     <div class="alert"></div>
 
-                    <form id="edit-listing" data-parsley-validate>
+                    <form id="edit-listing">
                         <input type="hidden" name="id" value="<?php echo $FoodListing->id; ?>">
 
                         <div class="row">

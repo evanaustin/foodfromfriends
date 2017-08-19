@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="alert"></div>
 
-                <form id="sign-up" data-parsley-validate>
+                <form id="sign-up">
                     <div class="form-group">
                          <div class="input-group"> 
                             <input type="text" name="first_name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>

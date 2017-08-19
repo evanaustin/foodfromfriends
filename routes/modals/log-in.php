@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="alert"></div>
 
-                <form id="log-in" class="parsley" data-parsley-validate>
+                <form id="log-in">
                     <div class="form-group">
                         <div class="input-group">
                             <input type="email" name="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
