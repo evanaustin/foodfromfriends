@@ -11,10 +11,10 @@ class Delivery extends Base {
         $user_id,
         $is_offered,
         $distance,
-        $free_delivery,
+        $delivery_type,
         $free_miles,
-        $pricing_rate,
-        $fee;
+        $fee,
+        $pricing_rate;
      
     function __construct($parameters) {
         $this->table = 'delivery_settings';
@@ -26,14 +26,6 @@ class Delivery extends Base {
         parent::__construct($parameters);
     
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
-    }
-
-    function update($info, $field, $data) {
-        $results = $this->DB->update($this->table, $info, "{$field}=:data", [
-            'data' => $data
-        ]);
-
-        return (isset($results)) ? $results : false;
     }
 
     function get_details($user_id) {
