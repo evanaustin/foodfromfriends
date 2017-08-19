@@ -244,7 +244,6 @@ $('#quantity').on('keyup change', function() {
 // Add listing
 $('#add-listing').on('submit', function(e) {
     e.preventDefault();
-
     App.Util.hideMsg();
 
     $form = $(this);
