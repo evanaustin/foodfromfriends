@@ -3,7 +3,7 @@ App.Form = function() {
         /*
         * Parsley
         */
-        $('form[data-parsley-validate]').parsley({
+        $('form').parsley({
             errorClass: 'has-danger',
             successClass: 'has-success',
             classHandler: function(ParsleyField) {
