@@ -28,17 +28,19 @@
 
                 <div class="alert"></div>
 
-                <form id="add-listing" data-parsley-validate>
+                <form id="add-listing">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12"> 
-                                    <label for="food-categories">What kind of food do you have?</label>
+                                    <label for="food-categories">
+                                        What kind of food do you have?
+                                    </label>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <select id="food-categories" name="food-category" class="custom-select form-control" data-parsley-trigger required>
+                                        <select id="food-categories" name="food-category" class="custom-select form-control" data-parsley-trigger="change" required>
                                             <option selected disabled>Select a food category</option>
 
                                             <?php foreach($food_categories as $food_category) { ?>
@@ -50,7 +52,7 @@
 
                                 <div class="col-md-6"> 
                                     <div class="form-group">
-                                        <select id="food-subcategories" name="food-subcategory" class="custom-select form-control" data-parsley-trigger disabled required>
+                                        <select id="food-subcategories" name="food-subcategory" class="custom-select form-control" data-parsley-trigger="change" disabled required>
                                             <option selected disabled>Select a food subcategory</option>
                                         </select>
                                     </div>
@@ -58,22 +60,32 @@
                             </div>
 
                             <div id="other-option" class="form-group hidden">
-                                <label for="other-subcategory">Can't find the food you're trying to list?</label>
+                                <label for="other-subcategory">
+                                    Can't find the food you're trying to list?
+                                </label>
+
                                 <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
                             </div>
 
                             <div class="form-group">
-                                <label for="price">Listing price</label>
+                                <label for="price">
+                                    Listing price
+                                </label>
+
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                     <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                                    <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="weight">Average weight per item</label>
+                                <label for="weight">
+                                    Average weight per item
+                                </label>
+
                                 <div class="input-group">
-                                    <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" required> 
+                                    <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change" required> 
+                                    
                                     <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                         <?php foreach ([
                                             'oz',
@@ -91,24 +103,29 @@
                              <div class="row"> 
                                  <div class="col-md-6"> 
                                     <div class="form-group">
-                                        <label for="quantity">Quantity</label>
-                                        <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
+                                        <label for="quantity">
+                                            Quantity
+                                        </label>
+                                        
+                                        <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change" required> 
                                     </div>
                                  </div> 
 
                                  <div class="col-md-6"> 
                                     <div class="form-group">
-                                        <label>Availability</label>
+                                        <label>
+                                            Availability
+                                        </label>
                                         
                                         <div class="radio-box">
                                             <label class="custom-control custom-radio">
-                                                <input id="available" name="is-available" value="1" type="radio" class="custom-control-input" required>
+                                                <input id="available" name="is-available" value="1" type="radio" class="custom-control-input" data-parsley-trigger="change" required>
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Available</span>
                                             </label>
 
                                             <label class="custom-control custom-radio">
-                                                <input id="unavailable" name="is-available" value="0" type="radio" class="custom-control-input" required>
+                                                <input id="unavailable" name="is-available" value="0" type="radio" class="custom-control-input" data-parsley-trigger="change" required>
                                                 <span class="custom-control-indicator"></span>
                                                 <span class="custom-control-description">Unavailable</span>
                                             </label>
@@ -120,7 +137,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Listing photo</label>
+                                <label>
+                                    Listing photo
+                                </label>
                                     
                                 <a href="" class="remove-image float-right hidden" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
 
@@ -139,7 +158,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Listing description</label>
+                        <label for="description">
+                            Listing description
+                        </label>
+
                         <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"></textarea>
                     </div>
                 </form>
