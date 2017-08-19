@@ -39,18 +39,8 @@ $('a.remove-listing').on('click', function(e) {
 });
 
 /*
-* Bounce in the image cards
+* Show the image cards
 */
-/* $('div.card-deck').each(function() {
-    $(this).imagesLoaded(function() {
-        $('div.card').each(function(i, obj) {
-            setTimeout(function() {
-                $(obj).removeClass('hidden');
-            }, 200 * i);
-        });
-    });
-}); */
-
 $('div.card').each(function(i, obj) {
     $(this).imagesLoaded(function() {
         setTimeout(function() {
