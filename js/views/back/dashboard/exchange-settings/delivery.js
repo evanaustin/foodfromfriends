@@ -1,91 +1,129 @@
-$('#delivery-yes').on('click', function(){
-        $('#distance-and-free-delivery-option').show(); 
-        $('input[name="free-delivery"]').prop('disabled',false);
-        $('input[name="distance"]').prop('disabled',false);
-});
-          
-        
 $('input[name="is-offered"]').on('change', function() {
     if ($(this).val() == 1) {
-        $('#distance-and-free-delivery-option').show();
-        $('input[name="free-delivery"]').prop('disabled',false);
-        $('input[name="distance"]').prop('disabled',false);
-    } else {
-        $('form > div:not(#delivery-setting)').hide();
-        $('input[name="distance"]').prop('disabled',true);
-        $('input[name="free-delivery"]').prop('disabled',true);
-        $('input[name="free-miles"]').prop('disabled',true);
-        $('input[name="pricing-rate"]').prop('disabled',true);
-        $('input[name="fee"]').prop('disabled',true);
+        $('#distance, #delivery-type').fadeIn().find('input').prop({
+            required: true,
+            disabled: false
+        });
 
+        // show any settings that are already set
+        $('div.setting').each(function(i) {
+            var $setting = $(this);
+
+            $setting.find('input').each(function(j) {
+                // check if a radio box is checked or for an existing value
+                if ($(this).closest('div.radio-box').length > 0) {
+                    if ($(this).closest('div.radio-box').find('input').is(':checked')) {
+                        $setting.fadeIn();
+                        
+                        $(this).prop({
+                            required: true,
+                            disabled: false
+                        });
+                    }
+                } else if ($(this).val() !== '' && $(this).val() !== null) {
+                    $setting.fadeIn();
+                    
+                    $(this).prop({
+                        required: true,
+                        disabled: false
+                    });
+                }
+            });
+        });
+
+        // show fee and conditional setting fields even if blank if delivery type is set
+        if ($('input[name="delivery-type"]').is(':checked') && $('#fee').is(':hidden')) {
+            var delivery_type = $('input[name="delivery-type"]:checked').val();
+
+            if (delivery_type != 'free') {
+                $('#fee').fadeIn().find('input').prop({
+                    required: true,
+                    disabled: false
+                });
+                
+                if (delivery_type == 'conditional') {
+                    $('#conditional-free-delivery').fadeIn().find('input').prop({
+                        required: true,
+                        disabled: false
+                    });
+                    
+                    $('#feeHelp').fadeIn();
+                }
+            }
+        }
+    } else {
+        $('div.setting').fadeOut().find('input').prop({
+            required: false,
+            disabled: true
+        });
     }
 });
 
+$('input[name="delivery-type"]').on('change', function() {
+    switch($(this).val()) {
+        case 'charge':
+            $('#fee').fadeIn().find('input').prop({
+                required: true,
+                disabled: false
+            });
 
-$('#free-delivery').on('click', function() {
-    $('#choose-delivery-fee-option').hide();
-    $('#conditional-free-delivery-option').hide();
-    $('#set-fee-option').hide();
-    $('#per-mile-option').hide();
-    $('input[name="pricing-rate"]').prop('disabled', true);
-    $('input[name="free-miles"]').prop('disabled', true);
-    $('#fee').prop('disabled', true);
-    $('#fee').hide();
-    
-    
-});
+            $('#conditional-free-delivery').find('input').prop({
+                required: false,
+                disabled: true
+            });
 
-$('#no-free-delivery').on('click', function() {
-    $('#choose-delivery-fee-option').show();
-    $('input[name="pricing-rate"]').prop('disabled', false);
-    $('#conditional-free-delivery-option').hide();
-    $('#set-fee-option').hide();
-    $('#per-mile-option').hide();
-    $('input[name="free-miles"]').prop('disabled', true);
-    $('#fee').prop('disabled', true);
-    
+            $('#conditional-free-delivery').fadeOut()
 
-});
+            $('#feeHelp').fadeOut();
+            
+            break;
 
-$('#conditional-free-delivery').on('click', function() {
-    $('#conditional-free-delivery-option').show();
-    $('#choose-delivery-fee-option').show();
-    $('input[name="free-miles"]').prop('disabled', false);
-    $('input[name="pricing-rate"]').prop('disabled', false);
-    $('#free-distence').focus();
-    $('#set-fee-option').hide();
-    $('#per-mile-option').hide();
-    $('#fee').prop('disabled', true);
-   
-});
+        case 'free':
+            $('div.fee.setting').each(function() {
+                $(this).find('input').prop({
+                    required: false,
+                    disabled: true
+                });
 
-$('#per-mile-fee').on('click', function() {
-    $('#set-fee-option').hide();
-    $('#per-mile-option').show();
-    $('#fee').show();
-    $('input[name="fee"]').prop('disabled', false);
- 
-});
+                $(this).fadeOut();
+            });
+            
+            break;
 
-$('#set-fee').on('click', function() {
-    $('#per-mile-option').hide();
-    $('#set-fee-option').show();
-    $('#fee').show();
-    $('input[name="fee"]').prop('disabled', false);
- 
+        case 'conditional':
+            $('#conditional-free-delivery, #fee').fadeIn().find('input').prop({
+                required: true,
+                disabled: false
+            });
+
+            $('#feeHelp').fadeIn();
+
+            break;
+    }
 });
 
 $('#save-delivery').on('submit', function(e) {
-	e.preventDefault();
+    e.preventDefault();
+    App.Util.hideMsg();
     
     $form = $(this);
-    console.log($form.serialize());
-    App.Ajax.post('dashboard/exchange-settings/delivery', $form.serialize(), 
-		function(response) {
-            toastr.success('Your preference has been saved!')
-		},
-		function(response) {
-            $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
-		}
-	 );	
-});	
+    data = $form.serialize();
+
+    if ($form.parsley().isValid()) {
+        App.Util.loading();
+
+        App.Ajax.post('dashboard/exchange-settings/delivery', data, 
+            function(response) {
+                App.Util.msg('Your delivery preferences have been saved!', 'success');
+                App.Util.animation($('button[type="submit"]'), 'bounce');
+                App.Util.finishedLoading();
+            },
+            function(response) {
+                App.Util.msg(response.error, 'danger');
+                App.Util.finishedLoading();
+            }
+        );
+    } else {
+        console.log('parsley failed');
+    }
+});
