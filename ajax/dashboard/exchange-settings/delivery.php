@@ -10,7 +10,6 @@ $_POST = $Gump->sanitize($_POST);
 
 foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-
 $Gump->validation_rules([
     'is-offered'        => 'required|boolean',
 	'distance'          => ($is_offered ? 'required|' : '' ) . 'regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',

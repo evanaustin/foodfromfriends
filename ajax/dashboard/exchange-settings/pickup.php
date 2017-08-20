@@ -7,33 +7,46 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
-foreach ($_POST as $k => $v) if (isset($v) && !empty($v) || $v == 0) ${str_replace('-', '_', $k)} = rtrim($v);
-// quit($User->id . ' ' . $is_offered . ' ' . $instructions . ' ' . $when);
+$_POST = $Gump->sanitize($_POST);
 
-if($is_offered == 1){
-    if (empty($instructions) || empty($when)){
-        quit('Make sure to fill out all the information');
-    }
+foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
+$rules = [
+    'is-offered' => 'required|boolean'
+];
+
+if ($is_offered) {
+    $rules['instructions'] = 'required';
+    $rules['availability'] = 'required';
 }
+
+$Gump->validation_rules($rules);
+
+$validated_data = $Gump->run($_POST);
+
+if ($validated_data === false) {
+    quit($Gump->get_readable_errors()[0]);
+}
+
+$Gump->filter_rules([
+    'instructions'  => 'trim|sanitize_string',
+	'availability'  => 'trim|sanitize_string'
+]);
+
+$prepared_data = $Gump->run($validated_data);
+
+foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
 $Pickup = new Pickup([
     'DB' => $DB
 ]);
-
-foreach ([
-    'is_offered',
-    'instructions',
-    'when',
-] as $required) {
-    if (!isset(${$required})) quit('The ' . strtoupper(str_replace('_', ' ', $required)) . ' field is required');
-}
-
 
 if ($Pickup->exists('user_id', $User->id)){
     $updated = $Pickup->update([
         'user_id' => $User->id,
         'is_offered' => $is_offered,
-        'instructions' => $instructions,
-        'when_details' => $when
+        'instructions' => ($is_offered ? $instructions : ''),
+        'availability' => ($is_offered ? $availability : '')
     ],'user_id', $User->id);
 
     if (!$updated) quit('We could not update your pickup preferences');
@@ -42,13 +55,12 @@ if ($Pickup->exists('user_id', $User->id)){
         'user_id' => $User->id,
         'is_offered' => $is_offered,
         'instructions' => $instructions,
-        'when_details' => $when
-]);
+        'availability' => $availability
+    ]);
 
- if (!$added)  quit('Could not save your pickup preferences ');
-    
+    if (!$added) quit('We could not save your pickup preferences');
 }
 
 echo json_encode($json);
 
- ?>
+?>
