@@ -1,44 +1,77 @@
 <!-- cont div.container-fluid -->
     <!-- cont div.row -->
         <!-- cont main -->
-            <div class="container">
-                <h4 class="title">Add a pickup preference</h4>
+            <div class="main container animated fadeIn">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title">
+                            Set your pickup preferencs
+                        </div>
+
+                        <div class="page-description text-muted small">
+                            Thinking about making an extra buck by offering delivery to your customers? With all our customizable settings, you can create a delivery policy that suits you perfectly.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="controls">
+                            <button type="submit" form="save-pickup" class="btn btn-primary">
+                                <i class="pre fa fa-floppy-o"></i>
+                                Save changes
+                                <i class="post fa fa-gear loading-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
                 <hr>
-                <div class="alert"></div>
+
                 <div class="row">
                     <div class="col-md-6">                       
-                        <form id="save-pickup" class="pickup-form" data-parsley-validate>
+                        <div class="alert"></div>
+
+                        <form id="save-pickup" data-parsley-excluded="[disabled=disabled]">
                             <div id="pickup-setting">
                                 <div class="form-group">
-                                    <label>Do you want to offer a pickup option?</label>
+                                    <label>Do you want to offer free pickup?</label>
                                     
                                     <div class="radio-box">
                                         <label class="custom-control custom-radio">
-                                            <input id="pickup-yes" name="is-offered" type="radio" value="1" class="custom-control-input" <?php if($details['is_offered'] == 1){echo 'checked';}?>>
+                                            <input name="is-offered" type="radio" value="1" class="custom-control-input" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
+                                            
                                             <span class="custom-control-indicator"></span>
-                                            <span class="custom-control-description">Yes</span>
+                                            <span class="custom-control-description">
+                                                Yes
+                                            </span>
                                         </label>
 
                                         <label class="custom-control custom-radio">
-                                            <input id="pickip-no" name="is-offered" type="radio" value="0" class="custom-control-input" <?php if($details['is_offered'] == 0){echo 'checked';}?>> 
+                                            <input name="is-offered" type="radio" value="0" class="custom-control-input" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>> 
+                                            
                                             <span class="custom-control-indicator"></span>
-                                            <span class="custom-control-description">No</span>
+                                            <span class="custom-control-description">
+                                                No
+                                            </span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="pickup-location">Add directions to help people find your food</label>
-                                <textarea type="text" name="instructions" class="form-control" rows="4" placeholder="Where can people find your food?"><?php echo (!empty($details) ? ($details['instructions']) : '' ); ?></textarea>
+
+                            <div id="instructions" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
+                                <label>
+                                    Instructions
+                                </label>
+
+                                <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php if (!$details['is_offered']) { echo 'disabled'; } else { echo 'required'; } ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="when">When should people pickup your food?</label>
-                                <textarea type="text" name="when" class="form-control" rows="4" placeholder="What are good times?"><?php echo (!empty($details) ? ($details['when_details']) : '' ); ?></textarea>
+
+                            <div id="availability" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
+                                <label>
+                                    Availability
+                                </label>
+
+                                <textarea name="availability" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php if (!$details['is_offered']) { echo 'disabled'; } else { echo 'required'; } ?>><?php if (!empty($details['availability'])) { echo $details['availability']; } ?></textarea>
                             </div>
-                           
-                            <button type="submit" class="btn btn-primary btn-block">
-                                     Add pickup preference
-                            </button>
                         </div>
                     </div>
                 </form>
