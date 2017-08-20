@@ -123,7 +123,5 @@ $('#save-delivery').on('submit', function(e) {
                 App.Util.finishedLoading();
             }
         );
-    } else {
-        console.log('parsley failed');
     }
 });
