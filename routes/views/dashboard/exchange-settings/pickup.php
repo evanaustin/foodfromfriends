@@ -9,7 +9,7 @@
                         </div>
 
                         <div class="page-description text-muted small">
-                            Thinking about making an extra buck by offering delivery to your customers? With all our customizable settings, you can create a delivery policy that suits you perfectly.
+                            After purchase, let your customers come to location of your choice and pick up their food at a time that works for you.
                         </div>
                     </div>
 
