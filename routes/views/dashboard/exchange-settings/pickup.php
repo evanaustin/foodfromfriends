@@ -9,7 +9,7 @@
                         </div>
 
                         <div class="page-description text-muted small">
-                            After purchase, let your customers come to location of your choice and pick up their food at a time that works for you.
+                            After purchase, let your customers come to a location of your choice and pick up their food at a time that works for you.
                         </div>
                     </div>
 
