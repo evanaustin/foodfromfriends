@@ -1,31 +1,39 @@
-$('#pickup-yes').on('click', function(){
-    $('#pickup-description-and-time').show();
-    $('.form-group').show();
-});
-
-
-$('#save-pickup').on('submit', function(e) {
-	e.preventDefault();
-    
-    $form = $(this);
-    console.log($form.serialize());
-    App.Ajax.post('dashboard/exchange-settings/pickup', $form.serialize(), 
-		function(response) {
-            toastr.success('Your preference has been saved!')
-		},
-		function(response) {
-            $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
-		}
-	 );	
-});	
-
-
 $('input[name="is-offered"]').on('change', function() {
     if ($(this).val() == 1) {
-        $('#pickup-description-and-time').show();
-        $('.form-group').show();
+        $('#instructions, #availability').fadeIn().find('textarea').prop({
+            required: true,
+            disabled: false
+        });
     } else {
-       $('form > div:not(#pickup-setting)').hide();
+        $('#instructions, #availability').find('textarea').prop({
+            required: false,
+            disabled: true
+        });
+
+        $('#instructions, #availability').fadeOut();
     }
 });
 
+$('#save-pickup').on('submit', function(e) {
+	e.preventDefault();
+    App.Util.hideMsg();
+    
+    $form = $(this);
+    data = $form.serialize();
+
+    if ($form.parsley().isValid()) {
+        App.Util.loading();
+
+        App.Ajax.post('dashboard/exchange-settings/pickup', data, 
+            function(response) {
+                App.Util.msg('Your pickup preferences have been saved!', 'success');
+                App.Util.animation($('button[type="submit"]'), 'bounce');
+                App.Util.finishedLoading();
+            },
+            function(response) {
+                App.Util.msg(response.error, 'danger');
+                App.Util.finishedLoading();
+            }
+        );
+    }	
+});	
