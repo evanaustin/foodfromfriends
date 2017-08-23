@@ -7,171 +7,73 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
-foreach ($_POST as $k => $v) if (isset($v) && !empty($v) || $v == 0) ${str_replace('-', '_', $k)} = rtrim($v);
-// quit($User->id . ' ' . $is_offered . ' ' . $instructions . ' ' . $when);
-// quit($details_id);
-// if($is_offered == 1){
-  
+$_POST = $Gump->sanitize($_POST);
+
+foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
+$rules = [
+    'is-offered'        => 'required|boolean',
+    'address-line-2'    => 'alpha_space|max_len,15'
+];
+
+if ($is_offered) {
+    $rules['address-line-1'] = 'required|alpha_numeric_space|max_len,25';
+    $rules['city'] = 'required|alpha_space|max_len,25';
+    $rules['state'] = 'required|regex,/^[A-Z]{2}$/';
+    $rules['zip'] = 'required|regex,/^[0-9]{5}$/';
+    $rules['time'] = 'required';
+}
+
+$Gump->validation_rules($rules);
+$validated_data = $Gump->run($_POST);
+
+if ($validated_data === false) {
+    quit($Gump->get_readable_errors()[0]);
+}
+
+$Gump->filter_rules([
+    'address-line-1'    => 'trim|sanitize_string',
+	'address-line-2'    => 'trim|sanitize_string',
+	'city'              => 'trim|sanitize_string',
+	'state'             => 'trim|sanitize_string',
+	'zip'               => 'trim|whole_number',
+]);
+
+$prepared_data = $Gump->run($validated_data);
+
+foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
 $Meetup = new Meetup([
     'DB' => $DB
 ]);
-// user_id variable
 
-
-foreach ([
-    'is_offered',
-] as $required) {
-    if (!isset(${$required})) quit('The ' . strtoupper(str_replace('_', ' ', $required)) . ' field is required');
-}
-
-
-// $test = $Meetup->exists_details($User->id,3);
-// quit($test);
-
-if ($Meetup->exists('user_id',$User->id)) { 
+if ($Meetup->exists('user_id', $User->id)) { 
     $updated = $Meetup->update([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered
+        'is_offered'        => $is_offered,
+        'address_line_1'    => ($is_offered ? $address_line_1 : ''),
+        'address_line_2'    => ($is_offered ? $address_line_2 : ''),
+        'city'              => ($is_offered ? $city : ''),
+        'state'             => ($is_offered ? $state : ''),
+        'zip'               => ($is_offered ? $zip : ''),
+        'time'              => ($is_offered ? $time : ''),
     ],'user_id', $User->id);
 
     if (!$updated) quit('We could not update your meetup preferences');
-    
-    if ($Meetup->exists_details($User->id,1) && $details_id == '1') {  
-                  
-        $updated_details_1 = $Meetup->update_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1,
-            'address_line_2' => $address_line_2,
-            'city' => $city,
-            'state' => $state,
-            'zip' => $zip,
-            'when_details' => $when_details,
-            'details_id'=> $details_id,
-            'is_available' => $is_available
-        ], [
-            'user_id' => $User->id,
-            'details_id' => 1
-        ]);
-    } elseif($details_id == '1') {
-        $added_details_1 = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1,
-            'address_line_2' => $address_line_2,
-            'city' => $city,
-            'state' => $state,
-            'zip' => $zip,
-            'when_details' => $when_details,
-            'details_id'=> $details_id,
-            'is_available' => $is_available
-        ]);
-    }
-   if ($Meetup->exists_details($User->id,2) && $details_id_2 == '2') {    
-        $updated_details_2 = $Meetup->update_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_2,
-            'address_line_2' => $address_line_2_2,
-            'city' => $city_2,
-            'state' => $state_2,
-            'zip' => $zip_2,
-            'when_details' => $when_details_2,
-            'details_id'=> $details_id_2,
-            'is_available' => $is_available_2
-        ], [
-            'user_id' => $User->id,
-            'details_id' => 2
-        ]);
-    } elseif($details_id_2 == '2') {
-        $added_details_2 = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_2,
-            'address_line_2' => $address_line_2_2,
-            'city' => $city_2,
-            'state' => $state_2,
-            'zip' => $zip_2,
-            'when_details' => $when_details_2,
-            'details_id'=> $details_id_2,
-            'is_available' => $is_available_2
-        ]);
-    }
-  if ($Meetup->exists_details($User->id,3) && $details_id_3 == '3') {    
-        $updated_details_3 = $Meetup->update_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_3,
-            'address_line_2' => $address_line_2_3,
-            'city' => $city_3,
-            'state' => $state_3,
-            'zip' => $zip_3,
-            'when_details' => $when_details_3,
-            'details_id'=> $details_id_3,
-            'is_available' => $is_available_3
-    ], [
-            'user_id' => $User->id,
-            'details_id' => $details_id_3
-    ]);
-    } else if($details_id_3 == '3') {
-        $added_details_3 = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_3,
-            'address_line_2' => $address_line_2_3,
-            'city' => $city_3,
-            'state' => $state_3,
-            'zip' => $zip_3,
-            'when_details' => $when_details_3,
-            'details_id'=> $details_id_3,
-            'is_available' => $is_available_3
-    ]);
-    } 
 } else {
     $added = $Meetup->add([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered
-]);
+        'user_id'           => $User->id,
+        'is_offered'        => $is_offered,
+        'address_line_1'    => $address_line_1,
+        'address_line_2'    => $address_line_2,
+        'city'              => $city,
+        'state'             => $state,
+        'zip'               => $zip,
+        'time'              => $time
+    ]);
 
-    if (!$added)  quit('Could not save your meetup preferences ');
-   
-    if($details_id == '1'){
-            $added_details = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1,
-            'address_line_2' => $address_line_2,
-            'city' => $city,
-            'state' => $state,
-            'zip' => $zip,
-            'when_details' => $when_details,
-            'details_id'=> $details_id,
-            'is_available' => $is_available
-        ]);
-
-        }
-    if($details_id_2 == '2') {
-        $added_details_2 = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_2,
-            'address_line_2' => $address_line_2_2,
-            'city' => $city_2,
-            'state' => $state_2,
-            'zip' => $zip_2,
-            'when_details' => $when_details_2,
-            'details_id'=> $details_id_2,
-            'is_available' => $is_available_2
-        ]);
-    }
-
-    if($details_id_3 == '3') {
-        $added_details_3 = $Meetup->add_details([
-            'user_id' => $User->id,
-            'address_line_1' => $address_line_1_3,
-            'address_line_2' => $address_line_2_3,
-            'city' => $city_3,
-            'state' => $state_3,
-            'zip' => $zip_3,
-            'when_details' => $when_details_3,
-            'details_id'=> $details_id_3,
-            'is_available' => $is_available_3
-        ]); 
-        }
-
-    }
+    if (!$added) quit('We could not save your meetup preferences');
+}
 
 echo json_encode($json);
- ?>
+
+?>
