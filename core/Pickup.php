@@ -9,6 +9,7 @@ class Pickup extends Base {
     public
         $id,
         $user_id,
+        $is_offered,
         $instructions,
         $availability;
      
@@ -24,7 +25,7 @@ class Pickup extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
     
-    function get_details($user_id) {
+    public function get_details($user_id) {
         $results = $this->DB->run('
             SELECT * FROM pickup_settings WHERE user_id = :user_id LIMIT 1
         ', [
@@ -32,7 +33,7 @@ class Pickup extends Base {
         ]); 
         
         return (isset($results[0])) ? $results[0] : false;
-        }
+    }
 }
 
 ?>
