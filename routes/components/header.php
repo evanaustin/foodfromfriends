@@ -35,8 +35,8 @@
                     <div class="nav-link dropdown-toggle profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Edit profile</a>
-                        <a class="dropdown-item" href="#">Account settings</a>
+                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'profile/edit'; ?>">Edit profile</a>
+                        <!-- <a class="dropdown-item" href="#">Account settings</a> -->
                         <a id="log-out" class="dropdown-item" href="#">Log out</a>
                     </div>
                 </li>
