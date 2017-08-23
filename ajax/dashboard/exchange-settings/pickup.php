@@ -43,19 +43,18 @@ $Pickup = new Pickup([
 
 if ($Pickup->exists('user_id', $User->id)){
     $updated = $Pickup->update([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered,
-        'instructions' => ($is_offered ? $instructions : ''),
-        'availability' => ($is_offered ? $availability : '')
+        'is_offered'    => $is_offered,
+        'instructions'  => ($is_offered ? $instructions : ''),
+        'availability'  => ($is_offered ? $availability : '')
     ],'user_id', $User->id);
 
     if (!$updated) quit('We could not update your pickup preferences');
 } else {
     $added = $Pickup->add([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered,
-        'instructions' => $instructions,
-        'availability' => $availability
+        'user_id'       => $User->id,
+        'is_offered'    => $is_offered,
+        'instructions'  => $instructions,
+        'availability'  => $availability
     ]);
 
     if (!$added) quit('We could not save your pickup preferences');
