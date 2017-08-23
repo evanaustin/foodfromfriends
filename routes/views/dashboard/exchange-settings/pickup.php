@@ -62,7 +62,7 @@
                                     Instructions
                                 </label>
 
-                                <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php if (!$details['is_offered']) { echo 'disabled'; } else { echo 'required'; } ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
+                                <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
                             </div>
 
                             <div id="availability" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
@@ -70,7 +70,7 @@
                                     Availability
                                 </label>
 
-                                <textarea name="availability" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php if (!$details['is_offered']) { echo 'disabled'; } else { echo 'required'; } ?>><?php if (!empty($details['availability'])) { echo $details['availability']; } ?></textarea>
+                                <textarea name="availability" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['availability'])) { echo $details['availability']; } ?></textarea>
                             </div>
                         </div>
                     </div>
