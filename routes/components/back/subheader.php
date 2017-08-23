@@ -5,9 +5,9 @@
                 <ul class="nav nav-fill">
                     <?php foreach ([
                         'dashboard' => 'food-listings/overview',
-                        'stats' => '',
+                        // 'stats' => '',
                         'profile' => '',
-                        'account' => '',
+                        // 'account' => '',
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
