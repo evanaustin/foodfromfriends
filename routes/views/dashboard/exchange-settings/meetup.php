@@ -88,7 +88,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label>
                                         Schedule
