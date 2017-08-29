@@ -29,9 +29,32 @@ class User extends Base {
 
         parent::__construct($parameters);
     
-        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
+        if (isset($parameters['id'])) {
+            $this->configure_object($parameters['id']);
+            $this->populate_fully($parameters['id']);
+        }
     }
     
+    private function populate_fully($id) {
+        $results = $this->DB->run('
+            SELECT 
+                u.*,
+                upi.filename,
+                upi.ext
+            FROM users u
+            LEFT JOIN user_profile_images upi
+                ON u.id = upi.user_id
+            WHERE u.id = :id
+            LIMIT 1
+        ', [
+            'id' => $id
+        ]);
+
+        if (!isset($results[0])) return false;
+
+        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+    }
+
     public function authenticate($email, $password) {
         $results = $this->DB->run('
             SELECT * FROM users WHERE email=:email AND password=:password LIMIT 1
