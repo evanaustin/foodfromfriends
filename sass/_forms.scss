@@ -54,6 +54,10 @@ form {
             outline: 0;
         }
     }
+    
+    select:not(.input-group-addon) {
+        width: 100%;
+    }
 
     .form-control {
         color: $dark-gray;
@@ -69,6 +73,10 @@ form {
         span.custom-control-indicator {
             top: 0.2rem;
         }
+    }
+
+    .input-group-addon {
+        min-width: 3rem;
     }
 
     div.input-group-btn {
