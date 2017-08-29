@@ -36,7 +36,7 @@ $Gump->filter_rules([
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
-	'zip'               => 'trim|whole_number',
+	'zip'               => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -56,7 +56,7 @@ if ($Meetup->exists('user_id', $User->id)) {
         'state'             => ($is_offered ? $state : ''),
         'zip'               => ($is_offered ? $zip : ''),
         'time'              => ($is_offered ? $time : ''),
-    ],'user_id', $User->id);
+    ], 'user_id', $User->id);
 
     if (!$updated) quit('We could not update your meetup preferences');
 } else {
