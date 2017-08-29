@@ -59,6 +59,7 @@ image = {
 
                     // Show preview
                     $img.removeAttr('height').attr('src', img.src);
+                    App.Util.animation($('div.image-box img.file'), 'pulse');
 
                     // Launch crop script
                     $img.cropbox({
@@ -76,7 +77,7 @@ image = {
                     });
 
                     // Show delete button
-                    // $('a.remove-image').show();
+                    App.Util.animation($('a.remove-image'), 'bounceIn', 'in');
 
                     self.source[key] = {
                         w: img.width,
@@ -133,11 +134,15 @@ image = {
             $img.data('cropbox').remove();
         }
 
-        $('a.remove-image').hide();
-        
         // reset
         $img.attr('src', PUBLIC_ROOT + '/media/placeholders/default-thumbnail.jpg');
         $('input[type="file"]').val('');
+
+		// hide discard icon tooltip
+		$('a.remove-image').tooltip('hide');
+
+		// animate discard button departure
+		App.Util.animation($('a.remove-image'), 'bounceOut', 'out');
     },
 
     destroy: function(listing_id) {
@@ -150,13 +155,11 @@ image = {
             function(response) {
                 self.discard();
                 toastr.success('Your image has been deleted');
-                // App.Util.msg('Your image has been deleted successfully', 'success');
-                App.Util.finishedLoading();
+                App.Util.finishedLoading('.save');
             },
             function(response) {
-                // toastr.error('We could not delete your image');
                 App.Util.msg('We could not delete your image', 'danger');
-                App.Util.finishedLoading();
+                App.Util.finishedLoading('.save');
             }
         ); 
     }
@@ -227,13 +230,12 @@ $('#edit-listing').on('submit', function(e) {
 
         App.Ajax.postFiles('dashboard/food-listings/edit', data, 
             function(response) {
-                App.Util.finishedLoading();
+                App.Util.finishedLoading('.save');
                 toastr.success('Your listing has been updated!');
-                // App.Util.msg('Your listing has been updated', 'success');
             },
             function(response) {
                 App.Util.msg(response.error, 'danger');
-                App.Util.finishedLoading();
+                App.Util.finishedLoading('.save');
             }
         );
     }
@@ -243,8 +245,6 @@ $('#edit-listing').on('submit', function(e) {
 // Remove listing image
 $('a.remove-image').on('click', function(e) {
     e.preventDefault();
-
-    App.Util.animation($(this), 'bounce');
 
     var id = $(this).data('listing-id');
 
@@ -263,10 +263,10 @@ $('a.remove-image').on('click', function(e) {
         callback: function(result) {
             if (result === true) {
                 if ($('div.image-box').hasClass('existing-image')) {
-                    App.Util.loading();
-                    // image.destroy(id);
+                    App.Util.loading('.save');
+                    image.destroy(id);
                 } else {
-                    // image.discard(id);
+                    image.discard(id);
                 }
             }
         }
@@ -300,7 +300,7 @@ $('a.remove-listing').on('click', function(e) {
 
                 App.Ajax.post('dashboard/food-listings/remove-listing', data, 
                     function(response) {
-                        App.Util.finishedLoading();
+                        App.Util.finishedLoading('.remove');
                         toastr.success('Your listing has been removed');
                         $('main').fadeOut(1000);
 
@@ -310,7 +310,7 @@ $('a.remove-listing').on('click', function(e) {
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
-                        App.Util.finishedLoading();
+                        App.Util.finishedLoading('.remove');
                     }
                 );
             }
