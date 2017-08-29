@@ -8,19 +8,23 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.32.1",
+            "version": "3.35.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ca8791495696a1620fe2275df4983d063627aba7"
+                "reference": "b4391177bda332c226afcde73a12068547834535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ca8791495696a1620fe2275df4983d063627aba7",
-                "reference": "ca8791495696a1620fe2275df4983d063627aba7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b4391177bda332c226afcde73a12068547834535",
+                "reference": "b4391177bda332c226afcde73a12068547834535",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-simplexml": "*",
+                "ext-spl": "*",
                 "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
                 "guzzlehttp/promises": "~1.0",
                 "guzzlehttp/psr7": "^1.4.1",
@@ -33,11 +37,7 @@
                 "behat/behat": "~3.0",
                 "doctrine/cache": "~1.4",
                 "ext-dom": "*",
-                "ext-json": "*",
                 "ext-openssl": "*",
-                "ext-pcre": "*",
-                "ext-simplexml": "*",
-                "ext-spl": "*",
                 "nette/neon": "^2.3",
                 "phpunit/phpunit": "^4.8.35|^5.4.0",
                 "psr/cache": "^1.0"
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-07-27T19:46:08+00:00"
+            "time": "2017-08-29T15:23:50+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -476,12 +476,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wixel/GUMP.git",
-                "reference": "50e26cd9c9c4d7904667d70e81b2c17010709ac4"
+                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/50e26cd9c9c4d7904667d70e81b2c17010709ac4",
-                "reference": "50e26cd9c9c4d7904667d70e81b2c17010709ac4",
+                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/1c3f6cb68667edd5c92f879f2a0a429318bac642",
+                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642",
                 "shasum": ""
             },
             "type": "library",
@@ -506,7 +506,7 @@
             ],
             "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
             "homepage": "https://wixelhq.com/",
-            "time": "2017-07-25 15:40:27"
+            "time": "2017-08-16 10:04:34"
         }
     ],
     "packages-dev": [],
