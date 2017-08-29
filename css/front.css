@@ -201,8 +201,6 @@ body.home .search {
     padding-left: 7.5px; }
   #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
     padding-right: 7.5px; }
-  #sign-up-modal div.modal-body div.select-row select, #log-in-modal div.modal-body div.select-row select {
-    width: 100%; }
 #sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
   margin: 1rem 0; }
 #sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {

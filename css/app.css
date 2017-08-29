@@ -149,6 +149,8 @@ form input, form textarea, form select, form button {
   font-weight: 300; }
   form input:focus, form textarea:focus, form select:focus, form button:focus {
     outline: 0; }
+form select:not(.input-group-addon) {
+  width: 100%; }
 form .form-control {
   color: #4c4c4c; }
   form .form-control::-webkit-input-placeholder {
@@ -165,6 +167,8 @@ form div.radio-box {
   margin: 0.5rem 0; }
   form div.radio-box span.custom-control-indicator {
     top: 0.2rem; }
+form .input-group-addon {
+  min-width: 3rem; }
 form div.input-group-btn .btn {
   background-color: #eceeef; }
 form select.input-group-addon {
@@ -271,11 +275,13 @@ nav#header.navbar {
     height: 40px;
     width: 40px;
     border: 2px solid #f2f2f2;
-    background-image: url("https://www.thewrap.com/wp-content/uploads/2015/11/Donald-Trump.jpg");
     background-size: cover;
+    background-position: center center;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%; }
+    nav#header.navbar li.nav-item div.profile:after {
+      border: 0; }
   nav#header.navbar div.dropdown-menu {
     margin-top: 0.75rem;
     -webkit-border-radius: 0px;

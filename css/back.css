@@ -53,6 +53,9 @@ body.back div.sidebar {
         border-color: #007349;
         color: #007349;
         font-weight: 400; }
+    body.back div.sidebar a.nav-link.active:not(.parent):not(.child) {
+      color: #006e44;
+      font-weight: 500; }
   body.back div.sidebar div.collapse {
     background-color: #f9f9fe; }
 
