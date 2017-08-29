@@ -21,7 +21,7 @@ $('a.remove-listing').on('click', function(e) {
         },
         callback: function(result) {
             if (result === true) {
-                /* App.Ajax.post('dashboard/food-listings/remove-listing', data, 
+                App.Ajax.post('dashboard/food-listings/remove-listing', data, 
                     function(response) {
                         $('a.remove-listing').tooltip('hide');
                         App.Util.animation($card, 'zoomOut', 'out');
@@ -29,9 +29,8 @@ $('a.remove-listing').on('click', function(e) {
                     function(response) {
                         App.Util.msg(response.error, 'danger');
                     }
-                ); */
+                );
                 App.Util.animation($card, 'zoomOut', 'out', true, $card.parents('div.col-md-4'));
-                // $card.parents('div.col-md-4').remove();
             }
         }
     });
