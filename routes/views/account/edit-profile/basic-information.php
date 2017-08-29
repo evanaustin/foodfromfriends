@@ -205,8 +205,8 @@
                                 </div>
                             </div>
 
-                            <small class="form-text text-muted" <?php if (!empty($User->filename)) echo 'style="display: none;"' ?>>
-                                Users with profile photos tend to be viewed as more friendly!
+                            <small id="profilePhotoHelp" class="form-text text-muted <?php if (!empty($User->filename)) echo 'hidden'; ?>">
+                                Upload a good photo of your face to make more friends!
                             </small>
                         </div>
                     </div>
