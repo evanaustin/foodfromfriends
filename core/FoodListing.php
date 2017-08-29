@@ -33,7 +33,6 @@ class FoodListing extends Base {
         }
     }
 
-
     public function join_foodlistings($data) {
         if (isset($data)) {
             $bind = [
