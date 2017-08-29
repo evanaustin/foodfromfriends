@@ -16,11 +16,17 @@
                             'meetup'
                         ]
                     ],
-                    'profile' => [
-                        'edit' => 'edit-profile'
-                    ],
                     'account' => [
-                        'settings'
+                        'edit-profile' => [
+                            'basic-information',
+                            'location',
+                        ],
+                        /* 'account-settings' => [
+                            'notifications',
+                            'payout',
+                            'payment'
+                        ] */
+                        // 'edit' => 'edit-profile', // link alias format
                     ]
                 ];
 
