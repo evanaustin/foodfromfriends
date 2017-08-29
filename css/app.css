@@ -272,6 +272,7 @@ nav#header.navbar {
       height: 40px !important;
       width: 320px !important; }
   nav#header.navbar li.nav-item div.profile {
+    cursor: pointer;
     height: 40px;
     width: 40px;
     border: 2px solid #f2f2f2;
