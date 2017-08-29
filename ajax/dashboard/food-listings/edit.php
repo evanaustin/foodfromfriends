@@ -88,13 +88,13 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id . '.fc.' . $FoodListing->food_category_id . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $FoodListing->other_subcategory) . '.u.' . $User->id;
+    $filename = 'fl.' . $id . '.fc.' . (empty($FoodListing->food_category_id) ? $FoodListing->food_category_id : '0') . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $FoodListing->other_subcategory) . '.u.' . $User->id;
     
     // determine file type
     $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';
 
     // set temporary storage paths
-    $tmp1 = SERVER_ROOT . 'media/tmp/food-listings/';
+    $tmp1 = SERVER_ROOT . 'media/tmp/start/';
     $tmp2 = SERVER_ROOT . 'media/tmp/final/';
 
     // set temporary image names
@@ -195,6 +195,17 @@ if (isset($_POST['images'])) {
     if (!$img_added) quit('Could not add new image');
 
     // unlink tmp imgs
+    if (file_exists($tmp1_image)) {
+        unlink($tmp1_image);
+    }
+    
+    if (file_exists($tmp2_image)) {
+        unlink($tmp2_image);
+    }
+    
+    if (file_exists($tmp2 . $filename . '.cropped.' . $ext)) {
+        unlink($tmp2 . $filename . '.cropped.' . $ext);
+    }
 }
 
 echo json_encode($json);
