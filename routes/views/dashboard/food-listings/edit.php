@@ -117,7 +117,7 @@
                                 <div class="form-group">
                                     <label>Listing photo</label>
 
-                                    <a href="" class="remove-image float-right" data-listing-id="<?php echo $FoodListing->id; ?>" <?php if (empty($FoodListing->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
+                                    <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
 
                                     <div class="image-box slide-over <?php if (!empty($FoodListing->filename)) echo 'existing-image'; ?>">
                                         <?php 
