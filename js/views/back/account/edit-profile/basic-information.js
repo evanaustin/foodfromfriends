@@ -76,8 +76,11 @@ image = {
 					};
 				});
 
-				// Show delete button
-				// App.Util.animation($('a.remove-image'), 'bounceIn', 'in');
+				// show delete button
+				App.Util.animation($('a.remove-image'), 'bounceIn', 'in');
+				
+				// hide help text
+				App.Util.animation($('small#profilePhotoHelp'), 'zoomOut', 'out');
 
 				self.source[key] = {
 					w: img.width,
@@ -104,13 +107,13 @@ image = {
 
 		$('div.image-box').find('img.file').each(function() {
 			if (self.uploadDisabled[key] === false) {
-			return true;    // continue
+				return true;    // continue
 			}
 
 			data.push({
-			source: self.source[key],
-			crop: self.crop[key],
-			key: key
+				source: self.source[key],
+				crop: self.crop[key],
+				key: key
 			});
 		});
 
@@ -149,14 +152,10 @@ image = {
 	destroy: function() {
 		var self = this;
 		
-		App.Ajax.post('account/edit-profile/remove-image',
-			{
-				listing_id: 0
-			},
+		App.Ajax.post('account/edit-profile/remove-image', null,
 			function(response) {
 				self.discard();
 				toastr.success('Your image has been deleted');
-				// App.Util.msg('Your image has been deleted successfully', 'success');
 				App.Util.finishedLoading();
 			},
 			function(response) {
@@ -196,8 +195,6 @@ $('a.remove-image').on('click', function(e) {
 	e.preventDefault();
 	
 	App.Util.animation($(this), 'bounce');
-
-	// var id = $(this).data('listing-id');
 
 	bootbox.confirm({
 		message: 'You want to remove the current image?',
