@@ -49,6 +49,11 @@ body.back {
                     font-weight: 400;
                 }
             }
+            
+            &.active:not(.parent):not(.child) {
+                color: lighten($dark_green, 5%);
+                font-weight: 500;
+            }
         }
 
         div.collapse {
