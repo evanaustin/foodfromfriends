@@ -6,8 +6,8 @@
                     <?php foreach ([
                         'dashboard' => 'food-listings/overview',
                         // 'stats' => '',
-                        'profile' => '',
-                        // 'account' => '',
+                        // 'profile' => 'basic-information',
+                        'account' => 'edit-profile/basic-information',
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
