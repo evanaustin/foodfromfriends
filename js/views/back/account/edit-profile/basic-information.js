@@ -249,7 +249,7 @@ $('#edit-basic-information').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('account/edit-profile/basic-information', data, 
+		App.Ajax.postFiles('account/edit-profile/save-basic-information', data, 
 			function(response) {
 				toastr.success('Your basic information has been updated!');
 				App.Util.finishedLoading();
