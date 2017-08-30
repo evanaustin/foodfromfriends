@@ -1,15 +1,26 @@
 @charset 'utf-8';
 
 /**
+* Fonts
+**/
+@import 'custom-fonts';
+
+/**
 * Dependencies
 **/
 @import 'mixins';
 @import 'colors';
 
 /**
+* Universal
+**/
+@import 'general';
+@import 'forms';
+
+/**
 * View Styles
 **/
-@import 'views/front/home';
+@import 'views/splash';
 
 /**
 * Modal Styles
