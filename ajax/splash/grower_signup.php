@@ -17,10 +17,10 @@ $Grower = new Grower([
     'DB' => $DB
 ]);
 
-$exists = $Grower->exists('growers','email', $email );
+$exists = $Grower->exists('email', $email );
 
 if (!$exists){
-    $results = $Grower->add('growers', [
+    $results = $Grower->add([
         'email' => $email
     ]);
 
