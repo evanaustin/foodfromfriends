@@ -32,7 +32,7 @@
                 </li> -->
 
                 <li class="nav-item dropdown">
-                    <div class="nav-link dropdown-toggle profile" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/user/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                    <div class="nav-link dropdown-toggle profile" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'account/edit-profile/basic-information'; ?>">Edit profile</a>

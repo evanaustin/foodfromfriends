@@ -56,7 +56,7 @@
                                     <?php
                                     
                                     if (!empty($listing['filename'])) {
-                                        img('user/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top');
+                                        img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top');
                                     } else {
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'card-img-top');
                                     }

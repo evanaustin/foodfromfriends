@@ -190,7 +190,7 @@
                                 <?php
                                         
                                 if (!empty($User->filename)) {
-                                    img('user/profile-photos/' . $User->filename, $User->ext . '?' . time(), 'S3', 'file');
+                                    img(ENV . '/profile-photos/' . $User->filename, $User->ext . '?' . time(), 'S3', 'file');
                                 } else {
                                     img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
                                 }

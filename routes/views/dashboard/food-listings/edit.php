@@ -123,7 +123,7 @@
                                         <?php 
                                         
                                         if (!empty($FoodListing->filename)) {
-                                            img('user/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
+                                            img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
                                         } else {
                                             img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
                                         }

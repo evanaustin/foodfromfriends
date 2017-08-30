@@ -13,7 +13,7 @@ if (!empty($User->filename)) {
     if (!$record_removed) quit('Could not remove image record');
     
     $img_removed = $S3->delete_objects([
-        'user/profile-photos/' . $User->filename . '.' . $User->ext
+        ENV . '/profile-photos/' . $User->filename . '.' . $User->ext
     ]);
 } else {
     quit('There was no image to remove');

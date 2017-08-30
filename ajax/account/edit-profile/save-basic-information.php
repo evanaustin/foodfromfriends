@@ -185,7 +185,7 @@ if (isset($_POST['images'])) {
         if (!$record_edited) quit('Could not edit image record');
         
         $img_removed = $S3->delete_objects([
-            'user/profile-photos/' . $User->filename . $User->ext
+            ENV . '/profile-photos/' . $User->filename . $User->ext
         ], $file);
     } else {
         $record_added = $User->add([
@@ -199,7 +199,7 @@ if (isset($_POST['images'])) {
         }
     }
     
-    $img_added = $S3->save_object('user/profile-photos/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+    $img_added = $S3->save_object(ENV . '/profile-photos/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
     
     if (!$img_added) quit('Could not add new image');
 

@@ -19,7 +19,7 @@ if (!empty($FoodListing->filename)) {
     if (!$record_removed) quit('Could not edit image record');
     
     $img_removed = $S3->delete_objects([
-        'user/' . $FoodListing->filename . '.' . $FoodListing->ext
+        ENV . '/food-listing/' . $FoodListing->filename . '.' . $FoodListing->ext
     ]);
 } else {
     quit('There was no image to remove');

@@ -138,7 +138,7 @@ class S3 {
     /**
     * Uploads an object to one of the foodfromfriends buckets.
     *
-    * @param string $key Where to save the object in S3.  Example: "user/images/impact-shop/asdf.jpg".
+    * @param string $key Where to save the object in S3.
     * @param resource $file The file to be uploaded.
     * @param null|string $mimetype The mimetype.  If this isn't set, the file will download when acessed at its URL instead of opening in the browser (even for images).  See http://stackoverflow.com/questions/14150854/aws-s3-display-file-inline-instead-of-force-download
     * @param null|string $cache_control Cache options for the file.  Defaults to 3 years.
