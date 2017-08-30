@@ -35,7 +35,7 @@ foreach ([
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
-            'css/app',
+            (($Routing->template != 'splash' && $Routing->template != 'early-access-invitation') ? 'css/app' : ''),
             $Template->styles
         ]); ?>
     </head>

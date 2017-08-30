@@ -25,7 +25,9 @@ class Template {
     }
 
     function set_scripts($template) {
-        if ($template == 'front') {
+        if ($template == 'splash') {
+            $this->scripts['splash'] = 'js/views/splash';
+        } else if ($template == 'front') {
             $this->scripts['sign-up'] = 'js/modals/sign-up';
             $this->scripts['log-in'] = 'js/modals/log-in';
         }
