@@ -1,6 +1,5 @@
 {  
   "require": {
-    "wixel/gump": "dev-master",
     "sendgrid/sendgrid": "~6.0",
     "aws/aws-sdk-php": "^3.31"
   },

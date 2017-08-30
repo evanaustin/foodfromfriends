@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d6e94ca5b863442df325f716d86f476",
+    "content-hash": "7d7c732e0b3f3a99e49777cd318c2dd7",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.35.1",
+            "version": "3.35.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b4391177bda332c226afcde73a12068547834535"
+                "reference": "a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b4391177bda332c226afcde73a12068547834535",
-                "reference": "b4391177bda332c226afcde73a12068547834535",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8",
+                "reference": "a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-08-29T15:23:50+00:00"
+            "time": "2017-08-30T16:17:20+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -469,52 +469,12 @@
                 "sendgrid"
             ],
             "time": "2017-07-01T04:30:16+00:00"
-        },
-        {
-            "name": "wixel/gump",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Wixel/GUMP.git",
-                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/1c3f6cb68667edd5c92f879f2a0a429318bac642",
-                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "gump.class.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sean Nieuwoudt",
-                    "homepage": "https://wixelhq.com"
-                },
-                {
-                    "name": "Filis Futsarov",
-                    "homepage": "https://filis.me"
-                }
-            ],
-            "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
-            "homepage": "https://wixelhq.com/",
-            "time": "2017-08-16 10:04:34"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "wixel/gump": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
