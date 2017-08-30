@@ -49,7 +49,7 @@
                 </div> -->
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer <?php if ($Routing->landing == 'splash') { echo 'hidden'; } ?>">
                 <h6>Don't have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#sign-up-modal">Sign up</a></h6>
             </div>
         </div>
