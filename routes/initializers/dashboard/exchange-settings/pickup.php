@@ -1,5 +1,9 @@
 <?php 
 
+$settings = [
+    'title' => 'Your pickup preferences | Food From Friends'
+];
+
 $Pickup = new Pickup([
     'DB' => $DB
 ]);

@@ -1,5 +1,9 @@
 <?php
 
+$settings = [
+    'title' => 'User profile | Food From Friends'
+];
+
 $ProfileUser = new User([
     'DB' => $DB,
     'id' => $_GET['id']

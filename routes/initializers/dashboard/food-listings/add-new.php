@@ -1,5 +1,9 @@
 <?php
 
+$settings = [
+    'title' => 'Add new food listing | Food From Friends'
+];
+
 $FoodListing = new FoodListing([
     'DB' => $DB
 ]);

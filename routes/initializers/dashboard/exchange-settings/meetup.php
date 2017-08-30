@@ -1,5 +1,9 @@
 <?php 
 
+$settings = [
+    'title' => 'Your meetup preferences | Food From Friends'
+];
+
 $Meetup = new Meetup([
     'DB' => $DB
 ]);

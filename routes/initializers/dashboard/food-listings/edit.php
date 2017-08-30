@@ -1,5 +1,9 @@
 <?php
 
+$settings = [
+    'title' => 'Edit listing | Food From Friends'
+];
+
 $FoodListing = new FoodListing([
     'DB' => $DB,
     'S3' => $S3,
