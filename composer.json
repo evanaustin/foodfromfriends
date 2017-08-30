@@ -1,7 +1,8 @@
 {  
   "require": {
     "sendgrid/sendgrid": "~6.0",
-    "aws/aws-sdk-php": "^3.31"
+    "aws/aws-sdk-php": "^3.31",
+    "wixel/gump": "dev-master"
   },
   "autoload": {
     "files": ["incl/functions.php"]
