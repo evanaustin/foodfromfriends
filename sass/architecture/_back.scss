@@ -1,0 +1,26 @@
+body.grower {
+    div.wrapper {
+        display: flex;
+
+        div.side-left {
+            width: 20%;
+        }  
+        
+        div.side-right{
+            width: 80%;
+        }  
+    }
+
+    h4.title {
+        font-weight: 500;
+        color: #555;
+    }
+}
+
+ p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    font-size: smaller;
+    color: green;
+}

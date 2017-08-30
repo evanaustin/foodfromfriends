@@ -1,0 +1,89 @@
+@charset 'utf-8';
+
+/**
+* Dependencies
+**/
+@import 'mixins';
+@import 'colors';
+
+/**
+* Architecture Styles
+**/
+@import 'architecture/back';
+
+/**
+* Component Styles
+**/
+@import 'components/back/sidebar';
+@import 'components/back/subheader';
+
+/**
+* View Styles
+* ! these should be loaded elsewhere, individually, as necessary
+**/
+@import 'views/back/dashboard/food-listings/overview';
+
+/**
+* Back styles
+* ! maybe pull this out
+*/
+body.back {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em)); /* footer font-size + footer padding + link padding */
+
+    div.container-fluid {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: 0;
+
+        > div.row {
+            flex-grow: 1;
+        }
+    }
+
+    main {
+        padding: 0;
+        background-color: #fafafb;
+        
+        div.page-title {
+            padding: 0.5rem 0;
+            // font-weight: 100;
+            font-weight: 400;
+            color: $dark-gray;
+        }
+
+        div.controls {
+            float: right;
+            margin: 0.5rem 0;
+
+            .btn {
+                display: block;
+                min-width: 175px;
+                color: #fff;
+                font-size: 0.875rem;
+
+                &:first-child {
+                    margin-bottom: 0.5rem;
+                }
+
+                i {
+                    &.pre {
+                        float: left;
+                    }
+                    
+                    &.post {
+                        margin-top: 1px;
+                        float: right;
+                    }
+                }
+            }
+        }
+    
+        div.main.container {
+            padding: 15px;
+            margin-bottom: 1.75rem;
+        }
+    }
+}

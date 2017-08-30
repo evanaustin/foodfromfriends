@@ -7,6 +7,7 @@ class Locavore extends Base {
         $DB;
         
     public
+        $table,
         $id,
         $email,
         $password,
@@ -17,6 +18,8 @@ class Locavore extends Base {
         
     
     function __construct($parameters) {
+        $this->table = 'locavores';
+
         $this->class_dependencies = [
             'DB',
         ];

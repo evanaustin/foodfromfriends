@@ -1,0 +1,163 @@
+/**
+* Dependencies
+**/
+/**
+* Architecture Styles
+**/
+body.grower div.wrapper {
+  display: flex; }
+  body.grower div.wrapper div.side-left {
+    width: 20%; }
+  body.grower div.wrapper div.side-right {
+    width: 80%; }
+body.grower h4.title {
+  font-weight: 500;
+  color: #555; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: smaller;
+  color: green; }
+
+/**
+* Component Styles
+**/
+body.back div.sidebar {
+  height: auto;
+  padding-left: 0;
+  padding-right: 0;
+  border-right: 1px solid #eee; }
+  body.back div.sidebar a.nav-link {
+    padding: 15px 30px;
+    color: #8ca3ad;
+    font-size: 14px;
+    border-left: 2px solid transparent; }
+    body.back div.sidebar a.nav-link:hover {
+      color: #58707b; }
+    body.back div.sidebar a.nav-link[aria-expanded="true"] {
+      background-color: #f9f9fe;
+      color: #00b371;
+      font-weight: 500; }
+    body.back div.sidebar a.nav-link.parent:after {
+      float: right; }
+    body.back div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+      content: '\002b'; }
+    body.back div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+      content: '\2013'; }
+    body.back div.sidebar a.nav-link.child {
+      padding: 10px 30px; }
+      body.back div.sidebar a.nav-link.child.active {
+        background-color: rgba(0, 179, 113, 0.25);
+        border-color: #007349;
+        color: #007349;
+        font-weight: 400; }
+    body.back div.sidebar a.nav-link.active:not(.parent):not(.child) {
+      color: #006e44;
+      font-weight: 500; }
+  body.back div.sidebar div.collapse {
+    background-color: #f9f9fe; }
+
+body.back div.subheader {
+  background-color: #fff;
+  border-bottom: 1px solid #eee; }
+  body.back div.subheader a.nav-link {
+    padding: 15px 0;
+    color: #8ca3ad;
+    font-size: 14px;
+    font-weight: 500; }
+    body.back div.subheader a.nav-link:hover {
+      color: #58707b; }
+    body.back div.subheader a.nav-link.active {
+      color: #00A669;
+      position: relative; }
+      body.back div.subheader a.nav-link.active:after {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        height: 5px;
+        width: 100%;
+        background-color: #007349; }
+
+/**
+* View Styles
+* ! these should be loaded elsewhere, individually, as necessary
+**/
+body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) div.card {
+  margin-top: 0.25em; }
+body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(n+4) div.card {
+  margin-top: 2em; }
+body.dashboard-food-listings-overview div.card-block {
+  padding: 0; }
+  body.dashboard-food-listings-overview div.card-block h6.card-subtitle {
+    color: #b2b2b2;
+    padding: 0.25rem 0; }
+  body.dashboard-food-listings-overview div.card-block p.card-text {
+    margin-top: 0.25rem;
+    color: #7f7f7f; }
+    body.dashboard-food-listings-overview div.card-block p.card-text span.quantity {
+      padding: 0.15rem 0.25rem;
+      -webkit-border-radius: 0.15rem;
+      -moz-border-radius: 0.15rem;
+      border-radius: 0.15rem; }
+body.dashboard-food-listings-overview div.listing-info {
+  flex-grow: 2;
+  justify-content: center;
+  padding: 1.25rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.15); }
+body.dashboard-food-listings-overview div.listing-controls {
+  flex-grow: 1; }
+  body.dashboard-food-listings-overview div.listing-controls a {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; }
+    body.dashboard-food-listings-overview div.listing-controls a:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+
+/**
+* Back styles
+* ! maybe pull this out
+*/
+body.back {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em));
+  /* footer font-size + footer padding + link padding */ }
+  body.back div.container-fluid {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0; }
+    body.back div.container-fluid > div.row {
+      flex-grow: 1; }
+  body.back main {
+    padding: 0;
+    background-color: #fafafb; }
+    body.back main div.page-title {
+      padding: 0.5rem 0;
+      font-weight: 400;
+      color: #4c4c4c; }
+    body.back main div.controls {
+      float: right;
+      margin: 0.5rem 0; }
+      body.back main div.controls .btn {
+        display: block;
+        min-width: 175px;
+        color: #fff;
+        font-size: 0.875rem; }
+        body.back main div.controls .btn:first-child {
+          margin-bottom: 0.5rem; }
+        body.back main div.controls .btn i.pre {
+          float: left; }
+        body.back main div.controls .btn i.post {
+          margin-top: 1px;
+          float: right; }
+    body.back main div.main.container {
+      padding: 15px;
+      margin-bottom: 1.75rem; }
+
+/*# sourceMappingURL=back.css.map */

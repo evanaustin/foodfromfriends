@@ -175,6 +175,16 @@
     opacity: $opacity;
 }
 
+// Mixin for altering animation duration 
+// @include animation-duration(TIME)
+@mixin animation-duration($time) {
+    -webkit-animation-duration: $time;
+    -moz-animation-duration: $time;
+    -ms-animation-duration: $time;
+    -o-animation-duration: $time;
+    animation-duration: $time;
+}
+
 // Mixin for creating animations using single or "all" property transitions
 // @include transition(PROPERTY DURATION DELAY(OPT) TIMING-FUNCTION)
 @mixin transition($transition) {

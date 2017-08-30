@@ -22,7 +22,7 @@ App.Ajax = function() {
             headers: {
                 'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
             },
-            url: 'ajax/' + endpoint + '.php',
+            url: PUBLIC_ROOT + 'ajax/' + endpoint + '.php',
             cache: false,
             data: data,
             dataType: data_type,

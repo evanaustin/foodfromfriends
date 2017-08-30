@@ -1,10 +1,54 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
 body {
+    position: relative;
+    min-height: 100%;
     margin: 0;
-    font-family: 'Signika';
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #404040;
 }
 
-button {
+h1, h2, h3, h4, h5, h6 {
+    font-weight: inherit;
+}
+
+a, button {
+    &:focus {
+        outline: 0;
+    }
+}
+
+.btn {
     cursor: pointer;
+    font-weight: inherit;
+
+    &:focus, &.focus {
+        @include box-shadow(0 0 0 transparent);
+    }
+}
+
+div.card {
+    flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
+}
+
+img.card-img-top {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+div.modal-content {
+    border: 0px;
+    @include border-radius(0);
 }
 
 .align-left {
@@ -13,4 +57,17 @@ button {
 
 .align-right {
     text-align: right;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexgrow {
+    flex-grow: 1;
+}
+
+.hidden {
+    display: none !important;
 }

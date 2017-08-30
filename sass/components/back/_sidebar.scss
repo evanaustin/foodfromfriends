@@ -1,0 +1,63 @@
+body.back {
+    div.sidebar {
+        height: auto;
+        padding-left: 0;
+        padding-right: 0;
+        border-right: 1px solid #eee;
+
+        a.nav-link {
+            padding: 15px 30px;
+            color: #8ca3ad;
+            font-size: 14px;
+            border-left: 2px solid transparent;
+
+            &:hover {
+                color: #58707b;
+            }
+
+            &[aria-expanded="true"] {
+                background-color: #f9f9fe;
+                color: lighten($light_green, 2.5%);
+                font-weight: 500;
+            }
+
+            &.parent {
+                &:after {
+                    float: right;
+                }
+
+                &[aria-expanded="false"] {
+                    &:after {
+                        content: '\002b';
+                    }
+                }
+                
+                &[aria-expanded="true"] {
+                    &:after {
+                        content: '\2013';
+                    }
+                }
+            }
+
+            &.child {
+                padding: 10px 30px;
+
+                &.active {
+                    background-color: rgba(0, 179, 113, 0.25);
+                    border-color: darken($light_green, 10%);
+                    color: darken($light_green, 10%);
+                    font-weight: 400;
+                }
+            }
+            
+            &.active:not(.parent):not(.child) {
+                color: lighten($dark_green, 5%);
+                font-weight: 500;
+            }
+        }
+
+        div.collapse {
+            background-color: #f9f9fe;
+        }
+    }
+}

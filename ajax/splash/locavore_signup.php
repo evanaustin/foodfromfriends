@@ -17,10 +17,10 @@ $Locavore = new Locavore([
     'DB' => $DB
 ]);
 
-$exists = $Locavore->exists('locavores','email', $email );
+$exists = $Locavore->exists('email', $email );
 
 if (!$exists) {  
-    $results = $Locavore->add('locavores', [
+    $results = $Locavore->add([
         'email' => $email
     ]);
 

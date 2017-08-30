@@ -7,6 +7,7 @@ class Grower extends Base {
         $DB;
         
     public
+        $table,
         $id,
         $email,
         $password,
@@ -17,6 +18,8 @@ class Grower extends Base {
         
     
     function __construct($parameters) {
+        $this->table = 'growers';
+
         $this->class_dependencies = [
             'DB',
         ];

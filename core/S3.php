@@ -3,6 +3,7 @@
 /**
  * Used for interacting with the FoodFromFriends S3 buckets.
  */
+ 
 class S3 {
     /**
      * An instance of the S3 client.
@@ -122,21 +123,16 @@ class S3 {
             throw new \Exception('Please provide an object to delete.');
         }
 
-        $bucket = $this->bucket();
-        $responses = [];
-
         foreach ($objects as $object) {
             // Objects in a 0/ "folder" are defaults.
             // Don't delete those.
             if (strpos($object, '/0/') === false) {
-                $responses []= $this->S3->deleteObject([
-                    'Bucket' => $bucket,
+                $this->S3->deleteObject([
+                    'Bucket' => $this->bucket(),
                     'Key' => $object
                 ]);
             }
         }
-
-        return $responses;
     }
 
     /**
