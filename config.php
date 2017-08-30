@@ -105,4 +105,13 @@ if ($LOGGED_IN) {
 
 define('SENDGRID_APIKEY', '');
 
+/**
+* Error Reporting
+**/
+
+define('DEBUG', false);
+
+error_reporting(E_ALL);
+ini_set('display_errors', DEBUG ? 'On' : 'Off');
+
 ?>
