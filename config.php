@@ -16,7 +16,7 @@ foreach ($constants as $constant => $value) {
 switch(ENV) {
     case 'prod':
         $env_constants = [
-            'PUBLIC_ROOT' => '/',
+            'PUBLIC_ROOT' => 'https://foodfromfriends.co/',
             'DB_HOST'   => 'localhost',
             'DB_NAME'   => 'varaloka_foodfromfriends',
             'DB_USER'   => 'varaloka_fff',
