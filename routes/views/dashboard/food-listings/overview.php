@@ -12,7 +12,7 @@
                             <?php
                             
                             if ($listing_count == 0) {
-                                $msg = 'Unless your garden is as barren as this page, you\'ve got some adding to do. Hop to it!';
+                                $msg = 'Hey! Unless your garden is as barren as this page, you\'ve got some adding to do. Hop to it!';
                             } else if ($listing_count == 1) {
                                 $msg = 'That\'s a mighty fine listing you\'ve got there. Looks like it could use some company though &ndash;' . (($listings[0]['category_title'] == 'fruit') ? ' more' : '') . ' fruits or veggies, perhaps?';
                             } else if ($listing_count > 1 && $listing_count < 3) {
