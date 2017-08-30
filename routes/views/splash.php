@@ -203,20 +203,19 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="split-left">
-                    © 2017. All rights reserved.
+                    © Food From Friends
 
                     <span class="hidden-lg-up">
                         <br>
                         <i class="fa fa-car" aria-hidden="true"></i> 
-                        Made on the road
+                        Log in
                     </span>
                 </div>
             </div>
 
             <div class="hidden-md-down col-lg-6">
                 <div class="split-right">
-                    <i class="fa fa-car" aria-hidden="true"></i> 
-                    Made on the road
+                    Lucky enough to have a beta account? <a href="#" data-toggle="modal" data-target="#log-in-modal">Log in</a> <i class="fa fa-sign-in"></i>
                 </div>
             </div>
         </div>
