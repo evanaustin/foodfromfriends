@@ -19,17 +19,17 @@
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#log-in-modal">Log in</a>
                 </li>
             <?php } else { ?>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Sell</a>
-                </li>
+                </li> -->
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Shop</a>
-                </li>
+                </li> -->
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Messages</a>
-                </li>
+                </li> -->
 
                 <li class="nav-item dropdown">
                     <div class="nav-link dropdown-toggle profile" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/user/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
