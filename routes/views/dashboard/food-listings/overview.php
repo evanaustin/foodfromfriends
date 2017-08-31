@@ -87,7 +87,7 @@
 
                                                     if ($listing['quantity'] == 0) {
                                                         $niblet .= ' bg-danger';
-                                                    } else if ($listing['quantity'] > 0 && $listing['quantity'] < 5) {
+                                                    } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
                                                         $niblet .= ' bg-warning';
                                                     } else if ($listing['quantity'] > 5) {
                                                         $niblet .= ' bg-success';
