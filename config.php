@@ -31,7 +31,7 @@ $constants = [
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
     'DB_PW'             => $DB_KEY,
-    'SENDGRID_APIKEY'   => $SENDGRID_API,
+    'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
     'AWS_SECRET'        => $AWS_SECRET
 ];
