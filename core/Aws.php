@@ -57,8 +57,8 @@ class Aws {
             'region' => 'us-east-1',
             'version' => 'latest',
             'credentials' => [
-                'key' => 'AKIAIIUIR7MGSYOFVPRA',
-                'secret' => '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'
+                'key' => AWS_KEY,
+                'secret' => AWS_SECRET
             ],
             'S3' => [
                 'version' => 'latest'
