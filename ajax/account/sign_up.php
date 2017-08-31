@@ -48,6 +48,14 @@ if ($new_user != false) {
     quit('We couldn\'t create your account');
 }
 
+$Mail = new Mail([
+    'fromName' => 'Food From Friends',
+    'fromEmail' => 'foodfromfriendsco@gmail.com',
+    'toEmail' => $email
+]);
+
+$json['mail'] = $Mail->thanks_early_access_grower_signup(); 
+
 echo json_encode($json);
 
 ?>
