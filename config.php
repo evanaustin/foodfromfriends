@@ -8,7 +8,7 @@ define('ENV', (isset($_ENV['SERVER_NAME']) ? 'prod' : 'dev'));
 
 switch(ENV) {
     case 'prod':
-        require '/secrets/foodfromfriends.php';
+        require '../../secrets/foodfromfriends.php';
 
         $env_constants = [
             'PUBLIC_ROOT'   => 'https://foodfromfriends.co/'
