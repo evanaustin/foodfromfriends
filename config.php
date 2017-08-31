@@ -4,35 +4,41 @@
 * Define constants
 **/
 
-$constants = [
-    'ENV'		    => (isset($_ENV['SERVER_NAME'])) ? 'prod' : 'dev',
-    'SERVER_ROOT'   => __DIR__ . '/'
-];
-
-foreach ($constants as $constant => $value) {
-    define($constant, $value);
-}
+define('ENV', (isset($_ENV['SERVER_NAME']) ? 'prod' : 'dev'));
 
 switch(ENV) {
     case 'prod':
+        require '/secrets/foodfromfriends.php';
+
         $env_constants = [
-            'PUBLIC_ROOT' => 'https://foodfromfriends.co/',
-            'DB_HOST'   => 'localhost',
-            'DB_NAME'   => 'varaloka_foodfromfriends',
-            'DB_USER'   => 'varaloka_fff',
-            'DB_PW'     => 'ux2JJkIfs;,@'
-        ]; break;
+            'PUBLIC_ROOT'   => 'https://foodfromfriends.co/'
+        ];
+        
+        break;
     case 'dev':
+        require 'secrets.php';
+
         $env_constants = [
-            'PUBLIC_ROOT' => '/Projects/foodfromfriends/',
-            'DB_HOST'   => 'localhost',
-            'DB_NAME'   => 'foodfromfriends',
-            'DB_USER'   => 'root',
-            'DB_PW'     => 'root'
-        ]; break;
+            'PUBLIC_ROOT'   => '/Projects/foodfromfriends/'
+        ];
+        
+        break;
 }
 
-foreach ($env_constants as $constant => $value) {
+$constants = [
+    'SERVER_ROOT'       => __DIR__ . '/',
+    'DB_HOST'           => $DB_HOST,
+    'DB_NAME'           => $DB_NAME,
+    'DB_USER'           => $DB_USER,
+    'DB_PW'             => $DB_KEY,
+    'SENDGRID_APIKEY'   => $SENDGRID_API,
+    'AWS_KEY'           => $AWS_KEY,
+    'AWS_SECRET'        => $AWS_SECRET
+];
+
+$constants = $env_constants + $constants;
+
+foreach ($constants as $constant => $value) {
     define($constant, $value);
 }
 
@@ -98,12 +104,6 @@ if ($LOGGED_IN) {
 }
 
 
-
-/**
-* Sendgrid
-**/
-
-define('SENDGRID_APIKEY', '');
 
 /**
 * Error Reporting
