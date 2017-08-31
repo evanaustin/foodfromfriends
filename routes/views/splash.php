@@ -215,7 +215,7 @@
 
             <div class="hidden-md-down col-lg-6">
                 <div class="split-right">
-                    Lucky enough to have a beta account? <a href="#" id="log-in" data-toggle="modal" data-target="#log-in-modal">Log in</a> <i class="fa fa-sign-in"></i>
+                    Lucky enough to have a beta account? <a href="#" id="welcome" data-toggle="modal" data-target="#log-in-modal">Log in</a> <i class="fa fa-sign-in"></i>
                 </div>
             </div>
         </div>
