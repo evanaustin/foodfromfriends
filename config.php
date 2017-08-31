@@ -5,10 +5,11 @@
 **/
 
 define('ENV', (isset($_ENV['SERVER_NAME']) ? 'prod' : 'dev'));
+define('SERVER_ROOT', __DIR__ . '/');
 
 switch(ENV) {
     case 'prod':
-        require '../../secrets/foodfromfriends.php';
+        require SERVER_ROOT . '../../secrets/foodfromfriends.php';
 
         $env_constants = [
             'PUBLIC_ROOT'   => 'https://foodfromfriends.co/'
@@ -16,7 +17,7 @@ switch(ENV) {
         
         break;
     case 'dev':
-        require 'secrets.php';
+        require SERVER_ROOT . 'secrets.php';
 
         $env_constants = [
             'PUBLIC_ROOT'   => '/Projects/foodfromfriends/'
@@ -26,7 +27,6 @@ switch(ENV) {
 }
 
 $constants = [
-    'SERVER_ROOT'       => __DIR__ . '/',
     'DB_HOST'           => $DB_HOST,
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
