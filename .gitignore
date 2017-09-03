@@ -2,3 +2,4 @@
 .sass-cache
 syzygy
 secrets.php
+deploy.sh
