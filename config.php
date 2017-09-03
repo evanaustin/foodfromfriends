@@ -4,21 +4,19 @@
 * Define constants
 **/
 
-define('ENV', (isset($_ENV['SERVER_NAME']) ? 'prod' : 'dev'));
+define('ENV', (isset($_SERVER['SERVER_NAME']) ? 'prod' : 'dev'));
 define('SERVER_ROOT', __DIR__ . '/');
+
+require SERVER_ROOT . 'secrets.php';
 
 switch(ENV) {
     case 'prod':
-        require SERVER_ROOT . '../../secrets/foodfromfriends.php';
-
         $env_constants = [
             'PUBLIC_ROOT'   => 'https://foodfromfriends.co/'
         ];
         
         break;
     case 'dev':
-        require SERVER_ROOT . 'secrets.php';
-
         $env_constants = [
             'PUBLIC_ROOT'   => '/Projects/foodfromfriends/'
         ];
@@ -72,7 +70,6 @@ try {
  * GUMP Validator
  **/
 
-// include 'vendor/wixel/gump/gump.class.php';
 $Gump = new GUMP();
 
 
