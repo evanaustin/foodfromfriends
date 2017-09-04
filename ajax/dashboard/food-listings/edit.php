@@ -88,7 +88,7 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id . '.fc.' . (empty($FoodListing->food_category_id) ? $FoodListing->food_category_id : '0') . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $FoodListing->other_subcategory) . '.u.' . $User->id;
+    $filename = 'fl.' . $id . '.fc.' . (!empty($FoodListing->food_category_id) ? $FoodListing->food_category_id : '0') . '.fsc.' . (empty($FoodListing->other_subcategory) ? $FoodListing->food_subcategory_id : $FoodListing->other_subcategory) . '.u.' . $User->id;
     
     // determine file type
     $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';

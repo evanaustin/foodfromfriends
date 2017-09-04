@@ -107,7 +107,7 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id . '.fc.' . (empty($food_category) ? $food_category : '0') . '.fsc.' . (empty($other_subcategory) ? $food_subcategory_id : $other_subcategory) . '.u.' . $User->id;
+    $filename = 'fl.' . $id . '.fc.' . (!empty($food_category) ? $food_category : '0') . '.fsc.' . (empty($other_subcategory) ? $food_subcategory_id : $other_subcategory) . '.u.' . $User->id;
 
     // determine file type
     $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
