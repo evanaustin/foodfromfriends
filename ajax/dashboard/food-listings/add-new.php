@@ -12,7 +12,7 @@ $_POST = $Gump->sanitize($_POST);
 $Gump->validation_rules([
 	'food-category'     => 'required|integer',
 	'food-subcategory'  => 'required|integer',
-    'other-subcategory' => 'alpha',
+    'other-subcategory' => 'alpha_space',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
 	'units'             => 'required|alpha',
