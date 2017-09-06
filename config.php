@@ -4,7 +4,7 @@
 * Define constants
 **/
 
-define('ENV', (isset($_SERVER['SERVER_NAME']) ? 'prod' : 'dev'));
+define('ENV', ($_SERVER['SERVER_NAME'] == 'localhost' ? 'dev' : 'prod'));
 define('SERVER_ROOT', __DIR__ . '/');
 
 require SERVER_ROOT . 'secrets.php';
