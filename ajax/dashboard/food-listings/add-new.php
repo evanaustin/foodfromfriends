@@ -57,7 +57,7 @@ if ($other_subcategory) {
 $listing_added = $FoodListing->add([
     'user_id' => $User->id,
     'food_subcategory_id' => $food_subcategory,
-    'other_subcategory' => strtolower($other_subcategory),
+    'other_subcategory' => $other_subcategory,
     'price' => $price * 100,
     'weight' => $weight,
     'units' => $units,
@@ -71,6 +71,8 @@ if (!$listing_added) {
 }
 
 $id = $listing_added['last_insert_id'];
+
+$other_subcategory = strtolower(preg_replace('/\s+/', '', $other_subcategory));
 
 $Image = new Image();
 
