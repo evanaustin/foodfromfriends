@@ -1,4 +1,13 @@
 body.dashboard-food-listings-overview {
+    div.tree-art {
+        img {
+            max-width: 75%;
+            max-height: 500px;
+            float: right;
+            opacity: 0.5;
+        }
+    }
+
     div.listings {
         div.col-md-4 {
             &:nth-child(-n+3) {

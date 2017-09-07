@@ -136,8 +136,16 @@
                         Let's go create your first listing!
                     </a>
 
-                    <?php
+                    <div class="tree-art">
+                        <?php
 
+                        img('art/tree','png','local');
+                        
+                        ?>
+                    </div>
+
+                    <?php
+                    
                 }
 
                 ?>
