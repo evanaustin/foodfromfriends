@@ -10,4 +10,6 @@ $Delivery = new Delivery([
 
 $details = $Delivery->get_details($User->id);
 
+$imgs = ['corn','tree','lemongrass'];
+
 ?>

@@ -139,7 +139,7 @@
                     <div class="tree-art">
                         <?php
 
-                        img('art/tree','png','local');
+                        img('art/beet','png','local');
                         
                         ?>
                     </div>

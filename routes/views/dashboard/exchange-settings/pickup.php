@@ -79,7 +79,6 @@
                         <div class="side-art">
                             <?php 
                             
-                            $imgs = ['corn','beet','lemongrass'];
                             img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
                             
                             ?>
