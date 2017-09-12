@@ -25,7 +25,7 @@ div.side-art img {
   display: block;
   margin: 0 auto;
   max-width: 75%;
-  max-height: 500px;
+  max-height: 475px;
   opacity: 0.5; }
 
 /**
@@ -94,7 +94,7 @@ body.back div.subheader {
 **/
 body.dashboard-food-listings-overview div.tree-art img {
   max-width: 75%;
-  max-height: 500px;
+  max-height: 475px;
   float: right;
   opacity: 0.5; }
 body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) div.card {
