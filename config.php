@@ -31,7 +31,8 @@ $constants = [
     'DB_PW'             => $DB_KEY,
     'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
-    'AWS_SECRET'        => $AWS_SECRET
+    'AWS_SECRET'        => $AWS_SECRET,
+    'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY
 ];
 
 $constants = $env_constants + $constants;
