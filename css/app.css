@@ -259,6 +259,10 @@ form .form-control-feedback {
 * Component Styles
 **/
 nav#header.navbar {
+  /* height:
+      40px (brand) + 1.5rem (padding)
+      40px (brand) + 24px (padding)
+  */
   background-color: #fff;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -291,6 +295,10 @@ nav#header.navbar {
     border-color: #eee; }
 
 nav#footer.navbar {
+  /* height:
+      1.5rem (padding) + 0.75rem (font-size) + 1em (link padding)
+      24px (padding) + 12px (font-size) + 12px (link padding)
+  */
   position: absolute;
   right: 0;
   bottom: 0;
