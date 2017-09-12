@@ -21,9 +21,13 @@ abstract class Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function exists($field, $data) {
+    public function exists($field, $data, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+        
         $results = $this->DB->run("
-            SELECT * FROM {$this->table} WHERE {$field}=:data LIMIT 1
+            SELECT * FROM {$table} WHERE {$field}=:data LIMIT 1
         ", [
             'data' => $data
         ]);
@@ -31,10 +35,10 @@ abstract class Base {
         return (isset($results[0])) ? true : false;
     }
 
-    public function retrieve($field = null, $data = null) {
+    public function retrieve($field = null, $data = null, $select = '*') {
         if (!isset($field) && !isset($data)) {
             $results = $this->DB->run("
-                SELECT * FROM {$this->table}  
+                SELECT {$select} FROM {$this->table}  
             ");
         
             return (isset($results)) ? $results : false;
@@ -44,7 +48,7 @@ abstract class Base {
             ];
             
             $results = $this->DB->run("
-                SELECT * FROM {$this->table} WHERE {$field}=:data 
+                SELECT {$select} FROM {$this->table} WHERE {$field}=:data 
             ", $bind);
             
             return (isset($results)) ? $results : false;
@@ -98,10 +102,6 @@ abstract class Base {
 
         return (isset($img_saved)) ? $results : false;
     }
-}     
-
-
-
-
+} 
 
 ?>
