@@ -72,9 +72,20 @@
 
                                 <textarea name="availability" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['availability'])) { echo $details['availability']; } ?></textarea>
                             </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="side-art">
+                            <?php 
+                            
+                            $imgs = ['corn','beet','lemongrass'];
+                            img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
+                            
+                            ?>
                         </div>
                     </div>
-                </form>
+                </div>
             </div> <!-- end main -->
         </div> <!-- end div.row -->
     </div> <!-- end div.container-fluid -->

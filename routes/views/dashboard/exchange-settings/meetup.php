@@ -96,9 +96,20 @@
                                     <textarea type="text" name="time" class="form-control" rows="4" placeholder="When should people meet you here?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="side-art">
+                            <?php 
+                            
+                            $imgs = ['corn','beet','lemongrass'];
+                            img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
+                            
+                            ?>
                         </div>
                     </div>
-                </form>
+                </div>
             </div> <!-- end main -->
         </div> <!-- end div.row -->
     </div> <!-- end div.container-fluid -->

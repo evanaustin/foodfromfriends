@@ -21,6 +21,13 @@ p {
   font-size: smaller;
   color: green; }
 
+div.side-art img {
+  display: block;
+  margin: 0 auto;
+  max-width: 75%;
+  max-height: 500px;
+  opacity: 0.5; }
+
 /**
 * Component Styles
 **/
@@ -85,6 +92,11 @@ body.back div.subheader {
 * View Styles
 * ! these should be loaded elsewhere, individually, as necessary
 **/
+body.dashboard-food-listings-overview div.tree-art img {
+  max-width: 75%;
+  max-height: 500px;
+  float: right;
+  opacity: 0.5; }
 body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) div.card {
   margin-top: 0.25em; }
 body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(n+4) div.card {
