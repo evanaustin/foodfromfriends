@@ -34,15 +34,41 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$updated = $User->update([
-    'address_line_1'    => $address_line_1,
-    'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
-    'city'              => $city,
-    'state'             => $state,
-    'zipcode'           => $zip
-], 'id', $User->id);
+$full_address = $address_line_1 . ', ' . $city . ', ' . $state;
+$prepared_address = str_replace(' ', '+', $full_address);
 
-if (!$updated) quit('We could not update your location');
+$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+$output= json_decode($geocode);
+
+$lat = $output->results[0]->geometry->location->lat;
+$lng = $output->results[0]->geometry->location->lng;
+
+if ($User->exists('id', $User->id, 'user_addresses')) {
+    $updated = $User->update([
+        'address_line_1'    => $address_line_1,
+        'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
+        'city'              => $city,
+        'state'             => $state,
+        'zipcode'           => $zip,
+        'latitude'          => $lat,
+        'longitude'         => $lng
+    ], 'id', $User->id, 'user_addresses');
+    
+    if (!$updated) quit('We could not update your location');
+} else {
+    $added = $User->add([
+        'user_id'           => $User->id,
+        'address_line_1'    => $address_line_1,
+        'address_line_2'    => $address_line_2,
+        'city'              => $city,
+        'state'             => $state,
+        'zipcode'           => $zip,
+        'latitude'          => $lat,
+        'longitude'         => $lng
+    ], 'user_addresses');
+    
+    if (!$added) quit('We could not add your location');
+}
 
 echo json_encode($json);
 
