@@ -17,7 +17,6 @@ App.Account = function() {
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
-                        //   $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
                     }
                 );
             }
@@ -40,7 +39,6 @@ App.Account = function() {
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
-                        // $form.siblings('div.alert').addClass('alert-danger').html('<i class="fa fa-exclamation-triangle"></i> ' + response.error).show();
                     }
                 );
             }
