@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
         <?php svg('logos/thin'); ?>
     </a>
 
@@ -19,13 +19,13 @@
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#log-in-modal">Log in</a>
                 </li>
             <?php } else { ?>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Sell</a>
-                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>">Shop</a>
+                </li>
 
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">Shop</a>
-                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Sell</a>
+                </li>
 
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Messages</a>
