@@ -43,7 +43,7 @@ $output= json_decode($geocode);
 $lat = $output->results[0]->geometry->location->lat;
 $lng = $output->results[0]->geometry->location->lng;
 
-if ($User->exists('id', $User->id, 'user_addresses')) {
+if ($User->exists('user_id', $User->id, 'user_addresses')) {
     $updated = $User->update([
         'address_line_1'    => $address_line_1,
         'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
@@ -52,7 +52,7 @@ if ($User->exists('id', $User->id, 'user_addresses')) {
         'zipcode'           => $zip,
         'latitude'          => $lat,
         'longitude'         => $lng
-    ], 'id', $User->id, 'user_addresses');
+    ], 'user_id', $User->id, 'user_addresses');
     
     if (!$updated) quit('We could not update your location');
 } else {
