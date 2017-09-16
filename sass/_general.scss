@@ -28,6 +28,12 @@ a, button {
     }
 }
 
+canvas {
+    &:focus {
+        outline: none;
+    }
+}
+
 .btn {
     cursor: pointer;
     font-weight: inherit;
