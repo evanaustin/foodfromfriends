@@ -84,4 +84,21 @@ function validate_image($image) {
     return true;
 }
 
+function rad($x) {
+    return $x * pi() / 180;
+};
+
+function getDistance($p1, $p2) {
+    // $R      = 6378137; // Earth’s mean radius in meter
+    $R      = 3959; // Earth’s mean radius in miles
+    $dLat   = rad($p2['lat'] - $p1['lat']);
+    $dLong  = rad($p2['lat'] - $p1['lat']);
+    $a      = sin($dLat / 2) * sin($dLat / 2) +
+            cos(rad($p1['lat'])) * cos(rad($p2['lat'])) *
+            sin($dLong / 2) * sin($dLong / 2);
+    $c      = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    $d      = $R * $c;
+    return $d; // returns the distance in miles
+};
+
 ?>
