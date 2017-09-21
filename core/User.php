@@ -6,20 +6,6 @@ class User extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $table,
-        $id,
-        $email,
-        $password,
-        $first_name,
-        $last_name,
-        $city,
-        $state,
-        $zip,
-        $validation,
-        $registered_on,
-        $is_admin;
-    
     function __construct($parameters) {
         $this->table = 'users';
 
@@ -96,37 +82,6 @@ class User extends Base {
         return false;
     }
 
-    /*
-    * This will get refactored as search capability is integrated
-    */
-    public function pull_all_growers() {
-        $results = $this->DB->run('
-            SELECT 
-                u.id,
-                u.first_name,
-                ua.address_line_1,
-                ua.address_line_2,
-                ua.city,
-                ua.state,
-                ua.zipcode,
-                ua.latitude,
-                ua.longitude,
-                upi.filename,
-                upi.ext
-            FROM users u
-            LEFT JOIN user_addresses ua
-                ON u.id = ua.user_id
-            LEFT JOIN user_profile_images upi
-                ON u.id = upi.user_id
-            WHERE u.is_grower = :is_grower
-                AND ua.zipcode IS NOT NULL
-        ', [
-            'is_grower' => 1
-        ]);
-
-        return (isset($results[0])) ? $results : false;
-    }
-    
 }
 
 ?>
