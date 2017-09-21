@@ -1,60 +1,63 @@
-/**
-* Dependencies
-**/
-/**
-* View Styles
-**/
-div.main {
-  height: calc(100% - 64px - 48px);
-  width: 100%; }
-  div.main div#map {
-    height: 100%; }
+/*
+Error: File to import not found or unreadable: views/front/map.
+       Load path: /Applications/MAMP/htdocs/Projects/foodfromfriends/sass
+        on line 12 of sass/front.scss
 
-/* Optional: Makes the sample page fill the window. */
-html, body {
-  height: 100% !important;
-  margin: 0;
-  padding: 0; }
+7: @import 'colors';
+8: 
+9: /**
+10: * View Styles
+11: **\/
+12: @import 'views/front/map';
+13: 
+14: /**
+15: * Modal Styles
+16: **\/
+17: @import 'modals/account';
 
-/* img {
-    border: 2px solid #f2f2f2;
-    background-size: cover;
-    background-position: center center;
-    @include rounded(50%);
-
-    &:after {
-        border: 0;
-    }
-} */
-/**
-* Modal Styles
-**/
-#sign-up-modal div.modal-header h3, #log-in-modal div.modal-header h3 {
-  font-weight: 400;
-  color: #7f7f7f; }
-#sign-up-modal div.modal-body div.input-group span.input-group-addon, #log-in-modal div.modal-body div.input-group span.input-group-addon {
-  width: 50px; }
-#sign-up-modal div.modal-body input, #sign-up-modal div.modal-body button, #sign-up-modal div.modal-body select, #log-in-modal div.modal-body input, #log-in-modal div.modal-body button, #log-in-modal div.modal-body select {
-  font-family: inherit;
-  font-weight: inherit;
-  height: auto; }
-  #sign-up-modal div.modal-body input:not(.btn-sm), #sign-up-modal div.modal-body button:not(.btn-sm), #sign-up-modal div.modal-body select:not(.btn-sm), #log-in-modal div.modal-body input:not(.btn-sm), #log-in-modal div.modal-body button:not(.btn-sm), #log-in-modal div.modal-body select:not(.btn-sm) {
-    padding-top: 1rem;
-    padding-bottom: 1rem; }
-#sign-up-modal div.modal-body div.select-row, #log-in-modal div.modal-body div.select-row {
-  margin-top: 1rem; }
-  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
-    padding-left: 7.5px; }
-  #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
-    padding-right: 7.5px; }
-#sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
-  margin: 1rem 0; }
-#sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {
-  font-weight: 300; }
-#sign-up-modal div.modal-body div#forgot-password, #log-in-modal div.modal-body div#forgot-password {
-  text-align: center; }
-#sign-up-modal div.modal-footer, #log-in-modal div.modal-footer {
-  text-align: center;
-  display: block; }
-
-/*# sourceMappingURL=front.css.map */
+Backtrace:
+sass/front.scss:12
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/import_node.rb:67:in `rescue in import'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/import_node.rb:45:in `import'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/import_node.rb:28:in `imported_file'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/import_node.rb:37:in `css_import?'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:311:in `visit_import'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/stack.rb:115:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:52:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:209:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:252:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/adapter.rb:254:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/adapter.rb:254:in `report_changes'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/adapter.rb:323:in `poll_changed_directories'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: views/front/map.\A        Load path: /Applications/MAMP/htdocs/Projects/foodfromfriends/sass\A         on line 12 of sass/front.scss\A \A 7: @import 'colors';\A 8: \A 9: /**\A 10: * View Styles\A 11: **/\A 12: @import 'views/front/map';\A 13: \A 14: /**\A 15: * Modal Styles\A 16: **/\A 17: @import 'modals/account';"; }

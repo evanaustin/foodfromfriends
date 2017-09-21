@@ -20,11 +20,11 @@
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>">Shop</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>">Map</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Sell</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Your listings</a>
                 </li>
 
                 <!-- <li class="nav-item">

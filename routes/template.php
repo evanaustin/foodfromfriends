@@ -26,6 +26,7 @@ foreach ([
         <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
         <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
+            // some of these don't need to be loaded universally
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
@@ -35,6 +36,7 @@ foreach ([
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
+            'node_modules/mapbox-gl/dist/mapbox-gl',
             (($Routing->template != 'splash' && $Routing->template != 'early-access-invitation') ? 'css/app' : ''),
             $Template->styles
         ]); ?>
@@ -56,6 +58,7 @@ foreach ([
             'node_modules/tether/dist/js/tether.min',
             'node_modules/parsleyjs/dist/parsley.min',
             'node_modules/toastr/build/toastr.min',
+            'node_modules/mapbox-gl/dist/mapbox-gl',
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',

@@ -4,30 +4,6 @@
 /**
 * Architecture Styles
 **/
-body.grower div.wrapper {
-  display: flex; }
-  body.grower div.wrapper div.side-left {
-    width: 20%; }
-  body.grower div.wrapper div.side-right {
-    width: 80%; }
-body.grower h4.title {
-  font-weight: 500;
-  color: #555; }
-
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  font-size: smaller;
-  color: green; }
-
-div.side-art img {
-  display: block;
-  margin: 0 auto;
-  max-width: 75%;
-  max-height: 475px;
-  opacity: 0.5; }
-
 /**
 * Component Styles
 **/
@@ -137,8 +113,8 @@ body.dashboard-food-listings-overview div.listing-controls {
 body.back {
   display: flex;
   flex-direction: column;
-  padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em));
-  /* footer font-size + footer padding + link padding */ }
+  padding-bottom: 48px;
+  /* footer height */ }
   body.back div.container-fluid {
     display: flex;
     flex-direction: column;
@@ -170,6 +146,11 @@ body.back {
           float: right; }
     body.back main div.main.container {
       padding: 15px;
-      margin-bottom: 1.75rem; }
+      height: calc(100% - 48px); }
+      body.back main div.main.container div.side-art img {
+        float: right;
+        max-width: 75%;
+        max-height: 475px;
+        opacity: 0.5; }
 
 /*# sourceMappingURL=back.css.map */

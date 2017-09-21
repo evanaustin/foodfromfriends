@@ -28,6 +28,12 @@ a, button {
     }
 }
 
+canvas {
+    &:focus {
+        outline: none;
+    }
+}
+
 .btn {
     cursor: pointer;
     font-weight: inherit;
@@ -61,7 +67,14 @@ div.modal-content {
 
 .flexbox {
     display: flex;
-    flex-direction: column;
+
+    &.flexcolumn {
+        flex-direction: column;
+    }
+
+    &.flexrow {
+        flex-direction: row;
+    }
 }
 
 .flexgrow {
