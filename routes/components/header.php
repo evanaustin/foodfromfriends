@@ -24,7 +24,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Your food</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Your listings</a>
                 </li>
 
                 <!-- <li class="nav-item">
