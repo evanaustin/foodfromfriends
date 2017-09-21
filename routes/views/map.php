@@ -37,7 +37,8 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <?php echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                            <?php echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : ''); ?>
+                                            <?php // echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
                                         </div>
                                     </div>
                                 </div>
