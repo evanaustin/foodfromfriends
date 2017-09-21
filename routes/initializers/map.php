@@ -13,11 +13,9 @@ $Grower = new Grower([
 $growers = $Grower->pull_all();
 
 $grower_count = count($growers);
-$tile_width = 'col-sm-12';
+$tile_width = 'col-6';
 
-if ($grower_count > 1) {
-    $tile_width .= ' col-md-6';
-} if ($grower_count > 4) {
+if ($grower_count > 4) {
     $tile_width .= ' col-lg-4';
 }
 
