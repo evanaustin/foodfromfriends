@@ -22,8 +22,11 @@ nav#footer {
 
 div.main {
     position: absolute;
-    top: $header-height;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    height: calc(100% - 64px);
+    top: $header-height;
 
     div#mapbox {
         position: fixed;
@@ -40,10 +43,14 @@ div.main {
     }
 
     div#scrollbox {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
         width: 40%;
         margin-left: auto;
         
         div#list {
+            flex-grow: 1;
             padding: 5px;
     
             div.row {
