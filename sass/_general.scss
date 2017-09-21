@@ -67,7 +67,14 @@ div.modal-content {
 
 .flexbox {
     display: flex;
-    flex-direction: column;
+
+    &.flexcolumn {
+        flex-direction: column;
+    }
+
+    &.flexrow {
+        flex-direction: row;
+    }
 }
 
 .flexgrow {
