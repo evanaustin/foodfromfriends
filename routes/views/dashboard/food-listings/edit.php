@@ -44,7 +44,7 @@
                         <input type="hidden" name="id" value="<?php echo $FoodListing->id; ?>">
 
                         <div class="row">
-                            <div class="col-md-8 flexbox">
+                            <div class="col-md-8 flexbox flexcolumn">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group flexbox flexgrow">
+                                <div class="form-group flexbox flexcolumn flexgrow">
                                     <label for="description">Edit listing description</label>
                                     <textarea type="text" name="description" class="form-control flexgrow" placeholder="Write a description of your homegrown food"><?php echo $FoodListing->description; ?></textarea>
                                 </div>
