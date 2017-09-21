@@ -218,6 +218,12 @@ if (isset($_POST['images'])) {
     }
 }
 
+if (!$User->is_grower) {
+    $User->update([
+        'is_grower' => true
+    ], 'id', $User->id);
+}
+
 $json['id'] = $id;
 
 echo json_encode($json);

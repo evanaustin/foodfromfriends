@@ -17,6 +17,8 @@ $FoodListing = new FoodListing([
 // of orders placed on this listing until the order class is built
 $past_orders = 0;
 
+$listing_deleted = false;
+
 // check whether any orders reference this listing
 if ($past_orders > 0) {
     $listing_deleted = $FoodListing->update([
@@ -38,6 +40,17 @@ if ($past_orders > 0) {
 }
 
 if (!$listing_deleted) quit('Could not remove food listing');
+
+$Grower = new Grower([
+    'DB' => $DB,
+    'id' => $User->id
+]);
+
+if (empty($listing_count)) {
+    $User->update([
+        'is_grower' => 0
+    ], 'id', $User->id);
+}
 
 echo json_encode($json);
 
