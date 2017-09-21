@@ -71,7 +71,7 @@ foreach ($growers as $grower) {
             'name'          => $grower['first_name'],
             'rating'        => $growers[$c]['stars'],
             'distance'      => (isset($growers[$c]['distance']) ? $growers[$c]['distance'] . ' miles away' : $grower['city'] . ', ' . $grower['state']),
-            'listings'      => $grower['listings'] . ' listing' . (count($listings) > 1 ? 's' : '')
+            'listings'      => $grower['listings'] . ' listing' . ($grower['listings'] > 1 ? 's' : '')
         ],
         'geometry'      => [
             'type'          => 'Point',
