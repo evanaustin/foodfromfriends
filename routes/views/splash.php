@@ -207,8 +207,7 @@
 
                     <span class="hidden-lg-up">
                         <br>
-                        <i class="fa fa-car" aria-hidden="true"></i> 
-                        Log in
+                        Lucky enough to have a beta account? <a href="#" data-toggle="modal" data-target="#log-in-modal">Log in</a> <i class="fa fa-sign-in"></i>
                     </span>
                 </div>
             </div>
