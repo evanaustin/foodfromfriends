@@ -32,6 +32,8 @@
                 
                 <hr>
 
+                <div class="alert"></div>
+
                 <div class="listings">
                 
                 <?php
