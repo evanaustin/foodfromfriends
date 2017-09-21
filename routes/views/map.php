@@ -31,7 +31,7 @@
                                                 </div>
                                                 
                                                 <div class="distance">
-                                                    <?php echo (!empty($distance) ? $distance['length'] . ' ' . $distance['units'] . ' away' : $grower['city'] . ', ' . $grower['state']); ?>
+                                                    <?php echo (!empty($distance) ? $grower['distance']['length'] . ' ' . $grower['distance']['units'] . ' away' : $grower['city'] . ', ' . $grower['state']); ?>
                                                 </div>
                                             </div>
                                         </div>
