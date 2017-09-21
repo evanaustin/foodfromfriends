@@ -267,7 +267,7 @@ form .form-control-feedback {
 nav#header {
   position: fixed;
   width: 100%;
-  z-index: 1; }
+  z-index: 999; }
 
 nav#footer {
   position: relative !important;
@@ -289,7 +289,7 @@ div.main {
     div.main div#mapbox {
       position: relative;
       width: 100%;
-      height: 33%; } }
+      height: 50%; } }
   @media (min-width: 768px) {
     div.main div#mapbox {
       position: fixed;
