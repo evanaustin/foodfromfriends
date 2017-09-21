@@ -309,7 +309,7 @@ nav#footer.navbar {
   right: 0;
   bottom: 0;
   left: 0;
-  max-height: 48px;
+  min-height: 48px;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   background-color: #fff;
