@@ -285,22 +285,31 @@ div.main {
   width: 100%;
   height: calc(100% - 64px);
   top: 64px; }
-  div.main div#mapbox {
-    position: fixed;
-    width: 60%;
-    top: 64px;
-    right: 0;
-    bottom: 0;
-    left: 0; }
-    div.main div#mapbox div#map {
+  @media (max-width: 767px) {
+    div.main div#mapbox {
+      position: relative;
       width: 100%;
-      height: 100%; }
+      height: 33%; } }
+  @media (min-width: 768px) {
+    div.main div#mapbox {
+      position: fixed;
+      width: 60%;
+      top: 64px;
+      right: 0;
+      bottom: 0;
+      left: 0; } }
+  div.main div#mapbox div#map {
+    width: 100%;
+    height: 100%; }
   div.main div#scrollbox {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     width: 40%;
     margin-left: auto; }
+    @media (max-width: 767px) {
+      div.main div#scrollbox {
+        width: 100%; } }
     div.main div#scrollbox div#list {
       flex-grow: 1;
       padding: 5px; }
