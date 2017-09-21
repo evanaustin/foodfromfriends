@@ -4,7 +4,13 @@
     </button>
   
     <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
-        <?php svg('logos/thin'); ?>
+        <div class="hidden-md-down">
+            <?php svg('logos/thin'); ?>
+        </div>
+
+        <div class="hidden-lg-up">
+            <?php svg('logos/artichoke'); ?>
+        </div>
     </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
