@@ -24,13 +24,12 @@ $('a.remove-listing').on('click', function(e) {
                 App.Ajax.post('dashboard/food-listings/remove-listing', data, 
                     function(response) {
                         $('a.remove-listing').tooltip('hide');
-                        App.Util.animation($card, 'zoomOut', 'out');
+                        App.Util.animation($card, 'zoomOut', 'out', true, $card.parents('div.col-md-4'));
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
                     }
                 );
-                App.Util.animation($card, 'zoomOut', 'out', true, $card.parents('div.col-md-4'));
             }
         }
     });
