@@ -31,7 +31,7 @@
                                                 </div>
                                                 
                                                 <div class="distance">
-                                                    <?php echo '<span class="value">' . $grower['distance'] . '</span>' . ' miles away'; ?>
+                                                    <?php echo '<span class="value">' . $grower['distance']['length'] . '</span>' . ' ' . $grower['distance']['units'] . ' away'; ?>
                                                 </div>
                                             </div>
                                         </div>
