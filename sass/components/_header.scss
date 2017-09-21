@@ -19,7 +19,7 @@ nav#header.navbar {
             height: 40px !important;
 
             @include phones() {
-                width: 40px !important;
+                width: 95px !important;
             }
 
             @include all-but-phones() {

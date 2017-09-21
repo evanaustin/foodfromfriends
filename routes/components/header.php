@@ -9,7 +9,7 @@
         </div>
 
         <div class="hidden-lg-up">
-            <?php svg('logos/artichoke'); ?>
+            <?php svg('logos/full_simplified'); ?>
         </div>
     </a>
 

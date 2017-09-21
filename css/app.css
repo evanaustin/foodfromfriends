@@ -282,7 +282,7 @@ nav#header.navbar {
       height: 40px !important; }
       @media (max-width: 767px) {
         nav#header.navbar a.navbar-brand svg {
-          width: 40px !important; } }
+          width: 95px !important; } }
       @media (min-width: 768px) {
         nav#header.navbar a.navbar-brand svg {
           width: 320px !important; } }
