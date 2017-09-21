@@ -279,8 +279,13 @@ nav#header.navbar {
     padding-top: 0;
     padding-bottom: 0; }
     nav#header.navbar a.navbar-brand svg {
-      height: 40px !important;
-      width: 320px !important; }
+      height: 40px !important; }
+      @media (max-width: 767px) {
+        nav#header.navbar a.navbar-brand svg {
+          width: 40px !important; } }
+      @media (min-width: 768px) {
+        nav#header.navbar a.navbar-brand svg {
+          width: 320px !important; } }
   nav#header.navbar li.nav-item div.profile {
     cursor: pointer;
     height: 40px;
