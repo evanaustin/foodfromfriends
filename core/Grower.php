@@ -51,6 +51,25 @@ class Grower extends User {
 
         return (isset($results[0])) ? $results : false;
     }
+
+    public function count_listings($user_id = null) {
+        if (!isset($user_id)) {
+            $user_id = $this->id;
+        }
+
+        $results = $this->DB->run('
+            SELECT 
+                COUNT(DISTINCT fl.id) AS listings
+            
+            FROM food_listings fl
+            
+            WHERE fl.user_id = :user_id
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        return (isset($results[0])) ? $results[0]['listings'] : false;
+    }
 }
 
 ?>
