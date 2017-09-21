@@ -19,6 +19,8 @@ $data = [
     'features' => []
 ];
 
+$c = 0;
+
 foreach ($growers as $grower) {
     $stars  = '';
 
@@ -33,20 +35,38 @@ foreach ($growers as $grower) {
         $stars .= '<i class="fa fa-star-o"></i>';
     }
 
+    $growers[$c]['stars'] = (isset($grower['rating']) ? $stars : '<span class="no-rating">New</span>');
+
+    if (!empty($User->latitude) && !empty($User->longitude)) {
+        $growers[$c]['distance'] = getDistance([
+            'lat' => $User->latitude,
+            'lng' => $User->longitude
+        ],
+        [
+            'lat' => $grower['latitude'],
+            'lng' => $grower['longitude']
+        ]);
+
+        $growers[$c]['distance'] = round($growers[$c]['distance'], 1);
+    }
+
     $data['features'][] = [
         'type'          => 'Feature',
         'properties'    => [
             'scale'         => $grower['id'] * 10,
             'photo'         => (!empty($grower['filename']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $grower['filename'] . '.' . $grower['ext'] : ''),
             'name'          => $grower['first_name'],
-            'rating'        => (isset($grower['rating']) ? $stars : '<span class="no-rating">New</span>'),
-            'foods'         => $grower['foods']
+            'rating'        => $growers[$c]['stars'],
+            'distance'      => (isset($growers[$c]['distance']) ? $growers[$c]['distance'] . ' miles away' : $grower['city'] . ', ' . $grower['state']),
+            'listings'      => $grower['listings'] . ' listing' . (count($listings) > 1 ? 's' : '')
         ],
         'geometry'      => [
             'type'          => 'Point',
             'coordinates'   => [$grower['longitude'], $grower['latitude']]
         ]
     ];
+
+    $c++;
 }
 
 ?>
