@@ -9,7 +9,7 @@
 /**
 * Architecture Styles
 **/
-@import 'architecture/back';
+// @import 'architecture/back';
 
 /**
 * Component Styles
@@ -30,7 +30,7 @@
 body.back {
     display: flex;
     flex-direction: column;
-    padding-bottom: calc(0.75rem + 1.5rem + (0.75 * 1em)); /* footer font-size + footer padding + link padding */
+    padding-bottom: 48px; /* footer height */
 
     div.container-fluid {
         display: flex;
@@ -49,7 +49,6 @@ body.back {
         
         div.page-title {
             padding: 0.5rem 0;
-            // font-weight: 100;
             font-weight: 400;
             color: $dark-gray;
         }
@@ -83,7 +82,17 @@ body.back {
     
         div.main.container {
             padding: 15px;
-            margin-bottom: 1.75rem;
+            height: calc(100% - 48px);
+
+            div.side-art {
+            
+                img {
+                    float: right;
+                    max-width: 75%;
+                    max-height: 475px;
+                    opacity: 0.5;
+                }
+            }
         }
     }
 }
