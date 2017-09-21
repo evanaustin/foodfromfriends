@@ -20,6 +20,8 @@ class Routing {
             $this->template = 'splash';
         } else if ($this->path == 'early-access-invitation') {
             $this->template = 'early-access-invitation';
+        } else if ($this->path == 'map') {
+            $this->template = 'map';
         } else if (in_array($exp_path[0], $parameters['backside'])) {
             $this->template = 'back';
         } else {
