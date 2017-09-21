@@ -13,7 +13,7 @@ App.Account = function() {
 
                 App.Ajax.post('account/sign_up', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'dashboard/food-listings/overview');
+                        window.location.replace(PUBLIC_ROOT + 'map');
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -35,7 +35,7 @@ App.Account = function() {
 
                 App.Ajax.post('account/log_in', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'dashboard/food-listings/overview');
+                        window.location.replace(PUBLIC_ROOT + 'map');
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
