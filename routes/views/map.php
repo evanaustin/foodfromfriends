@@ -10,12 +10,12 @@
                     <div id="list">
                         <div class="row">
                             <?php
-
+                            
                             foreach ($growers as $grower) {
                                 
                                 ?>
 
-                                <div class="col-md-4">
+                                <div class="<?php echo $tile_width; ?>">
                                     <div class="card animated zoomIn">
                                     
                                         <?php

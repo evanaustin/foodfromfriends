@@ -1,5 +1,9 @@
 <?php
 
+$settings = [
+    'title' => 'Map | Food From Friends'
+];
+
 $city = $_GET['city'];
 
 $Grower = new Grower([
@@ -7,6 +11,15 @@ $Grower = new Grower([
 ]);
 
 $growers = $Grower->pull_all();
+
+$grower_count = count($growers);
+$tile_width = 'col-sm-12';
+
+if ($grower_count > 1) {
+    $tile_width .= ' col-md-6';
+} if ($grower_count > 4) {
+    $tile_width .= ' col-lg-4';
+}
 
 $data = [
     'type'  => 'FeatureCollection',
