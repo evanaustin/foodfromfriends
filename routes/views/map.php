@@ -1,8 +1,59 @@
 <!-- cont div.container-fluid -->
     <!-- cont div.row -->
         <!-- cont main -->
-        <div class="main">
-                <div id="map"></div>
+            <div class="main">
+                <div id="mapbox">
+                    <div id="map"></div>
+                </div>
+
+                <div id="scrollbox">
+                    <div id="list">
+                        <div class="row">
+                            <?php
+
+                            foreach ($growers as $grower) {
+                                
+                                ?>
+
+                                <div class="col-md-4">
+                                    <div class="card animated zoomIn">
+                                    
+                                        <?php
+                                    
+                                        img(ENV . '/profile-photos/' . $grower['filename'], $grower['ext'], 'S3', 'card-img-top');
+
+                                        ?>
+
+                                        <div class="card-block d-flex flex-row">
+                                            <div class="listing-info d-flex flex-column">
+                                                <div class="title">
+                                                    <?php echo '<div class="name">' . $grower['first_name'] . '</div><div class="rating">' . $grower['stars'] . '</div>'; ?>
+                                                </div>
+                                                
+                                                <div class="distance">
+                                                    <?php echo '<span class="value">' . $grower['distance'] . '</span>' . ' miles away'; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <?php echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+
+                            }
+
+                            ?>
+                        </div>
+                    </div>
+
+                    <nav id="footer" class="navbar">
+                        <span class="nav-link">© Food From Friends</span>
+                    </nav>
+                </div>
             </div>
         </div> <!-- end main -->
     </div> <!-- end div.row -->
