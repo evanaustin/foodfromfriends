@@ -9,9 +9,11 @@ nav#header.navbar {
     background-color: #fff;
     border-bottom: 1px solid #eee;
 
-    div.navbar-collapse {
-        padding-left: 1em;
-        padding-top: 1em;
+    @include phones() {
+        div.navbar-collapse {
+            padding-left: 1em;
+            padding-top: 1em;
+        }
     }
 
     a.navbar-brand {
