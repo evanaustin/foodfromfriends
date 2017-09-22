@@ -21,6 +21,14 @@ body.dashboard-food-listings-overview {
                     margin-top: 2em;
                 }
             }
+
+            @include phones() {
+                &:not(:last-child) {
+                    div.card {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
     }
     

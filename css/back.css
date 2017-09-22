@@ -115,6 +115,9 @@ body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) 
   margin-top: 0.25em; }
 body.dashboard-food-listings-overview div.listings div.col-md-4:nth-child(n+4) div.card {
   margin-top: 2em; }
+@media (max-width: 767px) {
+  body.dashboard-food-listings-overview div.listings div.col-md-4:not(:last-child) div.card {
+    margin-bottom: 10px; } }
 body.dashboard-food-listings-overview div.card-block {
   padding: 0; }
   body.dashboard-food-listings-overview div.card-block h6.card-subtitle {
