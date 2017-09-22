@@ -21,11 +21,10 @@ body.back div.sidebar {
       border-bottom: 1px solid #eee;
       z-index: 1; } }
   body.back div.sidebar .navbar {
-    min-height: 50px;
+    min-height: 60px;
     background-color: #f9f9fe; }
     body.back div.sidebar .navbar button {
-      height: calc(50px - 1rem);
-      font-size: 12px; }
+      height: calc(60px - 1rem); }
       body.back div.sidebar .navbar button i {
         color: #00A669; }
     @media (max-width: 767px) {
@@ -33,7 +32,7 @@ body.back div.sidebar {
         padding-left: 0;
         padding-right: 0; }
         body.back div.sidebar .navbar .navbar-collapse {
-          margin-top: calc(50px - 1rem); } }
+          margin-top: calc(60px - 1rem); } }
     @media (min-width: 768px) {
       body.back div.sidebar .navbar {
         padding: 0; }
