@@ -69,6 +69,7 @@ body.back {
                 font-size: 0.875rem;
 
                 @include phones() {
+                    margin-top: 10px;
                     width: 100%;
                 }
 

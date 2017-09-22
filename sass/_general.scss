@@ -45,6 +45,12 @@ canvas {
 
 div.card {
     flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
+
+    @include phones() {
+        &:not(::last-child) {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 img.card-img-top {

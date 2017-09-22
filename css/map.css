@@ -75,6 +75,9 @@ canvas:focus {
 div.card {
   flex: 0 0 calc(33.33333% - 20px);
   /* 60px of padding total between 3 cards -> avg 20px each */ }
+  @media (max-width: 767px) {
+    div.card:not(::last-child) {
+      margin-bottom: 10px; } }
 
 img.card-img-top {
   width: 100%;
@@ -255,6 +258,9 @@ form div.image-box {
     left: -9999px; }
 form .form-control-feedback {
   font-size: 0.75rem; }
+@media (max-width: 767px) {
+  form .input-group, form .custom-select, form .image-box {
+    margin-bottom: 10px; } }
 
 @keyframes spin {
   0% {

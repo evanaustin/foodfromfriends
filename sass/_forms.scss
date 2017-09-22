@@ -147,6 +147,12 @@ form {
     .form-control-feedback {
         font-size: 0.75rem;
     }
+
+    @include phones() {
+        .input-group, .custom-select, .image-box {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 @keyframes spin {
