@@ -46,6 +46,8 @@ $Grower = new Grower([
     'id' => $User->id
 ]);
 
+$listing_count = $Grower->count_listings();
+
 if (empty($listing_count)) {
     $User->update([
         'is_grower' => 0
