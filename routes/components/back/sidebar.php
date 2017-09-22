@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <nav class="navbar navbar-toggleable-md navbar-light">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#sidebar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#sidebar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-clone"></i>
-                </button>    
+                </button>
             
                 <div class="collapse navbar-collapse" id="sidebar-collapse">
                     <ul class="nav flex-column">

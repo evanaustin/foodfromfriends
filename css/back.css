@@ -15,24 +15,26 @@ body.back div.sidebar {
       position: fixed;
       bottom: 0;
       width: 100%;
-      min-height: 50px;
+      min-height: 60px;
       background-color: #fff;
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
       z-index: 1; } }
   body.back div.sidebar .navbar {
     min-height: 60px;
-    background-color: #f9f9fe; }
+    background-color: #f9f9fe;
+    border-top: 5px solid #005434;
+    box-sizing: border-box; }
     body.back div.sidebar .navbar button {
-      height: calc(60px - 1rem); }
+      height: calc(60px - 1rem - 5px); }
       body.back div.sidebar .navbar button i {
-        color: #00A669; }
+        color: #005434; }
     @media (max-width: 767px) {
       body.back div.sidebar .navbar {
         padding-left: 0;
         padding-right: 0; }
         body.back div.sidebar .navbar .navbar-collapse {
-          margin-top: calc(60px - 1rem); } }
+          margin-top: calc(60px - 1rem - 5px); } }
     @media (min-width: 768px) {
       body.back div.sidebar .navbar {
         padding: 0; }

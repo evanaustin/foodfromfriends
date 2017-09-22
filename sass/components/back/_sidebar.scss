@@ -10,7 +10,7 @@ body.back {
             position: fixed;
             bottom: 0;
             width: 100%;
-            min-height: 50px;
+            min-height: 60px;
             background-color: #fff;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
@@ -20,13 +20,14 @@ body.back {
         .navbar {
             min-height: 60px;
             background-color: #f9f9fe;
+            border-top: 5px solid $dark-green;
+            box-sizing: border-box;
 
             button {
-                height: calc(60px - 1rem);
-                // font-size: 12px;
+                height: calc(60px - 1rem - 5px);
 
                 i {
-                    color: $light-green;
+                    color: $dark-green;
                 }
             }
 
@@ -35,7 +36,7 @@ body.back {
                 padding-right: 0;
 
                 .navbar-collapse {
-                    margin-top: calc(60px - 1rem);
+                    margin-top: calc(60px - 1rem - 5px);
                 }
             }
             
