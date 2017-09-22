@@ -21,7 +21,7 @@ body.back div.sidebar {
       border-bottom: 1px solid #eee;
       z-index: 1; } }
   body.back div.sidebar .navbar button {
-    height: calc(60px - 1rem - 5px); }
+    height: calc(60px - 1rem - 2px); }
     body.back div.sidebar .navbar button i {
       color: #007349; }
   @media (max-width: 767px) {
@@ -30,10 +30,10 @@ body.back div.sidebar {
       padding-right: 0;
       min-height: 60px;
       background-color: #f9f9fe;
-      border-top: 5px solid #007349;
+      border-top: 2px solid #007349;
       box-sizing: border-box; }
       body.back div.sidebar .navbar .navbar-collapse {
-        margin-top: calc(60px - 1rem - 5px); } }
+        margin-top: calc(60px - 1rem - 2px); } }
   @media (min-width: 768px) {
     body.back div.sidebar .navbar {
       padding: 0; }
@@ -44,6 +44,10 @@ body.back div.sidebar {
     color: #8ca3ad;
     font-size: 14px;
     border-left: 2px solid transparent; }
+    @media (max-width: 767px) {
+      body.back div.sidebar a.nav-link {
+        padding-left: 15px;
+        padding-right: 15px; } }
     body.back div.sidebar a.nav-link:hover {
       color: #58707b; }
     body.back div.sidebar a.nav-link[aria-expanded="true"] {
@@ -58,6 +62,10 @@ body.back div.sidebar {
       content: '\2013'; }
     body.back div.sidebar a.nav-link.child {
       padding: 10px 30px; }
+      @media (max-width: 767px) {
+        body.back div.sidebar a.nav-link.child {
+          padding-left: 15px;
+          padding-right: 15px; } }
       body.back div.sidebar a.nav-link.child.active {
         background-color: rgba(0, 179, 113, 0.25);
         border-color: #007349;
@@ -66,8 +74,11 @@ body.back div.sidebar {
     body.back div.sidebar a.nav-link.active:not(.parent):not(.child) {
       color: #006e44;
       font-weight: 500; }
-  body.back div.sidebar div.collapse {
+  body.back div.sidebar div.collapse.show {
     background-color: #f9f9fe; }
+  @media (max-width: 767px) {
+    body.back div.sidebar div.collapse {
+      background-color: #f9f9fe; } }
 
 body.back div.subheader {
   background-color: #fff;

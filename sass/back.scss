@@ -91,11 +91,6 @@ body.back {
     
         div.main.container {
             padding: 15px;
-            // height: calc(100% - 48px);
-
-            @include phones() {
-                // padding-bottom: 48px;
-            }
 
             div.side-art {
                 img {
