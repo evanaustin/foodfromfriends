@@ -4,10 +4,15 @@ nav#header.navbar {
         40px (brand) + 24px (padding) = 64px
     */
 
-    background-color: #fff;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+    background-color: #fff;
     border-bottom: 1px solid #eee;
+
+    div.navbar-collapse {
+        padding-left: 1em;
+        padding-top: 1em;
+    }
 
     a.navbar-brand {
         height: 40px;
@@ -46,7 +51,7 @@ nav#header.navbar {
 
     div.dropdown-menu {
         margin-top: 0.75rem;
-        @include rounded(0px);
         border-color: #eee;
+        @include rounded(0px);
     }
 }

@@ -23,12 +23,12 @@ body.back div.sidebar {
   body.back div.sidebar .navbar {
     min-height: 60px;
     background-color: #f9f9fe;
-    border-top: 5px solid #005434;
+    border-top: 5px solid #007349;
     box-sizing: border-box; }
     body.back div.sidebar .navbar button {
       height: calc(60px - 1rem - 5px); }
       body.back div.sidebar .navbar button i {
-        color: #005434; }
+        color: #007349; }
     @media (max-width: 767px) {
       body.back div.sidebar .navbar {
         padding-left: 0;

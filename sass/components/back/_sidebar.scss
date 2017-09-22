@@ -20,14 +20,14 @@ body.back {
         .navbar {
             min-height: 60px;
             background-color: #f9f9fe;
-            border-top: 5px solid $dark-green;
+            border-top: 5px solid darken($light_green, 10%);
             box-sizing: border-box;
 
             button {
                 height: calc(60px - 1rem - 5px);
 
                 i {
-                    color: $dark-green;
+                    color: darken($light_green, 10%);;
                 }
             }
 
