@@ -12,8 +12,6 @@ body.back {
             width: 100%;
             min-height: 60px;
             background-color: #fff;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
             z-index: 1;
         }
 
@@ -22,12 +20,12 @@ body.back {
                 padding-left: 0;
                 padding-right: 0;
                 min-height: 60px;
-                background-color: #f9f9fe;
-                border-top: 2px solid darken($light_green, 10%);
+                background-color: #fff;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
                 box-sizing: border-box;
 
                 .navbar-collapse {
-                    margin-top: calc(60px - 1rem - 2px);
+                    margin-top: calc(60px + 0.5rem - 1rem - 1px);
                 }
             }
             
@@ -40,10 +38,10 @@ body.back {
             }
 
             button {
-                height: calc(60px - 1rem - 2px);
+                height: calc(60px - 1rem - 1px);
 
                 i {
-                    color: darken($light_green, 10%);;
+                    color: #7f7f7f;
                 }
             }
         }
@@ -109,12 +107,8 @@ body.back {
             }
         }
 
-        div.collapse {
-            &.show {
-                background-color: #f9f9fe;
-            }
-            
-            @include phones() {
+        li.nav-item {
+            div.collapse.show {
                 background-color: #f9f9fe;
             }
         }

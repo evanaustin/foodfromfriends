@@ -17,28 +17,26 @@ body.back div.sidebar {
       width: 100%;
       min-height: 60px;
       background-color: #fff;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
       z-index: 1; } }
   @media (max-width: 767px) {
     body.back div.sidebar .navbar {
       padding-left: 0;
       padding-right: 0;
       min-height: 60px;
-      background-color: #f9f9fe;
-      border-top: 2px solid #007349;
+      background-color: #fff;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
       box-sizing: border-box; }
       body.back div.sidebar .navbar .navbar-collapse {
-        margin-top: calc(60px - 1rem - 2px); } }
+        margin-top: calc(60px + 0.5rem - 1rem - 1px); } }
   @media (min-width: 768px) {
     body.back div.sidebar .navbar {
       padding: 0; }
       body.back div.sidebar .navbar ul.nav {
         width: 100%; } }
   body.back div.sidebar .navbar button {
-    height: calc(60px - 1rem - 2px); }
+    height: calc(60px - 1rem - 1px); }
     body.back div.sidebar .navbar button i {
-      color: #007349; }
+      color: #7f7f7f; }
   body.back div.sidebar a.nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
@@ -74,11 +72,8 @@ body.back div.sidebar {
     body.back div.sidebar a.nav-link.active:not(.parent):not(.child) {
       color: #006e44;
       font-weight: 500; }
-  body.back div.sidebar div.collapse.show {
+  body.back div.sidebar li.nav-item div.collapse.show {
     background-color: #f9f9fe; }
-  @media (max-width: 767px) {
-    body.back div.sidebar div.collapse {
-      background-color: #f9f9fe; } }
 
 body.back div.subheader {
   background-color: #fff;
