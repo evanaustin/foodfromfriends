@@ -4,6 +4,50 @@ body.back {
         padding-left: 0;
         padding-right: 0;
         border-right: 1px solid #eee;
+        box-sizing: border-box;
+
+        @include phones() {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            min-height: 50px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            z-index: 1;
+        }
+
+        .navbar {
+            min-height: 50px;
+            background-color: #f9f9fe;
+
+            button {
+                height: calc(50px - 1rem);
+                font-size: 12px;
+
+                i {
+                    color: $light-green;
+                }
+            }
+
+            @include phones() {
+                padding-left: 0;
+                padding-right: 0;
+
+                .navbar-collapse {
+                    margin-top: calc(50px - 1rem);
+                }
+            }
+            
+            @include all-but-phones() {
+                padding: 0;
+
+                ul.nav {
+                    width: 100%;
+                }
+            }
+        }
+
 
         a.nav-link {
             padding: 15px 30px;

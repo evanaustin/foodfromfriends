@@ -311,6 +311,7 @@ nav#footer.navbar {
       24px (padding) + 12px (font-size) + 12px (link padding) = 48px
   */
   position: absolute;
+  box-sizing: border-box;
   right: 0;
   bottom: 0;
   left: 0;
@@ -322,6 +323,9 @@ nav#footer.navbar {
   line-height: 1;
   font-size: 0.75rem;
   color: #b2b2b2; }
+  @media (max-width: 767px) {
+    nav#footer.navbar {
+      display: none; } }
   nav#footer.navbar p {
     margin: 0; }
 

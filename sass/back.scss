@@ -25,7 +25,14 @@
 body.back {
     display: flex;
     flex-direction: column;
-    padding-bottom: 48px; /* footer height */
+
+    @include phones() {
+        padding-bottom: 60px; /* footer height */
+    }
+
+    @include all-but-phones() {
+        padding-bottom: 48px; /* footer height */
+    }
 
     div.container-fluid {
         display: flex;
@@ -49,14 +56,21 @@ body.back {
         }
 
         div.controls {
-            float: right;
             margin: 0.5rem 0;
+            
+            @include all-but-phones() {
+                float: right;
+            }
 
             .btn {
                 display: block;
                 min-width: 175px;
                 color: #fff;
                 font-size: 0.875rem;
+
+                @include phones() {
+                    width: 100%;
+                }
 
                 &:first-child {
                     margin-bottom: 0.5rem;
@@ -77,10 +91,13 @@ body.back {
     
         div.main.container {
             padding: 15px;
-            height: calc(100% - 48px);
+            // height: calc(100% - 48px);
+
+            @include phones() {
+                // padding-bottom: 48px;
+            }
 
             div.side-art {
-            
                 img {
                     float: right;
                     max-width: 75%;

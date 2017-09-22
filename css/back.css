@@ -8,7 +8,37 @@ body.back div.sidebar {
   height: auto;
   padding-left: 0;
   padding-right: 0;
-  border-right: 1px solid #eee; }
+  border-right: 1px solid #eee;
+  box-sizing: border-box; }
+  @media (max-width: 767px) {
+    body.back div.sidebar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      min-height: 50px;
+      background-color: #fff;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      z-index: 1; } }
+  body.back div.sidebar .navbar {
+    min-height: 50px;
+    background-color: #f9f9fe; }
+    body.back div.sidebar .navbar button {
+      height: calc(50px - 1rem);
+      font-size: 12px; }
+      body.back div.sidebar .navbar button i {
+        color: #00A669; }
+    @media (max-width: 767px) {
+      body.back div.sidebar .navbar {
+        padding-left: 0;
+        padding-right: 0; }
+        body.back div.sidebar .navbar .navbar-collapse {
+          margin-top: calc(50px - 1rem); } }
+    @media (min-width: 768px) {
+      body.back div.sidebar .navbar {
+        padding: 0; }
+        body.back div.sidebar .navbar ul.nav {
+          width: 100%; } }
   body.back div.sidebar a.nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
@@ -57,8 +87,8 @@ body.back div.subheader {
         position: absolute;
         display: block;
         bottom: 0;
-        height: 5px;
         width: 100%;
+        height: 5px;
         background-color: #007349; }
 
 /**
@@ -109,9 +139,15 @@ body.dashboard-food-listings-overview div.listing-controls {
 */
 body.back {
   display: flex;
-  flex-direction: column;
-  padding-bottom: 48px;
-  /* footer height */ }
+  flex-direction: column; }
+  @media (max-width: 767px) {
+    body.back {
+      padding-bottom: 60px;
+      /* footer height */ } }
+  @media (min-width: 768px) {
+    body.back {
+      padding-bottom: 48px;
+      /* footer height */ } }
   body.back div.container-fluid {
     display: flex;
     flex-direction: column;
@@ -127,13 +163,18 @@ body.back {
       font-weight: 400;
       color: #4c4c4c; }
     body.back main div.controls {
-      float: right;
       margin: 0.5rem 0; }
+      @media (min-width: 768px) {
+        body.back main div.controls {
+          float: right; } }
       body.back main div.controls .btn {
         display: block;
         min-width: 175px;
         color: #fff;
         font-size: 0.875rem; }
+        @media (max-width: 767px) {
+          body.back main div.controls .btn {
+            width: 100%; } }
         body.back main div.controls .btn:first-child {
           margin-bottom: 0.5rem; }
         body.back main div.controls .btn i.pre {
@@ -142,8 +183,7 @@ body.back {
           margin-top: 1px;
           float: right; }
     body.back main div.main.container {
-      padding: 15px;
-      height: calc(100% - 48px); }
+      padding: 15px; }
       body.back main div.main.container div.side-art img {
         float: right;
         max-width: 75%;

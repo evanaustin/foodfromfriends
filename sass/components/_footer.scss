@@ -5,6 +5,7 @@ nav#footer.navbar {
     */
     
     position: absolute;
+    box-sizing: border-box;
     right: 0;
     bottom: 0;
     left: 0;
@@ -16,6 +17,10 @@ nav#footer.navbar {
     line-height: 1;
     font-size: 0.75rem;
     color: $light-gray;
+
+    @include phones () {
+        display: none;
+    }
 
     p {
         margin: 0;
