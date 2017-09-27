@@ -202,51 +202,63 @@
                                 </div>
                             </div>
                             
-                            <div class="reviews set">
-                                <div class="title">
-                                    <strong>Reviews</strong>
-                                    <?php echo '(' . count($reviews) . ')'; ?>
-                                </div>
+                            <?php
 
-                                <div class="subtitle">
-                                    Reviews from customers
-                                </div>
-
-                                <?php 
-                                
-                                foreach ($reviews as $review) { 
-                                
-                                    $ReviewUser = new User([
-                                        'DB' => $DB,
-                                        'id' => $review['reviewer_id']
-                                    ]);
-
-                                    ?>           
-                                    
-                                    <div class="review-block">                  
-                                        <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
-                                        
-                                        <div class="review-content">
-                                            <div class="quote">
-                                                <?php echo $review['content']; ?>
-                                            </div>
-
-                                            <div class="reviewer-details">
-                                                <small><?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?></small>
-                                            </div>
-                                            
-                                            <div class="reviewed-on">
-                                                <small><?php echo date('F Y', $review['reviewed_on']); ?></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <?php
-
-                                    }
+                            if (!empty($reviews)) {
 
                                 ?>
-                            </div>
+
+                                <div class="reviews set">
+                                    <div class="title">
+                                        <strong>Reviews</strong>
+                                        <?php echo '(' . count($reviews) . ')'; ?>
+                                    </div>
+
+                                    <div class="subtitle">
+                                        Reviews from customers
+                                    </div>
+
+                                    <?php 
+                                    
+                                    foreach ($reviews as $review) { 
+                                    
+                                        $ReviewUser = new User([
+                                            'DB' => $DB,
+                                            'id' => $review['reviewer_id']
+                                        ]);
+
+                                        ?>           
+                                        
+                                        <div class="review-block">                  
+                                            <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                            
+                                            <div class="review-content">
+                                                <div class="quote">
+                                                    <?php echo $review['content']; ?>
+                                                </div>
+
+                                                <div class="reviewer-details">
+                                                    <small><?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?></small>
+                                                </div>
+                                                
+                                                <div class="reviewed-on">
+                                                    <small><?php echo date('F Y', $review['reviewed_on']); ?></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <?php
+
+                                        }
+
+                                    ?>
+                                </div>
+
+                                <?php
+
+                            }
+
+                            ?>
                         </div> <!-- end div.right-content -->
                     </div>
                 </div>
