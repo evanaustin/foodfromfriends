@@ -117,7 +117,21 @@ div.main {
             background-color: #fff;
             border-color: #f0f0f0;
             font-size: 14px;
-            // color: #ccc;
+            @include transition(all .2s);
+
+            &:hover {
+                background-color: $faded-green;
+                border-color: transparent;
+                
+                strong {
+                    background-color: darken($light-green, 10%);
+                }
+
+                i {
+                    color: $dark-green;
+                    @include transform(translateX(3px));
+                }
+            }
             
             strong {
                 margin-right: 5px;
@@ -125,13 +139,14 @@ div.main {
                 background-color: #3FC592;
                 color: #fff;
                 @include rounded(3px);
+                @include transition(all .2s);
             }
             
             i {
                 line-height: 1.5;
                 font-weight: bold;
                 color: #3FC592;
-                @include rounded(100px);
+                @include transition(all .2s);
             }
         }
     }
