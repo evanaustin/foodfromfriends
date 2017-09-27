@@ -4,53 +4,61 @@ $settings = [
     'title' => 'User profile | Food From Friends'
 ];
 
-$ProfileUser = new User([
+$ThisUser = new User([
     'DB' => $DB,
     'id' => $_GET['id']
 ]);
-
-$FoodListing = new FoodListing([
-    'DB' => $DB,
-]);
-
-$foodlistings = $FoodListing->join_foodlistings($ProfileUser->id);
-$available_foodlistings = $FoodListing->retrieve('is_available',1);
-
-$Review = new Review([
-    'DB' => $DB
-]);
-
-$reviews = $Review->join_reviews($ProfileUser->id);
-
-$ProfileUser_info = $ProfileUser->retrieve('id', $ProfileUser->id);
 
 $Delivery = new Delivery([
     'DB' => $DB
 ]);
 
-$delivery_details = $Delivery->get_details($ProfileUser->id);
+$delivery_settings = $Delivery->retrieve('user_id', $ThisUser->id);
+$delivery_offered = (!empty($delivery_settings)) ? $delivery_settings[0]['is_offered'] : false;
+
+$Pickup = new Pickup([
+    'DB' => $DB
+    ]);
+    
+$pickup_settings = $Pickup->retrieve('user_id', $ThisUser->id);
+$pickup_offered = (!empty($pickup_settings)) ? $pickup_settings[0]['is_offered'] : false;
 
 $Meetup = new Meetup([
     'DB' => $DB
 ]);
- 
-$settings = $Meetup->get_settings($ProfileUser->id);
+    
+$meetup_settings = $Pickup->retrieve('user_id', $ThisUser->id);
+$meetup_offered = (!empty($meetup_settings)) ? $meetup_settings[0]['is_offered'] : false;
 
-if ($Meetup->exists('user_id',$ProfileUser->id)){ 
-    $meetup_details_1 = $Meetup->get_details($ProfileUser->id, 1);
-    $meetup_details_2 = $Meetup->get_details($ProfileUser->id, 2);
-    $meetup_details_3 = $Meetup->get_details($ProfileUser->id, 3);
-} 
+if (!empty($User->latitude) && !empty($User->longitude) && !empty($ThisUser->latitude) && !empty($ThisUser->longitude)) {
+    $length = getDistance([
+        'lat' => $User->latitude,
+        'lng' => $User->longitude
+    ],
+    [
+        'lat' => $ThisUser->latitude,
+        'lng' => $ThisUser->longitude
+    ]);
 
-$Pickup = new Pickup([
+    if ($length < 0.1) {
+        $distance['length'] = round($length * 5280);
+        $distance['units'] = 'feet';
+    } else {
+        $distance['length'] = round($length, 1);
+        $distance['units'] = 'miles';
+    }
+}
+
+$FoodListing = new FoodListing([
+    'DB' => $DB,
+]);
+
+$listings = $FoodListing->get_listings($ThisUser->id);
+
+$Review = new Review([
     'DB' => $DB
 ]);
 
-if ($Pickup->exists('user_id',$ProfileUser->id)){ 
-    $pickup_details = $Pickup->get_details($ProfileUser->id);
-} 
-
-
-
+$reviews = $Review->retrieve('grower_id', $ThisUser->id);
 
 ?>
