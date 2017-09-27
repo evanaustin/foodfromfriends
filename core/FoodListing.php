@@ -33,25 +33,6 @@ class FoodListing extends Base {
         }
     }
 
-    public function join_foodlistings($data) {
-        if (isset($data)) {
-            $bind = [
-                'data' => $data
-            ];
-            $foodlistings = $this->DB->run("
-                SELECT * 
-                FROM food_listings fl
-                JOIN food_subcategories fs
-                ON fl.food_subcategories_id = fs.id
-                    WHERE fl.user_id = :data
-            ", $bind);
-
-        return (isset($foodlistings)) ? $foodlistings : false;
-        }
-
-        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
-    }
-
     private function populate_fully($id) {
         $results = $this->DB->run('
             SELECT 
