@@ -46,8 +46,6 @@ body.dashboard-food-listings-overview {
     
             span.quantity {
                 padding: 0.15rem 0.25rem;
-                // background: $light_green;
-                // color: #fff;
                 @include rounded(0.15rem);
             }
         }

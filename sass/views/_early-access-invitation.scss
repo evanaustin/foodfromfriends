@@ -1,8 +1,8 @@
 body.early-access-invitation {
     padding-top: 3.5em;
-    background-color: $dark_green;
+    background-color: $dark-green;
     font-family: 'Signika';
-    color: $light_green;
+    color: $light-green;
     
     div.logo {
         svg {
@@ -47,7 +47,7 @@ body.early-access-invitation {
         -ms-transform: translateY(-1px);
         -o-transform: translateY(-1px);
         transform: translateY(-1px);
-        background-color: darken($light_green, 2.5%);
+        background-color: darken($light-green, 2.5%);
     }
 
     span.input-group-addon {
@@ -59,13 +59,13 @@ body.early-access-invitation {
 
         a {
             font-weight: 600;
-            color: lighten($light_green, 2%);
+            color: lighten($light-green, 2%);
             border-bottom: 2px solid transparent;
             @include transition(all 0.1s ease-in-out);
 
             &:hover {
-                color: lighten($light_green, 2%);
-                border-color: lighten($light_green, 2%);
+                color: lighten($light-green, 2%);
+                border-color: lighten($light-green, 2%);
             }
         }
     }

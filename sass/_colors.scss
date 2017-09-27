@@ -1,8 +1,11 @@
-$light_green: #00A669;
-$dark_green: #005434;
+$light-green: #00A669;
+$dark-green: #005434;
+$faded-green: rgba(0, 179, 113, 0.25);
 
 $off-white: #eee;
 
 $gray: #7f7f7f;
 $light-gray: lighten($gray, 20%);
 $dark-gray: darken($gray, 20%);
+
+$muted: #636c72;

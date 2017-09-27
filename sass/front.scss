@@ -5,11 +5,12 @@
 **/
 @import 'mixins';
 @import 'colors';
+@import 'thirdparty/bootstrap/variables';
 
 /**
 * View Styles
 **/
-@import 'views/front/map';
+@import 'views/user';
 
 /**
 * Modal Styles
