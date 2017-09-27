@@ -350,7 +350,24 @@ div.main {
     div.main div.card div.card-footer {
       background-color: #fff;
       border-color: #f0f0f0;
-      font-size: 14px; }
+      font-size: 14px;
+      -webkit-transition: all 0.2s;
+      -moz-transition: all 0.2s;
+      -ms-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s; }
+      div.main div.card div.card-footer:hover {
+        background-color: rgba(0, 179, 113, 0.25);
+        border-color: transparent; }
+        div.main div.card div.card-footer:hover strong {
+          background-color: #007349; }
+        div.main div.card div.card-footer:hover i {
+          color: #005434;
+          -webkit-transform: translateX(3px);
+          -moz-transform: translateX(3px);
+          -ms-transform: translateX(3px);
+          -o-transform: translateX(3px);
+          transform: translateX(3px); }
       div.main div.card div.card-footer strong {
         margin-right: 5px;
         padding: 1px 3px;
@@ -358,14 +375,21 @@ div.main {
         color: #fff;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
-        border-radius: 3px; }
+        border-radius: 3px;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s; }
       div.main div.card div.card-footer i {
         line-height: 1.5;
         font-weight: bold;
         color: #3FC592;
-        -webkit-border-radius: 100px;
-        -moz-border-radius: 100px;
-        border-radius: 100px; }
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s; }
 
 /* Optional: Makes the sample page fill the window. */
 html, body {
