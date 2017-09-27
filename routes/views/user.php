@@ -122,10 +122,22 @@
                                 Joined in <?php echo date('F Y', $ThisUser->registered_on); ?>
                             </div>
 
-                            <div class="review-count">
-                                <div><?php echo count($reviews); ?></div>
-                                <strong>Reviews</strong>
-                            </div>
+                            <?php
+
+                            if (!empty($reviews)) {
+
+                                ?>
+
+                                <div class="review-count">
+                                    <div><?php echo count($reviews); ?></div>
+                                    <strong>Reviews</strong>
+                                </div>
+
+                                <?php
+                            
+                            }
+
+                            ?>
 
                             <div class="available-food-listings set">
                                 <div class="title">
