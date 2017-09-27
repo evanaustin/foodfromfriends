@@ -18,12 +18,9 @@
                                 <div class="<?php echo $tile_width; ?>">
                                     <div class="card animated zoomIn">
                                     
-                                        <?php
-                                    
-                                        img(ENV . '/profile-photos/' . $grower['filename'], $grower['ext'], 'S3', 'card-img-top');
-
-                                        ?>
-
+                                        <a href="<?php echo PUBLIC_ROOT . 'user?id=' . $grower['id']; ?>">
+                                            <?php img(ENV . '/profile-photos/' . $grower['filename'], $grower['ext'], 'S3', 'card-img-top'); ?>
+                                        </a>
                                         <div class="card-block d-flex flex-row">
                                             <div class="listing-info d-flex flex-column">
                                                 <div class="title">
@@ -36,10 +33,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-footer">
-                                            <?php echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : ''); ?>
-                                            <?php // echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
-                                        </div>
+                                        <a href="<?php echo PUBLIC_ROOT . 'user?id=' . $grower['id']; ?>">
+                                            <div class="card-footer">
+                                                <?php echo '<strong>' . $grower['listings'] . '</strong>' . 'listing'  . ($grower['listings'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
 
