@@ -2,7 +2,7 @@
 
 $Template = new Template($Routing);
 
-if ($Routing->template == 'back' && !$LOGGED_IN) {
+if ($Routing->template == 'dashboard' && !$LOGGED_IN) {
     header('Location: ' . PUBLIC_ROOT);
     die();
 }
@@ -49,7 +49,7 @@ foreach ([
             $file = SERVER_ROOT . $part . '.php';
             if (file_exists($file)) include $file;
         }
-
+        
         layer('js', [
             'node_modules/jquery/dist/jquery',
             'node_modules/jquery.ui.widget/jquery.ui.widget',
@@ -72,7 +72,7 @@ foreach ([
         ]);
             
         layer('js', $Template->scripts);
-
+        
         ?>
 
         <script>var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?></script>

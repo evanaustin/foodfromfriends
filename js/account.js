@@ -11,7 +11,7 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('account/sign_up', $form.serialize(), 
+                App.Ajax.post('dashboard/account/sign_up', $form.serialize(), 
                     function(response) {
                         window.location.replace(PUBLIC_ROOT + 'map');
                     },
@@ -33,7 +33,7 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('account/log_in', $form.serialize(), 
+                App.Ajax.post('dashboard/account/log_in', $form.serialize(), 
                     function(response) {
                         window.location.replace(PUBLIC_ROOT + 'map');
                     },
@@ -48,7 +48,7 @@ App.Account = function() {
         * Log out
         */
         $('a#log-out').on('click', function() {
-            App.Ajax.post('account/log_out', null, 
+            App.Ajax.post('dashboard/account/log_out', null, 
                 function(response) {
                     window.location.replace(PUBLIC_ROOT);
                 },

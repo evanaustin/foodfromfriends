@@ -4,7 +4,7 @@ $('#sign-up').on('submit', function(e) {
       $form = $(this);
     
       if ($(this).parsley().isValid()) {
-            App.Ajax.post('account/sign_up', $form.serialize(), 
+            App.Ajax.post('dashboard/account/sign_up', $form.serialize(), 
                   function(response) {
                         window.location.replace(PUBLIC_ROOT + 'grower');
                   },

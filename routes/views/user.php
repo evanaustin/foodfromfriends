@@ -170,7 +170,7 @@
                                                 <div class="card-block d-flex flex-row">
                                                     <div class="listing-info d-flex flex-column">
                                                         <h4 class="card-title">
-                                                            <!-- <a href="<?php echo PUBLIC_ROOT . 'grower/food-listings/edit?id=' . $listing['id']; ?>"> -->
+                                                            <!-- <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>"> -->
                                                                 <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
                                                             <!-- </a> -->
                                                         </h4>
@@ -278,11 +278,6 @@
         </main> <!-- end main -->
     </div> <!-- end div.row -->
 </div> <!-- end div.container-fluid -->
-
-<?php 
-console_log($delivery_settings);
-console_log($delivery_offered);
-?>
 
 <script>
     // PRIVACY BREACH

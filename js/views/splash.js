@@ -21,7 +21,7 @@ $('#locavore-signup').on('submit', function(e) {
  $('#grower-signup').on('submit', function(e) {
 	e.preventDefault();
 
-	App.Ajax.post('splash/grower_signup', $(this).serialize(), 	
+	App.Ajax.post('splash/grower/_signup', $(this).serialize(), 	
 		function(response) {
 			// disable submit
 			$('#grower-signup button[type="submit"]').attr('disabled', 'disabled');
