@@ -5,12 +5,11 @@
                 <ul class="nav nav-fill">
                     <?php foreach ([
                         'grower'    => 'food-listings/overview',
-                        'operation' => 'edit-operation/basic-information',
                         'account'   => 'edit-profile/basic-information'
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $section . '/' . $subsection; ?>" 
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . '/' . $subsection; ?>" 
                                 class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                             >
                                 <?php echo ucfirst($section) ?>
