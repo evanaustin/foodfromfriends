@@ -16,14 +16,12 @@
                                     'overview',
                                     'add-new'
                                 ],
-                                'exchange-settings' => [
+                                'exchange-options' => [
                                     'delivery',
                                     'pickup',
                                     'meetup'
-                                ]
-                            ],
-                            'operation' => [
-                                'edit-operation' => [
+                                ],
+                                'operation-settings' => [
                                     'basic-information',
                                     'location'
                                 ]

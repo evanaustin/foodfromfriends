@@ -24,7 +24,7 @@ $('#save-pickup').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/grower/exchange-settings/pickup', data, 
+        App.Ajax.post('dashboard/grower/exchange-options/pickup', data, 
             function(response) {
                 App.Util.msg('Your pickup preferences have been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
