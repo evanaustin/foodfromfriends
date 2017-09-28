@@ -11,7 +11,7 @@
                         <?php 
                         
                         $sidebar = [
-                            'dashboard' => [
+                            'grower' => [
                                 'food-listings' => [
                                     'overview',
                                     'add-new'

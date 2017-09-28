@@ -148,7 +148,7 @@ image = {
     destroy: function(listing_id) {
         var self = this;
         
-        App.Ajax.post('dashboard/food-listings/remove-image',
+        App.Ajax.post('grower/food-listings/remove-image',
             {
                 listing_id: listing_id
             },
@@ -228,7 +228,7 @@ $('#edit-listing').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading('.save');
 
-        App.Ajax.postFiles('dashboard/food-listings/edit', data, 
+        App.Ajax.postFiles('grower/food-listings/edit', data, 
             function(response) {
                 App.Util.finishedLoading('.save');
                 toastr.success('Your listing has been updated!');
@@ -298,14 +298,14 @@ $('a.remove-listing').on('click', function(e) {
             if (result === true) {
                 App.Util.loading('.remove');
 
-                App.Ajax.post('dashboard/food-listings/remove-listing', data, 
+                App.Ajax.post('grower/food-listings/remove-listing', data, 
                     function(response) {
                         App.Util.finishedLoading('.remove');
                         toastr.success('Your listing has been removed');
                         $('main').fadeOut(1000);
 
                         setTimeout(function() {
-                            window.location = PUBLIC_ROOT + 'dashboard/food-listings/overview';
+                            window.location = PUBLIC_ROOT + 'grower/food-listings/overview';
                         }, 1500);
                     },
                     function(response) {

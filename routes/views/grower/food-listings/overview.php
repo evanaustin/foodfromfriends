@@ -54,7 +54,7 @@
 
                         <div class="col-md-4">
                             <div class="card animated zoomIn hidden">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/edit?id=' . $listing['id']; ?>">
+                                <a href="<?php echo PUBLIC_ROOT . 'grower/food-listings/edit?id=' . $listing['id']; ?>">
                                     <?php
                                     
                                     if (!empty($listing['filename'])) {
@@ -69,7 +69,7 @@
                                 <div class="card-block d-flex flex-row">
                                     <div class="listing-info d-flex flex-column">
                                         <h4 class="card-title">
-                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/edit?id=' . $listing['id']; ?>">
+                                            <a href="<?php echo PUBLIC_ROOT . 'grower/food-listings/edit?id=' . $listing['id']; ?>">
                                                 <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
                                             </a>
                                         </h4>
@@ -102,7 +102,7 @@
                                     </div>
 
                                     <div class="listing-controls d-flex flex-column">
-                                        <a href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/edit?id=' . $listing['id']; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
+                                        <a href="<?php echo PUBLIC_ROOT . 'grower/food-listings/edit?id=' . $listing['id']; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                     
@@ -134,7 +134,7 @@
 
                     ?>
 
-                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/add-new'; ?>" class="btn btn-primary">
+                    <a href="<?php echo PUBLIC_ROOT . 'grower/food-listings/add-new'; ?>" class="btn btn-primary">
                         Let's go create your first listing!
                     </a>
 

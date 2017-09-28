@@ -267,9 +267,9 @@ $('#add-listing').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
         
-        App.Ajax.postFiles('dashboard/food-listings/add-new', data, 
+        App.Ajax.postFiles('grower/food-listings/add-new', data, 
             function(response) {
-                App.Util.msg('Your listing has been created! Click <strong><a href="' + PUBLIC_ROOT + 'dashboard/food-listings/edit?id=' + response.id + '">here</a></strong> to edit it, or add another new listing below.', 'success');
+                App.Util.msg('Your listing has been created! Click <strong><a href="' + PUBLIC_ROOT + 'grower/food-listings/edit?id=' + response.id + '">here</a></strong> to edit it, or add another new listing below.', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
 

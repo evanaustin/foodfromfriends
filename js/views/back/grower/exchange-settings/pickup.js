@@ -1,23 +1,20 @@
 $('input[name="is-offered"]').on('change', function() {
     if ($(this).val() == 1) {
-        $('#meetup-details').fadeIn().find('input:not([name="address-line-2"]), textarea').prop({
+        $('#instructions, #availability').fadeIn().find('textarea').prop({
             required: true,
             disabled: false
         });
-
-        $('input[name="address-line-2"]').prop('disabled', false);
     } else {
-        $('#meetup-details').find('input:not([name="address-line-2"]), textarea').prop({
+        $('#instructions, #availability').find('textarea').prop({
             required: false,
             disabled: true
         });
-        
-        $('input[name="address-line-2"]').prop('disabled', true);
-        $('#meetup-details').fadeOut();
+
+        $('#instructions, #availability').fadeOut();
     }
 });
 
-$('#save-meetup').on('submit', function(e) {
+$('#save-pickup').on('submit', function(e) {
 	e.preventDefault();
     App.Util.hideMsg();
     
@@ -25,9 +22,11 @@ $('#save-meetup').on('submit', function(e) {
     data = $form.serialize();
 
     if ($form.parsley().isValid()) {
-        App.Ajax.post('dashboard/exchange-settings/meetup', data, 
+        App.Util.loading();
+
+        App.Ajax.post('grower/exchange-settings/pickup', data, 
             function(response) {
-                App.Util.msg('Your meetup preferences have been saved!', 'success');
+                App.Util.msg('Your pickup preferences have been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
             },
@@ -36,5 +35,5 @@ $('#save-meetup').on('submit', function(e) {
                 App.Util.finishedLoading();
             }
         );
-    }
+    }	
 });	

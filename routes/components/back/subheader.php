@@ -4,10 +4,8 @@
             <div class="subheader">
                 <ul class="nav nav-fill">
                     <?php foreach ([
-                        'dashboard' => 'food-listings/overview',
-                        // 'stats' => '',
-                        // 'profile' => 'basic-information',
-                        'account' => 'edit-profile/basic-information',
+                        'grower'    => 'food-listings/overview',
+                        'account'   => 'edit-profile/basic-information'
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 

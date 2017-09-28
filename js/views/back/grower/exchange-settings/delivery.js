@@ -112,7 +112,7 @@ $('#save-delivery').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/exchange-settings/delivery', data, 
+        App.Ajax.post('grower/exchange-settings/delivery', data, 
             function(response) {
                 App.Util.msg('Your delivery preferences have been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');

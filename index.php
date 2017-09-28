@@ -11,7 +11,7 @@ $Routing = new Routing([
     'path'      => $_GET['path'],
     'landing'   => 'splash',
     'backside'  => [
-        'dashboard',
+        'grower',
         // 'stats',
         // 'profile',
         'account'
