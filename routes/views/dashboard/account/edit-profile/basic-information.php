@@ -48,7 +48,6 @@
                                             <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" value="<?php echo (!empty($User->last_name) ? $User->last_name : '' );?>" data-parsley-trigger="submit" required>
                                         </div>
                                     </div>
-
                                 </div>
                                 
                                 <small class="form-text text-muted">
