@@ -4,12 +4,12 @@
             <div class="subheader">
                 <ul class="nav nav-fill">
                     <?php foreach ([
-                        'grower'    => 'food-listings/overview',
+                        'grower'    => '',
                         'account'   => 'edit-profile/basic-information'
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . '/' . $subsection; ?>" 
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . (!empty($subsection) ? '/' . $subsection : ''); ?>" 
                                 class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                             >
                                 <?php echo ucfirst($section) ?>
