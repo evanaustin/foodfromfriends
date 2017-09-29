@@ -7,15 +7,6 @@ class FoodListing extends Base {
         $DB,
         $S3;
         
-    public
-        $id,
-        $user_id,
-        $food_subcategory_id,
-        $price,
-        $stock,
-        $description;
-     
-        
     function __construct($parameters) {
         $this->table = 'food_listings';
 
