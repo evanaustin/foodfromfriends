@@ -42,14 +42,20 @@ class FoodListing extends Base {
                 fc.title AS category_title,
                 fli.filename,
                 fli.ext
+            
             FROM food_listings fl
+            
             LEFT JOIN food_subcategories fsc
-                ON fl.food_subcategory_id = fsc.id
+                ON fsc.id = fl.food_subcategory_id
+            
             LEFT JOIN food_categories fc
-                ON fsc.food_category_id = fc.id
+                ON fc.id = fsc.food_category_id
+            
             LEFT JOIN food_listing_images fli
-                ON fl.id = fli.food_listing_id
+                ON fli.food_listing_id = fl.id
+            
             WHERE fl.id = :id
+        
             LIMIT 1
         ', [
             'id' => $id
@@ -69,13 +75,18 @@ class FoodListing extends Base {
                 fc.title AS category_title,
                 fli.filename,
                 fli.ext
+            
             FROM food_listings fl
+            
             LEFT JOIN food_subcategories fsc
                 ON fl.food_subcategory_id = fsc.id
+            
             LEFT JOIN food_categories fc
                 ON fsc.food_category_id = fc.id
+            
             LEFT JOIN food_listing_images fli
                 ON fl.id = fli.food_listing_id
+            
             WHERE fl.user_id = :user_id
         ', [
             'user_id' => $user_id
@@ -103,10 +114,14 @@ class FoodListing extends Base {
     public function other_exists($other) {
         $results = $this->DB->run('
             SELECT fc.title 
+            
             FROM food_categories fc
+            
             JOIN food_subcategories fsc
-                ON fc.id = fsc.food_category_id
+                ON fsc.food_category_id = fc.id
+            
             WHERE fsc.title = :other
+            
             LIMIT 1
         ', [
             'other' => $other
