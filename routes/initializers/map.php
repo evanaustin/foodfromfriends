@@ -6,11 +6,11 @@ $settings = [
 
 $city = $_GET['city'];
 
-$Grower = new Grower([
+$GrowerOperation = new GrowerOperation([
     'DB' => $DB
 ]);
 
-$growers = $Grower->pull_all();
+$growers = $GrowerOperation->pull_all();
 
 $grower_count = count($growers);
 $tile_width = 'col-6';

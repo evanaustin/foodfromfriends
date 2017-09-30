@@ -8,7 +8,7 @@ $Pickup = new Pickup([
     'DB' => $DB
 ]);
 
-$details = $Pickup->get_details($User->id);
+$details = $Pickup->get_details($User->GrowerOperation->id);
 
 $imgs = ['corn','tree','lemongrass'];
 
