@@ -5,6 +5,8 @@ class User extends Base {
     protected
         $class_dependencies,
         $DB;
+
+    public $GrowerOperation;
         
     function __construct($parameters) {
         $this->table = 'users';
@@ -18,6 +20,7 @@ class User extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully($parameters['id']);
+            $this->is_grower($parameters['id']);
         }
     }
     
@@ -34,12 +37,17 @@ class User extends Base {
                 ua.longitude,
                 upi.filename,
                 upi.ext
+            
             FROM users u
+            
             LEFT JOIN user_addresses ua
                 ON u.id = ua.user_id
+            
             LEFT JOIN user_profile_images upi
                 ON u.id = upi.user_id
+            
             WHERE u.id = :id
+        
             LIMIT 1
         ', [
             'id' => $id
@@ -50,12 +58,34 @@ class User extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
+    private function is_grower($id) {
+        // should check that operation actually exists too
+        $results = $this->DB->run('
+            SELECT grower_operation_id FROM grower_operation_members WHERE user_id=:id LIMIT 1
+        ', [
+            'id' => $id
+        ]);
+
+        if (!empty($results[0])) {
+            $this->GrowerOperation = new GrowerOperation([
+                'DB' => $this->DB,
+                'id' => $results[0]['grower_operation_id']
+            ]);
+
+            error_log($id . ' is grower: ' . $results[0]['grower_operation_id']);
+        } else {
+            $this->GrowerOperation = false;
+            
+            error_log('not grower');
+        }
+    }
+
     public function authenticate($email, $password) {
         $results = $this->DB->run('
             SELECT * FROM users WHERE email=:email AND password=:password LIMIT 1
         ', [
-            'email' => $email,
-            'password' => hash('sha256', $password) 
+            'email'     => $email,
+            'password'  => hash('sha256', $password) 
         ]);
 
         if (isset($results[0])) {

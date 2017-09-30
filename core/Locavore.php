@@ -6,17 +6,6 @@ class Locavore extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $table,
-        $id,
-        $email,
-        $password,
-        $first_name,
-        $last_name,
-        $validation,
-        $registered_on;
-        
-    
     function __construct($parameters) {
         $this->table = 'locavores';
 
@@ -25,8 +14,6 @@ class Locavore extends Base {
         ];
 
         parent::__construct($parameters);
-    
-        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 }
 
