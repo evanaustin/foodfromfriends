@@ -10,7 +10,6 @@ class FoodListing extends Base {
     function __construct($parameters) {
         $this->table = 'food_listings';
 
-
         $this->class_dependencies = [
             'DB',
             'S3'
@@ -57,7 +56,7 @@ class FoodListing extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_listings($user_id) {
+    public function get_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
                 fl.*,
@@ -78,9 +77,9 @@ class FoodListing extends Base {
             LEFT JOIN food_listing_images fli
                 ON fl.id = fli.food_listing_id
             
-            WHERE fl.user_id = :user_id
+            WHERE fl.grower_operation_id = :grower_operation_id
         ', [
-            'user_id' => $user_id
+            'grower_operation_id' => $grower_operation_id
         ]);
 
         return (isset($results[0])) ? $results : false;
