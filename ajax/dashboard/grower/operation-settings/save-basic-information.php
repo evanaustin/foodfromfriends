@@ -9,18 +9,9 @@ $json['success'] = true;
 
 $_POST = $Gump->sanitize($_POST);
 
-// sanitize_numbers won't actually strip the special characters from the phone number... so we have to do it manually
-$_POST['phone'] = preg_replace('/[^0-9]/', '', str_replace(' ', '-', $_POST['phone']));
-
 $Gump->validation_rules([
-    'first-name'    => 'required|alpha',
-	'last-name'     => 'required|alpha',
-    'email'         => 'required|valid_email',
-	'phone'         => 'required|numeric',
-	'month'         => 'required|alpha',
-	'day'           => 'required|integer',
-	'year'          => 'required|integer',
-	'gender'        => 'required|alpha'
+    'type'  => 'integer',
+	'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -30,35 +21,52 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'first-name'    => 'trim|sanitize_string',
-    'last-name'     => 'trim|sanitize_string',
-	'email'         => 'trim|sanitize_email',
-	'phone'         => 'trim|sanitize_numbers',
-	'month'         => 'trim|sanitize_string',
-	'day'           => 'trim|whole_number',
-	'year'          => 'trim|whole_number',
-	'gender'        => 'trim|sanitize_string'
+	'type'  => 'trim|sanitize_numbers',
+    'name'  => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$dob = strtotime($day . ' ' . $month . ' ' . $year);
+if (!$User->GrowerOperation) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
 
-$profile_updated = $User->update([
-    'email' => $email,
-    'first_name' => $first_name,
-    'last_name' => $last_name,
-    'phone' => $phone,
-    'dob' => $dob,
-    'gender' => $gender, 
-    'bio' => $bio
-], 
-'id', $User->id);
+    // create new operation
+    $operation_added = $GrowerOperation->add([
+        'grower_operation_type_id'  => $type,
+        'name'                      => $name,
+        'bio'                       => $bio,
+        'referral_key'              => $GrowerOperation->gen_referral_key($name),
+        'created_on'                => time()
+    ]);
+    
+    if (!$operation_added) quit('Could not create operation');
+    
+    $grower_operation_id = $operation_added['last_insert_id'];
 
-if (!$profile_updated) {
-    quit('We couldn\'t update your basic information');
+    // assign user ownership of new operation
+    $association_added = $GrowerOperation->add([
+        'grower_operation_id'   => $grower_operation_id,
+        'user_id'               => $User->id,
+        'permission'            => 2
+    ], 'grower_operation_members');
+
+    if (!$association_added) quit('Could not associate user to operation');
+} else {
+    $profile_updated = $User->GrowerOperation->update([
+        'grower_operation_type_id'  => $type,
+        'name'                      => $name,
+        'bio'                       => $bio,
+        'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key($name) : $User->GrowerOperation->referral_key),
+    ], 
+    'id', $User->GrowerOperation->id);
+    
+    if (!$profile_updated) {
+        quit('We couldn\'t update your operation\'s basic information');
+    }
 }
 
 $Image = new Image();
@@ -96,7 +104,7 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'u.' . $User->id;
+    $filename = 'go.' . $User->GrowerOperation->id;
     
     // determine file type
     $ext = (explode('/', $_FILES['profile-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
@@ -177,29 +185,29 @@ if (isset($_POST['images'])) {
         $Image->save($final['file']);
     }
     
-    if (!empty($User->filename)) {
-        $record_edited = $User->update([
+    if (!empty($User->GrowerOperation->filename)) {
+        $record_edited = $User->GrowerOperation->update([
             'ext' => $ext
-        ], 'id', $User->id, 'user_profile_images');
+        ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_images');
 
         if (!$record_edited) quit('Could not edit image record');
         
         $img_removed = $S3->delete_objects([
-            ENV . '/profile-photos/' . $User->filename . $User->ext
+            ENV . '/grower-operation-images/' . $User->GrowerOperation->filename . $User->GrowerOperation->ext
         ], $file);
     } else {
-        $record_added = $User->add([
-            'user_id' => $User->id,
-            'filename' => $filename,
-            'ext' => $ext
-        ], 'user_profile_images');
+        $record_added = $User->GrowerOperation->add([
+            'grower_operation_id'   => $User->GrowerOperation->id,
+            'filename'              => $filename,
+            'ext'                   => $ext
+        ], 'grower_operation_images');
 
         if (!$record_added) {
             quit('Could not add image record');
         }
     }
     
-    $img_added = $S3->save_object(ENV . '/profile-photos/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+    $img_added = $S3->save_object(ENV . '/grower-operation-images/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
     
     if (!$img_added) quit('Could not add new image');
 
