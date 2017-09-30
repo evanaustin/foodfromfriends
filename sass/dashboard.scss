@@ -30,10 +30,6 @@ body.dashboard {
         padding-bottom: 60px; /* footer height */
     }
 
-    @include all-but-phones() {
-        padding-bottom: 48px; /* footer height */
-    }
-
     div.container-fluid {
         display: flex;
         flex-direction: column;
