@@ -43,8 +43,8 @@ $output= json_decode($geocode);
 $lat = $output->results[0]->geometry->location->lat;
 $lng = $output->results[0]->geometry->location->lng;
 
-if ($User->exists('user_id', $User->id, 'user_addresses')) {
-    $updated = $User->update([
+if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
+    $updated = $User->GrowerOperation->update([
         'address_line_1'    => $address_line_1,
         'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
         'city'              => $city,
@@ -52,22 +52,22 @@ if ($User->exists('user_id', $User->id, 'user_addresses')) {
         'zipcode'           => $zip,
         'latitude'          => $lat,
         'longitude'         => $lng
-    ], 'user_id', $User->id, 'user_addresses');
+    ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses');
     
     if (!$updated) quit('We could not update your location');
 } else {
-    $added = $User->add([
-        'user_id'           => $User->id,
-        'address_line_1'    => $address_line_1,
-        'address_line_2'    => $address_line_2,
-        'city'              => $city,
-        'state'             => $state,
-        'zipcode'           => $zip,
-        'latitude'          => $lat,
-        'longitude'         => $lng
-    ], 'user_addresses');
+    $added = $User->GrowerOperation->add([
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'address_line_1'        => $address_line_1,
+        'address_line_2'        => $address_line_2,
+        'city'                  => $city,
+        'state'                 => $state,
+        'zipcode'               => $zip,
+        'latitude'              => $lat,
+        'longitude'             => $lng
+    ], 'grower_operation_addresses');
     
-    if (!$added) quit('We could not add your location');
+    if (!$added) quit('We could not add your operation\'s location');
 }
 
 echo json_encode($json);
