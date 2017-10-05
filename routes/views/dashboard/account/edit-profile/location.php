@@ -9,7 +9,7 @@
                         </div>
 
                         <div class="page-description text-muted small">
-                            This information is only shared when an order is confirmed. We use it to make sure that food deliveries and pickups go smoothly.
+                            This specific information is only shared when an order is confirmed. We use it to make sure that food deliveries and pickups go smoothly.
                         </div>
                     </div>
 
