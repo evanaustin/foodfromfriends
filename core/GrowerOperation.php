@@ -59,11 +59,49 @@ class GrowerOperation extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function gen_referral_key($name = null) {
+    public function gen_referral_key($len, $name = null) {
         $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
-        $code = substr(md5(microtime()), rand(0,26), 4);
+        $code = substr(md5(microtime()), rand(0,26), $len);
         
-        return $slug . '_' . $code;
+        return (!empty($slug) ? $slug . '_' . $code : $code);
+    }
+
+    public function get_team_members($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                gom.permission,
+                u.first_name,
+                u.last_name
+
+            FROM grower_operation_members gom
+
+            JOIN users u
+                ON gom.user_id = u.id
+
+            WHERE gom.grower_operation_id = :grower_operation_id
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        return (isset($results)) ? $results : false;
+    }
+
+    public function check_association($grower_operation_id, $user_id) {
+        $results = $this->DB->run('
+            SELECT *
+
+            FROM grower_operation_members gom
+
+            WHERE gom.grower_operation_id = :grower_operation_id
+                AND user_id = :user_id
+            
+            LIMIT 1
+        ', [
+            'grower_operation_id'   => $grower_operation_id,
+            'user_id'               => $user_id
+        ]);
+
+        return (isset($results[0])) ? $results[0] : false;
     }
 
     /*
