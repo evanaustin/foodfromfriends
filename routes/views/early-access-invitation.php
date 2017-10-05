@@ -65,7 +65,7 @@
                                         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                                         
                                         foreach ($months as $month) {
-                                            echo "<option val='{$month}'>{$month}</option>";
+                                            echo "<option value='{$month}'>{$month}</option>";
                                         }
                                     ?>
                                 </select>
