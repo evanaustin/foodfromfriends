@@ -23,7 +23,8 @@
                                 ],
                                 'operation-settings' => [
                                     'basic-information',
-                                    'location'
+                                    'location',
+                                    'team-members'
                                 ]
                             ],
                             'account' => [
@@ -57,7 +58,13 @@
 
                                     <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navbarToggle-<?php echo $k;?>">
                                         <ul class="nav flex-column">
-                                            <?php foreach($v as $l) { ?>
+                                            <?php
+                                            
+                                            foreach($v as $l) { 
+                                                if (!empty($l)) {
+                                                    
+                                                ?>
+
                                                 <li class="nav-item">
                                                     <a 
                                                         href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . $l; ?>"
@@ -65,7 +72,13 @@
                                                         <?php echo ucfirst(str_replace('-', ' ', $l)); ?>
                                                     </a>
                                                 </li>
-                                            <?php } ?>
+                                                
+                                                <?php
+                                            
+                                                }
+                                            }
+                                            
+                                            ?>
                                         </ul>
                                     </div>
                                 <?php } else if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string') { ?>
@@ -74,7 +87,7 @@
                                         class="nav-link <?php if ($Routing->subsection == $k) echo 'active'; ?>">
                                         <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
                                     </a>
-                                <?php } else { ?>
+                                <?php } else if (!empty($v)) { ?>
                                     <a 
                                         href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
                                         class="nav-link <?php if ($Routing->subsection == $v) echo 'active'; ?>">
