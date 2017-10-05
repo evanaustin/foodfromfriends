@@ -71,12 +71,8 @@ class User extends Base {
                 'DB' => $this->DB,
                 'id' => $results[0]['grower_operation_id']
             ]);
-
-            error_log($id . ' is grower: ' . $results[0]['grower_operation_id']);
         } else {
             $this->GrowerOperation = false;
-            
-            error_log('not grower');
         }
     }
 
@@ -88,17 +84,13 @@ class User extends Base {
             'password'  => hash('sha256', $password) 
         ]);
 
-        if (isset($results[0])) {
-            return $this->log_in($results[0]['id']);
-        }
-        
-        return false;
+        return (isset($results[0])) ? $results[0]['id'] : false;
     }
 
     public function log_in($id) {
         $_SESSION['user']['id'] = $id;
 
-        return ($_SESSION['user']['id']) ? true : false;
+        return ($_SESSION['user']['id']) ? $_SESSION['user']['id'] : false;
     }
 
     public function log_out() {
