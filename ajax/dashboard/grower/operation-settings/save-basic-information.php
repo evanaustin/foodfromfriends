@@ -11,7 +11,7 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
     'type'  => 'integer',
-	'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha'
+	'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -39,7 +39,7 @@ if (!$User->GrowerOperation) {
         'grower_operation_type_id'  => $type,
         'name'                      => $name,
         'bio'                       => $bio,
-        'referral_key'              => $GrowerOperation->gen_referral_key($name),
+        'referral_key'              => $GrowerOperation->gen_referral_key(4, $name),
         'created_on'                => time()
     ]);
     
@@ -60,7 +60,7 @@ if (!$User->GrowerOperation) {
         'grower_operation_type_id'  => $type,
         'name'                      => $name,
         'bio'                       => $bio,
-        'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key($name) : $User->GrowerOperation->referral_key),
+        'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
     ], 
     'id', $User->GrowerOperation->id);
     
