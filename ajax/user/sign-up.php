@@ -7,13 +7,37 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
-foreach ($_POST as $k => $v) {
-    if (isset($v) && !empty($v)) {
-        ${$k} = rtrim($v);
-    } else {
-        quit('The ' . strtoupper(str_replace('_', ' ', $k)) . ' field is required');
-    }
+$_POST = $Gump->sanitize($_POST);
+
+$Gump->validation_rules([
+    'email'         => 'required|valid_email',
+    'password'      => 'required|min_len,8',
+    'first-name'    => 'required|alpha_dash',
+    'last-name'     => 'required|alpha_dash',
+    'day'           => 'required|integer',
+    'month'         => 'required|alpha',
+    'year'          => 'required|integer'
+]);
+
+$validated_data = $Gump->run($_POST);
+
+if ($validated_data === false) {
+    quit($Gump->get_readable_errors());
 }
+
+$Gump->filter_rules([
+	'email'         => 'trim|sanitize_email',
+	'password'      => 'trim|sanitize_string',
+	'first-name'    => 'trim|sanitize_string',
+	'last-name'     => 'trim|sanitize_string',
+	'day'           => 'trim|whole_number',
+	'month'         => 'trim|sanitize_string',
+	'year'          => 'trim|whole_number'
+]);
+
+$prepared_data = $Gump->run($validated_data);
+
+foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $dob = strtotime($day . ' ' . $month . ' ' . $year);
 
@@ -22,22 +46,18 @@ $User = new User([
 ]);
 
 // run checks
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    quit('Please enter a valid email');
-} else if (strlen($password) < 8) {
-    quit('Your password should have 8 characters or more');
-} else if ($dob > strtotime('-18 years')) {
+if ($dob > strtotime('-18 years')) {
     quit('You must be 18 or older to sign up');
 } else if ($User->exists('email', $email)) {
     quit('An existing account is already using this email');
 }
 
 $new_user = $User->add([
-    'email' => $email,
-    'password' => hash('sha256', $password),
-    'first_name' => $first_name,
-    'last_name' => $last_name,
-    'dob' => $dob,
+    'email'         => $email,
+    'password'      => hash('sha256', $password),
+    'first_name'    => $first_name,
+    'last_name'     => $last_name,
+    'dob'           => $dob,
     'registered_on' => time()
 ]);
 
@@ -48,13 +68,28 @@ if ($new_user != false) {
     quit('We couldn\'t create your account');
 }
 
+if (!empty($operation_key) && !empty($personal_key)) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
+
+    // update user association as manager
+    $association_added = $GrowerOperation->update([
+        'user_id'       => $new_user['last_insert_id'],
+        'permission'    => 1
+    ], 'referral_key' , $personal_key, 'grower_operation_members');
+
+    if (!$association_added) quit('Could not join team');
+}
+
 $Mail = new Mail([
-    'fromName' => 'Food From Friends',
+    'fromName'  => 'Food From Friends',
     'fromEmail' => 'foodfromfriendsco@gmail.com',
-    'toEmail' => $email
+    'toEmail'   => $email
 ]);
 
-$json['mail'] = $Mail->thanks_early_access_grower_signup(); 
+// add logic here to check if early signup or team signup
+$Mail->thanks_early_access_grower_signup(); 
 
 echo json_encode($json);
 
