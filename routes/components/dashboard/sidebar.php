@@ -15,16 +15,6 @@
                                 'food-listings' => [
                                     'overview',
                                     'add-new'
-                                ],
-                                'exchange-options' => [
-                                    'delivery',
-                                    'pickup',
-                                    'meetup'
-                                ],
-                                'operation-settings' => [
-                                    'basic-information',
-                                    'location',
-                                    'team-members'
                                 ]
                             ],
                             'account' => [
@@ -40,6 +30,20 @@
                                 // 'edit' => 'edit-profile', // link alias format
                             ]
                         ];
+
+                        if ($User->permission == 2) {
+                            $sidebar['grower']['exchange-options'] = [
+                                'delivery',
+                                'pickup',
+                                'meetup'
+                            ];
+
+                            $sidebar['grower']['operation-settings'] = [
+                                'basic-information',
+                                'location',
+                                'team-members'
+                            ];
+                        }
 
                         foreach($sidebar[$Routing->section] as $k => $v) { ?>
                             <li class="nav-item">
