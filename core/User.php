@@ -17,12 +17,12 @@ class User extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
-            $this->populate_fully($parameters['id']);
-            $this->get_operations($parameters['id']);
+            $this->populate_fully();
+            $this->get_operations();
         }
     }
     
-    private function populate_fully($id) {
+    private function populate_fully() {
         $results = $this->DB->run('
             SELECT 
                 u.*,
@@ -48,7 +48,7 @@ class User extends Base {
         
             LIMIT 1
         ', [
-            'id' => $id
+            'id' => $this->id
         ]);
 
         if (!isset($results[0])) return false;
@@ -57,7 +57,7 @@ class User extends Base {
     }
 
     // eventually this should be refactored to allow for buyer operations also
-    private function get_operations($user_id) {
+    private function get_operations() {
         $results = $this->DB->run('
             SELECT *
 
@@ -66,7 +66,7 @@ class User extends Base {
             WHERE gom.user_id = :user_id 
                 AND permission > 0
         ', [
-            'user_id' => $user_id
+            'user_id' => $this->id
         ]);
 
         if (isset($results)) {
@@ -76,12 +76,10 @@ class User extends Base {
                     'id' => $result['grower_operation_id']
                 ]);
 
-                $active_operation_id = $_SESSION['user']['active_operation_id'];
+                $this->Operations[$result['grower_operation_id']]->permission = $result['permission'];
 
-                if ((!isset($active_operation_id) && $result['is_default']) || $active_operation_id == $result['grower_operation_id']) {
+                if ($result['is_default']) {
                     $this->GrowerOperation = $this->Operations[$result['grower_operation_id']];
-                    $this->permission = $result['permission'];
-                    $_SESSION['user']['active_operation_id'] = $result['grower_operation_id'];
                 }
             }
         } else {
