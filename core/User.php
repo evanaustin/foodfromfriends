@@ -6,8 +6,6 @@ class User extends Base {
         $class_dependencies,
         $DB;
 
-    public $GrowerOperation;
-        
     function __construct($parameters) {
         $this->table = 'users';
 
@@ -20,7 +18,7 @@ class User extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully($parameters['id']);
-            $this->is_grower($parameters['id']);
+            $this->get_operations($parameters['id']);
         }
     }
     
@@ -58,22 +56,45 @@ class User extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    private function is_grower($id) {
-        // should check that operation actually exists too
+    // eventually this should be refactored to allow for buyer operations also
+    private function get_operations($user_id) {
         $results = $this->DB->run('
-            SELECT grower_operation_id FROM grower_operation_members WHERE user_id=:id LIMIT 1
+            SELECT *
+
+            FROM grower_operation_members gom
+
+            WHERE gom.user_id = :user_id 
+                AND permission > 0
         ', [
-            'id' => $id
+            'user_id' => $user_id
         ]);
 
-        if (!empty($results[0])) {
-            $this->GrowerOperation = new GrowerOperation([
-                'DB' => $this->DB,
-                'id' => $results[0]['grower_operation_id']
-            ]);
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $this->Operations[$result['grower_operation_id']] = new GrowerOperation([
+                    'DB' => $this->DB,
+                    'id' => $result['grower_operation_id']
+                ]);
+
+                $active_operation_id = $_SESSION['user']['active_operation_id'];
+
+                if ((!isset($active_operation_id) && $result['is_default']) || $active_operation_id == $result['grower_operation_id']) {
+                    $this->GrowerOperation = $this->Operations[$result['grower_operation_id']];
+                    $this->permission = $result['permission'];
+                    $_SESSION['user']['active_operation_id'] = $result['grower_operation_id'];
+                }
+            }
         } else {
+            $this->Operations = false;
             $this->GrowerOperation = false;
         }
+    }
+
+    public function switch_operation($id) {
+        $_SESSION['user']['active_operation_id'] = $id;
+        $this->GrowerOperation = $this->Operations[$id];
+
+        return $this->GrowerOperation->id;
     }
 
     public function authenticate($email, $password) {
