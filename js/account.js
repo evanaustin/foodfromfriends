@@ -57,6 +57,24 @@ App.Account = function() {
                 }
             );
         });
+        
+        /*
+        * Switch operations
+        */
+        $('a.switch-operation').on('click', function() {
+            var data = {
+                'grower_operation_id' : $(this).data('grower-operation-id')
+            };
+
+            App.Ajax.post('user/switch-operation', data, 
+                function(response) {
+                    window.location.replace(PUBLIC_ROOT + 'dashboard/grower/food-listings/overview');
+                },
+                function(response) {
+                    toastr.error(response.error);
+                }
+            );
+        });
     }
     
     return {
