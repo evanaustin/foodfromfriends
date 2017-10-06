@@ -99,6 +99,14 @@ if ($LOGGED_IN) {
         'DB' => $DB,
         'id' => $USER['id']
     ]);
+
+    if ($User->GrowerOperation) {
+        if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
+            $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
+        } else if (!isset($_SESSION['user']['active_operation_id'])) {
+            $_SESSION['user']['active_operation_id'] = $User->GrowerOperation->id;
+        }
+    }
 }
 
 
