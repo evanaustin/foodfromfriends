@@ -14,14 +14,15 @@ class GrowerOperation extends Base {
         ];
 
         parent::__construct($parameters);
-    
+
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
-            $this->populate_fully($parameters['id']);
+            $this->populate_fully();
+            $this->configure_exchange_options();
         }
     }
     
-    private function populate_fully($id) {
+    private function populate_fully() {
         $results = $this->DB->run('
             SELECT 
                 go.*,
@@ -51,7 +52,7 @@ class GrowerOperation extends Base {
             
             LIMIT 1
         ', [
-            'id' => $id
+            'id' => $this->id
         ]);
 
         if (!isset($results[0])) return false;
@@ -59,11 +60,85 @@ class GrowerOperation extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function gen_referral_key($len, $name = null) {
-        $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
-        $code = substr(md5(microtime()), rand(0,26), $len);
+    private function configure_exchange_options() {
+        $results = $this->DB->run('
+            SELECT 
+                ds.id AS delivery_id,
+                ps.id AS pickup_id,
+                ms.id AS meetup_id
+
+            FROM grower_operations go
+            
+            LEFT JOIN delivery_settings ds
+                ON ds.grower_operation_id = go.id
+
+            LEFT JOIN pickup_settings ps
+                ON ps.grower_operation_id = go.id
+
+            LEFT JOIN meetup_settings ms
+                ON ms.grower_operation_id = go.id
+
+            WHERE go.id = :id
+        ', [
+            'id' => $this->id
+        ]);
+
+        if (isset($results[0]['delivery_id'])) {
+            $this->Delivery = new Delivery([
+                'DB' => $this->DB,
+                'id' => $results[0]['delivery_id']
+            ]);
+        } else {
+            $this->Delivery = false;
+        }
         
-        return (!empty($slug) ? $slug . '_' . $code : $code);
+        if (isset($results[0]['pickup_id'])) {
+            $this->Pickup = new Pickup([
+                'DB' => $this->DB,
+                'id' => $results[0]['pickup_id']
+            ]);
+        } else {
+            $this->Pickup = false;
+        }
+        
+        if (isset($results[0]['meetup_id'])) {
+            $this->Meetup = new Meetup([
+                'DB' => $this->DB,
+                'id' => $results[0]['meetup_id']
+            ]);
+        } else {
+            $this->Meetup = false;
+        }
+    }
+
+    public function check_active($User) {
+        if (
+            (
+                ($this->type == 'none' && !empty($User->filename))
+                || ($this->type != 'none' && !empty($this->filename))
+            )
+            && (
+                ($this->type == 'none' && !empty($User->zipcode))
+                || ($this->type != 'none' && !empty($this->zipcode))
+            )
+            && ($this->Delivery || $this->Pickup || $this->Meetup)
+            && ($this->Delivery->is_offered || $this->Pickup->is_offered || $this->Meetup->is_offered)
+            && $this->count_listings() > 0
+        ) {
+            $this->update([
+                'is_active' => 1
+            ],
+            'id', $this->id);
+            
+            $this->is_active = 1;
+        } else {
+            $this->update([
+                'is_active' => 0
+            ],
+            'id', $this->id);
+            
+            $this->is_active = 0;
+        }
     }
 
     public function get_team_members($grower_operation_id) {
@@ -83,6 +158,14 @@ class GrowerOperation extends Base {
             'grower_operation_id' => $grower_operation_id
         ]);
 
+        return (isset($results)) ? $results : false;
+    }
+
+    public function get_types() {
+        $results = $this->DB->run('
+            SELECT * FROM grower_operation_types
+        ');
+        
         return (isset($results)) ? $results : false;
     }
 
@@ -150,12 +233,9 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results : false;
     }
 
-    /*
-    * moved from Grower (does it need to be refactored?)
-    */
-    public function count_listings($user_id = null) {
-        if (!isset($user_id)) {
-            $user_id = $this->id;
+    public function count_listings($grower_operation_id = null) {
+        if (!isset($grower_operation_id)) {
+            $grower_operation_id = $this->id;
         }
 
         $results = $this->DB->run('
@@ -164,20 +244,19 @@ class GrowerOperation extends Base {
             
             FROM food_listings fl
             
-            WHERE fl.user_id = :user_id
+            WHERE fl.grower_operation_id = :grower_operation_id
         ', [
-            'user_id' => $user_id
+            'grower_operation_id' => $grower_operation_id
         ]);
 
         return (isset($results[0])) ? $results[0]['listings'] : false;
     }
 
-    public function get_types() {
-        $results = $this->DB->run('
-            SELECT * FROM grower_operation_types
-        ');
+    public function gen_referral_key($len, $name = null) {
+        $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
+        $code = substr(md5(microtime()), rand(0,26), $len);
         
-        return (isset($results)) ? $results : false;
+        return (!empty($slug) ? $slug . '_' . $code : $code);
     }
 
 }
