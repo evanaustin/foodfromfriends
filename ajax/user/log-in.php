@@ -31,23 +31,19 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+// check if already logged in
+if ($LOGGED_IN) $User->log_out();
+
 $User = new User([
     'DB' => $DB
 ]);
 
 if ($User->exists('email', $email)) {
-    // check if already logged in
-    if (!$LOGGED_IN) {
-        // authenticate login
-        $user_id = $User->authenticate($email, $password);
+    // authenticate login
+    $user_id = $User->authenticate($email, $password);
 
-        if (!$user_id) {
-            quit('The credentials you provided are incorrect');
-        } else {
-            $log_in = true;
-        }
-    } else {
-        $user_id = $User->id;
+    if (!$user_id) {
+        quit('The credentials you provided are incorrect');
     }
 
     // check if joining team
@@ -91,15 +87,11 @@ if ($User->exists('email', $email)) {
         } else {
             quit('Your personal key is invalid');
         }
-
-        $log_in = true;
     }
 
-    if ($log_in) {
-        $logged_in = $User->log_in($user_id);
-    
-        if (!$logged_in) quit('We could not log you in');
-    }
+    $logged_in = $User->log_in($user_id);
+
+    if (!$logged_in) quit('We could not log you in');
 } else {
     quit('You don\'t have an account with us yet');
 }
