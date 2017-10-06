@@ -19,6 +19,10 @@ if (!empty($User->filename)) {
     quit('There was no image to remove');
 }
 
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    $User->GrowerOperation->check_active($User);
+}
+
 echo json_encode($json);
 
 ?>  

@@ -70,6 +70,10 @@ if ($User->exists('user_id', $User->id, 'user_addresses')) {
     if (!$added) quit('We could not add your location');
 }
 
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    $User->GrowerOperation->check_active($User);
+}
+
 echo json_encode($json);
 
 ?>

@@ -70,6 +70,8 @@ if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation
     if (!$added) quit('We could not add your operation\'s location');
 }
 
+$User->GrowerOperation->check_active($User);
+
 echo json_encode($json);
 
 ?>

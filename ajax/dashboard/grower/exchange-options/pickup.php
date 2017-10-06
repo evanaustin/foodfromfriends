@@ -60,6 +60,8 @@ if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
     if (!$added) quit('We could not save your pickup preferences');
 }
 
+$User->GrowerOperation->check_active($User);
+
 echo json_encode($json);
 
 ?>

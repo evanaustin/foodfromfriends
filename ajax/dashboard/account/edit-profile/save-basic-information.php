@@ -217,6 +217,10 @@ if (isset($_POST['images'])) {
     }
 }
 
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    $User->GrowerOperation->check_active($User);
+}
+
 echo json_encode($json);
 
 ?>

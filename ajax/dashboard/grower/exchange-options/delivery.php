@@ -66,6 +66,8 @@ if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
     if (!$added) quit('We could not add your delivery preferences');
 }
 
+$User->GrowerOperation->check_active($User);
+
 echo json_encode($json);
 
 ?>  

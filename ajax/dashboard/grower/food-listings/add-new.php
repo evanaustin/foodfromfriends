@@ -62,7 +62,8 @@ if (!$User->GrowerOperation) {
     // initialize shell operation
     $operation_added = $GrowerOperation->add([
         'grower_operation_type_id'  => 1,
-        'created_on'                => time()
+        'created_on'                => time(),
+        'is_active'                 => 0
     ]);
     
     if (!$operation_added) quit('Could not initialize grower');
@@ -240,6 +241,8 @@ if (isset($_POST['images'])) {
         unlink($tmp2 . $filename . '.cropped.' . $ext);
     }
 }
+
+$User->GrowerOperation->check_active($User);
 
 $json['id'] = $id;
 

@@ -41,6 +41,8 @@ if ($past_orders > 0) {
 
 if (!$listing_deleted) quit('Could not remove food listing');
 
+$User->GrowerOperation->check_active($User);
+
 echo json_encode($json);
 
 ?>  
