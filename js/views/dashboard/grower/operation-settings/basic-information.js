@@ -286,8 +286,13 @@ $('#edit-basic-information').on('submit', function(e) {
 	    
 		App.Ajax.postFiles('dashboard/grower/operation-settings/save-basic-information', data, 
 			function(response) {
-				toastr.success('Your operation\'s information has been updated!');
 				App.Util.finishedLoading();
+				
+				if (response.switch == true) {
+					window.location.replace(PUBLIC_ROOT + 'dashboard/grower/food-listings/overview');
+				}
+				
+				toastr.success('Your operation\'s information has been updated!');
 			},
 			function(response) {
 				App.Util.msg(response.error, 'danger');
