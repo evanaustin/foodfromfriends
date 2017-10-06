@@ -6,18 +6,6 @@ class Meetup extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $id,
-        $user_id,
-        $is_offered,
-        $address_line_1,
-        $address_line_2,
-        $city,
-        $state,
-        $zip,
-        $time;
-        
-     
     function __construct($parameters) {
         $this->table = 'meetup_settings';
 

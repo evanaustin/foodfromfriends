@@ -6,13 +6,6 @@ class Pickup extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $id,
-        $user_id,
-        $is_offered,
-        $instructions,
-        $availability;
-     
     function __construct($parameters) {
         $this->table = 'pickup_settings';
 

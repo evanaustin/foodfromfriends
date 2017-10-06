@@ -6,16 +6,6 @@ class Delivery extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $id,
-        $user_id,
-        $is_offered,
-        $distance,
-        $delivery_type,
-        $free_miles,
-        $fee,
-        $pricing_rate;
-     
     function __construct($parameters) {
         $this->table = 'delivery_settings';
 
