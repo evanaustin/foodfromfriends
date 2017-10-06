@@ -79,6 +79,7 @@ body.dashboard div.subheader {
   background-color: #fff;
   border-bottom: 1px solid #eee; }
   body.dashboard div.subheader a.nav-link {
+    cursor: pointer;
     padding: 15px 0;
     color: #8ca3ad;
     font-size: 14px;
@@ -88,7 +89,7 @@ body.dashboard div.subheader {
     body.dashboard div.subheader a.nav-link.active {
       color: #00A669;
       position: relative; }
-      body.dashboard div.subheader a.nav-link.active:after {
+      body.dashboard div.subheader a.nav-link.active:before {
         content: '';
         position: absolute;
         display: block;
@@ -96,6 +97,42 @@ body.dashboard div.subheader {
         width: 100%;
         height: 5px;
         background-color: #007349; }
+  body.dashboard div.subheader div.dropdown-menu {
+    width: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0;
+    border-color: #eee;
+    border-top: 0px;
+    text-align: center;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    -moz-border-radius-topleft: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
+    body.dashboard div.subheader div.dropdown-menu a {
+      cursor: pointer;
+      padding: 0.5em 0;
+      color: #636c72; }
+      body.dashboard div.subheader div.dropdown-menu a:not(:last-child) {
+        border-bottom: 1px solid #f8f8f8; }
+      body.dashboard div.subheader div.dropdown-menu a.active {
+        background-color: #fff;
+        font-weight: 400; }
+      body.dashboard div.subheader div.dropdown-menu a:not(.active):hover {
+        background-color: rgba(0, 179, 113, 0.25) !important;
+        color: #005434 !important; }
 
 /**
 * View Styles
@@ -152,10 +189,6 @@ body.dashboard {
   @media (max-width: 767px) {
     body.dashboard {
       padding-bottom: 60px;
-      /* footer height */ } }
-  @media (min-width: 768px) {
-    body.dashboard {
-      padding-bottom: 48px;
       /* footer height */ } }
   body.dashboard div.container-fluid {
     display: flex;
