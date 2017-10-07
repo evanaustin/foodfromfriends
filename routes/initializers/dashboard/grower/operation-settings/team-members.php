@@ -5,7 +5,7 @@ $settings = [
 ];
 
 if ($User->GrowerOperation) {
-    $team_members = $User->GrowerOperation->get_team_members($User->GrowerOperation->id);
+    $team_members = $User->GrowerOperation->get_team_members();
 }
 
 ?>

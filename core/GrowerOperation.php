@@ -141,10 +141,11 @@ class GrowerOperation extends Base {
         }
     }
 
-    public function get_team_members($grower_operation_id) {
+    public function get_team_members() {
         $results = $this->DB->run('
             SELECT 
                 gom.permission,
+                u.id,
                 u.first_name,
                 u.last_name
 
@@ -155,7 +156,7 @@ class GrowerOperation extends Base {
 
             WHERE gom.grower_operation_id = :grower_operation_id
         ', [
-            'grower_operation_id' => $grower_operation_id
+            'grower_operation_id' => $this->id
         ]);
 
         return (isset($results)) ? $results : false;
