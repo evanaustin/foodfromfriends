@@ -4,7 +4,7 @@
             <div class="main container animated fadeIn">
                 <?php
 
-                if ($User->permission == 2) {
+                if ($User->GrowerOperation->permission == 2) {
 
                     ?>
 
