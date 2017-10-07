@@ -31,7 +31,7 @@
                             ]
                         ];
 
-                        if ($User->permission == 2) {
+                        if ($User->GrowerOperation->permission == 2) {
                             $sidebar['grower']['exchange-options'] = [
                                 'delivery',
                                 'pickup',
