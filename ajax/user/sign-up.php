@@ -89,7 +89,9 @@ $Mail = new Mail([
     'toEmail'   => $email
 ]);
 
-$Mail->thanks_signup(); 
+$Mail->thanks_signup();
+
+$json['redirect'] = (isset($GrowerOperation)) ? PUBLIC_ROOT . '/dashboard/grower/food-listings/overview' : PUBLIC_ROOT . '/map';
 
 echo json_encode($json);
 

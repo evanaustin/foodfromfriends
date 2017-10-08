@@ -13,7 +13,7 @@ App.Account = function() {
 
                 App.Ajax.post('user/sign-up', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -35,7 +35,7 @@ App.Account = function() {
 
                 App.Ajax.post('user/log-in', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');

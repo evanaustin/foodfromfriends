@@ -92,6 +92,13 @@ if ($User->exists('email', $email)) {
     $logged_in = $User->log_in($user_id);
 
     if (!$logged_in) quit('We could not log you in');
+    
+    $User = new User([
+        'DB' => $DB,
+        'id' => $user_id
+    ]);
+
+    $json['redirect'] = (isset($User->GrowerOperation) || isset($GrowerOperation)) ? PUBLIC_ROOT . 'dashboard/grower/food-listings/overview' : PUBLIC_ROOT . 'map';
 } else {
     quit('You don\'t have an account with us yet');
 }
