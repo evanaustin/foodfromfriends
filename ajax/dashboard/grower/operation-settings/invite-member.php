@@ -28,7 +28,6 @@ $Mail = new Mail([
 $invitee = $User->retrieve('email', $email);
 
 if (!$invitee) {
-    quit('new user');
     // create association
     $association_added = $User->GrowerOperation->add([
         'grower_operation_id'   => $User->GrowerOperation->id,

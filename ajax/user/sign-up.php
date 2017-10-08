@@ -76,7 +76,8 @@ if (!empty($operation_key) && !empty($personal_key)) {
     // update user association as manager
     $association_added = $GrowerOperation->update([
         'user_id'       => $new_user['last_insert_id'],
-        'permission'    => 1
+        'permission'    => 1,
+        'is_default'    => 1
     ], 'referral_key' , $personal_key, 'grower_operation_members');
 
     if (!$association_added) quit('Could not join team');
