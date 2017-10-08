@@ -8,14 +8,14 @@ switch($_SERVER['SERVER_NAME']) {
     case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME']
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/'
         ];
 
         break;
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
-            'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME']
+            'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME'] . '/'
         ];    
         
         break;
