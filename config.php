@@ -4,27 +4,35 @@
 * Define constants
 **/
 
-define('ENV', ($_SERVER['SERVER_NAME'] == 'localhost' ? 'dev' : 'prod'));
-define('SERVER_ROOT', __DIR__ . '/');
-
-require SERVER_ROOT . 'secrets.php';
-
-switch(ENV) {
-    case 'prod':
-        $env_constants = [
-            'PUBLIC_ROOT'   => 'https://foodfromfriends.co/'
+switch($_SERVER['SERVER_NAME']) {
+    case 'https://foodfromfriends.co':
+        $env = [
+            'ENV'           => 'prod',
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME']
         ];
+
+        break;
+    case 'http://chameleonrenaissance.com':
+        $env = [
+            'ENV'           => 'stage',
+            'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME']
+        ];    
         
         break;
-    case 'dev':
-        $env_constants = [
+    case 'localhost':
+        $env = [
+            'ENV'           => 'dev',
             'PUBLIC_ROOT'   => '/Projects/foodfromfriends/'
         ];
         
         break;
 }
 
-$constants = [
+define('SERVER_ROOT', __DIR__ . '/');
+
+require SERVER_ROOT . 'secrets.php';
+
+$secrets = [
     'DB_HOST'           => $DB_HOST,
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
@@ -35,7 +43,7 @@ $constants = [
     'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY
 ];
 
-$constants = $env_constants + $constants;
+$constants = $env + $secrets;
 
 foreach ($constants as $constant => $value) {
     define($constant, $value);
