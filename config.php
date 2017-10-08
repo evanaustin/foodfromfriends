@@ -5,14 +5,14 @@
 **/
 
 switch($_SERVER['SERVER_NAME']) {
-    case 'https://foodfromfriends.co':
+    case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
             'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME']
         ];
 
         break;
-    case 'http://chameleonrenaissance.com':
+    case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
             'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME']
