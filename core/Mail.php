@@ -47,6 +47,18 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    public function thanks_signup() {
+        $subject = 'Welcome to Food From Friends!';
+    
+        $body = 'You\'re awesome for joining Food From Friends. Our platform is still in its early stages, but you can upload your food listings and build out your presence as a grower in the meantime. Then when we open up to buyers this Fall you\'ll be ready to go!';
+        $content = new SendGrid\Content('text/html', $body);
+    
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        $mail->setTemplateId('04ad1ecd-1a15-44a1-a329-72632de50d72');
+    
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
     public function thanks_early_access_grower_signup() {
         $subject = 'Welcome to Food From Friends!';
 

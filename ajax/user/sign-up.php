@@ -89,8 +89,7 @@ $Mail = new Mail([
     'toEmail'   => $email
 ]);
 
-// add logic here to check if early signup or team signup
-$Mail->thanks_early_access_grower_signup(); 
+$Mail->thanks_signup(); 
 
 echo json_encode($json);
 
