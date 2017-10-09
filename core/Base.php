@@ -32,13 +32,17 @@ abstract class Base {
             'data' => $data
         ]);
         
-        return (isset($results[0])) ? true : false;
+        return (isset($results[0])) ? $results[0] : false;
     }
 
-    public function retrieve($field = null, $data = null, $select = '*') {
+    public function retrieve($field = null, $data = null, $table = null) {
+        if (!isset($table)) {
+            $table = $this->table;
+        }
+
         if (!isset($field) && !isset($data)) {
             $results = $this->DB->run("
-                SELECT {$select} FROM {$this->table}  
+                SELECT * FROM {$table}  
             ");
         
             return (isset($results)) ? $results : false;
@@ -48,7 +52,7 @@ abstract class Base {
             ];
             
             $results = $this->DB->run("
-                SELECT {$select} FROM {$this->table} WHERE {$field}=:data 
+                SELECT * FROM {$table} WHERE {$field}=:data 
             ", $bind);
             
             return (isset($results)) ? $results : false;

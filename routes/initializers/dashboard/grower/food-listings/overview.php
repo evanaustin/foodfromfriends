@@ -8,7 +8,7 @@ $FoodListing = new FoodListing([
     'DB' => $DB
 ]);
 
-$listings = $FoodListing->get_listings($User->id);
+$listings = $FoodListing->get_listings($User->GrowerOperation->id);
 
 $listing_count = count(array_filter($listings));
 

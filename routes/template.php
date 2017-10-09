@@ -37,7 +37,7 @@ foreach ([
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
             'node_modules/mapbox-gl/dist/mapbox-gl',
-            (($Routing->template != 'splash' && $Routing->template != 'early-access-invitation') ? 'css/app' : ''),
+            (($Routing->template != 'splash' && $Routing->template != 'log-in' && $Routing->template != 'early-access-invitation' && $Routing->template != 'team-member-invitation') ? 'css/app' : ''),
             $Template->styles
         ]); ?>
     </head>

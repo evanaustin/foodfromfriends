@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
+    <a class="navbar-brand" href="<?php echo (isset($User->GrowerOperation) ? PUBLIC_ROOT . 'dashboard/grower/food-listings/overview' : PUBLIC_ROOT . 'map'); ?>">
         <div class="hidden-md-down">
             <?php svg('logos/thin'); ?>
         </div>

@@ -41,18 +41,7 @@ if ($past_orders > 0) {
 
 if (!$listing_deleted) quit('Could not remove food listing');
 
-$Grower = new Grower([
-    'DB' => $DB,
-    'id' => $User->id
-]);
-
-$listing_count = $Grower->count_listings();
-
-if (empty($listing_count)) {
-    $User->update([
-        'is_grower' => 0
-    ], 'id', $User->id);
-}
+$User->GrowerOperation->check_active($User);
 
 echo json_encode($json);
 

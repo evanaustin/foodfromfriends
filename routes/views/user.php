@@ -8,7 +8,7 @@
                             <div class="profile-photo box">
                                 <img src="<?php echo (!empty($ThisUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>">
                             </div>
-
+                            
                             <div class="details box">
                                 <ul class="list-group">
                                     <li class="list-group-item heading">
@@ -59,10 +59,10 @@
 
                                     <ul class="list-group">
                                         <li class="list-group-item sub">
-                                            <span class="<?php if (!$delivery_offered) { echo 'inactive'; } ?>">Delivery</span>
+                                            <span class="<?php if (!$ThisUser->GrowerOperation->Delivery || !$ThisUser->GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</span>
                                             
                                             <div class="float-right">
-                                                <?php if ($delivery_offered) { ?>
+                                                <?php if ($ThisUser->GrowerOperation->Delivery && $ThisUser->GrowerOperation->Delivery->is_offered) { ?>
                                                     <i class="fa fa-check"></i>
                                                 <?php } else { ?>
                                                     <i class="fa fa-times"></i>
@@ -71,10 +71,10 @@
                                         </li>
 
                                         <li class="list-group-item sub">
-                                            <span class="<?php if (!$pickup_offered) { echo 'inactive'; } ?>">Pickup</span>
+                                            <span class="<?php if (!$ThisUser->GrowerOperation->Pickup || !$ThisUser->GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</span>
                                             
                                             <div class="float-right">
-                                                <?php if ($pickup_offered) { ?>
+                                                <?php if ($ThisUser->GrowerOperation->Pickup && $ThisUser->GrowerOperation->Pickup->is_offered) { ?>
                                                     <i class="fa fa-check"></i>
                                                 <?php } else { ?>
                                                     <i class="fa fa-times"></i>
@@ -83,10 +83,10 @@
                                         </li>
 
                                         <li class="list-group-item sub">
-                                            <span class="<?php if (!$meetup_offered) { echo 'inactive'; } ?>">Meetup</span>
+                                            <span class="<?php if (!$ThisUser->GrowerOperation->Meetup || !$ThisUser->GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</span>
                                             
                                             <div class="float-right">
-                                                <?php if ($meetup_offered) { ?>
+                                                <?php if ($ThisUser->GrowerOperation->Meetup && $ThisUser->GrowerOperation->Meetup->is_offered) { ?>
                                                     <i class="fa fa-check"></i>
                                                 <?php } else { ?>
                                                     <i class="fa fa-times"></i>

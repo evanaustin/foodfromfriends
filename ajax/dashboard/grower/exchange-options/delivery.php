@@ -41,31 +41,32 @@ $Delivery = new Delivery([
     'DB' => $DB
 ]);
 
-if ($Delivery->exists('user_id', $User->id)) {
+if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
     $updated = $Delivery->update([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered,
-        'distance' => $distance,
-        'delivery_type' => $delivery_type,
-        'free_distance' => $free_distance,
-        'pricing_rate'=> $pricing_rate,
-        'fee' => $fee * 100
-    ],'user_id', $User->id);
+        'is_offered'            => $is_offered,
+        'distance'              => $distance,
+        'delivery_type'         => $delivery_type,
+        'free_distance'         => $free_distance,
+        'pricing_rate'          => $pricing_rate,
+        'fee'                   => $fee * 100
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your delivery preferences');
 } else {
     $added = $Delivery->add([
-        'user_id' => $User->id,
-        'is_offered' => $is_offered,
-        'distance' => (isset($distance) ? $distance : ''),
-        'free_delivery' => (isset($free_delivery) ? $free_delivery : ''),
-        'free_miles' => (isset($free_miles) ? $free_miles : ''),
-        'pricing_rate'=> (isset($pricing_rate) ? $pricing_rate : ''),
-        'fee'=> (isset($fee) ? $fee : '')
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'is_offered'            => $is_offered,
+        'distance'              => (isset($distance) ? $distance : ''),
+        'free_delivery'         => (isset($free_delivery) ? $free_delivery : ''),
+        'free_miles'            => (isset($free_miles) ? $free_miles : ''),
+        'pricing_rate'          => (isset($pricing_rate) ? $pricing_rate : ''),
+        'fee'                   => (isset($fee) ? $fee : '')
     ]);
 
     if (!$added) quit('We could not add your delivery preferences');
 }
+
+$User->GrowerOperation->check_active($User);
 
 echo json_encode($json);
 

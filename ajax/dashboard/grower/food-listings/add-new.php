@@ -54,21 +54,47 @@ if ($other_subcategory) {
     }
 }
 
+if (!$User->GrowerOperation) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
+
+    // initialize shell operation
+    $operation_added = $GrowerOperation->add([
+        'grower_operation_type_id'  => 1,
+        'created_on'                => time(),
+        'is_active'                 => 0
+    ]);
+    
+    if (!$operation_added) quit('Could not initialize grower');
+    
+    $grower_operation_id = $operation_added['last_insert_id'];
+
+    // assign user ownership of new shell operation
+    $association_added = $GrowerOperation->add([
+        'grower_operation_id'   => $grower_operation_id,
+        'user_id'               => $User->id,
+        'permission'            => 2
+    ], 'grower_operation_members');
+
+    if (!$association_added) quit('Could not associate user');
+} else {
+    $grower_operation_id = $User->GrowerOperation->id;
+}
+
 $listing_added = $FoodListing->add([
-    'user_id' => $User->id,
-    'food_subcategory_id' => $food_subcategory,
-    'other_subcategory' => $other_subcategory,
-    'price' => $price * 100,
-    'weight' => $weight,
-    'units' => $units,
-    'quantity' => $quantity,
-    'is_available' => $is_available,
-    'description' => $description
+    'grower_operation_id'   => $grower_operation_id,
+    'food_subcategory_id'   => $food_subcategory,
+    'other_subcategory'     => $other_subcategory,
+    'price'                 => $price * 100,
+    'weight'                => $weight,
+    'units'                 => $units,
+    'quantity'              => $quantity,
+    'is_available'          => $is_available,
+    'description'           => $description
 ]);
 
-if (!$listing_added) {
-    quit('Could not add listing');
-}
+if (!$listing_added) quit('Could not add listing');
 
 $id = $listing_added['last_insert_id'];
 
@@ -109,7 +135,7 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id . '.fc.' . (!empty($food_category) ? $food_category : '0') . '.fsc.' . (empty($other_subcategory) ? $food_subcategory : $other_subcategory) . '.u.' . $User->id;
+    $filename = 'fl.' . $id;
 
     // determine file type
     $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
@@ -196,9 +222,7 @@ if (isset($_POST['images'])) {
         'ext' => $ext
     ], 'food_listing_images');
     
-    if (!$record_added) {
-        quit('Could not add image record');
-    }
+    if (!$record_added) quit('Could not add image record');
     
     $img_added = $S3->save_object(ENV . '/food-listings/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
     
@@ -218,11 +242,7 @@ if (isset($_POST['images'])) {
     }
 }
 
-if (!$User->is_grower) {
-    $User->update([
-        'is_grower' => true
-    ], 'id', $User->id);
-}
+$User->GrowerOperation->check_active($User);
 
 $json['id'] = $id;
 

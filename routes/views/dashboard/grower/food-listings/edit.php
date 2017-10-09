@@ -4,7 +4,7 @@
             <div class="main container animated fadeIn">
                 <?php
 
-                if ($FoodListing->user_id == $User->id) {
+                if ($FoodListing->grower_operation_id == $User->GrowerOperation->id) {
 
                     ?>
 
@@ -93,8 +93,10 @@
                                                 
                                                 <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                                     <?php foreach ([
+                                                        'g',
                                                         'oz',
                                                         'lb',
+                                                        'kg',
                                                         'fl oz',
                                                         'liter',
                                                         'gallon'

@@ -13,24 +13,15 @@ class Template {
             'initializer'   => 'routes/initializers/' . $Routing->path,
             'architecture'  => 'routes/architecture/' . $Routing->template,
             'scripts'       => [
-                'js/views/' . $Routing->path
+                'js/views/' . ($Routing->template == 'front' ? 'front/' : '') . $Routing->path
             ]
         ];
 
         foreach ($construct as $k => $v) {
             $this->{$k} = $v;
         }
-
-        $this->set_scripts($Routing->template);
     }
 
-    function set_scripts($template) {
-        if ($template == 'splash') {
-            $this->scripts['splash'] = 'js/views/splash';
-        } else if ($template == 'map') {
-            $this->scripts['splash'] = 'js/views/map';
-        }
-    }
 }
 
 ?>

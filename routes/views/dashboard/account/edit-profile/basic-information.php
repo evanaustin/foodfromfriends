@@ -110,7 +110,7 @@
                                             <?php 
                                             
                                             foreach ($months as $month) {
-                                                ?><option val="<?php echo $month; ?>" <?php if ($month == date('F', $User->dob)) echo 'selected'; ?>><?php echo $month; ?></option><?php
+                                                ?><option value="<?php echo $month; ?>" <?php if ($month == date('F', $User->dob)) echo 'selected'; ?>><?php echo $month; ?></option><?php
                                             }
 
                                             ?>
@@ -124,7 +124,7 @@
                                             <?php 
                                             
                                             for ($i=1; $i <= 31; $i++) {
-                                                ?><option val="<?php echo $i; ?>" <?php if ($i == date('d', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
+                                                ?><option value="<?php echo $i; ?>" <?php if ($i == date('d', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
                                             }
                                             
                                             ?>
@@ -138,7 +138,7 @@
                                             <?php 
                                             
                                             for ($i = (date('Y') - 18); $i >= (date('Y') - 120); $i--) {
-                                                ?><option val="<?php echo $i; ?>" <?php if ($i == date('Y', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
+                                                ?><option value="<?php echo $i; ?>" <?php if ($i == date('Y', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
                                             }
                                             
                                             ?>

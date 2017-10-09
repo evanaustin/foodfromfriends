@@ -47,32 +47,34 @@ $Meetup = new Meetup([
     'DB' => $DB
 ]);
 
-if ($Meetup->exists('user_id', $User->id)) { 
+if ($Meetup->exists('grower_operation_id', $User->GrowerOperation->id)) { 
     $updated = $Meetup->update([
-        'is_offered'        => $is_offered,
-        'address_line_1'    => ($is_offered ? $address_line_1 : ''),
-        'address_line_2'    => ($is_offered ? $address_line_2 : ''),
-        'city'              => ($is_offered ? $city : ''),
-        'state'             => ($is_offered ? $state : ''),
-        'zip'               => ($is_offered ? $zip : ''),
-        'time'              => ($is_offered ? $time : ''),
-    ], 'user_id', $User->id);
+        'is_offered'            => $is_offered,
+        'address_line_1'        => ($is_offered ? $address_line_1 : ''),
+        'address_line_2'        => ($is_offered ? $address_line_2 : ''),
+        'city'                  => ($is_offered ? $city : ''),
+        'state'                 => ($is_offered ? $state : ''),
+        'zip'                   => ($is_offered ? $zip : ''),
+        'time'                  => ($is_offered ? $time : ''),
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your meetup preferences');
 } else {
     $added = $Meetup->add([
-        'user_id'           => $User->id,
-        'is_offered'        => $is_offered,
-        'address_line_1'    => $address_line_1,
-        'address_line_2'    => $address_line_2,
-        'city'              => $city,
-        'state'             => $state,
-        'zip'               => $zip,
-        'time'              => $time
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'is_offered'            => $is_offered,
+        'address_line_1'        => $address_line_1,
+        'address_line_2'        => $address_line_2,
+        'city'                  => $city,
+        'state'                 => $state,
+        'zip'                   => $zip,
+        'time'                  => $time
     ]);
 
     if (!$added) quit('We could not save your meetup preferences');
 }
+
+$User->GrowerOperation->check_active($User);
 
 echo json_encode($json);
 

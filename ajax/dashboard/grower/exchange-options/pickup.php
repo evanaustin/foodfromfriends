@@ -41,24 +41,26 @@ $Pickup = new Pickup([
     'DB' => $DB
 ]);
 
-if ($Pickup->exists('user_id', $User->id)){
+if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
     $updated = $Pickup->update([
-        'is_offered'    => $is_offered,
-        'instructions'  => ($is_offered ? $instructions : ''),
-        'availability'  => ($is_offered ? $availability : '')
-    ],'user_id', $User->id);
+        'is_offered'            => $is_offered,
+        'instructions'          => ($is_offered ? $instructions : ''),
+        'availability'          => ($is_offered ? $availability : '')
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your pickup preferences');
 } else {
     $added = $Pickup->add([
-        'user_id'       => $User->id,
-        'is_offered'    => $is_offered,
-        'instructions'  => $instructions,
-        'availability'  => $availability
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'is_offered'            => $is_offered,
+        'instructions'          => $instructions,
+        'availability'          => $availability
     ]);
 
     if (!$added) quit('We could not save your pickup preferences');
 }
+
+$User->GrowerOperation->check_active($User);
 
 echo json_encode($json);
 

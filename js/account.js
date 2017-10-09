@@ -13,7 +13,7 @@ App.Account = function() {
 
                 App.Ajax.post('user/sign-up', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -35,7 +35,7 @@ App.Account = function() {
 
                 App.Ajax.post('user/log-in', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -51,6 +51,24 @@ App.Account = function() {
             App.Ajax.post('user/log-out', null, 
                 function(response) {
                     window.location.replace(PUBLIC_ROOT);
+                },
+                function(response) {
+                    toastr.error(response.error);
+                }
+            );
+        });
+        
+        /*
+        * Switch operations
+        */
+        $('a.switch-operation').on('click', function() {
+            var data = {
+                'grower_operation_id' : $(this).data('grower-operation-id')
+            };
+
+            App.Ajax.post('user/switch-operation', data, 
+                function(response) {
+                    window.location.replace(PUBLIC_ROOT + 'dashboard/grower/food-listings/overview');
                 },
                 function(response) {
                     toastr.error(response.error);
