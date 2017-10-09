@@ -88,8 +88,10 @@
                                     
                                     <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                         <?php foreach ([
+                                            'g',
                                             'oz',
                                             'lbs',
+                                            'kg',
                                             'fl oz',
                                             'liters',
                                             'gallons'
