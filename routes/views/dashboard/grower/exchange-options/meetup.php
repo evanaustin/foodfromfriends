@@ -123,6 +123,7 @@
                 }
 
                 ?>
-            </div> <!-- end main -->
-        </div> <!-- end div.row -->
-    </div> <!-- end div.container-fluid -->
+            </div> <!-- end div.main.container -->
+        </div> <!-- end main -->
+    </div> <!-- end div.row -->
+</div> <!-- end div.container-fluid -->
