@@ -138,6 +138,56 @@ body.dashboard div.subheader {
 * View Styles
 * ! these should be loaded elsewhere, individually, as necessary
 **/
+body.dashboard-grower div.main.container-fluid {
+  padding: 10px; }
+  body.dashboard-grower div.main.container-fluid div.seamless div.row {
+    margin: 0; }
+    body.dashboard-grower div.main.container-fluid div.seamless div.row > div {
+      padding: 10px; }
+  body.dashboard-grower div.main.container-fluid div.block {
+    padding: 2em 0;
+    background-color: #00A669;
+    text-align: center;
+    color: #fff;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem; }
+    body.dashboard-grower div.main.container-fluid div.block div.value {
+      line-height: 1.25;
+      font-size: 48px;
+      font-family: 'Signika';
+      font-weight: 500; }
+    body.dashboard-grower div.main.container-fluid div.block div.descriptor {
+      font-size: 14px;
+      font-weight: 100;
+      text-transform: uppercase; }
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.progress {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px; }
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.heading {
+    background-color: #424242;
+    color: #fff;
+    font-weight: 400; }
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a {
+    display: block;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-color: #f5f5f5; }
+    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a.disabled {
+      cursor: text;
+      color: #b2b2b2; }
+    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a:not(.disabled):not(.active) {
+      color: #636c72; }
+    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i {
+      float: right;
+      opacity: 0.75;
+      line-height: 1.5; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-check {
+        color: #5cb85c; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-times {
+        color: #b2b2b2; }
+
 body.dashboard-grower-food-listings-overview div.tree-art img {
   max-width: 75%;
   max-height: 475px;

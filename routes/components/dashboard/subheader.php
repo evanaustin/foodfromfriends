@@ -5,13 +5,13 @@
                 <ul class="nav nav-fill">
                     <?php
 
-                    if (count($User->Operations) > 1) {
+                    if ($Routing->section == 'grower' && count($User->Operations) > 1) {
 
                         ?>
 
                         <li class="nav-item dropdown">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/food-listings/overview'; ?>"
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
                                 class="nav-link dropdown-toggle <?php if ($Routing->section == 'grower') echo 'active'; ?>" 
                                 data-toggle="dropdown"
                             >
@@ -22,7 +22,7 @@
                                 <?php
 
                                 foreach ($User->Operations as $Operation) {
-                                    echo '<a class="dropdown-item ' . (($User->GrowerOperation->id == $Operation->id) ? 'active' : 'switch-operation') . '" data-grower-operation-id="' . $Operation->id .'">' . (!empty($Operation->name) ? $Operation->name : 'Individual') . '</a>';
+                                    echo '<a ' . (($User->GrowerOperation->id == $Operation->id) ? 'href="' . PUBLIC_ROOT . 'dashboard/grower"' : '') . ' class="dropdown-item ' . (($User->GrowerOperation->id == $Operation->id) ? 'active' : 'switch-operation') . '" data-grower-operation-id="' . $Operation->id .'">' . (!empty($Operation->name) ? $Operation->name : 'Individual') . '</a>';
                                 }
 
                                 ?>
@@ -37,7 +37,7 @@
 
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/food-listings/overview'; ?>" 
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>" 
                                 class="nav-link <?php if ($Routing->section == 'grower') echo 'active'; ?>"
                             >
                                 Grower
@@ -54,7 +54,7 @@
                     ] as $section => $subsection) { ?>
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . '/' . $subsection; ?>" 
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . (!empty($subsection) ? '/' . $subsection : ''); ?>" 
                                 class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                             >
                                 <?php echo ucfirst($section) ?>

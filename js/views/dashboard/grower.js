@@ -1,0 +1,2 @@
+$('div.requirements .progress-bar').addClass('w-' + $('div.requirements a.disabled').length / $('div.requirements a').length * 100);
+$('div.requirements .progress-bar').addClass('w-' + $('div.goals a.disabled').length / $('div.goals a').length * 100);

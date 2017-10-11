@@ -68,7 +68,7 @@ App.Account = function() {
 
             App.Ajax.post('user/switch-operation', data, 
                 function(response) {
-                    window.location.replace(PUBLIC_ROOT + 'dashboard/grower/food-listings/overview');
+                    window.location.replace(PUBLIC_ROOT + response.redirect);
                 },
                 function(response) {
                     toastr.error(response.error);

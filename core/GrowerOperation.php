@@ -155,6 +155,7 @@ class GrowerOperation extends Base {
                 ON gom.user_id = u.id
 
             WHERE gom.grower_operation_id = :grower_operation_id
+                AND gom.permission > 0
         ', [
             'grower_operation_id' => $this->id
         ]);
