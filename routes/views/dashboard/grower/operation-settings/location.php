@@ -4,7 +4,7 @@
             <div class="main container animated fadeIn">
                 <?php
 
-                if ($User->GrowerOperation->permission == 2) {
+                if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'none') {
 
                     ?>
 
@@ -74,6 +74,8 @@
 
                     <?php
 
+                } else if ($User->GrowerOperation->type == 'none') {
+                    echo 'This page is only for operations';
                 } else {
                     echo 'You do not have permission to view this page';
                 }
