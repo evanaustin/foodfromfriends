@@ -5,6 +5,7 @@
 **/
 @import 'mixins';
 @import 'colors';
+@import 'thirdparty/bootstrap/variables';
 
 /**
 * Component Styles
@@ -16,6 +17,7 @@
 * View Styles
 * ! these should be loaded elsewhere, individually, as necessary
 **/
+@import 'views/dashboard/grower';
 @import 'views/dashboard/grower/food-listings/overview';
 
 /**
@@ -44,7 +46,7 @@ body.dashboard {
     main {
         padding: 0;
         background-color: #fafafb;
-        
+
         div.page-title {
             padding: 0.5rem 0;
             font-weight: 400;

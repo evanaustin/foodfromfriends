@@ -1,0 +1,83 @@
+$radius: 0.25rem;
+$edge-color: #f5f5f5;
+
+body.dashboard-grower {
+    div.main.container-fluid {
+        padding: 10px;
+
+        div.seamless {
+            div.row {
+                margin: 0;
+    
+                > div {
+                    padding: 10px;
+                }
+            }
+        }
+
+        div.block {
+            padding: 2em 0;
+            background-color: $light-green;
+            text-align: center;
+            color: #fff;
+            @include rounded($radius);
+    
+            div.value {
+                line-height: 1.25;
+                font-size: 48px;
+                font-family: 'Signika';
+                font-weight: 500;
+            }
+    
+            div.descriptor {
+                font-size: 14px;
+                font-weight: 100;
+                text-transform: uppercase;
+            }
+        }
+
+        div.list-blocks {
+            div.list-group {
+                div.progress {
+                    @include rounded(0px);
+                }
+
+                div.heading {
+                    background-color: #424242;
+                    color: #fff;
+                    font-weight: 400;
+                }
+
+                a {
+                    display: block;
+                    padding-left: 1em;
+                    padding-right: 1em;
+                    border-color: $edge-color;
+                    
+                    &.disabled {
+                        cursor: text;
+                        color: $light-gray;
+                    }
+
+                    &:not(.disabled):not(.active) {
+                        color: $muted;
+                    }
+                    
+                    i {
+                        float: right;
+                        opacity: 0.75;
+                        line-height: 1.5;
+
+                        &.fa-check {
+                            color: $brand-success;
+                        }
+
+                        &.fa-times {
+                            color: $light-gray;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
