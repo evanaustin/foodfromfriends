@@ -273,7 +273,7 @@ body.dashboard {
           float: right; } }
       body.dashboard main div.controls .btn {
         display: block;
-        min-width: 175px;
+        min-width: 200px;
         color: #fff;
         font-size: 0.875rem; }
         @media (max-width: 767px) {
