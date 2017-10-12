@@ -43,10 +43,9 @@
                             ];
 
                             if ($User->GrowerOperation->type != 'none') {
-                                array_unshift($sidebar['grower']['operation'], 'location', 'team-members');
+                                array_unshift($sidebar['grower']['operation'], 'basic-information', 'location', 'team-members');
                             }
 
-                            array_unshift($sidebar['grower']['operation'], 'basic-information');
                         } else {
                             $sidebar['grower']['operation'] = [
                                 'create-new'
