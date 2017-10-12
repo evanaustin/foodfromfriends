@@ -94,6 +94,9 @@ if ($User->exists('email', $email)) {
 
     $logged_in = $User->log_in($user_id);
 
+    // seems that sometimes session fails to set - appears to be (more) consistent if error_logging
+    error_log($logged_in . ' logging in');
+
     if ($logged_in < 1) quit('We could not log you in');
 
     $User = new User([
