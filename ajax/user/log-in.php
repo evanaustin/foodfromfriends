@@ -68,10 +68,13 @@ if ($User->exists('email', $email)) {
                     
                     // make sure personal key is unused
                     if ($association['permission'] == 0) {
+                        // check if team elsewhere
+                        $team_elsewhere = $GrowerOperation->check_team_elsewhere($user_id);
                         
                         // update user association/permission
                         $association_added = $GrowerOperation->update([
-                            'permission'    => 1
+                            'permission'    => 1,
+                            'is_default'    => ($team_elsewhere ? 0 : 1)
                         ], 'referral_key' , $personal_key, 'grower_operation_members');
                     
                         if (!$association_added) quit('Could not join team');
@@ -91,8 +94,11 @@ if ($User->exists('email', $email)) {
 
     $logged_in = $User->log_in($user_id);
 
-    if (!$logged_in) quit('We could not log you in');
-    
+    // seems that sometimes session fails to set - appears to be (more) consistent if error_logging
+    error_log($logged_in . ' logging in');
+
+    if ($logged_in < 1) quit('We could not log you in');
+
     $User = new User([
         'DB' => $DB,
         'id' => $user_id

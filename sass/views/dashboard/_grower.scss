@@ -19,7 +19,7 @@ body.dashboard-grower {
             padding: 2em 0;
             background-color: #fff;
             text-align: center;
-            color: $light-green;
+            color: $muted;
             @include rounded($radius);
     
             div.value {

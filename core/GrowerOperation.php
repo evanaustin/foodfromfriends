@@ -189,6 +189,23 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results[0] : false;
     }
 
+    public function check_team_elsewhere($user_id) {
+        $results = $this->DB->run('
+            SELECT *
+
+            FROM grower_operation_members gom
+
+            WHERE user_id = :user_id
+                AND permission > 0
+            
+            LIMIT 1
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        return (isset($results[0])) ? $results[0]['grower_operation_id'] : false;
+    }
+
     /*
     * moved from Grower (needs to be refactored - don't pull data that User would otherwise have)
     */

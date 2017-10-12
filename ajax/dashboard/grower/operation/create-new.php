@@ -74,6 +74,8 @@ if (!empty($operation_key) && !empty($personal_key)) {
     }
 } else {
     if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+        // legitimize shell operation
+
         $profile_updated = $User->GrowerOperation->update([
             'grower_operation_type_id'  => $type,
             'name'                      => $name,
@@ -82,6 +84,8 @@ if (!empty($operation_key) && !empty($personal_key)) {
         ], 
         'id', $User->GrowerOperation->id);
     } else {
+        // either no operation yet exists or already on legitimite operation
+
         $GrowerOperation = new GrowerOperation([
             'DB' => $DB
         ]);

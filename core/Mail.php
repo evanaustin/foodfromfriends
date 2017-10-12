@@ -75,31 +75,55 @@ class Mail {
     public function team_invite_grower_signup($TeamOwner, $GrowerOperation, $referral_keys) {
         $subject = 'You\'ve been invited!';
 
-        $subs = new SendGrid\Personalization();
-
-        $subs->addTo($this->to);
-
         $ownername = $TeamOwner->first_name . ' ' . $TeamOwner->last_name;
         $operationname = $GrowerOperation->name;
 
-        $subs->addSubstitution('%ownername%', $ownername);
-        $subs->addSubstitution('%operationname%', $operationname);
-        $subs->addSubstitution('%toemail%', $this->to_email);
-        $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
-        $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
-        
-        // nested substitution tags 
+        // ensure that URL is concatenated correctly
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . "team-member-invitation?invited_by=" . $ownername . "&operation_name=" . $operationname . "&email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
+
         /*
+         * Substitution tag method - preferred but inconsistent for some reason
+         *
+            $subs = new SendGrid\Personalization();
+
+            $subs->addTo($this->to);
+
+            $subs->addSubstitution('%ownername%', $ownername);
+            $subs->addSubstitution('%operationname%', $operationname);
+            $subs->addSubstitution('%toemail%', $this->to_email);
+            $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
+            $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
+         
             $subs->addSubstitution('-ownername-', $ownername);
             $subs->addSubstitution('-operationname-', $operationname);
             $body = 'Hey! -ownername- has invited you to join the -operationname- team on Food From Friends! Click the link below to sign up and join the team.';
-        */
+         */
 
-        $body = 'Hey! ' . $ownername . ' has invited you to join the ' . $operationname . ' team on Food From Friends! Click the link below to sign up and join the team.';
+        // hacky but consistent way
+        $body = "
+            <p>
+                Hey! " . $ownername . " has invited you to join the " . $operationname . " team on Food From Friends! Click the link below to sign up and join the team.
+            </p>
+            
+            <p>
+                Operation key: <strong>" . $referral_keys['operation'] . "</strong>
+            </p>
+          
+            <p>
+                Personal key: <strong>" . $referral_keys['personal'] . "</strong>
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Sign up here
+            </a>
+        ";
+        
         $content = new SendGrid\Content('text/html', $body);
         
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
-        $mail->addPersonalization($subs);
+        
+        // $mail->addPersonalization($subs);
+        
         $mail->setTemplateId('12810469-4c7f-404f-b21c-3272441b8be9');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
@@ -107,30 +131,54 @@ class Mail {
     
     public function team_invite_grower_join($TeamOwner, $GrowerOperation, $referral_keys) {
         $subject = 'You\'ve been invited!';
-
-        $subs = new SendGrid\Personalization();
-
-        $subs->addTo($this->to);
-
+        
         $ownername = $TeamOwner->first_name . ' ' . $TeamOwner->last_name;
         $operationname = $GrowerOperation->name;
         
-        $subs->addSubstitution('%toemail%', $this->to_email);
-        $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
-        $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
-        
-        // nested mergetags in body don't work consistently; just concatenate for now instead
+        // ensure that URL is concatenated correctly
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . "log-in?email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
+
         /*
+         * Substitution tag method - preferred but inconsistent for some reason
+         *
+            $subs = new SendGrid\Personalization();
+
+            $subs->addTo($this->to);
+            
+            $subs->addSubstitution('%toemail%', $this->to_email);
+            $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
+            $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
+        
             $subs->addSubstitution('-ownername-', $ownername);
             $subs->addSubstitution('-operationname-', $operationname);
             $body = 'Hey! -ownername- has invited you to join the -operationname- team on Food From Friends! Click the link below to join the team now or enter the following key codes on your grower operation page.';
-        */
+         */
 
-        $body = 'Hey! ' . $ownername . ' has invited you to join the ' . $operationname . ' team on Food From Friends! Click the link below to join or enter the following key codes on your grower operation page.';
+        // hacky but consistent way
+        $body = "
+            <p>
+                Hey! " . $ownername . " has invited you to join the " . $operationname . " team on Food From Friends! Click the link below to join. Alternatively, you can enter the following key codes on your grower operation page.
+            </p>
+            
+            <p>
+                Operation key: <strong>" . $referral_keys['operation'] . "</strong>
+            </p>
+        
+            <p>
+                Personal key: <strong>" . $referral_keys['personal'] . "</strong>
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Join the team
+            </a>
+        ";
+        
         $content = new SendGrid\Content('text/html', $body);
         
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
-        $mail->addPersonalization($subs);
+        
+        // $mail->addPersonalization($subs);
+        
         $mail->setTemplateId('94501cdb-4d38-4294-96cd-a62444b63284');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
