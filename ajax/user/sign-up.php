@@ -10,7 +10,7 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'email'         => 'required|valid_email',
+    'email'         => 'required|valid_email|max_len,254',
     'password'      => 'required|min_len,8',
     'first-name'    => 'required|alpha_dash',
     'last-name'     => 'required|alpha_dash',
