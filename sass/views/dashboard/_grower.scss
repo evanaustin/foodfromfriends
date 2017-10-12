@@ -17,9 +17,9 @@ body.dashboard-grower {
 
         div.block {
             padding: 2em 0;
-            background-color: $light-green;
+            background-color: #fff;
             text-align: center;
-            color: #fff;
+            color: $light-green;
             @include rounded($radius);
     
             div.value {
@@ -31,21 +31,35 @@ body.dashboard-grower {
     
             div.descriptor {
                 font-size: 14px;
-                font-weight: 100;
+                font-weight: 300;
                 text-transform: uppercase;
+                color: #424242;
             }
         }
 
         div.list-blocks {
             div.list-group {
-                div.progress {
-                    @include rounded(0px);
-                }
-
                 div.heading {
                     background-color: #424242;
+                    border: 0px;
                     color: #fff;
                     font-weight: 400;
+                }
+
+                div.description {
+                    padding: 1em;
+                    background: $muted;
+                    border: 1px solid $edge-color;
+                    border-top-width: 0;
+                    border-bottom-width: 0;
+                    font-size: 85%;
+                    color: #fff;
+                }
+
+                div.progress {
+                    border-top-width: 0;
+                    border-bottom-width: 0;
+                    @include rounded(0px);
                 }
 
                 a {
