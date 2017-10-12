@@ -11,9 +11,9 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('account/sign_up', $form.serialize(), 
+                App.Ajax.post('user/sign-up', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -33,9 +33,9 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('account/log_in', $form.serialize(), 
+                App.Ajax.post('user/log-in', $form.serialize(), 
                     function(response) {
-                        window.location.replace(PUBLIC_ROOT + 'map');
+                        window.location.replace(response.redirect);
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -48,9 +48,27 @@ App.Account = function() {
         * Log out
         */
         $('a#log-out').on('click', function() {
-            App.Ajax.post('account/log_out', null, 
+            App.Ajax.post('user/log-out', null, 
                 function(response) {
                     window.location.replace(PUBLIC_ROOT);
+                },
+                function(response) {
+                    toastr.error(response.error);
+                }
+            );
+        });
+        
+        /*
+        * Switch operations
+        */
+        $('a.switch-operation').on('click', function() {
+            var data = {
+                'grower_operation_id' : $(this).data('grower-operation-id')
+            };
+
+            App.Ajax.post('user/switch-operation', data, 
+                function(response) {
+                    window.location.replace(PUBLIC_ROOT + response.redirect);
                 },
                 function(response) {
                     toastr.error(response.error);

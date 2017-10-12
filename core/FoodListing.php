@@ -7,18 +7,8 @@ class FoodListing extends Base {
         $DB,
         $S3;
         
-    public
-        $id,
-        $user_id,
-        $food_subcategory_id,
-        $price,
-        $stock,
-        $description;
-     
-        
     function __construct($parameters) {
         $this->table = 'food_listings';
-
 
         $this->class_dependencies = [
             'DB',
@@ -42,14 +32,20 @@ class FoodListing extends Base {
                 fc.title AS category_title,
                 fli.filename,
                 fli.ext
+            
             FROM food_listings fl
+            
             LEFT JOIN food_subcategories fsc
-                ON fl.food_subcategory_id = fsc.id
+                ON fsc.id = fl.food_subcategory_id
+            
             LEFT JOIN food_categories fc
-                ON fsc.food_category_id = fc.id
+                ON fc.id = fsc.food_category_id
+            
             LEFT JOIN food_listing_images fli
-                ON fl.id = fli.food_listing_id
+                ON fli.food_listing_id = fl.id
+            
             WHERE fl.id = :id
+        
             LIMIT 1
         ', [
             'id' => $id
@@ -60,7 +56,7 @@ class FoodListing extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_listings($user_id) {
+    public function get_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
                 fl.*,
@@ -69,16 +65,21 @@ class FoodListing extends Base {
                 fc.title AS category_title,
                 fli.filename,
                 fli.ext
+            
             FROM food_listings fl
+            
             LEFT JOIN food_subcategories fsc
                 ON fl.food_subcategory_id = fsc.id
+            
             LEFT JOIN food_categories fc
                 ON fsc.food_category_id = fc.id
+            
             LEFT JOIN food_listing_images fli
                 ON fl.id = fli.food_listing_id
-            WHERE fl.user_id = :user_id
+            
+            WHERE fl.grower_operation_id = :grower_operation_id
         ', [
-            'user_id' => $user_id
+            'grower_operation_id' => $grower_operation_id
         ]);
 
         return (isset($results[0])) ? $results : false;
@@ -103,10 +104,14 @@ class FoodListing extends Base {
     public function other_exists($other) {
         $results = $this->DB->run('
             SELECT fc.title 
+            
             FROM food_categories fc
+            
             JOIN food_subcategories fsc
-                ON fc.id = fsc.food_category_id
+                ON fsc.food_category_id = fc.id
+            
             WHERE fsc.title = :other
+            
             LIMIT 1
         ', [
             'other' => $other

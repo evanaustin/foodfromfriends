@@ -104,6 +104,9 @@ div.modal-content {
 .align-right {
   text-align: right; }
 
+.align-center {
+  text-align: center; }
+
 .flexbox {
   display: flex; }
   .flexbox.flexcolumn {
@@ -116,6 +119,33 @@ div.modal-content {
 
 .hidden {
   display: none !important; }
+
+.strong {
+  font-weight: bolder !important; }
+
+.no-margin {
+  margin: 0 !important; }
+
+.margin-btm-1em {
+  margin-bottom: 1em !important; }
+
+.margin-btm-75pem {
+  margin-bottom: .75em !important; }
+
+.line-after {
+  overflow: hidden;
+  line-height: 1em;
+  height: 1em; }
+  .line-after:after {
+    content: '';
+    display: inline-block;
+    height: 0.5em;
+    vertical-align: bottom;
+    width: 100%;
+    margin-right: -100%;
+    margin-left: 1em;
+    border-top: 1px solid #b2b2b2;
+    opacity: 0.5; }
 
 div.alert {
   display: none; }

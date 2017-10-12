@@ -9,14 +9,7 @@ if (ENV == 'prod' && (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')) {
 
 $Routing = new Routing([
     'path'      => $_GET['path'],
-    'landing'   => 'splash',
-    'backside'  => [
-        'dashboard',
-        // 'stats',
-        // 'profile',
-        'account'
-        // 'messages'
-    ]
+    'landing'   => 'splash'
 ]);
 
 include SERVER_ROOT . 'routes/template.php';

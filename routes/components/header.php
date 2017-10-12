@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
+    <a class="navbar-brand" href="<?php echo ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? PUBLIC_ROOT . 'dashboard/grower' : PUBLIC_ROOT . 'map'); ?>">
         <div class="hidden-md-down">
             <?php svg('logos/thin'); ?>
         </div>
@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/food-listings/overview'; ?>">Your listings</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>">Dashboard</a>
                 </li>
 
                 <!-- <li class="nav-item">
@@ -39,7 +39,7 @@
 
                 <div class="hidden-lg-up">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'account/edit-profile/basic-information'; ?>">Account settings</a>
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">Account settings</a>
                     </li>
 
                     <li class="nav-item">
@@ -52,7 +52,7 @@
                         <div class="nav-link dropdown-toggle profile" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                     
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'account/edit-profile/basic-information'; ?>">Edit profile</a>
+                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">Edit profile</a>
                             <!-- <a class="dropdown-item" href="#">Account settings</a> -->
                             <a id="log-out" class="dropdown-item" href="#">Log out</a>
                         </div>

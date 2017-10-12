@@ -7,15 +7,20 @@ class Mail {
     public
         $sendgrid,
         $from,
-        $to;
+        $to,
+        $from_email,
+        $to_email;
     
     public function __construct($send) {
-        $this->api_key = SENDGRID_KEY;
+        $this->api_key      = SENDGRID_KEY;
        
-        $this->sendgrid = new \SendGrid($this->api_key);
+        $this->sendgrid     = new \SendGrid($this->api_key);
 
-        $this->from = new SendGrid\Email($send['fromName'], $send['fromEmail']);
-        $this->to = new SendGrid\Email($send['toName'], $send['toEmail']);
+        $this->from_email   = $send['fromEmail'];
+        $this->to_email     = $send['toEmail'];
+
+        $this->from         = new SendGrid\Email($send['fromName'], $send['fromEmail']);
+        $this->to           = new SendGrid\Email($send['toName'], $send['toEmail']);
     }
 
     public function thanks_locavore_signup() {
@@ -42,6 +47,18 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    public function thanks_signup() {
+        $subject = 'Welcome to Food From Friends!';
+    
+        $body = 'You\'re awesome for joining Food From Friends. Our platform is still in its early stages, but you can upload your food listings and build out your presence as a grower in the meantime. Then when we open up to buyers this Fall you\'ll be ready to go!';
+        $content = new SendGrid\Content('text/html', $body);
+    
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        $mail->setTemplateId('04ad1ecd-1a15-44a1-a329-72632de50d72');
+    
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
     public function thanks_early_access_grower_signup() {
         $subject = 'Welcome to Food From Friends!';
 
@@ -51,6 +68,70 @@ class Mail {
 
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
         $mail->setTemplateId('a1619840-f431-479c-a3e3-2fefb9a673d3');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    public function team_invite_grower_signup($TeamOwner, $GrowerOperation, $referral_keys) {
+        $subject = 'You\'ve been invited!';
+
+        $subs = new SendGrid\Personalization();
+
+        $subs->addTo($this->to);
+
+        $ownername = $TeamOwner->first_name . ' ' . $TeamOwner->last_name;
+        $operationname = $GrowerOperation->name;
+
+        $subs->addSubstitution('%ownername%', $ownername);
+        $subs->addSubstitution('%operationname%', $operationname);
+        $subs->addSubstitution('%toemail%', $this->to_email);
+        $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
+        $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
+        
+        // nested substitution tags 
+        /*
+            $subs->addSubstitution('-ownername-', $ownername);
+            $subs->addSubstitution('-operationname-', $operationname);
+            $body = 'Hey! -ownername- has invited you to join the -operationname- team on Food From Friends! Click the link below to sign up and join the team.';
+        */
+
+        $body = 'Hey! ' . $ownername . ' has invited you to join the ' . $operationname . ' team on Food From Friends! Click the link below to sign up and join the team.';
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        $mail->addPersonalization($subs);
+        $mail->setTemplateId('12810469-4c7f-404f-b21c-3272441b8be9');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function team_invite_grower_join($TeamOwner, $GrowerOperation, $referral_keys) {
+        $subject = 'You\'ve been invited!';
+
+        $subs = new SendGrid\Personalization();
+
+        $subs->addTo($this->to);
+
+        $ownername = $TeamOwner->first_name . ' ' . $TeamOwner->last_name;
+        $operationname = $GrowerOperation->name;
+        
+        $subs->addSubstitution('%toemail%', $this->to_email);
+        $subs->addSubstitution('%operationkey%', $referral_keys['operation']);
+        $subs->addSubstitution('%personalkey%', $referral_keys['personal']);
+        
+        // nested mergetags in body don't work consistently; just concatenate for now instead
+        /*
+            $subs->addSubstitution('-ownername-', $ownername);
+            $subs->addSubstitution('-operationname-', $operationname);
+            $body = 'Hey! -ownername- has invited you to join the -operationname- team on Food From Friends! Click the link below to join the team now or enter the following key codes on your grower operation page.';
+        */
+
+        $body = 'Hey! ' . $ownername . ' has invited you to join the ' . $operationname . ' team on Food From Friends! Click the link below to join or enter the following key codes on your grower operation page.';
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        $mail->addPersonalization($subs);
+        $mail->setTemplateId('94501cdb-4d38-4294-96cd-a62444b63284');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }

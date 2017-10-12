@@ -2,7 +2,7 @@
 
 $Template = new Template($Routing);
 
-if ($Routing->template == 'back' && !$LOGGED_IN) {
+if ($Routing->template == 'dashboard' && !$LOGGED_IN) {
     header('Location: ' . PUBLIC_ROOT);
     die();
 }
@@ -37,7 +37,7 @@ foreach ([
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
             'node_modules/mapbox-gl/dist/mapbox-gl',
-            (($Routing->template != 'splash' && $Routing->template != 'early-access-invitation') ? 'css/app' : ''),
+            (($Routing->template != 'splash' && $Routing->template != 'log-in' && $Routing->template != 'early-access-invitation' && $Routing->template != 'team-member-invitation') ? 'css/app' : ''),
             $Template->styles
         ]); ?>
     </head>
@@ -49,7 +49,7 @@ foreach ([
             $file = SERVER_ROOT . $part . '.php';
             if (file_exists($file)) include $file;
         }
-
+        
         layer('js', [
             'node_modules/jquery/dist/jquery',
             'node_modules/jquery.ui.widget/jquery.ui.widget',
@@ -72,7 +72,7 @@ foreach ([
         ]);
             
         layer('js', $Template->scripts);
-
+        
         ?>
 
         <script>var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?></script>

@@ -12,7 +12,7 @@
             <form id="sign-up">
                 <div class="form-group">
                         <div class="input-group"> 
-                        <input type="text" name="first_name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
+                        <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
                             <span class="input-group-addon">
                             <i class="fa fa-user"></i>
@@ -22,7 +22,7 @@
                 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" name="last_name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
+                        <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
                             <i class="fa fa-user"></i>
@@ -65,7 +65,7 @@
                                         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                                         
                                         foreach ($months as $month) {
-                                            echo "<option val='{$month}'>{$month}</option>";
+                                            echo "<option value='{$month}'>{$month}</option>";
                                         }
                                     ?>
                                 </select>

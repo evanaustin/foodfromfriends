@@ -5,6 +5,7 @@
 
 $light-green: #00A669;
 $dark-green: #005434;
+$faded-green: rgba(0, 179, 113, 0.25);
 
 $brand-primary: $light-green;
 $brand-inverse: $dark-green;
@@ -25,3 +26,7 @@ $custom-control-checked-indicator-bg: $brand-primary;
 $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $brand-primary;
 
 $dropdown-link-color: #7f7f7f;
+$dropdown-link-active-bg: $light-green;
+
+$list-group-active-bg: #424242;
+$list-group-active-border: #424242;

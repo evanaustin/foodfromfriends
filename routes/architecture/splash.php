@@ -2,7 +2,7 @@
 
 $body = [
     'view'      => 'routes/views/' . $Routing->path,
-    'log_in'    => 'routes/modals/log-in'
+    'log-in'    => 'routes/modals/log-in'
 ];
 
 ?>

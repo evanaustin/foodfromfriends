@@ -86,13 +86,16 @@ App.Util = function() {
 
         if ($('i.loading-icon' + spinner).length > 0) {
             $('i.loading-icon' + spinner).css('visibility', 'visible').css('opacity', '1');
+            $('button[type=submit]').prop('disabled', true);
         }
     }
 
     function finishedLoading(element) {
         var spinner = element || '';
+
         if ($('i.loading-icon' + spinner).length > 0) {
             $('i.loading-icon' + spinner).css('visibility', 'hidden').css('opacity', '0');
+            $('button[type=submit]').prop('disabled', false);
         }
     }
 

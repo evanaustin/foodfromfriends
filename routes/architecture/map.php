@@ -7,8 +7,8 @@ $body = [
 ];
 
 if (!$LOGGED_IN) {
-    $body['sign_up'] = 'routes/modals/sign-up';
-    $body['log_in'] = 'routes/modals/log-in';
+    $body['sign-up'] = 'routes/modals/sign-up';
+    $body['log-in'] = 'routes/modals/log-in';
 }
 
 ?>

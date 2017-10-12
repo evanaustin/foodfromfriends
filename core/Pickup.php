@@ -6,13 +6,6 @@ class Pickup extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $id,
-        $user_id,
-        $is_offered,
-        $instructions,
-        $availability;
-     
     function __construct($parameters) {
         $this->table = 'pickup_settings';
 
@@ -25,11 +18,11 @@ class Pickup extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
     
-    public function get_details($user_id) {
+    public function get_details($grower_operation_id) {
         $results = $this->DB->run('
-            SELECT * FROM pickup_settings WHERE user_id = :user_id LIMIT 1
+            SELECT * FROM pickup_settings WHERE grower_operation_id = :grower_operation_id LIMIT 1
         ', [
-            'user_id' => $user_id,
+            'grower_operation_id' => $grower_operation_id,
         ]); 
         
         return (isset($results[0])) ? $results[0] : false;

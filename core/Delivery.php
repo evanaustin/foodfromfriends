@@ -6,16 +6,6 @@ class Delivery extends Base {
         $class_dependencies,
         $DB;
         
-    public
-        $id,
-        $user_id,
-        $is_offered,
-        $distance,
-        $delivery_type,
-        $free_miles,
-        $fee,
-        $pricing_rate;
-     
     function __construct($parameters) {
         $this->table = 'delivery_settings';
 
@@ -28,11 +18,11 @@ class Delivery extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 
-    function get_details($user_id) {
+    function get_details($grower_operation_id) {
         $results = $this->DB->run('
-            SELECT * FROM delivery_settings WHERE user_id = :user_id LIMIT 1
+            SELECT * FROM delivery_settings WHERE grower_operation_id = :grower_operation_id LIMIT 1
         ', [
-            'user_id' => $user_id,
+            'grower_operation_id' => $grower_operation_id,
         ]); 
         
         return (isset($results[0])) ? $results[0] : false;

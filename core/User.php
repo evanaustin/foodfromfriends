@@ -5,7 +5,7 @@ class User extends Base {
     protected
         $class_dependencies,
         $DB;
-        
+
     function __construct($parameters) {
         $this->table = 'users';
 
@@ -17,11 +17,12 @@ class User extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
-            $this->populate_fully($parameters['id']);
+            $this->populate_fully();
+            $this->get_operations();
         }
     }
     
-    private function populate_fully($id) {
+    private function populate_fully() {
         $results = $this->DB->run('
             SELECT 
                 u.*,
@@ -34,15 +35,20 @@ class User extends Base {
                 ua.longitude,
                 upi.filename,
                 upi.ext
+            
             FROM users u
+            
             LEFT JOIN user_addresses ua
                 ON u.id = ua.user_id
+            
             LEFT JOIN user_profile_images upi
                 ON u.id = upi.user_id
+            
             WHERE u.id = :id
+        
             LIMIT 1
         ', [
-            'id' => $id
+            'id' => $this->id
         ]);
 
         if (!isset($results[0])) return false;
@@ -50,25 +56,60 @@ class User extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
+    // eventually this should be refactored to allow for buyer operations also
+    private function get_operations() {
+        $results = $this->DB->run('
+            SELECT *
+
+            FROM grower_operation_members gom
+
+            WHERE gom.user_id = :user_id 
+                AND permission > 0
+        ', [
+            'user_id' => $this->id
+        ]);
+
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $this->Operations[$result['grower_operation_id']] = new GrowerOperation([
+                    'DB' => $this->DB,
+                    'id' => $result['grower_operation_id']
+                ]);
+
+                $this->Operations[$result['grower_operation_id']]->permission = $result['permission'];
+
+                if ($result['is_default']) {
+                    $this->GrowerOperation = $this->Operations[$result['grower_operation_id']];
+                }
+            }
+        } else {
+            $this->Operations = false;
+            $this->GrowerOperation = false;
+        }
+    }
+
+    public function switch_operation($id) {
+        $_SESSION['user']['active_operation_id'] = $id;
+        $this->GrowerOperation = $this->Operations[$id];
+
+        return $this->GrowerOperation->id;
+    }
+
     public function authenticate($email, $password) {
         $results = $this->DB->run('
             SELECT * FROM users WHERE email=:email AND password=:password LIMIT 1
         ', [
-            'email' => $email,
-            'password' => hash('sha256', $password) 
+            'email'     => $email,
+            'password'  => hash('sha256', $password) 
         ]);
 
-        if (isset($results[0])) {
-            return $this->log_in($results[0]['id']);
-        }
-        
-        return false;
+        return (isset($results[0])) ? $results[0]['id'] : false;
     }
 
     public function log_in($id) {
         $_SESSION['user']['id'] = $id;
 
-        return ($_SESSION['user']['id']) ? true : false;
+        return ($_SESSION['user']['id']) ? $_SESSION['user']['id'] : false;
     }
 
     public function log_out() {
