@@ -103,7 +103,7 @@ if ($User->exists('email', $email)) {
         'id' => $user_id
     ]);
 
-    if (isset($User->GrowerOperation)) {
+    if ($User->GrowerOperation != false) {
         if ($User->GrowerOperation->permission == 2) {
             $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
         } else {
