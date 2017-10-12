@@ -28,11 +28,11 @@ if (isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) {
         default:
             $requirements = [
                 'add operation photo' =>  [
-                    'link'      => 'dashboard/grower/operation-settings/basic-information',
+                    'link'      => 'dashboard/grower/operation/basic-information',
                     'status'    => (!empty($User->GrowerOperation->filename) ? 'complete' : 'incomplete'),
                 ],
                 'set operation location' =>  [
-                    'link'      => 'dashboard/grower/operation-settings/location',
+                    'link'      => 'dashboard/grower/operation/location',
                     'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
                 ]
             ];
@@ -47,7 +47,7 @@ if (isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) {
                     'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
                 ],
                 'add team members' =>  [
-                    'link'      => 'dashboard/grower/operation-settings/team-members',
+                    'link'      => 'dashboard/grower/operation/team-members',
                     'status'    => (($team_member_count > 1) ? 'complete' : 'incomplete'),
                 ]
             ];
