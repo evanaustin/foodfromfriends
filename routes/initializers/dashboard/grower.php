@@ -11,11 +11,11 @@ $team_member_count = count($User->GrowerOperation->get_team_members());
 switch($User->GrowerOperation->type) {
     case 'none':
         $requirements = [
-            'add profile picture'       => [
+            'add profile picture' => [
                 'link'      => 'dashboard/account/edit-profile/basic-information',
                 'status'    => (($User->filename) ? 'complete' : 'incomplete'),
             ],
-            'set your location'         => [
+            'set your location' => [
                 'link'      => 'dashboard/account/edit-profile/location',
                 'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
             ]
@@ -26,26 +26,26 @@ switch($User->GrowerOperation->type) {
         break;
     default:
         $requirements = [
-            'add operation photo'       =>  [
+            'add operation photo' =>  [
                 'link'      => 'dashboard/grower/operation-settings/basic-information',
                 'status'    => (!empty($User->GrowerOperation->filename) ? 'complete' : 'incomplete'),
             ],
-            'set operation location'    =>  [
+            'set operation location' =>  [
                 'link'      => 'dashboard/grower/operation-settings/location',
                 'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
             ]
         ];
 
         $goals = [
-            'add profile picture'       =>  [
+            'add profile picture' =>  [
                 'link'      => 'dashboard/account/edit-profile/basic-information',
                 'status'    => (!empty($User->filename) ? 'complete' : 'incomplete'),
             ],
-            'add your location'          =>  [
+            'add your location' =>  [
                 'link'      => 'dashboard/account/edit-profile/location',
                 'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
             ],
-            'add team members'          =>  [
+            'add team members' =>  [
                 'link'      => 'dashboard/grower/operation-settings/team-members',
                 'status'    => (($team_member_count > 1) ? 'complete' : 'incomplete'),
             ]
@@ -55,22 +55,22 @@ switch($User->GrowerOperation->type) {
 }
 
 $requirements += [
-    'upload your first listing'         =>  [
+    'upload your first listing' =>  [
         'link'      => 'dashboard/grower/food-listings/add-new',
         'status'    => (($listing_count > 0) ? 'complete' : 'incomplete'),
     ],
-    'set exchange options'      =>  [
+    'enable at least one exchange option' =>  [
         'link'      => 'dashboard/grower/exchange-options/delivery',
-        'status'    => (isset($User->GrowerOperation->Delivery) || isset($User->GrowerOperation->Pickup) || isset($User->GrowerOperation->Meetup) ? 'complete' : 'incomplete'),
+        'status'    => (!empty($User->GrowerOperation->Delivery->is_offered) || !empty($User->GrowerOperation->Pickup->is_offered) || !empty($User->GrowerOperation->Meetup->is_offered) ? 'complete' : 'incomplete'),
     ]
 ];
 
 $goals += [
-    'add personal bio'                  =>  [
+    'add personal bio' =>  [
         'link'      => 'dashboard/account/edit-profile/basic-information',
         'status'    => (!empty($User->bio) ? 'complete' : 'incomplete'),
     ],
-    'sell your first listing'           =>  [
+    'sell your first listing' =>  [
         'link'      => 'grower?id=' . $User->GrowerOperation->id,
         'status'    => ((false) ? 'complete' : 'incomplete'),
     ]
