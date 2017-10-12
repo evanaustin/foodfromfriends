@@ -38,20 +38,19 @@
                                 'meetup'
                             ];
 
-                            $operation_settings = [
-                                'basic-information'
+                            $sidebar['grower']['operation'] = [
+                                'create-new'
                             ];
 
                             if ($User->GrowerOperation->type != 'none') {
-                                $owner_operation_settings = [
-                                    'location',
-                                    'team-members'
-                                ];
-
-                                $operation_settings = array_merge($operation_settings, $owner_operation_settings);
+                                array_unshift($sidebar['grower']['operation'], 'location', 'team-members');
                             }
 
-                            $sidebar['grower']['operation-settings'] = $operation_settings;
+                            array_unshift($sidebar['grower']['operation'], 'basic-information');
+                        } else {
+                            $sidebar['grower']['operation'] = [
+                                'create-new'
+                            ];
                         }
 
                         foreach($sidebar[$Routing->section] as $k => $v) { ?>
