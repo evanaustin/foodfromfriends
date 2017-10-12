@@ -49,9 +49,11 @@
                                 <div class="list-group-item heading">
                                     Requirements
                                 </div>
+
+                                <div class="description"></div>
                                 
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" style="height:5px;"></div>
+                                    <div class="progress-bar" style="height:5px; width: 5px;"></div>
                                 </div>
 
                                 <?php
@@ -76,8 +78,10 @@
                                     Goals
                                 </div>
 
+                                <div class="description"></div>
+
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" style="height:5px;"></div>
+                                    <div class="progress-bar" style="height:5px; width:5px;"></div>
                                 </div>
                                 
                                 <?php
