@@ -146,9 +146,9 @@ body.dashboard-grower div.main.container-fluid {
       padding: 10px; }
   body.dashboard-grower div.main.container-fluid div.block {
     padding: 2em 0;
-    background-color: #00A669;
+    background-color: #fff;
     text-align: center;
-    color: #fff;
+    color: #00A669;
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
@@ -159,16 +159,28 @@ body.dashboard-grower div.main.container-fluid {
       font-weight: 500; }
     body.dashboard-grower div.main.container-fluid div.block div.descriptor {
       font-size: 14px;
-      font-weight: 100;
-      text-transform: uppercase; }
+      font-weight: 300;
+      text-transform: uppercase;
+      color: #424242; }
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.heading {
+    background-color: #424242;
+    border: 0px;
+    color: #fff;
+    font-weight: 400; }
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.description {
+    padding: 1em;
+    background: #636c72;
+    border: 1px solid #f5f5f5;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    font-size: 85%;
+    color: #fff; }
   body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.progress {
+    border-top-width: 0;
+    border-bottom-width: 0;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.heading {
-    background-color: #424242;
-    color: #fff;
-    font-weight: 400; }
   body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a {
     display: block;
     padding-left: 1em;
