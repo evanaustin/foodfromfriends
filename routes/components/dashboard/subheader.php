@@ -11,7 +11,7 @@
 
                         <li class="nav-item dropdown">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
+                                href="<?php echo PUBLIC_ROOT . $Routing->template . (isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2 ? '/grower' : '/grower/food-listings/overview'); ?>"
                                 class="nav-link dropdown-toggle <?php if ($Routing->section == 'grower') echo 'active'; ?>" 
                                 data-toggle="dropdown"
                             >
@@ -37,7 +37,7 @@
 
                         <li class="nav-item">
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>" 
+                            href="<?php echo PUBLIC_ROOT . $Routing->template . (isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2 ? '/grower' : '/grower/food-listings/overview'); ?>"
                                 class="nav-link <?php if ($Routing->section == 'grower') echo 'active'; ?>"
                             >
                                 Grower
