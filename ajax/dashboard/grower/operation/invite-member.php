@@ -28,6 +28,8 @@ $Mail = new Mail([
 $invitee = $User->retrieve('email', $email);
 
 if (!$invitee) {
+    // new user
+
     // create association
     $association_added = $User->GrowerOperation->add([
         'grower_operation_id'   => $User->GrowerOperation->id,
@@ -39,6 +41,8 @@ if (!$invitee) {
     // send sign up email
     $send = $Mail->team_invite_grower_signup($User, $User->GrowerOperation, $referral_keys);
 } else {
+    // existing user
+
     // check to see if association exists
     $association = $User->GrowerOperation->check_association($User->GrowerOperation->id, $invitee[0]['id']);
 
