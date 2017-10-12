@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="<?php echo (isset($User->GrowerOperation) ? PUBLIC_ROOT . 'dashboard/grower' : PUBLIC_ROOT . 'map'); ?>">
+    <a class="navbar-brand" href="<?php echo ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? PUBLIC_ROOT . 'dashboard/grower' : PUBLIC_ROOT . 'map'); ?>">
         <div class="hidden-md-down">
             <?php svg('logos/thin'); ?>
         </div>
@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/grower'; ?>">Dashboard</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/account/edit-profile'); ?>">Dashboard</a>
                 </li>
 
                 <!-- <li class="nav-item">
