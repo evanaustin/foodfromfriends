@@ -152,7 +152,7 @@ image = {
 	destroy: function() {
 		var self = this;
 		
-		App.Ajax.post('dashboard/grower/operation-settings/remove-image', null,
+		App.Ajax.post('dashboard/grower/operation/remove-image', null,
 			function(response) {
 				self.discard();
 				toastr.success('Your image has been deleted');
@@ -284,7 +284,7 @@ $('#edit-basic-information').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('dashboard/grower/operation-settings/save-basic-information', data, 
+		App.Ajax.postFiles('dashboard/grower/operation/save-basic-information', data, 
 			function(response) {
 				App.Util.finishedLoading();
 				

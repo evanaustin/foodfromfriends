@@ -8,7 +8,7 @@ $('#edit-location').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/grower/operation-settings/save-location', data, 
+        App.Ajax.post('dashboard/grower/operation/save-location', data, 
             function(response) {
                 App.Util.msg('Your location has been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
