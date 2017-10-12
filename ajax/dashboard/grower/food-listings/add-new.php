@@ -74,7 +74,8 @@ if (!$User->GrowerOperation) {
     $association_added = $GrowerOperation->add([
         'grower_operation_id'   => $grower_operation_id,
         'user_id'               => $User->id,
-        'permission'            => 2
+        'permission'            => 2,
+        'is_default'            => 1
     ], 'grower_operation_members');
 
     if (!$association_added) quit('Could not associate user');
