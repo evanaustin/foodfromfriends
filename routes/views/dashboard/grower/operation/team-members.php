@@ -102,11 +102,8 @@
 
                     <?php
 
-                } else if ($User->GrowerOperation->type == 'none') {
-                    header('Location: ' . PUBLIC_ROOT . 'dashboard/grower');
-                    die();
                 } else {
-                    echo 'You do not have permission to view this page';
+                    echo 'Oops! You\'re not supposed to be here.';
                 }
 
                 ?>

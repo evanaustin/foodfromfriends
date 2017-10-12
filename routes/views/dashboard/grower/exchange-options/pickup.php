@@ -95,7 +95,7 @@
                     <?php
 
                 } else {
-                    echo 'You do not have permission to view this page';
+                    echo 'Oops! You\'re not supposed to be here.';
                 }
 
                 ?>

@@ -84,10 +84,8 @@
 
                     <?php
 
-                } else if ($User->GrowerOperation->type == 'none') {
-                    echo 'This page is only for operations';
                 } else {
-                    echo 'You do not have permission to view this page';
+                    echo 'Oops! You\'re not supposed to be here.';
                 }
 
                 ?>
