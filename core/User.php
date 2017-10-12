@@ -112,6 +112,16 @@ class User extends Base {
         return ($_SESSION['user']['id']) ? $_SESSION['user']['id'] : false;
     }
 
+    public function soft_log_out() {
+        if (!empty($_SESSION['user']['id'])) {
+            $_SESSION['user']['id'] = null;
+            
+            return true;
+        }
+
+        return false;
+    }
+
     public function log_out() {
         if (!empty($_SESSION['user']['id'])) {
             session_unset();

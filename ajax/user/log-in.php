@@ -32,7 +32,7 @@ $prepared_data = $Gump->run($validated_data);
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 // check if already logged in
-if ($LOGGED_IN) $User->log_out();
+if ($LOGGED_IN) $User->soft_log_out();
 
 $User = new User([
     'DB' => $DB
@@ -94,7 +94,6 @@ if ($User->exists('email', $email)) {
 
     $logged_in = $User->log_in($user_id);
 
-    // seems that sometimes session fails to set - appears to be (more) consistent if error_logging
     error_log($logged_in . ' logging in');
 
     if ($logged_in < 1) quit('We could not log you in');
@@ -113,6 +112,8 @@ if ($User->exists('email', $email)) {
     } else {
         $json['redirect'] = PUBLIC_ROOT . 'map';
     }
+
+    error_log('Directing ' . $logged_in . ' to ' . $json['redirect']);
 } else {
     quit('You don\'t have an account with us yet');
 }
