@@ -71,6 +71,12 @@ if ($User->exists('user_id', $User->id, 'user_addresses')) {
 }
 
 if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    // reinitialize User for fresh check
+    $User = new User([
+        'DB' => $DB,
+        'id' => $USER['id']
+    ]);
+    
     $User->GrowerOperation->check_active($User);
 }
 

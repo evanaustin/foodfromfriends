@@ -60,6 +60,12 @@ if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
     if (!$added) quit('We could not save your pickup preferences');
 }
 
+// reinitialize User for fresh check
+$User = new User([
+    'DB' => $DB,
+    'id' => $USER['id']
+]);
+
 $User->GrowerOperation->check_active($User);
 
 echo json_encode($json);

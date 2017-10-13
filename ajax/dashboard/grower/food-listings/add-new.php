@@ -243,7 +243,15 @@ if (isset($_POST['images'])) {
     }
 }
 
-$User->GrowerOperation->check_active($User);
+if ($User->GrowerOperation) {
+    // reinitialize User for fresh check
+    $User = new User([
+        'DB' => $DB,
+        'id' => $USER['id']
+    ]);
+
+    $User->GrowerOperation->check_active($User);
+}
 
 $json['id'] = $id;
 

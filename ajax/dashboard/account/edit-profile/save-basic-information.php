@@ -218,6 +218,12 @@ if (isset($_POST['images'])) {
 }
 
 if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    // reinitialize User for fresh check
+    $User = new User([
+        'DB' => $DB,
+        'id' => $USER['id']
+    ]);
+
     $User->GrowerOperation->check_active($User);
 }
 

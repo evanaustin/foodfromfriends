@@ -19,6 +19,12 @@ if (!empty($User->GrowerOperation->filename)) {
     quit('There was no image to remove');
 }
 
+// reinitialize User for fresh check
+$User = new User([
+    'DB' => $DB,
+    'id' => $USER['id']
+]);
+
 $User->GrowerOperation->check_active($User);
 
 echo json_encode($json);

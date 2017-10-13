@@ -242,6 +242,12 @@ if (!empty($operation_key) && !empty($personal_key)) {
     }
 }
 
+// reinitialize User for fresh check
+$User = new User([
+    'DB' => $DB,
+    'id' => $USER['id']
+]);
+
 $User->GrowerOperation->check_active($User);
 
 echo json_encode($json);
