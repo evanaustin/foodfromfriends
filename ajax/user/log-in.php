@@ -104,7 +104,7 @@ if ($User->exists('email', $email)) {
     ]);
 
     if ($User->GrowerOperation != false) {
-        if ($User->GrowerOperation->permission == 2) {
+        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'none') {
             $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
         } else {
             $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower/food-listings/overview';
