@@ -10,7 +10,7 @@ $GrowerOperation = new GrowerOperation([
     'DB' => $DB
 ]);
 
-$growers = $GrowerOperation->pull_all();
+$growers = $GrowerOperation->pull_all_active();
 
 $grower_count = count($growers);
 $tile_width = 'col-6';

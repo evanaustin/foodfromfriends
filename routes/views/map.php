@@ -17,10 +17,10 @@
 
                                 <div class="<?php echo $tile_width; ?>">
                                     <div class="card animated zoomIn">
-                                    
                                         <a href="<?php echo PUBLIC_ROOT . 'user?id=' . $grower['id']; ?>">
                                             <?php img(ENV . '/profile-photos/' . $grower['filename'], $grower['ext'], 'S3', 'card-img-top'); ?>
                                         </a>
+                                        
                                         <div class="card-block d-flex flex-row">
                                             <div class="listing-info d-flex flex-column">
                                                 <div class="title">
