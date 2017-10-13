@@ -40,7 +40,7 @@
                             href="<?php echo PUBLIC_ROOT . $Routing->template . (isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2 ? '/grower' : '/grower/food-listings/overview'); ?>"
                                 class="nav-link <?php if ($Routing->section == 'grower') echo 'active'; ?>"
                             >
-                                Grower
+                                <?php echo ($Routing->section == 'grower' && isset($User->GrowerOperation) && $User->GrowerOperation->type != 'none') ? $User->GrowerOperation->name : 'Grower'; ?>
                             </a>
                         </li>
 
