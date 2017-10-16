@@ -24,6 +24,8 @@ class Routing {
             $this->template = 'early-access-invitation';
         } else if ($this->path == 'team-member-invitation') {
             $this->template = 'team-member-invitation';
+        } else if ($this->path == 'stripe-atlas') {
+            $this->template = 'stripe-atlas';
         } else if ($this->path == 'map') {
             $this->template = 'map';
         } else if ($exp_path[0] == 'dashboard') {
