@@ -139,6 +139,8 @@ class GrowerOperation extends Base {
             
             $this->is_active = 0;
         }
+
+        return $this->is_active;
     }
 
     public function get_team_members() {
@@ -208,7 +210,9 @@ class GrowerOperation extends Base {
 
     public function pull_all_active() {
         $results = $this->DB->run('
-            SELECT *
+            SELECT 
+                go.id,
+                gom.user_id
             
             FROM grower_operations go
 
