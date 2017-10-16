@@ -339,68 +339,12 @@ form .form-control-feedback {
 /**
 * View Styles
 **/
-body.early-access-invitation {
-  padding-top: 3.5em;
-  background-color: #005434;
-  font-family: 'Signika';
-  color: #00A669; }
-  body.early-access-invitation div.logo svg {
-    display: block;
-    margin: 0 auto; }
-  body.early-access-invitation h1 {
-    font-size: 36px;
-    font-family: 'Riya';
-    text-align: center; }
-  body.early-access-invitation p {
-    margin: 0.5em 0 1.5em 0;
-    text-align: justify; }
-  body.early-access-invitation input, body.early-access-invitation button, body.early-access-invitation select {
-    font-family: 'Signika';
-    border: 0;
-    height: auto; }
-    body.early-access-invitation input:not(.btn-sm), body.early-access-invitation button:not(.btn-sm), body.early-access-invitation select:not(.btn-sm) {
-      padding-top: 1rem;
-      padding-bottom: 1rem; }
-    body.early-access-invitation input:focus::-webkit-input-placeholder, body.early-access-invitation button:focus::-webkit-input-placeholder, body.early-access-invitation select:focus::-webkit-input-placeholder {
-      color: transparent; }
-    body.early-access-invitation input:focus:-moz-placeholder, body.early-access-invitation button:focus:-moz-placeholder, body.early-access-invitation select:focus:-moz-placeholder {
-      color: transparent; }
-    body.early-access-invitation input:focus::-moz-placeholder, body.early-access-invitation button:focus::-moz-placeholder, body.early-access-invitation select:focus::-moz-placeholder {
-      color: transparent; }
-    body.early-access-invitation input:focus:-ms-input-placeholder, body.early-access-invitation button:focus:-ms-input-placeholder, body.early-access-invitation select:focus:-ms-input-placeholder {
-      color: transparent; }
-    body.early-access-invitation input:focus.placeholder, body.early-access-invitation button:focus.placeholder, body.early-access-invitation select:focus.placeholder {
-      color: transparent; }
-  body.early-access-invitation button[type="submit"]:hover {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-    -webkit-transform: translateY(-1px);
-    -moz-transform: translateY(-1px);
-    -ms-transform: translateY(-1px);
-    -o-transform: translateY(-1px);
-    transform: translateY(-1px);
-    background-color: #009961; }
-  body.early-access-invitation span.input-group-addon {
-    border: 0; }
-  body.early-access-invitation .form-text {
-    margin-bottom: 1em; }
-    body.early-access-invitation .form-text a {
-      font-weight: 600;
-      color: #00b06f;
-      border-bottom: 2px solid transparent;
-      -webkit-transition: all 0.1s ease-in-out;
-      -moz-transition: all 0.1s ease-in-out;
-      -ms-transition: all 0.1s ease-in-out;
-      -o-transition: all 0.1s ease-in-out;
-      transition: all 0.1s ease-in-out; }
-      body.early-access-invitation .form-text a:hover {
-        color: #00b06f;
-        border-color: #00b06f; }
-  body.early-access-invitation .btn {
-    cursor: pointer;
-    font-weight: inherit; }
-    body.early-access-invitation .btn:focus, body.early-access-invitation .btn.focus {
-      -webkit-box-shadow: 0 0 0 transparent;
-      -moz-box-shadow: 0 0 0 transparent;
-      box-shadow: 0 0 0 transparent; }
+body.stripe-atlas {
+  padding: 1em;
+  background-color: #f7f7f7; }
+  body.stripe-atlas h3 {
+    padding: 0 0.5em; }
+  body.stripe-atlas img.img-fluid {
+    padding: 1em 1em; }
 
-/*# sourceMappingURL=early-access-invitation.css.map */
+/*# sourceMappingURL=stripe-atlas.css.map */
