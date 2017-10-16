@@ -3543,8 +3543,8 @@ a.badge:focus, a.badge:hover {
   .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: #424242;
-    border-color: #424242; }
+    background-color: #4c4c4c;
+    border-color: #4c4c4c; }
     .list-group-item.active .list-group-item-heading,
     .list-group-item.active .list-group-item-heading > small,
     .list-group-item.active .list-group-item-heading > .small {

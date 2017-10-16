@@ -122,3 +122,80 @@ div.modal-content {
         opacity: 0.5;
     }
 }
+
+.callout {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-left: 5px solid #eee;
+    
+    &.bordered {
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 3px;
+    }
+    
+    h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    code {
+        border-radius: 3px;
+    }
+    
+    +.callout {
+        margin-top: -5px;
+    }
+
+    &.default {
+        border-left-color: #777;
+        
+        h4 {
+            color: #777;
+        }
+    }
+    
+    &.primary {
+        border-left-color: $light-green;
+        
+        h4 {
+            color: $light-green;
+        }
+    }
+
+    &.success {
+        border-left-color: #5cb85c;
+        
+        h4 {
+            color: #5cb85c;
+        }
+    }
+
+    &.danger {
+        border-left-color: #d9534f;
+        
+        h4 {
+            color: #d9534f;
+        }
+    }
+
+    &.warning {
+        border-left-color: #f0ad4e;
+        
+        h4 {
+            color: #f0ad4e;
+        }
+    }
+
+    &.info {
+        border-left-color: #5bc0de;
+        
+        h4 {
+            color: #5bc0de;
+        }
+    }
+}

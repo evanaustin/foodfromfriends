@@ -33,14 +33,14 @@ body.dashboard-grower {
                 font-size: 14px;
                 font-weight: 300;
                 text-transform: uppercase;
-                color: #424242;
+                color: $dark-gray;
             }
         }
 
         div.list-blocks {
             div.list-group {
                 div.heading {
-                    background-color: #424242;
+                    background-color: $dark-gray;
                     border: 0px;
                     color: #fff;
                     font-weight: 400;

@@ -147,6 +147,48 @@ div.modal-content {
     border-top: 1px solid #b2b2b2;
     opacity: 0.5; }
 
+.callout {
+  margin: 20px 0;
+  padding: 10px 20px;
+  border-left: 5px solid #eee; }
+  .callout.bordered {
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 3px; }
+  .callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px; }
+  .callout p:last-child {
+    margin-bottom: 0; }
+  .callout code {
+    border-radius: 3px; }
+  .callout + .callout {
+    margin-top: -5px; }
+  .callout.default {
+    border-left-color: #777; }
+    .callout.default h4 {
+      color: #777; }
+  .callout.primary {
+    border-left-color: #00A669; }
+    .callout.primary h4 {
+      color: #00A669; }
+  .callout.success {
+    border-left-color: #5cb85c; }
+    .callout.success h4 {
+      color: #5cb85c; }
+  .callout.danger {
+    border-left-color: #d9534f; }
+    .callout.danger h4 {
+      color: #d9534f; }
+  .callout.warning {
+    border-left-color: #f0ad4e; }
+    .callout.warning h4 {
+      color: #f0ad4e; }
+  .callout.info {
+    border-left-color: #5bc0de; }
+    .callout.info h4 {
+      color: #5bc0de; }
+
 div.alert {
   display: none; }
 

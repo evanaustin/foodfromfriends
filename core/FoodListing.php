@@ -19,7 +19,7 @@ class FoodListing extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
-            $this->populate_fully($parameters['id']);
+            $this->populate_fully($this->id);
         }
     }
 
@@ -28,7 +28,6 @@ class FoodListing extends Base {
             SELECT 
                 fl.*,
                 fsc.title AS subcategory_title,
-                fsc.food_category_id,
                 fc.title AS category_title,
                 fli.filename,
                 fli.ext
