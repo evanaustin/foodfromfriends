@@ -342,6 +342,8 @@ form .form-control-feedback {
 body.stripe-atlas {
   padding: 1em;
   background-color: #f7f7f7; }
+  body.stripe-atlas h3 {
+    padding: 0 0.5em; }
   body.stripe-atlas img.img-fluid {
     padding: 1em 1em; }
 

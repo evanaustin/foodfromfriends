@@ -1,3 +1,5 @@
+<h3>Screenshots from the beta buildout</h3>
+
 <?php
 
 $screenshots = [
