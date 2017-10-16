@@ -1,7 +1,7 @@
 <?php
 
 $screenshots = [
-    //'search',
+    'search',
     'grower-profile',
     'food-listing',
     'grower-dashboard-landing',
