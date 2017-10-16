@@ -1,0 +1,254 @@
+body.front.user {
+    div.main.container {
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        div.left-content {
+            div.box {
+                border: 1px solid $edge-color;
+                border-bottom-width: 0px;
+                
+                &:first-child {
+                    @include border-radius($radius, 0, 0, $radius);
+                }
+                
+                &:last-child {
+                    border-bottom-width: 1px;
+                    @include border-radius(0, $radius, $radius, 0);
+                }
+
+                div.title {
+                    padding: 0.75em;
+                    background-color: #fff;
+                    border-bottom: 1px solid $edge-color;
+                    font-weight: 300;
+                    color: #636c72;
+                }
+
+                div.content {
+                    padding: 0.75em;
+                }
+            
+                &.profile-photo {
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        @include border-radius(4px, 0, 0, 4px);
+                    }
+                }
+                
+                &.details{
+                    padding: 0 0.5em;
+
+                    ul {
+                        li {
+                            display: block;
+                            padding-left: 1em;
+                            padding-right: 1em;
+                            border-color: $edge-color;
+                            border-width: 0;
+                            color: $muted;
+                            @include rounded(0);
+                            
+                            &.sub {
+                                border-top-width: 1px;
+
+                                &:first-child {
+                                    border-top: 0;
+                                }
+                            }
+
+                            &.heading {
+                                margin-top: 0.5em;
+                                background-color: #f5f5f5;
+                                color: $dark-gray;
+                                font-weight: 400;
+                            }
+
+                            span.inactive {
+                                text-decoration: line-through;
+                                color: $light-gray;
+                            }
+
+                            i {
+                                opacity: 0.75;
+
+                                &.fa-check {
+                                    color: $brand-success;
+                                }
+
+                                &.fa-times {
+                                    color: $light-gray;
+                                }
+                            }
+                        }
+                    }
+                    
+                    p {
+                        font-weight: 300;
+                        padding-left: 15px;
+                    }
+                }
+
+                &.map {
+                    padding: 0;
+                    height: 250px;
+                    
+                    div#map {
+                        width: 100%;
+                        height: 100%;
+                        @include border-radius(0, 3px, 3px, 0);
+                    }
+                }
+            }
+        }
+
+        div.right-content {
+            div.name {
+                color: $dark-gray;
+                font-size: 2em;
+                font-weight: 500;
+                
+                small {
+                    color: $light-gray;
+                    font-weight: 100;
+                }
+                
+                span {
+                    border-bottom: 3px solid $light-green;
+                }
+            }
+        }
+
+        div.bio {
+            margin: 1em 0;
+            color: $muted;
+        }
+        
+        div.location {
+            color: $dark-gray;
+            font-weight: 500;
+        }
+
+        div.joined {
+            color: $muted;
+            font-weight: 300;
+        }
+
+        div.review-count {
+            margin: 1em 0;
+
+            div {
+                display: inline-block;
+                height: 2em;
+                width: 2em;
+                padding: 0.5em;
+                margin-right: 0.25em;
+                border: 1px solid $light-green;
+                background-color: #fff;
+                line-height: 1;
+                color: $light-green;
+                text-align: center;
+                @include rounded(50px);
+            }
+
+            strong {
+                color: $muted;
+            }
+        }
+
+        div.set {
+            margin-top: 1.25em;
+
+            div.title {
+                font-size: 1.5em;
+                font-weight: 100;
+                color: $light-gray;
+        
+                strong {
+                    color: $dark-gray;
+                }
+            }
+
+            div.subtitle {
+                margin: 0.5em 0;
+                color: $muted;
+            }
+        }
+
+        div.card {
+            border-color: $edge-color;
+            
+            div.card-block {
+                padding: 1.25rem;
+            
+                h6.card-subtitle {
+                    color: $light-gray;
+                    padding: 0.25rem 0;
+                }
+            
+                p.card-text {
+                    margin-top: 0.25rem;
+                    color: $gray;
+            
+                    span.quantity {
+                        padding: 0.15rem 0.25rem;
+                        @include rounded(0.15rem);
+                    }
+                }
+            }
+        }
+
+        div.review-block {
+            display: flex;
+            flex-direction: row;
+            padding: 15px 0;
+            border-top: 1px solid $edge-color;
+
+            div.reviewer-photo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 75px;
+                width: 75px;
+                border: 2px solid #f2f2f2;
+                background-size: cover;
+                background-position: center center;
+                @include rounded(50%);
+            }
+
+            div.review-content {
+                display: flex;
+                flex-grow: 2;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: 15px;
+
+                div.quote {
+                    color: $muted;
+
+                    &:before{
+                        content: '\0022';
+                        margin-right: -3px;
+                    }
+
+                    &:after {
+                        content: '\0022';
+                        margin-left: -3px;
+                    }
+                }
+
+                div.reviewer-details {
+                    small {
+                        color: $dark-gray;
+                        font-weight: 500;
+                    }
+                }
+
+                div.reviewed-on {
+                    color: $light-gray;
+                }
+            }
+        }
+    }
+}
