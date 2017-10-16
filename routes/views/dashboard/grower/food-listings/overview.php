@@ -75,7 +75,7 @@
                                         </h4>
                                         
                                         <h6 class="card-subtitle">
-                                            <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
+                                            <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?>
                                         </h6>
 
                                         <p class="card-text">

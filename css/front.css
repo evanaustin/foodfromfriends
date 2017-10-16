@@ -4,16 +4,13 @@
 /**
 * View Styles
 **/
-main {
-  padding-bottom: 48px; }
-
-div.main.container {
+body.front.user div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  div.main.container div.left-content div.box {
+  body.front.user div.main.container div.left-content div.box {
     border: 1px solid #f5f5f5;
     border-bottom-width: 0px; }
-    div.main.container div.left-content div.box:first-child {
+    body.front.user div.main.container div.left-content div.box:first-child {
       -webkit-border-top-right-radius: 0.25rem;
       -webkit-border-bottom-right-radius: 0;
       -webkit-border-bottom-left-radius: 0;
@@ -29,7 +26,7 @@ div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    div.main.container div.left-content div.box:last-child {
+    body.front.user div.main.container div.left-content div.box:last-child {
       border-bottom-width: 1px;
       -webkit-border-top-right-radius: 0;
       -webkit-border-bottom-right-radius: 0.25rem;
@@ -46,15 +43,15 @@ div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    div.main.container div.left-content div.box div.title {
+    body.front.user div.main.container div.left-content div.box div.title {
       padding: 0.75em;
       background-color: #fff;
       border-bottom: 1px solid #f5f5f5;
       font-weight: 300;
       color: #636c72; }
-    div.main.container div.left-content div.box div.content {
+    body.front.user div.main.container div.left-content div.box div.content {
       padding: 0.75em; }
-    div.main.container div.left-content div.box.profile-photo img {
+    body.front.user div.main.container div.left-content div.box.profile-photo img {
       width: 100%;
       height: 100%;
       -webkit-border-top-right-radius: 4px;
@@ -72,9 +69,9 @@ div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    div.main.container div.left-content div.box.details {
+    body.front.user div.main.container div.left-content div.box.details {
       padding: 0 0.5em; }
-      div.main.container div.left-content div.box.details ul li {
+      body.front.user div.main.container div.left-content div.box.details ul li {
         display: block;
         padding-left: 1em;
         padding-right: 1em;
@@ -84,31 +81,31 @@ div.main.container {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0; }
-        div.main.container div.left-content div.box.details ul li.sub {
+        body.front.user div.main.container div.left-content div.box.details ul li.sub {
           border-top-width: 1px; }
-          div.main.container div.left-content div.box.details ul li.sub:first-child {
+          body.front.user div.main.container div.left-content div.box.details ul li.sub:first-child {
             border-top: 0; }
-        div.main.container div.left-content div.box.details ul li.heading {
+        body.front.user div.main.container div.left-content div.box.details ul li.heading {
           margin-top: 0.5em;
           background-color: #f5f5f5;
           color: #4c4c4c;
           font-weight: 400; }
-        div.main.container div.left-content div.box.details ul li span.inactive {
+        body.front.user div.main.container div.left-content div.box.details ul li span.inactive {
           text-decoration: line-through;
           color: #b2b2b2; }
-        div.main.container div.left-content div.box.details ul li i {
+        body.front.user div.main.container div.left-content div.box.details ul li i {
           opacity: 0.75; }
-          div.main.container div.left-content div.box.details ul li i.fa-check {
+          body.front.user div.main.container div.left-content div.box.details ul li i.fa-check {
             color: #5cb85c; }
-          div.main.container div.left-content div.box.details ul li i.fa-times {
+          body.front.user div.main.container div.left-content div.box.details ul li i.fa-times {
             color: #b2b2b2; }
-      div.main.container div.left-content div.box.details p {
+      body.front.user div.main.container div.left-content div.box.details p {
         font-weight: 300;
         padding-left: 15px; }
-    div.main.container div.left-content div.box.map {
+    body.front.user div.main.container div.left-content div.box.map {
       padding: 0;
       height: 250px; }
-      div.main.container div.left-content div.box.map div#map {
+      body.front.user div.main.container div.left-content div.box.map div#map {
         width: 100%;
         height: 100%;
         -webkit-border-top-right-radius: 0;
@@ -126,27 +123,27 @@ div.main.container {
         -webkit-background-clip: padding-box;
         -moz-background-clip: padding;
         background-clip: padding-box; }
-  div.main.container div.right-content div.name {
+  body.front.user div.main.container div.right-content div.name {
     color: #4c4c4c;
     font-size: 2em;
     font-weight: 500; }
-    div.main.container div.right-content div.name small {
+    body.front.user div.main.container div.right-content div.name small {
       color: #b2b2b2;
       font-weight: 100; }
-    div.main.container div.right-content div.name span {
+    body.front.user div.main.container div.right-content div.name span {
       border-bottom: 3px solid #00A669; }
-  div.main.container div.bio {
+  body.front.user div.main.container div.bio {
     margin: 1em 0;
     color: #636c72; }
-  div.main.container div.location {
+  body.front.user div.main.container div.location {
     color: #4c4c4c;
     font-weight: 500; }
-  div.main.container div.joined {
+  body.front.user div.main.container div.joined {
     color: #636c72;
     font-weight: 300; }
-  div.main.container div.review-count {
+  body.front.user div.main.container div.review-count {
     margin: 1em 0; }
-    div.main.container div.review-count div {
+    body.front.user div.main.container div.review-count div {
       display: inline-block;
       height: 2em;
       width: 2em;
@@ -160,40 +157,40 @@ div.main.container {
       -webkit-border-radius: 50px;
       -moz-border-radius: 50px;
       border-radius: 50px; }
-    div.main.container div.review-count strong {
+    body.front.user div.main.container div.review-count strong {
       color: #636c72; }
-  div.main.container div.set {
+  body.front.user div.main.container div.set {
     margin-top: 1.25em; }
-    div.main.container div.set div.title {
+    body.front.user div.main.container div.set div.title {
       font-size: 1.5em;
       font-weight: 100;
       color: #b2b2b2; }
-      div.main.container div.set div.title strong {
+      body.front.user div.main.container div.set div.title strong {
         color: #4c4c4c; }
-    div.main.container div.set div.subtitle {
+    body.front.user div.main.container div.set div.subtitle {
       margin: 0.5em 0;
       color: #636c72; }
-  div.main.container div.card {
+  body.front.user div.main.container div.card {
     border-color: #f5f5f5; }
-    div.main.container div.card div.card-block {
+    body.front.user div.main.container div.card div.card-block {
       padding: 1.25rem; }
-      div.main.container div.card div.card-block h6.card-subtitle {
+      body.front.user div.main.container div.card div.card-block h6.card-subtitle {
         color: #b2b2b2;
         padding: 0.25rem 0; }
-      div.main.container div.card div.card-block p.card-text {
+      body.front.user div.main.container div.card div.card-block p.card-text {
         margin-top: 0.25rem;
         color: #7f7f7f; }
-        div.main.container div.card div.card-block p.card-text span.quantity {
+        body.front.user div.main.container div.card div.card-block p.card-text span.quantity {
           padding: 0.15rem 0.25rem;
           -webkit-border-radius: 0.15rem;
           -moz-border-radius: 0.15rem;
           border-radius: 0.15rem; }
-  div.main.container div.review-block {
+  body.front.user div.main.container div.review-block {
     display: flex;
     flex-direction: row;
     padding: 15px 0;
     border-top: 1px solid #f5f5f5; }
-    div.main.container div.review-block div.reviewer-photo {
+    body.front.user div.main.container div.review-block div.reviewer-photo {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -205,25 +202,427 @@ div.main.container {
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%; }
-    div.main.container div.review-block div.review-content {
+    body.front.user div.main.container div.review-block div.review-content {
       display: flex;
       flex-grow: 2;
       flex-direction: column;
       justify-content: center;
       padding-left: 15px; }
-      div.main.container div.review-block div.review-content div.quote {
+      body.front.user div.main.container div.review-block div.review-content div.quote {
         color: #636c72; }
-        div.main.container div.review-block div.review-content div.quote:before {
+        body.front.user div.main.container div.review-block div.review-content div.quote:before {
           content: '\0022';
           margin-right: -3px; }
-        div.main.container div.review-block div.review-content div.quote:after {
+        body.front.user div.main.container div.review-block div.review-content div.quote:after {
           content: '\0022';
           margin-left: -3px; }
-      div.main.container div.review-block div.review-content div.reviewer-details small {
+      body.front.user div.main.container div.review-block div.review-content div.reviewer-details small {
         color: #4c4c4c;
         font-weight: 500; }
-      div.main.container div.review-block div.review-content div.reviewed-on {
+      body.front.user div.main.container div.review-block div.review-content div.reviewed-on {
         color: #b2b2b2; }
+
+body.front.grower div.main.container {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+  body.front.grower div.main.container div.left-content div.box {
+    border: 1px solid #f5f5f5;
+    border-bottom-width: 0px; }
+    body.front.grower div.main.container div.left-content div.box:first-child {
+      -webkit-border-top-right-radius: 0.25rem;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -webkit-border-top-left-radius: 0.25rem;
+      -moz-border-radius-topright: 0.25rem;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      -moz-border-radius-topleft: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0.25rem;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box; }
+    body.front.grower div.main.container div.left-content div.box:last-child {
+      border-bottom-width: 1px;
+      -webkit-border-top-right-radius: 0;
+      -webkit-border-bottom-right-radius: 0.25rem;
+      -webkit-border-bottom-left-radius: 0.25rem;
+      -webkit-border-top-left-radius: 0;
+      -moz-border-radius-topright: 0;
+      -moz-border-radius-bottomright: 0.25rem;
+      -moz-border-radius-bottomleft: 0.25rem;
+      -moz-border-radius-topleft: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+      border-top-left-radius: 0;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box; }
+    body.front.grower div.main.container div.left-content div.box div.title {
+      padding: 0.75em;
+      background-color: #fff;
+      border-bottom: 1px solid #f5f5f5;
+      font-weight: 300;
+      color: #636c72; }
+    body.front.grower div.main.container div.left-content div.box div.content {
+      padding: 0.75em; }
+    body.front.grower div.main.container div.left-content div.box.profile-photo img {
+      width: 100%;
+      height: 100%;
+      -webkit-border-top-right-radius: 4px;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -webkit-border-top-left-radius: 4px;
+      -moz-border-radius-topright: 4px;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      -moz-border-radius-topleft: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 4px;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box; }
+    body.front.grower div.main.container div.left-content div.box.details {
+      padding: 0 0.5em; }
+      body.front.grower div.main.container div.left-content div.box.details ul li {
+        display: block;
+        padding-left: 1em;
+        padding-right: 1em;
+        border-color: #f5f5f5;
+        border-width: 0;
+        color: #636c72;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0; }
+        body.front.grower div.main.container div.left-content div.box.details ul li.sub {
+          border-top-width: 1px; }
+          body.front.grower div.main.container div.left-content div.box.details ul li.sub:first-child {
+            border-top: 0; }
+        body.front.grower div.main.container div.left-content div.box.details ul li.heading {
+          margin-top: 0.5em;
+          background-color: #f5f5f5;
+          color: #4c4c4c;
+          font-weight: 400; }
+        body.front.grower div.main.container div.left-content div.box.details ul li span.inactive {
+          text-decoration: line-through;
+          color: #b2b2b2; }
+        body.front.grower div.main.container div.left-content div.box.details ul li i {
+          opacity: 0.75; }
+          body.front.grower div.main.container div.left-content div.box.details ul li i.fa-check {
+            color: #5cb85c; }
+          body.front.grower div.main.container div.left-content div.box.details ul li i.fa-times {
+            color: #b2b2b2; }
+      body.front.grower div.main.container div.left-content div.box.details p {
+        font-weight: 300;
+        padding-left: 15px; }
+    body.front.grower div.main.container div.left-content div.box.map {
+      padding: 0;
+      height: 250px; }
+      body.front.grower div.main.container div.left-content div.box.map div#map {
+        width: 100%;
+        height: 100%;
+        -webkit-border-top-right-radius: 0;
+        -webkit-border-bottom-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        -webkit-border-top-left-radius: 0;
+        -moz-border-radius-topright: 0;
+        -moz-border-radius-bottomright: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        -moz-border-radius-topleft: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box; }
+  body.front.grower div.main.container div.right-content div.name {
+    color: #4c4c4c;
+    font-size: 2em;
+    font-weight: 500; }
+    body.front.grower div.main.container div.right-content div.name small {
+      color: #b2b2b2;
+      font-weight: 100; }
+    body.front.grower div.main.container div.right-content div.name span {
+      border-bottom: 3px solid #00A669; }
+  body.front.grower div.main.container div.bio {
+    margin: 1em 0;
+    color: #636c72; }
+  body.front.grower div.main.container div.location {
+    color: #4c4c4c;
+    font-weight: 500; }
+  body.front.grower div.main.container div.joined {
+    color: #636c72;
+    font-weight: 300; }
+  body.front.grower div.main.container div.review-count {
+    margin: 1em 0; }
+    body.front.grower div.main.container div.review-count div {
+      display: inline-block;
+      height: 2em;
+      width: 2em;
+      padding: 0.5em;
+      margin-right: 0.25em;
+      border: 1px solid #00A669;
+      background-color: #fff;
+      line-height: 1;
+      color: #00A669;
+      text-align: center;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px; }
+    body.front.grower div.main.container div.review-count strong {
+      color: #636c72; }
+  body.front.grower div.main.container div.set {
+    margin-top: 1.25em; }
+    body.front.grower div.main.container div.set div.title {
+      font-size: 1.5em;
+      font-weight: 100;
+      color: #b2b2b2; }
+      body.front.grower div.main.container div.set div.title strong {
+        color: #4c4c4c; }
+    body.front.grower div.main.container div.set div.subtitle {
+      margin: 0.5em 0;
+      color: #636c72; }
+  body.front.grower div.main.container div.card {
+    border-color: #f5f5f5; }
+    body.front.grower div.main.container div.card div.card-block {
+      padding: 1.25rem; }
+      body.front.grower div.main.container div.card div.card-block h6.card-subtitle {
+        color: #b2b2b2;
+        padding: 0.25rem 0; }
+      body.front.grower div.main.container div.card div.card-block p.card-text {
+        margin-top: 0.25rem;
+        color: #7f7f7f; }
+        body.front.grower div.main.container div.card div.card-block p.card-text span.quantity {
+          padding: 0.15rem 0.25rem;
+          -webkit-border-radius: 0.15rem;
+          -moz-border-radius: 0.15rem;
+          border-radius: 0.15rem; }
+  body.front.grower div.main.container div.review-block {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 0;
+    border-top: 1px solid #f5f5f5; }
+    body.front.grower div.main.container div.review-block div.reviewer-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 75px;
+      width: 75px;
+      border: 2px solid #f2f2f2;
+      background-size: cover;
+      background-position: center center;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%; }
+    body.front.grower div.main.container div.review-block div.review-content {
+      display: flex;
+      flex-grow: 2;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 15px; }
+      body.front.grower div.main.container div.review-block div.review-content div.quote {
+        color: #636c72; }
+        body.front.grower div.main.container div.review-block div.review-content div.quote:before {
+          content: '\0022';
+          margin-right: -3px; }
+        body.front.grower div.main.container div.review-block div.review-content div.quote:after {
+          content: '\0022';
+          margin-left: -3px; }
+      body.front.grower div.main.container div.review-block div.review-content div.reviewer-details small {
+        color: #4c4c4c;
+        font-weight: 500; }
+      body.front.grower div.main.container div.review-block div.review-content div.reviewed-on {
+        color: #b2b2b2; }
+
+body.front.food-listing div.main.container {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+  body.front.food-listing div.main.container div.middle-content h3.name {
+    color: #4c4c4c;
+    font-size: 2em;
+    font-weight: 500; }
+    body.front.food-listing div.main.container div.middle-content h3.name small {
+      color: #b2b2b2;
+      font-weight: 100; }
+    body.front.food-listing div.main.container div.middle-content h3.name span {
+      border-bottom: 3px solid #00A669; }
+  body.front.food-listing div.main.container div.middle-content div.bio {
+    margin: 1em 0;
+    color: #636c72; }
+  body.front.food-listing div.main.container div.box {
+    border: 1px solid #f5f5f5;
+    border-bottom-width: 0px; }
+    body.front.food-listing div.main.container div.box:first-child {
+      -webkit-border-top-right-radius: 0.25rem;
+      -webkit-border-bottom-right-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -webkit-border-top-left-radius: 0.25rem;
+      -moz-border-radius-topright: 0.25rem;
+      -moz-border-radius-bottomright: 0;
+      -moz-border-radius-bottomleft: 0;
+      -moz-border-radius-topleft: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0.25rem;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box; }
+      body.front.food-listing div.main.container div.box:first-child.photo img {
+        -webkit-border-top-right-radius: 0.25rem;
+        -webkit-border-bottom-right-radius: 0;
+        -webkit-border-bottom-left-radius: 0;
+        -webkit-border-top-left-radius: 0.25rem;
+        -moz-border-radius-topright: 0.25rem;
+        -moz-border-radius-bottomright: 0;
+        -moz-border-radius-bottomleft: 0;
+        -moz-border-radius-topleft: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0.25rem;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box; }
+    body.front.food-listing div.main.container div.box:last-child {
+      border-bottom-width: 1px;
+      -webkit-border-top-right-radius: 0;
+      -webkit-border-bottom-right-radius: 0.25rem;
+      -webkit-border-bottom-left-radius: 0.25rem;
+      -webkit-border-top-left-radius: 0;
+      -moz-border-radius-topright: 0;
+      -moz-border-radius-bottomright: 0.25rem;
+      -moz-border-radius-bottomleft: 0.25rem;
+      -moz-border-radius-topleft: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+      border-top-left-radius: 0;
+      -webkit-background-clip: padding-box;
+      -moz-background-clip: padding;
+      background-clip: padding-box; }
+      body.front.food-listing div.main.container div.box:last-child.photo img {
+        -webkit-border-top-right-radius: 0;
+        -webkit-border-bottom-right-radius: 0.25rem;
+        -webkit-border-bottom-left-radius: 0.25rem;
+        -webkit-border-top-left-radius: 0;
+        -moz-border-radius-topright: 0;
+        -moz-border-radius-bottomright: 0.25rem;
+        -moz-border-radius-bottomleft: 0.25rem;
+        -moz-border-radius-topleft: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box; }
+    body.front.food-listing div.main.container div.box div.header {
+      padding: 0.5rem 1.5rem;
+      background-color: #4c4c4c;
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: 500; }
+      body.front.food-listing div.main.container div.box div.header small {
+        font-weight: 100; }
+    body.front.food-listing div.main.container div.box div.content {
+      padding: 1rem 1.5rem 1.5rem; }
+    body.front.food-listing div.main.container div.box div.btn-group {
+      width: 100%;
+      margin: 0 auto 10px auto; }
+      body.front.food-listing div.main.container div.box div.btn-group button {
+        flex-grow: 1;
+        font-size: 0.85em;
+        text-align: center;
+        color: #636c72; }
+        body.front.food-listing div.main.container div.box div.btn-group button:hover {
+          background-color: #7b868d;
+          border-color: #7b868d;
+          color: #fff; }
+        body.front.food-listing div.main.container div.box div.btn-group button.active {
+          background: #636c72;
+          border-color: #636c72;
+          color: #fff; }
+    body.front.food-listing div.main.container div.box.map {
+      padding: 0;
+      height: 250px; }
+      body.front.food-listing div.main.container div.box.map div#map {
+        width: 100%;
+        height: 100%;
+        -webkit-border-top-right-radius: 0;
+        -webkit-border-bottom-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        -webkit-border-top-left-radius: 0;
+        -moz-border-radius-topright: 0;
+        -moz-border-radius-bottomright: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        -moz-border-radius-topleft: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 0;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box; }
+  body.front.food-listing div.main.container div.set {
+    margin-top: 2em; }
+    body.front.food-listing div.main.container div.set div.title {
+      font-size: 1.5em;
+      font-weight: 100;
+      color: #b2b2b2; }
+      body.front.food-listing div.main.container div.set div.title strong {
+        color: #4c4c4c; }
+    body.front.food-listing div.main.container div.set div.subtitle {
+      margin: 0.5em 0;
+      color: #636c72; }
+    body.front.food-listing div.main.container div.set div.callout {
+      position: relative; }
+      body.front.food-listing div.main.container div.set div.callout:not(:last-child) {
+        margin-bottom: 40px; }
+        body.front.food-listing div.main.container div.set div.callout:not(:last-child):after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          bottom: -20px;
+          border-bottom: 1px solid #f5f5f5; }
+      body.front.food-listing div.main.container div.set div.callout h6 {
+        margin-bottom: 0.5em;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #636c72; }
+      body.front.food-listing div.main.container div.set div.callout p {
+        color: #b2b2b2; }
+        body.front.food-listing div.main.container div.set div.callout p:not(:last-child) {
+          margin-bottom: 0.5em; }
+  body.front.food-listing div.main.container div.grower-title div.name, body.front.food-listing div.main.container div.grower-title div.rating {
+    display: inline-block;
+    vertical-align: middle; }
+  body.front.food-listing div.main.container div.grower-title div.name {
+    padding-right: 5px;
+    font-weight: bold;
+    font-size: 18px; }
+  body.front.food-listing div.main.container div.grower-title div.rating {
+    padding: 0 3px;
+    border: 1px solid #f0f0f0;
+    background-color: #fff;
+    font-size: 0.75em;
+    color: #3FC592;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
+    body.front.food-listing div.main.container div.grower-title div.rating i {
+      line-height: 18px; }
+  body.front.food-listing div.main.container div.grower-location {
+    padding-top: 0.75em;
+    color: #4c4c4c;
+    font-weight: 400;
+    font-size: 0.85em; }
 
 /**
 * Modal Styles
@@ -255,5 +654,8 @@ div.main.container {
 #sign-up-modal div.modal-footer, #log-in-modal div.modal-footer {
   text-align: center;
   display: block; }
+
+main {
+  padding-bottom: 48px; }
 
 /*# sourceMappingURL=front.css.map */

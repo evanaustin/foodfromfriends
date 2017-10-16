@@ -26,7 +26,7 @@
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>">Map</a>
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>">Search</a>
                 </li>
 
                 <li class="nav-item">
