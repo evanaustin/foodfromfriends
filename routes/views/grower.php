@@ -116,19 +116,27 @@
                                     <span><?php echo $name; ?></span>
                                 </div>
 
-                                <div class="bio">
-                                    <?php echo $bio; ?>
-                                </div>
-                                    
-                                <div class="location">
-                                    <?php echo $city . ', ' . $state . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
-                                </div>
-
-                                <div class="joined">
-                                    Joined in <?php echo date('F Y', $joined_on); ?>
-                                </div>
-
                                 <?php
+                                
+                                if (!empty($bio)) {
+
+                                    ?>
+                                
+                                    <div class="bio">
+                                        <?php echo $bio; ?>
+                                    </div>
+                                        
+                                    <div class="location">
+                                        <?php echo $city . ', ' . $state . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
+                                    </div>
+
+                                    <div class="joined">
+                                        Joined in <?php echo date('F Y', $joined_on); ?>
+                                    </div>
+
+                                    <?php
+                                
+                                }
 
                                 if (!empty($reviews)) {
 
