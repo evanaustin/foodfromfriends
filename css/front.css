@@ -619,6 +619,7 @@ body.front.food-listing div.main.container {
     body.front.food-listing div.main.container div.grower-title div.rating i {
       line-height: 18px; }
   body.front.food-listing div.main.container div.grower-location {
+    padding-top: 0.75em;
     color: #4c4c4c;
     font-weight: 400;
     font-size: 0.85em; }
