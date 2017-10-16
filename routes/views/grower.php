@@ -174,19 +174,16 @@
                                             <div class="col-md-4">
                                             <!-- <div class="<?php //echo $tile_width; ?>"> -->
                                                 <div class="card animated zoomIn">
-                                                
-                                                    <?php
-                                                
-                                                    img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top');
-
-                                                    ?>
+                                                    <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
+                                                        <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top'); ?>
+                                                    </a>
 
                                                     <div class="card-block d-flex flex-row">
                                                         <div class="listing-info d-flex flex-column">
                                                             <h4 class="card-title">
-                                                                <!-- <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>"> -->
+                                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
                                                                     <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
-                                                                <!-- </a> -->
+                                                                </a>
                                                             </h4>
                                                             
                                                             <h6 class="card-subtitle">
