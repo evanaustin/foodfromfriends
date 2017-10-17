@@ -10,18 +10,19 @@
 /**
  * Box Model, Html & Body
  */
-html, body, [canvas=container], [off-canvas] {
+/* html, body,  */
+[canvas=container], [off-canvas] {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden; }
-
+/* html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+} */
 /**
  * Canvas
  */
