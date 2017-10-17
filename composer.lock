@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a0bf9ed8ce8f68a9700b682981ece13",
+    "content-hash": "7d7c732e0b3f3a99e49777cd318c2dd7",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -469,52 +469,12 @@
                 "sendgrid"
             ],
             "time": "2017-07-01T04:30:16+00:00"
-        },
-        {
-            "name": "wixel/gump",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Wixel/GUMP.git",
-                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/1c3f6cb68667edd5c92f879f2a0a429318bac642",
-                "reference": "1c3f6cb68667edd5c92f879f2a0a429318bac642",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "gump.class.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sean Nieuwoudt",
-                    "homepage": "https://wixelhq.com"
-                },
-                {
-                    "name": "Filis Futsarov",
-                    "homepage": "https://filis.me"
-                }
-            ],
-            "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
-            "homepage": "https://wixelhq.com/",
-            "time": "2017-08-16 10:04:34"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "wixel/gump": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
