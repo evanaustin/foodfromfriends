@@ -99,9 +99,9 @@ map.on('load', function() {
                             '<div class="name">' +
                                 e.features[0].properties.name +
                             '</div>' +
-                            '<div class="rating">' +
+                            /* '<div class="rating">' +
                                 e.features[0].properties.rating +
-                            '</div>' +
+                            '</div>' + */
                         '</div>' +
                         '<div class="distance">' +
                             e.features[0].properties.distance +
