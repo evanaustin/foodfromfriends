@@ -1,10 +1,6 @@
 <!-- cont div.container-fluid -->
     <!-- cont div.row -->
         <!-- cont main -->
-            <pre>
-                <?php //print_r($growers); ?>
-            </pre>
-
             <div class="main">
                 <div id="mapbox">
                     <div id="map"></div>
