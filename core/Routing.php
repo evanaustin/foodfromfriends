@@ -3,7 +3,9 @@
 class Routing {
     public
         $path,
+        $landing,
         $fullpage,
+        $unique,
         $template,
         $section,
         $subsection,
@@ -16,20 +18,19 @@ class Routing {
 
         $exp_path  = explode('/', $this->path);
 
-        if ($this->path == 'splash') {
-            $this->template = 'splash';
-        } else if ($this->path == 'log-in') {
-            $this->template = 'log-in';
-        } else if ($this->path == 'early-access-invitation') {
-            $this->template = 'early-access-invitation';
-        } else if ($this->path == 'team-member-invitation') {
-            $this->template = 'team-member-invitation';
-        } else if ($this->path == 'stripe-atlas') {
-            $this->template = 'stripe-atlas';
-        } else if ($this->path == 'map') {
-            $this->template = 'map';
-        } else if ($exp_path[0] == 'dashboard') {
+        $this->unique = [
+            'splash',
+            'early-access-invitation',
+            'team-member-invitation',
+            'stripe-atlas',
+            'log-in',
+            'map'
+        ];
+
+        if ($exp_path[0] == 'dashboard') {
             $this->template = 'dashboard';
+        } else if (in_array($this->path, $this->unique)) {
+            $this->template = $this->path;
         } else {
             $this->template = 'front';
         }
