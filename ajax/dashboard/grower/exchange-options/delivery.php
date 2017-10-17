@@ -67,11 +67,17 @@ if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
     if (!$added) quit('We could not add your delivery preferences');
 }
 
-// reinitialize User for fresh check
+// reinitialize User & Operation for fresh check
 $User = new User([
     'DB' => $DB,
     'id' => $USER['id']
 ]);
+
+if (!empty($User->GrowerOperation)) {
+    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
+        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
+    }
+}
 
 $User->GrowerOperation->check_active($User);
 

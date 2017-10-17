@@ -244,11 +244,15 @@ if (isset($_POST['images'])) {
 }
 
 if ($User->GrowerOperation) {
-    // reinitialize User for fresh check
+    // reinitialize User & Operation for fresh check
     $User = new User([
         'DB' => $DB,
         'id' => $USER['id']
     ]);
+
+    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
+        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
+    }
 
     $User->GrowerOperation->check_active($User);
 }

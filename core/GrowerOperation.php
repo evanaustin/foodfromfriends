@@ -139,6 +139,8 @@ class GrowerOperation extends Base {
             
             $this->is_active = 0;
         }
+
+        return $this->is_active;
     }
 
     public function get_team_members() {
@@ -206,46 +208,20 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results[0]['grower_operation_id'] : false;
     }
 
-    /*
-    * moved from Grower (needs to be refactored - don't pull data that User would otherwise have)
-    */
-    public function pull_all() {
+    public function pull_all_active() {
         $results = $this->DB->run('
             SELECT 
-                u.id,
-                u.first_name,
-                ua.address_line_1,
-                ua.address_line_2,
-                ua.city,
-                ua.state,
-                ua.zipcode,
-                ua.latitude,
-                ua.longitude,
-                upi.filename,
-                upi.ext,
-                COUNT(DISTINCT fl.id) AS listings,
-                AVG(gr.rating) AS rating
+                go.id,
+                gom.user_id
             
             FROM grower_operations go
 
             JOIN grower_operation_members gom
                 ON gom.grower_operation_id = go.id
 
-            JOIN users u
-                ON u.id = gom.user_id
-            
-            JOIN user_addresses ua
-                ON ua.user_id = u.id
-            
-            JOIN user_profile_images upi
-                ON upi.user_id = u.id
-            
-            LEFT JOIN food_listings fl
-                ON fl.grower_operation_id = go.id
+            WHERE go.is_active = 1
+                AND gom.permission = 2
 
-            LEFT JOIN grower_ratings gr
-                ON gr.user_id = u.id
-            
             GROUP BY go.id
         ');
 
