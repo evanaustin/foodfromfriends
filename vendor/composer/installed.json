@@ -478,45 +478,5 @@
             "rest",
             "sendgrid"
         ]
-    },
-    {
-        "name": "wixel/gump",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Wixel/GUMP.git",
-            "reference": "c4f97a8c0e3d8c3e7778866d549af5173946549c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Wixel/GUMP/zipball/c4f97a8c0e3d8c3e7778866d549af5173946549c",
-            "reference": "c4f97a8c0e3d8c3e7778866d549af5173946549c",
-            "shasum": ""
-        },
-        "time": "2017-09-28T15:51:24+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "files": [
-                "gump.class.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Sean Nieuwoudt",
-                "homepage": "https://wixelhq.com"
-            },
-            {
-                "name": "Filis Futsarov",
-                "homepage": "https://filis.me"
-            }
-        ],
-        "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
-        "homepage": "https://wixelhq.com/"
     }
 ]
