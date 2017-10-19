@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d7c732e0b3f3a99e49777cd318c2dd7",
+    "content-hash": "9a0bf9ed8ce8f68a9700b682981ece13",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.35.2",
+            "version": "3.36.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8"
+                "reference": "210958295921f0004d0fdc38bc9aefe33ef2a3de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8",
-                "reference": "a2f01d9e9ed93c1e121d2f4450ae0a047fbbb6e8",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/210958295921f0004d0fdc38bc9aefe33ef2a3de",
+                "reference": "210958295921f0004d0fdc38bc9aefe33ef2a3de",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-08-30T16:17:20+00:00"
+            "time": "2017-10-18T18:46:11+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -374,16 +374,16 @@
         },
         {
             "name": "sendgrid/php-http-client",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sendgrid/php-http-client.git",
-                "reference": "bec48e0e2e41331438ba7872805b86c45387178d"
+                "reference": "929018c62b7fcd99b3b356216ae75fff4d47b5a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/bec48e0e2e41331438ba7872805b86c45387178d",
-                "reference": "bec48e0e2e41331438ba7872805b86c45387178d",
+                "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/929018c62b7fcd99b3b356216ae75fff4d47b5a1",
+                "reference": "929018c62b7fcd99b3b356216ae75fff4d47b5a1",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "rest",
                 "sendgrid"
             ],
-            "time": "2017-05-05T06:15:41+00:00"
+            "time": "2017-09-13T16:52:38+00:00"
         },
         {
             "name": "sendgrid/sendgrid",
@@ -469,12 +469,52 @@
                 "sendgrid"
             ],
             "time": "2017-07-01T04:30:16+00:00"
+        },
+        {
+            "name": "wixel/gump",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Wixel/GUMP.git",
+                "reference": "c4f97a8c0e3d8c3e7778866d549af5173946549c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/c4f97a8c0e3d8c3e7778866d549af5173946549c",
+                "reference": "c4f97a8c0e3d8c3e7778866d549af5173946549c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "gump.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sean Nieuwoudt",
+                    "homepage": "https://wixelhq.com"
+                },
+                {
+                    "name": "Filis Futsarov",
+                    "homepage": "https://filis.me"
+                }
+            ],
+            "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
+            "homepage": "https://wixelhq.com/",
+            "time": "2017-09-28 15:51:24"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "wixel/gump": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
