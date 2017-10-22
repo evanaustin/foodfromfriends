@@ -120,8 +120,7 @@ class Order extends Base {
             'grower_operation_id' => $GrowerOperation->id
         ]);
 
-        // Refresh the cart
-        $this->update_cart();
+        $this->load_growers();
     }
 
     /**
@@ -135,7 +134,7 @@ class Order extends Base {
 
         $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->delete();
 
-        // If this was the only listing for this seller...
+        // If this was the only listing for this grower, remove the OrderGrower entirely
         if (count($this->Growers[$FoodListing->grower_operation_id]->FoodListings) == 1) {
             $this->Growers[$FoodListing->grower_operation_id]->delete();
         }
