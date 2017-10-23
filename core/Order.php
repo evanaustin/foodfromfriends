@@ -54,6 +54,8 @@ class Order extends Base {
                 'user_id' => $user_id,
             ]);
 
+            // @todo: set shipping address
+
             $order_id = $result['last_insert_id'];
         } else {
             $order_id = $results[0]['id'];
@@ -169,14 +171,13 @@ class Order extends Base {
      * @param string $type Either `delivery`, `pickup`, or `meetup`
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
      * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
-     * @param int|null $user_address_id Buyer's shipping address ID if opting for delivery
      */
-    public function set_exchange_method(GrowerOperation $GrowerOperation, $type, $delivery_settings_id = null, $user_address_id = null, $meetup_settings_id = null) {
+    public function set_exchange_method(GrowerOperation $GrowerOperation, $type, $delivery_settings_id = null, $meetup_settings_id = null) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
-        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $delivery_settings_id, $user_address_id, $meetup_settings_id);
+        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $delivery_settings_id, $this->user_address_id, $meetup_settings_id);
 
         // Refresh the cart
         $this->update_cart();
@@ -187,7 +188,7 @@ class Order extends Base {
      * and totals in the database and loads those properties into the object, ensuring everything is 
      * up-to-date.
      */
-    public function update_cart() {
+    private function update_cart() {
         // Make sure we have the latest grower info in this object
         $this->load_growers();
 
