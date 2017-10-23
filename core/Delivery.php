@@ -28,5 +28,3 @@ class Delivery extends Base {
         return (isset($results[0])) ? $results[0] : false;
     }
 }
-
-?>

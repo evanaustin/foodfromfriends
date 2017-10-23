@@ -88,8 +88,38 @@ class Order extends Base {
      *
      * @todo Write this
      */
-    public function calculate_exchange_fee() {
+    public function calculate_exchange_fee($user_address_id) {
+        if (isset($this->delivery_settings_id) && $this->delivery_settings_id > 0) {
+            $results = $this->DB->run('SELECT latitude, longitude FROM user_addresses WHERE id = :id', [
+                'id' => $user_address_id
+            ]);
 
+            $results_grower = $this->DB->run('SELECT latitude, longitude FROM grower_operation_addresses WHERE id = :id', [
+                'id' => $this->grower_operation_id
+            ]);
+
+            $distance = getDistance(
+                ['lat' => $results[0]['latitude'], 'lon' = $results[0]['longitude'], 
+                ['lat' => $results_grower[0]['latitude'], 'lon' = $results_grower[0]['longitude'], 
+            );
+
+            $delivery_results = $this->DB->run('SELECT * FROM delivery_settings WHERE id = :id LIMIT 1', [
+                'id' => $this->delivery_settings_id
+            ]);
+
+            if ($distance > $delivery_results[0]['free_distance']) {
+                if ($distance > $delivery_results[0]['distance']) {
+                    throw new \Exception('The grower does not deliver this far away.');
+                }
+
+                $exchange_fee = $delivery_results[0]['fee'] * $distance;
+            } else {
+                $exchange_fee = 0;
+            }
+        } else {
+            $exchange_fee = 0;
+        }
+        
     }
 
     /**

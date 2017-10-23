@@ -173,7 +173,7 @@ class Order extends Base {
         // Set food listing prices and totals
         foreach ($this->Growers as $OrderGrower) {
             $OrderGrower->sync_food_listing_prices();
-            $OrderGrower->calculate_exchange_fee();
+            $OrderGrower->calculate_exchange_fee($this->user_address_id);
             $OrderGrower->calculate_total();
         }
 
