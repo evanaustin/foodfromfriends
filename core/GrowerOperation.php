@@ -254,6 +254,43 @@ class GrowerOperation extends Base {
         return (!empty($slug) ? $slug . '_' . $code : $code);
     }
 
-}
+    /**
+     * Returns an array of Order objects for all orders that included items from this grower.  Note that
+     * data for all growers in the order is present in each Order->Growers array, so on display you'll
+     * have to show only the data for this grower, which is present in Order->Growers[operation_id].
+     *
+     * By default this method returns all orders.  To return only open orders (ones that haven't been
+     * fulfilled), pass in a `$subset` argument value of `open`.  To return fulfilled orders, pass
+     * in `fulfilled`.
+     *
+     * @param string|null $subset Either `all`, `open`, or `fulfilled`.  Defaults to `all`.
+     * @return array Array of `Order` objects
+     */
+    public function get_orders($subset = 'all') {
+        if ($subset == 'open') {
+            $where = 'AND fulfilled_on IS NULL';
+        } else if ($subset == 'fulfilled') {
+            $where = 'AND fulfilled_on IS NOT NULL';
+        } else {
+            $where = '';
+        }
 
-?>
+        $results = $this->DB->run('
+            SELECT o.id
+            FROM order_growers og
+            INNER JOIN orders o ON o.id = og.order_id
+            WHERE og.grower_operation_id = :operation_id ' . $where . '
+        ', [
+            'operation_id' => $this->id
+        ]);
+
+        $Orders = [];
+
+        foreach ($results as $result) {
+            $Orders []= new Order(['id' => $result['id']]);
+        }
+
+        return $Orders;
+    }
+
+}
