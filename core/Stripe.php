@@ -226,4 +226,28 @@ class Stripe {
 
         return $subscription;
     }
+
+    /**
+     * Retrieves all of a customer's cards.  Well, retrieves the first ten (Stripe-imposed
+     * limit; they do have paging options.  See https://stripe.com/docs/api#list_cards).
+     *
+     * @param string $stripe_customer_id
+     * @return array Array of \Stripe\Card objects
+     */
+    public function retrieve_cards($stripe_customer_id) {
+        try {
+            $cards = \Stripe\Customer::retrieve($stripe_customer_id)->sources->all([
+  'limit' => 10, 'object' => 'card']);
+        } catch (\Stripe\Error\RateLimit $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\Authentication $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\ApiConnection $e) {
+            $this->handle_stripe_exception($e);
+        }
+
+        return $cards;
+    }
 }
