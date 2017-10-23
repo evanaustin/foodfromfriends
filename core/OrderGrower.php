@@ -93,9 +93,10 @@ class OrderGrower extends Base {
      * @param string $type Either `delivery`, `pickup`, or `meetup`
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
      * @param int|null $user_address_id Buyer's shipping address if opting for delivery
+     * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      * @throws \Exception If delivery is out of range or addresses couldn't be found
      */
-    public function set_exchange_method($type, $delivery_settings_id = null, $user_address_id = null) {
+    public function set_exchange_method($type, $delivery_settings_id = null, $user_address_id = null, $meetup_settings_id = null) {
         $type = strtolower($type);
 
         if ($type == 'delivery') {
@@ -134,6 +135,10 @@ class OrderGrower extends Base {
             $delivery_settings_id = 0;
         }
 
+        if ($type != 'meetup') {
+            $meetup_settings_id = 0;
+        }
+
         $this->DB->run('
             UPDATE order_growers 
             SET 
@@ -146,6 +151,7 @@ class OrderGrower extends Base {
             'type' => $type,
             'delivery_settings_id' => $delivery_settings_id,
             'distance' => $distance,
+            'meetup_settings_id' => $meetup_settings_id,
             'id' => $this->id
         ]);
 
@@ -153,6 +159,7 @@ class OrderGrower extends Base {
         $this->exchange_type = $type;
         $this->delivery_settings_id = $delivery_settings_id;
         $this->distance = $distance;
+        $this->meetup_settings_id = $meetup_settings_id;
     }
 
     /**
