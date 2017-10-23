@@ -113,6 +113,7 @@ class OrderGrower extends Base {
      */
     public function set_exchange_method($user_id = null, $delivery_settings_id = null, $meetup_settings_id = null) {
         if (isset($delivery_settings_id)) {
+            // Grab coordinates for buyer and seller and calculate the distance between them
             $results = $this->DB->run('
                 SELECT latitude AS lat1, longitude AS lon1 
                 FROM user_addresses 
@@ -155,6 +156,7 @@ class OrderGrower extends Base {
             $meetup_settings_id = 0;
         }
 
+        // Save exchange settings for this grower
         $this->DB->run('
             UPDATE order_growers 
             SET 
@@ -194,9 +196,11 @@ class OrderGrower extends Base {
                 $exchange_fee = 0;
             }            
         } else {
+            // Only delivery incurs a fee.  For everything else, charge $0
             $exchange_fee = 0;
         }
         
+        // Save the fee for this grower
         $this->DB->run('
             UPDATE order_growers 
             SET 
