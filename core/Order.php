@@ -186,6 +186,11 @@ class Order extends Base {
      * up-to-date.
      */
     private function update_cart() {
+        // Orders once paid for are set in stone!
+        if ($this->is_cart !== true) {
+            throw new \Exception('This order is not a cart!');
+        }
+
         // Make sure we have the latest grower info in this object
         $this->load_growers();
 
