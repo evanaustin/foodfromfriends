@@ -260,10 +260,10 @@ class OrderGrower extends Base {
             WHERE id = :id
             LIMIT 1
         ', [
-            'fulfilled_on' => $fulfilled_on,
+            'fulfilled_on' => $now,
             'id' => $this->id
         ]);
 
-        $this->fulfilled_on = $fulfilled_on;
+        $this->fulfilled_on = $now;
     }
 }
