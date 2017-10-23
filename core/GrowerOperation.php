@@ -268,9 +268,9 @@ class GrowerOperation extends Base {
      */
     public function get_orders($subset = 'all') {
         if ($subset == 'open') {
-            $where = 'AND fulfilled_on IS NULL';
+            $where = 'AND og.fulfilled_on IS NULL';
         } else if ($subset == 'fulfilled') {
-            $where = 'AND fulfilled_on IS NOT NULL';
+            $where = 'AND og.fulfilled_on IS NOT NULL';
         } else {
             $where = '';
         }
