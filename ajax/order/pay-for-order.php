@@ -10,7 +10,8 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'stripe_token' => 'required'
+    'stripe_token' => 'max_len,50',
+    'stripe_card_id' => 'max_len,50'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -20,10 +21,21 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'stripe_token' => 'trim|sanitize_string'
+	'stripe_token' => 'trim|sanitize_string',
+	'stripe_card_id' => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
+
+// Require token OR card id
+$new_card = true;
+if (!isset($prepared_data['stripe_token']) || empty($prepared_data['stripe_token'])) {
+	$new_card = false;
+
+	if (!isset($prepared_data['stripe_card_id']) || empty($prepared_data['stripe_card_id'])) {
+		quit('No payment method specified.');
+	}
+}
 
 // Perform Stripe charge, mark order as paid, initialize payout data
 // ----------------------------------------------------------------------------
@@ -32,11 +44,25 @@ try {
 	$Order = new Order();
 	$Order = $Order->get_cart($User->id);
 
-	// Charge in Stripe
 	$Stripe = new \fff\Stripe();
-	$customer = $Stripe->create_customer($User->id, $User->first_name.' '.$User->last_name, $User->email);
-	$card = $Stripe->create_card($customer->id, $prepared_data['stripe_token']);
-	$charge = $Stripe->charge($customer->id, $card->id, $Order->total);
+
+	// Create Stripe customer if user doesn't already have one
+	if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
+		$customer = $Stripe->create_customer($User->id, $User->first_name.' '.$User->last_name, $User->email);
+	} else {
+		$customer = $Stripe->retrieve_customer($User->stripe_customer_id);
+	}
+
+	// Create card if it's a new one; otherwise load the card the customer requested
+	if ($new_card === true) {
+		$card = $Stripe->create_card($customer->id, $prepared_data['stripe_token']);
+		$card_id = $card->id;
+	} else {
+		$card_id = $prepared_data['stripe_card_id'];
+	}
+	
+	// Charge the customer
+	$charge = $Stripe->charge($customer->id, $card_id, $Order->total);
 
 	// Mark order as paid
 	$Order->mark_paid($charge->id);

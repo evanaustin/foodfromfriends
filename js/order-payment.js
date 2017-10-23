@@ -106,7 +106,8 @@ function pay(stripe_token) {
 $(document).ready(function() {
 	var card = configureCardElement();
 
-	$('#upgrade').on('submit', function(e) {
+    // Should perform a check inside here to see if the customer is using a new or existing card
+	$('#payment-form').on('submit', function(e) {
         e.preventDefault();
         getStripeToken(card);
     });
