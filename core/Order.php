@@ -162,6 +162,26 @@ class Order extends Base {
     }
 
     /**
+     * Sets the exchange method (delivery, pickup, meetup) the buyer want to use for the provided grower
+     * in this order.
+     *
+     * @param \GrowerOperation $GrowerOperation The seller
+     * @param string $type Either `delivery`, `pickup`, or `meetup`
+     * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
+     * @param int|null $user_address_id Buyer's shipping address ID if opting for delivery
+     */
+    public function set_exchange_method(GrowerOperation $GrowerOperation, $type, $delivery_settings_id = null, $user_address_id = null) {
+        if ($this->is_cart() !== true) {
+            throw new \Exception('Cannot add items to this order.');
+        }
+
+        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $delivery_settings_id, $user_address_id);
+
+        // Refresh the cart
+        $this->update_cart();
+    }
+
+    /**
      * This method should be called every time the cart is modified or instantiated.  It updates prices
      * and totals in the database and loads those properties into the object, ensuring everything is 
      * up-to-date.

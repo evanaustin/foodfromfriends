@@ -1,9 +1,10 @@
 <?php
  
-class Order extends Base {
+class OrderGrower extends Base {
 
     public 
-        $FoodListings;
+        $FoodListings,
+        $ExchangeMethod;
     
     protected
         $class_dependencies,
@@ -21,6 +22,7 @@ class Order extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->load_food_listings();
+            $this->load_exchange_method();
         }
     }
 
@@ -84,42 +86,108 @@ class Order extends Base {
     }
 
     /**
-     * Given the exchange method selected for this grower in this order, calculate the exchange fee.
+     * When a buyer sets the exchange method (delivery, pickup, meetup) they want to use for this grower
+     * in their order, we set some fundamental values here.
      *
-     * @todo Write this
+     * Call this via `Order->set_exchange_method()` so the cart is updated appropriately.
+     *
+     * @param string $type Either `delivery`, `pickup`, or `meetup`
+     * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
+     * @param int|null $user_address_id Buyer's shipping address if opting for delivery
+     * @throws \Exception If delivery is out of range or addresses couldn't be found
      */
-    public function calculate_exchange_fee($user_address_id) {
-        if (isset($this->delivery_settings_id) && $this->delivery_settings_id > 0) {
-            $results = $this->DB->run('SELECT latitude, longitude FROM user_addresses WHERE id = :id', [
-                'id' => $user_address_id
-            ]);
+    public function set_exchange_method($type, $delivery_settings_id = null, $user_address_id = null) {
+        $type = strtolower($type);
 
-            $results_grower = $this->DB->run('SELECT latitude, longitude FROM grower_operation_addresses WHERE id = :id', [
-                'id' => $this->grower_operation_id
-            ]);
+        if ($type == 'delivery') {
+            $results = $this->DB->run('
+                SELECT latitude AS lat1, longitude AS lon1 
+                FROM user_addresses 
+                WHERE id = :user_address_id
+
+                UNION
+
+                SELECT latitude AS lat2, longitude AS lon2 
+                FROM grower_operation_addresses 
+                WHERE grower_operation_id = :grower_operation_id
+            ');
+
+            if (!isset($results[0]['lat1']) || !isset($results[0]['lon1']) || !isset($results[0]['lat2']) || !isset($results[0]['lon2'])) {
+                throw new \Exception('Could not find addresses.');
+            }
 
             $distance = getDistance(
-                ['lat' => $results[0]['latitude'], 'lon' = $results[0]['longitude'], 
-                ['lat' => $results_grower[0]['latitude'], 'lon' = $results_grower[0]['longitude'], 
+                ['lat' => $results[0]['lat1'], 'lon' = $results[0]['lon1']], 
+                ['lat' => $results[0]['lat2'], 'lon' = $results[0]['lon2']]
             );
 
+            // Validate distance
             $delivery_results = $this->DB->run('SELECT * FROM delivery_settings WHERE id = :id LIMIT 1', [
+                'id' => $delivery_settings_id
+            ]);
+
+            // I'm assuming this is the max distance radius?
+            if ($distance > $delivery_results[0]['distance']) {
+                throw new \Exception('The grower does not deliver this far away.');
+            }
+        } else {
+            $distance = 0;
+            $delivery_settings_id = 0;
+        }
+
+        $this->DB->run('
+            UPDATE order_growers 
+            SET 
+                exchange_type = :type,
+                delivery_settings_id = :delivery_settings_id,
+                distance = :distance
+            WHERE id = :id
+            LIMIT 1
+        ', [
+            'type' => $type,
+            'delivery_settings_id' => $delivery_settings_id,
+            'distance' => $distance,
+            'id' => $this->id
+        ]);
+
+        // Update class properties
+        $this->exchange_type = $type;
+        $this->delivery_settings_id = $delivery_settings_id;
+        $this->distance = $distance;
+    }
+
+    /**
+     * Given the exchange method selected for this grower in this order, calculate and save the 
+     * exchange fee.
+     */
+    public function calculate_exchange_fee() {
+        if (isset($this->exchange_type) && $this->exchange_type == 'delivery') {
+            $results = $this->DB->run('SELECT * FROM delivery_settings WHERE id = :id LIMIT 1', [
                 'id' => $this->delivery_settings_id
             ]);
 
-            if ($distance > $delivery_results[0]['free_distance']) {
-                if ($distance > $delivery_results[0]['distance']) {
-                    throw new \Exception('The grower does not deliver this far away.');
-                }
-
-                $exchange_fee = $delivery_results[0]['fee'] * $distance;
+            if ($distance > $results[0]['free_distance']) {
+                $exchange_fee = $results[0]['fee'] * $distance;
             } else {
                 $exchange_fee = 0;
-            }
+            }            
         } else {
             $exchange_fee = 0;
         }
         
+        $this->DB->run('
+            UPDATE order_growers 
+            SET 
+                exchange_fee = :exchange_fee
+            WHERE id = :id
+            LIMIT 1
+        ', [
+            'exchange_fee' => $exchange_fee
+            'id' => $this->id
+        ]);
+
+        // Update class properties
+        $this->exchange_fee = $exchange_fee;
     }
 
     /**

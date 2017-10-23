@@ -1,6 +1,6 @@
 <?php
  
-class Order extends Base {
+class OrderFoodListing extends Base {
     
     protected
         $class_dependencies,
