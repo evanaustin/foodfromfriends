@@ -68,8 +68,8 @@ class OrderFoodListing extends Base {
             WHERE id = :id
             LIMIT 1
         ', [
-            'unit_price' => $FoodListing->unit_price,
-            'total' => $this->quantity * $FoodListing->unit_price,
+            'unit_price' => $FoodListing->price,
+            'total' => $this->quantity * $FoodListing->price,
             'id' => $this->id
         ]);
 
