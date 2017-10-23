@@ -122,7 +122,7 @@ class OrderGrower extends Base {
             );
 
             // Validate distance
-            $delivery_results = $this->DB->run('SELECT * FROM delivery_settings WHERE id = :id LIMIT 1', [
+            $delivery_results = $this->DB->run('SELECT distance FROM delivery_settings WHERE id = :id LIMIT 1', [
                 'id' => $delivery_settings_id
             ]);
 
@@ -168,7 +168,7 @@ class OrderGrower extends Base {
      */
     public function calculate_exchange_fee() {
         if (isset($this->exchange_type) && $this->exchange_type == 'delivery') {
-            $results = $this->DB->run('SELECT * FROM delivery_settings WHERE id = :id LIMIT 1', [
+            $results = $this->DB->run('SELECT free_distance, fee FROM delivery_settings WHERE id = :id LIMIT 1', [
                 'id' => $this->delivery_settings_id
             ]);
 
