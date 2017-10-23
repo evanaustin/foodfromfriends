@@ -246,4 +246,24 @@ class OrderGrower extends Base {
         $this->subtotal = $subtotal;
         $this->total = $total;
     }
+
+    /**
+     * Marks the items sold by this grower has having been fulfilled (given to the buyer).
+     */
+    public function mark_fulfilled() {
+        $now = \Time::now();
+
+        $this->DB->run('
+            UPDATE order_growers 
+            SET 
+                fulfilled_on = :fulfilled_on
+            WHERE id = :id
+            LIMIT 1
+        ', [
+            'fulfilled_on' => $fulfilled_on,
+            'id' => $this->id
+        ]);
+
+        $this->fulfilled_on = $fulfilled_on;
+    }
 }
