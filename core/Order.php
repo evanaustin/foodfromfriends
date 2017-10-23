@@ -45,7 +45,7 @@ class Order extends Base {
      * @return self
      */
     public function get_cart($user_id) {
-        $results = $this->DB->run('SELECT id FROM orders WHERE user_id=:user_id AND placed_on IS null', [
+        $results = $this->DB->run('SELECT id FROM orders WHERE user_id=:user_id AND placed_on IS NULL', [
             'user_id' => $user_id
         ]);
 
@@ -242,5 +242,35 @@ class Order extends Base {
         $this->exchange_fees = $exchange_fees;
         $this->fff_fee = $fff_fee;
         $this->total = $total;
+    }
+
+
+    /**
+     * After payment has been collected, this method should be called to convert the "cart" to an "order", 
+     * save payment details, and set up the payout.
+     */
+    public function mark_paid($stripe_transaction_id) {
+        $now = \Time::now();
+
+        $this->DB->run('
+            UPDATE orders 
+            SET 
+                stripe_transaction_id = :stripe_transaction_id, 
+                placed_on = :now
+            WHERE id = :id
+            LIMIT 1
+        ', [
+            'stripe_transaction_id' => $stripe_transaction_id,
+            'now' => $now,
+            'id' => $this->id
+        ]);
+
+        // Update class properties
+        $this->stripe_transaction_id = $stripe_transaction_id;
+        $this->placed_on = $now;
+
+        // Update payout
+        $Payout = new Payout();
+        $Payout->save_order($this);
     }
 }
