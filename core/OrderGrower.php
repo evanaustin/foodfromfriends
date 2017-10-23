@@ -91,26 +91,29 @@ class OrderGrower extends Base {
      * Call this via `Order->set_exchange_method()` so the cart is updated appropriately.
      *
      * @param string $type Either `delivery`, `pickup`, or `meetup`
+     * @param int|null $user_id Required if the goods are being delivered (to get the user's address)
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
-     * @param int|null $user_address_id Buyer's shipping address if opting for delivery
      * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      * @throws \Exception If delivery is out of range or addresses couldn't be found
      */
-    public function set_exchange_method($type, $delivery_settings_id = null, $user_address_id = null, $meetup_settings_id = null) {
+    public function set_exchange_method($type, $user_id = null, $delivery_settings_id = null, $meetup_settings_id = null) {
         $type = strtolower($type);
 
         if ($type == 'delivery') {
             $results = $this->DB->run('
                 SELECT latitude AS lat1, longitude AS lon1 
                 FROM user_addresses 
-                WHERE id = :user_address_id
+                WHERE user_id = :user_id
 
                 UNION
 
                 SELECT latitude AS lat2, longitude AS lon2 
                 FROM grower_operation_addresses 
                 WHERE grower_operation_id = :grower_operation_id
-            ');
+            ', [
+                'user_id' => $user_id,
+                'grower_operation_id' => $this->grower_operation_id
+            ]);
 
             if (!isset($results[0]['lat1']) || !isset($results[0]['lon1']) || !isset($results[0]['lat2']) || !isset($results[0]['lon2'])) {
                 throw new \Exception('Could not find addresses.');

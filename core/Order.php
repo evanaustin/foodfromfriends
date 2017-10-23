@@ -175,7 +175,7 @@ class Order extends Base {
             throw new \Exception('Cannot add items to this order.');
         }
 
-        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $delivery_settings_id, $this->user_address_id, $meetup_settings_id);
+        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $this->user_id, $delivery_settings_id, $meetup_settings_id);
 
         // Refresh the cart
         $this->update_cart();
@@ -193,7 +193,7 @@ class Order extends Base {
         // Set food listing prices and totals
         foreach ($this->Growers as $OrderGrower) {
             $OrderGrower->sync_food_listing_prices();
-            $OrderGrower->calculate_exchange_fee($this->user_address_id);
+            $OrderGrower->calculate_exchange_fee();
             $OrderGrower->calculate_total();
         }
 
@@ -273,27 +273,5 @@ class Order extends Base {
         // Update payout
         $Payout = new Payout();
         $Payout->save_order($this);
-    }
-
-    /**
-     * Sets the shipping address attached to this order
-     */
-    public function set_shipping_address($user_address_id) {
-        $this->DB->run('
-            UPDATE orders 
-            SET 
-                user_address_id = :user_address_id
-            WHERE id = :id
-            LIMIT 1
-        ', [
-            'user_address_id' => $user_address_id,
-            'id' => $this->id
-        ]);
-
-        // Update class properties
-        $this->user_address_id = $user_address_id;
-
-        // Update totals now that exchange method prices might've changed
-        $this->update_cart()
     }
 }
