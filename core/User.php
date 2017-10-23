@@ -133,6 +133,27 @@ class User extends Base {
         return false;
     }
 
-}
+    /**
+     * Returns an array of `Order` objects for each order this user has placed.
+     *
+     * @return array Array of `Order` objects
+     */
+    public function get_orders() {
+        $results = $this->DB->run('
+            SELECT id
+            FROM orders o
+            WHERE user_id = :user_id
+        ', [
+            'user_id' => $this->id
+        ]);
 
-?>
+        $Orders = [];
+
+        foreach ($results as $result) {
+            $Orders []= new Order(['id' => $result['id']]);
+        }
+
+        return $Orders;
+    }
+
+}

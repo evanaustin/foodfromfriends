@@ -255,7 +255,7 @@ class GrowerOperation extends Base {
     }
 
     /**
-     * Returns an array of Order objects for all orders that included items from this grower.  Note that
+     * Returns an array of `Order` objects for all orders that included items from this grower.  Note that
      * data for all growers in the order is present in each Order->Growers array, so on display you'll
      * have to show only the data for this grower, which is present in Order->Growers[operation_id].
      *
