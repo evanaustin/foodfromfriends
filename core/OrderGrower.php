@@ -3,8 +3,7 @@
 class OrderGrower extends Base {
 
     public 
-        $FoodListings,
-        $ExchangeMethod;
+        $FoodListings;
     
     protected
         $class_dependencies,
