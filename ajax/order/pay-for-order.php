@@ -10,8 +10,7 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'stripe_token' => 'required',
-	'user_address_id' => 'required|integer', // set it here?  use default address / let them choose?
+    'stripe_token' => 'required'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -21,8 +20,7 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'stripe_token' => 'trim|sanitize_string',
-	'user_address_id' => 'trim|sanitize_numbers'
+	'stripe_token' => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
