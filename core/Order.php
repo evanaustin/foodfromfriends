@@ -54,8 +54,6 @@ class Order extends Base {
                 'user_id' => $user_id,
             ]);
 
-            // @todo: set shipping address
-
             $order_id = $result['last_insert_id'];
         } else {
             $order_id = $results[0]['id'];
@@ -273,5 +271,27 @@ class Order extends Base {
         // Update payout
         $Payout = new Payout();
         $Payout->save_order($this);
+    }
+
+    /**
+     * Sets the shipping address attached to this order
+     */
+    public function set_shipping_address($user_address_id) {
+        $this->DB->run('
+            UPDATE orders 
+            SET 
+                user_address_id = :user_address_id
+            WHERE id = :id
+            LIMIT 1
+        ', [
+            'user_address_id' => $user_address_id,
+            'id' => $this->id
+        ]);
+
+        // Update class properties
+        $this->user_address_id = $user_address_id;
+
+        // Update totals now that exchange method prices might've changed
+        $this->update_cart()
     }
 }

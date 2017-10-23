@@ -144,6 +144,7 @@ class OrderGrower extends Base {
             SET 
                 exchange_type = :type,
                 delivery_settings_id = :delivery_settings_id,
+                meetup_settings_id = :meetup_settings_id,
                 distance = :distance
             WHERE id = :id
             LIMIT 1
