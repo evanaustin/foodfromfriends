@@ -30,13 +30,18 @@ $prepared_data = $Gump->run($validated_data);
 // Perform Stripe charge, mark order as paid, initialize payout data
 // ----------------------------------------------------------------------------
 try {
-	// Charge in Stripe
-	$stripe_transaction_id = 'xxx';
-
-	// Mark order as paid
+	// Load order
 	$Order = new Order();
 	$Order = $Order->get_cart($User->id);
-	$Order->mark_paid($stripe_transaction_id);
+
+	// Charge in Stripe
+	$Stripe = new \fff\Stripe();
+	$customer = $Stripe->create_customer($User->id, $User->first_name.' '.$User->last_name, $User->email);
+	$card = $Stripe->create_card($customer->id, $prepared_data['stripe_token']);
+	$charge = $Stripe->charge($customer->id, $card->id, $Order->total);
+
+	// Mark order as paid
+	$Order->mark_paid($charge->id);
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }

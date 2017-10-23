@@ -247,25 +247,27 @@ class Order extends Base {
     /**
      * After payment has been collected, this method should be called to convert the "cart" to an "order", 
      * save payment details, and set up the payout.
+     *
+     * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
      */
-    public function mark_paid($stripe_transaction_id) {
+    public function mark_paid($stripe_charge_id) {
         $now = \Time::now();
 
         $this->DB->run('
             UPDATE orders 
             SET 
-                stripe_transaction_id = :stripe_transaction_id, 
+                stripe_charge_id = :stripe_charge_id, 
                 placed_on = :now
             WHERE id = :id
             LIMIT 1
         ', [
-            'stripe_transaction_id' => $stripe_transaction_id,
+            'stripe_charge_id' => $stripe_charge_id,
             'now' => $now,
             'id' => $this->id
         ]);
 
         // Update class properties
-        $this->stripe_transaction_id = $stripe_transaction_id;
+        $this->stripe_charge_id = $stripe_charge_id;
         $this->placed_on = $now;
 
         // Update payout
