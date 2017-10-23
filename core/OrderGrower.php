@@ -85,21 +85,34 @@ class OrderGrower extends Base {
     }
 
     /**
+     * Returns either 'pickup', 'delivery', or 'meetup' based on what the user has selected for
+     * this grower.
+     *
+     * @return string
+     */
+    public function get_exchange_type() {
+        if (isset($this->delivery_settings_id) && $this->delivery_settings_id > 0) {
+            return 'delivery';
+        } else if (isset($this->meetup_settings_id) && $this->meetup_settings_id > 0) {
+            return 'meetup';
+        }
+
+        return 'pickup';
+    }
+
+    /**
      * When a buyer sets the exchange method (delivery, pickup, meetup) they want to use for this grower
      * in their order, we set some fundamental values here.
      *
      * Call this via `Order->set_exchange_method()` so the cart is updated appropriately.
      *
-     * @param string $type Either `delivery`, `pickup`, or `meetup`
      * @param int|null $user_id Required if the goods are being delivered (to get the user's address)
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
      * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      * @throws \Exception If delivery is out of range or addresses couldn't be found
      */
-    public function set_exchange_method($type, $user_id = null, $delivery_settings_id = null, $meetup_settings_id = null) {
-        $type = strtolower($type);
-
-        if ($type == 'delivery') {
+    public function set_exchange_method($user_id = null, $delivery_settings_id = null, $meetup_settings_id = null) {
+        if (isset($delivery_settings_id)) {
             $results = $this->DB->run('
                 SELECT latitude AS lat1, longitude AS lon1 
                 FROM user_addresses 
@@ -138,21 +151,19 @@ class OrderGrower extends Base {
             $delivery_settings_id = 0;
         }
 
-        if ($type != 'meetup') {
+        if (!isset($meetup_settings_id)) {
             $meetup_settings_id = 0;
         }
 
         $this->DB->run('
             UPDATE order_growers 
             SET 
-                exchange_type = :type,
                 delivery_settings_id = :delivery_settings_id,
                 meetup_settings_id = :meetup_settings_id,
                 distance = :distance
             WHERE id = :id
             LIMIT 1
         ', [
-            'type' => $type,
             'delivery_settings_id' => $delivery_settings_id,
             'distance' => $distance,
             'meetup_settings_id' => $meetup_settings_id,
@@ -160,7 +171,6 @@ class OrderGrower extends Base {
         ]);
 
         // Update class properties
-        $this->exchange_type = $type;
         $this->delivery_settings_id = $delivery_settings_id;
         $this->distance = $distance;
         $this->meetup_settings_id = $meetup_settings_id;
@@ -171,7 +181,9 @@ class OrderGrower extends Base {
      * exchange fee.
      */
     public function calculate_exchange_fee() {
-        if (isset($this->exchange_type) && $this->exchange_type == 'delivery') {
+        $exchange_type = $this->get_exchange_type();
+
+        if ($exchange_type == 'delivery') {
             $results = $this->DB->run('SELECT free_distance, fee FROM delivery_settings WHERE id = :id LIMIT 1', [
                 'id' => $this->delivery_settings_id
             ]);

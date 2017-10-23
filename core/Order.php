@@ -166,11 +166,10 @@ class Order extends Base {
      * in this order.
      *
      * @param \GrowerOperation $GrowerOperation The seller
-     * @param string $type Either `delivery`, `pickup`, or `meetup`
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
      * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      */
-    public function set_exchange_method(GrowerOperation $GrowerOperation, $type, $delivery_settings_id = null, $meetup_settings_id = null) {
+    public function set_exchange_method(GrowerOperation $GrowerOperation, $delivery_settings_id = null, $meetup_settings_id = null) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }

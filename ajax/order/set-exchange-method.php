@@ -11,8 +11,7 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
 	'grower_operation_id' => 'required|integer',
-    'exchange_type' => 'required|alpha', // 'delivery', 'pickup', 'meetup'
-	'delivery_settings_id' => 'required|integer',
+	'delivery_settings_id' => 'required|integer', // pass in 0 for this and meetup_settings_id if reverting to pickup
 	'meetup_settings_id' => 'required|integer'
 ]);
 
@@ -24,7 +23,6 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'grower_operation_id' => 'trim|sanitize_numbers',
-    'exchange_type' => 'trim|sanitize_string',
 	'delivery_settings_id' => 'trim|sanitize_numbers',
 	'meetup_settings_id' => 'trim|sanitize_numbers'
 ]);
