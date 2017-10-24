@@ -20,6 +20,10 @@ class Template {
         foreach ($construct as $k => $v) {
             $this->{$k} = $v;
         }
+
+        if ($Routing->template == 'front' || $Routing->template == 'map') {
+            array_push($this->scripts, 'js/front.js');
+        }
     }
 
 }
