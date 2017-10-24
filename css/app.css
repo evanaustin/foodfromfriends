@@ -378,6 +378,7 @@ nav#header.navbar {
     nav#header.navbar li.nav-item div.profile:after {
       border: 0; }
   nav#header.navbar div.dropdown-menu {
+    z-index: 9999;
     margin-top: 0.75rem;
     border-color: #eee;
     -webkit-border-radius: 0px;
