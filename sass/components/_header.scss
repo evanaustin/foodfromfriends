@@ -52,6 +52,7 @@ nav#header.navbar {
     }
 
     div.dropdown-menu {
+        z-index: 9999;
         margin-top: 0.75rem;
         border-color: #eee;
         @include rounded(0px);
