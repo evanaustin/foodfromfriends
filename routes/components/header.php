@@ -33,6 +33,10 @@
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>">Dashboard</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link toggle-right-sidebar"><i class="fa fa-shopping-cart"></i></a>
+                </li>
+
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Messages</a>
                 </li> -->
