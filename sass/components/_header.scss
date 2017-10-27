@@ -1,13 +1,11 @@
 nav#header.navbar {
-    /* height:
-        40px (brand) + 1.5rem (padding)
-        40px (brand) + 24px (padding) = 64px
-    */
-
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    /* computed height: 66px */
+    z-index: 99;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     background-color: #fff;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $edge-color;
+    // @include drop-shadow(0, 2px, 4px);
 
     @include phones() {
         div.navbar-collapse {
@@ -36,25 +34,84 @@ nav#header.navbar {
     }
 
     li.nav-item {
-        div.profile {
-            cursor: pointer;
-            height: 40px;
-            width: 40px;
-            border: 2px solid #f2f2f2;
-            background-size: cover;
-            background-position: center center;
-            @include rounded(50%);
+        // computed height: 48px
+        padding: 0 0.5em;
 
-            &:after {
-                border: 0;
+        a.nav-link {
+            cursor: pointer;
+
+            &.active {
+                i {
+                    background: $superlight-green;
+                    border: 1px solid $superlight-green;
+                    color: #fff;
+                    @include drop-shadow(0, 2px, 4px);
+                }
+            }
+
+            &:not(.active):hover {
+                i {
+                    border-top: 0.5px solid $lightedge-color;
+                    color: $superlight-green;
+                    @include transform(translateY(-2px));
+                    @include drop-shadow(0, 2px, 4px);
+                }
+            }
+
+            i {
+                padding: 0.5em;
+                background: transparent;
+                border: 1px solid transparent;
+                color: inherit;
+                @include rounded(0.25em);
+                @include transition(all .3s);
+            }
+        }
+
+        /* span {
+            border-bottom: 2px solid $light-gray;
+        } */
+
+        &.profile {
+            // computed height: 48px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+
+            .nav-link {
+                cursor: pointer;
+                height: 40px;
+                width: 40px;
+                border: 0.5px solid $edge-color;
+                background-size: cover;
+                background-position: center center;
+                @include rounded(50px);
+                @include drop-shadow(0, 2px, 4px);
+                @include transition(all .2s);
+    
+                &:hover {
+                    @include transform(translateY(-2px));
+                    @include drop-shadow(0, 5px, 20px);
+                }
+
+                &:after {
+                    border: 0;
+                }
             }
         }
     }
 
     div.dropdown-menu {
-        z-index: 9999;
+        z-index: 9998;
         margin-top: 0.75rem;
-        border-color: #eee;
-        @include rounded(0px);
+        border-color: $edge-color;
+        // @include rounded(0px);
+        @include drop-shadow(0, 2px, 4px);
+
+        a.dropdown-item {
+            &:hover {
+                background-color: $superlight-green;
+                color: #fff;
+            }
+        }
     }
 }
