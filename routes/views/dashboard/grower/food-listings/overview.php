@@ -53,18 +53,24 @@
                         ?>
 
                         <div class="col-md-4">
-                            <div class="card animated zoomIn hidden">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>">
-                                    <?php
-                                    
-                                    if (!empty($listing['filename'])) {
-                                        img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top');
-                                    } else {
-                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'card-img-top');
-                                    }
+                            <div class="card animated zoomIn">
+                                <div class="card-img-top"> 
+                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>">
+                                        <?php
+                                        
+                                        if (!empty($listing['filename'])) {
+                                            img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'hidden');
+                                        } else {
+                                            img('placeholders/default-thumbnail', 'jpg', 'local');
+                                        }
 
-                                    ?>
-                                </a>
+                                        ?>
+                                    </a>
+
+                                    <div class="loading">
+                                        <i class="fa fa-circle-o-notch loading-icon"></i>
+                                    </div>
+                                </div>
 
                                 <div class="card-block d-flex flex-row">
                                     <div class="listing-info d-flex flex-column">
