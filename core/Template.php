@@ -22,7 +22,7 @@ class Template {
         }
 
         if ($Routing->template == 'front' || $Routing->template == 'map') {
-            array_push($this->scripts, 'js/front.js');
+            array_unshift($this->scripts, 'js/front');
         }
     }
 
