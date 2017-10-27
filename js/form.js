@@ -1,6 +1,15 @@
 App.Form = function() {
     function listener() {
         /*
+        * Focus input group
+        */
+        $('div.input-group.w-addon').on('focus', 'input, select', function() {
+            $(this).parent().addClass('focused');
+        }).on('blur', 'input, select', function() {
+            $(this).parent().removeClass('focused');
+        });
+
+        /*
         * Parsley
         */
         $('form').parsley({
