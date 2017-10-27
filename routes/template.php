@@ -22,7 +22,7 @@ foreach ([
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
         <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
@@ -45,9 +45,19 @@ foreach ([
     <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
         <?php
         
-        foreach ($body as $part) {
-            $file = SERVER_ROOT . $part . '.php';
-            if (file_exists($file)) include $file;
+        include SERVER_ROOT . 'routes/components/header.php';
+        
+        echo '<div canvas="container">';
+
+            foreach ($body as $part) {
+                $file = SERVER_ROOT . $part . '.php';
+                if (file_exists($file)) include $file;
+            }
+
+        echo '</div>';
+
+        if ($Routing->template == 'front' || $Routing->template == 'map') {
+            include SERVER_ROOT . 'routes/components/front/cart.php';
         }
         
         layer('js', [
