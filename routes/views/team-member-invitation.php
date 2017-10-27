@@ -16,7 +16,7 @@
                 <input type="hidden" name="personal-key" value="<?php echo $personal_key; ?>">
 
                 <div class="form-group">
-                    <div class="input-group"> 
+                    <div class="input-group w-addon"> 
                         <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -26,7 +26,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -46,7 +46,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="password" name="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
                         
                         <span class="input-group-addon">

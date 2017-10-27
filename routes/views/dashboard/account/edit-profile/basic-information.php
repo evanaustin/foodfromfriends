@@ -62,7 +62,7 @@
                                             Email address <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Private"></i>
                                         </label>
 
-                                        <div class="input-group">
+                                        <div class="input-group w-addon">
                                             <input type="email" name="email" class="form-control" placeholder="Enter your email address" value="<?php if (!empty($User->email)) { echo $User->email; } ?>" data-parsley-trigger="change" required>
                 
                                             <span class="input-group-addon">
@@ -82,7 +82,7 @@
                                             Phone number <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Private"></i>
                                         </label>
 
-                                        <div class="input-group">
+                                        <div class="input-group w-addon">
                                             <input type="text" name="phone" class="form-control bfh-phone" placeholder="Enter your phone number" value="<?php if (!empty($User->phone)) { echo $User->phone; } ?>" data-format="+1 (ddd) ddd-dddd" data-parsley-length="[17,17]" data-parsley-length-message="This value is incomplete." data-parsley-trigger="change" required>
                 
                                             <span class="input-group-addon">
