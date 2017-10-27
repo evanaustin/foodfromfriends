@@ -58,23 +58,25 @@
 
                                     <div class="description"></div>
                                     
-                                    <div class="progress">
-                                        <div class="progress-bar" style="height:5px; width: 5px;"></div>
-                                    </div>
+                                    <div class="list-ticks">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="height:5px; width: 5px;"></div>
+                                        </div>
 
-                                    <?php
-                                    
-                                    foreach($requirements as $requirement => $data) {
-                                        echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($requirement);
+                                        <?php
                                         
-                                        if ($data['status'] == 'complete') {
-                                            echo '<i class="fa fa-check"></i>';
-                                        }
+                                        foreach($requirements as $requirement => $data) {
+                                            echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($requirement);
+                                            
+                                            if ($data['status'] == 'complete') {
+                                                echo '<i class="fa fa-check"></i>';
+                                            }
 
-                                        echo '</a>';
-                                    }
-                                    
-                                    ?>
+                                            echo '</a>';
+                                        }
+                                        
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -85,24 +87,26 @@
                                     </div>
 
                                     <div class="description"></div>
-
-                                    <div class="progress">
-                                        <div class="progress-bar" style="height:5px; width:5px;"></div>
-                                    </div>
                                     
-                                    <?php
-                                    
-                                    foreach($goals as $goal => $data) {
-                                        echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($goal);
+                                    <div class="list-ticks">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="height:5px; width:5px;"></div>
+                                        </div>
 
-                                        if ($data['status'] == 'complete') {
-                                            echo '<i class="fa fa-check"></i>';
+                                        <?php
+                                        
+                                        foreach($goals as $goal => $data) {
+                                            echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($goal);
+
+                                            if ($data['status'] == 'complete') {
+                                                echo '<i class="fa fa-check"></i>';
+                                            }
+
+                                            echo '</a>';
                                         }
-
-                                        echo '</a>';
-                                    }
-                                    
-                                    ?>
+                                        
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
