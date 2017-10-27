@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-md-12">
-            <div class="main container">
+            <div class="main container animated fadeIn">
                 <?php
 
                 if ($GrowerOperation->is_active) {
@@ -10,9 +10,9 @@
 
                     <div class="row">   
                         <div class="col-lg-3">
-                            <div class="left-content">
-                                <div class="profile-photo box">
-                                    <img src="<?php echo $filename; ?>">
+                            <div class="sidebar-content">
+                                <div class="photo box">
+                                    <img class="img-fluid" src="<?php echo $filename; ?>">
                                 </div>
                                 
                                 <div class="details box">
@@ -110,7 +110,7 @@
                         </div>
                     
                         <div class="col-lg-9">
-                            <div class="right-content">
+                            <div class="main-content">
                                 <div class="name">
                                     <small>food from </small>
                                     <span><?php echo $name; ?></span>
@@ -173,47 +173,51 @@
                                             
                                             <div class="col-md-4">
                                             <!-- <div class="<?php //echo $tile_width; ?>"> -->
-                                                <div class="card animated zoomIn">
-                                                    <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
-                                                        <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top'); ?>
-                                                    </a>
+                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
+                                                    <div class="card animated zoomIn">
+                                                        <div class="card-img-top">
+                                                            <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'animated fadeIn hidden'); ?>
+                                                        
+                                                            <div class="loading">
+                                                                <i class="fa fa-circle-o-notch loading-icon"></i>
+                                                            </div>
+                                                        </div>
 
-                                                    <div class="card-block d-flex flex-row">
-                                                        <div class="listing-info d-flex flex-column">
-                                                            <h4 class="card-title">
-                                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
+                                                        <div class="card-block d-flex flex-row">
+                                                            <div class="listing-info d-flex flex-column">
+                                                                <h5 class="card-title">
                                                                     <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
-                                                                </a>
-                                                            </h4>
-                                                            
-                                                            <h6 class="card-subtitle">
-                                                                <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
-                                                            </h6>
+                                                                </h5>
+                                                                
+                                                                <h6 class="card-subtitle">
+                                                                    <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
+                                                                </h6>
 
-                                                            <p class="card-text">
-                                                                <?php
-                                                                    if (!$listing['is_available']) {
-                                                                        $niblet = 'bg-faded text-muted';
-                                                                        $availability = 'text-muted';
-                                                                    } else {
-                                                                        $niblet = 'text-white';
-                                                                        $availability = 'text-success';
+                                                                <p class="card-text">
+                                                                    <?php
+                                                                        if (!$listing['is_available']) {
+                                                                            $niblet = 'bg-faded text-muted';
+                                                                            $availability = 'text-muted';
+                                                                        } else {
+                                                                            $niblet = 'text-white';
+                                                                            $availability = 'text-success';
 
-                                                                        if ($listing['quantity'] == 0) {
-                                                                            $niblet .= ' bg-danger';
-                                                                        } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
-                                                                            $niblet .= ' bg-warning';
-                                                                        } else if ($listing['quantity'] > 5) {
-                                                                            $niblet .= ' bg-success';
+                                                                            if ($listing['quantity'] == 0) {
+                                                                                $niblet .= ' bg-danger';
+                                                                            } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
+                                                                                $niblet .= ' bg-warning';
+                                                                            } else if ($listing['quantity'] > 5) {
+                                                                                $niblet .= ' bg-success';
+                                                                            }
                                                                         }
-                                                                    }
 
-                                                                    echo '<span class="quantity ' . $niblet . '">' . $listing['quantity'] . '</span> in stock';
-                                                                ?>
-                                                            </p>
+                                                                        echo '<span class="quantity ' . $niblet . '">' . $listing['quantity'] . '</span> in stock';
+                                                                    ?>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>
 
                                             <?php

@@ -22,28 +22,22 @@ foreach ([
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
         <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
-            // some of these don't need to be loaded universally
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
             'css/thirdparty/bootstrap/bootstrap',
             'css/thirdparty/bootstrap-form-helper/bootstrap-formhelpers',
             'css/thirdparty/animate/animate',
-            'css/thirdparty/cropbox/cropbox',
+            'css/thirdparty/cropbox/cropbox',           // not universal
+            'css/thirdparty/slidebars/slidebars',
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
-            'node_modules/mapbox-gl/dist/mapbox-gl',
-            ((
-                $Routing->template != 'splash' 
-                && $Routing->template != 'log-in' 
-                && $Routing->template != 'early-access-invitation' 
-                && $Routing->template != 'team-member-invitation'
-                && $Routing->template != 'stripe-atlas'
-            ) ? 'css/app' : ''),
+            'node_modules/mapbox-gl/dist/mapbox-gl',    // not universal
+            (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
             $Template->styles
         ]); ?>
     </head>
@@ -51,23 +45,34 @@ foreach ([
     <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
         <?php
         
-        foreach ($body as $part) {
-            $file = SERVER_ROOT . $part . '.php';
-            if (file_exists($file)) include $file;
+        include SERVER_ROOT . 'routes/components/header.php';
+        
+        echo '<div canvas="container">';
+
+            foreach ($body as $part) {
+                $file = SERVER_ROOT . $part . '.php';
+                if (file_exists($file)) include $file;
+            }
+
+        echo '</div>';
+
+        if ($Routing->template == 'front' || $Routing->template == 'map') {
+            include SERVER_ROOT . 'routes/components/front/cart.php';
         }
         
         layer('js', [
             'node_modules/jquery/dist/jquery',
             'node_modules/jquery.ui.widget/jquery.ui.widget',
             'node_modules/bootbox/bootbox.min',
-            'node_modules/imagesloaded/imagesloaded.pkgd.min',
+            'node_modules/imagesloaded/imagesloaded.pkgd.min',  // not universal
             'node_modules/tether/dist/js/tether.min',
             'node_modules/parsleyjs/dist/parsley.min',
             'node_modules/toastr/build/toastr.min',
-            'node_modules/mapbox-gl/dist/mapbox-gl',
+            'node_modules/mapbox-gl/dist/mapbox-gl',            // not universal
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
-            'js/thirdparty/cropbox/cropbox',
+            'js/thirdparty/cropbox/cropbox',                    // not universal
+            'js/thirdparty/slidebars/dist/slidebars.min',
             'js/app',
             'js/ajax',
             'js/account',

@@ -1,9 +1,9 @@
 <?php
 
 $body = [
-    'header'    => 'routes/components/header',
+    // 'header'    => 'routes/components/header',
     'view'      => 'routes/views/' . $Routing->path,
-    'footer'    => 'routes/components/footer',
+    // 'footer'    => 'routes/components/footer',
     'modal'     => 'routes/modals/' . $Routing->path
 ];
 

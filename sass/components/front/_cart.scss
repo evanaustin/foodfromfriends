@@ -1,0 +1,116 @@
+#cart[off-canvas*=right] {
+    padding: 1em;
+    // background: $superlight-gray;
+    background: $edge-color;
+    overflow-y: scroll;
+    color: $muted;
+
+    div.set {
+        margin-bottom: 1.5em;
+
+        h6 {
+            font-weight: 500;
+        }
+
+        div.cart-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 0.5em;
+            background: #fff;
+            // border-top: 0.5px solid $lightedge-color;
+            color: $muted;
+            @include drop-shadow(0, 2px, 4px);
+            @include rounded($radius);
+
+            &:not(:first-child) {
+                margin-bottom: 0.5em;
+            }
+
+            div.item-image {
+                flex-basis: 30%;
+
+                img {
+                    border: 1px solid $edge-color;
+                    @include rounded($radius);
+                }
+            }
+
+            div.item-content {
+                padding-left: 0.5em;
+                flex-grow: 1;
+
+                div.item-title {
+                    font-weight: 400;
+                    font-size: 0.85em;
+
+                    a {
+                        color: $muted;
+
+                        &:hover {
+                            color: $light-green;
+                        }
+                    }
+                }
+
+                div.item-details {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-top: 0.25em;
+
+                    select.custom-select {
+                        height: auto;
+                        padding: 0.25rem 1.70rem 0.25rem 0.7rem;
+                        border-color: $edge-color;
+                        font-size: 0.85em;
+                        color: $muted;
+                        @include drop-shadow(0,0,0);
+                    }
+
+                    div.item-price {
+                        flex-grow: 1;
+                        padding-left: 0.5em;
+                        text-align: right;
+                        font-size: 0.85em;
+                    }
+                }
+            }
+        }
+    }
+
+    div.addon {
+        display: flex;
+        flex-direction: row;
+        padding: 0 0.5rem;
+        font-size: 0.75em;
+        font-weight: 300;
+        color: lighten($muted, 5%);
+
+        &.subtotal {
+            margin-top: 0.5rem;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        div.label {
+            i {
+                margin-left: 2px;
+                padding: 3px;
+                height: 14px;
+                width: 14px;
+                background: $muted;
+                text-align: center;
+                font-size: 8px;
+                line-height: 8px;
+                color: #fff;
+                @include rounded(50px);
+            }
+        }
+
+        div.rate {
+            flex-grow: 1;
+            text-align: right;
+        }
+    }
+}

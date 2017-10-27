@@ -8,7 +8,7 @@ body.dashboard div.sidebar {
   height: auto;
   padding-left: 0;
   padding-right: 0;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #f5f5f5;
   box-sizing: border-box; }
   @media (max-width: 767px) {
     body.dashboard div.sidebar {
@@ -36,7 +36,7 @@ body.dashboard div.sidebar {
   body.dashboard div.sidebar .navbar button {
     height: calc(60px - 1rem - 1px); }
     body.dashboard div.sidebar .navbar button i {
-      color: #7f7f7f; }
+      color: #b2b2b2; }
   body.dashboard div.sidebar a.nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
@@ -49,8 +49,8 @@ body.dashboard div.sidebar {
     body.dashboard div.sidebar a.nav-link:hover {
       color: #58707b; }
     body.dashboard div.sidebar a.nav-link[aria-expanded="true"] {
-      background-color: #f9f9fe;
-      color: #00b371;
+      background-color: #fafafb;
+      color: #00c079;
       font-weight: 500; }
     body.dashboard div.sidebar a.nav-link.parent:after {
       float: right; }
@@ -65,19 +65,19 @@ body.dashboard div.sidebar {
           padding-left: 15px;
           padding-right: 15px; } }
       body.dashboard div.sidebar a.nav-link.child.active {
-        background-color: rgba(0, 179, 113, 0.25);
+        background-color: #00c079;
         border-color: #007349;
-        color: #007349;
+        color: #fff;
         font-weight: 400; }
     body.dashboard div.sidebar a.nav-link.active:not(.parent):not(.child) {
-      color: #006e44;
+      color: #00c079;
       font-weight: 500; }
   body.dashboard div.sidebar li.nav-item div.collapse.show {
-    background-color: #f9f9fe; }
+    background-color: #fafafb; }
 
 body.dashboard div.subheader {
   background-color: #fff;
-  border-bottom: 1px solid #eee; }
+  border-bottom: 1px solid #f5f5f5; }
   body.dashboard div.subheader a.nav-link {
     cursor: pointer;
     padding: 15px 0;
@@ -87,7 +87,7 @@ body.dashboard div.subheader {
     body.dashboard div.subheader a.nav-link:hover {
       color: #58707b; }
     body.dashboard div.subheader a.nav-link.active {
-      color: #00A669;
+      color: #00c079;
       position: relative; }
       body.dashboard div.subheader a.nav-link.active:before {
         content: '';
@@ -96,15 +96,14 @@ body.dashboard div.subheader {
         bottom: 0;
         width: 100%;
         height: 5px;
-        background-color: #007349; }
+        background-color: #00c079; }
   body.dashboard div.subheader div.dropdown-menu {
     width: 50%;
     left: 0;
     right: 0;
     margin: 0 auto;
     padding: 0;
-    border-color: #eee;
-    border-top: 0px;
+    border: 0px;
     text-align: center;
     -webkit-border-top-right-radius: 0;
     -webkit-border-bottom-right-radius: 3px;
@@ -120,10 +119,14 @@ body.dashboard div.subheader {
     border-top-left-radius: 0;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
-    background-clip: padding-box; }
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
     body.dashboard div.subheader div.dropdown-menu a {
       cursor: pointer;
       padding: 0.5em 0;
+      font-size: 0.85em;
       color: #636c72; }
       body.dashboard div.subheader div.dropdown-menu a:not(:last-child) {
         border-bottom: 1px solid #f8f8f8; }
@@ -131,8 +134,8 @@ body.dashboard div.subheader {
         background-color: #fff;
         font-weight: 400; }
       body.dashboard div.subheader div.dropdown-menu a:not(.active):hover {
-        background-color: rgba(0, 179, 113, 0.25) !important;
-        color: #005434 !important; }
+        background-color: #00c079 !important;
+        color: #fff !important; }
 
 /**
 * View Styles
@@ -149,6 +152,10 @@ body.dashboard-grower div.main.container-fluid {
     background-color: #fff;
     text-align: center;
     color: #636c72;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.025);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
@@ -170,7 +177,7 @@ body.dashboard-grower div.main.container-fluid {
   body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.description {
     padding: 1em;
     background: #636c72;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #fafafb;
     border-top-width: 0;
     border-bottom-width: 0;
     font-size: 85%;
@@ -181,24 +188,35 @@ body.dashboard-grower div.main.container-fluid {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a {
-    display: block;
-    padding-left: 1em;
-    padding-right: 1em;
-    border-color: #f5f5f5; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a.disabled {
-      cursor: text;
-      color: #b2b2b2; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a:not(.disabled):not(.active) {
-      color: #636c72; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i {
-      float: right;
-      opacity: 0.75;
-      line-height: 1.5; }
-      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-check {
-        color: #5cb85c; }
-      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-times {
+  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks {
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem; }
+    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a {
+      display: block;
+      padding-left: 1em;
+      padding-right: 1em;
+      border-color: #f5f5f5; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item {
+        border-width: 0px; }
+        body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child) {
+          border-top-width: 1px; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled {
+        cursor: text;
         color: #b2b2b2; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active) {
+        color: #636c72; }
+      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a i {
+        float: right;
+        opacity: 0.75;
+        line-height: 1.5; }
+        body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check {
+          color: #5cb85c; }
+        body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times {
+          color: #b2b2b2; }
 
 body.dashboard-grower-food-listings-overview div.tree-art img {
   max-width: 75%;
@@ -212,11 +230,33 @@ body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child
 @media (max-width: 767px) {
   body.dashboard-grower-food-listings-overview div.listings div.col-md-4:not(:last-child) div.card {
     margin-bottom: 10px; } }
-body.dashboard-grower-food-listings-overview div.card-block {
+body.dashboard-grower-food-listings-overview div.card {
+  border: 0px; }
+body.dashboard-grower-food-listings-overview div.card-img-top {
   padding: 0; }
+  body.dashboard-grower-food-listings-overview div.card-img-top img {
+    border: 0px;
+    -webkit-border-top-right-radius: 0.25rem;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-left-radius: 0.25rem;
+    -moz-border-radius-topright: 0.25rem;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0.25rem;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
+body.dashboard-grower-food-listings-overview div.card-block {
+  padding: 0;
+  border: 0px; }
   body.dashboard-grower-food-listings-overview div.card-block h6.card-subtitle {
-    color: #b2b2b2;
-    padding: 0.25rem 0; }
+    padding: 0.25rem 0;
+    color: #b2b2b2; }
   body.dashboard-grower-food-listings-overview div.card-block p.card-text {
     margin-top: 0.25rem;
     color: #7f7f7f; }
@@ -229,7 +269,7 @@ body.dashboard-grower-food-listings-overview div.listing-info {
   flex-grow: 2;
   justify-content: center;
   padding: 1.25rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.15); }
+  border-right: 1px solid #f5f5f5; }
 body.dashboard-grower-food-listings-overview div.listing-controls {
   flex-grow: 1; }
   body.dashboard-grower-food-listings-overview div.listing-controls a {
@@ -239,7 +279,7 @@ body.dashboard-grower-food-listings-overview div.listing-controls {
     justify-content: center;
     width: 100%; }
     body.dashboard-grower-food-listings-overview div.listing-controls a:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+      border-bottom: 1px solid #f5f5f5; }
 
 /**
 * Dashboard styles

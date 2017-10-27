@@ -10,12 +10,18 @@
 **/
 @import 'mixins';
 @import 'colors';
+@import 'thirdparty/bootstrap/variables';
 
 /**
 * Universal
 **/
 @import 'general';
 @import 'forms';
+
+/**
+* Component Styles
+**/
+@import 'components/front/cart';
 
 /**
 * View Styles

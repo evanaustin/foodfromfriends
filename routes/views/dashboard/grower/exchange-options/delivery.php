@@ -71,7 +71,7 @@
                                             Distance to buyer (one way)
                                         </label>
 
-                                        <div class="input-group">
+                                        <div class="input-group w-addon">
                                             <input type="number" name="distance" class="form-control" placeholder="Enter how far you would travel" value="<?php if (!empty($details['distance'])) { echo $details['distance']; } ?>" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change" <?php if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
                                             <span class="input-group-addon">miles</span>
                                         </div>
@@ -121,7 +121,7 @@
                                             Free delivery distance (one way)
                                         </label>
 
-                                        <div class="input-group">
+                                        <div class="input-group w-addon">
                                             <input type="number" name="free-distance" class="form-control" placeholder="Enter how far you would travel for free" value="<?php if (!empty($details['free_distance'])) { echo $details['free_distance']; } ?>" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change" <?php if (empty($details['is_offered']) || $details['delivery_type'] != 'conditional') { echo 'disabled'; } ?>>
                                             
                                             <span class="input-group-addon">
@@ -137,7 +137,7 @@
                                             Set your delivery fee
                                         </label>
 
-                                        <div class="input-group">
+                                        <div class="input-group w-addon">
                                             <div class="input-group-addon">$</div>
                                             
                                             <input id="fee-rate" type="text" name="fee" class="form-control" placeholder="Enter a delivery fee" value="<?php if (!empty($details['fee'])) { echo number_format($details['fee'] / 100, 2); } ?>" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="99999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" <?php if (empty($details['is_offered']) || $details['delivery_type'] == 'free') { echo 'disabled'; } ?>>

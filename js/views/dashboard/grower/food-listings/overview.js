@@ -35,14 +35,3 @@ $('a.remove-listing').on('click', function(e) {
     });
     
 });
-
-/*
-* Show the image cards
-*/
-$('div.card').each(function(i, obj) {
-    $(this).imagesLoaded(function() {
-        setTimeout(function() {
-            $(obj).removeClass('hidden');
-        }, 200 * i);
-    });
-});

@@ -1,7 +1,7 @@
 <?php
 
 $body = [
-    'header'    => 'routes/components/header',
+    // 'header'    => 'routes/components/header',
     'view'      => 'routes/views/' . $Routing->path,
     'modal'     => 'routes/modals/' . $Routing->path
 ];

@@ -1,13 +1,13 @@
 html {
     height: 100%;
     box-sizing: border-box;
-  }
+}
   
-  *,
-  *:before,
-  *:after {
+*,
+*:before,
+*:after {
     box-sizing: inherit;
-  }
+}
 
 body {
     position: relative;
@@ -28,33 +28,143 @@ a, button {
     }
 }
 
+hr {
+    border-color: darken($edge-color, 2.5%);
+}
+
 canvas {
     &:focus {
         outline: none;
     }
 }
 
-.btn {
-    cursor: pointer;
-    font-weight: inherit;
+[canvas=container] {
+    position: absolute;
+    top: 66px;
+    height: calc(100% - 66px);
 
-    &:focus, &.focus {
-        @include box-shadow(0 0 0 transparent);
+    > div.container, > div.container-fluid {
+        height: 100%;
     }
+}
+
+[off-canvas*=right] {
+    top: 66px;
 }
 
 div.card {
     flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
+    border: 0px;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    .card-img-top {
+        padding: 0.5em 0.5em 0;
+
+        img, div.loading {
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+            border: 1px solid $lightedge-color;
+            @include rounded($radius);
+        }
+
+        div.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $superlight-gray;
+            border: 0px;
+            
+            i {
+                animation: spin 2s linear infinite;
+                font-size: 2em;
+                color: $muted;
+            }
+        }
+    }
+
+    div.card-block {
+        .card-title {
+            font-weight: 400;
+        }
+    }
+
+    + .loading-icon {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        color: $light-gray;
+    }
 }
 
-img.card-img-top {
-    width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+a {
+    div.card {
+        &:hover {
+            @include transform(translateY(-2px));
+            @include drop-shadow(0, 5px, 20px);
+        }
+    }
 }
 
 div.modal-content {
     border: 0px;
     @include border-radius(0);
+}
+
+#map {
+    // position: absolute;
+    // top: 0;
+    // bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    cursor: pointer;
+    font-weight: inherit;
+    border: 0px;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    &:hover {
+        @include transform(translateY(-2px));
+        @include drop-shadow(0, 5px, 10px, 0.2);
+    }
+
+    &:focus, &.focus {
+        border-top: 0.5px solid $lightedge-color;
+        border-color: $lightedge-color;
+        @include box-shadow(0 0 0 transparent);
+    }
+}
+
+.btn-primary {
+    &:hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+}
+
+.btn-group {
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+
+    .btn {
+        @include drop-shadow(0, 0, 0, 0);
+
+        &:not(:first-child) {
+            border-left: 1px solid $edge-color;
+        }
+
+        &:hover {
+            border-color: transparent;
+            @include transform(none);
+            @include drop-shadow(0, 0, 0, 0);
+        }
+    }
 }
 
 .align-left {
@@ -120,6 +230,33 @@ div.modal-content {
         margin-left: 1em;
         border-top: 1px solid $light-gray;
         opacity: 0.5;
+    }
+}
+
+.tooltip {
+    opacity: 1 !important;
+
+    .tooltip-inner {
+        z-index: 9999;
+        background-color: $dark-gray;
+        font-family: 'Roboto';
+        font-size: 0.8rem !important;
+    }
+
+    &.bs-tether-element-attached-top .tooltip-inner:before {
+        border-bottom-color: $dark-gray !important;
+    }
+
+    &.bs-tether-element-attached-right .tooltip-inner:before {
+        border-left-color: $dark-gray !important;
+    }
+
+    &.bs-tether-element-attached-bottom .tooltip-inner:before {
+        border-top-color: $dark-gray !important;
+    }
+
+    &.bs-tether-element-attached-left .tooltip-inner:before {
+        border-right-color: $dark-gray !important;
     }
 }
 

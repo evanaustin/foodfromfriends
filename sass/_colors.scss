@@ -1,11 +1,18 @@
 $light-green: #00A669;
+$superlight-green: lighten($light-green, 5%);
 $dark-green: #005434;
 $faded-green: rgba(0, 179, 113, 0.25);
 
-$off-white: #eee;
-
 $gray: #7f7f7f;
+$superlight-gray: #fafafb;
 $light-gray: lighten($gray, 20%);
 $dark-gray: darken($gray, 20%);
 
 $muted: #636c72;
+$off-white: #eee;
+
+$edge-color: #f5f5f5;
+$lightedge-color: rgba(0, 0, 0, 0.025);
+
+
+$radius: 0.25rem;

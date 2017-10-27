@@ -99,6 +99,27 @@ App.Util = function() {
         }
     }
 
+    function slidebar(controller, action, target, e) {
+        e.stopPropagation();
+
+        switch(action) {
+            case 'open':
+                controller.open('slidebar-' + target);
+                break;
+            case 'close':
+                controller.close('slidebar-' + target);
+                break;
+            case 'toggle':
+                controller.toggle('slidebar-' + target);
+        };
+
+        $(controller.events).on('opened', function () {
+            $('[canvas="container"]').addClass('close-any-slidebar');
+        }).on('closed', function () {
+            $('[canvas="container"]').removeClass('close-any-slidebar');
+        });
+    };
+
     // Replaces the some HTML entities with their Unicode values
     function htmlDecode(input) {
         var entities= {
@@ -888,6 +909,7 @@ App.Util = function() {
         animation: animation,
         loading: loading,
         finishedLoading: finishedLoading,
+        slidebar: slidebar,
         htmlDecode: htmlDecode,
         parseVideoURL: parseVideoURL,
         urlParams: urlParams,

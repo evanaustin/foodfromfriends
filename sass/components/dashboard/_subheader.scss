@@ -1,7 +1,7 @@
 body.dashboard {
     div.subheader {
         background-color: #fff;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid $edge-color;
         
         a.nav-link {
             cursor: pointer;
@@ -15,7 +15,7 @@ body.dashboard {
             }
 
             &.active {
-                color: $light-green;
+                color: $superlight-green;
                 position: relative;
 
                 &:before {
@@ -25,7 +25,7 @@ body.dashboard {
                     bottom: 0;
                     width: 100%;
                     height: 5px;
-                    background-color: darken($light-green, 10%);
+                    background-color: $superlight-green;
                 }
             }
         }
@@ -36,14 +36,17 @@ body.dashboard {
             right: 0; 
             margin: 0 auto;
             padding: 0;
-            border-color: #eee;
-            border-top: 0px;
+            // border-color: $edge-color;
+            // border-top: 0px;
+            border: 0px;
             text-align: center;
             @include border-radius(0, 3px, 3px, 0);
+            @include drop-shadow(0, 5px, 10px);
 
             a {
                 cursor: pointer;
                 padding: 0.5em 0;
+                font-size: 0.85em;
                 color: $muted;
 
                 &:not(:last-child) {
@@ -57,8 +60,8 @@ body.dashboard {
                 }
 
                 &:not(.active):hover {
-                    background-color: $faded-green !important; 
-                    color: $dark-green !important;
+                    background-color: $superlight-green !important; 
+                    color: #fff !important;
                 }
             }
         }

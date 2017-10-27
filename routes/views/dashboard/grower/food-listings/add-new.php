@@ -72,7 +72,7 @@
                                     Listing price
                                 </label>
 
-                                <div class="input-group">
+                                <div class="input-group w-addon">
                                     <div class="input-group-addon">$</div>
                                     <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
                                 </div>
@@ -83,7 +83,7 @@
                                     Average weight per item
                                 </label>
 
-                                <div class="input-group">
+                                <div class="input-group w-addon">
                                     <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change" required> 
                                     
                                     <select name="units" class="input-group-addon" data-parsley-excluded="true">
