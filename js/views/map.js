@@ -1,14 +1,10 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vZGZyb21mcmllbmRzIiwiYSI6ImNqN2twb2gwdTJmdWkzMm5wNmw0ejJ2cHEifQ.vv9p76S-5nm9ku_guP3-Pg';
+// set center to Harrisonburg
+map.setCenter([-78.8689, 38.4496]);
 
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v10',
-    center: [-78.8689, 38.4496], // Harrisonburg
-    zoom: 13
-});
-
+// initialize marker array
 var markers = [];
 
+// load map
 map.on('load', function() {
     map.addSource('growers', {
         type: 'geojson',
@@ -90,38 +86,46 @@ map.on('load', function() {
         closeOnClick: false
     });
 
-    map.on('mouseover', 'unclustered-point', function (e) {
-        var html = '<div class="grower-profile"' +
-                        'style="background-image:url(' + e.features[0].properties.photo + ');">' +
-                    '</div>' +
-                    '<div class="info">' +
-                        '<div class="title">' +
-                            '<div class="name">' +
-                                e.features[0].properties.name +
-                            '</div>' +
-                            /* '<div class="rating">' +
-                                e.features[0].properties.rating +
-                            '</div>' + */
-                        '</div>' +
-                        '<div class="distance">' +
-                            e.features[0].properties.distance +
-                        '</div>' +
-                        '<div class="listings">' +
-                            e.features[0].properties.listings +
-                        '</div>' +
-                    '</div>';
+    // hide marker pulse by default
+    // $('.mapboxgl-marker').addClass('hidden');
 
-        popup.setLngLat(e.features[0].geometry.coordinates)
-            .setHTML(html)
-            .addTo(map);
-    });
-
-    map.on('mouseleave', 'unclustered-point', function() {
-        popup.remove();
-    });
-
+    // show marker pulse after auto zoom ends
+    /* map.flyTo({zoom: 13}, function() {
+        $('.mapboxgl-marker').removeClass('hidden');
+    }); */
 });
 
+map.on('mouseover', 'unclustered-point', function (e) {
+    var html = '<div class="grower-profile"' +
+                    'style="background-image:url(' + e.features[0].properties.photo + ');">' +
+                '</div>' +
+                '<div class="info">' +
+                    '<div class="title">' +
+                        '<div class="name">' +
+                            e.features[0].properties.name +
+                        '</div>' +
+                        /* '<div class="rating">' +
+                            e.features[0].properties.rating +
+                        '</div>' + */
+                    '</div>' +
+                    '<div class="distance">' +
+                        e.features[0].properties.distance +
+                    '</div>' +
+                    '<div class="listings">' +
+                        e.features[0].properties.listings +
+                    '</div>' +
+                '</div>';
+
+    popup.setLngLat(e.features[0].geometry.coordinates)
+        .setHTML(html)
+        .addTo(map);
+});
+
+map.on('mouseleave', 'unclustered-point', function() {
+    popup.remove();
+});
+
+// show/hide marker pulse 
 map.on('zoomend', function (e) {
     if (map.getZoom() < 13) {
         $('.mapboxgl-marker').addClass('hidden');
