@@ -12,7 +12,7 @@
  * Box Model, Html & Body
  */
 
- /* html, body,  */[canvas=container], [off-canvas] {
+ html, body, [canvas=container], [off-canvas] {
 	margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -20,17 +20,17 @@
 	        box-sizing: border-box;
 }
 
-/* html, body {
+html, body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-} */
+}
 
 /**
  * Canvas
  */
 
-[canvas] {
+[canvas=container] {
 	z-index: 1;
 }
 
@@ -109,7 +109,7 @@
  * Animation
  */
 
-[canvas], [off-canvas] {
+[canvas=container], [off-canvas] {
 	-webkit-transform: translate( 0px, 0px );
 	    -ms-transform: translate( 0px, 0px );
 	        transform: translate( 0px, 0px );
@@ -143,7 +143,7 @@
  */
 
 @media print {
-	[canvas] {
+	[canvas=container] {
 		-webkit-transform: translate( 0px, 0px ) !important;
 		    -ms-transform: translate( 0px, 0px ) !important;
 		        transform: translate( 0px, 0px ) !important;
