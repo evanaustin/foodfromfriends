@@ -3,7 +3,7 @@ body.dashboard {
         height: auto;
         padding-left: 0;
         padding-right: 0;
-        border-right: 1px solid #eee;
+        border-right: 1px solid $edge-color;
         box-sizing: border-box;
 
         @include phones() {
@@ -41,14 +41,15 @@ body.dashboard {
                 height: calc(60px - 1rem - 1px);
 
                 i {
-                    color: #7f7f7f;
+                    // color: #7f7f7f;
+                    color: $light-gray;
                 }
             }
         }
 
         a.nav-link {
             padding: 15px 30px;
-            color: #8ca3ad;
+            color: #8ca3ad; // magic color
             font-size: 14px;
             border-left: 2px solid transparent;
 
@@ -58,12 +59,14 @@ body.dashboard {
             }
 
             &:hover {
-                color: #58707b;
+                color: #58707b; // magic color
             }
 
             &[aria-expanded="true"] {
-                background-color: #f9f9fe;
-                color: lighten($light-green, 2.5%);
+                // background-color: #f9f9fe;
+                background-color: $superlight-gray;
+                // color: lighten($light-green, 2.5%);
+                color: $superlight-green;
                 font-weight: 500;
             }
 
@@ -94,22 +97,26 @@ body.dashboard {
                 }
 
                 &.active {
-                    background-color: $faded-green;
+                    // background-color: $faded-green;
+                    background-color: $superlight-green;
                     border-color: darken($light-green, 10%);
-                    color: darken($light-green, 10%);
+                    // color: darken($light-green, 10%);
+                    color: #fff;
                     font-weight: 400;
                 }
             }
             
             &.active:not(.parent):not(.child) {
-                color: lighten($dark-green, 5%);
+                // color: lighten($dark-green, 5%);
+                color: $superlight-green;
                 font-weight: 500;
             }
         }
 
         li.nav-item {
             div.collapse.show {
-                background-color: #f9f9fe;
+                // background-color: #f9f9fe;
+                background-color: $superlight-gray;
             }
         }
     }
