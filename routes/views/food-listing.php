@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-md-12">
-            <div class="main container">
+            <div class="main container animated fadeIn">
                 <?php
 
                 if ($GrowerOperation->id) {
@@ -10,7 +10,7 @@
 
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="left-content">
+                            <div class="sidebar-content">
                                 <div class="photo box">
                                     <img src="<?php echo $listing_filename; ?>" class="img-fluid" alt="<?php echo $listing_title; ?>">
                                 </div>
@@ -26,17 +26,19 @@
                         </div>
 
                         <div class="col-lg-5">
-                            <div class="middle-content">
-                                <h3 class="name">
+                            <div class="main-content">
+                                <h3 class="listing-name">
                                     <?php echo ucfirst($listing_title); ?>
                                 </h3>
 
-                                <h6 class="text-muted">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                <h6 class="listing-subtitle">
+                                    <span class="listing-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </span>
 
                                     &nbsp;&bull;&nbsp;
                                     
@@ -166,7 +168,7 @@
                         </div> <!-- end div.middle-content -->
 
                         <div class="col-lg-4">
-                            <div class="right-content sticky-top">
+                            <div class="add-to-cart sticky-top">
                                 <div class="box">
                                     <div class="header">    
                                         <?php echo '$' . number_format($FoodListing->price / 100, 2); ?>
@@ -177,13 +179,13 @@
                                     </div>
 
                                     <div class="content">
-                                        <form id="add-to-cart">
+                                        <form id="add-item">
                                             <div class="form-group">
                                                 <label>
                                                     Quantity
                                                 </label>
                                                 
-                                                <select id="" name="" class="custom-select form-control" data-parsley-trigger="change" required>
+                                                <select id="" name="" class="custom-select" data-parsley-trigger="change" required>
                                                     <?php
                                                     
                                                     for ($i = 1; $i <= $FoodListing->quantity; $i++) {
