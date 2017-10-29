@@ -1,7 +1,7 @@
 <!-- cont div.container-fluid -->
     <!-- cont div.row -->
         <!-- cont main -->
-            <div class="main animated fadeIn">
+            <div class="main">
                 <div id="mapbox">
                     <div id="map"></div>
                 </div>
