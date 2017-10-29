@@ -15,12 +15,12 @@
                                     <img src="<?php echo $listing_filename; ?>" class="img-fluid" alt="<?php echo $listing_title; ?>">
                                 </div>
                                 
-                                <div class="photo box">
-                                    <img src="<?php echo $op_filename; ?>" class="img-fluid" alt="<?php echo $name; ?>">
-                                </div>
-
                                 <div class="map box">
                                     <div id="map"></div>
+                                </div>
+
+                                <div class="photo box">
+                                    <img src="<?php echo $op_filename; ?>" class="img-fluid" alt="<?php echo $name; ?>">
                                 </div>
                             </div> <!-- end div.left-content -->
                         </div>
@@ -70,7 +70,15 @@
 
                                     <div class="callout">   
                                         <div class="grower-title">
-                                            <?php echo "<div class=\"name\">{$name}</div><div class=\"rating\">{$grower_stars}</div>"; ?>
+                                            <div class="name">
+                                                <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
+                                                    <?php echo $name; ?>
+                                                </a>
+                                            </div>
+
+                                            <div class="rating">
+                                                <?php echo $grower_stars; ?>
+                                            </div>
                                         </div>
                                         
                                         <div class="text-muted">
