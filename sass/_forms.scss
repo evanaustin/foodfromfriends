@@ -63,7 +63,7 @@ form {
     textarea.form-control, 
     div.image-box {
         border: 0px;
-        border-top: 1px solid $lightedge-color;
+        border-top: 0.5px solid $lightedge-color;
         @include drop-shadow(0, 2px, 4px);
         @include rounded($radius);
         @include transition(all .2s);
