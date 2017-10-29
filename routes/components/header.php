@@ -27,7 +27,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#log-in-modal">
                         <span>Log in</span>
-                        <i class="fa fa-sing-in"></i>
+                        <i class="fa fa-sign-in"></i>
                     </a>
                 </li>
             <?php } else { ?>
