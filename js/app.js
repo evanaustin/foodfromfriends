@@ -2,7 +2,7 @@
 var App = function() {
 	function listener() {
 		// show the tile cards after the images load
-		$('div.card').each(function(i, obj) {
+		$('.card').each(function(i, obj) {
 			$(this).imagesLoaded(function() {
 				setTimeout(function() {
 					$(obj).find('div.card-img-top div.loading').addClass('hidden');
@@ -11,8 +11,8 @@ var App = function() {
 			});
 		});
 
-		$('div.card').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-			$(this).removeClass('animated');
+		$('.card').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+			$(this).removeClass('animated fadeIn zoomIn bounceIn slideIn');
 		});
 	}
 
