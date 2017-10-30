@@ -77,7 +77,7 @@ canvas:focus {
 [off-canvas*=right] {
   top: 66px; }
 
-div.card {
+.card {
   flex: 0 0 calc(33.33333% - 20px);
   /* 60px of padding total between 3 cards -> avg 20px each */
   border: 0px;
@@ -90,43 +90,45 @@ div.card {
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s; }
-  div.card .card-img-top {
+  .card:hover {
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+    transform: translateY(-2px);
+    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
+  .card .card-img-top {
     padding: 0.5em 0.5em 0; }
-    div.card .card-img-top img, div.card .card-img-top div.loading {
+    .card .card-img-top img, .card .card-img-top div.loading {
       width: 100%;
       height: 100%;
-      min-height: 220px;
       border: 1px solid rgba(0, 0, 0, 0.025);
       -webkit-border-radius: 0.25rem;
       -moz-border-radius: 0.25rem;
       border-radius: 0.25rem; }
-    div.card .card-img-top div.loading {
+      .card .card-img-top img:before, .card .card-img-top div.loading:before {
+        content: '';
+        display: block;
+        padding-top: 85.7%; }
+    .card .card-img-top div.loading {
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: #fafafb;
       border: 0px; }
-      div.card .card-img-top div.loading i {
+      .card .card-img-top div.loading i {
         animation: spin 2s linear infinite;
         font-size: 2em;
         color: #636c72; }
-  div.card div.card-block .card-title {
+  .card div.card-block .card-title {
     font-weight: 400; }
-  div.card + .loading-icon {
+  .card + .loading-icon {
     text-align: center;
     margin: 0 auto;
     display: block;
     color: #b2b2b2; }
-
-a div.card:hover {
-  -webkit-transform: translateY(-2px);
-  -moz-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
-  -o-transform: translateY(-2px);
-  transform: translateY(-2px);
-  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
 
 div.modal-content {
   border: 0px;
@@ -147,6 +149,9 @@ div.modal-content {
   background-clip: padding-box; }
 
 #map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%; }
 
@@ -360,7 +365,7 @@ form div.input-group.w-addon,
 form textarea.form-control,
 form div.image-box {
   border: 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.025);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.025);
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
