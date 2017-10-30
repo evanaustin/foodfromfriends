@@ -86,7 +86,6 @@ body.front.food-listing {
                 div.name, div.rating {
                     display: inline-block;
                     vertical-align: middle;
-                    color: $muted;
                 }
                 
                 div.name {
@@ -103,7 +102,8 @@ body.front.food-listing {
                     font-size: 0.75em;
                     // color: #3FC592;
                     // color: #fff;
-                    color: $superlight-green;
+                    color: $muted;
+                    // color: $superlight-green;
                     // @include rounded($radius);
                     
                     i {
