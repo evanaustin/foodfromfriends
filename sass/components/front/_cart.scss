@@ -1,7 +1,6 @@
 #cart[off-canvas*=right] {
     padding: 1em;
-    // background: $superlight-gray;
-    background: $edge-color;
+    background: #fff;
     overflow-y: scroll;
     color: $muted;
 
@@ -17,8 +16,7 @@
             flex-direction: row;
             align-items: center;
             padding: 0.5em;
-            background: #fff;
-            // border-top: 0.5px solid $lightedge-color;
+            background: $superlight-gray;
             color: $muted;
             @include drop-shadow(0, 2px, 4px);
             @include rounded($radius);
