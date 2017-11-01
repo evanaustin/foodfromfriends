@@ -40,8 +40,8 @@ canvas {
 
 [canvas=container] {
     position: absolute;
-    top: 66px;
-    height: calc(100% - 66px);
+    top: 65px;
+    height: calc(100% - 65px);
 
     > div.container, > div.container-fluid {
         height: 100%;
@@ -49,11 +49,11 @@ canvas {
 }
 
 [off-canvas*=right] {
-    top: 66px;
+    top: 65px;
 }
 
 .card {
-    flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
+    flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
     border: 0px;
     border-top: 0.5px solid $lightedge-color;
     @include drop-shadow(0, 2px, 4px);
@@ -125,7 +125,7 @@ div.modal-content {
 .btn {
     cursor: pointer;
     font-weight: inherit;
-    border: 0px;
+    // border: 0px;
     border-top: 0.5px solid $lightedge-color;
     @include drop-shadow(0, 2px, 4px);
     @include transition(all .2s);
@@ -154,10 +154,16 @@ div.modal-content {
     @include rounded($radius);
 
     .btn {
+        border-width: 0px;
+        border-color: $edge-color;
         @include drop-shadow(0, 0, 0, 0);
 
         &:not(:first-child) {
-            border-left: 1px solid $edge-color;
+            border-left-width: 1px;
+        }
+
+        &:last-child {
+            border-right-width: 1px;
         }
 
         &:hover {
