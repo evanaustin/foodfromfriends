@@ -1,29 +1,56 @@
 App.Front = function() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vZGZyb21mcmllbmRzIiwiYSI6ImNqN2twb2gwdTJmdWkzMm5wNmw0ejJ2cHEifQ.vv9p76S-5nm9ku_guP3-Pg';
 
-    this.map = new mapboxgl.Map({
+    this.Mapbox = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10',
         zoom: 13
     });
 
+    // create & initialize a new instance of Slidebars
+    this.Slidebar = new slidebars();
+    Slidebar.init();
+
     function listener() {
-        // Create & initialize a new instance of Slidebars
-        var controller = new slidebars();
-        controller.init();
+        // make login direct back to current page
+        $('form#log-in')
+            .find('input[name="redirect"]')
+            .val(false);
 
         $('#cart-toggle').on('click', function(e) {
-            App.Util.slidebar(controller, 'toggle', 'right', e);
+            App.Util.slidebar(Slidebar, 'toggle', 'right', e);
         });
 
-        $('body').on('click', '.close-any-slidebar', function(e) {
+        $(Slidebar.events).on('opened', function () {
+            $('a#cart-toggle').addClass('active');
+        }).on('closed', function () {
+            $('a#cart-toggle').removeClass('active');
+        });
+
+        /* $('body').on('click', '.close-any-slidebar', function(e) {
             e.stopPropagation();
-            controller.close();
+            Slidebar.close();
+        }); */
+
+        $(document).keydown(function(e) {
+            if (!($('input, textarea, select').is(':focus'))) {
+                switch(e.keyCode) {
+                    case 66: // b
+                        App.Util.slidebar(Slidebar, 'toggle', 'right', e);
+                        break;
+                    case 68: // d
+                        window.location.replace(PUBLIC_ROOT + 'dashboard/grower');
+                        break;
+                    case 77: // m
+                        window.location.replace(PUBLIC_ROOT + 'map');
+                }
+            }
         });
     };
 
     return {
-        map: this.map,
+        Mapbox: this.Mapbox,
+        Slidebar: this.Slidebar,
         listener: listener
     };
 }();
