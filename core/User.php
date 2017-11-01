@@ -2,6 +2,12 @@
  
 class User extends Base {
     
+    public
+        $Operations,
+        $GrowerOperation,
+        $Orders,
+        $ActiveOrder;
+
     protected
         $class_dependencies,
         $DB;
@@ -19,6 +25,7 @@ class User extends Base {
             $this->configure_object($parameters['id']);
             $this->populate_fully();
             $this->get_operations();
+            $this->get_orders();
         }
     }
     
@@ -60,9 +67,7 @@ class User extends Base {
     private function get_operations() {
         $results = $this->DB->run('
             SELECT *
-
             FROM grower_operation_members gom
-
             WHERE gom.user_id = :user_id 
                 AND permission > 0
         ', [
@@ -71,15 +76,17 @@ class User extends Base {
 
         if (isset($results)) {
             foreach ($results as $result) {
-                $this->Operations[$result['grower_operation_id']] = new GrowerOperation([
+                $id = $result['grower_operation_id'];
+
+                $this->Operations[$id] = new GrowerOperation([
                     'DB' => $this->DB,
-                    'id' => $result['grower_operation_id']
+                    'id' => $id
                 ]);
 
-                $this->Operations[$result['grower_operation_id']]->permission = $result['permission'];
+                $this->Operations[$id]->permission = $result['permission'];
 
                 if ($result['is_default']) {
-                    $this->GrowerOperation = $this->Operations[$result['grower_operation_id']];
+                    $this->GrowerOperation = $this->Operations[$id];
                 }
             }
         } else {
@@ -97,7 +104,10 @@ class User extends Base {
 
     public function authenticate($email, $password) {
         $results = $this->DB->run('
-            SELECT * FROM users WHERE email=:email AND password=:password LIMIT 1
+            SELECT * 
+            FROM users 
+            WHERE email=:email 
+                AND password=:password LIMIT 1
         ', [
             'email'     => $email,
             'password'  => hash('sha256', $password) 
@@ -140,20 +150,30 @@ class User extends Base {
      */
     public function get_orders() {
         $results = $this->DB->run('
-            SELECT id
+            SELECT *
             FROM orders o
             WHERE user_id = :user_id
         ', [
             'user_id' => $this->id
         ]);
 
-        $Orders = [];
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $id = $result['id'];
 
-        foreach ($results as $result) {
-            $Orders []= new Order(['id' => $result['id']]);
+                $this->Orders[$id] = new Order([
+                    'DB' => $this->DB,
+                    'id' => $id
+                ]);
+
+                if (empty($result['placed_on'])) {
+                    $this->ActiveOrder = $this->Orders[$id];
+                } 
+            }
+        } else {
+            $this->Orders = false;
+            $this->ActiveOrder = false;
         }
-
-        return $Orders;
     }
 
 }
