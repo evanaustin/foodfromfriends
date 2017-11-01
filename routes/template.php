@@ -31,12 +31,12 @@ foreach ([
             'css/thirdparty/bootstrap/bootstrap',
             'css/thirdparty/bootstrap-form-helper/bootstrap-formhelpers',
             'css/thirdparty/animate/animate',
-            'css/thirdparty/cropbox/cropbox',           // not universal
-            'css/thirdparty/slidebars/slidebars',
             'css/thirdparty/fontawesome-4.7/font-awesome',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
-            'node_modules/mapbox-gl/dist/mapbox-gl',    // not universal
+            (($Routing->template == 'dashboard') ? 'css/thirdparty/cropbox/cropbox' : ''),
+            (($Routing->template == 'front') ? 'css/thirdparty/slidebars/slidebars' : ''),
+            (($Routing->template == 'front') ? 'node_modules/mapbox-gl/dist/mapbox-gl' : ''),
             (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
             $Template->styles
         ]); ?>
@@ -45,19 +45,38 @@ foreach ([
     <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
         <?php
         
-        include SERVER_ROOT . 'routes/components/header.php';
+        if ($Routing->template == 'front' || $Routing->template == 'dashboard') {
+            include SERVER_ROOT . 'routes/components/header.php';
+            
+            // begin canvas
+            echo '<div canvas="container">';
+        }
         
-        echo '<div canvas="container">';
+        foreach ($body as $part) {
+            $file = SERVER_ROOT . $part . '.php';
+            if (file_exists($file)) include $file;
+        }
 
-            foreach ($body as $part) {
-                $file = SERVER_ROOT . $part . '.php';
-                if (file_exists($file)) include $file;
+        if ($Routing->template == 'front' || $Routing->template == 'dashboard') {
+            // end canvas
+            echo '</div>';
+        }
+
+        if ($Routing->template == 'front') {
+            $extensions = [
+                'cart'  => 'routes/components/front/cart',
+                'modal' =>'routes/modals/' . $Routing->path
+            ];
+
+            if (!$LOGGED_IN) {
+                $extensions['sign-up']   = 'routes/modals/sign-up';
+                $extensions['log-in']    = 'routes/modals/log-in';
             }
 
-        echo '</div>';
-
-        if ($Routing->template == 'front' || $Routing->template == 'map') {
-            include SERVER_ROOT . 'routes/components/front/cart.php';
+            foreach ($extensions as $extension) {
+                $file = SERVER_ROOT . $extension . '.php';
+                if (file_exists($file)) include $file;
+            }
         }
         
         layer('js', [
