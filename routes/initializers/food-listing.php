@@ -21,9 +21,9 @@ if (isset($FoodListing->id)) {
 
         $exchange_options_available = [];
 
-        if ($GrowerOperation->Delivery->is_offered) array_push($exchange_options_available, 'delivery');
-        if ($GrowerOperation->Pickup->is_offered) array_push($exchange_options_available, 'pickup');
-        if ($GrowerOperation->Meetup->is_offered) array_push($exchange_options_available, 'meetup');
+        if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) array_push($exchange_options_available, 'delivery');
+        if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) array_push($exchange_options_available, 'pickup');
+        if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) array_push($exchange_options_available, 'meetup');
 
         if ($GrowerOperation->type == 'none') {
             $team_members = $GrowerOperation->get_team_members();
@@ -60,7 +60,7 @@ if (isset($FoodListing->id)) {
             $joined_on  = $GrowerOperation->created_on;
         }
         
-        if (!empty($User->latitude) && !empty($User->longitude) && !empty($latitude) && !empty($longitude)) {
+        if (isset($User) && !empty($User->latitude) && !empty($User->longitude) && !empty($latitude) && !empty($longitude)) {
             $length = getDistance([
                 'lat' => $User->latitude,
                 'lng' => $User->longitude
@@ -95,8 +95,9 @@ if (isset($FoodListing->id)) {
         for ($i = 0; $i < 5; $i++) {
             $grower_stars .= '<i class="fa fa-star"></i>';
         }
+
+        $settings['title'] = ucfirst($listing_title) . ' from ' . $name . ' | Food From Friends';
     }
 }
-
 
 ?>

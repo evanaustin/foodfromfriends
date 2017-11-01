@@ -103,7 +103,7 @@
 
                                     <?php
                                                 
-                                    if ($GrowerOperation->Delivery->is_offered) {
+                                    if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
 
                                         ?>
 
@@ -135,7 +135,7 @@
 
                                         <?php
 
-                                    } if ($GrowerOperation->Pickup->is_offered) {
+                                    } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
                                         
                                         ?>
                                         
@@ -148,14 +148,18 @@
                                                 <?php echo $city . ', ' . $state; ?>
                                             </p>
                                             
-                                            <p>
-                                                <?php echo $distance['length'] . ' ' . $distance['units'] . ' away'; ?>
-                                            </p>
+                                            <?php
+                                            
+                                            if (isset($distance)) {
+                                                echo "<p>{$distance['length']} {$distance['units']} away</p>";
+                                            }
+
+                                            ?>
                                         </div>
 
                                         <?php
                                         
-                                    } if ($GrowerOperation->Meetup->is_offered) {
+                                    } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
                                         
                                         ?>
                                         
@@ -187,13 +191,18 @@
                                     </div>
 
                                     <div class="content">
+                                        <div class="alerts"></div>
+
                                         <form id="add-item">
+                                            <input type="hidden" name="user_id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
+                                            <input type="hidden" name="food_listing_id" value="<?php echo $FoodListing->id; ?>">
+
                                             <div class="form-group">
                                                 <label>
                                                     Quantity
                                                 </label>
                                                 
-                                                <select id="" name="" class="custom-select" data-parsley-trigger="change" required>
+                                                <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     <?php
                                                     
                                                     for ($i = 1; $i <= $FoodListing->quantity; $i++) {
@@ -204,7 +213,7 @@
                                                 </select>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="exchange form-group">
                                                 <label>
                                                     Exchange option
                                                 </label>
@@ -213,15 +222,19 @@
                                                     <?php
                                                     
                                                     foreach ($exchange_options_available as $option) {
-                                                        echo "<button type=\"button\" class=\"btn btn-secondary\">" . ucfirst($option) . "</button>";
+                                                        echo "<button type=\"button\" class=\"btn btn-secondary\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
                                                     }
                                                     
                                                     ?>
                                                 </div>
+
+                                                <div class="form-control-feedback hidden">
+                                                    Please select an exchange type
+                                                </div>
                                             </div>
 
-                                            <button class="btn btn-primary btn-block">
-                                                Add to cart
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                Add to basket
                                             </button>
                                         </form>
                                     </div>
