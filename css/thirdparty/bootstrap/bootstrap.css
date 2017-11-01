@@ -3426,40 +3426,40 @@ a.badge:focus, a.badge:hover {
   color: inherit; }
 
 .alert-success {
-  background-color: #dff0d8;
-  border-color: #d0e9c6;
-  color: #3c763d; }
+  background-color: #00c079;
+  border-color: #00c079;
+  color: #fff; }
   .alert-success hr {
-    border-top-color: #c1e2b3; }
+    border-top-color: #00a669; }
   .alert-success .alert-link {
-    color: #2b542c; }
+    color: #e6e6e6; }
 
 .alert-info {
-  background-color: #d9edf7;
-  border-color: #bcdff1;
-  color: #31708f; }
+  background-color: #5bc0de;
+  border-color: #5bc0de;
+  color: #fff; }
   .alert-info hr {
-    border-top-color: #a6d5ec; }
+    border-top-color: #46b8da; }
   .alert-info .alert-link {
-    color: #245269; }
+    color: #e6e6e6; }
 
 .alert-warning {
-  background-color: #fcf8e3;
-  border-color: #faf2cc;
-  color: #8a6d3b; }
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+  color: #fff; }
   .alert-warning hr {
-    border-top-color: #f7ecb5; }
+    border-top-color: #eea236; }
   .alert-warning .alert-link {
-    color: #66512c; }
+    color: #e6e6e6; }
 
 .alert-danger {
-  background-color: #f2dede;
-  border-color: #ebcccc;
-  color: #a94442; }
+  background-color: #d9534f;
+  border-color: #d9534f;
+  color: #fff; }
   .alert-danger hr {
-    border-top-color: #e4b9b9; }
+    border-top-color: #d43f3a; }
   .alert-danger .alert-link {
-    color: #843534; }
+    color: #e6e6e6; }
 
 @keyframes progress-bar-stripes {
   from {
