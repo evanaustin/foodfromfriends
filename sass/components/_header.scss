@@ -1,5 +1,5 @@
 nav#header.navbar {
-    /* computed height: 66px */
+    /* computed height: 65px */
     z-index: 99;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -33,38 +33,38 @@ nav#header.navbar {
         }
     }
 
+    ul.navbar-nav {
+        align-items: center;
+    }
+
     li.nav-item {
         // computed height: 48px
         padding: 0 0.5em;
 
         a.nav-link {
             cursor: pointer;
+            padding: 0.25em 0.5em;
+            background: transparent;
+            border: 1px solid transparent;
+            @include rounded(0.25em);
+            @include transition(all .3s);
 
             &.active {
-                i {
-                    background: $superlight-green;
-                    border: 1px solid $superlight-green;
-                    color: #fff;
-                    @include drop-shadow(0, 2px, 4px);
-                }
+                background: $superlight-green;
+                border: 1px solid $superlight-green;
+                color: #fff;
+                @include drop-shadow(0, 2px, 4px);
             }
 
             &:not(.active):hover {
-                i {
-                    border-top: 0.5px solid $lightedge-color;
-                    color: $superlight-green;
-                    @include transform(translateY(-2px));
-                    @include drop-shadow(0, 2px, 4px);
-                }
+                border-top: 0.5px solid $lightedge-color;
+                color: $superlight-green;
+                @include transform(translateY(-2px));
+                @include drop-shadow(0, 2px, 4px);
             }
 
-            i {
-                padding: 0.5em;
-                background: transparent;
-                border: 1px solid transparent;
-                color: inherit;
-                @include rounded(0.25em);
-                @include transition(all .3s);
+            span + i {
+                padding-left: 0.25em;
             }
         }
 
