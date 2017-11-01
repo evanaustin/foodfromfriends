@@ -91,7 +91,9 @@ $Mail = new Mail([
 
 $Mail->thanks_signup();
 
-if (isset($GrowerOperation)) {
+if (isset($redirect) && $redirect == 'false') {
+    $json['redirect'] = false;
+} else if (isset($GrowerOperation)) {
     if ($GrowerOperation->permission == 2) {
         $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
     } else {

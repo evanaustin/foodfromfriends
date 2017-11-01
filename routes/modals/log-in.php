@@ -10,9 +10,11 @@
             </div>
             
             <div class="modal-body">
-                <div class="alert"></div>
+                <div class="alerts"></div>
 
                 <form id="log-in">
+                    <input type="hidden" name="redirect">
+
                     <div class="form-group">
                         <div class="input-group w-addon">
                             <input type="email" name="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>

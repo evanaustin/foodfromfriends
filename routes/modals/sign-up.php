@@ -10,12 +10,14 @@
             </div>
             
             <div class="modal-body">
-                <div class="alert"></div>
+                <div class="alerts"></div>
 
                 <form id="sign-up">
+                    <input type="hidden" name="redirect">
+
                     <div class="form-group">
                          <div class="input-group w-addon"> 
-                            <input type="text" name="first_name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
+                            <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
                              <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
@@ -25,7 +27,7 @@
                     
                     <div class="form-group">
                         <div class="input-group w-addon">
-                            <input type="text" name="last_name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
+                            <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                             <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
@@ -106,7 +108,7 @@
                     </div>
 
                     <small>
-                        By clicking Sign up, I agree to Food From Friends’s Terms of Service, Payments Terms of Service, Privacy Policy, and Nondiscrimination Policy.
+                        By clicking <strong>Sign up</strong>, I agree to Food From Friends’s Terms of Service, Payments Terms of Service, Privacy Policy, and Nondiscrimination Policy.
                     </small>
 
                     <button type="submit" class="btn btn-primary btn-block">Sign up</button>
