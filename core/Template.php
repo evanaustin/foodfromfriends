@@ -21,7 +21,7 @@ class Template {
             $this->{$k} = $v;
         }
 
-        if ($Routing->template == 'front' || $Routing->template == 'map') {
+        if ($Routing->template == 'front') {
             array_unshift($this->scripts, 'js/front');
         }
     }

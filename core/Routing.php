@@ -23,22 +23,19 @@ class Routing {
             'early-access-invitation',
             'team-member-invitation',
             'stripe-atlas',
-            'log-in',
-            'map'
+            'log-in'
         ];
 
-        if ($exp_path[0] == 'dashboard') {
-            $this->template = 'dashboard';
-        } else if (in_array($this->path, $this->unique)) {
-            $this->template = $this->path;
-        } else {
-            $this->template = 'front';
-        }
-        
-        if ($this->template == 'dashboard') {
-            $this->section = (isset($exp_path[1])) ? $exp_path[1] : null;
-            $this->subsection = (isset($exp_path[2])) ? $exp_path[2] : null;
-            $this->page = (isset($exp_path[3])) ? $exp_path[3] : null;
+        if (in_array($this->path, $this->unique)) {
+            $this->template     = $this->path;
+        } else if ($exp_path[0] == 'dashboard') {
+            $this->template     = $exp_path[0];
+            $this->section      = (isset($exp_path[1])) ? $exp_path[1] : null;
+            $this->subsection   = (isset($exp_path[2])) ? $exp_path[2] : null;
+            $this->page         = (isset($exp_path[3])) ? $exp_path[3] : null;
+        }  else {
+            $this->template     = 'front';
+            $this->section      = $exp_path[0];
         }
     }
 }
