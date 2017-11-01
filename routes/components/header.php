@@ -19,25 +19,31 @@
             <?php if (!$LOGGED_IN) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#sign-up-modal">
-                        <span>Sign up</span>
-                        <i class="fa fa-upload"></i>
+                        <span>
+                            Sign up
+                        </span>
+                        
+                        <i class="fa fa-rocket"></i>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#log-in-modal">
-                        <span>Log in</span>
-                        <i class="fa fa-sign-in"></i>
+                        <span>
+                            Log in
+                        </span>
+                        
+                        <i class="fa fa-id-badge"></i>
                     </a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
                     <a 
-                        class="nav-link <?php if ($Routing->template == 'map') { echo 'active'; } ?>" 
+                        class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
                         href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>"
+                        data-toggle="tooltip" data-placement="bottom" title="Map"
                     >
-                        <i class="fa fa-map" data-toggle="tooltip" data-placement="bottom" title="Map"></i>
-                        <!-- <span>Map</span> -->
+                        <i class="fa fa-map"></i>
                     </a>
                 </li>
 
@@ -45,9 +51,9 @@
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
                         href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
-                        <i class="fa fa-dashboard" data-toggle="tooltip" data-placement="bottom" title="Dashboard"></i>
-                        <!-- <span>Dashboard</span> -->
+                        <i class="fa fa-dashboard"></i>
                     </a>
                 </li>
 
@@ -58,9 +64,12 @@
                     ?>
 
                     <li class="nav-item">
-                        <a id="cart-toggle" class="nav-link">
-                            <i class="fa fa-shopping-basket" data-toggle="tooltip" data-placement="bottom" title="Basket"></i>
-                            <!-- <span>Basket</span> -->
+                        <a 
+                            id="cart-toggle" 
+                            class="nav-link"
+                            data-toggle="tooltip" data-placement="bottom" title="Basket"
+                        >
+                            <i class="fa fa-shopping-basket"></i>
                         </a>
                     </li>
 
@@ -72,7 +81,9 @@
 
                 <div class="hidden-lg-up">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">Account settings</a>
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                            Edit profile
+                        </a>
                     </li>
 
                     <li class="nav-item">
@@ -82,11 +93,19 @@
 
                 <div class="hidden-md-down">
                     <li class="nav-item profile dropdown">
-                        <div class="nav-link dropdown-toggle" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+                        <div 
+                            class="nav-link dropdown-toggle" 
+                            style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false"
+                        ></div>
                     
                         <div class="dropdown-menu dropdown-menu-right animated bounceIn">
-                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">Edit profile</a>
-                            <!-- <a class="dropdown-item" href="#">Account settings</a> -->
+                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                                Edit profile
+                            </a>
+                            
                             <a id="log-out" class="dropdown-item" href="#">Log out</a>
                         </div>
                     </li>
