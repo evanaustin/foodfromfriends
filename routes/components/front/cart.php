@@ -106,6 +106,103 @@
         </div>
     </div>
 
+    <?php
+    
+    foreach($User->ActiveOrder->Growers as $OrderGrower) {
+        $Grower = new GrowerOperation([
+            'DB' => $DB,
+            'id' => $OrderGrower->id
+        ]);
+
+        ?>
+
+        <div class="set">
+            <h6>
+
+                <?php
+                    
+                if ($Grower->type == 'none') {
+                    $team_members = $Grower->get_team_members();
+                    
+                    $GrowerUser = new User([
+                        'DB' => $DB,
+                        'id' => $team_members[0]['id']
+                    ]);
+
+                    echo $GrowerUser->first_name;
+                } else {
+                    echo $Grower->name;
+                }
+                    
+                ?>
+            
+            </h6>
+
+            <?php
+
+            foreach ($OrderGrower->FoodListings as $CartItem) {
+                $FoodListingItem = new FoodListing([
+                    'DB' => $DB,
+                    'id' => $CartItem->food_listing_id
+                ]);
+
+                ?>
+
+                <div class="cart-item">
+                    <div class="item-image">
+                        <?php img(ENV . '/food-listings/fl.' . $FoodListingItem->id, $FoodListingItem->ext, 's3', 'img-fluid'); ?>
+                    </div>
+                    
+                    <div class="item-content">
+                        <div class="item-title">
+                            <a href="">
+                                <?php echo ucfirst((!empty($FoodListingItem->other_subcategory)) ? $FoodListingItem->other_subcategory : $FoodListingItem->subcategory_title); ?>
+                            </a>
+                        </div>
+
+                        <div class="item-details">
+                            <select class="custom-select">
+                            
+                            <?php
+                                                    
+                                for ($i = 1; $i <= $FoodListingItem->quantity; $i++) {
+                                    echo "<option value=\"{$i}\"" . (($i == $CartItem->quantity) ? 'selected' : '') . ">{$i}</option>";
+                                }
+                                
+                            ?>
+
+                            </select>
+
+                            <div class="item-price">
+                                $<?php echo number_format($CartItem->unit_price / 100, 2); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+            }
+
+            ?>
+
+            <div class="addon">
+                <div class="label">
+                    <!-- exchange method -->
+                </div>
+                
+                <div class="rate">
+                    $<?php echo number_format(0 / 100, 2); ?>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    }
+
+    // print_r($User->ActiveOrder->id);
+
+    ?>
+
     <hr>
 
     <div class="addon">
