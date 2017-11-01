@@ -132,10 +132,6 @@ body.front.food-listing {
                 &:focus {
                     @include transform(none);
                 }
-
-                .btn {
-                    border-top: 0px;
-                }
             }
         }
     }
