@@ -19,14 +19,14 @@ class Order extends Base {
         parent::__construct($parameters);
     
         // Instantiating this object with an ID will result in a full loadout of the order(/cart)'s
-        // growers and items.  `Order->Growers` is an array of `OrderGrower` classes.  Each
+        // growers and items. `Order->Growers` is an array of `OrderGrower` classes. Each
         // `Order->Growers` array element has a `FoodListings` property, which is an array of all food
-        // listings added to this order that are sold by that grower.  Both are keyed by their 
+        // listings added to this order that are sold by that grower. Both are keyed by their 
         // base `grower_operation_id` and `food_listing_id` value, respectively.
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
 
-            // Ensure we have the latest prices.  As a side effect, this loads the growers in this
+            // Ensure we have the latest prices. As a side effect, this loads the growers in this
             // order to `$this->OrderGrowers`.
             if ($this->is_cart() === true) {
                 $this->update_cart();
@@ -45,7 +45,12 @@ class Order extends Base {
      * @return self
      */
     public function get_cart($user_id) {
-        $results = $this->DB->run('SELECT id FROM orders WHERE user_id=:user_id AND placed_on IS NULL', [
+        $results = $this->DB->run('
+            SELECT id
+            FROM orders
+            WHERE user_id=:user_id 
+                AND placed_on IS NULL'
+        , [
             'user_id' => $user_id
         ]);
 
@@ -59,7 +64,10 @@ class Order extends Base {
             $order_id = $results[0]['id'];
         }
 
-        return new Order(['id' => $order_id]);
+        return new Order([
+            'DB' => $this->DB,
+            'id' => $order_id
+        ]);
     }
 
     /**
@@ -67,7 +75,10 @@ class Order extends Base {
      * `$this->Growers`.
      */
     public function load_growers() {
-        $OrderGrower = new OrderGrower();
+        $OrderGrower = new OrderGrower([
+            'DB' => $this->DB
+        ]);
+
         $this->Growers = $OrderGrower->load_for_order($this->id);
     }
 
@@ -90,10 +101,10 @@ class Order extends Base {
     }
 
     /**
-     * Adds an item to the shopping cart.  Adds an OrderGrower record too if one doesn't already exist for 
+     * Adds an item to the shopping cart. Adds an OrderGrower record too if one doesn't already exist for 
      * this grower.
      *
-     * @todo When do we add the exchange method?  Could be done here or later.
+     * @todo When do we add the exchange method? Could be done here or later.
      */
     public function add_to_cart(GrowerOperation $GrowerOperation, FoodListing $FoodListing, $quantity) {
         if ($this->is_cart() !== true) {
@@ -115,6 +126,7 @@ class Order extends Base {
      * Adds a grower to this order and refreshes `$this->Growers`.
      */
     private function add_grower(GrowerOperation $GrowerOperation) {
+        // ? use Base function
         $this->DB->insert('order_growers', [
             'order_id' => $this->id,
             'grower_operation_id' => $GrowerOperation->id
@@ -169,6 +181,7 @@ class Order extends Base {
      * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
      * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      */
+    // ? need case for pickup
     public function set_exchange_method(GrowerOperation $GrowerOperation, $delivery_settings_id = null, $meetup_settings_id = null) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
@@ -181,13 +194,13 @@ class Order extends Base {
     }
 
     /**
-     * This method should be called every time the cart is modified or instantiated.  It updates prices
+     * This method should be called every time the cart is modified or instantiated. It updates prices
      * and totals in the database and loads those properties into the object, ensuring everything is 
      * up-to-date.
      */
     private function update_cart() {
         // Orders once paid for are set in stone!
-        if ($this->is_cart !== true) {
+        if ($this->is_cart() !== true) {
             throw new \Exception('This order is not a cart!');
         }
 
@@ -223,6 +236,7 @@ class Order extends Base {
 
         $total = $subtotal + $exchange_fees + $fff_fee;
 
+        // ? use Base class
         $this->DB->run('
             UPDATE orders 
             SET 
@@ -257,6 +271,7 @@ class Order extends Base {
     public function mark_paid($stripe_charge_id) {
         $now = \Time::now();
 
+        // ? use Base class
         $this->DB->run('
             UPDATE orders 
             SET 
@@ -275,7 +290,10 @@ class Order extends Base {
         $this->placed_on = $now;
 
         // Update payout
-        $Payout = new Payout();
+        $Payout = new Payout([
+            'DB' => $this->DB
+        ]);
+
         $Payout->save_order($this);
     }
 }

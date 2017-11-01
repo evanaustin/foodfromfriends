@@ -39,18 +39,27 @@ class OrderFoodListing extends Base {
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $listings[$result['food_listing_id']] = new OrderFoodListing(['id' => $result['id']]);
+                $listings[$result['food_listing_id']] = new OrderFoodListing([
+                    'DB' => $this->DB,
+                    'id' => $result['id']
+                ]);
             }
         }
 
-        return $listings[];
+        return $listings;
     }
 
     /**
      * Changes the quantity of this item in the cart
      */
     public function modify_quantity($quantity) {
-        $this->DB->run('UPDATE order_food_listings SET quantity = :quantity WHERE id = :id LIMIT 1', [
+        // ? use Base function
+        $this->DB->run('
+            UPDATE order_food_listings 
+            SET quantity = :quantity 
+            WHERE id = :id 
+            LIMIT 1
+        ', [
             'quantity' => $quantity,
             'id' => $this->id
         ]);
@@ -60,8 +69,12 @@ class OrderFoodListing extends Base {
      * Called when the cart is loaded or modified to make sure we have the seller's latest prices.
      */
     public function sync_prices() {
-        $FoodListing = new FoodListing(['id' => $this->food_listing_id]);
+        $FoodListing = new FoodListing([
+            'DB' => $this->DB,
+            'id' => $this->food_listing_id
+        ]);
 
+        // ? use Base function
         $this->DB->run('
             UPDATE order_food_listings
             SET unit_price = :unit_price, total = :total
@@ -74,7 +87,7 @@ class OrderFoodListing extends Base {
         ]);
 
         // Update class properties
-        $this->unit_price = $unit_price;
-        $this->total = $total;
+        $this->unit_price = $FoodListing->price;
+        $this->total = $this->quantity * $FoodListing->price;
     }
 }

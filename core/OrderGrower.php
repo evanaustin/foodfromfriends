@@ -21,7 +21,7 @@ class OrderGrower extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->load_food_listings();
-            $this->load_exchange_method();
+            $this->get_exchange_type();
         }
     }
 
@@ -40,15 +40,18 @@ class OrderGrower extends Base {
             'order_id' => $order_id
         ]);
 
-        $growers = [];
+        $Growers = [];
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $growers[$result['grower_operation_id']] = new OrderGrower(['id' => $result['id']]);
+                $Growers[$result['grower_operation_id']] = new OrderGrower([
+                    'DB' => $this->DB,
+                    'id' => $result['id']
+                ]);
             }
         }
 
-        return $growers[];
+        return $Growers;
     }
 
     /**
@@ -56,7 +59,10 @@ class OrderGrower extends Base {
      * `$this->FoodListings`.
      */
     public function load_food_listings() {
-        $OrderFoodListing = new OrderFoodListing();
+        $OrderFoodListing = new OrderFoodListing([
+            'DB' => $this->DB
+        ]);
+
         $this->FoodListings = $OrderFoodListing->load_for_grower($this->id);
     }
 
@@ -64,7 +70,8 @@ class OrderGrower extends Base {
      * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`.  Don't worry
      * about `unit_price` and `amount` here; they're handled by the `Order->update_cart()` method.
      */
-    private function add_food_listing(FoodListing $FoodListing, $quantity) {
+    public function add_food_listing(FoodListing $FoodListing, $quantity) {
+        // ? use Base function
         $this->DB->insert('order_food_listings', [
             'order_id' => $this->order_id,
             'order_grower_id' => $this->id,
@@ -96,6 +103,7 @@ class OrderGrower extends Base {
         } else if (isset($this->meetup_settings_id) && $this->meetup_settings_id > 0) {
             return 'meetup';
         }
+        // ? need case for pickup
 
         return 'pickup';
     }
@@ -134,8 +142,8 @@ class OrderGrower extends Base {
             }
 
             $distance = getDistance(
-                ['lat' => $results[0]['lat1'], 'lon' = $results[0]['lon1']], 
-                ['lat' => $results[0]['lat2'], 'lon' = $results[0]['lon2']]
+                ['lat' => $results[0]['lat1'], 'lon' => $results[0]['lon1']], 
+                ['lat' => $results[0]['lat2'], 'lon' => $results[0]['lon2']]
             );
 
             // Validate distance
@@ -156,7 +164,10 @@ class OrderGrower extends Base {
             $meetup_settings_id = 0;
         }
 
+        // ? need case for pickup
+
         // Save exchange settings for this grower
+        // ? use Base function
         $this->DB->run('
             UPDATE order_growers 
             SET 
@@ -201,6 +212,7 @@ class OrderGrower extends Base {
         }
         
         // Save the fee for this grower
+        // ? use Base function
         $this->DB->run('
             UPDATE order_growers 
             SET 
@@ -208,7 +220,7 @@ class OrderGrower extends Base {
             WHERE id = :id
             LIMIT 1
         ', [
-            'exchange_fee' => $exchange_fee
+            'exchange_fee' => $exchange_fee,
             'id' => $this->id
         ]);
 
@@ -229,6 +241,7 @@ class OrderGrower extends Base {
 
         $total = $subtotal + $this->exchange_fee;
 
+        // ? use Base function
         $this->DB->run('
             UPDATE order_growers 
             SET 
@@ -253,6 +266,7 @@ class OrderGrower extends Base {
     public function mark_fulfilled() {
         $now = \Time::now();
 
+        // ? use Base function
         $this->DB->run('
             UPDATE order_growers 
             SET 
