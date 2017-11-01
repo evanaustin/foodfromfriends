@@ -1,5 +1,9 @@
-div.alert {
+div.alerts {
     display: none;
+
+    div.alert {
+        @include drop-shadow(0, 2px, 4px);
+    }
 }
 
 div.controls {
@@ -95,6 +99,26 @@ form {
 
     .form-control-danger {
         color: $brand-danger;
+    }
+
+    .btn-group {
+        &.has-danger {
+            border-color: $brand-danger !important;
+            
+            .btn {
+                border-color: $brand-danger !important;
+                color: $brand-danger !important;
+                
+                &:hover {
+                    background-color: transparent;
+                    color: $muted !important;
+                }
+            }
+
+            + .form-control-danger {
+                background-image: none;
+            }
+        }
     }
 
     div.radio-box {
