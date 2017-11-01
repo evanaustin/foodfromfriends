@@ -22,7 +22,7 @@
 
                     <hr>
 
-                    <div class="alert"></div>
+                    <div class="alerts"></div>
 
                     <form id="invite-member">
                         <div class="row">

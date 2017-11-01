@@ -5,7 +5,7 @@
                 <?php svg('logos/thin_alt'); ?>
             </div>
 
-            <div class="alert"></div>
+            <div class="alerts"></div>
 
             <form id="log-in">
                 <input type="hidden" name="operation-key" value="<?php echo $operation_key; ?>">

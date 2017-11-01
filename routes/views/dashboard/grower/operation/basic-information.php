@@ -32,7 +32,7 @@
 
                     <hr>
 
-                    <div class="alert"></div>
+                    <div class="alerts"></div>
                     
                     <form id="edit-basic-information" data-parsley-excluded="[disabled=disabled]">
                         <div class="row">

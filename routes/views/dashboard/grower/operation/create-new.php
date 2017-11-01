@@ -26,7 +26,7 @@
 
                 <hr>
 
-                <div class="alert"></div>
+                <div class="alerts"></div>
                 
                 <form id="create-new" data-parsley-excluded="[disabled=disabled]">
                     <div class="row">

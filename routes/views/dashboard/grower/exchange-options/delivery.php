@@ -34,7 +34,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="alert"></div>
+                            <div class="alerts"></div>
 
                             <form id="save-delivery" data-parsley-excluded="[disabled=disabled]">
                                 <div id="delivery-setting">

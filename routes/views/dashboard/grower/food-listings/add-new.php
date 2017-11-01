@@ -26,7 +26,7 @@
                 
                 <hr>
 
-                <div class="alert"></div>
+                <div class="alerts"></div>
 
                 <form id="add-listing">
                     <div class="row">

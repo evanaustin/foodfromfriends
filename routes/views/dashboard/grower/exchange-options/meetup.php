@@ -34,7 +34,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="alert"></div>
+                            <div class="alerts"></div>
 
                             <form id="save-meetup">
                                 <div class="form-group">

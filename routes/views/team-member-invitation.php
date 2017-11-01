@@ -9,7 +9,7 @@
                 <?php echo 'Welcome! ' . $invited_by . ' has requested your assistance in managing ' . $operation_name . ' on Food From Friends. Fill out the form below to sign up and join the team.'; ?>
             </p>
 
-            <div class="alert"></div>
+            <div class="alerts"></div>
 
             <form id="sign-up">
                 <input type="hidden" name="operation-key" value="<?php echo $operation_key; ?>">

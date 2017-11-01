@@ -38,7 +38,7 @@
                     
                     <hr>
 
-                    <div class="alert"></div>
+                    <div class="alerts"></div>
 
                     <form id="edit-listing">
                         <input type="hidden" name="id" value="<?php echo $FoodListing->id; ?>">
