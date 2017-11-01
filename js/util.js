@@ -17,36 +17,40 @@ App.Util = function() {
     };
 
     // Error message handling 
-    // You have to create a container element, eg: <div id="alerts"></div>
+    // You have to create a container element, eg: <div id="alert"></div>
     // alert_type = 'error', 'success', 'info'
-    /* function msg(message, alert_type, alert_container) {
-        var alert_container = alert_container || '#alerts';
-        console.log($(alert_container));
-        hideMsg('all', alert_container);
-        $(alert_container).append('<div class="alert alert-' +  alert_type + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>').show();
-    } */
     
-    function msg(message, alert_type) {
-        $('div.alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-' + alert_type).html(message).fadeIn();
+    function msg(message, alert_type, form) {
+        var $alert_container = form.siblings('div.alerts') || $('div.alerts');
+
+        hideMsg('all', $alert_container);
+
+        message = htmlEntityDecode(message);
+        console.log(htmlEntityDecode(message));
+
+        $alert_container
+            .append('<div class="alert alert-' +  alert_type + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
+            .fadeIn();
     }
 
     // Leave msg_type blank to clear all alerts
     // Leave container blank to call all alerts of a given type in a single container only
     function hideMsg(msg_type, container) {
-        var container = ((container || '') != '' ? container+' ' : '');
         var msg_type = msg_type || 'all';
+        var $container = container || $('div.alerts');
+
         switch (msg_type) {
             case 'all':
-                $(container + '.alert').fadeOut();
+                $container.fadeOut();
                 break;
             case 'error':
-                $(container + '.alert-danger').fadeOut();
+                $container.hasClass('alert-danger').fadeOut();
                 break;
             case 'success':
-                $(container + '.alert-success').fadeOut();
+                $container.hasClass('alert-success').fadeOut();
                 break;
             case 'info':
-                $(container + '.alert-info').fadeOut();
+                $container.hasClass('alert-info').fadeOut();
                 break;
         }
     }
@@ -100,7 +104,9 @@ App.Util = function() {
     }
 
     function slidebar(controller, action, target, e) {
-        e.stopPropagation();
+        if (e != null) {
+            e.stopPropagation();
+        }
 
         switch(action) {
             case 'open':
@@ -113,11 +119,11 @@ App.Util = function() {
                 controller.toggle('slidebar-' + target);
         };
 
-        $(controller.events).on('opened', function () {
+        /* $(controller.events).on('opened', function () {
             $('[canvas="container"]').addClass('close-any-slidebar');
         }).on('closed', function () {
             $('[canvas="container"]').removeClass('close-any-slidebar');
-        });
+        }); */
     };
 
     // Replaces the some HTML entities with their Unicode values
@@ -359,7 +365,7 @@ App.Util = function() {
     }
 
     function scrollToTop() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
     }
 
     function closePopovers() {
