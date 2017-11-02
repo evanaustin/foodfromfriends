@@ -9,7 +9,7 @@
 * Dependencies
 **/
 @import 'mixins';
-@import 'colors';
+@import 'variables';
 @import 'thirdparty/bootstrap/variables';
 
 /**
@@ -19,6 +19,6 @@
 @import 'forms';
 
 /**
-* View Styles
+* View
 **/
 @import 'views/log-in';

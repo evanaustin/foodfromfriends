@@ -1,3 +1,24 @@
+/*
+ * Layering
+ */
+$superultra-z: 9999;
+$super-z: 999;
+$fixed-z: 99;
+$flow-z: 1;
+
+/*
+ * Component Dimensions
+ */
+ $header-height: 65px;
+ 
+/*
+* Misc Values
+*/
+$radius: 0.25rem;
+
+/*
+ * Colors
+ */
 $light-green: #00A669;
 $superlight-green: lighten($light-green, 5%);
 $dark-green: #005434;
@@ -13,6 +34,3 @@ $off-white: #eee;
 
 $edge-color: #f5f5f5;
 $lightedge-color: rgba(0, 0, 0, 0.025);
-
-
-$radius: 0.25rem;

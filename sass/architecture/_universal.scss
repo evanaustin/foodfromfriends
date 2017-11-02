@@ -1,0 +1,21 @@
+nav#header.navbar {
+    /* computed height: 65px */
+    position: fixed;
+    z-index: $fixed-z;
+    width: 100%;
+}
+
+[canvas=container] {
+    position: absolute;
+    top: $header-height;
+    width: 100%;
+    height: calc(100% - 65px);
+
+    /* > div.container, > div.container-fluid {
+        height: 100%;
+    } */
+}
+
+[off-canvas*=right] {
+    top: $header-height;
+}

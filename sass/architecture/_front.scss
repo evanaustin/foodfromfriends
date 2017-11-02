@@ -1,0 +1,105 @@
+main {
+    padding-bottom: 48px; // footer height
+}
+
+div.sidebar-content {
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+}
+
+div.box {
+    background-color: #fff;
+
+    &:first-child {
+        @include border-radius($radius, 0, 0, $radius);
+
+        &.photo {
+            img {
+                @include border-radius($radius, 0, 0, $radius);
+            }
+        }
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $edge-color;
+    }
+    
+    &:last-child {
+        @include border-radius(0, $radius, $radius, 0);
+
+        &.photo {
+            img {
+                @include border-radius(0, $radius, $radius, 0);
+            }
+        }
+    }
+
+    &.photo, &.map {
+        padding: 0.5rem;
+    }
+
+    &.photo {
+        img {
+            border: 1px solid $lightedge-color;
+        }
+    }
+
+    &.map {
+        position: relative;
+
+        &:before {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        div#map {
+            top: 0.5rem;
+            left: 0.5rem;
+            bottom: 0.5em;
+            width: calc(100% - 1rem);
+            height: calc(100% - 1.25em);
+        }
+    }
+
+    div.header {
+        padding: 0.5rem 1.5rem;
+        background-color: $dark-gray;
+        color: #fff;
+        font-size: 1.5em;
+        font-weight: 500;
+
+        small {
+            font-weight: 100;
+        }
+    }
+
+    div.content {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+
+    div.btn-group {
+        width: 100%;
+        margin: 0 auto 10px auto;
+
+        button {
+            flex-grow: 1;
+            font-size: 0.85em;
+            text-align: center;
+            color: $muted;
+            
+            &:hover {
+                background-color: lighten($muted, 10%);
+                border-color: lighten($muted, 10%);
+                color: #fff;
+            }
+
+            &.active {
+                background: $muted;
+                border-color: $muted;
+                color: #fff;
+            }
+        }
+    }
+}
