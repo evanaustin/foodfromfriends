@@ -1,6 +1,9 @@
+/*
+ * artistic styles reside here
+ * formatting styles can be found in /architecture/universal
+ */
+
 nav#header.navbar {
-    /* computed height: 65px */
-    z-index: 99;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     background-color: #fff;
@@ -101,7 +104,7 @@ nav#header.navbar {
     }
 
     div.dropdown-menu {
-        z-index: 9998;
+        z-index: $super-z;
         margin-top: 0.75rem;
         border-color: $edge-color;
         // @include rounded(0px);
