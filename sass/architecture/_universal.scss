@@ -1,8 +1,21 @@
-nav#header.navbar {
-    /* computed height: 65px */
-    position: fixed;
-    z-index: $fixed-z;
-    width: 100%;
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+  
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #404040;
 }
 
 [canvas=container] {
@@ -18,4 +31,19 @@ nav#header.navbar {
 
 [off-canvas*=right] {
     top: $header-height;
+}
+
+#header.navbar {
+    /* computed height: 65px */
+    position: fixed;
+    z-index: $fixed-z;
+    width: 100%;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
