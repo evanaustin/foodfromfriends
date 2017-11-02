@@ -145,13 +145,15 @@
                             <a href="" class="remove-image float-right hidden" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
 
                             <div class="image-box slide-over">
-                                <?php img('placeholders/default-thumbnail', 'jpg', 'local', 'file'); ?>
-                                
-                                <input type="file" name="listing-image" accept="image/png/jpg">
-                                
-                                <div class="overlay-slide">
-                                    <i class="fa fa-camera"></i>
-                                    Add new listing photo
+                                <div class="image-container">
+                                    <?php img('placeholders/default-thumbnail', 'jpg', 'local', 'file'); ?>
+                                    
+                                    <input type="file" name="listing-image" accept="image/png/jpg">
+                                    
+                                    <div class="overlay-slide">
+                                        <i class="fa fa-camera"></i>
+                                        Add new listing photo
+                                    </div>
                                 </div>
                             </div>
                         </div>

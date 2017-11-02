@@ -98,6 +98,7 @@ foreach ([
             'js/bootstrap',
             'js/form',
             'js/util',
+            'js/image',
             'js/domready'
         ]);
             

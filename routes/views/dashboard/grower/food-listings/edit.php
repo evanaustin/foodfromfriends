@@ -122,21 +122,23 @@
                                     <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
 
                                     <div class="image-box slide-over <?php if (!empty($FoodListing->filename)) echo 'existing-image'; ?>">
-                                        <?php 
-                                        
-                                        if (!empty($FoodListing->filename)) {
-                                            img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
-                                        } else {
-                                            img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
-                                        }
+                                        <div class="image-container">
+                                            <?php 
+                                            
+                                            if (!empty($FoodListing->filename)) {
+                                                img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
+                                            } else {
+                                                img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                            }
 
-                                        ?>
+                                            ?>
 
-                                        <input type="file" name="listing-image" accept="image/png/jpg">
+                                            <input type="file" name="listing-image" accept="image/png/jpg">
 
-                                        <div class="overlay-slide">
-                                            <i class="fa fa-camera"></i>
-                                            Update listing photo
+                                            <div class="overlay-slide">
+                                                <i class="fa fa-camera"></i>
+                                                Update listing photo
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

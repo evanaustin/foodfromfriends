@@ -109,17 +109,19 @@
                                     <a href="" class="remove-image float-right" style="display: none;" data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
 
                                     <div class="image-box slide-over">
-                                        <?php
-                                                
-                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                        <div class="image-container">
+                                            <?php
+                                                    
+                                            img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
 
-                                        ?>
-                                        
-                                        <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
-                                        
-                                        <div class="overlay-slide">
-                                            <i class="fa fa-camera"></i>
-                                            Add a new profile photo
+                                            ?>
+                                            
+                                            <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                            
+                                            <div class="overlay-slide">
+                                                <i class="fa fa-camera"></i>
+                                                Add a new profile photo
+                                            </div>
                                         </div>
                                     </div>
 

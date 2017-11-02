@@ -16,7 +16,7 @@ $('a.remove-listing').on('click', function(e) {
             },
             cancel: {
                 label: 'Nope',
-                className: 'btn-secondary'
+                className: 'btn-warning'
             }
         },
         callback: function(result) {

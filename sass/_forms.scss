@@ -183,36 +183,42 @@ form {
             }
         }
 
-        img {
-            width: 100%;
+        div.image-container {
+            position: relative;
             border: 1px solid $lightedge-color;
             @include rounded($radius);
-        }
-
-        div.overlay-slide {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.875rem;
-            font-weight: 400;
-            // background-color: rgba(0, 0, 0, 0.7);
-            background-color: $superlight-green;
-            color: #fff;
-            @include border-radius(0, $radius, $radius, 0);
-            @include transition(all 0.2s ease);
-
-            i {
-                padding-right: 0.25em;
+            
+            img {
+                width: 100%;
+                @include rounded($radius);
+                @include transition(all 0.2s ease);
             }
-        }
 
-        input[type="file"] {
-            position: absolute;
-            left: -9999px;
+            div.overlay-slide {
+                visibility: hidden;
+                opacity: 0;
+                position: absolute;
+                bottom: -1px;
+                width: 100%;
+                padding: 1rem;
+                background-color: $superlight-green;
+                border: 1px solid $superlight-green;
+                text-align: center;
+                font-size: 0.875rem;
+                font-weight: 400;
+                color: #fff;
+                @include border-radius(0, 0.225rem, 0.225rem, 0);
+                @include transition(all 0.2s ease);
+    
+                i {
+                    padding-right: 0.25em;
+                }
+            }
+    
+            input[type="file"] {
+                position: absolute;
+                left: -9999px;
+            }
         }
     }
 

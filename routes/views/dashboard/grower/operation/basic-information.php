@@ -114,21 +114,23 @@
                                         <a href="" class="remove-image float-right" <?php if (empty($User->GrowerOperation->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
 
                                         <div class="image-box slide-over <?php if (!empty($User->GrowerOperation->filename)) echo 'existing-image'; ?>">
-                                            <?php
-                                                    
-                                            if (!empty($User->GrowerOperation->filename)) {
-                                                img(ENV . '/grower-operation-images/' . $User->GrowerOperation->filename, $User->GrowerOperation->ext . '?' . time(), 'S3', 'file');
-                                            } else {
-                                                img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
-                                            }
+                                            <div class="image-container">
+                                                <?php
+                                                        
+                                                if (!empty($User->GrowerOperation->filename)) {
+                                                    img(ENV . '/grower-operation-images/' . $User->GrowerOperation->filename, $User->GrowerOperation->ext . '?' . time(), 'S3', 'file');
+                                                } else {
+                                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                                }
 
-                                            ?>
-                                            
-                                            <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
-                                            
-                                            <div class="overlay-slide">
-                                                <i class="fa fa-camera"></i>
-                                                Add a new profile photo
+                                                ?>
+                                                
+                                                <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                                
+                                                <div class="overlay-slide">
+                                                    <i class="fa fa-camera"></i>
+                                                    Add a new profile photo
+                                                </div>
                                             </div>
                                         </div>
 
