@@ -1,8 +1,4 @@
 body.map {
-    /* [canvas=container] {
-        position: fixed;
-    } */
-
     div.main {
         display: flex;
         flex-direction: column;
@@ -216,7 +212,7 @@ body.map {
             left: 0;
             height: 14px;
             width: 14px;
-            z-index: 1;
+            z-index: $flow-z;
             cursor: pointer;
         }
         
