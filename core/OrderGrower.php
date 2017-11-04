@@ -71,13 +71,12 @@ class OrderGrower extends Base {
      * about `unit_price` and `amount` here; they're handled by the `Order->update_cart()` method.
      */
     public function add_food_listing(FoodListing $FoodListing, $quantity) {
-        // ? use Base function
-        $this->DB->insert('order_food_listings', [
+        $this->add([
             'order_id' => $this->order_id,
             'order_grower_id' => $this->id,
             'food_listing_id' => $FoodListing->id,
             'quantity' => $quantity
-        ]);
+        ], 'order_food_listings');
 
         $this->load_food_listings();
     }
