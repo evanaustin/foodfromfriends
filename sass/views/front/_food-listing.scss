@@ -1,13 +1,9 @@
 body.front.food-listing {
-    [canvas="container"] {
-        background-color: $superlight-gray;
-    }    
-    
     div.main.container {
         margin-top: 30px;
         margin-bottom: 30px;
 
-        div.main-content {
+        #main-content {
             h3.listing-name {
                 color: $dark-gray;
                 font-size: 2em;
@@ -120,7 +116,7 @@ body.front.food-listing {
             }
         }
 
-        div.add-to-cart {
+        #add-to-cart {
             background-color: #fff;
             @include drop-shadow(0, 2px, 4px);
             @include border-radius(0, $radius, $radius, 0);
