@@ -106,14 +106,14 @@ class Order extends Base {
      *
      * @todo When do we add the exchange method? Could be done here or later.
      */
-    public function add_to_cart(GrowerOperation $GrowerOperation, FoodListing $FoodListing, $quantity) {
+    public function add_to_cart(GrowerOperation $GrowerOperation, $exchange_option, FoodListing $FoodListing, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
         // If this grower doesn't have any items in the cart yet, we need to add the grower to the cart
         if (!isset($this->Growers[$GrowerOperation->id])) {
-            $this->add_grower($GrowerOperation);
+            $this->add_grower($GrowerOperation, $exchange_option);
         }
 
         $this->Growers[$GrowerOperation->id]->add_food_listing($FoodListing, $quantity);
@@ -125,12 +125,12 @@ class Order extends Base {
     /**
      * Adds a grower to this order and refreshes `$this->Growers`.
      */
-    private function add_grower(GrowerOperation $GrowerOperation) {
-        // ? use Base function
-        $this->DB->insert('order_growers', [
-            'order_id' => $this->id,
-            'grower_operation_id' => $GrowerOperation->id
-        ]);
+    private function add_grower(GrowerOperation $GrowerOperation, $exchange_option) {
+        $this->add([
+            'order_id'              => $this->id,
+            'grower_operation_id'   => $GrowerOperation->id,
+            'exchange_option'       => $exchange_option
+        ], 'order_growers');
 
         $this->load_growers();
     }
