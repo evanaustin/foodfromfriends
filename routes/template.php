@@ -106,6 +106,9 @@ foreach ([
         
         ?>
 
-        <script>var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?></script>
+        <script>
+            var ENV = <?php echo json_encode(ENV); ?>;
+            var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>;
+        </script>
     </body>
 </html>
