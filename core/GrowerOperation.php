@@ -2,11 +2,38 @@
  
 class GrowerOperation extends Base {
     
+    public
+        $id,
+        $grower_operation_type_id,
+        $name,
+        $bio,
+        $referral_key,
+        $created_on,
+        $is_active,
+        $type,
+        $address_line_1,
+        $address_line_2,
+        $city,
+        $state,
+        $zipcode,
+        $latitude,
+        $longitude,
+        $filename,
+        $ext;
+
+    public
+        $details;
+
+    public
+        $Delivery,
+        $Pickup,
+        $Meetup;
+    
     protected
         $class_dependencies,
         $DB;
 
-    function __construct($parameters) {
+    function __construct($parameters, $configure = null) {
         $this->table = 'grower_operations';
 
         $this->class_dependencies = [
@@ -18,7 +45,14 @@ class GrowerOperation extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully();
-            $this->configure_exchange_options();
+
+            if (isset($configure['details']) && $configure['details'] == true) {
+                $this->configure_details();
+            }
+
+            if (isset($configure['exchange']) && $configure['exchange'] == true) {
+                $this->configure_exchange_options();
+            }
         }
     }
     
@@ -57,7 +91,42 @@ class GrowerOperation extends Base {
 
         if (!isset($results[0])) return false;
         
-        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+        foreach ($results[0] as $k => $v) $this->{$k} = $v;
+    }
+    
+    private function configure_details() {
+        if ($this->type == 'none') {
+            $owner_id = $this->get_owner();
+            
+            $Owner = new User([
+                'DB' => $this->DB,
+                'id' => $owner_id
+            ]);
+    
+            $this->details = [
+                'name'  => $Owner->first_name,
+                'lat'   => $Owner->latitude,
+                'lng'   => $Owner->longitude,
+                'bio'   => $Owner->bio,
+                'city'  => $Owner->city,
+                'state' => $Owner->state,
+                'path'  => '/profile-photos/' . $Owner->filename,
+                'ext'   => $Owner->ext,
+                'joined' => $Owner->registered_on   
+            ];
+        } else {
+            $this->details = [
+                'name'  => $this->name,
+                'lat'   => $this->latitude,
+                'lng'   => $this->longitude,
+                'bio'   => $this->bio,
+                'city'  => $this->city,
+                'state' => $this->state,
+                'path'  => '/grower-operation-images/' . $this->filename,
+                'ext'   => $this->ext,
+                'joined' => $this->created_on   
+            ];
+        }
     }
 
     private function configure_exchange_options() {
@@ -143,6 +212,26 @@ class GrowerOperation extends Base {
         return $this->is_active;
     }
 
+    public function get_owner() {
+        $results = $this->DB->run('
+            SELECT u.id
+
+            FROM grower_operation_members gom
+
+            JOIN users u
+                ON gom.user_id = u.id
+
+            WHERE gom.grower_operation_id = :grower_operation_id
+                AND gom.permission = 2
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        return (isset($results[0])) ? $results[0]['id'] : false;
+    }
+
     public function get_team_members() {
         $results = $this->DB->run('
             SELECT 
@@ -206,26 +295,6 @@ class GrowerOperation extends Base {
         ]);
 
         return (isset($results[0])) ? $results[0]['grower_operation_id'] : false;
-    }
-
-    public function pull_all_active() {
-        $results = $this->DB->run('
-            SELECT 
-                go.id,
-                gom.user_id
-            
-            FROM grower_operations go
-
-            JOIN grower_operation_members gom
-                ON gom.grower_operation_id = go.id
-
-            WHERE go.is_active = 1
-                AND gom.permission = 2
-
-            GROUP BY go.id
-        ');
-
-        return (isset($results[0])) ? $results : false;
     }
 
     public function count_listings($grower_operation_id = null) {
