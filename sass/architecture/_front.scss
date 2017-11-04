@@ -1,8 +1,9 @@
 main {
     padding-bottom: 48px; // footer height
+    background-color: $superlight-gray;
 }
 
-div.sidebar-content {
+#sidebar-content {
     border-top: 0.5px solid $lightedge-color;
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
