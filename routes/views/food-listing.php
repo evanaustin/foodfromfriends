@@ -10,9 +10,9 @@
 
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="sidebar-content">
+                            <div id="sidebar-content">
                                 <div class="photo box">
-                                    <img src="<?php echo $listing_filename; ?>" class="img-fluid" alt="<?php echo $listing_title; ?>">
+                                    <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                 </div>
                                 
                                 <div class="map box">
@@ -20,18 +20,19 @@
                                 </div>
 
                                 <div class="photo box">
-                                    <img src="<?php echo $op_filename; ?>" class="img-fluid" alt="<?php echo $name; ?>">
+                                    <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
                                 </div>
-                            </div> <!-- end div.left-content -->
+                            </div> <!-- end div.sidebar-content -->
                         </div>
 
                         <div class="col-lg-5">
-                            <div class="main-content">
+                            <div id="main-content">
                                 <h3 class="listing-name">
-                                    <?php echo ucfirst($listing_title); ?>
+                                    <?php echo $FoodListing->title; ?>
                                 </h3>
 
                                 <h6 class="listing-subtitle">
+                                    <!-- ! dynamically construct -->
                                     <span class="listing-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -40,6 +41,7 @@
                                         <i class="fa fa-star"></i>
                                     </span>
 
+                                    <!-- ! this is dirty -->
                                     &nbsp;&bull;&nbsp;
                                     
                                     $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
@@ -51,11 +53,7 @@
                                 
                                 <?php
                                 
-                                if (!empty($FoodListing->description)) {
-
-                                    echo "<div class=\"bio\">{$FoodListing->description}</div>";
-
-                                }
+                                if (!empty($FoodListing->description)) echo "<div class=\"bio\">{$FoodListing->description}</div>";
 
                                 ?>
 
@@ -72,7 +70,7 @@
                                         <div class="grower-title">
                                             <div class="name">
                                                 <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
-                                                    <?php echo $name; ?>
+                                                    <?php echo $GrowerOperation->details['name']; ?>
                                                 </a>
                                             </div>
 
@@ -82,11 +80,11 @@
                                         </div>
                                         
                                         <div class="text-muted">
-                                            <?php echo $bio; ?>
+                                            <?php echo $GrowerOperation->details['bio']; ?>
                                         </div>
 
                                         <div class="grower-location">
-                                            <?php echo $city . ', ' . $state; ?>
+                                            <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +143,7 @@
                                             </h6>
 
                                             <p>
-                                                <?php echo $city . ', ' . $state; ?>
+                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
                                             </p>
                                             
                                             <?php
@@ -177,10 +175,10 @@
                                     ?>
                                 </div>
                             </div>    
-                        </div> <!-- end div.middle-content -->
+                        </div> <!-- end div.main-content -->
 
                         <div class="col-lg-4">
-                            <div class="add-to-cart sticky-top">
+                            <div id="add-to-cart" class="sticky-top">
                                 <div class="box">
                                     <div class="header">    
                                         <?php echo '$' . number_format($FoodListing->price / 100, 2); ?>
@@ -256,6 +254,6 @@
 </div> <!-- end div.container-fluid -->
 
 <script>
-    var lat = <?php echo number_format($latitude, 2); ?>;
-    var lng = <?php echo number_format($longitude, 2); ?>;
+    var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
+    var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
 </script>

@@ -10,7 +10,9 @@
                     <div id="list">
                         <div class="row">
                             <?php
-                            
+                            // echo '<pre>';
+                            // print_r($growers);
+                            // echo '</pre>';
                             foreach ($growers as $grower) {
                                 
                                 ?>
@@ -19,8 +21,8 @@
                                     <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $grower['id']; ?>">
                                         <div class="card animated zoomIn">
                                             <div class="card-img-top">
-                                                <img src="<?php echo $grower['filename']; ?>" class="animated fadeIn hidden"/>
-                                                
+                                                <?php img(ENV . $grower['path'], $grower['ext'], 'S3', 'img-fluid animated fadeIn hidden'); ?>
+
                                                 <div class="loading">
                                                     <i class="fa fa-circle-o-notch loading-icon"></i>
                                                 </div>

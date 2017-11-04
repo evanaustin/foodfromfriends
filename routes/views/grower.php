@@ -3,7 +3,7 @@
         <main class="col-md-12">
             <div class="main container">
                 <?php
-
+                
                 if ($GrowerOperation->is_active) {
 
                     ?>
@@ -12,7 +12,7 @@
                         <div class="col-lg-3">
                             <div class="sidebar-content">
                                 <div class="photo box">
-                                    <img class="img-fluid" src="<?php echo $filename; ?>">
+                                    <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
                                 </div>
                                 
                                 <div class="map box">
@@ -110,28 +110,28 @@
                         </div>
                     
                         <div class="col-lg-9">
-                            <div class="main-content">
+                            <div id="main-content">
                                 <div class="name">
                                     <small>food from </small>
-                                    <span><?php echo $name; ?></span>
+                                    <span><?php echo $GrowerOperation->details['name']; ?></span>
                                 </div>
 
                                 <?php
                                 
-                                if (!empty($bio)) {
+                                if (!empty($GrowerOperation->details['bio'])) {
 
                                     ?>
                                 
                                     <div class="bio">
-                                        <?php echo $bio; ?>
+                                        <?php echo $GrowerOperation->details['bio']; ?>
                                     </div>
                                         
                                     <div class="location">
-                                        <?php echo $city . ', ' . $state . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
+                                        <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state'] . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
                                     </div>
 
                                     <div class="joined">
-                                        Joined in <?php echo date('F Y', $joined_on); ?>
+                                        Joined in <?php echo date('F Y', $GrowerOperation->details['joined']); ?>
                                     </div>
 
                                     <?php
@@ -160,7 +160,7 @@
                                     </div>
 
                                     <div class="subtitle">
-                                        Available food from <?php echo $name; ?>
+                                        Available food from <?php echo $GrowerOperation->details['name']; ?>
                                     </div>
 
                                     <div class='row'>
@@ -301,6 +301,6 @@
 </div> <!-- end div.container-fluid -->
 
 <script>
-    var lat = <?php echo number_format($latitude, 2); ?>;
-    var lng = <?php echo number_format($longitude, 2); ?>;
+    var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
+    var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
 </script>
