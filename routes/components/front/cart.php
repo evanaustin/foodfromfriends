@@ -9,31 +9,16 @@
         foreach($User->ActiveOrder->Growers as $OrderGrower) {
             $Grower = new GrowerOperation([
                 'DB' => $DB,
-                'id' => $OrderGrower->id
+                'id' => $OrderGrower->grower_operation_id
+            ],[
+                'details' => true
             ]);
 
             ?>
 
             <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set">
                 <h6>
-
-                    <?php
-                        
-                    if ($Grower->type == 'none') {
-                        $team_members = $Grower->get_team_members();
-                        
-                        $GrowerUser = new User([
-                            'DB' => $DB,
-                            'id' => $team_members[0]['id']
-                        ]);
-
-                        echo $GrowerUser->first_name;
-                    } else {
-                        echo $Grower->name;
-                    }
-                        
-                    ?>
-                
+                    <?php echo $Grower->details['name']; ?>
                 </h6>
 
                 <?php
