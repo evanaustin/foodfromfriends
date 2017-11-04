@@ -3,6 +3,28 @@
 class User extends Base {
     
     public
+        $id,
+        $email,
+        $password,
+        $first_name,
+        $last_name,
+        $phone,
+        $dob,
+        $gender,
+        $bio,
+        $registered_on,
+        $stripe_customer_id,
+        $address_line_1,
+        $address_line_2,
+        $city,
+        $state,
+        $zipcode,
+        $latitude,
+        $longitude,
+        $filename,
+        $ext;
+        
+    public
         $Operations,
         $GrowerOperation,
         $Orders,
