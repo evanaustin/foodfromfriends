@@ -107,6 +107,26 @@ canvas {
     }
 }
 
+.btn-muted {
+    background-color: $muted;
+    color: #fff;
+    
+    &:hover {
+        background-color: lighten($muted, 5%);
+        border-color: lighten($muted, 5%);
+    }
+}
+
+.btn-dark {
+    background-color: $dark-gray;
+    color: #fff;
+    
+    &:hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+}
+
 .btn-group {
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
