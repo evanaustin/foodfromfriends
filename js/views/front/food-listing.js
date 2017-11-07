@@ -1,15 +1,13 @@
 App.Front.FoodListing = function() {
     function listener() {
-        App.Util.slidebar(Slidebar, 'toggle', 'right');
-
         // Mapbox.setZoom(13);
         Mapbox.setCenter([lng, lat]);
         
         var ex = 'div.exchange.form-group' + ' ';
 
         // toggle active exchange option
-        $(ex + 'div.btn-group button').on('click', function() {
-            $('#add-item')
+        $(document).on('click', ex + 'div.btn-group button', function() {
+            $('#add-item, #update-item')
                 .find('div.btn-group')
                 .removeClass('has-danger')
                 .find('button')
@@ -57,47 +55,176 @@ App.Front.FoodListing = function() {
                 $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('form-control-danger');
                 
                 data.push({
-                    name: 'exchange_option', 
+                    name: 'exchange-option', 
                     value: $active_ex_op.data('option')
                 });
             }
 
             if ($form.parsley().isValid()) {
                 App.Util.loading();
-                
+
                 App.Ajax.post('order/add-to-cart', $.param(data), 
                     function(response) {
                         App.Util.slidebar(Slidebar, 'open', 'right', e);
 
                         $(Slidebar.events).on('opened', function () {
-                            $('#cart > .set:first-child').append(
-                                '<div class="cart-item animated bounceIn">' +
+                            // check if empty cart
+                            if (!$('#ordergrowers').length) {
+                                $('#empty-basket').addClass('hidden');
+                                $('hr').removeClass('hidden');
+
+                                $ordergrowers = $('<div id="ordergrowers">').prependTo('#cart');
+                            }
+
+                            // add ordergrower if not already in cart
+                            if (!$('#ordergrower-' + response.item.order_grower_id).length) {
+                                $set = $('<div id="ordergrower-' + response.item.order_grower_id + '" class="set">').appendTo('#ordergrowers');
+                                
+                                $set.append('<h6>' + response.item.grower_name + '</h6>');
+
+                                $cart_items = $('<div class="cart-items">').appendTo($set);
+                                $breakdown = $('<div class="breakdown">').appendTo($set);
+                            } else {
+                                $cart_items = $('#ordergrower-' + response.item.order_grower_id).find('div.cart-items');
+                                $breakdown = $('#ordergrower-' + response.item.order_grower_id).find('div.breakdown');
+                            }
+                             
+                            $cart_item = $(
+                                '<div class="cart-item animated bounceIn" data-listing-id="' + response.item.listing_id + '">' +
                                     '<div class="item-image">' +
-                                        // dynamically get ext
-                                        '<img src="https://s3.amazonaws.com/foodfromfriends/dev/food-listings/fl.' + $('input[name="food_listing_id"]').val() + '.jpg" class="img-fluid"/>' +
+                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/food-listings/' + response.item.listing_filename + '.' + response.item.listing_ext + '" class="img-fluid"/>' +
                                     '</div>' +
                                     
                                     '<div class="item-content">' +
                                         '<div class="item-title">' +
-                                            '<a href="">' +
-                                                'Artichokes' +
+                                            '<a href="' + PUBLIC_ROOT + 'food-listing?id=' + response.item.listing_id + '">' +
+                                                response.item.listing_name +
+                                            '</a>' +
+                                            '<a class="remove-item float-right" data-listing-id="' + response.item.item_id + '">' +
+                                                '<i class="fa fa-times"></i>' +
                                             '</a>' +
                                         '</div>' +
                     
                                         '<div class="item-details">' +
-                                            '<select class="custom-select">' +
-                                                '<option>1</option>' +
-                                            '</select>' +
-                                            
                                             '<div class="item-price">' +
-                                                '$1.00' +
+                                                response.item.item_price +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
-                                '</div>');
+                                '</div>'
+                            ).appendTo($cart_items);
+                            
+                            $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
+                            
+                            for (var i = 1; i < response.item.listing_quantity; i++) {
+                                // $option = $('<option>').attr('value', i).text(i);
+                                $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.item_quantity) ).text(i));
+                            };
+
+                            if ($breakdown.children().length) {
+                                $breakdown.find('.label.exchange').text(response.item.grower_exchange);
+                                $breakdown.find('.rate.exchange-fee').text(response.item.exchange_fee);
+                            } else {
+                                $breakdown.append(
+                                    '<div class="line-amount">' +
+                                        '<div class="label exchange">' +
+                                            response.item.grower_exchange +
+                                        '</div>' +
+                                        
+                                        '<div class="rate exchange-fee">' +
+                                            response.item.grower_ex_fee +
+                                        '</div>' +
+                                    '</div>'
+                                );
+                            }
+
+                            $('#end-breakdown').removeClass('hidden');
+                            $('#end-breakdown').find('.rate.subtotal').text(response.item.order_subtotal);
+                            $('#end-breakdown').find('.rate.exchange-fee').text(response.item.order_ex_fee);
+                            $('#end-breakdown').find('.rate.service-fee').text(response.item.order_fff_fee);
+                            $('#end-breakdown').find('.rate.total').text(response.item.order_total);
+                            
+                            $(Slidebar.events).unbind('opened');
+                        });
+
+                        $('#add-item button[type="submit"]').attr('disabled', 'disabled');
+                    }, function(response) {
+                        App.Util(response.error, 'danger');
+                    }
+                );
+            }
+        });
+        
+        // update quantity of item already in cart
+        $('#update-item select[name="quantity"]').on('change', function(e) {
+            App.Util.hideMsg();
+
+            $form = $('#update-item');
+            var data = $form.serializeArray();
+            
+            var formdata = {};
+            $.each(data, function() {
+                formdata[this.name] = this.value;
+            });
+            
+            if ($form.parsley().isValid()) {
+                App.Util.loading();
+
+                App.Ajax.post('order/modify-quantity', $.param(data), 
+                    function(response) {
+                        App.Util.slidebar(Slidebar, 'open', 'right', e);
+
+                        $(Slidebar.events).on('opened', function () {
+                            // update quantity for cart item
+                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option[value=' + formdata['quantity'] + ']').attr('selected', 'selected');
+
+                            $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
+                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                            $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
+                            $('#end-breakdown').find('.rate.total').text(response.order.total);
+
+                            $(Slidebar.events).unbind('opened');
                         });
                     }, function(response) {
-                        console.log(response.error);
+                        App.Util.msg(response.error, 'danger');
+                    }
+                );
+            }
+        });
+
+        // update exchange setting of ordergrower
+        $(document).on('click', '#update-item .exchange-btn:not(.active)', function(e) {
+            e.preventDefault();
+            App.Util.hideMsg();
+            
+            $form = $('#update-item');
+            var data = $form.serializeArray();
+            
+            data.push({
+                name: 'exchange-option', 
+                value: $(this).data('option')
+            });
+
+            if ($form.parsley().isValid()) {
+                App.Util.loading();
+
+                App.Ajax.post('order/set-exchange-method', $.param(data), 
+                    function(response) {
+                        App.Util.slidebar(Slidebar, 'open', 'right', e);
+                        
+                        $(Slidebar.events).on('opened', function () {
+                            $('#ordergrower-' + response.ordergrower.id).find('.label.exchange').text(response.ordergrower.exchange);
+                            $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
+
+                            $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
+                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                            $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
+                            $('#end-breakdown').find('.rate.total').text(response.order.total);
+                            
+                            $(Slidebar.events).unbind('opened');
+                        });
+                    }, function(response) {
+                        App.Util.msg(response.error, 'danger');
                     }
                 );
             }
