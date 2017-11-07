@@ -77,7 +77,8 @@ body {
   } */ }
 
 [off-canvas*=right] {
-  top: 65px; }
+  top: 65px;
+  height: calc(100% - 65px); }
 
 #header.navbar {
   /* computed height: 65px */
@@ -209,6 +210,20 @@ canvas:focus {
 .btn-primary:hover {
   background-color: #00d989;
   border-color: #00d989; }
+
+.btn-muted {
+  background-color: #636c72;
+  color: #fff; }
+  .btn-muted:hover {
+    background-color: #6f7980;
+    border-color: #6f7980; }
+
+.btn-dark {
+  background-color: #4c4c4c;
+  color: #fff; }
+  .btn-dark:hover {
+    background-color: #00d989;
+    border-color: #00d989; }
 
 .btn-group {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

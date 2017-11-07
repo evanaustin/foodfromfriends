@@ -43,7 +43,8 @@ body {
   } */ }
 
 [off-canvas*=right] {
-  top: 65px; }
+  top: 65px;
+  height: calc(100% - 65px); }
 
 #header.navbar {
   /* computed height: 65px */
@@ -59,9 +60,10 @@ body {
   height: 100%; }
 
 main {
-  padding-bottom: 48px; }
+  padding-bottom: 48px;
+  background-color: #fafafb; }
 
-div.sidebar-content {
+#sidebar-content {
   border-top: 0.5px solid rgba(0, 0, 0, 0.025);
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -189,88 +191,95 @@ div.box {
   background: #fff;
   overflow-y: scroll;
   color: #636c72; }
-  #cart[off-canvas*=right] div.set {
+  #cart[off-canvas*=right] #ordergrowers div.set:not(:last-child) {
     margin-bottom: 1.5em; }
-    #cart[off-canvas*=right] div.set h6 {
-      font-weight: 500; }
-    #cart[off-canvas*=right] div.set div.cart-item {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 0.5em;
-      background: #fafafb;
-      color: #636c72;
-      -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      -webkit-border-radius: 0.25rem;
-      -moz-border-radius: 0.25rem;
-      border-radius: 0.25rem; }
-      #cart[off-canvas*=right] div.set div.cart-item:not(:first-child) {
-        margin-bottom: 0.5em; }
-      #cart[off-canvas*=right] div.set div.cart-item div.item-image {
-        flex-basis: 30%; }
-        #cart[off-canvas*=right] div.set div.cart-item div.item-image img {
-          border: 1px solid #f5f5f5;
-          -webkit-border-radius: 0.25rem;
-          -moz-border-radius: 0.25rem;
-          border-radius: 0.25rem; }
-      #cart[off-canvas*=right] div.set div.cart-item div.item-content {
-        padding-left: 0.5em;
-        flex-grow: 1; }
-        #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-title {
-          font-weight: 400;
+  #cart[off-canvas*=right] #ordergrowers div.set h6 {
+    font-weight: 500; }
+  #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background: #fafafb;
+    color: #636c72;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem; }
+    #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-image {
+      flex-basis: 30%; }
+      #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-image img {
+        border: 1px solid #f5f5f5;
+        -webkit-border-radius: 0.25rem;
+        -moz-border-radius: 0.25rem;
+        border-radius: 0.25rem; }
+    #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content {
+      padding-left: 0.5em;
+      flex-grow: 1; }
+      #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-title {
+        font-weight: 400;
+        font-size: 0.85em; }
+        #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-title a {
+          cursor: pointer;
+          color: #636c72; }
+          #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-title a:hover {
+            color: #00A669; }
+      #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 0.25em; }
+        #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-details select.custom-select {
+          height: auto;
+          padding: 0.25rem 1.70rem 0.25rem 0.7rem;
+          border-color: #f5f5f5;
+          font-size: 0.85em;
+          color: #636c72;
+          -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+          -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.1); }
+        #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-details div.item-price {
+          flex-grow: 1;
+          padding-left: 0.5em;
+          text-align: right;
           font-size: 0.85em; }
-          #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-title a {
-            color: #636c72; }
-            #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-title a:hover {
-              color: #00A669; }
-        #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-details {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          margin-top: 0.25em; }
-          #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-details select.custom-select {
-            height: auto;
-            padding: 0.25rem 1.70rem 0.25rem 0.7rem;
-            border-color: #f5f5f5;
-            font-size: 0.85em;
-            color: #636c72;
-            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1); }
-          #cart[off-canvas*=right] div.set div.cart-item div.item-content div.item-details div.item-price {
-            flex-grow: 1;
-            padding-left: 0.5em;
-            text-align: right;
-            font-size: 0.85em; }
-  #cart[off-canvas*=right] div.addon {
+  #cart[off-canvas*=right] div.line-amount {
     display: flex;
     flex-direction: row;
     padding: 0 0.5rem;
     font-size: 0.75em;
     font-weight: 300;
     color: #6f7980; }
-    #cart[off-canvas*=right] div.addon.subtotal {
+    #cart[off-canvas*=right] div.line-amount#total {
       margin-top: 0.5rem;
       font-size: 1em;
       font-weight: 500; }
-    #cart[off-canvas*=right] div.addon div.label i {
-      margin-left: 2px;
-      padding: 3px;
-      height: 14px;
-      width: 14px;
-      background: #636c72;
-      text-align: center;
-      font-size: 8px;
-      line-height: 8px;
-      color: #fff;
-      -webkit-border-radius: 50px;
-      -moz-border-radius: 50px;
-      border-radius: 50px; }
-    #cart[off-canvas*=right] div.addon div.rate {
+    #cart[off-canvas*=right] div.line-amount a.label:hover {
+      cursor: default;
+      color: #00c079; }
+    #cart[off-canvas*=right] div.line-amount a.label i {
+      margin-left: 2px; }
+    #cart[off-canvas*=right] div.line-amount div.rate {
       flex-grow: 1;
       text-align: right; }
+  #cart[off-canvas*=right] #checkout-btn {
+    margin-top: 1em;
+    font-size: 0.85em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; }
+  #cart[off-canvas*=right] #empty-basket {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: block;
+    transform: translateY(-50%);
+    text-align: center;
+    font-weight: 500; }
 
 /**
 * Views
@@ -825,14 +834,14 @@ body.front.grower div.main.container {
     body.front.grower div.main.container div.sidebar-content div.box.details p {
       font-weight: 300;
       padding-left: 15px; }
-  body.front.grower div.main.container div.main-content div.name {
+  body.front.grower div.main.container #main-content div.name {
     color: #4c4c4c;
     font-size: 2em;
     font-weight: 500; }
-    body.front.grower div.main.container div.main-content div.name small {
+    body.front.grower div.main.container #main-content div.name small {
       color: #b2b2b2;
       font-weight: 100; }
-    body.front.grower div.main.container div.main-content div.name span {
+    body.front.grower div.main.container #main-content div.name span {
       border-bottom: 3px solid #00c079; }
   body.front.grower div.main.container div.bio {
     margin: 1em 0;
@@ -924,73 +933,71 @@ body.front.grower div.main.container {
       body.front.grower div.main.container div.review-block div.review-content div.reviewed-on {
         color: #b2b2b2; }
 
-body.front.food-listing [canvas="container"] {
-  background-color: #fafafb; }
 body.front.food-listing div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  body.front.food-listing div.main.container div.main-content h3.listing-name {
+  body.front.food-listing div.main.container #main-content h3.listing-name {
     color: #4c4c4c;
     font-size: 2em;
     font-weight: 500; }
-    body.front.food-listing div.main.container div.main-content h3.listing-name small {
+    body.front.food-listing div.main.container #main-content h3.listing-name small {
       color: #b2b2b2;
       font-weight: 100; }
-    body.front.food-listing div.main.container div.main-content h3.listing-name span {
+    body.front.food-listing div.main.container #main-content h3.listing-name span {
       border-bottom: 3px solid #00A669; }
-  body.front.food-listing div.main.container div.main-content span.listing-rating {
+  body.front.food-listing div.main.container #main-content span.listing-rating {
     color: #00c079; }
-  body.front.food-listing div.main.container div.main-content div.bio {
+  body.front.food-listing div.main.container #main-content div.bio {
     margin: 1em 0;
     color: #636c72; }
-  body.front.food-listing div.main.container div.main-content div.set {
+  body.front.food-listing div.main.container #main-content div.set {
     margin-top: 2em; }
-    body.front.food-listing div.main.container div.main-content div.set div.title {
+    body.front.food-listing div.main.container #main-content div.set div.title {
       font-size: 1.5em;
       font-weight: 100;
       color: #b2b2b2; }
-      body.front.food-listing div.main.container div.main-content div.set div.title strong {
+      body.front.food-listing div.main.container #main-content div.set div.title strong {
         color: #4c4c4c; }
-    body.front.food-listing div.main.container div.main-content div.set div.subtitle {
+    body.front.food-listing div.main.container #main-content div.set div.subtitle {
       margin: 0.5em 0;
       color: #636c72; }
-    body.front.food-listing div.main.container div.main-content div.set div.callout {
+    body.front.food-listing div.main.container #main-content div.set div.callout {
       position: relative; }
-      body.front.food-listing div.main.container div.main-content div.set div.callout:not(:last-child) {
+      body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child) {
         margin-bottom: 40px; }
-        body.front.food-listing div.main.container div.main-content div.set div.callout:not(:last-child):after {
+        body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child):after {
           content: '';
           position: absolute;
           width: 100%;
           bottom: -20px;
           border-bottom: 1px solid #f5f5f5; }
-      body.front.food-listing div.main.container div.main-content div.set div.callout h6 {
+      body.front.food-listing div.main.container #main-content div.set div.callout h6 {
         margin-bottom: 0.5em;
         font-weight: 500;
         text-transform: uppercase;
         color: #636c72; }
-      body.front.food-listing div.main.container div.main-content div.set div.callout p {
+      body.front.food-listing div.main.container #main-content div.set div.callout p {
         color: #b2b2b2; }
-        body.front.food-listing div.main.container div.main-content div.set div.callout p:not(:last-child) {
+        body.front.food-listing div.main.container #main-content div.set div.callout p:not(:last-child) {
           margin-bottom: 0.5em; }
-  body.front.food-listing div.main.container div.main-content div.grower-title div.name, body.front.food-listing div.main.container div.main-content div.grower-title div.rating {
+  body.front.food-listing div.main.container #main-content div.grower-title div.name, body.front.food-listing div.main.container #main-content div.grower-title div.rating {
     display: inline-block;
     vertical-align: middle; }
-  body.front.food-listing div.main.container div.main-content div.grower-title div.name {
+  body.front.food-listing div.main.container #main-content div.grower-title div.name {
     padding-right: 5px;
     font-weight: bold;
     font-size: 18px; }
-  body.front.food-listing div.main.container div.main-content div.grower-title div.rating {
+  body.front.food-listing div.main.container #main-content div.grower-title div.rating {
     font-size: 0.75em;
     color: #636c72; }
-    body.front.food-listing div.main.container div.main-content div.grower-title div.rating i {
+    body.front.food-listing div.main.container #main-content div.grower-title div.rating i {
       line-height: 18px; }
-  body.front.food-listing div.main.container div.main-content div.grower-location {
+  body.front.food-listing div.main.container #main-content div.grower-location {
     padding-top: 0.75em;
     font-weight: 400;
     font-size: 0.85em;
     color: #4c4c4c; }
-  body.front.food-listing div.main.container div.add-to-cart {
+  body.front.food-listing div.main.container #basket-form-container {
     background-color: #fff;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -1010,12 +1017,12 @@ body.front.food-listing div.main.container {
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box; }
-    body.front.food-listing div.main.container div.add-to-cart select.custom-select, body.front.food-listing div.main.container div.add-to-cart div.btn-group {
+    body.front.food-listing div.main.container #basket-form-container select.custom-select, body.front.food-listing div.main.container #basket-form-container div.btn-group {
       border: 1px solid #f5f5f5;
       -webkit-box-shadow: 0 0 0 transparent;
       -moz-box-shadow: 0 0 0 transparent;
       box-shadow: 0 0 0 transparent; }
-      body.front.food-listing div.main.container div.add-to-cart select.custom-select:focus, body.front.food-listing div.main.container div.add-to-cart div.btn-group:focus {
+      body.front.food-listing div.main.container #basket-form-container select.custom-select:focus, body.front.food-listing div.main.container #basket-form-container div.btn-group:focus {
         -webkit-transform: none;
         -moz-transform: none;
         -ms-transform: none;

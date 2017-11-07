@@ -43,7 +43,8 @@ body {
   } */ }
 
 [off-canvas*=right] {
-  top: 65px; }
+  top: 65px;
+  height: calc(100% - 65px); }
 
 #header.navbar {
   /* computed height: 65px */
