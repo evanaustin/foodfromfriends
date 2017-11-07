@@ -44,6 +44,7 @@
                             font-size: 0.85em;
         
                             a {
+                                cursor: pointer;
                                 color: $muted;
         
                                 &:hover {
@@ -120,7 +121,15 @@
         }
     }
 
-    div#empty-basket {
+    #checkout-btn {
+        margin-top: 1em;
+        font-size: 0.85em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    #empty-basket {
         position: absolute;
         top: 50%;
         left: 0;
