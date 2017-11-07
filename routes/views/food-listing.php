@@ -127,7 +127,7 @@
                                             ?>
 
                                             <p>
-                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee, 2) . '/' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . '/' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
                                             </p>
                                         </div>
 
@@ -178,7 +178,7 @@
                         </div> <!-- end div.main-content -->
 
                         <div class="col-lg-4">
-                            <div id="add-to-cart" class="sticky-top">
+                            <div id="basket-form-container" class="sticky-top">
                                 <div class="box">
                                     <div class="header">    
                                         <?php echo '$' . number_format($FoodListing->price / 100, 2); ?>
@@ -191,50 +191,112 @@
                                     <div class="content">
                                         <div class="alerts"></div>
 
-                                        <form id="add-item">
-                                            <input type="hidden" name="user_id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
-                                            <input type="hidden" name="food_listing_id" value="<?php echo $FoodListing->id; ?>">
+                                        <?php
 
-                                            <div class="form-group">
-                                                <label>
-                                                    Quantity
-                                                </label>
-                                                
-                                                <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
-                                                    <?php
-                                                    
-                                                    for ($i = 1; $i <= $FoodListing->quantity; $i++) {
-                                                        echo "<option value=\"{$i}\">{$i}</option>";
-                                                    }
-                                                    
-                                                    ?>
-                                                </select>
-                                            </div>
+                                        if (isset($User) && isset($User->ActiveOrder) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])) {
+                                        
+                                            $OrderGrower = $User->ActiveOrder->Growers[$GrowerOperation->id];
+                                            $OrderItem = $OrderGrower->FoodListings[$FoodListing->id];
 
-                                            <div class="exchange form-group">
-                                                <label>
-                                                    Exchange option
-                                                </label>
+                                            ?>
 
-                                                <div class="btn-group">
-                                                    <?php
+                                            <form id="update-item">
+                                                <input type="hidden" name="grower-operation-id" value="<?php echo $GrowerOperation->id; ?>">
+                                                <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        Quantity
+                                                    </label>
                                                     
-                                                    foreach ($exchange_options_available as $option) {
-                                                        echo "<button type=\"button\" class=\"btn btn-secondary\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
-                                                    }
-                                                    
-                                                    ?>
+                                                    <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                                        <?php
+                                                        
+                                                        for ($i = 1; $i <= $FoodListing->quantity; $i++) {
+                                                            echo "<option value=\"{$i}\"" . (($OrderItem->quantity == $i) ? 'selected' : '') . ">{$i}</option>";
+                                                        }
+                                                        
+                                                        ?>
+                                                    </select>
                                                 </div>
 
-                                                <div class="form-control-feedback hidden">
-                                                    Please select an exchange type
-                                                </div>
-                                            </div>
+                                                <div class="exchange form-group">
+                                                    <label>
+                                                        Exchange option
+                                                    </label>
 
-                                            <button type="submit" class="btn btn-primary btn-block">
-                                                Add to basket
-                                            </button>
-                                        </form>
+                                                    <div class="btn-group">
+                                                        <?php
+                                                        
+                                                        foreach ($exchange_options_available as $option) {
+                                                            echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                        }
+                                                        
+                                                        ?>
+                                                    </div>
+
+                                                    <div class="form-control-feedback hidden">
+                                                        Please select an exchange type
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <?php
+
+                                        } else {
+                                            
+                                            ?>
+
+                                            <form id="add-item">
+                                                <input type="hidden" name="user-id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
+                                                <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+
+                                                <div class="form-group">
+                                                    <label>
+                                                        Quantity
+                                                    </label>
+                                                    
+                                                    <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                                        <?php
+                                                        
+                                                        for ($i = 1; $i <= $FoodListing->quantity; $i++) {
+                                                            echo "<option value=\"{$i}\">{$i}</option>";
+                                                        }
+                                                        
+                                                        ?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="exchange form-group">
+                                                    <label>
+                                                        Exchange option
+                                                    </label>
+
+                                                    <div class="btn-group">
+                                                        <?php
+                                                        
+                                                        foreach ($exchange_options_available as $option) {
+                                                            echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                        }
+                                                        
+                                                        ?>
+                                                    </div>
+
+                                                    <div class="form-control-feedback hidden">
+                                                        Please select an exchange type
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary btn-block">
+                                                    Add to basket
+                                                </button>
+                                            </form>
+
+                                            <?php
+
+                                        }
+
+                                        ?>
                                     </div>
                                 </div>
                             </div> <!-- end div.right-content -->
