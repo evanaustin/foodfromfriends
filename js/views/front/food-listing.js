@@ -149,7 +149,7 @@ App.Front.FoodListing = function() {
 
                         $('#add-item button[type="submit"]').attr('disabled', 'disabled');
                     }, function(response) {
-                        App.Util(response.error, 'danger');
+                        App.Util.msg(response.error, 'danger');
                     }
                 );
             }
