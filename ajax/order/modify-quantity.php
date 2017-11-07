@@ -10,7 +10,7 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'food_listing_id' => 'required|integer',
+	'food-listing-id' => 'required|integer',
     'quantity' => 'required|integer'
 ]);
 
@@ -21,21 +21,46 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'food_listing_id' => 'trim|sanitize_numbers',
+	'food-listing-id' => 'trim|sanitize_numbers',
     'quantity' => 'trim|sanitize_numbers'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
+foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
 // Add to cart
 // ----------------------------------------------------------------------------
 try {
-	$Order = new Order();
+	$Order = new Order([
+		'DB' => $DB
+	]);
+
 	$Order = $Order->get_cart($User->id);
 
-	$FoodListing = new FoodListing(['id' => $prepared_data['food_listing_id']]);
+	$FoodListing = new FoodListing([
+		'DB' => $DB,
+		'id' => $food_listing_id
+	]);
 
-	$Order->modify_quantity($FoodListing, $prepared_data['quantity']);
+	if (!isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+		quit('This item is not in your basket');
+	}
+
+	$Order->modify_quantity($FoodListing, $quantity);
+
+	$Item = $Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id];
+
+	$json['item'] = [
+		'subtotal'	=> '$' . number_format($Item->total / 100, 2)
+	];
+
+	$json['order'] = [
+		'subtotal'	=> '$' . number_format($Order->subtotal / 100, 2),
+		'ex_fee'	=> '$' . number_format($Order->exchange_fees / 100, 2),
+		'fff_fee'	=> '$' . number_format($Order->fff_fee / 100, 2),
+		'total'		=> '$' . number_format($Order->total / 100, 2)
+	];
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
