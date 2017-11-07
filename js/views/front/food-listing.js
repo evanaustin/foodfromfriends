@@ -77,37 +77,37 @@ App.Front.FoodListing = function() {
                             }
 
                             // add ordergrower if not already in cart
-                            if (!$('#ordergrower-' + response.item.order_grower_id).length) {
-                                $set = $('<div id="ordergrower-' + response.item.order_grower_id + '" class="set">').appendTo('#ordergrowers');
+                            if (!$('#ordergrower-' + response.ordergrower.id).length) {
+                                $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set">').appendTo('#ordergrowers');
                                 
-                                $set.append('<h6>' + response.item.grower_name + '</h6>');
+                                $set.append('<h6>' + response.ordergrower.name + '</h6>');
 
                                 $cart_items = $('<div class="cart-items">').appendTo($set);
                                 $breakdown = $('<div class="breakdown">').appendTo($set);
                             } else {
-                                $cart_items = $('#ordergrower-' + response.item.order_grower_id).find('div.cart-items');
-                                $breakdown = $('#ordergrower-' + response.item.order_grower_id).find('div.breakdown');
+                                $cart_items = $('#ordergrower-' + response.ordergrower.id).find('div.cart-items');
+                                $breakdown = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
                             }
                              
                             $cart_item = $(
-                                '<div class="cart-item animated bounceIn" data-listing-id="' + response.item.listing_id + '">' +
+                                '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
                                     '<div class="item-image">' +
-                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/food-listings/' + response.item.listing_filename + '.' + response.item.listing_ext + '" class="img-fluid"/>' +
+                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/food-listings/' + response.listing.filename + '.' + response.listing.ext + '" class="img-fluid"/>' +
                                     '</div>' +
                                     
                                     '<div class="item-content">' +
                                         '<div class="item-title">' +
-                                            '<a href="' + PUBLIC_ROOT + 'food-listing?id=' + response.item.listing_id + '">' +
-                                                response.item.listing_name +
+                                            '<a href="' + PUBLIC_ROOT + 'food-listing?id=' + response.listing.id + '">' +
+                                                response.listing.name +
                                             '</a>' +
-                                            '<a class="remove-item float-right" data-listing-id="' + response.item.item_id + '">' +
+                                            '<a class="remove-item float-right">' +
                                                 '<i class="fa fa-times"></i>' +
                                             '</a>' +
                                         '</div>' +
                     
                                         '<div class="item-details">' +
                                             '<div class="item-price">' +
-                                                response.item.item_price +
+                                                response.item.subtotal +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
@@ -116,33 +116,33 @@ App.Front.FoodListing = function() {
                             
                             $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
                             
-                            for (var i = 1; i < response.item.listing_quantity; i++) {
+                            for (var i = 1; i < response.listing.quantity; i++) {
                                 // $option = $('<option>').attr('value', i).text(i);
-                                $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.item_quantity) ).text(i));
+                                $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
                             };
 
                             if ($breakdown.children().length) {
-                                $breakdown.find('.label.exchange').text(response.item.grower_exchange);
-                                $breakdown.find('.rate.exchange-fee').text(response.item.exchange_fee);
+                                $breakdown.find('.label.exchange').text(response.ordergrower.exchange);
+                                $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
                             } else {
                                 $breakdown.append(
                                     '<div class="line-amount">' +
                                         '<div class="label exchange">' +
-                                            response.item.grower_exchange +
+                                            response.ordergrower.exchange +
                                         '</div>' +
                                         
                                         '<div class="rate exchange-fee">' +
-                                            response.item.grower_ex_fee +
+                                            response.ordergrower.ex_fee +
                                         '</div>' +
                                     '</div>'
                                 );
                             }
 
                             $('#end-breakdown').removeClass('hidden');
-                            $('#end-breakdown').find('.rate.subtotal').text(response.item.order_subtotal);
-                            $('#end-breakdown').find('.rate.exchange-fee').text(response.item.order_ex_fee);
-                            $('#end-breakdown').find('.rate.service-fee').text(response.item.order_fff_fee);
-                            $('#end-breakdown').find('.rate.total').text(response.item.order_total);
+                            $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
+                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                            $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
+                            $('#end-breakdown').find('.rate.total').text(response.order.total);
                             
                             $(Slidebar.events).unbind('opened');
                         });
