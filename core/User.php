@@ -103,6 +103,8 @@ class User extends Base {
                 $this->Operations[$id] = new GrowerOperation([
                     'DB' => $this->DB,
                     'id' => $id
+                ],[
+                    'exchange' => true
                 ]);
 
                 $this->Operations[$id]->permission = $result['permission'];
