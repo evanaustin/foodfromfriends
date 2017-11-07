@@ -38,11 +38,11 @@ App.Front = function() {
                 buttons: {
                     confirm: {
                         label: 'Oh yeah',
-                        className: 'btn-primary'
+                        className: 'btn-warning'
                     },
                     cancel: {
                         label: 'Nope',
-                        className: 'btn-warning'
+                        className: 'btn-muted'
                     }
                 },
                 callback: function(result) {

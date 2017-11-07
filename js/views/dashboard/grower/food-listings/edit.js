@@ -85,11 +85,11 @@ $('a.remove-image').on('click', function(e) {
         buttons: {
             confirm: {
                 label: 'Oh yeah',
-                className: 'btn-primary'
+                className: 'btn-warning'
             },
             cancel: {
                 label: 'Nope',
-                className: 'btn-warning'
+                className: 'btn-muted'
             }
         },
         callback: function(result) {
@@ -119,11 +119,11 @@ $('a.remove-listing').on('click', function(e) {
         buttons: {
             confirm: {
                 label: 'Oh yeah',
-                className: 'btn-primary'
+                className: 'btn-warning'
             },
             cancel: {
                 label: 'Nope',
-                className: 'btn-warning'
+                className: 'btn-muted'
             }
         },
         callback: function(result) {
