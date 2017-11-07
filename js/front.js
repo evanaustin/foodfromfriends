@@ -83,13 +83,17 @@ App.Front = function() {
         });
 
         $(document).on('change', '#cart .cart-item select', function(e) {
+            $cart_item = $(this).parents('div.cart-item');
+
             var data = {
-                'food-listing-id': $(this).parents('div.cart-item').data('listing-id'),
+                'food-listing-id': $cart_item.data('listing-id'),
                 'quantity': $(this).val()
             };
 
             App.Ajax.post('order/modify-quantity', $.param(data), 
                 function(response) {
+                    $cart_item.find('.item-price').text(response.item.subtotal);
+
                     $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
                     $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
                     $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
