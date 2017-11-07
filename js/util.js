@@ -21,12 +21,15 @@ App.Util = function() {
     // alert_type = 'error', 'success', 'info'
     
     function msg(message, alert_type, form) {
-        var $alert_container = form.siblings('div.alerts') || $('div.alerts');
+        if (form != undefined) {
+            var $alert_container = form.siblings('div.alerts');
+        } else {
+            var $alert_container = $('div.alerts');
+        }
 
         hideMsg('all', $alert_container);
 
         message = htmlEntityDecode(message);
-        console.log(htmlEntityDecode(message));
 
         $alert_container
             .append('<div class="alert alert-' +  alert_type + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
@@ -41,16 +44,16 @@ App.Util = function() {
 
         switch (msg_type) {
             case 'all':
-                $container.fadeOut();
+                $container.fadeOut().empty();
                 break;
-            case 'error':
-                $container.hasClass('alert-danger').fadeOut();
+                case 'error':
+                $container.hasClass('alert-danger').fadeOut().empty();
                 break;
             case 'success':
-                $container.hasClass('alert-success').fadeOut();
+                $container.hasClass('alert-success').fadeOut().empty();
                 break;
             case 'info':
-                $container.hasClass('alert-info').fadeOut();
+                $container.hasClass('alert-info').fadeOut().empty();
                 break;
         }
     }
