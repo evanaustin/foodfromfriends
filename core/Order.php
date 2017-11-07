@@ -106,14 +106,14 @@ class Order extends Base {
      *
      * @todo When do we add the exchange method? Could be done here or later.
      */
-    public function add_to_cart(GrowerOperation $GrowerOperation, $exchange_option, FoodListing $FoodListing, $quantity) {
+    public function add_to_cart(GrowerOperation $GrowerOperation, FoodListing $FoodListing, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
         // If this grower doesn't have any items in the cart yet, we need to add the grower to the cart
         if (!isset($this->Growers[$GrowerOperation->id])) {
-            $this->add_grower($GrowerOperation, $exchange_option);
+            $this->add_grower($GrowerOperation);
         }
 
         $this->Growers[$GrowerOperation->id]->add_food_listing($FoodListing, $quantity);
@@ -125,11 +125,10 @@ class Order extends Base {
     /**
      * Adds a grower to this order and refreshes `$this->Growers`.
      */
-    private function add_grower(GrowerOperation $GrowerOperation, $exchange_option) {
+    private function add_grower(GrowerOperation $GrowerOperation) {
         $this->add([
             'order_id'              => $this->id,
-            'grower_operation_id'   => $GrowerOperation->id,
-            'exchange_option'       => $exchange_option
+            'grower_operation_id'   => $GrowerOperation->id
         ], 'order_growers');
 
         $this->load_growers();
@@ -143,9 +142,9 @@ class Order extends Base {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
-
+        
         $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->delete();
-
+        
         // If this was the only listing for this grower, remove the OrderGrower entirely
         if (count($this->Growers[$FoodListing->grower_operation_id]->FoodListings) == 1) {
             $this->Growers[$FoodListing->grower_operation_id]->delete();
@@ -177,17 +176,16 @@ class Order extends Base {
      * Sets the exchange method (delivery, pickup, meetup) the buyer want to use for the provided grower
      * in this order.
      *
+     * @param string $exchange_option Which exchange method is being used
+     * @param \User $Buyer The buyer
      * @param \GrowerOperation $GrowerOperation The seller
-     * @param int|null $delivery_settings_id Which delivery setting is being used, if applicable
-     * @param int|null $meetup_settings_id Which meetup setting is being used, if applicable
      */
-    // ? need case for pickup
-    public function set_exchange_method(GrowerOperation $GrowerOperation, $delivery_settings_id = null, $meetup_settings_id = null) {
+    public function set_exchange_method($exchange_option, User $Buyer, GrowerOperation $GrowerOperation) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
-        $this->Growers[$GrowerOperation->id]->set_exchange_method($type, $this->user_id, $delivery_settings_id, $meetup_settings_id);
+        $this->Growers[$GrowerOperation->id]->set_exchange_method($exchange_option, $Buyer, $GrowerOperation);
 
         // Refresh the cart
         $this->update_cart();
@@ -226,7 +224,7 @@ class Order extends Base {
         $exchange_fees = 0;
 
         foreach ($this->Growers as $OrderGrower) {
-            $subtotal += $OrderGrower->total;
+            $subtotal += $OrderGrower->subtotal;
             $exchange_fees += $OrderGrower->exchange_fee;
         }
 
