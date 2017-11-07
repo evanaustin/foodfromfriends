@@ -262,7 +262,11 @@ class GrowerOperation extends Base {
         return (isset($results)) ? $results : false;
     }
 
-    public function check_association($grower_operation_id, $user_id) {
+    public function check_association($user_id, $grower_operation_id = null) {
+        if (!isset($grower_operation_id)) {
+            $grower_operation_id = $this->id;
+        }
+
         $results = $this->DB->run('
             SELECT *
 
