@@ -10,10 +10,9 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'user_id'			=> 'required|integer',
-	'food_listing_id'	=> 'required|integer',
+	'food-listing-id'	=> 'required|integer',
     'quantity'			=> 'required|integer',
-    'exchange_option'	=> 'required|alpha'
+    'exchange-option'	=> 'required|alpha'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -23,10 +22,9 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'user_id'			=> 'trim|sanitize_numbers',
-	'food_listing_id'	=> 'trim|sanitize_numbers',
+	'food-listing-id'	=> 'trim|sanitize_numbers',
     'quantity'			=> 'trim|sanitize_numbers',
-    'exchange_option'	=> 'trim|sanitize_string'
+    'exchange-option'	=> 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -47,12 +45,58 @@ try {
 		'id' => $food_listing_id
 	]);
 
+	if (isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+		quit('This item is already in your basket');
+	}
+
 	$GrowerOperation = new GrowerOperation([
 		'DB' => $DB,
 		'id' => $FoodListing->grower_operation_id
+	],[
+		'details' => true,
+		'exchange' => true
 	]);
 
 	$Order->add_to_cart($GrowerOperation, $FoodListing, $quantity);
+
+	$Order->set_exchange_method(
+		$exchange_option,
+		$User,
+		$GrowerOperation 
+	);
+
+	$OrderGrower = $Order->Growers[$GrowerOperation->id];
+
+	$json['ordergrower'] = [
+		'id'		=> $OrderGrower->id,
+		'name'		=> $GrowerOperation->details['name'],
+		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
+		'exchange'	=> ucfirst($OrderGrower->exchange_option),
+		'ex_fee'	=> '$' . number_format($OrderGrower->exchange_fee / 100, 2)
+	];
+
+	$json['listing'] = [
+		'id'		=> $FoodListing->id,
+		'name'		=> ucfirst((!empty($FoodListing->other_subcategory)) ? $FoodListing->other_subcategory : $FoodListing->subcategory_title),
+		'quantity'	=> $FoodListing->quantity,
+		'filename'	=> $FoodListing->filename,
+		'ext'		=> $FoodListing->ext
+	];
+
+	$Item = $OrderGrower->FoodListings[$FoodListing->id];
+
+	$json['item'] = [
+		'id'		=> $Item->id,
+		'quantity'	=> $Item->quantity,
+		'subtotal'	=> '$' . number_format($Item->total / 100, 2)
+	];
+
+	$json['order'] = [
+		'subtotal'	=> '$' . number_format($Order->subtotal / 100, 2),
+		'ex_fee'		=> '$' . number_format($Order->exchange_fees / 100, 2),
+		'fff_fee'		=> '$' . number_format($Order->fff_fee / 100, 2),
+		'total'		=> '$' . number_format($Order->total / 100, 2)
+	];
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
