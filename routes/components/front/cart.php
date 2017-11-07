@@ -2,7 +2,7 @@
     <?php
     
     $is_active_cart = $User->ActiveOrder && !empty($User->ActiveOrder->Growers);
-
+    
     if ($is_active_cart) {
         echo '<div id="ordergrowers">';
 
@@ -18,7 +18,9 @@
 
             <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set">
                 <h6>
-                    <?php echo $Grower->details['name']; ?>
+                    <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
+                        <?php echo $Grower->details['name']; ?>
+                    </a>
                 </h6>
 
                 <?php
@@ -34,15 +36,19 @@
     
                         ?>
     
-                        <div class="cart-item">
+                        <div class="cart-item" data-listing-id="<?php echo $FoodListingItem->id; ?>">
                             <div class="item-image">
                                 <?php img(ENV . '/food-listings/fl.' . $FoodListingItem->id, $FoodListingItem->ext, 's3', 'img-fluid'); ?>
                             </div>
                             
                             <div class="item-content">
                                 <div class="item-title">
-                                    <a href="">
+                                    <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListingItem->id ; ?>">
                                         <?php echo ucfirst((!empty($FoodListingItem->other_subcategory)) ? $FoodListingItem->other_subcategory : $FoodListingItem->subcategory_title); ?>
+                                    </a>
+
+                                    <a class="remove-item float-right">
+                                        <i class="fa fa-times"></i>
                                     </a>
                                 </div>
     
@@ -77,16 +83,6 @@
 
                 <div class="breakdown">
                     <div class="line-amount">
-                        <div class="label">
-                            Items
-                        </div>
-                        
-                        <div class="rate item-subtotal">
-                            $<?php echo number_format($OrderGrower->subtotal / 100, 2); ?>
-                        </div>
-                    </div>
-
-                    <div class="line-amount">
                         <div class="label exchange">
                             <?php echo ucfirst($OrderGrower->exchange_option); ?>
                         </div>
@@ -102,16 +98,14 @@
         }
 
         echo '</div>';
-    } else {
-        echo '<div id="empty-basket">Your basket is empty!</div>';
     }
 
     ?>
 
     <!-- ! just make this a border instead -->
-    <hr class="<?php echo (!$is_active_cart) ? 'hidden' : ''; ?>">
+    <hr class="<?php if (!$is_active_cart) echo 'hidden'; ?>">
 
-    <div id="end-breakdown" class="<?php echo (!$is_active_cart) ? 'hidden' : ''; ?>">
+    <div id="end-breakdown" class="<?php if (!$is_active_cart) echo 'hidden'; ?>">
         <div class="line-amount">
             <a class="label" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all items">
                 Subtotal
@@ -154,5 +148,13 @@
                 $<?php echo number_format((($User->ActiveOrder) ? $User->ActiveOrder->total : 0) / 100, 2); ?>
             </div>
         </div>
+
+        <button id="checkout-btn" type="submit" class="btn btn-lg btn-primary btn-block">
+            Checkout now
+        </button>
+    </div>
+
+    <div id="empty-basket" class="<?php if ($is_active_cart) echo 'hidden'; ?>">
+        Your basket is empty!
     </div>
 </div>
