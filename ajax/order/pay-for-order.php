@@ -27,12 +27,14 @@ $Gump->filter_rules([
 
 $prepared_data = $Gump->run($validated_data);
 
+foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
 // Require token OR card id
 $new_card = true;
-if (!isset($prepared_data['stripe_token']) || empty($prepared_data['stripe_token'])) {
+if (!isset($stripe_token) || empty($stripe_token)) {
 	$new_card = false;
 
-	if (!isset($prepared_data['stripe_card_id']) || empty($prepared_data['stripe_card_id'])) {
+	if (!isset($stripe_card_id) || empty($stripe_card_id)) {
 		quit('No payment method specified.');
 	}
 }
@@ -46,23 +48,27 @@ try {
     ]);
 
 	$Order = $Order->get_cart($User->id);
-
-	// $Stripe = new \fff\Stripe();
-	$Stripe = new StripeAPI();
+    
+	$Stripe = new \fff\Stripe();
+	// $Stripe = new StripeAPI();
 
 	// Create Stripe customer if user doesn't already have one
 	if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
-		$customer = $Stripe->create_customer($User->id, $User->first_name .' '. $User->last_name, $User->email);
+        $customer = $Stripe->create_customer($User->id, $User->first_name .' '. $User->last_name, $User->email);
+        
+        $User->update([
+            'stripe_customer_id' => $customer->id
+        ]);
 	} else {
 		$customer = $Stripe->retrieve_customer($User->stripe_customer_id);
 	}
 
 	// Create card if it's a new one; otherwise load the card the customer requested
 	if ($new_card === true) {
-		$card = $Stripe->create_card($customer->id, $prepared_data['stripe_token']);
+		$card = $Stripe->create_card($customer->id, $stripe_token);
 		$card_id = $card->id;
 	} else {
-		$card_id = $prepared_data['stripe_card_id'];
+		$card_id = $stripe_card_id;
 	}
 	
 	// Charge the customer
