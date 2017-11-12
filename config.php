@@ -40,6 +40,7 @@ $secrets = [
     'STRIPE_PK_LIVE'    => $STRIPE_PK_LIVE,
     'STRIPE_SK_LIVE'    => $STRIPE_SK_LIVE,
     'STRIPE_PK_TEST'    => $STRIPE_PK_TEST,
+    'STRIPE_SK_TEST'    => $STRIPE_SK_TEST,
     'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
     'AWS_SECRET'        => $AWS_SECRET,
