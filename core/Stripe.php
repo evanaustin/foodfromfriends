@@ -1,10 +1,10 @@
 <?php
-// namespace fff; // Stripe's own class is \Stripe, so this has to be namespaced.
+namespace fff; // Stripe's own class is \Stripe, so this has to be namespaced.
 
 /**
  * A wrapper for the Stripe SDK
  */
-class StripeAPI {
+class Stripe {
     /**
      * Initialize Stripe with our API key.
      *
@@ -31,7 +31,7 @@ class StripeAPI {
     /**
      * Creates a customer in Stripe.
      *
-     * @param int $user_id Customer's JRRRNL user ID
+     * @param int $user_id Customer's user ID
      * @param string $name Customer's name
      * @param string $email Customer's email address
      * @return \Stripe\Customer
