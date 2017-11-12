@@ -1,11 +1,13 @@
 App.Front = function() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vZGZyb21mcmllbmRzIiwiYSI6ImNqN2twb2gwdTJmdWkzMm5wNmw0ejJ2cHEifQ.vv9p76S-5nm9ku_guP3-Pg';
 
-    this.Mapbox = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',
-        zoom: 13
-    });
+    if ($('#map').length) {
+        this.Mapbox = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            zoom: 13
+        });
+    }
 
     // create & initialize a new instance of Slidebars
     this.Slidebar = new slidebars();
