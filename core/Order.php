@@ -239,7 +239,7 @@ class Order extends Base {
         }
 
         // We charge the greater of 10% or $0.50
-        $fff_fee = $subtotal * 0.1;
+        $fff_fee = bcmul($subtotal, 0.1);
         $fff_fee = ($fff_fee < 50 ? 50 : $fff_fee);
 
         $total = $subtotal + $exchange_fees + $fff_fee;
