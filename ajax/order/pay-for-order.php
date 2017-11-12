@@ -41,14 +41,18 @@ if (!isset($prepared_data['stripe_token']) || empty($prepared_data['stripe_token
 // ----------------------------------------------------------------------------
 try {
 	// Load order
-	$Order = new Order();
+	$Order = new Order([
+        'DB' => $DB
+    ]);
+
 	$Order = $Order->get_cart($User->id);
 
-	$Stripe = new \fff\Stripe();
+	// $Stripe = new \fff\Stripe();
+	$Stripe = new StripeAPI();
 
 	// Create Stripe customer if user doesn't already have one
 	if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
-		$customer = $Stripe->create_customer($User->id, $User->first_name.' '.$User->last_name, $User->email);
+		$customer = $Stripe->create_customer($User->id, $User->first_name .' '. $User->last_name, $User->email);
 	} else {
 		$customer = $Stripe->retrieve_customer($User->stripe_customer_id);
 	}
@@ -69,7 +73,5 @@ try {
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
-
-
 
 echo json_encode($json);
