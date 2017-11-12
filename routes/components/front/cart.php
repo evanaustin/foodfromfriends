@@ -149,8 +149,8 @@
             </div>
         </div>
 
-        <button id="checkout-btn" type="submit" class="btn btn-lg btn-primary btn-block">
-            Checkout now
+        <button id="checkout-btn" type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#checkout-modal">
+            Checkout
         </button>
     </div>
 
