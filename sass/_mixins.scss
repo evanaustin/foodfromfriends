@@ -89,6 +89,16 @@
     }
 }
 
+// Vertically center
+// @include vertical-align(POSITION)
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
 // Gradient Backgrounds
 // @include horizontal(COLOR, COLOR)
 @mixin horizontal($startColor: $white, $endColor: $lightergrey) {
