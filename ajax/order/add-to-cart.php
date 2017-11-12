@@ -38,7 +38,7 @@ try {
 		'DB' => $DB
 	]);
 
-	$Order = $Order->get_cart($user_id);
+	$Order = $Order->get_cart($User->id);
 
 	$FoodListing = new FoodListing([
 		'DB' => $DB,
