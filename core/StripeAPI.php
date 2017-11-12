@@ -1,17 +1,17 @@
 <?php
-namespace fff; // Stripe's own class is \Stripe, so this has to be namespaced.
+// namespace fff; // Stripe's own class is \Stripe, so this has to be namespaced.
 
 /**
  * A wrapper for the Stripe SDK
  */
-class Stripe {
+class StripeAPI {
     /**
      * Initialize Stripe with our API key.
      *
      * @todo Figure out how to set/load environment variables in FFF?
      */
     public function __construct() {
-        \Stripe\Stripe::setApiKey($_SERVER['FFF_STRIPE_SECRET_KEY']);
+        \Stripe\Stripe::setApiKey(STRIPE_SK_LIVE);
     }
 
     /**
@@ -42,6 +42,7 @@ class Stripe {
                 'description' => "[{$user_id}] {$name}",
                 'email' => $email
             ]);
+            error_log('create customer');
         } catch (\Stripe\Error\RateLimit $e) {
             $this->handle_stripe_exception($e);
         } catch (\Stripe\Error\InvalidRequest $e) {
