@@ -7,7 +7,7 @@
     #ordergrowers {
         div.set {
             &:not(:last-child) {
-                margin-bottom: 1.5em;
+                margin-bottom: 1em;
             }
     
             h6 {
@@ -123,10 +123,10 @@
 
     #checkout-btn {
         margin-top: 1em;
-        font-size: 0.85em;
+        /* font-size: 0.85em;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.5px; */
     }
 
     #empty-basket {
