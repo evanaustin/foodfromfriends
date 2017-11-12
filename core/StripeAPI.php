@@ -11,7 +11,7 @@ class StripeAPI {
      * @todo Figure out how to set/load environment variables in FFF?
      */
     public function __construct() {
-        \Stripe\Stripe::setApiKey(STRIPE_SK_LIVE);
+        \Stripe\Stripe::setApiKey(STRIPE_PK_TEST);
     }
 
     /**
