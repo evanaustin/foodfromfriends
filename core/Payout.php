@@ -52,14 +52,20 @@ class Payout extends Base {
             $payout = $results[0]['id'];
         }
 
-        return new Payout(['id' => $payout]);
+        return new Payout([
+            'DB' => $this->DB,
+            'id' => $payout
+        ]);
     }
 
     /**
      * Finds all the line items to be paid out in this payout and assigns them to `$this->LineItems`.
      */
     public function load_line_items() {
-        $LineItem = new PayoutLineItem();
+        $LineItem = new PayoutLineItem([
+            'DB' => $this->DB
+        ]);
+
         $this->LineItems = $LineItem->load_for_payout($this->id);
     }
 
@@ -84,7 +90,10 @@ class Payout extends Base {
      * @param int $total Total price paid for goods from that OrderGrower (in cents)
      */
     public function add_line_item($order_growers_id, $total) {
-        $PayoutLineItem = new PayoutLineItem();
+        $PayoutLineItem = new PayoutLineItem([
+            'DB' => $this->DB
+        ]);
+
         $PayoutLineItem->add([
             'payout_id' => $this->id,
             'order_growers_id' => $order_growers_id,
@@ -129,7 +138,10 @@ class Payout extends Base {
         $Payouts = [];
 
         foreach ($results as $result) {
-            $Payouts []= new self(['id' => $result['id']]);
+            $Payouts []= new self([
+                'DB' => $this->DB,
+                'id' => $result['id']
+            ]);
         }
 
         return $Payouts;
@@ -137,8 +149,8 @@ class Payout extends Base {
 
     /**
      * Figures out the amounts owed to the grower and FFF based on the latest line items that've
-     * been saved to this payout.  Important that we call this when the object is instantiated since
-     * new line items may have been added since this result was last calculated.  Alternatively,
+     * been saved to this payout. Important that we call this when the object is instantiated since
+     * new line items may have been added since this result was last calculated. Alternatively,
      * could calculate this every time a line item is added or removed. (should probably do that instead)
      */
     public function calculate_totals() {
@@ -151,7 +163,7 @@ class Payout extends Base {
             $amount_gross += $LineItem->total;
         }
 
-        $fff_fee = bcmul($amount_gross, 0.05);
+        $fff_fee = $amount_gross * 0.05;
         $amount_grower = $amount_gross - $fff_fee;
         $amount_fff = $amount_gross - $amount_grower;
 
