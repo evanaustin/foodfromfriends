@@ -69,8 +69,10 @@ foreach ([
             ];
 
             if (!$LOGGED_IN) {
-                $extensions['sign-up']   = 'routes/modals/sign-up';
-                $extensions['log-in']    = 'routes/modals/log-in';
+                $extensions['sign-up']  = 'routes/modals/sign-up';
+                $extensions['log-in']   = 'routes/modals/log-in';
+            } else {
+                $extensions['checkout'] = 'routes/modals/checkout';
             }
 
             foreach ($extensions as $extension) {
@@ -79,6 +81,12 @@ foreach ([
             }
         }
         
+        ?>
+
+        <script src="https://js.stripe.com/v3/"></script>
+
+        <?php
+
         layer('js', [
             'node_modules/jquery/dist/jquery',
             'node_modules/jquery.ui.widget/jquery.ui.widget',
