@@ -49,8 +49,7 @@ try {
 
 	$Order = $Order->get_cart($User->id);
     
-	$Stripe = new \fff\Stripe();
-	// $Stripe = new StripeAPI();
+	$Stripe = new Stripe();
 
 	// Create Stripe customer if user doesn't already have one
 	if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
