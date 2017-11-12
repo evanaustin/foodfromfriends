@@ -2,6 +2,8 @@ App.Front.Map = function() {
     function listener() {
         // set center to Harrisonburg
         Mapbox.setCenter([-78.8689, 38.4496]);
+        Mapbox.setZoom(3);
+        Mapbox.flyTo({zoom:13});
 
         // initialize marker array
         var markers = [];
