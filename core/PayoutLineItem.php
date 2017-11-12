@@ -39,10 +39,13 @@ class PayoutLineItem extends Base {
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $line_items []= new PayoutLineItem(['id' => $result['id']]);
+                $line_items []= new PayoutLineItem([
+                    'DB' => $this->DB,
+                    'id' => $result['id']
+                ]);
             }
         }
 
-        return $line_items[];
+        return $line_items;
     }
 }
