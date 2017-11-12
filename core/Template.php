@@ -22,7 +22,7 @@ class Template {
         }
 
         if ($Routing->template == 'front') {
-            array_unshift($this->scripts, 'js/front');
+            array_unshift($this->scripts, 'js/front', 'js/checkout');
         }
     }
 
