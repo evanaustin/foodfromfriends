@@ -2,6 +2,16 @@
  
 class Order extends Base {
 
+    public
+        $id,
+        $user_id,
+        $subtotal,
+        $fff_fee,
+        $exchange_fees,
+        $total,
+        $stripe_charge_id,
+        $placed_on;
+
     public 
         $Growers;
     
@@ -267,7 +277,9 @@ class Order extends Base {
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
      */
     public function mark_paid($stripe_charge_id) {
+        error_log($stripe_charge_id);
         $now = \Time::now();
+        error_log($now);
 
         // ? use Base class
         $this->DB->run('
