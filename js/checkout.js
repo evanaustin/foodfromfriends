@@ -56,9 +56,6 @@ App.Front.Checkout = function () {
             // Use Stripe.js to create a token. We only need to pass in one Element
             // from the Element group in order to create a token.
             stripe.createToken(elements[0]).then(function(result) {
-                // Stop loading!
-                wrapper.classList.remove('submitting');
-
                 if (result.token) {
                     var data = {
                         stripe_token: result.token.id
@@ -66,9 +63,11 @@ App.Front.Checkout = function () {
         
                     App.Ajax.post('order/pay-for-order', data,
                         function(response) {
+                            wrapper.classList.remove('submitting');
                             wrapper.classList.add('submitted');
                             // result.complete('success');
                         }, function(response) {
+                            wrapper.classList.remove('submitting');
                             console.log(response.error);
                             // result.complete('fail');
                         } 
