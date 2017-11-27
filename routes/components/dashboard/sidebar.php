@@ -10,6 +10,12 @@
                 
                 $sidebar = [
                     'grower' => [
+                        '' => 'dashboard',
+                        'orders' => [
+                            'new',
+                            'pending',
+                            'completed'
+                        ],
                         'food-listings' => [
                             'overview',
                             'add-new'
@@ -19,6 +25,10 @@
                         'edit-profile' => [
                             'basic-information',
                             'location'
+                        ],
+                        'orders-placed' => [
+                            'pending',
+                            'completed'
                         ],
                         /* 'account-settings' => [
                             'notifications',
