@@ -44,8 +44,6 @@
 
             <?php
 
-            $i = 1;
-            
             foreach($listings as $listing) {
 
                 ?>
@@ -123,8 +121,6 @@
                 </div>
                 
                 <?php
-
-                $i++;
 
             }
 
