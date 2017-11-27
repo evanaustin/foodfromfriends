@@ -2,40 +2,6 @@ body.dashboard-grower {
     div.container-fluid {
         padding: 10px;
 
-        div.seamless {
-            div.row {
-                margin: 0;
-    
-                > div {
-                    padding: 10px;
-                }
-            }
-        }
-
-        div.block {
-            padding: 2em 0;
-            background-color: #fff;
-            text-align: center;
-            color: $muted;
-            border-top: 0.5px solid $lightedge-color;
-            @include drop-shadow(0, 2px, 4px);
-            @include rounded($radius);
-    
-            div.value {
-                line-height: 1.25;
-                font-size: 48px;
-                font-family: 'Signika';
-                font-weight: 500;
-            }
-    
-            div.descriptor {
-                font-size: 14px;
-                font-weight: 300;
-                text-transform: uppercase;
-                color: $dark-gray;
-            }
-        }
-
         div.list-blocks {
             div.list-group {
                 div.heading {
