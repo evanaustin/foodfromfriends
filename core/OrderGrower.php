@@ -2,6 +2,20 @@
  
 class OrderGrower extends Base {
 
+    public
+        $id,
+        $order_id,
+        $grower_operation_id,
+        $exchange_option,
+        $distance,
+        $subtotal,
+        $exchange_fee,
+        $total,
+        $confirmed_on,
+        $fulfilled_on,
+        $rejected_on,
+        $expired_on;
+
     public 
         $FoodListings;
     
@@ -194,23 +208,152 @@ class OrderGrower extends Base {
     }
 
     /**
+     * Marks the suborder as confirmed.
+     */
+    public function confirm() {
+        $now = \Time::now();
+
+        $this->update([
+            'confirmed_on' => $now
+        ]);
+
+        $this->confirmed_on = $now;
+    }
+    
+    /**
+     * Marks the suborder as rejected.
+     */
+    public function reject() {
+        $now = \Time::now();
+
+        $this->update([
+            'rejected_on' => $now
+        ]);
+
+        $this->rejected_on = $now;
+    }
+
+    /**
      * Marks the items sold by this grower has having been fulfilled (given to the buyer).
      */
     public function mark_fulfilled() {
         $now = \Time::now();
 
-        // ? use Base function
-        $this->DB->run('
-            UPDATE order_growers 
-            SET 
-                fulfilled_on = :fulfilled_on
-            WHERE id = :id
-            LIMIT 1
-        ', [
-            'fulfilled_on' => $now,
-            'id' => $this->id
+        $this->update([
+            'fulfilled_on' => $now
         ]);
 
         $this->fulfilled_on = $now;
+
+        // ! if this is the last suborder of an order to be fulfilled, the order is now complete
+    }
+
+    /** 
+     * Get all the new orders. An order is new if it has not been confirmed and not yet expired.
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_new($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                og.exchange_option,
+                o.user_id,
+                o.placed_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND o.placed_on     IS NOT NULL
+                AND og.confirmed_on IS NULL
+                AND og.fulfilled_on IS NULL
+                AND og.rejected_on  IS NULL
+                AND og.expired_on   IS NULL
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+
+    /** 
+     * Get all the pending orders. An order is pending if it has been confirmed but not yet fulfilled.
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_pending($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                og.exchange_option,
+                og.confirmed_on,
+                o.user_id
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND o.placed_on     IS NOT NULL
+                AND og.confirmed_on IS NOT NULL
+                AND og.fulfilled_on IS NULL
+                AND og.rejected_on  IS NULL
+                AND og.expired_on   IS NULL
+
+            ORDER BY og.confirmed_on desc
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+
+    /** 
+     * Get all the completed orders. An order is complete if it has been confirmed and fulfilled.
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_completed($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                og.exchange_option,
+                og.distance,
+                o.user_id,
+                o.placed_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND o.placed_on IS NOT NULL
+                AND og.confirmed_on IS NOT NULL
+                AND og.fulfilled_on IS NOT NULL
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
     }
 }
