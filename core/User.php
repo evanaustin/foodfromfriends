@@ -22,7 +22,8 @@ class User extends Base {
         $latitude,
         $longitude,
         $filename,
-        $ext;
+        $ext,
+        $name;
         
     public
         $Operations,
@@ -48,6 +49,8 @@ class User extends Base {
             $this->populate_fully();
             $this->get_operations();
             $this->get_orders();
+
+            $this->name = $this->first_name . ' ' . $this->last_name;
         }
     }
     
