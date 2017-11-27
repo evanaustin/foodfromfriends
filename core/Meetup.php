@@ -2,6 +2,17 @@
  
 class Meetup extends Base {
     
+    public
+        $id,
+        $grower_operation_id,
+        $is_offered,
+        $address_line_1,
+        $address_line_2,
+        $city,
+        $state,
+        $zip,
+        $time;
+
     protected
         $class_dependencies,
         $DB;
