@@ -306,4 +306,50 @@ class Order extends Base {
 
         $Payout->save_order($this);
     }
+
+    /** 
+     * Get all the pending orders. An order is pending if any of the sub orders are incomplete.
+     * 
+     * @param int $user_id The buyer ID
+     */
+    public function get_pending($user_id) {
+        $results = $this->DB->run('
+            SELECT *
+            FROM orders
+            WHERE user_id=:user_id 
+                AND placed_on IS NOT NULL
+                AND completed_on IS NULL
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+    
+    /** 
+     * Get all the completed orders. An order is complete if all of the sub orders are complete.
+     * 
+     * @param int $user_id The buyer ID
+     */
+    public function get_completed($user_id) {
+        $results = $this->DB->run('
+            SELECT *
+            FROM orders
+            WHERE user_id=:user_id 
+                AND placed_on IS NOT NULL
+                AND completed_on IS NOT NULL
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
 }
