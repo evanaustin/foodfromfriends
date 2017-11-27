@@ -3,6 +3,10 @@
  * For quickly generating MySQL datetime strings.
  */
 class Time {
+    function __construct() {
+        date_default_timezone_set('America/New_York');
+    }
+
     /**
      * Generates a `datetime` or `date` string for the current time.
      *
@@ -119,5 +123,66 @@ class Time {
         $date = new \DateTime($date);
 
         return $date->modify('next sunday')->format('Y-m-d');
+    }
+
+    function elapsed($datetime, $full = false) {
+        $now = new \DateTime($this->now());
+        $ago = new \DateTime($datetime);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = [
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        ];
+        
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+    
+        if (!$full) $string = array_slice($string, 0, 1);
+        
+        return [
+            'full' => $string ? implode(', ', $string) . ' ago' : 'just now',
+            'diff' => $diff
+        ];
+    }
+    
+    function until($datetime, $deadline) {
+        $now    = new \DateTime($this->now());
+        $then   = new \DateTime($datetime);
+        $until  = date_add($then, date_interval_create_from_date_string($deadline));
+        $diff   = $now->diff($until);
+    
+        $d = $diff->format('%a');
+        $h = $diff->format('%h');
+        $m = $diff->format('%i');
+        $s = $diff->format('%s');
+
+        if ($d > 0) {
+            $full = $d . ' day' . (($d != 1) ? 's ' : ' ' . $h . ' hour' . (($h != 1) ? 's' : ''));
+        } else if ($d == 0 && $h < 24 && $h > 0) {
+            $full = $h . ' hour' . (($h != 1) ? 's ': ' ') . $m . ' minute' . (($m != 1) ? 's' : '');
+        } else if ($h == 0 && $m > 0) {
+            $full = $m . ' minute' . (($m != 1) ? 's ' : ' ' . $s . ' second' . (($s != 1) ? 's' : ''));
+        } else if ($h == 0 && $m == 0 && $s > 0) {
+            $full = $s . ' second' . (($s != 1) ? 's' : '');
+        }
+        
+        return [
+            'full' => $full,
+            'diff' => $diff
+        ];
     }
 }
