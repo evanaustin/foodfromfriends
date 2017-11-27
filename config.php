@@ -83,7 +83,7 @@ try {
  * GUMP Validator
  **/
 
-$Gump = new GUMP();
+$Gump   = new GUMP();
 
 
 
@@ -91,8 +91,17 @@ $Gump = new GUMP();
  * AWS
  **/
 
-$AWS = new Aws();
-$S3 = new S3($AWS);
+$AWS    = new Aws();
+$S3     = new S3($AWS);
+
+
+
+/**
+ * Num & Time
+ **/
+
+$Num    = new Num();
+$Time   = new Time();
 
 
 
