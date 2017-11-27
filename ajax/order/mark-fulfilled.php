@@ -10,7 +10,7 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'order_grower_id' => 'required|integer'
+	'ordergrower_id' => 'required|integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -20,7 +20,7 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'order_grower_id' => 'trim|sanitize_numbers'
+	'ordergrower_id' => 'trim|sanitize_numbers'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -28,12 +28,14 @@ $prepared_data = $Gump->run($validated_data);
 // Add to cart
 // ----------------------------------------------------------------------------
 try {
-	$OrderGrower = new OrderGrower(['id' => $prepared_data['order_grower_id']]);
+	$OrderGrower = new OrderGrower([
+        'DB' => $DB,
+        'id' => $prepared_data['ordergrower_id']
+    ]);
+
 	$OrderGrower->mark_fulfilled();
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
-
-
 
 echo json_encode($json);
