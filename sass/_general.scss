@@ -169,6 +169,45 @@ canvas {
     }
 }
 
+.table {
+    background-color: #fff;
+    border-color: $superlight-gray;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+
+    th {
+        border-top: 0px;
+    }
+
+    th, td {
+        border-color: $edge-color !important;
+    }
+
+    ul.pagination {
+        margin: 0;
+
+        li.active {
+            .page-link {
+                // this should be in bootstrap override
+                background-color: $superlight-green;
+                border-color: $superlight-green;
+            }
+        }
+    }
+}
+
+.success {
+    color: $brand-success;
+}
+
+.warning {
+    color: $brand-warning;
+}
+
+.danger {
+    color: $brand-danger;
+}
+
 .align-left {
     text-align: left;
 }
@@ -278,15 +317,26 @@ canvas {
         margin-bottom: 5px;
     }
 
-    p:last-child {
-        margin-bottom: 0;
+    h6 {
+        margin-bottom: 0.5em;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: $muted;
+    }
+
+    p {
+        color: $light-gray;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     code {
         border-radius: 3px;
     }
     
-    +.callout {
+    + .callout {
         margin-top: -5px;
     }
 
@@ -337,4 +387,13 @@ canvas {
             color: #5bc0de;
         }
     }
+}
+
+.drop-shadow {
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+}
+
+.rounded {
+    @include rounded($radius);
 }
