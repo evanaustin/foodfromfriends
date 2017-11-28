@@ -203,8 +203,8 @@ class Order extends Base {
 
     /**
      * This method should be called every time the cart is modified or instantiated. It updates prices
-     * and totals in the database and loads those properties into the object, ensuring everything is 
-     * up-to-date.
+     * weights, and totals in the database and loads those properties into the object, ensuring everything 
+     * is up-to-date.
      */
     private function update_cart() {
         // Orders once paid for are set in stone!
@@ -215,9 +215,9 @@ class Order extends Base {
         // Make sure we have the latest grower info in this object
         $this->load_growers();
 
-        // Set food listing prices and totals
+        // Set food listing prices, weights, and totals
         foreach ($this->Growers as $OrderGrower) {
-            $OrderGrower->sync_food_listing_prices();
+            $OrderGrower->sync_food_listing();
             $OrderGrower->calculate_exchange_fee();
             $OrderGrower->calculate_total();
         }

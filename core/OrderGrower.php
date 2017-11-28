@@ -95,11 +95,11 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Called when the cart is loaded or modified to make sure we have the seller's latest prices.
+     * Called when the cart is loaded or modified to make sure we have the seller's latest prices and weights.
      */
-    public function sync_food_listing_prices() {
+    public function sync_food_listing() {
         foreach ($this->FoodListings as $FoodListing) {
-            $FoodListing->sync_prices();
+            $FoodListing->sync();
         }
     }
 
@@ -177,7 +177,7 @@ class OrderGrower extends Base {
 
     /**
      * Calculates the total price of all items in this order sold by this grower.  Call after calling
-     * `calculate_exchange_fee()` and `sync_food_listing_prices()`.
+     * `calculate_exchange_fee()` and `sync_food_listing()`.
      */
     public function calculate_total() {
         $subtotal = 0;
@@ -334,6 +334,7 @@ class OrderGrower extends Base {
                 og.total,
                 og.exchange_option,
                 og.distance,
+                og.fulfilled_on,
                 o.user_id,
                 o.placed_on
 
