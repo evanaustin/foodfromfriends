@@ -22,7 +22,9 @@ class GrowerOperation extends Base {
         $ext;
 
     public
-        $details;
+        $details,
+        $new_orders,
+        $pending_orders;
 
     public
         $Delivery,
@@ -210,6 +212,53 @@ class GrowerOperation extends Base {
         }
 
         return $this->is_active;
+    }
+
+    public function determine_outstanding_orders() {
+        $new = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND o.placed_on     IS NOT NULL
+                AND og.confirmed_on IS NULL
+                AND og.fulfilled_on IS NULL
+                AND og.rejected_on  IS NULL
+                AND og.expired_on   IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $pending = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND o.placed_on     IS NOT NULL
+                AND og.confirmed_on IS NOT NULL
+                AND og.fulfilled_on IS NULL
+                AND og.rejected_on  IS NULL
+                AND og.expired_on   IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $this->new_orders       = isset($new[0]);
+        $this->pending_orders   = isset($pending[0]);
     }
 
     public function get_owner() {
