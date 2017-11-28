@@ -2,9 +2,13 @@
 
 $Template = new Template($Routing);
 
-if ($Routing->template == 'dashboard' && !$LOGGED_IN) {
-    header('Location: ' . PUBLIC_ROOT);
-    die();
+if ($Routing->template == 'dashboard') {
+    if (!$LOGGED_IN) {
+        header('Location: ' . PUBLIC_ROOT);
+        die();
+    } else {
+        $User->GrowerOperation->determine_outstanding_orders();
+    }
 }
 
 foreach ([
