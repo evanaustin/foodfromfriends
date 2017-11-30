@@ -19,6 +19,10 @@ function layer($language, $files) {
     }
 }
 
+function amount($amount) {
+    echo '$' . number_format($amount / 100, 2);
+}
+
 function img($path, $ext, $server = 'local', $class = '') {
     echo '<img src="' . (($server == 'local') ? PUBLIC_ROOT . 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
