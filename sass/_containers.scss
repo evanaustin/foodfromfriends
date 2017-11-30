@@ -1,0 +1,493 @@
+.card {
+    flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
+    border: 0px;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    &:hover {
+        @include transform(translateY(-2px));
+        @include drop-shadow(0, 5px, 20px);
+    }
+
+    .card-img-top {
+        padding: 0.5em 0.5em 0;
+
+        img, div.loading {
+            width: 100%;
+            height: 100%;
+            border: 1px solid $lightedge-color;
+            @include rounded($radius);
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 85.7%; // image crop ratio
+            }
+        }
+
+        div.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $superlight-gray;
+            border: 0px;
+            
+            i {
+                animation: spin 2s linear infinite;
+                font-size: 2em;
+                color: $muted;
+            }
+        }
+    }
+
+    div.card-block {
+        .card-title {
+            font-weight: 400;
+        }
+    }
+
+    + .loading-icon {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        color: $light-gray;
+    }
+}
+
+.card-alt {
+    display: flex;
+    flex-direction: row;
+    padding: 0.75em;
+    background-color: #fff;
+    border-top-width: 1px;
+    text-align: left;
+
+    border-top: 0.5px solid $superlight-gray;
+    @include rounded($radius);
+    @include drop-shadow(0px, 2px, 4px);
+
+    + .card-alt {
+        margin-top: 0.75em;
+    }
+
+    .item-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+        width: 75px;
+        // margin-left: 0.5em;
+        padding: 0em;
+
+        img {
+            border: 1px solid $edge-color;
+            @include rounded($radius);
+            // @include drop-shadow(0px, 2px, 4px);
+        }
+    }
+
+    .card-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1em;
+        padding: 0;
+    }
+}
+
+.block {
+    padding: 2em 0;
+    background-color: #fff;
+    text-align: center;
+    color: $muted;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+
+    div.value {
+        line-height: 1.25;
+        font-size: 48px;
+        font-family: 'Signika';
+        font-weight: 500;
+    }
+
+    div.descriptor {
+        font-size: 14px;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $dark-gray;
+    }
+
+    div.callout {
+        margin: 0.5em 2em;
+        // padding: 0.25em 0;
+    }
+
+    .btn {
+        // float: left;
+        margin-left: 0;
+        margin-right: auto;
+        color: #fff;
+    }
+}
+
+.callout {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-left: 5px solid #eee;
+    color: $muted;
+    
+    > h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    > h6 {
+        margin-bottom: 0.5em;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $muted;
+    }
+
+    > p {
+        color: $light-gray;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    + .callout {
+        margin-top: -5px;
+    }
+
+    &.bordered {
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 3px;
+    }
+
+    &.default {
+        border-left-color: #777;
+        
+        h4 {
+            color: #777;
+        }
+    }
+    
+    &.primary {
+        border-left-color: $light-green;
+        
+        h4 {
+            color: $light-green;
+        }
+    }
+
+    &.success {
+        border-left-color: #5cb85c;
+        
+        h4 {
+            color: #5cb85c;
+        }
+    }
+
+    &.danger {
+        border-left-color: #d9534f;
+        
+        h4 {
+            color: #d9534f;
+        }
+    }
+
+    &.warning {
+        border-left-color: #f0ad4e;
+        
+        h4 {
+            color: #f0ad4e;
+        }
+    }
+
+    &.info {
+        border-left-color: #5bc0de;
+        
+        h4 {
+            color: #5bc0de;
+        }
+    }
+
+    code {
+        border-radius: 3px;
+    }
+}
+
+.table {
+    background-color: #fff;
+    border-color: $superlight-gray;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+
+    th {
+        border-top: 0px;
+    }
+
+    th, td {
+        border-color: $edge-color !important;
+    }
+
+    ul.pagination {
+        margin: 0;
+
+        li.active {
+            .page-link {
+                // this should be in bootstrap override
+                background-color: $superlight-green;
+                border-color: $superlight-green;
+            }
+        }
+    }
+}
+
+.fable {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+
+    > cell {
+        display: flex;
+        flex-basis: 33.33%;
+        align-items: center;
+
+        &:not(:first-child):not(:last-child) {
+            justify-content: center;
+        }
+
+        &:last-child {
+            justify-content: flex-end;
+        }
+    }
+}
+
+.ledger {
+    position: relative;
+
+    .record {
+        position: relative;
+        padding: 1.25rem;
+        padding-left: 0;
+        color: $muted;
+        @include rounded($radius);
+        @include transition(all .2s);
+        
+        &.closed, &.opened {
+            margin-left: 2rem;
+            
+            > [data-toggle="collapse"] {
+                cursor: pointer;
+                
+                &:before {
+                    cursor: pointer;
+                    z-index: 1;
+                    left: calc(-10px - 1.025rem);
+                    width: 10px;
+                    font-family: FontAwesome;
+                    color: #fff;
+                    text-align: center;
+                    @include vertical-align(absolute);
+                    @include transition(all .2s);
+                }
+
+                &:after {
+                    content: '';
+                    z-index: 0;
+                    position: absolute;
+                    top: 0;
+                    left: -2rem;
+                    width: 1.25rem;
+                    height: 100%;
+                    @include rounded($radius);
+                    @include transition(all .2s);
+                }
+
+                &:hover {
+                    &:before {
+                        transform: translateY(-12px);
+                    }
+                    
+                    &:after {
+                        @include transform(translateY(-2px));
+                        @include drop-shadow(0, 2px, 4px);
+                    }
+                }
+
+                &.tab {
+                    &:after {
+                        background-color: $light-gray;
+                    }
+
+                    &:hover {
+                        &:after {
+                            background-color: $muted;
+                        }
+                    }
+                }
+
+                &.tab-info {
+                    &:after {
+                        background-color: $brand-info;
+                    }
+                }
+                
+                &.tab-success {
+                    &:after {
+                        background-color: $brand-success;
+                    }
+                }
+
+                &.tab-warning {
+                    &:after {
+                        background-color: $brand-warning;
+                    }
+                }
+
+                &.tab-danger {
+                    &:after {
+                        background-color: $brand-danger;
+                    }
+                }
+            }
+
+            > .fable {
+                cell {
+                    @include transition(all .2s);
+                }
+            }
+
+            > .user-block {
+                @include transition(all .2s);
+
+                .user-photo {
+                    @include transition(all .2s);
+                }
+            }
+        }
+
+        &.closed {
+            background-color: #fff;
+            
+            > [data-toggle="collapse"] {
+                &:before {
+                    content: '\f142';
+                    font-size: 12px;
+                }
+            }
+
+            > .fable {
+                cell:first-child {
+                    padding-left: 1.25rem;
+                }
+            }
+
+            > .user-block {
+                padding-left: 1.25rem;
+
+                .user-photo {
+                    @include drop-shadow(0, 0, 0);
+                }
+            }
+        }
+
+        &.opened {
+            background-color: transparent;
+
+            > [data-toggle="collapse"] {
+                &:before {
+                    content: '\f0c9';
+                    font-size: 10px;
+                }
+            }
+
+            > .fable {
+                margin-bottom: 1rem;
+            }
+
+            > .user-block {
+                padding-left: 0.75rem;
+
+                .user-photo {
+                    @include drop-shadow(0, 2px, 4px);
+                }
+            }
+        }
+
+        + .record {
+            margin-top: 1.5rem;
+        }
+    }
+
+    .card-alt {
+        margin-top: 0.75rem;
+        @include drop-shadow(0, 0, 0);
+
+        + .fable {
+            margin-top: 1rem;
+
+            cell:first-child {
+                padding-left: 0.75rem;
+            }
+        }
+    }
+}
+
+.user-block {
+    display: flex;
+    flex-direction: row;
+
+    div.user-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    div.user-content {
+        display: flex;
+        flex-grow: 2;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        padding-left: 15px;
+    }
+}
+
+.user-photo {
+    margin: 0 auto 1em;
+    height: 75px;
+    width: 75px;
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid $edge-color;
+    @include rounded(50%);
+    @include drop-shadow(0, 2px, 4px)
+}
+
+.modal-content {
+    border: 0px;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+
+    .modal-header {
+        padding: 0.5em 1em;
+        color: $muted;
+        border-color: $edge-color;
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+    }
+
+    .modal-body {
+        padding: 1em;
+    }
+}

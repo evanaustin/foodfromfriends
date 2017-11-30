@@ -18,84 +18,6 @@ canvas {
     }
 }
 
-.card {
-    flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
-    border: 0px;
-    border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
-    @include transition(all .2s);
-
-    &:hover {
-        @include transform(translateY(-2px));
-        @include drop-shadow(0, 5px, 20px);
-    }
-
-    .card-img-top {
-        padding: 0.5em 0.5em 0;
-
-        img, div.loading {
-            width: 100%;
-            height: 100%;
-            border: 1px solid $lightedge-color;
-            @include rounded($radius);
-
-            &:before {
-                content: '';
-                display: block;
-                padding-top: 85.7%; // image crop ratio
-            }
-        }
-
-        div.loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $superlight-gray;
-            border: 0px;
-            
-            i {
-                animation: spin 2s linear infinite;
-                font-size: 2em;
-                color: $muted;
-            }
-        }
-    }
-
-    div.card-block {
-        .card-title {
-            font-weight: 400;
-        }
-    }
-
-    + .loading-icon {
-        text-align: center;
-        margin: 0 auto;
-        display: block;
-        color: $light-gray;
-    }
-}
-
-.modal-content {
-    border: 0px;
-    @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
-
-    .modal-header {
-        padding: 0.5em 1em;
-        color: $muted;
-        border-color: $edge-color;
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
-    }
-
-    .modal-body {
-        padding: 1em;
-    }
-}
-
 .btn {
     cursor: pointer;
     font-family: inherit;
@@ -169,31 +91,8 @@ canvas {
     }
 }
 
-.table {
-    background-color: #fff;
-    border-color: $superlight-gray;
-    @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
-
-    th {
-        border-top: 0px;
-    }
-
-    th, td {
-        border-color: $edge-color !important;
-    }
-
-    ul.pagination {
-        margin: 0;
-
-        li.active {
-            .page-link {
-                // this should be in bootstrap override
-                background-color: $superlight-green;
-                border-color: $superlight-green;
-            }
-        }
-    }
+.light-gray {
+    color: $light-gray;
 }
 
 .info {
@@ -210,6 +109,12 @@ canvas {
 
 .danger {
     color: $brand-danger;
+}
+
+.danger-hover {
+    &:hover {
+        color: $brand-danger !important;
+    }
 }
 
 .align-left {
@@ -237,7 +142,16 @@ canvas {
 }
 
 .flexgrow {
+    display: flex;
     flex-grow: 1;
+}
+
+.flexcenter {
+    align-items: center;
+}
+
+.flexend {
+    justify-content: flex-end;
 }
 
 .hidden {
@@ -246,6 +160,26 @@ canvas {
 
 .strong {
     font-weight: bolder !important;
+}
+
+.healthy {
+    font-weight: 400 !important;
+}
+
+.bold {
+    font-weight: 500 !important;
+}
+
+.thick {
+    font-weight: 700 !important;
+}
+
+.heavy {
+    font-weight: 700 !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 .no-margin {
@@ -302,94 +236,6 @@ canvas {
 
     &.bs-tether-element-attached-left .tooltip-inner:before {
         border-right-color: $dark-gray !important;
-    }
-}
-
-.callout {
-    margin: 20px 0;
-    padding: 10px 20px;
-    border-left: 5px solid #eee;
-    
-    &.bordered {
-        padding: 20px;
-        border: 1px solid #eee;
-        border-radius: 3px;
-    }
-    
-    h4 {
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
-
-    h6 {
-        margin-bottom: 0.5em;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: $muted;
-    }
-
-    p {
-        color: $light-gray;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    code {
-        border-radius: 3px;
-    }
-    
-    + .callout {
-        margin-top: -5px;
-    }
-
-    &.default {
-        border-left-color: #777;
-        
-        h4 {
-            color: #777;
-        }
-    }
-    
-    &.primary {
-        border-left-color: $light-green;
-        
-        h4 {
-            color: $light-green;
-        }
-    }
-
-    &.success {
-        border-left-color: #5cb85c;
-        
-        h4 {
-            color: #5cb85c;
-        }
-    }
-
-    &.danger {
-        border-left-color: #d9534f;
-        
-        h4 {
-            color: #d9534f;
-        }
-    }
-
-    &.warning {
-        border-left-color: #f0ad4e;
-        
-        h4 {
-            color: #f0ad4e;
-        }
-    }
-
-    &.info {
-        border-left-color: #5bc0de;
-        
-        h4 {
-            color: #5bc0de;
-        }
     }
 }
 
