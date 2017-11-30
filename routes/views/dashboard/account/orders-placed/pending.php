@@ -9,96 +9,200 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Pending orders placed
+                        Your pending orders
                     </div>
 
                     <div class="page-description text-muted small">
-                        This is a collection of all your pending orders placed, sorted by most recent.
+                        These are the orders you've placed that are still pending in some respect. Click the tabs to toggle order details.
                     </div>
                 </div>
             </div>
 
+            <hr>
+
             <div class="alerts"></div>
 
-            <table class="table datatable">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Placed on</th>
-                        <th>Amount</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
+            <div class="orders ledger">
 
-                <tbody>
-                    <?php 
+                <?php
+
+                $i = 1;
+
+                foreach ($pending as $order) {
+
+                    $Order = new Order([
+                        'DB' => $DB,
+                        'id' => $order['id']
+                    ]);
+
+                    $placed_on = new Datetime($Order->placed_on);
+                    $placed_on = $placed_on->format('F d, Y');
+
+                    $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');
+
+                    ?>
                     
-                    $i = 1;
-
-                    foreach($pending as $order) {
+                    <div class="closed record">
+                        <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?php echo $Order->id;?>" aria-controls="order-<?php echo $Order->id ;?>" aria-label="Toggle order"></div>
                         
-                        /* $ThisOrder = new Order([
-                            'DB' => $DB,
-                            'id' => $order['id']
-                        ]);
+                        <h5 class="fable">
+                            <cell>
+                                <strong>Order</strong>
+                                &nbsp;
+                                <span class="text-muted">(ID: <?php echo $Order->id . '0' . substr((pow($Order->id, 3) - pow($Order->id, 2)), 0, 3); ?>)</span>
+                            </cell>
 
-                        foreach($ThisOrder->Growers as $ThisOrderGrower) {
-                            if (!isset($ThisOrderGrower->fulfilled_on)) {
-                                $status = 'incomplete';
-                                break;
-                            }
-                        } */
-
-                        // if (!isset($status)) $status = 'complete';
-
-                        ?>
-                        
-                        <tr class="table-light">
-                            <td scope="row">
-                                <?php echo $i; ?>
-                            </td>
+                            <cell>
+                                <small><?php echo $placed_on; ?></small>
+                            </cell>
                             
-                            <td>
+                            <cell>
+                                <?php amount($Order->total); ?>
+                            </cell>
+                        </h5>
+                    
+                        <div class="ledger collapse" id="order-<?php echo $Order->id;?>">
+
+                            <?php
+
+                            foreach ($Order->Growers as $OrderGrower) {
+
+                                $ThisGrowerOperation = new GrowerOperation([
+                                    'DB' => $DB,
+                                    'id' => $OrderGrower->grower_operation_id
+                                ],[
+                                    'details' => true
+                                ]);
+
+                                $tab_highlight = 'tab-';
+
+                                if (!isset($OrderGrower->confirmed_on) && !isset($OrderGrower->expired_on) && !isset($OrderGrower->rejected_on)) {
+                                    $status = 'awaiting confirmation';
+                                    $tab_highlight .= 'info';
+                                } else if (isset($OrderGrower->confirmed_on) && !isset($OrderGrower->fulfilled_on)) {
+                                    $status = 'awaiting fulfillment';
+                                    $tab_highlight .= 'warning';
+                                } else if (isset($OrderGrower->confirmed_on) && isset($OrderGrower->fulfilled_on)) {
+                                    $status = 'completed';
+                                    $tab_highlight .= 'success';
+                                } else if (!isset($OrderGrower->confirmed_on) && (isset($OrderGrower->expired_on) || isset($OrderGrower->rejected_on))) {
+                                    $status = 'failed';
+                                    $tab_highlight .= 'danger';
+                                }
+
+                                ?>
+                                
+                                <div class="closed record">
+                                    <div class="<?php echo $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?php echo $OrderGrower->id;?>" aria-controls="suborder-<?php echo $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
+                                    
+                                    <div class="user-block">
+                                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
+                                        
+                                        <div class="user-content">
+                                            <h5 class="bold">
+                                                <?php echo $ThisGrowerOperation->details['name']; ?>
+
+                                                <span class="float-right">
+                                                    <?php amount($OrderGrower->total); ?>
+                                                </span>
+                                            </h5>
+
+                                            <!-- ! dynamically construct -->
+                                            <!-- <small class="listing-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </small> -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="collapse" id="suborder-<?php echo $OrderGrower->id;?>">
+                                        <?php
+
+                                        foreach ($OrderGrower->FoodListings as $OrderListing) {
+
+                                            $ThisFoodListing = new FoodListing([
+                                                'DB' => $DB,
+                                                'id' => $OrderListing->food_listing_id
+                                            ]);
+
+                                            ?>
+
+                                            <div class="item card-alt animated fadeIn">
+                                                <div class="item-image">
+                                                    <?php img(ENV . '/food-listings/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, 'S3', 'img-fluid'); ?>
+                                                </div>
+
+                                                <div class="card-block">
+                                                    <h6 class="healthy">
+                                                        <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $ThisFoodListing->id; ?>">
+                                                            <?php echo ucfirst($ThisFoodListing->title); ?>
+                                                        </a>
+
+                                                        <span class="float-right">
+                                                            <small>x</small> <?php echo $OrderListing->quantity; ?>
+                                                        </span>
+                                                    </h6>
+                                                    
+                                                    <small class="light-gray">
+                                                        <span>
+                                                            <?php
+
+                                                            amount(($OrderListing->unit_price / $OrderListing->unit_weight));
+                                                            echo '/' . $OrderListing->weight_units;
+
+                                                            ?>
+                                                        </span>
+                                                        
+                                                        <span class="float-right">
+                                                            <?php amount($OrderListing->total); ?>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </div>
+                            
+                                            <?php
+
+                                        }
+
+                                        ?>
+                                    
+                                        <div class="fable">
+                                            <cell>
+                                                <?php echo ucfirst($OrderGrower->exchange_option); ?>
+                                            </cell>
+                                            
+                                            <cell>
+                                                [Exchange address]
+                                            </cell>
+                                            
+                                            <cell>
+                                                <?php amount($OrderGrower->exchange_fee); ?>
+                                            </cell>
+                                        </div>
+                                    </div>
+                                </div>
+                
                                 <?php
 
-                                $placed_on = new DateTime($order['placed_on']);
-                                echo $placed_on->format('F d, Y');
-                                
-                                ?>
-                            </td>
-                            
-                            <td>
-                                $<?php echo number_format($order['total'] / 100, 2); ?>
-                            </td>
+                            }
 
-                            <td>
-                                <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/account/orders-placed/pending/view?id=' . $order['id']; ?>">View</a>
-                            </td>
-                        </tr>
+                            ?>
 
-                        <?php
+                        </div>
+                    </div>
 
-                        $i++;
-                    
-                    }
-                    
-                    ?>
+                    <?php
 
-                    <tr>
-                        <td colspan=3>
-                            <nav aria-label="Table navigation">
-                                <ul class="pagination">
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">
-                                            1
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    $i++;
+
+                }
+
+                ?>
+
+            </div>
 
             <?php
 
