@@ -73,42 +73,6 @@ body.dashboard {
                 }
             }
     
-            div.block {
-                padding: 2em 0;
-                background-color: #fff;
-                text-align: center;
-                color: $muted;
-                border-top: 0.5px solid $lightedge-color;
-                @include drop-shadow(0, 2px, 4px);
-                @include rounded($radius);
-        
-                div.value {
-                    line-height: 1.25;
-                    font-size: 48px;
-                    font-family: 'Signika';
-                    font-weight: 500;
-                }
-        
-                div.descriptor {
-                    font-size: 14px;
-                    font-weight: 300;
-                    text-transform: uppercase;
-                    color: $dark-gray;
-                }
-
-                div.callout {
-                    margin: 0.5em 2em;
-                    // padding: 0.25em 0;
-                }
-
-                .btn {
-                    // float: left;
-                    margin-left: 0;
-                    margin-right: auto;
-                    color: #fff;
-                }
-            }
-    
             div.controls {
                 margin: 0 0 0.5rem;
                 
