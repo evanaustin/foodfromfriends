@@ -10,7 +10,7 @@ class Meetup extends Base {
         $address_line_2,
         $city,
         $state,
-        $zip,
+        $zipcode,
         $time;
 
     protected

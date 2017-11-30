@@ -167,7 +167,7 @@ if (isset($Order) && $Order->user_id == $User->id) {
                             </h6>
 
                             <p>
-                                <?php echo $User->GrowerOperation->Pickup->availability; ?>
+                                <?php echo $User->GrowerOperation->Pickup->time; ?>
                             </p>
                         </div>
 
@@ -228,7 +228,7 @@ if (isset($Order) && $Order->user_id == $User->id) {
                                     
                                     <h6 class="card-subtitle">
                                         <span>
-                                            Total: <?php echo bcmul($OrderListing->quantity, $FoodListing->weight) . ' ' . $FoodListing->units; ?>
+                                            Total: <?php echo bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
                                         </span>
                                         
                                         <span class="float-right">

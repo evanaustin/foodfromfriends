@@ -162,7 +162,7 @@ if (isset($Order) && $Order->user_id == $User->id) {
                             </h6>
 
                             <p>
-                                <?php echo $User->GrowerOperation->Pickup->availability; ?>
+                                <?php echo $User->GrowerOperation->Pickup->time; ?>
                             </p>
                         </div>
 

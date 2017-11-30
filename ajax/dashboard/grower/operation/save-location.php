@@ -10,10 +10,11 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'address-line-1'    => 'required|alpha_numeric_space|max_len,25',
-    'city'              => 'required|alpha_space|max_len,25',
+    'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
+    'address-line-2'    => 'alpha_numeric_space|max_len,25',
+    'city'              => 'required|alpha_space|max_len,35',
     'state'             => 'required|regex,/^[A-Z]{2}$/',
-    'zip'               => 'required|regex,/^[0-9]{5}$/'
+    'zipcode'           => 'required|regex,/^[0-9]{5}$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -27,7 +28,7 @@ $Gump->filter_rules([
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
-	'zip'               => 'trim|whole_number',
+	'zipcode'           => 'trim|whole_number',
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -49,7 +50,7 @@ if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation
         'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
         'city'              => $city,
         'state'             => $state,
-        'zipcode'           => $zip,
+        'zipcode'           => $zipcode,
         'latitude'          => $lat,
         'longitude'         => $lng
     ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses');
@@ -62,7 +63,7 @@ if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation
         'address_line_2'        => $address_line_2,
         'city'                  => $city,
         'state'                 => $state,
-        'zipcode'               => $zip,
+        'zipcode'               => $zipcode,
         'latitude'              => $lat,
         'longitude'             => $lng
     ], 'grower_operation_addresses');

@@ -1,16 +1,16 @@
 $('input[name="is-offered"]').on('change', function() {
     if ($(this).val() == 1) {
-        $('#instructions, #availability').fadeIn().find('textarea').prop({
+        $('#instructions, #time').fadeIn().find('textarea').prop({
             required: true,
             disabled: false
         });
     } else {
-        $('#instructions, #availability').find('textarea').prop({
+        $('#instructions, #time').find('textarea').prop({
             required: false,
             disabled: true
         });
 
-        $('#instructions, #availability').fadeOut();
+        $('#instructions, #time').fadeOut();
     }
 });
 
