@@ -148,10 +148,9 @@
                                                     <?php echo ucfirst($FoodListing->title); ?>
                                                 </span>
 
-                                                <small class="float-right">
-                                                    (<?php echo $OrderListing->quantity; ?>)
-                                                </small>
-                                                
+                                                <span class="float-right">
+                                                    <small>x</small> <?php echo $OrderListing->quantity; ?>
+                                                </span>
                                             </h5>
                                             
                                             <h6 class="card-subtitle">
@@ -245,11 +244,11 @@
 
                                 <div class="callout">
                                     <h6>
-                                        Availability
+                                        time
                                     </h6>
 
                                     <p>
-                                        <?php echo $User->GrowerOperation->Pickup->availability; ?>
+                                        <?php echo $User->GrowerOperation->Pickup->time; ?>
                                     </p>
                                 </div>
 
