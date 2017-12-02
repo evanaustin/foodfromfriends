@@ -171,15 +171,15 @@
                                     
                                         <div class="fable">
                                             <cell>
-                                                <?php echo ucfirst($OrderGrower->exchange_option); ?>
+                                                <?php echo ucfirst($OrderGrower->Exchange->type); ?>
                                             </cell>
                                             
                                             <cell>
-                                                [Exchange address]
+                                                <?php echo $OrderGrower->Exchange->address_line_1 . ' ' . $OrderGrower->Exchange->address_line_2; ?>
                                             </cell>
                                             
                                             <cell>
-                                                <?php amount($OrderGrower->exchange_fee); ?>
+                                                <?php amount($OrderGrower->Exchange->fee); ?>
                                             </cell>
                                         </div>
                                     </div>
