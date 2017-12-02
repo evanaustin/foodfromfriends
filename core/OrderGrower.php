@@ -5,8 +5,9 @@ class OrderGrower extends Base {
     public
         $id,
         $order_id,
+        $user_id,
         $grower_operation_id,
-        $exchange_option,
+        $order_exchange_id,
         $distance,
         $subtotal,
         $exchange_fee,
@@ -16,7 +17,8 @@ class OrderGrower extends Base {
         $rejected_on,
         $expired_on;
 
-    public 
+    public
+        $Exchange,    
         $FoodListings;
     
     protected
@@ -34,12 +36,13 @@ class OrderGrower extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
+            $this->load_exchange();
             $this->load_food_listings();
         }
     }
 
     /**
-     * Creates an array of every `order_grower` record for a given order.
+     * Creates an array of every OrderGrower:OrderExchange pair for a given order.
      *
      * @param int $order_id
      * @return array Growers keyed by `grower_operation_id`!
@@ -48,7 +51,7 @@ class OrderGrower extends Base {
         $results = $this->DB->run('
             SELECT id, grower_operation_id 
             FROM order_growers 
-            WHERE order_id = :order_id
+            WHERE order_id =:order_id
         ', [
             'order_id' => $order_id
         ]);
@@ -65,6 +68,29 @@ class OrderGrower extends Base {
         }
 
         return $Growers;
+    }
+
+    /**
+     * Finds the exchange for this grower in the current order and stores it in 
+     * `$this->Exchange`.
+     */
+    public function load_exchange() {
+        /* $Buyer = new User([
+            'DB' => $this->DB,
+            'id' => $this->user_id
+        ]);
+
+        $Seller = new GrowerOperation([
+            'DB' => $this->DB,
+            'id' => $this->grower_operation_id
+        ]); */
+
+        $this->Exchange = new OrderExchange([
+            'DB' => $this->DB,
+            'id' => $this->order_exchange_id,
+            'buyer_id'  => $this->user_id,
+            'seller_id' => $this->grower_operation_id
+        ]);
     }
 
     /**
@@ -85,10 +111,10 @@ class OrderGrower extends Base {
      */
     public function add_food_listing(FoodListing $FoodListing, $quantity) {
         $this->add([
-            'order_id' => $this->order_id,
-            'order_grower_id' => $this->id,
-            'food_listing_id' => $FoodListing->id,
-            'quantity' => $quantity
+            'order_id'          => $this->order_id,
+            'order_grower_id'   => $this->id,
+            'food_listing_id'   => $FoodListing->id,
+            'quantity'          => $quantity
         ], 'order_food_listings');
 
         $this->load_food_listings();
@@ -104,92 +130,20 @@ class OrderGrower extends Base {
     }
 
     /**
-     * When a buyer sets the exchange method (delivery, pickup, meetup) they want to use for this grower
-     * in their order, we set some fundamental values here.
-     *
-     * Call this via `Order->set_exchange_method()` so the cart is updated appropriately.
-     *
-     * @param string $exchange_option The exchange method being used
-     * @param \User $Buyer The buyer
-     * @param \GrowerOperation $GrowerOperation The seller
-     * @throws \Exception If delivery is out of range or addresses couldn't be found
-     */
-    public function set_exchange_method($exchange_option, User $Buyer, GrowerOperation $GrowerOperation) {
-        if ($exchange_option == 'delivery') {
-            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $Buyer->latitude . ',' . $Buyer->longitude . '&destinations=' . $GrowerOperation->details['lat'] . ',' . $GrowerOperation->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
-            $output = json_decode($geocode);
-            $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
-            $distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
-        } else {
-            $distance = 0;
-        }
-
-        if ($distance > $GrowerOperation->Delivery->distance) {
-            throw new \Exception('The grower does not deliver this far away');
-        }
-        
-        $this->update([
-            'exchange_option' => $exchange_option,
-            'distance' => $distance
-        ]);
-
-        $this->exchange_option = $exchange_option;
-        $this->distance = $distance;
-
-        $this->calculate_exchange_fee();
-    }
-
-    /**
-     * Given the exchange method selected for this grower in this order, calculate and save the 
-     * exchange fee.
-     */
-    public function calculate_exchange_fee() {
-        // Only delivery incurs a fee. For everything else, charge $0
-        if ($this->exchange_option == 'delivery') {
-            $GrowerOperation = new GrowerOperation([
-                'DB' => $this->DB,
-                'id' => $this->grower_operation_id
-            ],[
-                'exchange' => true
-            ]);
-
-            if ($this->distance > $GrowerOperation->Delivery->free_distance) {
-                if ($GrowerOperation->Delivery->pricing_rate == 'per-mile') {
-                    $exchange_fee = $GrowerOperation->Delivery->fee * ($this->distance - $GrowerOperation->Delivery->free_distance);
-                } else {
-                    $exchange_fee = $GrowerOperation->Delivery->fee;
-                }
-            } else {
-                $exchange_fee = 0;
-            }            
-        } else {
-            $exchange_fee = 0;
-        }
-        
-        // Save the fee for this grower
-        $this->update([
-            'exchange_fee' => $exchange_fee
-        ]);
-
-        // Update class properties
-        $this->exchange_fee = $exchange_fee;
-    }
-
-    /**
-     * Calculates the total price of all items in this order sold by this grower.  Call after calling
-     * `calculate_exchange_fee()` and `sync_food_listing()`.
+     * Calculates the total price of all items in this order sold by this grower. Call after calling
+     * `sync_exchange_order()` and `sync_food_listing()`.
      */
     public function calculate_total() {
-        $subtotal = 0;
+        $this->subtotal = 0;
 
         foreach ($this->FoodListings as $FoodListing) {
-            $subtotal += $FoodListing->total;
+            $this->subtotal += $FoodListing->total;
         }
 
-        $total = $subtotal + $this->exchange_fee;
+        $this->total = $this->subtotal + $this->Exchange->fee;
 
         // ? use Base function
-        $this->DB->run('
+        /* $this->DB->run('
             UPDATE order_growers 
             SET 
                 subtotal = :subtotal,
@@ -200,52 +154,53 @@ class OrderGrower extends Base {
             'subtotal' => $subtotal,
             'total' => $total,
             'id' => $this->id
-        ]);
+        ]); */
 
-        // Update class properties
-        $this->subtotal = $subtotal;
-        $this->total = $total;
+        $this->update([
+            'subtotal'  => $this->subtotal,
+            'total'     => $this->total,
+        ]);
     }
 
     /**
      * Marks the suborder as confirmed.
      */
     public function confirm() {
-        $now = \Time::now();
+        $confirmed_on = \Time::now();
 
         $this->update([
-            'confirmed_on' => $now
+            'confirmed_on' => $confirmed_on
         ]);
 
-        $this->confirmed_on = $now;
+        $this->confirmed_on = $confirmed_on;
     }
     
     /**
      * Marks the suborder as rejected.
      */
     public function reject() {
-        $now = \Time::now();
+        $rejected_on = \Time::now();
 
         $this->update([
-            'rejected_on' => $now
+            'rejected_on' => $rejected_on
         ]);
 
-        $this->rejected_on = $now;
+        $this->rejected_on = $rejected_on;
     }
 
     /**
      * Marks the items sold by this grower has having been fulfilled (given to the buyer).
+     * 
+     * @todo If this is the last suborder of an order to be fulfilled, mark the order as complete
      */
     public function mark_fulfilled() {
-        $now = \Time::now();
+        $fulfilled_on = \Time::now();
 
         $this->update([
-            'fulfilled_on' => $now
+            'fulfilled_on' => $fulfilled_on
         ]);
 
-        $this->fulfilled_on = $now;
-
-        // ! if this is the last suborder of an order to be fulfilled, the order is now complete
+        $this->fulfilled_on = $fulfilled_on;
     }
 
     /** 
@@ -258,7 +213,7 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                og.exchange_option,
+                og.order_exchange_id,
                 o.user_id,
                 o.placed_on
 

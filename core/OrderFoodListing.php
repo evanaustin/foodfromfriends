@@ -65,7 +65,7 @@ class OrderFoodListing extends Base {
      */
     public function modify_quantity($quantity) {
         // ? use Base function
-        $this->DB->run('
+        /* $this->DB->run('
             UPDATE order_food_listings 
             SET quantity = :quantity 
             WHERE id = :id 
@@ -73,6 +73,10 @@ class OrderFoodListing extends Base {
         ', [
             'quantity' => $quantity,
             'id' => $this->id
+        ]); */
+
+        $this->update([
+            'quantity' => $quantity 
         ]);
     }
 

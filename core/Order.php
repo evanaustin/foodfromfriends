@@ -48,7 +48,6 @@ class Order extends Base {
 
     /**
      * Finds this user's cart and returns it (a cart is an `order` record that hasn't been processed).
-     *
      * If the user doesn't have a cart, this method will create an empty one for them.
      *
      * @param int $user_id
@@ -81,7 +80,7 @@ class Order extends Base {
     }
 
     /**
-     * Finds all the growers (and through them, food listings) in this order and assigns them to 
+     * Finds all the growers (and through them, the exchange and food listings) in this order and assigns them to 
      * `$this->Growers`.
      */
     public function load_growers() {
@@ -89,7 +88,7 @@ class Order extends Base {
             'DB' => $this->DB
         ]);
 
-        $this->Growers = $OrderGrower->load_for_order($this->id);
+        $this->Growers = $OrderGrower->load_for_order($this->id, $this->user_id);
     }
 
     /**
@@ -102,7 +101,7 @@ class Order extends Base {
     }
 
     /**
-     * For telling whether a shopping cart is empty.
+     * Determine whether a shopping cart is empty.
      *
      * @return bool
      */
@@ -111,34 +110,46 @@ class Order extends Base {
     }
 
     /**
-     * Adds an item to the shopping cart. Adds an OrderGrower record too if one doesn't already exist for 
-     * this grower.
-     *
-     * @todo When do we add the exchange method? Could be done here or later.
+     * Adds an item to the shopping cart. Adds OrderGrower and OrderExchange records too if 
+     * they don't already exist for this grower.
+     * 
+     * @param \GrowerOperation $Seller
+     * @param string $exchange_option
+     * @param \FoodListing $FoodListing
+     * @param int $quantity
      */
-    public function add_to_cart(GrowerOperation $GrowerOperation, FoodListing $FoodListing, $quantity) {
+    public function add_to_cart(GrowerOperation $Seller, $exchange_option, FoodListing $FoodListing, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
-        // If this grower doesn't have any items in the cart yet, we need to add the grower to the cart
-        if (!isset($this->Growers[$GrowerOperation->id])) {
-            $this->add_grower($GrowerOperation);
+        // If this grower doesn't have any items in the cart yet, we need to add them to the cart
+        if (!isset($this->Growers[$Seller->id])) {
+            $this->add_grower($Seller, $exchange_option);
         }
 
-        $this->Growers[$GrowerOperation->id]->add_food_listing($FoodListing, $quantity);
+        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity);
 
         // Refresh the cart
         $this->update_cart();
     }
 
     /**
-     * Adds a grower to this order and refreshes `$this->Growers`.
+     * Adds a grower and its exchange to this order and refreshes `$this->Growers`.
+     * 
+     * @param \GrowerOperation $GrowerOperation
+     * @param string $exchange_option
      */
-    private function add_grower(GrowerOperation $GrowerOperation) {
+    private function add_grower(GrowerOperation $GrowerOperation, $exchange_option) {
+        $exchange = $this->add([
+            'type' => $exchange_option
+        ], 'order_exchanges');
+        
         $this->add([
             'order_id'              => $this->id,
-            'grower_operation_id'   => $GrowerOperation->id
+            'user_id'               => $this->user_id,
+            'grower_operation_id'   => $GrowerOperation->id,
+            'order_exchange_id'     => $exchange['last_insert_id']
         ], 'order_growers');
 
         $this->load_growers();
@@ -158,6 +169,7 @@ class Order extends Base {
         // If this was the only listing for this grower, remove the OrderGrower entirely
         if (count($this->Growers[$FoodListing->grower_operation_id]->FoodListings) == 1) {
             $this->Growers[$FoodListing->grower_operation_id]->delete();
+            // ! do this for OrderExchange too
         }
 
         // Refresh the cart
@@ -183,25 +195,6 @@ class Order extends Base {
     }
 
     /**
-     * Sets the exchange method (delivery, pickup, meetup) the buyer want to use for the provided grower
-     * in this order.
-     *
-     * @param string $exchange_option Which exchange method is being used
-     * @param \User $Buyer The buyer
-     * @param \GrowerOperation $GrowerOperation The seller
-     */
-    public function set_exchange_method($exchange_option, User $Buyer, GrowerOperation $GrowerOperation) {
-        if ($this->is_cart() !== true) {
-            throw new \Exception('Cannot add items to this order.');
-        }
-
-        $this->Growers[$GrowerOperation->id]->set_exchange_method($exchange_option, $Buyer, $GrowerOperation);
-
-        // Refresh the cart
-        $this->update_cart();
-    }
-
-    /**
      * This method should be called every time the cart is modified or instantiated. It updates prices
      * weights, and totals in the database and loads those properties into the object, ensuring everything 
      * is up-to-date.
@@ -217,8 +210,8 @@ class Order extends Base {
 
         // Set food listing prices, weights, and totals
         foreach ($this->Growers as $OrderGrower) {
+            $OrderGrower->Exchange->sync();
             $OrderGrower->sync_food_listing();
-            $OrderGrower->calculate_exchange_fee();
             $OrderGrower->calculate_total();
         }
 
@@ -228,24 +221,34 @@ class Order extends Base {
 
     /**
      * Calculates the final tally of order fees, subtotals, totals, etc.
+     * 
+     * @todo Introduce tiered pricing
      */
     private function calculate_total_and_fees() {
-        $subtotal = 0;
-        $exchange_fees = 0;
+        $this->subtotal = 0;
+        $this->exchange_fees = 0;
 
         foreach ($this->Growers as $OrderGrower) {
-            $subtotal += $OrderGrower->subtotal;
-            $exchange_fees += $OrderGrower->exchange_fee;
+            $this->subtotal += $OrderGrower->subtotal;
+            $this->exchange_fees += $OrderGrower->Exchange->fee;
         }
 
-        // We charge the greater of 10% or $0.50
-        $fff_fee = bcmul($subtotal, 0.1);
-        $fff_fee = ($fff_fee < 50 ? 50 : $fff_fee);
+        /**
+         * The rate should be variable depending on order total:
+         * if ($this->subtotal < $50) then $rate = 10%
+         * if ($this->subtotal > $50 && < $100) then $rate = 7.5%
+         * if ($this->subtotal > $100) then $rate = 5%
+         */
+        $rate = 0.1;
+        $fff_fee = bcmul($this->subtotal, $rate);
+        
+        // charge the greater of 10% and $0.50
+        $this->fff_fee = ($fff_fee < 50) ? 50 : $fff_fee;
 
-        $total = $subtotal + $exchange_fees + $fff_fee;
+        $this->total = $this->subtotal + $this->exchange_fees + $this->fff_fee;
 
         // ? use Base class
-        $this->DB->run('
+        /* $this->DB->run('
             UPDATE orders 
             SET 
                 subtotal = :subtotal, 
@@ -260,15 +263,15 @@ class Order extends Base {
             'fff_fee' => $fff_fee,
             'total' => $total,
             'id' => $this->id
+        ]); */
+
+        $this->update([
+            'subtotal'      => $this->subtotal,
+            'exchange_fees' => $this->exchange_fees,
+            'fff_fee'       => $this->fff_fee,
+            'total'         => $this->total
         ]);
-
-        // Update class properties
-        $this->subtotal = $subtotal;
-        $this->exchange_fees = $exchange_fees;
-        $this->fff_fee = $fff_fee;
-        $this->total = $total;
     }
-
 
     /**
      * After payment has been collected, this method should be called to convert the "cart" to an "order", 
@@ -277,27 +280,16 @@ class Order extends Base {
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
      */
     public function mark_paid($stripe_charge_id) {
-        error_log($stripe_charge_id);
-        $now = \Time::now();
-        error_log($now);
+        $placed_on = \Time::now();
 
-        // ? use Base class
-        $this->DB->run('
-            UPDATE orders 
-            SET 
-                stripe_charge_id = :stripe_charge_id, 
-                placed_on = :now
-            WHERE id = :id
-            LIMIT 1
-        ', [
+        $this->update([
             'stripe_charge_id' => $stripe_charge_id,
-            'now' => $now,
-            'id' => $this->id
+            'placed_on' => $placed_on
         ]);
 
         // Update class properties
         $this->stripe_charge_id = $stripe_charge_id;
-        $this->placed_on = $now;
+        $this->placed_on = $placed_on;
 
         // Update payout
         $Payout = new Payout([
