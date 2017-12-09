@@ -158,27 +158,35 @@ canvas {
     display: none !important;
 }
 
-.strong {
+.light, light {
+    font-weight: 100 !important;
+}
+
+.normal, normal {
+    font-weight: 300 !important;
+}
+
+.strong, strong {
     font-weight: bolder !important;
 }
 
-.healthy {
+.healthy, healthy {
     font-weight: 400 !important;
 }
 
-.bold {
+.bold, bold {
     font-weight: 500 !important;
 }
 
-.thick {
+.thick, thick {
     font-weight: 700 !important;
 }
 
-.heavy {
+.heavy, heavy {
     font-weight: 700 !important;
 }
 
-.uppercase {
+.uppercase, uppercase {
     text-transform: uppercase;
 }
 
@@ -192,6 +200,16 @@ canvas {
 
 .margin-btm-75pem {
     margin-bottom: .75em !important;
+}
+
+.p1w {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.p25w {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
 }
 
 .line-after {
