@@ -13,8 +13,44 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        These are the orders you've placed that are still pending in some respect. Click the tabs to toggle order details.
+                        These are the orders you've placed that are still pending in some respect. Order tabs are clickable and color-coded according to the order's status.
                     </div>
+                </div>
+
+                <div class="col-md-6">
+                    <keymap class="align-right">
+                        <key>
+                            <span>
+                                Awaiting seller confirmation
+                            </span>
+
+                            <span class="badge badge-info rounded-circle">&nbsp;</span>
+                        </key>
+
+                        <key>
+                            <span>
+                                Order canceled and refunded
+                            </span>
+
+                            <span class="badge badge-danger rounded-circle">&nbsp;</span>
+                        </key>
+                        
+                        <key>
+                            <span>
+                                Item fulfillment pending
+                            </span>
+
+                            <span class="badge badge-warning rounded-circle">&nbsp;</span>
+                        </key>
+                        
+                        <key>
+                            <span>
+                                Ready for your review
+                            </span>
+
+                            <span class="badge badge-success rounded-circle">&nbsp;</span>
+                        </key>
+                    </keymap>
                 </div>
             </div>
 
@@ -44,8 +80,8 @@
 
                     ?>
                     
-                    <div class="closed record">
-                        <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?php echo $Order->id;?>" aria-controls="order-<?php echo $Order->id ;?>" aria-label="Toggle order"></div>
+                    <div class="<?php echo ($i == 1) ? 'opened' : 'closed'; ?> record">
+                        <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?php echo $Order->id;?>" aria-controls="order-<?php echo $Order->id ;?>" aria-label="Toggle order" aria-expanded="<?php echo ($i == 1) ? 'true' : 'false'; ?>"></div>
                         
                         <fable>
                             <cell>
@@ -69,7 +105,7 @@
                             </cell>
                         </fable>
                     
-                        <ledger class="collapse" id="order-<?php echo $Order->id;?>">
+                        <ledger class="collapse <?php echo ($i == 1) ? 'show' : ''; ?>" id="order-<?php echo $Order->id;?>">
 
                             <?php
 
@@ -107,7 +143,7 @@
                                     <div class="<?php echo $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?php echo $OrderGrower->id;?>" aria-controls="suborder-<?php echo $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
                                     
                                     <fable>
-                                        <cell>
+                                        <cell class="min-third">
                                             <div class="user-block">
                                                 <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
                                                 
@@ -128,8 +164,12 @@
                                             </div>
                                         </cell>
 
-                                        <cell>
+                                        <cell class="justify-center">
                                             <h6><?php echo '<healthy>' . $item_count . '</healthy>' . '&nbsp;' . 'item' . (($item_count > 1) ? 's' : ''); ?></h6>
+                                        </cell>
+                                        
+                                        <cell class="justify-center">
+                                            <h6 class="healthy"><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
                                         </cell>
 
                                         <cell>
