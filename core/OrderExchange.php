@@ -138,12 +138,12 @@ class OrderExchange extends Base {
             $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
             
             $distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
+
+            if ($distance > $this->Seller->Delivery->distance) {
+                throw new \Exception('The grower does not deliver this far away');
+            }
         } else {
             $distance = 0;
-        }
-
-        if ($distance > $this->Seller->Delivery->distance) {
-            throw new \Exception('The grower does not deliver this far away');
         }
 
         $this->update([
