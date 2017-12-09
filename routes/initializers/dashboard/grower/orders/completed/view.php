@@ -28,31 +28,6 @@ if ($Num->is_id($order_grower_id)) {
     $fulfilled_on      = new DateTime($OrderGrower->fulfilled_on);
     $date_fulfilled    = $fulfilled_on->format('F d, Y'); 
 
-    switch($OrderGrower->exchange_option) {
-        case 'delivery':
-            $address_line_1 = $Buyer->address_line_1;
-            $address_line_2 = (!empty($Buyer->address_line_2)) ? $Buyer->address_line_2 : false;
-            $city       = $Buyer->city;
-            $state      = $Buyer->state;
-            $zipcode    = $Buyer->zipcode;
-            break;
-            
-        case 'pickup':
-            $address_line_1 = $User->GrowerOperation->address_line_1;
-            $address_line_2 = (!empty($User->GrowerOperation->address_line_2)) ? $User->GrowerOperation->address_line_2 : false;
-            $city       = $User->GrowerOperation->city;
-            $state      = $User->GrowerOperation->state;
-            $zipcode    = $User->GrowerOperation->zipcode;
-            break;
-
-        case 'meetup':
-            $address_line_1 = $User->GrowerOperation->Meetup->address_line_1;
-            $address_line_2 = (!empty($User->GrowerOperation->Meetup->address_line_2)) ? $User->GrowerOperation->Meetup->address_line_2 : false;
-            $city       = $User->GrowerOperation->Meetup->city;
-            $state      = $User->GrowerOperation->Meetup->state;
-            $zipcode    = $User->GrowerOperation->Meetup->zipcode;
-    }
-
     foreach($OrderGrower->FoodListings as $OrderListing) {
         $items_sold += $OrderListing->quantity;
         $unique_items++;
