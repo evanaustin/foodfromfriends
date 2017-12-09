@@ -249,7 +249,6 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                og.exchange_option,
                 og.confirmed_on,
                 o.user_id
 
@@ -287,7 +286,6 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                og.exchange_option,
                 og.distance,
                 og.fulfilled_on,
                 o.user_id,
