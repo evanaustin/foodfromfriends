@@ -1,3 +1,30 @@
+/*
+* Reset
+*/
+fable,
+cell,
+ledger {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/**
+ * A simple container structure consisting only of space, color, radius, and shadow
+ * Used: alone, in .ledgers
+ */
+/* .bubble {
+    padding: 0.75rem;
+    background-color: #fff;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+} */
+
+/*
+ * A vertically stacked container structure best used for pairing images with content
+ * Used: for `linkable entities`
+ */
 .card {
     flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
     border: 0px;
@@ -55,6 +82,10 @@
     }
 }
 
+/*
+ * A horizontally queued container structure best used for pairing images with content
+ * Used: for `linkable entities`
+ */
 .card-alt {
     display: flex;
     flex-direction: row;
@@ -96,6 +127,10 @@
     }
 }
 
+/*
+ * A container structure for focusing attention on a small about of content
+ * Used: in `grids`
+ */
 .block {
     padding: 2em 0;
     background-color: #fff;
@@ -119,7 +154,7 @@
         color: $dark-gray;
     }
 
-    div.callout {
+    .callout {
         margin: 0.5em 2em;
         // padding: 0.25em 0;
     }
@@ -132,6 +167,10 @@
     }
 }
 
+/*
+ * A container structure for breaking down labels and details
+ * Used: alone, in .bubbles, in .blocks
+ */
 .callout {
     margin: 20px 0;
     padding: 10px 20px;
@@ -221,6 +260,10 @@
     }
 }
 
+/*
+ * A tag wrapper for tables
+ * Used: on <tables>
+ */
 .table {
     background-color: #fff;
     border-color: $superlight-gray;
@@ -248,27 +291,52 @@
     }
 }
 
-.fable {
+/*
+ * A container structure for tabular data
+ * Used: alone, in <ledgers>
+ */
+fable {
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
 
     > cell {
         display: flex;
-        flex-basis: 33.33%;
+        flex-basis: 0;
+        flex-grow: 1;
         align-items: center;
-
-        &:not(:first-child):not(:last-child) {
-            justify-content: center;
-        }
 
         &:last-child {
             justify-content: flex-end;
         }
     }
+
+    + fable {
+        margin-top: 0.25rem;
+
+        cell:first-child {
+            padding-left: 0.75rem;
+        }
+    }
+
+    ~ .callout {
+        margin: 0.75rem 0 0 0.75rem;
+    
+        h6 {
+            font-weight: 500;
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 0;
+    }
 }
 
-.ledger {
+/*
+ * A complex, dynamic data structure for rows and subrows
+ * Used: alone
+ */
+.ledger, ledger {
     position: relative;
 
     .record {
@@ -306,6 +374,7 @@
                     width: 1.25rem;
                     height: 100%;
                     @include rounded($radius);
+                    @include drop-shadow(0, 2px, 4px);
                     @include transition(all .2s);
                 }
 
@@ -316,7 +385,7 @@
                     
                     &:after {
                         @include transform(translateY(-2px));
-                        @include drop-shadow(0, 2px, 4px);
+                        @include drop-shadow(0, 5px, 20px);
                     }
                 }
 
@@ -357,13 +426,7 @@
                 }
             }
 
-            > .fable {
-                cell {
-                    @include transition(all .2s);
-                }
-            }
-
-            > .user-block {
+            .user-block {
                 @include transition(all .2s);
 
                 .user-photo {
@@ -374,6 +437,7 @@
 
         &.closed {
             background-color: #fff;
+            @include drop-shadow(0, 2px, 4px);
             
             > [data-toggle="collapse"] {
                 &:before {
@@ -382,17 +446,17 @@
                 }
             }
 
-            > .fable {
-                cell:first-child {
+            > fable {
+                > cell:first-child {
                     padding-left: 1.25rem;
                 }
-            }
+                
+                .user-block {
+                    padding-left: 0rem;
 
-            > .user-block {
-                padding-left: 1.25rem;
-
-                .user-photo {
-                    @include drop-shadow(0, 0, 0);
+                    .user-photo {
+                        @include drop-shadow(0, 0, 0);
+                    }
                 }
             }
         }
@@ -407,38 +471,60 @@
                 }
             }
 
-            > .fable {
-                margin-bottom: 1rem;
+            > fable {
+                > cell:first-child {
+                    padding-left: 0rem;
+                }
+
+                .user-block {
+                    padding-left: 0.75rem;
+
+                    .user-photo {
+                        @include drop-shadow(0, 2px, 4px);
+                    }
+                }
             }
 
-            > .user-block {
-                padding-left: 0.75rem;
-
-                .user-photo {
-                    @include drop-shadow(0, 2px, 4px);
-                }
+            // top level fabel
+            .tab + fable {
+                margin-bottom: 1rem;
+                color: $light-gray;
             }
         }
 
         + .record {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        fable {
+            > cell:first-child {
+                padding-left: 0.75rem;
+                @include transition(all .2s);
+            }
         }
     }
 
     .card-alt {
         margin-top: 0.75rem;
-        @include drop-shadow(0, 0, 0);
 
-        + .fable {
+        + fable {
             margin-top: 1rem;
+        }
+    }
 
-            cell:first-child {
-                padding-left: 0.75rem;
-            }
+    fable {
+        @include transition(all .2s);
+
+        cell {
+            @include transition(all .2s);
         }
     }
 }
 
+/*
+ * A container structure for pairing a user photo with user information
+ * Used: alone, in .ledgers
+ */
 .user-block {
     display: flex;
     flex-direction: row;
@@ -457,9 +543,21 @@
         justify-content: center;
         text-align: left;
         padding-left: 15px;
+
+        div {
+            display: flex;
+        
+            &:last-child {
+                justify-content: flex-end;
+            }
+        }
     }
 }
 
+/*
+ * A container for a user photo
+ * Used: alone, in .user-blocks
+ */
 .user-photo {
     margin: 0 auto 1em;
     height: 75px;
@@ -471,6 +569,10 @@
     @include drop-shadow(0, 2px, 4px)
 }
 
+/*
+ * A dynamic container structure for popup data
+ * Used: alone
+ */
 .modal-content {
     border: 0px;
     @include rounded($radius);
