@@ -41,8 +41,6 @@ class OrderExchange extends Base {
                     'id' => $parameters['buyer_id'],
                     'limited' => true
                 ]);
-
-                // $this->Buyer = $configure['Buyer'];
             }
 
             if (isset($parameters['seller_id'])) {
@@ -50,10 +48,9 @@ class OrderExchange extends Base {
                     'DB' => $this->DB,
                     'id' => $parameters['seller_id']
                 ],[
+                    'details' => true,
                     'exchange' => true
                 ]);
-
-                // $this->Seller = $configure['Seller'];
             }
         }
     }
@@ -104,8 +101,12 @@ class OrderExchange extends Base {
 
                 break;
             case 'pickup':
-                // use seller address (already in array so we can just cycle through)
-                foreach ($this->Seller->details as $k => $v) $this->{$k} = $v;
+                // use seller address
+                $this->address_line_1 = $this->Seller->details['address_line_1'];
+                $this->address_line_2 = $this->Seller->details['address_line_2'];
+                $this->city           = $this->Seller->details['city'];
+                $this->state          = $this->Seller->details['state'];
+                $this->zipcode        = $this->Seller->details['zipcode'];
 
                 break;
             case 'meetup':
