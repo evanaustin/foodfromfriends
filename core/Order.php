@@ -240,13 +240,13 @@ class Order extends Base {
          * if ($this->subtotal > $100) then $rate = 5%
          */
         $rate = 0.1;
-        $fff_fee = round(bcmul($this->subtotal, $rate));
+        $fff_fee = bcmul($this->subtotal, $rate);
         
         // charge the greater of 10% and $0.50
-        $this->fff_fee = ($fff_fee < 50) ? 50 : $fff_fee;
+        $this->fff_fee = ($fff_fee < 50) ? 50 : round($fff_fee);
 
         $this->total = $this->subtotal + $this->exchange_fees + $this->fff_fee;
-        
+
         // ? use Base class
         /* $this->DB->run('
             UPDATE orders 
