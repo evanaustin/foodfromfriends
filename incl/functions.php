@@ -19,8 +19,8 @@ function layer($language, $files) {
     }
 }
 
-function amount($amount) {
-    echo '$' . number_format($amount / 100, 2);
+function amount($amount, $dollar = true) {
+    echo ($dollar ? '$' : ' ') . number_format($amount / 100, 2);
 }
 
 function img($path, $ext, $server = 'local', $class = '') {
