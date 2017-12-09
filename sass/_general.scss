@@ -202,6 +202,10 @@ canvas {
     margin-bottom: .75em !important;
 }
 
+.margin-btm-25pem {
+    margin-bottom: .75em !important;
+}
+
 .p1w {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -264,4 +268,8 @@ canvas {
 
 .rounded {
     @include rounded($radius);
+}
+
+.rounded-circle {
+    @include rounded(50px);
 }
