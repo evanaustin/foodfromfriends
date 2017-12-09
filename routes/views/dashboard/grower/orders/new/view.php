@@ -170,7 +170,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                <?php echo ucfirst($OrderGrower->exchange_option); ?>
+                                <?php echo ucfirst($OrderGrower->Exchange->type); ?>
                             </div>
 
                             <div class="descriptor">
@@ -181,21 +181,21 @@
                         <div id="exchange-info" class="block animated zoomIn">
                             <div class="callout">
                                 <h6>
-                                    <?php echo $OrderGrower->exchange_option; ?> location
+                                    <?php echo $OrderGrower->Exchange->type; ?> location
                                 </h6>
                                 
                                 <p>
-                                    <?php echo $address_line_1 . (($address_line_2) ? ', ' . $address_line_2 : ''); ?>
+                                    <?php echo $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ', ' . $OrderGrower->Exchange->address_line_2 : ''); ?>
                                 </p>
 
                                 <p>
-                                    <?php echo $city . ', ' . $state . ' ' . $zipcode; ?>
+                                    <?php echo $OrderGrower->Exchange->city . ', ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
                                 </p>
                             </div>
 
                             <?php
 
-                            if ($OrderGrower->exchange_option == 'delivery') {
+                            if ($OrderGrower->Exchange->type == 'delivery') {
                             
                                 ?>
                                 
@@ -205,7 +205,7 @@
                                     </h6>
 
                                     <p>
-                                        <?php echo $OrderGrower->distance; ?> miles
+                                        <?php echo $OrderGrower->Exchange->distance; ?> miles
                                     </p>
                                 </div>
 
@@ -215,7 +215,7 @@
                                     </h6>
 
                                     <p>
-                                        $<?php echo number_format($OrderGrower->exchange_fee / 100, 2); ?>
+                                        $<?php echo number_format($OrderGrower->Exchange->fee / 100, 2); ?>
                                     </p>
                                 </div>
 
@@ -231,7 +231,7 @@
                                 
                                 <?php
 
-                            } else if ($OrderGrower->exchange_option == 'pickup') {
+                            } else if ($OrderGrower->Exchange->type == 'pickup') {
                                  
                                  ?>
 
@@ -241,7 +241,7 @@
                                     </h6>
 
                                     <p>
-                                        <?php echo $User->GrowerOperation->Pickup->instructions; ?>
+                                        <?php echo $OrderGrower->Exchange->instructions; ?>
                                     </p>
                                 </div>
 
@@ -251,13 +251,13 @@
                                     </h6>
 
                                     <p>
-                                        <?php echo $User->GrowerOperation->Pickup->time; ?>
+                                        <?php echo $OrderGrower->Exchange->time; ?>
                                     </p>
                                 </div>
 
                                  <?php
 
-                            } else if ($OrderGrower->exchange_option == 'meetup') {
+                            } else if ($OrderGrower->Exchange->type == 'meetup') {
                                  
                                  ?>
 
@@ -267,7 +267,7 @@
                                     </h6>
 
                                     <p>
-                                        <?php echo $User->GrowerOperation->Meetup->time; ?>
+                                        <?php echo $OrderGrower->Exchange->time; ?>
                                     </p>
                                 </div>
 

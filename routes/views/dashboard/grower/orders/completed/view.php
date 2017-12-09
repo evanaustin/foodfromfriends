@@ -70,7 +70,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?php echo ucfirst($OrderGrower->exchange_option); ?>
+                                    <?php echo ucfirst($OrderGrower->Exchange->type); ?>
                                 </p>
                             </div>
                         </div>

@@ -51,6 +51,13 @@
                             'id' => $order['user_id']
                         ]);
 
+                        $OrderGrower = new OrderGrower([
+                            'DB' => $DB,
+                            'id' => $order['id'],
+                            'buyer_id' => $order['user_id'],
+                            'seller_id' => $GrowerOperation->id
+                        ]);
+
                         ?>
 
                         <tr>
@@ -71,7 +78,7 @@
                             </td>
                             
                             <td class="exchange-type">
-                                <?php echo ucfirst($order['exchange_option']); ?>
+                                <?php echo ucfirst($OrderGrower->Exchange->type); ?>
                             </td>
                             
                             <td class="buyer">
