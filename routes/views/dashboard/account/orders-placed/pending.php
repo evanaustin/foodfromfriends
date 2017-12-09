@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($pending) && count($pending) > 0) {
+        if (isset($pending) && ($pending != false) && count($pending) > 0) {
 
             ?>
 
@@ -22,7 +22,7 @@
 
             <div class="alerts"></div>
 
-            <div class="orders ledger">
+            <ledger class="orders">
 
                 <?php
 
@@ -35,8 +35,10 @@
                         'id' => $order['id']
                     ]);
 
+                    $seller_count = count($Order->Growers);
+
                     $placed_on = new Datetime($Order->placed_on);
-                    $placed_on = $placed_on->format('F d, Y');
+                    $placed_on = $placed_on->format('F j, Y');
 
                     $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');
 
@@ -45,23 +47,29 @@
                     <div class="closed record">
                         <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?php echo $Order->id;?>" aria-controls="order-<?php echo $Order->id ;?>" aria-label="Toggle order"></div>
                         
-                        <h5 class="fable">
+                        <fable>
                             <cell>
-                                <strong>Order</strong>
-                                &nbsp;
-                                <span class="text-muted">(ID: <?php echo $Order->id . '0' . substr((pow($Order->id, 3) - pow($Order->id, 2)), 0, 3); ?>)</span>
-                            </cell>
-
-                            <cell>
-                                <small><?php echo $placed_on; ?></small>
+                                <h5>#&nbsp;<strong><?php echo $i; ?></strong></h5>
                             </cell>
                             
                             <cell>
-                                <?php amount($Order->total); ?>
+                                <h6>ID:&nbsp;<strong><?php echo $Order->id . '0' . substr((pow($Order->id, 3) - pow($Order->id, 2)), 0, 3); ?></strong></h6>
                             </cell>
-                        </h5>
+                            
+                            <cell>
+                                <h6><?php echo '<strong>' . $seller_count . '</strong>' . '&nbsp;' . 'seller' . (($seller_count > 1) ? 's' : ''); ?></h6>
+                            </cell>
+                            
+                            <cell>
+                                <h6>Placed:&nbsp;<strong><?php echo $placed_on; ?></strong></h6>
+                            </cell>
+                            
+                            <cell>
+                                <h5 class="strong"><?php amount($Order->total); ?></h5>
+                            </cell>
+                        </fable>
                     
-                        <div class="ledger collapse" id="order-<?php echo $Order->id;?>">
+                        <ledger class="collapse" id="order-<?php echo $Order->id;?>">
 
                             <?php
 
@@ -74,8 +82,11 @@
                                     'details' => true
                                 ]);
 
+                                $item_count = count($OrderGrower->FoodListings);
+
                                 $tab_highlight = 'tab-';
 
+                                // determine table highlight color
                                 if (!isset($OrderGrower->confirmed_on) && !isset($OrderGrower->expired_on) && !isset($OrderGrower->rejected_on)) {
                                     $status = 'awaiting confirmation';
                                     $tab_highlight .= 'info';
@@ -92,31 +103,39 @@
 
                                 ?>
                                 
-                                <div class="closed record">
+                                <div class="closed record animated fadeIn">
                                     <div class="<?php echo $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?php echo $OrderGrower->id;?>" aria-controls="suborder-<?php echo $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
                                     
-                                    <div class="user-block">
-                                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
-                                        
-                                        <div class="user-content">
-                                            <h5 class="bold">
-                                                <?php echo $ThisGrowerOperation->details['name']; ?>
+                                    <fable>
+                                        <cell>
+                                            <div class="user-block">
+                                                <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
+                                                
+                                                <div class="user-content">
+                                                    <h5 class="bold">
+                                                        <?php echo $ThisGrowerOperation->details['name']; ?>
+                                                        
+                                                        <!-- ! dynamically construct -->
+                                                        <!-- <small class="listing-rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </small> -->
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </cell>
 
-                                                <span class="float-right">
-                                                    <?php amount($OrderGrower->total); ?>
-                                                </span>
-                                            </h5>
+                                        <cell>
+                                            <h6><?php echo '<healthy>' . $item_count . '</healthy>' . '&nbsp;' . 'item' . (($item_count > 1) ? 's' : ''); ?></h6>
+                                        </cell>
 
-                                            <!-- ! dynamically construct -->
-                                            <!-- <small class="listing-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </small> -->
-                                        </div>
-                                    </div>
+                                        <cell>
+                                            <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
+                                        </cell>
+                                    </fable>
                                     
                                     <div class="collapse" id="suborder-<?php echo $OrderGrower->id;?>">
                                         <?php
@@ -169,19 +188,63 @@
 
                                         ?>
                                     
-                                        <div class="fable">
-                                            <cell>
+                                        <fable>
+                                            <cell class="bold">
                                                 <?php echo ucfirst($OrderGrower->Exchange->type); ?>
                                             </cell>
                                             
-                                            <cell>
-                                                <?php echo $OrderGrower->Exchange->address_line_1 . ' ' . $OrderGrower->Exchange->address_line_2; ?>
+                                            <cell class="bold">
+                                                <?php
+                            
+                                                if ($OrderGrower->Exchange->type == 'delivery') {
+                                                    amount($OrderGrower->Exchange->fee);
+                                                } else {
+                                                    echo 'Free';
+                                                }
+                                                
+                                                ?>
                                             </cell>
+                                        </fable>
+
+                                        <div class="callout">
+                                            <h6>
+                                                Location
+                                            </h6>
                                             
-                                            <cell>
-                                                <?php amount($OrderGrower->Exchange->fee); ?>
-                                            </cell>
+                                            <p>
+                                                <?php echo $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ' ' . $OrderGrower->Exchange->address_line_2 : '') . ', '. $OrderGrower->Exchange->city . ' ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
+                                            </p>
                                         </div>
+
+                                        <?php
+
+                                        if ($OrderGrower->Exchange->type != 'delivery') {
+                                            ?>
+
+                                            <div class="callout">
+                                                <h6>
+                                                    Time
+                                                </h6>
+
+                                                <p>
+                                                    <?php echo $OrderGrower->Exchange->time; ?>
+                                                </p>
+                                            </div>
+
+                                            <div class="callout">
+                                                <h6>
+                                                    Instructions
+                                                </h6>
+
+                                                <p>
+                                                    <?php echo $OrderGrower->Exchange->instructions; ?>
+                                                </p>
+                                            </div>
+
+                                            <?php
+                                        }
+
+                                        ?>
                                     </div>
                                 </div>
                 
@@ -191,7 +254,7 @@
 
                             ?>
 
-                        </div>
+                        </ledger>
                     </div>
 
                     <?php
@@ -202,7 +265,7 @@
 
                 ?>
 
-            </div>
+            </ledger>
 
             <?php
 
