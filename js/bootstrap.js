@@ -19,11 +19,11 @@ App.Bootstrap = function() {
         /*
          * Ledger collapse
          */
-        $('.ledger .collapse').on('shown.bs.collapse', function() {
+        $('ledger').find('.collapse').on('shown.bs.collapse', function() {
             $(this).parent().removeClass('closed').addClass('opened');
         });
         
-        $('.ledger .collapse').on('hidden.bs.collapse', function() {
+        $('ledger').find('.collapse').on('hidden.bs.collapse', function() {
             $(this).not('.show').parent().removeClass('opened').addClass('closed');
         });
 	}
