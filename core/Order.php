@@ -247,24 +247,6 @@ class Order extends Base {
 
         $this->total = $this->subtotal + $this->exchange_fees + $this->fff_fee;
 
-        // ? use Base class
-        /* $this->DB->run('
-            UPDATE orders 
-            SET 
-                subtotal = :subtotal, 
-                exchange_fees = :exchange_fees, 
-                fff_fee = :fff_fee, 
-                total = :total
-            WHERE id = :id
-            LIMIT 1
-        ', [
-            'subtotal' => $subtotal,
-            'exchange_fees' => $exchange_fees,
-            'fff_fee' => $fff_fee,
-            'total' => $total,
-            'id' => $this->id
-        ]); */
-
         $this->update([
             'subtotal'      => $this->subtotal,
             'exchange_fees' => $this->exchange_fees,
