@@ -65,8 +65,8 @@ try {
 		'id'		=> $OrderGrower->id,
 		'name'		=> $Seller->details['name'],
 		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
-		'exchange'	=> ucfirst($OrderGrower->exchange_option),
-		'ex_fee'	=> '$' . number_format($OrderGrower->exchange_fee / 100, 2)
+		'exchange'	=> ucfirst($OrderGrower->Exchange->type),
+		'ex_fee'	=> '$' . number_format($OrderGrower->Exchange->fee / 100, 2)
 	];
 
 	$json['listing'] = [
