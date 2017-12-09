@@ -311,6 +311,7 @@ class Order extends Base {
             WHERE user_id=:user_id 
                 AND placed_on IS NOT NULL
                 AND completed_on IS NULL
+            ORDER BY placed_on desc
         ', [
             'user_id' => $user_id
         ]);
