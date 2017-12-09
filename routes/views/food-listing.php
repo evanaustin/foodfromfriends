@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-md-12">
-            <div class="main container animated fadeIn">
+            <div class="main container">
                 <?php
 
                 if ($GrowerOperation->id) {
