@@ -44,6 +44,11 @@ foreach ([
             (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
             $Template->styles
         ]); ?>
+         <!--[if lt IE 9]> 
+            <script> document.createElement("fable"); </script>
+            <script> document.createElement("cell"); </script>
+            <script> document.createElement("ledger"); </script>
+        <![endif]-->
     </head>
 
     <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
