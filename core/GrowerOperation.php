@@ -106,27 +106,33 @@ class GrowerOperation extends Base {
             ]);
     
             $this->details = [
-                'name'  => $Owner->first_name,
-                'lat'   => $Owner->latitude,
-                'lng'   => $Owner->longitude,
-                'bio'   => $Owner->bio,
-                'city'  => $Owner->city,
-                'state' => $Owner->state,
-                'path'  => '/profile-photos/' . $Owner->filename,
-                'ext'   => $Owner->ext,
-                'joined' => $Owner->registered_on   
+                'name'      => $Owner->first_name,
+                'lat'       => $Owner->latitude,
+                'lng'       => $Owner->longitude,
+                'bio'       => $Owner->bio,
+                'address_line_1' => $Owner->address_line_1,
+                'address_line_2' => $Owner->address_line_2,
+                'city'      => $Owner->city,
+                'state'     => $Owner->state,
+                'zipcode'   => $Owner->zipcode,
+                'path'      => '/profile-photos/' . $Owner->filename,
+                'ext'       => $Owner->ext,
+                'joined'    => $Owner->registered_on   
             ];
         } else {
             $this->details = [
-                'name'  => $this->name,
-                'lat'   => $this->latitude,
-                'lng'   => $this->longitude,
-                'bio'   => $this->bio,
-                'city'  => $this->city,
-                'state' => $this->state,
-                'path'  => '/grower-operation-images/' . $this->filename,
-                'ext'   => $this->ext,
-                'joined' => $this->created_on   
+                'name'      => $this->name,
+                'lat'       => $this->latitude,
+                'lng'       => $this->longitude,
+                'bio'       => $this->bio,
+                'address_line_1' => $this->address_line_1,
+                'address_line_2' => $this->address_line_2,
+                'city'      => $this->city,
+                'state'     => $this->state,
+                'zipcode'   => $this->zipcode,
+                'path'      => '/grower-operation-images/' . $this->filename,
+                'ext'       => $this->ext,
+                'joined'    => $this->created_on   
             ];
         }
     }
