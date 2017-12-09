@@ -263,6 +263,9 @@ canvas:focus {
 .margin-btm-75pem {
   margin-bottom: .75em !important; }
 
+.margin-btm-25pem {
+  margin-bottom: .75em !important; }
+
 .p1w {
   padding-left: 1rem;
   padding-right: 1rem; }
@@ -313,12 +316,17 @@ canvas:focus {
   -moz-border-radius: 0.25rem;
   border-radius: 0.25rem; }
 
+.rounded-circle {
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px; }
+
 /*
 * Reset
 */
-fable,
-cell,
-ledger {
+fable, cell,
+ledger,
+keymap, key {
   display: block;
   margin: 0;
   padding: 0;
@@ -334,6 +342,15 @@ ledger {
     @include rounded($radius);
     @include drop-shadow(0, 2px, 4px);
 } */
+keymap key span:not(.rounded-circle) {
+  display: inline-block;
+  font-size: 80%;
+  color: #636c72;
+  font-weight: 300; }
+keymap key .rounded-circle {
+  width: 16px;
+  height: 16px; }
+
 /*
  * A vertically stacked container structure best used for pairing images with content
  * Used: for `linkable entities`
@@ -555,6 +572,10 @@ fable {
     align-items: center; }
     fable > cell:last-child {
       justify-content: flex-end; }
+    fable > cell.justify-center {
+      justify-content: center; }
+    fable > cell.min-third {
+      min-width: 33%; }
   fable + fable {
     margin-top: 0.25rem; }
     fable + fable cell:first-child {
