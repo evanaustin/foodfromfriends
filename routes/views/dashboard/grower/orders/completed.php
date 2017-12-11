@@ -1,22 +1,22 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if (isset($completed) && count($completed) > 0) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="page-title">
-                        Completed orders
-                    </div>
-
-                    <div class="page-description text-muted small">
-                        These are orders that have been fulfilled and require no further action. Click into an order to view its details.
-                    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title">
+                    Completed orders
+                </div>
+        
+                <div class="page-description text-muted small">
+                    These are orders that have been fulfilled and require no further action. Click into an order to view its details.
                 </div>
             </div>
+        </div>
+
+        <?php
+
+        if (isset($completed) && ($completed != false) && count($completed) > 0) {
+
+            ?>
 
             <div class="alerts"></div>
 
@@ -98,7 +98,13 @@
             <?php
 
         } else {
-            echo 'You have no fulfilled orders!';
+            ?>
+            
+            <div class="block margin-top-1em healthy">
+                You don't have any completed orders
+            </div>
+
+            <?php
         }
 
         ?>

@@ -1,22 +1,22 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if (isset($pending) && count($pending) > 0) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="page-title">
-                        Pending orders
-                    </div>
-
-                    <div class="page-description text-muted small">
-                        These are orders that have been confirmed but still need to be fulfilled. Click into an order to view its details and mark it fulfilled.
-                    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title">
+                    Pending orders
+                </div>
+        
+                <div class="page-description text-muted small">
+                    These are orders that have been confirmed but still need to be fulfilled. Click into an order to view its details and mark it fulfilled.
                 </div>
             </div>
+        </div>
+
+        <?php
+
+        if (isset($pending) && ($pending != false) && count($pending) > 0) {
+
+            ?>
 
             <div class="alerts"></div>
 
@@ -109,7 +109,15 @@
             <?php
 
         } else {
-            echo 'You have no pending orders!';
+            
+            ?>
+            
+            <div class="block margin-top-1em healthy">
+                You don't have any pending orders
+            </div>
+
+            <?php
+
         }
 
         ?>

@@ -1,22 +1,22 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if (isset($new) && count($new) > 0) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="page-title">
-                        New orders
-                    </div>
-
-                    <div class="page-description text-muted small">
-                        These are orders that have not yet been confirmed. You have 24 hours to confirm an order before it expires and is gone forever. Click into an order to view its details and confirm it.
-                    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title">
+                    New orders
+                </div>
+        
+                <div class="page-description text-muted small">
+                    These are orders that have not yet been confirmed. You have 24 hours to confirm an order before it expires and is gone forever. Click into an order to view its details and confirm it.
                 </div>
             </div>
+        </div>
+
+        <?php
+
+        if (isset($new) && ($new != false) && count($new) > 0) {
+
+            ?>
 
             <div class="alerts"></div>
 
@@ -119,7 +119,15 @@
             <?php
 
         } else {
-            echo 'You have no pending orders!';
+
+            ?>
+
+            <div class="block margin-top-1em healthy">
+                You don't have any new orders
+            </div>
+
+            <?php
+        
         }
 
         ?>
