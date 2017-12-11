@@ -1,58 +1,58 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if (isset($pending) && ($pending != false) && count($pending) > 0) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="page-title">
-                        Your pending orders
-                    </div>
-
-                    <div class="page-description text-muted small">
-                        These are the orders you've placed that are still pending in some respect. Order tabs are clickable and color-coded according to the order's status.
-                    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title">
+                    Your placed orders
                 </div>
-
-                <div class="col-md-6">
-                    <keymap class="align-right">
-                        <key>
-                            <span>
-                                Awaiting seller confirmation
-                            </span>
-
-                            <span class="badge badge-info rounded-circle">&nbsp;</span>
-                        </key>
-
-                        <key>
-                            <span>
-                                Order canceled and refunded
-                            </span>
-
-                            <span class="badge badge-danger rounded-circle">&nbsp;</span>
-                        </key>
-                        
-                        <key>
-                            <span>
-                                Item fulfillment pending
-                            </span>
-
-                            <span class="badge badge-warning rounded-circle">&nbsp;</span>
-                        </key>
-                        
-                        <key>
-                            <span>
-                                Ready for your review
-                            </span>
-
-                            <span class="badge badge-success rounded-circle">&nbsp;</span>
-                        </key>
-                    </keymap>
+        
+                <div class="page-description text-muted small">
+                    Check this out &mdash; these are the orders you've placed. Each order tab is clickable and color-coded according to the order's status.
                 </div>
             </div>
+        
+            <div class="col-md-6">
+                <keymap class="align-right">
+                    <key>
+                        <span>
+                            Awaiting seller confirmation
+                        </span>
+        
+                        <span class="badge badge-info rounded-circle">&nbsp;</span>
+                    </key>
+        
+                    <key>
+                        <span>
+                            Refunded (buyer canceled/seller canceled/rejected/expired)
+                        </span>
+        
+                        <span class="badge badge-danger rounded-circle">&nbsp;</span>
+                    </key>
+                    
+                    <key>
+                        <span>
+                            Pending (fulfillment pending/awaiting review/reported)
+                        </span>
+        
+                        <span class="badge badge-warning rounded-circle">&nbsp;</span>
+                    </key>
+                    
+                    <key>
+                        <span>
+                            Completed
+                        </span>
+        
+                        <span class="badge badge-success rounded-circle">&nbsp;</span>
+                    </key>
+                </keymap>
+            </div>
+        </div>
+
+        <?php
+
+        if (isset($placed) && ($placed != false) && count($placed) > 0) {
+
+            ?>
 
             <hr>
 
@@ -64,7 +64,7 @@
 
                 $i = 1;
 
-                foreach ($pending as $order) {
+                foreach ($placed as $order) {
 
                     $Order = new Order([
                         'DB' => $DB,
@@ -310,7 +310,13 @@
             <?php
 
         } else {
-            echo 'You have no past orders!';
+            ?>
+            
+            <div class="block margin-top-1em healthy">
+                You don't have any placed orders
+            </div>
+
+            <?php
         }
 
         ?>
