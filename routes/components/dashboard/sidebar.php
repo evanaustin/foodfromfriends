@@ -26,8 +26,7 @@
                             'location'
                         ],
                         'orders-placed' => [
-                            'pending',
-                            'completed'
+                            'overview'
                         ],
                         /* 'account-settings' => [
                             'notifications',
