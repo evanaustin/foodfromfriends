@@ -282,11 +282,32 @@ class Order extends Base {
     }
 
     /** 
-     * Get all the pending orders. An order is pending if any of the sub orders are incomplete.
+     * Get all the placed orders in batches of 10.
      * 
      * @param int $user_id The buyer ID
+     * @param int $start The Order ID each selection of 10 begins from
+     * 
+     * @todo paginate via start from
      */
-    public function get_pending($user_id) {
+    public function get_placed($user_id, $start = null) {
+        $results = $this->DB->run('
+            SELECT *
+            FROM orders
+            WHERE user_id=:user_id 
+                AND placed_on IS NOT NULL
+            ORDER BY placed_on desc
+            LIMIT 10
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+    /* public function get_pending($user_id) {
         $results = $this->DB->run('
             SELECT *
             FROM orders
@@ -303,7 +324,7 @@ class Order extends Base {
         }
 
         return $results;
-    }
+    } */
     
     /** 
      * Get all the completed orders. An order is complete if all of the sub orders are complete.
