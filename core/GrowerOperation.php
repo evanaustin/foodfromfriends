@@ -227,15 +227,14 @@ class GrowerOperation extends Base {
 
             FROM order_growers og
 
-            JOIN orders o
-                on o.id = og.order_id
+            JOIN order_statuses os
+                on os.id = og.order_status_id
 
             WHERE og.grower_operation_id=:grower_operation_id 
-                AND o.placed_on     IS NOT NULL
-                AND og.confirmed_on IS NULL
-                AND og.fulfilled_on IS NULL
-                AND og.rejected_on  IS NULL
-                AND og.expired_on   IS NULL
+                AND os.placed_on    IS NOT NULL
+                AND os.expired_on   IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.confirmed_on IS NULL
 
             LIMIT 1
         ', [
@@ -248,15 +247,13 @@ class GrowerOperation extends Base {
 
             FROM order_growers og
 
-            JOIN orders o
-                on o.id = og.order_id
+            JOIN order_statuses os
+                on os.id = og.order_status_id
 
             WHERE og.grower_operation_id=:grower_operation_id 
-                AND o.placed_on     IS NOT NULL
-                AND og.confirmed_on IS NOT NULL
-                AND og.fulfilled_on IS NULL
-                AND og.rejected_on  IS NULL
-                AND og.expired_on   IS NULL
+                AND os.placed_on    IS NOT NULL
+                AND os.confirmed_on IS NOT NULL
+                AND os.fulfilled_on IS NULL
 
             LIMIT 1
         ', [

@@ -100,7 +100,7 @@
         } else {
             ?>
             
-            <div class="block margin-top-1em healthy">
+            <div class="block margin-top-1em strong">
                 You don't have any completed orders
             </div>
 

@@ -1,8 +1,32 @@
 /**
 * Fonts
 **/
-@import url("https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i");
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i");
+@font-face {
+  font-family: 'Museo Sans Rounded';
+  src: url("../fonts/museo/MuseoSansRounded-100.woff") format("woff");
+  font-weight: 100;
+  font-style: normal; }
+@font-face {
+  font-family: 'Museo Sans Rounded';
+  src: url("../fonts/museo/MuseoSansRounded-300.woff") format("woff");
+  font-weight: 300;
+  font-style: normal; }
+@font-face {
+  font-family: 'Museo Sans Rounded';
+  src: url("../fonts/museo/MuseoSansRounded-500.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+@font-face {
+  font-family: 'Museo Sans Rounded';
+  src: url("../fonts/museo/MuseoSansRounded-700.woff") format("woff");
+  font-weight: 700;
+  font-style: normal; }
+@font-face {
+  font-family: 'Museo Sans Rounded';
+  src: url("../fonts/museo/MuseoSansRounded-900.woff") format("woff");
+  font-weight: 900;
+  font-style: normal; }
 @font-face {
   font-family: 'Signika';
   src: url("../fonts/signika/Signika-Regular-webfont.eot");
@@ -32,6 +56,120 @@
   src: url("../fonts/riya/Riya-Black.woff") format("woff"), url("../fonts/riya/Riya-Black.otf") format("otf");
   font-weight: 400;
   font-style: normal; }
+/*
+ * Proxima Nova Soft
+ */
+/*
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-regular-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-medium-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-semibold-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaThin-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaRegular-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+*/
+/*
+ * Proxima Nova
+ */
+/*
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaSemibold-webfont.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaBold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaBlack-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+*/
+/*
+ * Future
+ */
+/*
+@font-face {
+    font-family: 'Future';
+    src: url('../fonts/future/regular.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Future';
+    src: url('../fonts/future/bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+*/
+/*
+ * Nunito
+ */
+/*
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-Bold.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+*/
 /**
 * Dependencies
 **/
@@ -63,7 +201,7 @@ body {
   position: relative;
   min-height: 100%;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Museo Sans Rounded', sans-serif;
   font-weight: 300;
   color: #404040; }
 
@@ -155,6 +293,13 @@ canvas:focus {
     background-color: #00d989;
     border-color: #00d989; }
 
+.btn-medium-gray {
+  background-color: #00000080;
+  color: #fff; }
+  .btn-medium-gray:not([disabled]):hover {
+    background-color: #4c4c4c;
+    border-color: #4c4c4c; }
+
 .btn-group {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -186,20 +331,110 @@ canvas:focus {
 .light-gray {
   color: #b2b2b2; }
 
-.info {
+.light-gray-bg {
+  background-color: #b2b2b2; }
+
+.light-gray-bg-hover:hover {
+  background-color: #b2b2b2;
+  color: #fff; }
+
+.medium-gray {
+  color: #00000080; }
+
+.medium-gray-bg {
+  background-color: #00000080; }
+
+.medium-gray-bg-hover:hover {
+  background-color: #00000080;
+  color: #fff; }
+
+.dark-gray {
+  color: #4c4c4c; }
+
+.dark-gray-bg {
+  background-color: #4c4c4c; }
+
+.dark-gray-bg-hover:hover {
+  background-color: #4c4c4c;
+  color: #fff; }
+
+.muted {
+  color: #636c72; }
+
+.muted-hover:hover {
+  color: #636c72 !important; }
+
+.muted-bg {
+  background-color: #636c72; }
+
+.muted-bg-hover:hover {
+  background-color: #636c72;
+  color: #fff; }
+
+.info, .teal {
   color: #5bc0de; }
 
-.success {
+.info-hover:hover, .teal-hover:hover {
+  color: #5bc0de !important; }
+
+.info-bg, .teal-bg {
+  background-color: #5bc0de; }
+
+.info-bg-hover:hover, .teal-bg-hover:hover {
+  background-color: #5bc0de;
+  color: #fff; }
+
+.success, .green {
   color: #5cb85c; }
 
-.warning {
+.success-hover:hover, .green-hover:hover {
+  color: #5cb85c !important; }
+
+.success-bg, .green-bg {
+  background-color: #5cb85c; }
+
+.success-bg-hover:hover, .green-bg-hover:hover {
+  background-color: #5cb85c;
+  color: #fff; }
+
+.waiting, .yellow {
+  color: #ffd500; }
+
+.warning-hover:hover, .orange-hover:hover {
+  color: #ffd500 !important; }
+
+.waiting-bg, .yellow-bg {
+  background-color: #ffd500; }
+
+.waiting-bg-hover:hover, .yellow-bg-hover:hover {
+  background-color: #ffd500;
+  color: #fff; }
+
+.warning, .orange {
   color: #f0ad4e; }
 
-.danger {
+.warning-hover:hover, .orange-hover:hover {
+  color: #f0ad4e !important; }
+
+.warning-bg, .orange-bg {
+  background-color: #f0ad4e; }
+
+.warning-bg-hover:hover, .orange-bg-hover:hover {
+  background-color: #f0ad4e;
+  color: #fff; }
+
+.danger, .red {
   color: #d9534f; }
 
-.danger-hover:hover {
+.danger-hover:hover, .red-hover:hover {
   color: #d9534f !important; }
+
+.danger-bg, .red-bg {
+  background-color: #d9534f; }
+
+.danger-bg-hover:hover, .red-bg-hover:hover {
+  background-color: #d9534f;
+  color: #fff; }
 
 .align-left {
   text-align: left; }
@@ -239,9 +474,6 @@ canvas:focus {
 .strong, strong {
   font-weight: bolder !important; }
 
-.healthy, healthy {
-  font-weight: 400 !important; }
-
 .bold, bold {
   font-weight: 500 !important; }
 
@@ -263,11 +495,11 @@ canvas:focus {
 .margin-btm-1em {
   margin-bottom: 1em !important; }
 
-.margin-btm-75pem {
-  margin-bottom: .75em !important; }
+.margin-btm-75em {
+  margin-bottom: .75rem !important; }
 
-.margin-btm-25pem {
-  margin-bottom: .75em !important; }
+.margin-btm-25em {
+  margin-bottom: .25rem !important; }
 
 .p1w {
   padding-left: 1rem;
@@ -276,6 +508,9 @@ canvas:focus {
 .p25w {
   padding-left: 0.25rem;
   padding-right: 0.25rem; }
+
+.multi-line {
+  line-height: 1.25; }
 
 .line-after {
   overflow: hidden;
@@ -297,7 +532,7 @@ canvas:focus {
   .tooltip .tooltip-inner {
     z-index: 9999;
     background-color: #4c4c4c;
-    font-family: 'Roboto';
+    font-family: 'Museo Sans Rounded';
     font-size: 0.8rem !important; }
   .tooltip.bs-tether-element-attached-top .tooltip-inner:before {
     border-bottom-color: #4c4c4c !important; }
@@ -320,6 +555,7 @@ canvas:focus {
   border-radius: 0.25rem; }
 
 .rounded-circle {
+  display: inline-block;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px; }
@@ -345,14 +581,20 @@ keymap, key {
     @include rounded($radius);
     @include drop-shadow(0, 2px, 4px);
 } */
-keymap key span:not(.rounded-circle) {
-  display: inline-block;
-  font-size: 80%;
-  color: #636c72;
-  font-weight: 300; }
-keymap key .rounded-circle {
-  width: 16px;
-  height: 16px; }
+keymap key {
+  display: inline-block; }
+  keymap key span:not(.rounded-circle) {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    font-size: 80%;
+    color: #636c72;
+    font-weight: 300; }
+  keymap key .rounded-circle {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle; }
 
 /*
  * A vertically stacked container structure best used for pairing images with content
@@ -573,12 +815,27 @@ fable {
     flex-basis: 0;
     flex-grow: 1;
     align-items: center; }
-    fable > cell:last-child {
-      justify-content: flex-end; }
     fable > cell.justify-center {
       justify-content: center; }
+    fable > cell.justify-end {
+      justify-content: flex-end; }
+    fable > cell.align-end {
+      align-items: flex-end; }
     fable > cell.min-third {
       min-width: 33%; }
+    fable > cell i {
+      color: #00c079; }
+    fable > cell.actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end; }
+      fable > cell.actions .btn {
+        padding: 0.5rem; }
+        fable > cell.actions .btn i {
+          color: #fff; }
+        fable > cell.actions .btn + .btn {
+          margin-top: 0.5rem; }
   fable + fable {
     margin-top: 0.25rem; }
     fable + fable cell:first-child {
@@ -669,6 +926,8 @@ fable {
           background-color: #5bc0de; }
         .ledger .record.closed > [data-toggle="collapse"].tab-success:after, .ledger .record.opened > [data-toggle="collapse"].tab-success:after, ledger .record.closed > [data-toggle="collapse"].tab-success:after, ledger .record.opened > [data-toggle="collapse"].tab-success:after {
           background-color: #5cb85c; }
+        .ledger .record.closed > [data-toggle="collapse"].tab-waiting:after, .ledger .record.opened > [data-toggle="collapse"].tab-waiting:after, ledger .record.closed > [data-toggle="collapse"].tab-waiting:after, ledger .record.opened > [data-toggle="collapse"].tab-waiting:after {
+          background-color: #ffd500; }
         .ledger .record.closed > [data-toggle="collapse"].tab-warning:after, .ledger .record.opened > [data-toggle="collapse"].tab-warning:after, ledger .record.closed > [data-toggle="collapse"].tab-warning:after, ledger .record.opened > [data-toggle="collapse"].tab-warning:after {
           background-color: #f0ad4e; }
         .ledger .record.closed > [data-toggle="collapse"].tab-danger:after, .ledger .record.opened > [data-toggle="collapse"].tab-danger:after, ledger .record.closed > [data-toggle="collapse"].tab-danger:after, ledger .record.opened > [data-toggle="collapse"].tab-danger:after {

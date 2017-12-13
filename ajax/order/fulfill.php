@@ -33,7 +33,7 @@ try {
         'id' => $prepared_data['ordergrower_id']
     ]);
 
-	$OrderGrower->mark_fulfilled();
+	$OrderGrower->Status->fulfill();
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }

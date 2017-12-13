@@ -66,6 +66,16 @@ canvas {
     }
 }
 
+.btn-medium-gray {
+    background-color: #00000080;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+}
+
 .btn-group {
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
@@ -93,27 +103,124 @@ canvas {
 
 .light-gray {
     color: $light-gray;
-}
-
-.info {
-    color: $brand-info;
-}
-
-.success {
-    color: $brand-success;
-}
-
-.warning {
-    color: $brand-warning;
-}
-
-.danger {
-    color: $brand-danger;
-}
-
-.danger-hover {
+} .light-gray-bg {
+    background-color: $light-gray;
+} .light-gray-bg-hover {
     &:hover {
-        color: $brand-danger !important;
+        background-color: $light-gray;
+        color: #fff;
+    }
+}
+
+.medium-gray {
+    color: #00000080;
+} .medium-gray-bg {
+    background-color: #00000080;
+} .medium-gray-bg-hover {
+    &:hover {
+        background-color: #00000080;
+        color: #fff;
+    }
+}
+
+.dark-gray {
+    color: $dark-gray;
+} .dark-gray-bg {
+    background-color: $dark-gray;
+} .dark-gray-bg-hover {
+    &:hover {
+        background-color: $dark-gray;
+        color: #fff;
+    }
+}
+
+.muted {
+    color: $muted;
+} .muted-hover {
+    &:hover {
+        color: $muted !important;
+    }
+} .muted-bg {
+    background-color: $muted;
+} .muted-bg-hover {
+    &:hover {
+        background-color: $muted;
+        color: #fff;
+    }
+}
+
+.info, .teal {
+    color: $teal;
+} .info-hover, .teal-hover {
+    &:hover {
+        color: $teal !important;
+    }
+} .info-bg, .teal-bg {
+    background-color: $teal;
+} .info-bg-hover, .teal-bg-hover {
+    &:hover {
+        background-color: $teal;
+        color: #fff;
+    }
+}
+
+.success, .green {
+    color: $green;
+} .success-hover, .green-hover {
+    &:hover {
+        color: $green !important;
+    }
+} .success-bg, .green-bg {
+    background-color: $green;
+} .success-bg-hover, .green-bg-hover {
+    &:hover {
+        background-color: $green;
+        color: #fff;
+    }
+}
+
+.waiting, .yellow {
+    color: $yellow;
+} .warning-hover, .orange-hover {
+    &:hover {
+        color: $yellow !important;
+    }
+} .waiting-bg, .yellow-bg {
+    background-color: $yellow;
+} .waiting-bg-hover, .yellow-bg-hover {
+    &:hover {
+        background-color: $yellow;
+        color: #fff;
+    }
+}
+
+.warning, .orange {
+    color: $orange;
+} .warning-hover, .orange-hover {
+    &:hover {
+        color: $orange !important;
+    }
+} .warning-bg, .orange-bg {
+    background-color: $orange;
+} .warning-bg-hover, .orange-bg-hover {
+    &:hover {
+        background-color: $orange;
+        color: #fff;
+    }
+}
+
+.danger, .red {
+    color: $red;
+} .danger-hover, .red-hover {
+    &:hover {
+        color: $red !important;
+    }
+} .danger-bg, .red-bg {
+    background-color: $red;
+} .danger-bg-hover, .red-bg-hover {
+    &:hover {
+        background-color: $red;
+        color: #fff;
     }
 }
 
@@ -170,10 +277,6 @@ canvas {
     font-weight: bolder !important;
 }
 
-.healthy, healthy {
-    font-weight: 400 !important;
-}
-
 .bold, bold {
     font-weight: 500 !important;
 }
@@ -202,12 +305,12 @@ canvas {
     margin-bottom: 1em !important;
 }
 
-.margin-btm-75pem {
-    margin-bottom: .75em !important;
+.margin-btm-75em {
+    margin-bottom: .75rem !important;
 }
 
-.margin-btm-25pem {
-    margin-bottom: .75em !important;
+.margin-btm-25em {
+    margin-bottom: .25rem !important;
 }
 
 .p1w {
@@ -218,6 +321,10 @@ canvas {
 .p25w {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+}
+
+.multi-line {
+    line-height: 1.25;
 }
 
 .line-after {
@@ -244,7 +351,7 @@ canvas {
     .tooltip-inner {
         z-index: $superultra-z;
         background-color: $dark-gray;
-        font-family: 'Roboto';
+        font-family: 'Museo Sans Rounded';
         font-size: 0.8rem !important;
     }
 
@@ -275,5 +382,6 @@ canvas {
 }
 
 .rounded-circle {
+    display: inline-block;
     @include rounded(50px);
 }

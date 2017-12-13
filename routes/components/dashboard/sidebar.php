@@ -13,6 +13,7 @@
                         'orders' => [
                             'new',
                             'pending',
+                            'under-review',
                             'completed'
                         ],
                         'food-listings' => [

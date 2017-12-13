@@ -31,7 +31,7 @@ try {
         'id' => $prepared_data['ordergrower_id']
     ]);
 
-	$OrderGrower->reject();
+	$OrderGrower->Status->reject();
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }

@@ -23,8 +23,13 @@ keymap, key {
 
 keymap {
     key {
+        display: inline-block;
+        
         span:not(.rounded-circle) {
             display: inline-block;
+            height: 16px;
+            line-height: 16px;
+            vertical-align: middle;
             font-size: 80%;
             color: $muted;
             font-weight: 300;
@@ -33,6 +38,7 @@ keymap {
         .rounded-circle {
             width: 16px;
             height: 16px;
+            vertical-align: middle;
         }
     }
 }
@@ -322,16 +328,43 @@ fable {
         flex-grow: 1;
         align-items: center;
 
-        &:last-child {
+        &.justify-center {
+            justify-content: center;
+        }
+        
+        &.justify-end {
             justify-content: flex-end;
         }
         
-        &.justify-center {
-            justify-content: center;
+        &.align-end {
+            align-items: flex-end;
         }
                 
         &.min-third {
             min-width: 33%;
+        }
+
+        i {
+            color: $superlight-green;
+        }
+
+        &.actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+
+            .btn {
+                padding: 0.5rem;
+
+                i {
+                    color: #fff;
+                }
+                
+                + .btn {
+                    margin-top: 0.5rem;
+                }
+            }
         }
     }
 
@@ -427,25 +460,31 @@ fable {
 
                 &.tab-info {
                     &:after {
-                        background-color: $brand-info;
+                        background-color: $teal;
                     }
                 }
                 
                 &.tab-success {
                     &:after {
-                        background-color: $brand-success;
+                        background-color: $green;
+                    }
+                }
+
+                &.tab-waiting {
+                    &:after {
+                        background-color: $yellow;
                     }
                 }
 
                 &.tab-warning {
                     &:after {
-                        background-color: $brand-warning;
+                        background-color: $orange;
                     }
                 }
 
                 &.tab-danger {
                     &:after {
-                        background-color: $brand-danger;
+                        background-color: $red;
                     }
                 }
             }

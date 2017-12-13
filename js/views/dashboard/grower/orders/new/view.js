@@ -10,14 +10,15 @@ App.Dashboard.NewOrderView = function() {
             };
         
             bootbox.confirm({
-                message: 'You want to confirm this order?',
+                title: 'Confirm order',
+                message: 'Please confirm that you can commit to fulfilling this order. Cancelling an order after confirmation will negatively impact your grower rating!',
                 buttons: {
                     confirm: {
-                        label: 'Oh yeah',
+                        label: 'Confirm',
                         className: 'btn-warning'
                     },
                     cancel: {
-                        label: 'Nope',
+                        label: 'Cancel',
                         className: 'btn-muted'
                     }
                 },
@@ -54,14 +55,15 @@ App.Dashboard.NewOrderView = function() {
             };
         
             bootbox.confirm({
-                message: 'You want to reject this order?',
+                title: 'Reject order',
+                message: 'Please confirm that you want to reject this order. Rejecting an order will not negatively impact your grower rating. This action is irreversible!',
                 buttons: {
                     confirm: {
-                        label: 'Oh yeah',
+                        label: 'Reject',
                         className: 'btn-warning'
                     },
                     cancel: {
-                        label: 'Nope',
+                        label: 'Cancel',
                         className: 'btn-muted'
                     }
                 },
