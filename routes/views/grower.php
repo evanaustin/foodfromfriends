@@ -21,48 +21,6 @@
 
                                 <div class="details box">
                                     <ul class="list-group">
-                                        <!-- <li class="list-group-item heading">
-                                            <span>Verified info:</span>
-                                        </li>
-
-                                        <ul class="list-group">
-                                            <li class="list-group-item sub">
-                                                <span class="<?php if (!isset($GrowerOperation->email)) { echo 'inactive'; } ?>">Email address</span>
-                                                
-                                                <div class="float-right">
-                                                    <?php if (isset($GrowerOperation->email)) { ?>
-                                                        <i class="fa fa-check"></i>
-                                                    <?php } else { ?>
-                                                        <i class="fa fa-times"></i>
-                                                    <?php } ?>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item sub">
-                                                <span class="<?php if (!isset($GrowerOperation->phone)) { echo 'inactive'; } ?>">Phone number</span>
-                                                
-                                                <div class="float-right">
-                                                    <?php if (isset($GrowerOperation->phone)) { ?>
-                                                        <i class="fa fa-check"></i>
-                                                    <?php } else { ?>
-                                                        <i class="fa fa-times"></i>
-                                                    <?php } ?>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item sub">
-                                                <span class="<?php if (!isset($GrowerOperation->zipcode)) { echo 'inactive'; } ?>">Location</span>
-                                                
-                                                <div class="float-right">
-                                                    <?php if (isset($GrowerOperation->zipcode)) { ?>
-                                                        <i class="fa fa-check"></i>
-                                                    <?php } else { ?>
-                                                        <i class="fa fa-times"></i>
-                                                    <?php } ?>
-                                                </div>
-                                            </li>
-                                        </ul> -->
-
                                         <li class="list-group-item heading">
                                             <span>Food exchange options:</span>
                                         </li>
