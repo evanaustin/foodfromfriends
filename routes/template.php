@@ -6,7 +6,7 @@ if ($Routing->template == 'dashboard') {
     if (!$LOGGED_IN) {
         header('Location: ' . PUBLIC_ROOT);
         die();
-    } else {
+    } else if (!empty($User->GrowerOperation)) {
         $User->GrowerOperation->determine_outstanding_orders();
     }
 }
