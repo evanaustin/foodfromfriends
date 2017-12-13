@@ -66,6 +66,16 @@ canvas {
     }
 }
 
+.btn-medium-gray {
+    background-color: #00000080;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+}
+
 .btn-group {
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
@@ -341,7 +351,7 @@ canvas {
     .tooltip-inner {
         z-index: $superultra-z;
         background-color: $dark-gray;
-        font-family: 'Roboto';
+        font-family: 'Museo Sans Rounded';
         font-size: 0.8rem !important;
     }
 

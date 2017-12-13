@@ -146,7 +146,7 @@
                                 } else if (isset($OrderGrower->Status->expired_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions = '<a href="" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-sticky-note"></i></a>';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-sticky-note"></i></a>';
                                 } else if (isset($OrderGrower->Status->rejected_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
