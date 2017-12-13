@@ -293,6 +293,13 @@ canvas:focus {
     background-color: #00d989;
     border-color: #00d989; }
 
+.btn-medium-gray {
+  background-color: #00000080;
+  color: #fff; }
+  .btn-medium-gray:not([disabled]):hover {
+    background-color: #4c4c4c;
+    border-color: #4c4c4c; }
+
 .btn-group {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -525,7 +532,7 @@ canvas:focus {
   .tooltip .tooltip-inner {
     z-index: 9999;
     background-color: #4c4c4c;
-    font-family: 'Roboto';
+    font-family: 'Museo Sans Rounded';
     font-size: 0.8rem !important; }
   .tooltip.bs-tether-element-attached-top .tooltip-inner:before {
     border-bottom-color: #4c4c4c !important; }
