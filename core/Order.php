@@ -257,23 +257,32 @@ class Order extends Base {
 
     /**
      * After payment has been collected, this method should be called to convert the "cart" to an "order", 
-     * save payment details, and set up the payout.
+     * save payment details, initiate the order status, and set up the payout.
      *
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
      */
     public function mark_paid($stripe_charge_id) {
-        $placed_on = \Time::now();
+        $this->placed_on = \Time::now();
 
         $this->update([
             'stripe_charge_id' => $stripe_charge_id,
-            'placed_on' => $placed_on
+            'placed_on' => $this->placed_on
         ]);
 
-        // Update class properties
         $this->stripe_charge_id = $stripe_charge_id;
-        $this->placed_on = $placed_on;
 
-        // Update payout
+        // create & associate a status record for each suborder
+        foreach ($this->Growers as $OrderGrower) {
+            $status = $this->add([
+                'placed_on' => $this->placed_on
+            ], 'order_statuses');
+
+            $OrderGrower->update([
+                'order_status_id' => $status['last_insert_id']
+            ]);
+        }
+
+        // update payout
         $Payout = new Payout([
             'DB' => $this->DB
         ]);
