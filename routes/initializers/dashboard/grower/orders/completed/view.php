@@ -25,7 +25,7 @@ if ($Num->is_id($order_grower_id)) {
     $placed_on      = new DateTime($Order->placed_on);
     $date_placed    = $placed_on->format('F d, Y \a\t g:i A'); 
     
-    $fulfilled_on      = new DateTime($OrderGrower->fulfilled_on);
+    $fulfilled_on      = new DateTime($OrderGrower->Status->fulfilled_on);
     $date_fulfilled    = $fulfilled_on->format('F d, Y'); 
 
     foreach($OrderGrower->FoodListings as $OrderListing) {

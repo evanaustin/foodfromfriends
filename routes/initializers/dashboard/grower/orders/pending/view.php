@@ -24,8 +24,8 @@ if ($Num->is_id($order_grower_id)) {
         'id' => $Order->user_id
     ]);
 
-    $time_elapsed   = $Time->elapsed($OrderGrower->confirmed_on);
-    $time_until     = $Time->until($OrderGrower->confirmed_on, '24 hours');
+    $time_elapsed   = $Time->elapsed($OrderGrower->Status->confirmed_on);
+    $time_until     = $Time->until($OrderGrower->Status->confirmed_on, '24 hours');
 
     foreach($OrderGrower->FoodListings as $OrderListing) {
         $items_sold += $OrderListing->quantity;
