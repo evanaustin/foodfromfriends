@@ -76,7 +76,7 @@
                         </div>
 
                         <div id="existing-operation" <?php if ($User->GrowerOperation->type != 'none') { echo 'style="display:none;"'; } ?>>
-                            <p class="small strong text-muted margin-btm-75pem line-after">
+                            <p class="small strong text-muted margin-btm-75em line-after">
                                 OR
                             </p>
 

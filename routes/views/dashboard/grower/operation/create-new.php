@@ -71,7 +71,7 @@
                     </div>
 
                     <div id="existing-operation">
-                        <p class="small strong text-muted margin-btm-75pem line-after">
+                        <p class="small strong text-muted margin-btm-75em line-after">
                             OR
                         </p>
 
