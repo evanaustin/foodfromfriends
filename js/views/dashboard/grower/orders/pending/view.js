@@ -10,14 +10,15 @@ App.Dashboard.PendingOrderView = function() {
             };
         
             bootbox.confirm({
-                message: 'You want to mark this order fulfilled?',
+                title: 'Mark order as fulfilled',
+                message: 'Please confirm that you want to mark this order as fulfilled. The buyer will be allowed three days to report an issue with their order before your payout is issued.',
                 buttons: {
                     confirm: {
-                        label: 'Oh yeah',
+                        label: 'Mark as fulfilled',
                         className: 'btn-warning'
                     },
                     cancel: {
-                        label: 'Nope',
+                        label: 'Cancel',
                         className: 'btn-muted'
                     }
                 },
@@ -26,7 +27,7 @@ App.Dashboard.PendingOrderView = function() {
                         App.Util.loading('.save');
                         console.log(data);
         
-                        App.Ajax.post('order/mark-fulfilled', data, 
+                        App.Ajax.post('order/fulfill', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
