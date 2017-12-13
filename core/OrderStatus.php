@@ -196,6 +196,7 @@ class OrderStatus extends Base {
      * 
      * @condition[AND]  Fulfilled
      * @condition[OR]   Fulfilled 3 days ago
+     * @condition[AND]  Not reported
      * @condition[OR]   Reviewed
      * 
      * @todo Issue payout
@@ -204,7 +205,7 @@ class OrderStatus extends Base {
         if ($this->fulfilled_on) {
             $time_elapsed = \Time::elapsed($this->fulfilled_on);
     
-            if ($time_elapsed['diff']->d >= 3 || isset($this->reviewed_on)) {
+            if (($time_elapsed['diff']->d >= 3 && !isset($this->reported_on)) || isset($this->reviewed_on)) {
                 $this->cleared_on = \Time::now();
                 
                 $this->update([
