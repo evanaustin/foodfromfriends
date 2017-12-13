@@ -1,0 +1,658 @@
+/*
+* Reset
+*/
+fable, cell,
+ledger,
+keymap, key {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/**
+ * A simple container structure consisting only of space, color, radius, and shadow
+ * Used: alone, in .ledgers
+ */
+/* .bubble {
+    padding: 0.75rem;
+    background-color: #fff;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+} */
+
+keymap {
+    key {
+        display: inline-block;
+        
+        span:not(.rounded-circle) {
+            display: inline-block;
+            height: 16px;
+            line-height: 16px;
+            vertical-align: middle;
+            font-size: 80%;
+            color: $muted;
+            font-weight: 300;
+        }
+        
+        .rounded-circle {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
+    }
+}
+
+/*
+ * A vertically stacked container structure best used for pairing images with content
+ * Used: for `linkable entities`
+ */
+.card {
+    flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
+    border: 0px;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    &:hover {
+        @include transform(translateY(-2px));
+        @include drop-shadow(0, 5px, 20px);
+    }
+
+    .card-img-top {
+        padding: 0.5em 0.5em 0;
+
+        img, div.loading {
+            width: 100%;
+            height: 100%;
+            border: 1px solid $lightedge-color;
+            @include rounded($radius);
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 85.7%; // image crop ratio
+            }
+        }
+
+        div.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $superlight-gray;
+            border: 0px;
+            
+            i {
+                animation: spin 2s linear infinite;
+                font-size: 2em;
+                color: $muted;
+            }
+        }
+    }
+
+    div.card-block {
+        .card-title {
+            font-weight: 400;
+        }
+    }
+
+    + .loading-icon {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        color: $light-gray;
+    }
+}
+
+/*
+ * A horizontally queued container structure best used for pairing images with content
+ * Used: for `linkable entities`
+ */
+.card-alt {
+    display: flex;
+    flex-direction: row;
+    padding: 0.75em;
+    background-color: #fff;
+    border-top-width: 1px;
+    text-align: left;
+
+    border-top: 0.5px solid $superlight-gray;
+    @include rounded($radius);
+    @include drop-shadow(0px, 2px, 4px);
+
+    + .card-alt {
+        margin-top: 0.75em;
+    }
+
+    .item-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+        width: 75px;
+        // margin-left: 0.5em;
+        padding: 0em;
+
+        img {
+            border: 1px solid $edge-color;
+            @include rounded($radius);
+            // @include drop-shadow(0px, 2px, 4px);
+        }
+    }
+
+    .card-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1em;
+        padding: 0;
+    }
+}
+
+/*
+ * A container structure for focusing attention on a small about of content
+ * Used: in `grids`
+ */
+.block {
+    padding: 2em 0;
+    background-color: #fff;
+    text-align: center;
+    color: $muted;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+
+    div.value {
+        line-height: 1.25;
+        font-size: 48px;
+        font-family: 'Signika';
+        font-weight: 500;
+    }
+
+    div.descriptor {
+        font-size: 14px;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $dark-gray;
+    }
+
+    .callout {
+        margin: 0.5em 2em;
+        // padding: 0.25em 0;
+    }
+
+    .btn {
+        // float: left;
+        margin-left: 0;
+        margin-right: auto;
+        color: #fff;
+    }
+}
+
+/*
+ * A container structure for breaking down labels and details
+ * Used: alone, in .bubbles, in .blocks
+ */
+.callout {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-left: 5px solid #eee;
+    color: $muted;
+    
+    > h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    > h6 {
+        margin-bottom: 0.5em;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $muted;
+    }
+
+    > p {
+        color: $light-gray;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    + .callout {
+        margin-top: -5px;
+    }
+
+    &.bordered {
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 3px;
+    }
+
+    &.default {
+        border-left-color: #777;
+        
+        h4 {
+            color: #777;
+        }
+    }
+    
+    &.primary {
+        border-left-color: $light-green;
+        
+        h4 {
+            color: $light-green;
+        }
+    }
+
+    &.success {
+        border-left-color: #5cb85c;
+        
+        h4 {
+            color: #5cb85c;
+        }
+    }
+
+    &.danger {
+        border-left-color: #d9534f;
+        
+        h4 {
+            color: #d9534f;
+        }
+    }
+
+    &.warning {
+        border-left-color: #f0ad4e;
+        
+        h4 {
+            color: #f0ad4e;
+        }
+    }
+
+    &.info {
+        border-left-color: #5bc0de;
+        
+        h4 {
+            color: #5bc0de;
+        }
+    }
+
+    code {
+        border-radius: 3px;
+    }
+}
+
+/*
+ * A tag wrapper for tables
+ * Used: on <tables>
+ */
+.table {
+    background-color: #fff;
+    border-color: $superlight-gray;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+
+    th {
+        border-top: 0px;
+    }
+
+    th, td {
+        border-color: $edge-color !important;
+    }
+
+    ul.pagination {
+        margin: 0;
+
+        li.active {
+            .page-link {
+                // this should be in bootstrap override
+                background-color: $superlight-green;
+                border-color: $superlight-green;
+            }
+        }
+    }
+}
+
+/*
+ * A container structure for tabular data
+ * Used: alone, in <ledgers>
+ */
+fable {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+
+    > cell {
+        display: flex;
+        flex-basis: 0;
+        flex-grow: 1;
+        align-items: center;
+
+        &.justify-center {
+            justify-content: center;
+        }
+        
+        &.justify-end {
+            justify-content: flex-end;
+        }
+        
+        &.align-end {
+            align-items: flex-end;
+        }
+                
+        &.min-third {
+            min-width: 33%;
+        }
+
+        i {
+            color: $superlight-green;
+        }
+
+        &.actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+
+            .btn {
+                padding: 0.5rem;
+
+                i {
+                    color: #fff;
+                }
+                
+                + .btn {
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+
+    + fable {
+        margin-top: 0.25rem;
+
+        cell:first-child {
+            padding-left: 0.75rem;
+        }
+    }
+
+    ~ .callout {
+        margin: 0.75rem 0 0 0.75rem;
+    
+        h6 {
+            font-weight: 500;
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 0;
+    }
+}
+
+/*
+ * A complex, dynamic data structure for rows and subrows
+ * Used: alone
+ */
+.ledger, ledger {
+    position: relative;
+
+    .record {
+        position: relative;
+        padding: 1.25rem;
+        padding-left: 0;
+        color: $muted;
+        @include rounded($radius);
+        @include transition(all .2s);
+        
+        &.closed, &.opened {
+            margin-left: 2rem;
+            
+            > [data-toggle="collapse"] {
+                cursor: pointer;
+                
+                &:before {
+                    cursor: pointer;
+                    z-index: 1;
+                    left: calc(-10px - 1.025rem);
+                    width: 10px;
+                    font-family: FontAwesome;
+                    color: #fff;
+                    text-align: center;
+                    @include vertical-align(absolute);
+                    @include transition(all .2s);
+                }
+
+                &:after {
+                    content: '';
+                    z-index: 0;
+                    position: absolute;
+                    top: 0;
+                    left: -2rem;
+                    width: 1.25rem;
+                    height: 100%;
+                    @include rounded($radius);
+                    @include drop-shadow(0, 2px, 4px);
+                    @include transition(all .2s);
+                }
+
+                &:hover {
+                    &:before {
+                        transform: translateY(-12px);
+                    }
+                    
+                    &:after {
+                        @include transform(translateY(-2px));
+                        @include drop-shadow(0, 5px, 20px);
+                    }
+                }
+
+                &.tab {
+                    &:after {
+                        background-color: $light-gray;
+                    }
+
+                    &:hover {
+                        &:after {
+                            background-color: $muted;
+                        }
+                    }
+                }
+
+                &.tab-info {
+                    &:after {
+                        background-color: $teal;
+                    }
+                }
+                
+                &.tab-success {
+                    &:after {
+                        background-color: $green;
+                    }
+                }
+
+                &.tab-waiting {
+                    &:after {
+                        background-color: $yellow;
+                    }
+                }
+
+                &.tab-warning {
+                    &:after {
+                        background-color: $orange;
+                    }
+                }
+
+                &.tab-danger {
+                    &:after {
+                        background-color: $red;
+                    }
+                }
+            }
+
+            .user-block {
+                @include transition(all .2s);
+
+                .user-photo {
+                    @include transition(all .2s);
+                }
+            }
+        }
+
+        &.closed {
+            background-color: #fff;
+            @include drop-shadow(0, 2px, 4px);
+            
+            > [data-toggle="collapse"] {
+                &:before {
+                    content: '\f142';
+                    font-size: 12px;
+                }
+            }
+
+            > fable {
+                > cell:first-child {
+                    padding-left: 1.25rem;
+                }
+                
+                .user-block {
+                    padding-left: 0rem;
+
+                    .user-photo {
+                        @include drop-shadow(0, 0, 0);
+                    }
+                }
+            }
+        }
+
+        &.opened {
+            background-color: transparent;
+
+            > [data-toggle="collapse"] {
+                &:before {
+                    content: '\f0c9';
+                    font-size: 10px;
+                }
+            }
+
+            > fable {
+                > cell:first-child {
+                    padding-left: 0rem;
+                }
+
+                .user-block {
+                    padding-left: 0.75rem;
+
+                    .user-photo {
+                        @include drop-shadow(0, 2px, 4px);
+                    }
+                }
+            }
+
+            // top level fabel
+            .tab + fable {
+                margin-bottom: 1rem;
+                color: $light-gray;
+            }
+        }
+
+        + .record {
+            margin-top: 1rem;
+        }
+
+        fable {
+            > cell:first-child {
+                padding-left: 0.75rem;
+                @include transition(all .2s);
+            }
+        }
+    }
+
+    .card-alt {
+        margin-top: 0.75rem;
+
+        + fable {
+            margin-top: 1rem;
+        }
+    }
+
+    fable {
+        @include transition(all .2s);
+
+        cell {
+            @include transition(all .2s);
+        }
+    }
+}
+
+/*
+ * A container structure for pairing a user photo with user information
+ * Used: alone, in .ledgers
+ */
+.user-block {
+    display: flex;
+    flex-direction: row;
+
+    div.user-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    div.user-content {
+        display: flex;
+        flex-grow: 2;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        padding-left: 15px;
+
+        div {
+            display: flex;
+        
+            &:last-child {
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+/*
+ * A container for a user photo
+ * Used: alone, in .user-blocks
+ */
+.user-photo {
+    margin: 0 auto 1em;
+    height: 75px;
+    width: 75px;
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid $edge-color;
+    @include rounded(50%);
+    @include drop-shadow(0, 2px, 4px)
+}
+
+/*
+ * A dynamic container structure for popup data
+ * Used: alone
+ */
+.modal-content {
+    border: 0px;
+    @include rounded($radius);
+    @include drop-shadow(0, 2px, 4px);
+
+    .modal-header {
+        padding: 0.5em 1em;
+        color: $muted;
+        border-color: $edge-color;
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+    }
+
+    .modal-body {
+        padding: 1em;
+    }
+}

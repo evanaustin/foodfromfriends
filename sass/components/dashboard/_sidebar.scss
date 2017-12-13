@@ -102,6 +102,12 @@ div.sidebar {
                 color: #fff;
                 font-weight: 400;
             }
+            
+            i {
+                float: right;
+                margin-top: 5px;
+                font-size: .75rem;
+            }
         }
         
         &.active:not(.parent):not(.child) {

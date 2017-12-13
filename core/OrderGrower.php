@@ -2,8 +2,22 @@
  
 class OrderGrower extends Base {
 
-    public 
-        $FoodListings;
+    public
+        $id,
+        $order_id,
+        $user_id,
+        $grower_operation_id,
+        $order_exchange_id,
+        $order_status_id,
+        $distance,
+        $subtotal,
+        $exchange_fee,
+        $total;
+
+    public
+        $Exchange,
+        $FoodListings,
+        $Status;
     
     protected
         $class_dependencies,
@@ -20,12 +34,18 @@ class OrderGrower extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
+            $this->load_exchange();
             $this->load_food_listings();
+            
+            // only placed orders get their status loaded
+            if (isset($this->order_status_id)) {
+                $this->load_status();
+            }
         }
     }
 
     /**
-     * Creates an array of every `order_grower` record for a given order.
+     * Creates an array of every OrderGrower:OrderExchange pair for a given order
      *
      * @param int $order_id
      * @return array Growers keyed by `grower_operation_id`!
@@ -34,7 +54,7 @@ class OrderGrower extends Base {
         $results = $this->DB->run('
             SELECT id, grower_operation_id 
             FROM order_growers 
-            WHERE order_id = :order_id
+            WHERE order_id =:order_id
         ', [
             'order_id' => $order_id
         ]);
@@ -54,8 +74,19 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds all the food listings for this grower in the current order and stores them in 
-     * `$this->FoodListings`.
+     * Finds the exchange for this grower in the current order and stores it in `$this->Exchange`.
+     */
+    public function load_exchange() {
+        $this->Exchange = new OrderExchange([
+            'DB' => $this->DB,
+            'id' => $this->order_exchange_id,
+            'buyer_id'  => $this->user_id,
+            'seller_id' => $this->grower_operation_id
+        ]);
+    }
+
+    /**
+     * Finds all the food listings for this grower in the current order and stores them in `$this->FoodListings`.
      */
     public function load_food_listings() {
         $OrderFoodListing = new OrderFoodListing([
@@ -66,151 +97,208 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`.  Don't worry
-     * about `unit_price` and `amount` here; they're handled by the `Order->update_cart()` method.
+     * Finds the status for this grower in the current order and stores it in `$this->Status`.
+     */
+    public function load_status() {
+        $this->Status = new OrderStatus([
+            'DB' => $this->DB,
+            'id' => $this->order_status_id,
+        ]);
+    }
+
+    /**
+     * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`
+     * Don't worry about `unit_price` and `amount` here; they're handled by `Order->update_cart()`
      */
     public function add_food_listing(FoodListing $FoodListing, $quantity) {
         $this->add([
-            'order_id' => $this->order_id,
-            'order_grower_id' => $this->id,
-            'food_listing_id' => $FoodListing->id,
-            'quantity' => $quantity
+            'order_id'          => $this->order_id,
+            'order_grower_id'   => $this->id,
+            'food_listing_id'   => $FoodListing->id,
+            'quantity'          => $quantity
         ], 'order_food_listings');
 
         $this->load_food_listings();
     }
 
     /**
-     * Called when the cart is loaded or modified to make sure we have the seller's latest prices.
+     * Called when the cart is loaded or modified to make sure we have the seller's latest prices and weights
      */
-    public function sync_food_listing_prices() {
+    public function sync_food_listing() {
         foreach ($this->FoodListings as $FoodListing) {
-            $FoodListing->sync_prices();
+            $FoodListing->sync();
         }
     }
 
     /**
-     * When a buyer sets the exchange method (delivery, pickup, meetup) they want to use for this grower
-     * in their order, we set some fundamental values here.
-     *
-     * Call this via `Order->set_exchange_method()` so the cart is updated appropriately.
-     *
-     * @param string $exchange_option The exchange method being used
-     * @param \User $Buyer The buyer
-     * @param \GrowerOperation $GrowerOperation The seller
-     * @throws \Exception If delivery is out of range or addresses couldn't be found
-     */
-    public function set_exchange_method($exchange_option, User $Buyer, GrowerOperation $GrowerOperation) {
-        if ($exchange_option == 'delivery') {
-            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $Buyer->latitude . ',' . $Buyer->longitude . '&destinations=' . $GrowerOperation->details['lat'] . ',' . $GrowerOperation->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
-            $output = json_decode($geocode);
-            $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
-            $distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
-        } else {
-            $distance = 0;
-        }
-
-        if ($distance > $GrowerOperation->Delivery->distance) {
-            throw new \Exception('The grower does not deliver this far away');
-        }
-        
-        $this->update([
-            'exchange_option' => $exchange_option,
-            'distance' => $distance
-        ]);
-
-        $this->exchange_option = $exchange_option;
-        $this->distance = $distance;
-
-        $this->calculate_exchange_fee();
-    }
-
-    /**
-     * Given the exchange method selected for this grower in this order, calculate and save the 
-     * exchange fee.
-     */
-    public function calculate_exchange_fee() {
-        // Only delivery incurs a fee. For everything else, charge $0
-        if ($this->exchange_option == 'delivery') {
-            $GrowerOperation = new GrowerOperation([
-                'DB' => $this->DB,
-                'id' => $this->grower_operation_id
-            ],[
-                'exchange' => true
-            ]);
-
-            if ($this->distance > $GrowerOperation->Delivery->free_distance) {
-                if ($GrowerOperation->Delivery->pricing_rate == 'per-mile') {
-                    $exchange_fee = $GrowerOperation->Delivery->fee * ($this->distance - $GrowerOperation->Delivery->free_distance);
-                } else {
-                    $exchange_fee = $GrowerOperation->Delivery->fee;
-                }
-            } else {
-                $exchange_fee = 0;
-            }            
-        } else {
-            $exchange_fee = 0;
-        }
-        
-        // Save the fee for this grower
-        $this->update([
-            'exchange_fee' => $exchange_fee
-        ]);
-
-        // Update class properties
-        $this->exchange_fee = $exchange_fee;
-    }
-
-    /**
-     * Calculates the total price of all items in this order sold by this grower.  Call after calling
-     * `calculate_exchange_fee()` and `sync_food_listing_prices()`.
+     * Calculates the total price of all items in this order sold by this grower
+     * Call after calling `sync_exchange_order()` and `sync_food_listing()`.
      */
     public function calculate_total() {
-        $subtotal = 0;
+        $this->subtotal = 0;
 
         foreach ($this->FoodListings as $FoodListing) {
-            $subtotal += $FoodListing->total;
+            $this->subtotal += $FoodListing->total;
         }
 
-        $total = $subtotal + $this->exchange_fee;
+        $this->total = $this->subtotal + $this->Exchange->fee;
 
-        // ? use Base function
-        $this->DB->run('
-            UPDATE order_growers 
-            SET 
-                subtotal = :subtotal,
-                total = :total
-            WHERE id = :id
-            LIMIT 1
-        ', [
-            'subtotal' => $subtotal,
-            'total' => $total,
-            'id' => $this->id
+        $this->update([
+            'subtotal'  => $this->subtotal,
+            'total'     => $this->total,
         ]);
-
-        // Update class properties
-        $this->subtotal = $subtotal;
-        $this->total = $total;
     }
 
-    /**
-     * Marks the items sold by this grower has having been fulfilled (given to the buyer).
+    /** 
+     * Get all the new orders
+     * An order is new if it has not been confirmed and not yet expired.
+     * 
+     * @param int $grower_operation_id The seller ID
      */
-    public function mark_fulfilled() {
-        $now = \Time::now();
+    public function get_new($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                og.order_exchange_id,
+                o.user_id,
+                o.placed_on
 
-        // ? use Base function
-        $this->DB->run('
-            UPDATE order_growers 
-            SET 
-                fulfilled_on = :fulfilled_on
-            WHERE id = :id
-            LIMIT 1
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.expired_on   IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.confirmed_on IS NULL
         ', [
-            'fulfilled_on' => $now,
-            'id' => $this->id
+            'grower_operation_id' => $grower_operation_id
         ]);
 
-        $this->fulfilled_on = $now;
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+
+    /** 
+     * Get all the pending orders
+     * An order is pending if it has been confirmed but not yet fulfilled
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_pending($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                o.user_id,
+                os.confirmed_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+            
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.expired_on   IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.confirmed_on IS NOT NULL
+                AND os.fulfilled_on IS NULL
+
+            ORDER BY os.confirmed_on desc
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+
+    /** 
+     * Get all the orders under review
+     * An order is under review if it has not yet cleared 
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_under_review($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                o.user_id,
+                o.placed_on,
+                os.fulfilled_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.fulfilled_on IS NOT NULL
+                AND os.cleared_on   IS NULL
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
+
+    /** 
+     * Get all the completed orders
+     * An order is complete if it has been cleared
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_completed($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                o.user_id,
+                o.placed_on,
+                os.fulfilled_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.cleared_on IS NOT NULL
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
     }
 }

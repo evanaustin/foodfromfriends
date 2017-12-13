@@ -22,7 +22,9 @@ class GrowerOperation extends Base {
         $ext;
 
     public
-        $details;
+        $details,
+        $new_orders,
+        $pending_orders;
 
     public
         $Delivery,
@@ -104,27 +106,33 @@ class GrowerOperation extends Base {
             ]);
     
             $this->details = [
-                'name'  => $Owner->first_name,
-                'lat'   => $Owner->latitude,
-                'lng'   => $Owner->longitude,
-                'bio'   => $Owner->bio,
-                'city'  => $Owner->city,
-                'state' => $Owner->state,
-                'path'  => '/profile-photos/' . $Owner->filename,
-                'ext'   => $Owner->ext,
-                'joined' => $Owner->registered_on   
+                'name'      => $Owner->first_name,
+                'lat'       => $Owner->latitude,
+                'lng'       => $Owner->longitude,
+                'bio'       => $Owner->bio,
+                'address_line_1' => $Owner->address_line_1,
+                'address_line_2' => $Owner->address_line_2,
+                'city'      => $Owner->city,
+                'state'     => $Owner->state,
+                'zipcode'   => $Owner->zipcode,
+                'path'      => '/profile-photos/' . $Owner->filename,
+                'ext'       => $Owner->ext,
+                'joined'    => $Owner->registered_on   
             ];
         } else {
             $this->details = [
-                'name'  => $this->name,
-                'lat'   => $this->latitude,
-                'lng'   => $this->longitude,
-                'bio'   => $this->bio,
-                'city'  => $this->city,
-                'state' => $this->state,
-                'path'  => '/grower-operation-images/' . $this->filename,
-                'ext'   => $this->ext,
-                'joined' => $this->created_on   
+                'name'      => $this->name,
+                'lat'       => $this->latitude,
+                'lng'       => $this->longitude,
+                'bio'       => $this->bio,
+                'address_line_1' => $this->address_line_1,
+                'address_line_2' => $this->address_line_2,
+                'city'      => $this->city,
+                'state'     => $this->state,
+                'zipcode'   => $this->zipcode,
+                'path'      => '/grower-operation-images/' . $this->filename,
+                'ext'       => $this->ext,
+                'joined'    => $this->created_on   
             ];
         }
     }
@@ -210,6 +218,50 @@ class GrowerOperation extends Base {
         }
 
         return $this->is_active;
+    }
+
+    public function determine_outstanding_orders() {
+        $new = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.expired_on   IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.confirmed_on IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $pending = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.confirmed_on IS NOT NULL
+                AND os.fulfilled_on IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $this->new_orders       = isset($new[0]);
+        $this->pending_orders   = isset($pending[0]);
     }
 
     public function get_owner() {

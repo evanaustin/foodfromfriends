@@ -18,84 +18,6 @@ canvas {
     }
 }
 
-.card {
-    flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
-    border: 0px;
-    border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
-    @include transition(all .2s);
-
-    &:hover {
-        @include transform(translateY(-2px));
-        @include drop-shadow(0, 5px, 20px);
-    }
-
-    .card-img-top {
-        padding: 0.5em 0.5em 0;
-
-        img, div.loading {
-            width: 100%;
-            height: 100%;
-            border: 1px solid $lightedge-color;
-            @include rounded($radius);
-
-            &:before {
-                content: '';
-                display: block;
-                padding-top: 85.7%; // image crop ratio
-            }
-        }
-
-        div.loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $superlight-gray;
-            border: 0px;
-            
-            i {
-                animation: spin 2s linear infinite;
-                font-size: 2em;
-                color: $muted;
-            }
-        }
-    }
-
-    div.card-block {
-        .card-title {
-            font-weight: 400;
-        }
-    }
-
-    + .loading-icon {
-        text-align: center;
-        margin: 0 auto;
-        display: block;
-        color: $light-gray;
-    }
-}
-
-.modal-content {
-    border: 0px;
-    @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
-
-    .modal-header {
-        padding: 0.5em 1em;
-        color: $muted;
-        border-color: $edge-color;
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
-    }
-
-    .modal-body {
-        padding: 1em;
-    }
-}
-
 .btn {
     cursor: pointer;
     font-family: inherit;
@@ -144,6 +66,16 @@ canvas {
     }
 }
 
+.btn-medium-gray {
+    background-color: #00000080;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+}
+
 .btn-group {
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
@@ -166,6 +98,129 @@ canvas {
             @include transform(none);
             @include drop-shadow(0, 0, 0, 0);
         }
+    }
+}
+
+.light-gray {
+    color: $light-gray;
+} .light-gray-bg {
+    background-color: $light-gray;
+} .light-gray-bg-hover {
+    &:hover {
+        background-color: $light-gray;
+        color: #fff;
+    }
+}
+
+.medium-gray {
+    color: #00000080;
+} .medium-gray-bg {
+    background-color: #00000080;
+} .medium-gray-bg-hover {
+    &:hover {
+        background-color: #00000080;
+        color: #fff;
+    }
+}
+
+.dark-gray {
+    color: $dark-gray;
+} .dark-gray-bg {
+    background-color: $dark-gray;
+} .dark-gray-bg-hover {
+    &:hover {
+        background-color: $dark-gray;
+        color: #fff;
+    }
+}
+
+.muted {
+    color: $muted;
+} .muted-hover {
+    &:hover {
+        color: $muted !important;
+    }
+} .muted-bg {
+    background-color: $muted;
+} .muted-bg-hover {
+    &:hover {
+        background-color: $muted;
+        color: #fff;
+    }
+}
+
+.info, .teal {
+    color: $teal;
+} .info-hover, .teal-hover {
+    &:hover {
+        color: $teal !important;
+    }
+} .info-bg, .teal-bg {
+    background-color: $teal;
+} .info-bg-hover, .teal-bg-hover {
+    &:hover {
+        background-color: $teal;
+        color: #fff;
+    }
+}
+
+.success, .green {
+    color: $green;
+} .success-hover, .green-hover {
+    &:hover {
+        color: $green !important;
+    }
+} .success-bg, .green-bg {
+    background-color: $green;
+} .success-bg-hover, .green-bg-hover {
+    &:hover {
+        background-color: $green;
+        color: #fff;
+    }
+}
+
+.waiting, .yellow {
+    color: $yellow;
+} .warning-hover, .orange-hover {
+    &:hover {
+        color: $yellow !important;
+    }
+} .waiting-bg, .yellow-bg {
+    background-color: $yellow;
+} .waiting-bg-hover, .yellow-bg-hover {
+    &:hover {
+        background-color: $yellow;
+        color: #fff;
+    }
+}
+
+.warning, .orange {
+    color: $orange;
+} .warning-hover, .orange-hover {
+    &:hover {
+        color: $orange !important;
+    }
+} .warning-bg, .orange-bg {
+    background-color: $orange;
+} .warning-bg-hover, .orange-bg-hover {
+    &:hover {
+        background-color: $orange;
+        color: #fff;
+    }
+}
+
+.danger, .red {
+    color: $red;
+} .danger-hover, .red-hover {
+    &:hover {
+        color: $red !important;
+    }
+} .danger-bg, .red-bg {
+    background-color: $red;
+} .danger-bg-hover, .red-bg-hover {
+    &:hover {
+        background-color: $red;
+        color: #fff;
     }
 }
 
@@ -194,27 +249,82 @@ canvas {
 }
 
 .flexgrow {
+    display: flex;
     flex-grow: 1;
+}
+
+.flexcenter {
+    align-items: center;
+}
+
+.flexend {
+    justify-content: flex-end;
 }
 
 .hidden {
     display: none !important;
 }
 
-.strong {
+.light, light {
+    font-weight: 100 !important;
+}
+
+.normal, normal {
+    font-weight: 300 !important;
+}
+
+.strong, strong {
     font-weight: bolder !important;
+}
+
+.bold, bold {
+    font-weight: 500 !important;
+}
+
+.thick, thick {
+    font-weight: 700 !important;
+}
+
+.heavy, heavy {
+    font-weight: 700 !important;
+}
+
+.uppercase, uppercase {
+    text-transform: uppercase;
 }
 
 .no-margin {
     margin: 0 !important;
 }
 
+.margin-top-1em {
+    margin-top: 1em !important;
+}
+
 .margin-btm-1em {
     margin-bottom: 1em !important;
 }
 
-.margin-btm-75pem {
-    margin-bottom: .75em !important;
+.margin-btm-75em {
+    margin-bottom: .75rem !important;
+}
+
+.margin-btm-25em {
+    margin-bottom: .25rem !important;
+}
+
+.p1w {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.p25w {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.multi-line {
+    line-height: 1.25;
 }
 
 .line-after {
@@ -241,7 +351,7 @@ canvas {
     .tooltip-inner {
         z-index: $superultra-z;
         background-color: $dark-gray;
-        font-family: 'Roboto';
+        font-family: 'Museo Sans Rounded';
         font-size: 0.8rem !important;
     }
 
@@ -262,79 +372,16 @@ canvas {
     }
 }
 
-.callout {
-    margin: 20px 0;
-    padding: 10px 20px;
-    border-left: 5px solid #eee;
-    
-    &.bordered {
-        padding: 20px;
-        border: 1px solid #eee;
-        border-radius: 3px;
-    }
-    
-    h4 {
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
+.drop-shadow {
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+}
 
-    p:last-child {
-        margin-bottom: 0;
-    }
+.rounded {
+    @include rounded($radius);
+}
 
-    code {
-        border-radius: 3px;
-    }
-    
-    +.callout {
-        margin-top: -5px;
-    }
-
-    &.default {
-        border-left-color: #777;
-        
-        h4 {
-            color: #777;
-        }
-    }
-    
-    &.primary {
-        border-left-color: $light-green;
-        
-        h4 {
-            color: $light-green;
-        }
-    }
-
-    &.success {
-        border-left-color: #5cb85c;
-        
-        h4 {
-            color: #5cb85c;
-        }
-    }
-
-    &.danger {
-        border-left-color: #d9534f;
-        
-        h4 {
-            color: #d9534f;
-        }
-    }
-
-    &.warning {
-        border-left-color: #f0ad4e;
-        
-        h4 {
-            color: #f0ad4e;
-        }
-    }
-
-    &.info {
-        border-left-color: #5bc0de;
-        
-        h4 {
-            color: #5bc0de;
-        }
-    }
+.rounded-circle {
+    display: inline-block;
+    @include rounded(50px);
 }

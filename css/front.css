@@ -29,7 +29,7 @@ body {
   position: relative;
   min-height: 100%;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Museo Sans Rounded', sans-serif;
   font-weight: 300;
   color: #404040; }
 
@@ -1019,9 +1019,9 @@ body.front.food-listing div.main.container {
     background-clip: padding-box; }
     body.front.food-listing div.main.container #basket-form-container select.custom-select, body.front.food-listing div.main.container #basket-form-container div.btn-group {
       border: 1px solid #f5f5f5;
-      -webkit-box-shadow: 0 0 0 transparent;
-      -moz-box-shadow: 0 0 0 transparent;
-      box-shadow: 0 0 0 transparent; }
+      -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
       body.front.food-listing div.main.container #basket-form-container select.custom-select:focus, body.front.food-listing div.main.container #basket-form-container div.btn-group:focus {
         -webkit-transform: none;
         -moz-transform: none;

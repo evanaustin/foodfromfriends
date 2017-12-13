@@ -95,7 +95,7 @@
                     <li class="nav-item profile dropdown">
                         <div 
                             class="nav-link dropdown-toggle" 
-                            style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
+                            style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
                             data-toggle="dropdown" 
                             aria-haspopup="true" 
                             aria-expanded="false"

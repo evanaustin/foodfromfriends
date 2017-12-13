@@ -69,24 +69,14 @@
                             <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
                         </div>
 
-                        <div id="availability" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
+                        <div id="time" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
                             <label>
                                 Availability
                             </label>
 
-                            <textarea name="availability" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['availability'])) { echo $details['availability']; } ?></textarea>
+                            <textarea name="time" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
                         </div>
                     </form>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="side-art">
-                        <?php 
-                        
-                        img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
-                        
-                        ?>
-                    </div>
                 </div>
             </div>
 

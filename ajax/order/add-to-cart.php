@@ -49,7 +49,7 @@ try {
 		quit('This item is already in your basket');
 	}
 
-	$GrowerOperation = new GrowerOperation([
+	$Seller = new GrowerOperation([
 		'DB' => $DB,
 		'id' => $FoodListing->grower_operation_id
 	],[
@@ -57,22 +57,16 @@ try {
 		'exchange' => true
 	]);
 
-	$Order->add_to_cart($GrowerOperation, $FoodListing, $quantity);
+	$Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity);
 
-	$Order->set_exchange_method(
-		$exchange_option,
-		$User,
-		$GrowerOperation 
-	);
-
-	$OrderGrower = $Order->Growers[$GrowerOperation->id];
+	$OrderGrower = $Order->Growers[$Seller->id];
 
 	$json['ordergrower'] = [
 		'id'		=> $OrderGrower->id,
-		'name'		=> $GrowerOperation->details['name'],
+		'name'		=> $Seller->details['name'],
 		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
-		'exchange'	=> ucfirst($OrderGrower->exchange_option),
-		'ex_fee'	=> '$' . number_format($OrderGrower->exchange_fee / 100, 2)
+		'exchange'	=> ucfirst($OrderGrower->Exchange->type),
+		'ex_fee'	=> '$' . number_format($OrderGrower->Exchange->fee / 100, 2)
 	];
 
 	$json['listing'] = [

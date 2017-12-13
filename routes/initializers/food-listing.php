@@ -25,7 +25,7 @@ if (isset($FoodListing->id)) {
         if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) $exchange_options_available []= 'pickup';
         if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) $exchange_options_available []= 'meetup';
 
-        $active_ex_op = (isset($User) && $User->ActiveOrder->Growers[$GrowerOperation->id]->exchange_option) ? $User->ActiveOrder->Growers[$GrowerOperation->id]->exchange_option : null;
+        $active_ex_op = (isset($User) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange)) ? $User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange->type : null;
 
         if (isset($User) 
         && !empty($User->latitude) && !empty($User->longitude) 

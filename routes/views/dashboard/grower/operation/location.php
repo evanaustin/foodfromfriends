@@ -62,19 +62,9 @@
                             
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="zip" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->GrowerOperation->zipcode)) { echo $User->GrowerOperation->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->GrowerOperation->zipcode)) { echo $User->GrowerOperation->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="side-art">
-                            <?php
-                            
-                            img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
-                            
-                            ?>
                         </div>
                     </div>
                 </div>

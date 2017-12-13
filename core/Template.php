@@ -23,6 +23,8 @@ class Template {
 
         if ($Routing->template == 'front') {
             array_unshift($this->scripts, 'js/front', 'js/checkout');
+        } else if ($Routing->template == 'dashboard') {
+            array_unshift($this->scripts, 'js/dashboard');
         }
     }
 

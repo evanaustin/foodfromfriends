@@ -84,11 +84,19 @@
                 <div class="breakdown">
                     <div class="line-amount">
                         <div class="label exchange">
-                            <?php echo ucfirst($OrderGrower->exchange_option); ?>
+                            <strong><?php echo ucfirst($OrderGrower->Exchange->type); ?></strong>
                         </div>
                         
                         <div class="rate exchange-fee">
-                            $<?php echo number_format((($OrderGrower->exchange_option == 'delivery') ? $OrderGrower->exchange_fee : 0) / 100, 2); ?>
+                            <?php
+                            
+                            if ($OrderGrower->Exchange->type == 'delivery') {
+                                amount($OrderGrower->Exchange->fee);
+                            } else {
+                                echo 'Free';
+                            }
+                            
+                            ?>
                         </div>
                     </div>
                 </div>

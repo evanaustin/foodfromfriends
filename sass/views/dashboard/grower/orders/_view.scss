@@ -1,0 +1,74 @@
+div.seamless {
+    .card {
+        display: flex;
+        flex-direction: row;
+        margin-top: 1em;
+
+        /* + .card {
+            margin-top: 1em;
+        } */
+
+        div.item-image {
+            flex-basis: 30%;
+            padding: 0.5em;
+
+            img {
+                border: 1px solid $edge-color;
+                @include rounded($radius);
+            }
+        }
+
+        .card-subtitle {
+            margin-top: 0;
+        }
+    }
+    
+    .block {
+        &.map {
+            position: relative;
+            padding: 0 !important;
+            text-align: left !important;
+            
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 100%;
+            }
+    
+            div#map {
+                top: 0.5rem;
+                left: 0.5rem;
+                bottom: 0.5em;
+                width: calc(100% - 1rem);
+                height: calc(100% - 1.25em);
+            }
+        }
+
+        + .block {
+            margin-top: 1em;
+        }
+
+        div.buyer-photo {
+            margin: 0 auto 1em;
+            height: 75px;
+            width: 75px;
+            background-size: cover;
+            background-position: center center;
+            border: 1px solid $edge-color;
+            @include rounded(50%);
+            @include drop-shadow(0, 2px, 4px)
+        }
+
+        .callout {
+            text-align: left;
+
+            + .callout {
+                margin-top: 0px;
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

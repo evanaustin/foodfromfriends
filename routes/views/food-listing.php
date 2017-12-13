@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-md-12">
-            <div class="main container animated fadeIn">
+            <div class="main container">
                 <?php
 
                 if ($GrowerOperation->id) {
@@ -162,10 +162,14 @@
                                         ?>
                                         
                                         <div class="callout">
-                                            <strong>Meetup</strong>
-                                            <p>Will deliver within: <?php echo $GrowerOperation->Delivery->distance; ?> miles</p>
-                                            <p>Free delivery within: <?php echo $GrowerOperation->Delivery->free_distance; ?> miles</p>
-                                            <p><?php echo $GrowerOperation->Delivery->fee . '/' . $GrowerOperation->Delivery->pricing_rate; ?></p>
+                                            <h6>
+                                                Meetup
+                                            </h6>
+
+                                            <p>
+                                                <?php echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : ''); ?><br>
+                                                <?php echo $GrowerOperation->Meetup->city . ', ' . $GrowerOperation->Meetup->state . ' ' . $GrowerOperation->Meetup->zipcode; ?>
+                                            </p>
                                         </div>
 
                                         <?php

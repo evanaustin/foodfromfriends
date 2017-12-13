@@ -10,6 +10,12 @@
                 
                 $sidebar = [
                     'grower' => [
+                        'orders' => [
+                            'new',
+                            'pending',
+                            'under-review',
+                            'completed'
+                        ],
                         'food-listings' => [
                             'overview',
                             'add-new'
@@ -19,6 +25,9 @@
                         'edit-profile' => [
                             'basic-information',
                             'location'
+                        ],
+                        'orders-placed' => [
+                            'overview'
                         ],
                         /* 'account-settings' => [
                             'notifications',
@@ -50,7 +59,19 @@
                     ];
                 }
 
-                foreach($sidebar[$Routing->section] as $k => $v) { ?>
+                ?>
+
+                <?php if ($Routing->template == 'dashboard' && $Routing->section == 'grower') { ?>
+                    <li class="nav-item">
+                        <a 
+                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
+                            class="nav-link <?php if ($Routing->template == 'dashboard' && !isset($Routing->page)) echo 'active'; ?>">
+                            <?php echo 'Dashboard'; ?>
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <?php foreach ($sidebar[$Routing->section] as $k => $v) { ?>
                     <li class="nav-item">
                         <?php if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'array') { ?>
                             <a 
@@ -69,7 +90,7 @@
                                 <ul class="nav flex-column">
                                     <?php
                                     
-                                    foreach($v as $l) { 
+                                    foreach($v as $l) {
                                         if (!empty($l)) {
                                             
                                         ?>
@@ -78,8 +99,13 @@
                                             <a 
                                                 href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . $l; ?>"
                                                 class="nav-link child <?php if ($Routing->page == $l) echo 'active'; ?>">
-                                                <?php echo ucfirst(str_replace('-', ' ', $l)); ?>
+                                                <?php
+                                                echo ucfirst(str_replace('-', ' ', $l));
+                                                if ($l == 'new' && $Routing->section == 'grower' && $Routing->page != $l && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                if ($l == 'pending' && $Routing->section == 'grower' && $Routing->page != $l && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
+                                                ?>
                                             </a>
+
                                         </li>
                                         
                                         <?php

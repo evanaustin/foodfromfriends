@@ -62,6 +62,16 @@ body.dashboard {
                 font-weight: 400;
                 color: $dark-gray;
             }
+
+            div.seamless {
+                div.row {
+                    margin: 0;
+        
+                    > div {
+                        padding: 10px;
+                    }
+                }
+            }
     
             div.controls {
                 margin: 0 0 0.5rem;
@@ -96,6 +106,10 @@ body.dashboard {
                         }
                     }
                 }
+            }
+
+            table.datatable {
+                margin-top: 1em;
             }
 
             div.side-art {

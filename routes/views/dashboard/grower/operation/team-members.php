@@ -85,16 +85,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="side-art">
-                            <?php
-                            
-                            img('art/' . $imgs[array_rand($imgs)], 'png', 'local');
-                            
-                            ?>
-                        </div>
-                    </div>
                 </div>
             </form>
 

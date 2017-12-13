@@ -23,6 +23,9 @@ class User extends Base {
         $longitude,
         $filename,
         $ext;
+
+    public
+        $name;
         
     public
         $Operations,
@@ -46,8 +49,13 @@ class User extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully();
-            $this->get_operations();
-            $this->get_orders();
+
+            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
+                $this->get_operations();
+                $this->get_orders();
+            }
+
+            $this->name = $this->first_name . ' ' . $this->last_name;
         }
     }
     
