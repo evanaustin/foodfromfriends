@@ -1,14 +1,13 @@
 <?php
-/**
- * For quickly generating MySQL datetime strings.
- */
+
 class Time {
+
     function __construct() {
         date_default_timezone_set('America/New_York');
     }
 
     /**
-     * Generates a `datetime` or `date` string for the current time.
+     * Generates a `datetime` or `date` string for the current time
      *
      * @param bool $date_only Pass in `true` to return the date without time information
      * @return string
@@ -18,9 +17,9 @@ class Time {
     }
 
     /**
-     * Generates a `datetime` or `date` string for a given timestamp or date string.
+     * Generates a `datetime` or `date` string for a given timestamp or date string
      *
-     * @param int|string $time Timestamp or date string to be passed into `strtotime()`.
+     * @param int|string $time Timestamp or date string to be passed into `strtotime()`
      * @param bool $date_only Pass in `true` to return the date without time information
      * @return string
      * @throws \Exception if `$time` was invalid
@@ -40,10 +39,10 @@ class Time {
     }
 
     /**
-     * Given a timestamp or date string, lists all days in that week Monday through Sunday.
+     * Given a timestamp or date string, lists all days in that week Monday through Sunday
      *
-     * @param int|string $time Timestamp or date string to be passed into `strtotime()`.
-     * @param bool|null  $week_starts_monday Will grab all days starting with Monday if `true`, with Sunday otherwise
+     * @param int|string $time Timestamp or date string to be passed into `strtotime()`
+     * @param bool|null $week_starts_monday Will grab all days starting with Monday if `true`, with Sunday otherwise
      * @return array Array of `YYYY-MM-DD` strings Monday through Sunday
      * @throws \Exception
      */
@@ -78,7 +77,7 @@ class Time {
     }
 
     /**
-     * Gives the closest Monday before the given date.
+     * Gives the closest Monday before the given date
      *
      * @param $date Date in YYYY-MM-DD format
      * @return string YYYY-MM-DD
@@ -90,7 +89,7 @@ class Time {
     }
 
     /**
-     * Gives the closest Monday after the given date.
+     * Gives the closest Monday after the given date
      *
      * @param $date Date in YYYY-MM-DD format
      * @return string YYYY-MM-DD
@@ -102,7 +101,7 @@ class Time {
     }
 
     /**
-     * Gives the closest Sunday before the given date.  Used in week-by-week navigation on the weekly tasks page.
+     * Gives the closest Sunday before the given date
      *
      * @param $date Date in YYYY-MM-DD format
      * @return string YYYY-MM-DD
@@ -114,7 +113,7 @@ class Time {
     }
 
     /**
-     * Gives the closest Sunday after the given date.  Used in week-by-week navigation on the weekly tasks page.
+     * Gives the closest Sunday after the given date
      *
      * @param $date Date in YYYY-MM-DD format
      * @return string YYYY-MM-DD
@@ -125,10 +124,19 @@ class Time {
         return $date->modify('next sunday')->format('Y-m-d');
     }
 
-    function elapsed($datetime, $full = false) {
-        $now = new \DateTime($this->now());
-        $ago = new \DateTime($datetime);
-        $diff = $now->diff($ago);
+    /**
+     * Gives the time elapsed since the given date
+     *
+     * @param datetime $then The target starting date (in YYYY-MM-DD H:M:S format)
+     * 
+     * @return array An array containing:
+     * - string $full A readable string of the time elapsed
+     * - object $diff A data structure containing the difference between the datetimes
+     */
+    public function elapsed($then) {
+        $now = new \DateTime(\Time::now());
+        $then = new \DateTime($then);
+        $diff = $now->diff($then);
     
         $diff->w = floor($diff->d / 7);
         $diff->d -= $diff->w * 7;
@@ -151,7 +159,7 @@ class Time {
             }
         }
     
-        if (!$full) $string = array_slice($string, 0, 1);
+        $string = array_slice($string, 0, 1);
         
         return [
             'full' => $string ? implode(', ', $string) . ' ago' : 'just now',
@@ -159,9 +167,19 @@ class Time {
         ];
     }
     
-    function until($datetime, $deadline) {
-        $now    = new \DateTime($this->now());
-        $then   = new \DateTime($datetime);
+    /**
+     * Gives the time until a date given a date
+     *
+     * @param datetime $then The starting date (in YYYY-MM-DD H:M:S format)
+     * @param datetime $deadline The target ending date (in YYYY-MM-DD H:M:S format)
+     * 
+     * @return array An array containing:
+     * - string $full A readable string of the time elapsed
+     * - object $diff A data structure containing the difference between the datetimes
+     */
+    public function until($then, $deadline, $abbreviated = false) {
+        $now    = new \DateTime(\Time::now());
+        $then   = new \DateTime($then);
         $until  = date_add($then, date_interval_create_from_date_string($deadline));
         $diff   = $now->diff($until);
     
@@ -170,19 +188,23 @@ class Time {
         $m = $diff->format('%i');
         $s = $diff->format('%s');
 
-        if ($d > 0) {
-            $full = $d . ' day' . (($d != 1) ? 's ' : ' ' . $h . ' hour' . (($h != 1) ? 's' : ''));
-        } else if ($d == 0 && $h < 24 && $h > 0) {
-            $full = $h . ' hour' . (($h != 1) ? 's ': ' ') . $m . ' minute' . (($m != 1) ? 's' : '');
-        } else if ($h == 0 && $m > 0) {
-            $full = $m . ' minute' . (($m != 1) ? 's ' : ' ' . $s . ' second' . (($s != 1) ? 's' : ''));
-        } else if ($h == 0 && $m == 0 && $s > 0) {
-            $full = $s . ' second' . (($s != 1) ? 's' : '');
+        if (!$diff->invert) {
+            if ($d > 0) {
+                $full = $d . ' day' . (($d != 1) ? 's ' : ' ' . $h . (($abbreviated) ? ' hr' : ' hour') . (($h != 1) ? 's' : ''));
+            } else if ($d == 0 && $h < 24 && $h > 0) {
+                $full = $h . (($abbreviated) ? ' hr' : ' hour') . (($h != 1) ? 's ': ' ') . $m . (($abbreviated) ? ' min' : ' minute') . (($m != 1) ? 's' : '');
+            } else if ($h == 0 && $m > 0) {
+                $full = $m . (($abbreviated) ? ' min' : ' minute') . (($m != 1) ? 's ' : ' ' . $s . (($abbreviated) ? ' sec' : ' second') . (($s != 1) ? 's' : ''));
+            } else if ($h == 0 && $m == 0 && $s > 0) {
+                $full = $s . (($abbreviated) ? ' sec' : ' second') . (($s != 1) ? 's' : '');
+            }
+            
+            return [
+                'full' => $full,
+                'diff' => $diff
+            ];
+        } else {
+            return false;
         }
-        
-        return [
-            'full' => $full,
-            'diff' => $diff
-        ];
     }
 }
