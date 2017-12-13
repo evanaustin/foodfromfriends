@@ -143,22 +143,23 @@
                                 } else if (isset($OrderGrower->Status->cleared_on)) {
                                     $tab_highlight .= 'success';
                                     $status = 'Completed';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                 } else if (isset($OrderGrower->Status->expired_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-sticky-note"></i></a>';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                 } else if (isset($OrderGrower->Status->rejected_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                 } else if (isset($OrderGrower->Status->buyer_cancelled_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                 } else if (isset($OrderGrower->Status->seller_cancelled_on)) {
                                     $tab_highlight .= 'danger';
                                     $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
+                                    $actions = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                 }
 
                                 ?>
