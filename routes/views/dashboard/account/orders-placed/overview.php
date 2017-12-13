@@ -7,42 +7,30 @@
                 </div>
         
                 <div class="page-description text-muted small">
-                    Check this out &mdash; these are the orders you've placed. Each order tab is clickable and color-coded according to the order's status.
+                    Check it out! These are the orders you've placed. Each order tab is clickable and color-coded according to the order's status.
                 </div>
             </div>
         
             <div class="col-md-6">
                 <keymap class="align-right">
                     <key>
-                        <span>
-                            Awaiting seller confirmation
-                        </span>
-        
-                        <span class="badge badge-info rounded-circle">&nbsp;</span>
+                        <span class="rounded-circle waiting-bg" data-toggle="tooltip" data-placement="bottom" data-title="Not yet confirmed">&nbsp;</span>
                     </key>
         
                     <key>
-                        <span>
-                            Refunded (buyer canceled/seller canceled/rejected/expired)
-                        </span>
-        
-                        <span class="badge badge-danger rounded-circle">&nbsp;</span>
+                        <span class="rounded-circle warning-bg" data-toggle="tooltip" data-placement="bottom" data-title="Pending fulfillment">&nbsp;</span>
                     </key>
                     
                     <key>
-                        <span>
-                            Pending (fulfillment pending/awaiting review/reported)
-                        </span>
-        
-                        <span class="badge badge-warning rounded-circle">&nbsp;</span>
+                        <span class="rounded-circle info-bg" data-toggle="tooltip" data-placement="bottom" data-title="Open for review">&nbsp;</span>
                     </key>
                     
                     <key>
-                        <span>
-                            Completed
-                        </span>
-        
-                        <span class="badge badge-success rounded-circle">&nbsp;</span>
+                        <span class="rounded-circle success-bg" data-toggle="tooltip" data-placement="bottom" data-title="Completed">&nbsp;</span>
+                    </key>
+                    
+                    <key>
+                        <span class="rounded-circle danger-bg" data-toggle="tooltip" data-placement="bottom" data-title="Failed">&nbsp;</span>
                     </key>
                 </keymap>
             </div>
@@ -76,7 +64,7 @@
                     $placed_on = new Datetime($Order->placed_on);
                     $placed_on = $placed_on->format('F j, Y');
 
-                    $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');
+                    // $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');
 
                     ?>
                     
@@ -100,7 +88,7 @@
                                 <h6>Placed:&nbsp;<strong><?php echo $placed_on; ?></strong></h6>
                             </cell>
                             
-                            <cell>
+                            <cell class="justify-end">
                                 <h5 class="strong"><?php amount($Order->total); ?></h5>
                             </cell>
                         </fable>
@@ -122,19 +110,55 @@
 
                                 $tab_highlight = 'tab-';
 
-                                // determine table highlight color
-                                if (!isset($OrderGrower->confirmed_on) && !isset($OrderGrower->expired_on) && !isset($OrderGrower->rejected_on)) {
-                                    $status = 'awaiting confirmation';
-                                    $tab_highlight .= 'info';
-                                } else if (isset($OrderGrower->confirmed_on) && !isset($OrderGrower->fulfilled_on)) {
-                                    $status = 'awaiting fulfillment';
+                                $actions = '';
+
+                                // determine status settings
+                                if (!isset($OrderGrower->Status->expired_on) && !isset($OrderGrower->Status->rejected_on) && !isset($OrderGrower->Status->confirmed_on)) {
+                                    
+                                    $time_until = $Time->until($OrderGrower->Status->placed_on, '24 hours');
+                                    
+                                    // check if expired
+                                    if (!$time_until) {
+                                        $OrderGrower->Status->expire();
+                                        
+                                        $tab_highlight .= 'danger';
+                                        $status = 'Expired';
+                                    } else {
+                                        $tab_highlight .= 'waiting';
+                                        $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
+                                        $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order"><i class="fa fa-times"></i></a>';
+                                    }
+
+                                } else if (isset($OrderGrower->Status->confirmed_on) && !isset($OrderGrower->Status->fulfilled_on)) {
                                     $tab_highlight .= 'warning';
-                                } else if (isset($OrderGrower->confirmed_on) && isset($OrderGrower->fulfilled_on)) {
-                                    $status = 'completed';
+                                    $status = 'Pending fulfillment';
+                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order"><i class="fa fa-times"></i></a>';
+                                } else if (isset($OrderGrower->Status->fulfilled_on) && !isset($OrderGrower->Status->cleared_on)) {
+                                    $tab_highlight .= 'info';
+
+                                    $time_until = $Time->until($OrderGrower->Status->fulfilled_on, '3 days');
+
+                                    $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
+                                    $actions = '<a href="" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a><a href="" class="btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue"><i class="fa fa-flag"></i></a>';
+                                } else if (isset($OrderGrower->Status->cleared_on)) {
                                     $tab_highlight .= 'success';
-                                } else if (!isset($OrderGrower->confirmed_on) && (isset($OrderGrower->expired_on) || isset($OrderGrower->rejected_on))) {
-                                    $status = 'failed';
+                                    $status = 'Completed';
+                                } else if (isset($OrderGrower->Status->expired_on)) {
                                     $tab_highlight .= 'danger';
+                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $actions = '<a href="" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-sticky-note"></i></a>';
+                                } else if (isset($OrderGrower->Status->rejected_on)) {
+                                    $tab_highlight .= 'danger';
+                                    $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
+                                } else if (isset($OrderGrower->Status->buyer_cancelled_on)) {
+                                    $tab_highlight .= 'danger';
+                                    $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
+                                } else if (isset($OrderGrower->Status->seller_cancelled_on)) {
+                                    $tab_highlight .= 'danger';
+                                    $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $actions = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file-excel-o"></i></a>';
                                 }
 
                                 ?>
@@ -148,32 +172,35 @@
                                                 <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
                                                 
                                                 <div class="user-content">
-                                                    <h5 class="bold">
-                                                        <?php echo $ThisGrowerOperation->details['name']; ?>
-                                                        
-                                                        <!-- ! dynamically construct -->
-                                                        <!-- <small class="listing-rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </small> -->
+                                                    <h5 class="bold margin-btm-25em">
+                                                        <a href=""><?php echo $ThisGrowerOperation->details['name']; ?></a>
                                                     </h5>
+
+                                                    <small>
+                                                        <?php echo $ThisGrowerOperation->details['city'] . ', ' . $ThisGrowerOperation->details['state']; ?>
+                                                    </small>
                                                 </div>
                                             </div>
                                         </cell>
 
-                                        <cell class="justify-center">
-                                            <h6><?php echo '<healthy>' . $item_count . '</healthy>' . '&nbsp;' . 'item' . (($item_count > 1) ? 's' : ''); ?></h6>
+                                        <cell class="justify-center align-center">
+                                            <h6><?php echo $status; ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center">
-                                            <h6 class="healthy"><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
+                                            <h6><?php echo '<strong>' . $item_count . '</strong>' . '&nbsp;' . 'item' . (($item_count > 1) ? 's' : ''); ?></h6>
+                                        </cell>
+                                        
+                                        <cell class="justify-center">
+                                            <h6 class=""><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
+                                        </cell>
+                                        
+                                        <cell class="justify-center">
+                                            <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
                                         </cell>
 
-                                        <cell>
-                                            <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
+                                        <cell class="actions">
+                                            <?php echo $actions; ?>
                                         </cell>
                                     </fable>
                                     
@@ -195,7 +222,7 @@
                                                 </div>
 
                                                 <div class="card-block">
-                                                    <h6 class="healthy">
+                                                    <h6 class="strong">
                                                         <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $ThisFoodListing->id; ?>">
                                                             <?php echo ucfirst($ThisFoodListing->title); ?>
                                                         </a>
@@ -230,10 +257,10 @@
                                     
                                         <fable>
                                             <cell class="bold">
-                                                <?php echo ucfirst($OrderGrower->Exchange->type); ?>
+                                                <?php echo ucfirst($OrderGrower->Exchange->type); ?> details
                                             </cell>
                                             
-                                            <cell class="bold">
+                                            <cell class="justify-end bold">
                                                 <?php
                             
                                                 if ($OrderGrower->Exchange->type == 'delivery') {
@@ -312,7 +339,7 @@
         } else {
             ?>
             
-            <div class="block margin-top-1em healthy">
+            <div class="block margin-top-1em strong">
                 You don't have any placed orders
             </div>
 
