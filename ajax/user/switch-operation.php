@@ -9,7 +9,7 @@ $json['success'] = true;
 
 $User->switch_operation($_POST['grower_operation_id']);
 
-$json['redirect'] = ($User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/grower/food-listings/overview';
+$json['redirect'] = 'dashboard/grower';
 
 echo json_encode($json);
 
