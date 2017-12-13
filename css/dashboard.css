@@ -145,12 +145,6 @@ body.dashboard {
       body.dashboard main > div.container table.datatable,
       body.dashboard main > div.container-fluid table.datatable {
         margin-top: 1em; }
-      body.dashboard main > div.container div.side-art img,
-      body.dashboard main > div.container-fluid div.side-art img {
-        float: right;
-        max-width: 75%;
-        max-height: 475px;
-        opacity: 0.5; }
 
 /**
 * Components
@@ -350,11 +344,6 @@ body.dashboard-grower div.container-fluid {
         body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times {
           color: #b2b2b2; }
 
-body.dashboard-grower-food-listings-overview div.tree-art img {
-  max-width: 75%;
-  max-height: 475px;
-  float: right;
-  opacity: 0.5; }
 body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) div.card {
   margin-top: 0.25em; }
 body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child(n+4) div.card {

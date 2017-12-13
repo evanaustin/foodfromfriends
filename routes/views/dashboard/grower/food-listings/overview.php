@@ -138,14 +138,6 @@
                 Let's go create your first listing!
             </a>
 
-            <div class="tree-art">
-                <?php
-
-                img('art/beet','png','local');
-                
-                ?>
-            </div>
-
             <?php
             
         }
