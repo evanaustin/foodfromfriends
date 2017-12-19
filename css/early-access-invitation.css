@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
 * Fonts
 **/
@@ -459,6 +460,9 @@ canvas:focus {
 .flexcenter {
   align-items: center; }
 
+.flexjustifycenter {
+  justify-content: center; }
+
 .flexend {
   justify-content: flex-end; }
 
@@ -491,6 +495,9 @@ canvas:focus {
 
 .margin-top-1em {
   margin-top: 1em !important; }
+
+.margin-btm-2em {
+  margin-bottom: 2em !important; }
 
 .margin-btm-1em {
   margin-bottom: 1em !important; }
@@ -671,6 +678,21 @@ keymap key {
   -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
+  .card-alt.no-bg {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1); }
+    .card-alt.no-bg .item-image img {
+      border: 1px solid #f5f5f5;
+      -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
   .card-alt + .card-alt {
     margin-top: 0.75em; }
   .card-alt .item-image {
@@ -1323,6 +1345,40 @@ form div.image-box {
     form div.image-box div.image-container input[type="file"] {
       position: absolute;
       left: -9999px; }
+form .form-star-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl; }
+  form .form-star-group label {
+    margin-bottom: 0; }
+  form .form-star-group > input {
+    display: none; }
+    form .form-star-group > input + label {
+      /* only enough room for the star */
+      display: inline-block;
+      overflow: hidden;
+      text-indent: 9999px;
+      width: 1.5em;
+      white-space: nowrap;
+      cursor: pointer; }
+      form .form-star-group > input + label:before {
+        display: inline-block;
+        text-indent: -9999px;
+        content: "☆";
+        color: #00c079;
+        font-size: 1.5em; }
+    form .form-star-group > input:checked ~ label:before, form .form-star-group > input + label:hover ~ label:before, form .form-star-group > input + label:hover:before {
+      content: "★";
+      color: #00c079; }
+  form .form-star-group:hover > input + label:before {
+    content: "☆";
+    color: #00c079;
+    text-shadow: none; }
+  form .form-star-group:hover > input + label:hover ~ label:before, form .form-star-group:hover > input + label:hover:before {
+    content: "★";
+    color: #00c079; }
 form .form-control-feedback {
   font-size: 0.75rem; }
 @media (max-width: 767px) {
