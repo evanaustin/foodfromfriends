@@ -133,7 +133,7 @@ class Time {
      * - string $full A readable string of the time elapsed
      * - object $diff A data structure containing the difference between the datetimes
      */
-    public function elapsed($then) {
+    public static function elapsed($then) {
         $now = new \DateTime(\Time::now());
         $then = new \DateTime($then);
         $diff = $now->diff($then);
@@ -177,7 +177,7 @@ class Time {
      * - string $full A readable string of the time elapsed
      * - object $diff A data structure containing the difference between the datetimes
      */
-    public function until($then, $deadline, $abbreviated = false) {
+    public static function until($then, $deadline, $abbreviated = false) {
         $now    = new \DateTime(\Time::now());
         $then   = new \DateTime($then);
         $until  = date_add($then, date_interval_create_from_date_string($deadline));
