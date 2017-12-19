@@ -1,3 +1,6 @@
+$unchecked-star: '\2606';
+$checked-star: '\2605';
+
 div.alerts {
     display: none;
 
@@ -219,6 +222,60 @@ form {
                 position: absolute;
                 left: -9999px;
             }
+        }
+    }
+
+    .form-star-group {
+        /* remove inline-block whitespace */
+        font-size: 0;
+    
+        /* flip the order so we can use the + and ~ combinators */
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    
+        label {
+            margin-bottom: 0;
+        }
+    
+        & > input {
+            display: none;
+    
+            & + label {
+                /* only enough room for the star */
+                display: inline-block;
+                overflow: hidden;
+                text-indent: 9999px;
+                width: 1.5em;
+                white-space: nowrap;
+                cursor: pointer;
+                
+                &:before {
+                    display: inline-block;
+                    text-indent: -9999px;
+                    content: $unchecked-star;
+                    color: $superlight-green;
+                    font-size: 1.5em;
+                }
+            }
+    
+            &:checked ~ label:before,
+            & + label:hover ~ label:before,
+            & + label:hover:before {
+                content: $checked-star;
+                color: $superlight-green;
+            }
+        }
+      
+        &:hover > input + label:before {
+            content: $unchecked-star;
+            color: $superlight-green;
+            text-shadow: none;
+        }
+    
+        &:hover > input + label:hover ~ label:before,
+        &:hover > input + label:hover:before {
+            content: $checked-star;
+            color: $superlight-green;
         }
     }
 
