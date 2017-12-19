@@ -119,6 +119,21 @@ keymap {
     border-top: 0.5px solid $superlight-gray;
     @include rounded($radius);
     @include drop-shadow(0px, 2px, 4px);
+    
+    &.no-bg {
+        background-color: transparent;
+        padding: 0;
+        border: 0;
+        @include rounded(0);
+        @include drop-shadow(0px, 0px, 0px);
+        
+        .item-image {
+            img {
+                border: 1px solid $edge-color;
+                @include drop-shadow(0px, 2px, 4px);
+            }
+        }
+    }
 
     + .card-alt {
         margin-top: 0.75em;
