@@ -45,7 +45,7 @@ class OrderStatus extends Base {
         if (!isset($this->rejected_on) && !isset($this->confirmed_on)) {
             $time_elapsed = \Time::elapsed($this->placed_on);
             
-            if ($time_elapsed['diff']->d >= 1) {
+            if ($time_elapsed['diff']->days >= 1) {
                 $this->expired_on = \Time::now();
                 
                 $this->update([
@@ -157,7 +157,7 @@ class OrderStatus extends Base {
         if (isset($this->fulfilled_on) && !isset($this->reviewed_on)) {
             $time_elapsed = \Time::elapsed($this->fulfilled_on);
 
-            if ($time_elapsed['diff']->d < 3) {
+            if ($time_elapsed['diff']->days < 3) {
                 $this->reported_on = \Time::now();
                 
                 $this->update([
@@ -204,8 +204,8 @@ class OrderStatus extends Base {
     public function clear() {
         if ($this->fulfilled_on) {
             $time_elapsed = \Time::elapsed($this->fulfilled_on);
-    
-            if (($time_elapsed['diff']->d >= 3 && !isset($this->reported_on)) || isset($this->reviewed_on)) {
+
+            if (($time_elapsed['diff']->days >= 3 && !isset($this->reported_on)) || isset($this->reviewed_on)) {
                 $this->cleared_on = \Time::now();
                 
                 $this->update([
