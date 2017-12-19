@@ -257,6 +257,10 @@ canvas {
     align-items: center;
 }
 
+.flexjustifycenter {
+    justify-content: center;
+}
+
 .flexend {
     justify-content: flex-end;
 }
@@ -299,6 +303,10 @@ canvas {
 
 .margin-top-1em {
     margin-top: 1em !important;
+}
+
+.margin-btm-2em {
+    margin-bottom: 2em !important;
 }
 
 .margin-btm-1em {
