@@ -97,15 +97,6 @@ $S3     = new S3($AWS);
 
 
 /**
- * Num & Time
- **/
-
-// $Num    = new Num();
-// $Time   = new Time();
-
-
-
-/**
  * User session
  **/
 
