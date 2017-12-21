@@ -7,6 +7,7 @@ class GrowerOperation extends Base {
         $grower_operation_type_id,
         $name,
         $bio,
+        $average_rating,
         $referral_key,
         $created_on,
         $is_active,
@@ -377,6 +378,10 @@ class GrowerOperation extends Base {
         $code = substr(md5(microtime()), rand(0,26), $len);
         
         return (!empty($slug) ? $slug . '_' . $code : $code);
+    }
+
+    public function get_ratings() {
+        return $this->retrieve('grower_operation_id', $this->id, 'grower_operation_ratings', true);
     }
 
     /**
