@@ -40,11 +40,9 @@ if ($GrowerOperation->is_active) {
     
     $listings = $FoodListing->get_listings($GrowerOperation->id);
     
-    $Review = new Review([
-        'DB' => $DB
-    ]);
-    
-    $reviews = $Review->retrieve('grower_id', $GrowerOperation->id);
+    $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);
+
+    $ratings = $GrowerOperation->get_ratings();
 
     $settings['title'] = $GrowerOperation->details['name'] . ' | Food From Friends';
 }

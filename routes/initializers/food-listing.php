@@ -49,22 +49,10 @@ if (isset($FoodListing->id)) {
             }
         }
 
-        $grower_stars  = '';
-        
-        // $floor  = floor($grower['rating']);
-        // $ceil   = ceil($grower['rating']);
-    
-        /* for ($i = 0; $i < $floor; $i++) {
-            $stars .= '<i class="fa fa-star"></i>';
-        } if ($floor < $grower['rating'] && $grower['rating'] < $ceil) {
-            $stars .= '<i class="fa fa-star-half-o"></i>';
-        } for ($i = $ceil; $i < 5; $i++) {
-            $stars .= '<i class="fa fa-star-o"></i>';
-        } */
+        $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);
+        $item_stars     = ($FoodListing->average_rating == 0) ? 'New' : stars($FoodListing->average_rating);
 
-        for ($i = 0; $i < 5; $i++) {
-            $grower_stars .= '<i class="fa fa-star"></i>';
-        }
+        $ratings = $FoodListing->get_ratings();
 
         $settings['title'] = $FoodListing->title . ' from ' . $GrowerOperation->details['name'] . ' | Food From Friends';
     }
