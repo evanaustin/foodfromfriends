@@ -4,7 +4,7 @@ body.front.food-listing {
         margin-bottom: 30px;
 
         #main-content {
-            h3.listing-name {
+            /* h3.listing-name {
                 color: $dark-gray;
                 font-size: 2em;
                 font-weight: 500;
@@ -17,46 +17,38 @@ body.front.food-listing {
                 span {
                     border-bottom: 3px solid $light-green;
                 }
-            }
+            } */
 
-            span.listing-rating {
+            /* span.listing-rating {
                 color: $superlight-green;
-            }
+            } */
 
-            div.bio {
+            /* div.bio {
                 margin: 1em 0;
                 color: $muted;
-            }
+            } */
 
             div.set {
                 margin-top: 2em;
     
-                div.title {
-                    font-size: 1.5em;
-                    font-weight: 100;
-                    color: $light-gray;
-            
-                    strong {
-                        color: $dark-gray;
+                .user-block {
+                    + .user-block {
+                        padding-top: 1rem;
+                        border-top: 1px solid $edge-color;
                     }
-                }
-    
-                div.subtitle {
-                    margin: 0.5em 0;
-                    color: $muted;
                 }
     
                 div.callout {
                     position: relative;
                     
                     &:not(:last-child) {
-                        margin-bottom: 40px;
+                        margin-bottom: 1.5rem;
     
                         &:after {
                             content: '';
                             position: absolute;
                             width: 100%;
-                            bottom: -20px;
+                            bottom: -0.75rem;
                             border-bottom: 1px solid $edge-color;
                         }
                     }
@@ -78,7 +70,7 @@ body.front.food-listing {
                 }
             }
     
-            div.grower-title {
+            /* div.grower-title {
                 div.name, div.rating {
                     display: inline-block;
                     vertical-align: middle;
@@ -106,14 +98,14 @@ body.front.food-listing {
                         line-height: 18px;
                     }
                 }
-            }
+            } */
     
-            div.grower-location {
+            /* div.grower-location {
                 padding-top: 0.75em;
                 font-weight: 400;
                 font-size: 0.85em;
                 color: $dark-gray;
-            }
+            } */
         }
 
         #basket-form-container {

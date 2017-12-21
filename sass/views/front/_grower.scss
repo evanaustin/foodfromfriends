@@ -7,7 +7,24 @@ body.front.grower {
         margin-top: 30px;
         margin-bottom: 30px;
 
-        div.sidebar-content {
+        #main-content {
+            div.name {
+                color: $dark-gray;
+                font-size: 2em;
+                font-weight: 500;
+                
+                small {
+                    color: $light-gray;
+                    font-weight: 100;
+                }
+                
+                span {
+                    border-bottom: 3px solid $superlight-green;
+                }
+            }
+        }
+
+        #sidebar-content {
             div.box {
                 &.details{
                     padding: 0 0.5em;
@@ -66,38 +83,6 @@ body.front.grower {
             }
         }
 
-        #main-content {
-            div.name {
-                color: $dark-gray;
-                font-size: 2em;
-                font-weight: 500;
-                
-                small {
-                    color: $light-gray;
-                    font-weight: 100;
-                }
-                
-                span {
-                    border-bottom: 3px solid $superlight-green;
-                }
-            }
-        }
-
-        div.bio {
-            margin: 1em 0;
-            color: $muted;
-        }
-        
-        div.location {
-            color: $dark-gray;
-            font-weight: 500;
-        }
-
-        div.joined {
-            color: $muted;
-            font-weight: 300;
-        }
-
         div.review-count {
             margin: 1em 0;
 
@@ -121,21 +106,13 @@ body.front.grower {
         }
 
         div.set {
-            margin-top: 1.25em;
+            margin-top: 2rem;
 
-            div.title {
-                font-size: 1.5em;
-                font-weight: 100;
-                color: $light-gray;
-        
-                strong {
-                    color: $dark-gray;
+            .user-block {
+                + .user-block {
+                    padding-top: 1rem;
+                    border-top: 1px solid $edge-color;
                 }
-            }
-
-            div.subtitle {
-                margin: 0.5em 0;
-                color: $muted;
             }
         }
 
@@ -156,59 +133,6 @@ body.front.grower {
                         padding: 0.15rem 0.25rem;
                         @include rounded(0.15rem);
                     }
-                }
-            }
-        }
-
-        div.review-block {
-            display: flex;
-            flex-direction: row;
-            padding: 15px 0;
-            border-top: 1px solid $edge-color;
-
-            div.reviewer-photo {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 75px;
-                width: 75px;
-                background-size: cover;
-                background-position: center center;
-                border: 1px solid $edge-color;
-                @include rounded(50%);
-                @include drop-shadow(0, 2px, 4px);
-            }
-
-            div.review-content {
-                display: flex;
-                flex-grow: 2;
-                flex-direction: column;
-                justify-content: center;
-                padding-left: 15px;
-
-                div.quote {
-                    color: $muted;
-
-                    &:before{
-                        content: '\0022';
-                        margin-right: -3px;
-                    }
-
-                    &:after {
-                        content: '\0022';
-                        margin-left: -3px;
-                    }
-                }
-
-                div.reviewer-details {
-                    small {
-                        color: $dark-gray;
-                        font-weight: 500;
-                    }
-                }
-
-                div.reviewed-on {
-                    color: $light-gray;
                 }
             }
         }
