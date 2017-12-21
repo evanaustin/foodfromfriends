@@ -882,87 +882,30 @@ body.front.grower div.main.container {
 body.front.food-listing div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  body.front.food-listing div.main.container #main-content {
-    /* h3.listing-name {
-        color: $dark-gray;
-        font-size: 2em;
+  body.front.food-listing div.main.container #main-content div.set {
+    margin-top: 2em; }
+    body.front.food-listing div.main.container #main-content div.set .user-block + .user-block {
+      padding-top: 1rem;
+      border-top: 1px solid #f5f5f5; }
+    body.front.food-listing div.main.container #main-content div.set div.callout {
+      position: relative; }
+      body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child) {
+        margin-bottom: 1.5rem; }
+        body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child):after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          bottom: -0.75rem;
+          border-bottom: 1px solid #f5f5f5; }
+      body.front.food-listing div.main.container #main-content div.set div.callout h6 {
+        margin-bottom: 0.5em;
         font-weight: 500;
-        
-        small {
-            color: $light-gray;
-            font-weight: 100;
-        }
-        
-        span {
-            border-bottom: 3px solid $light-green;
-        }
-    } */
-    /* span.listing-rating {
-        color: $superlight-green;
-    } */
-    /* div.bio {
-        margin: 1em 0;
-        color: $muted;
-    } */
-    /* div.grower-title {
-        div.name, div.rating {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        div.name {
-            padding-right: 5px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        div.rating {
-            // padding: 0 3px;
-            // border: 1px solid $edge-color;
-            // background-color: #fff;
-            // background-color: $superlight-green;
-            font-size: 0.75em;
-            // color: #3FC592;
-            // color: #fff;
-            color: $muted;
-            // color: $superlight-green;
-            // @include rounded($radius);
-            
-            i {
-                line-height: 18px;
-            }
-        }
-    } */
-    /* div.grower-location {
-        padding-top: 0.75em;
-        font-weight: 400;
-        font-size: 0.85em;
-        color: $dark-gray;
-    } */ }
-    body.front.food-listing div.main.container #main-content div.set {
-      margin-top: 2em; }
-      body.front.food-listing div.main.container #main-content div.set .user-block + .user-block {
-        padding-top: 1rem;
-        border-top: 1px solid #f5f5f5; }
-      body.front.food-listing div.main.container #main-content div.set div.callout {
-        position: relative; }
-        body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child) {
-          margin-bottom: 1.5rem; }
-          body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child):after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            bottom: -0.75rem;
-            border-bottom: 1px solid #f5f5f5; }
-        body.front.food-listing div.main.container #main-content div.set div.callout h6 {
-          margin-bottom: 0.5em;
-          font-weight: 500;
-          text-transform: uppercase;
-          color: #636c72; }
-        body.front.food-listing div.main.container #main-content div.set div.callout p {
-          color: #b2b2b2; }
-          body.front.food-listing div.main.container #main-content div.set div.callout p:not(:last-child) {
-            margin-bottom: 0.5em; }
+        text-transform: uppercase;
+        color: #636c72; }
+      body.front.food-listing div.main.container #main-content div.set div.callout p {
+        color: #b2b2b2; }
+        body.front.food-listing div.main.container #main-content div.set div.callout p:not(:last-child) {
+          margin-bottom: 0.5em; }
   body.front.food-listing div.main.container #basket-form-container {
     background-color: #fff;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
