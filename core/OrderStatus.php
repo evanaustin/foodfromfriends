@@ -168,27 +168,17 @@ class OrderStatus extends Base {
     }
     
     /**
-     * Buyer reviews a suborder
+     * Buyer reviews a suborder (seller & items)
      * Clear suborder
-     * 
-     * @condition[AND] Fulfilled
-     * @condition[AND] Within 3 days of fulfillment
-     * @condition[AND] Not cleared
-     * 
-     * @todo Rate seller
-     * @todo Review seller
-     * @todo Rate items
      */
     public function review() {
-        if (isset($this->fulfilled_on) && !isset($this->cleared_on)) {
-            $this->reviewed_on = \Time::now();
-            
-            $this->update([
-                'reviewed_on' => $this->reviewed_on
-            ]);
+        $this->reviewed_on = \Time::now();
+        
+        $this->update([
+            'reviewed_on' => $this->reviewed_on
+        ]);
 
-            $this->clear();
-        }
+        $this->clear();
     }
     
     /**
