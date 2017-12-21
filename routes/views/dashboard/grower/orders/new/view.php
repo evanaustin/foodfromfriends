@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->d < 1) {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->days < 1) {
 
             ?>
 

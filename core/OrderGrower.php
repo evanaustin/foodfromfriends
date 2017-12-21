@@ -12,7 +12,8 @@ class OrderGrower extends Base {
         $distance,
         $subtotal,
         $exchange_fee,
-        $total;
+        $total,
+        $grower_operation_rating_id;
 
     public
         $Exchange,
@@ -147,6 +148,58 @@ class OrderGrower extends Base {
             'subtotal'  => $this->subtotal,
             'total'     => $this->total,
         ]);
+    }
+
+    /**
+     * Calls `OrderGrower->rate()` to rate the seller
+     * Calls `OrderGrower->FoodListings->rate()` to rate each item
+     * Calls `OrderGrower->Status->review()` to mark the order as reviewed
+     * 
+     * @param array $data The full data from the buyer's review
+     */
+    public function review($data) {
+        $this->rate($data['seller-score'], $data['seller-review']);
+
+        foreach ($data['items'] as $food_listing_id => $rating) {
+            $this->FoodListings[$food_listing_id]->rate($this->user_id, $rating['score'], $rating['review']);
+        }
+
+        $this->Status->review();
+    }
+
+    /**
+     * Record the seller's rating
+     * Store rating ID in order_grower record
+     * Re-calculate & record seller's average rating
+     * 
+     * @param int $score The buyer's numerical score for the seller
+     * @param text $review The buyer's written review of the seller
+     */
+    public function rate($score, $review) {
+        $grower_rating = $this->add([
+            'grower_operation_id' => $this->grower_operation_id,
+            'user_id'   => $this->user_id,
+            'score'     => $score,
+            'review'    => $review
+        ], 'grower_operation_ratings');
+
+        $this->update([
+            'grower_operation_rating_id' => $grower_rating['last_insert_id']
+        ]);
+
+        $this->grower_operation_rating_id = $grower_rating['last_insert_id'];
+
+        $results = $this->DB->run('
+            SELECT AVG(score) AS average
+            FROM grower_operation_ratings
+            WHERE grower_operation_id=:grower_operation_id
+        ',[
+            'grower_operation_id' => $this->grower_operation_id
+        ]);
+
+        $this->update([
+            'average_rating' => $results[0]['average']
+        ], 'id', $this->grower_operation_id, 'grower_operations');
     }
 
     /** 

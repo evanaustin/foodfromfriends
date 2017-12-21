@@ -39,12 +39,12 @@
                     $i = 1;
 
                     foreach($new as $order) {
-                        $time_elapsed = $Time->elapsed($order['placed_on']);
+                        $time_elapsed = \Time::elapsed($order['placed_on']);
                         
                         // skip expired orders
-                        if ($time_elapsed['diff']->d >= 1) continue;
+                        if ($time_elapsed['diff']->days >= 1) continue;
 
-                        $time_until = $Time->until($order['placed_on'], '24 hours');
+                        $time_until = \Time::until($order['placed_on'], '24 hours');
 
                         $ThisUser = new User([
                             'DB' => $DB,

@@ -102,7 +102,29 @@ function getDistance($p1, $p2) {
             sin($dLong / 2) * sin($dLong / 2);
     $c      = 2 * atan2(sqrt($a), sqrt(1 - $a));
     $d      = $R * $c;
+
     return $d; // returns the distance in miles
 };
+
+function stars($rating) {
+    if ($rating == 0) {
+        $stars = '<bold>New</bold>';
+    } else {
+        $floor  = floor($rating);
+        $ceil   = ceil($rating);
+        
+        $stars  = '';
+        
+        for ($i = 0; $i < $floor; $i++) {
+            $stars .= '<i class="fa fa-star"></i>';
+        } if ($floor < $rating && $rating < $ceil) {
+            $stars .= '<i class="fa fa-star-half-o"></i>';
+        } for ($i = $ceil; $i < 5; $i++) {
+            $stars .= '<i class="fa fa-star-o"></i>';
+        }
+    }
+
+    return $stars;
+}
 
 ?>

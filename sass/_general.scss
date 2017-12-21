@@ -101,6 +101,33 @@ canvas {
     }
 }
 
+.font-18 {
+    font-size: 18px;
+}
+
+.font-85 {
+    font-size: 0.85rem;
+}
+
+.line-18 {
+    line-height: 18px;
+}
+
+.inline-middle {
+    > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.brand {
+    color: $superlight-green;
+}
+
+.white {
+    color: #fff;
+}
+
 .light-gray {
     color: $light-gray;
 } .light-gray-bg {
@@ -257,6 +284,14 @@ canvas {
     align-items: center;
 }
 
+.flexjustifycenter {
+    justify-content: center;
+}
+
+.flexstart {
+    justify-content: flex-start;
+}
+
 .flexend {
     justify-content: flex-end;
 }
@@ -297,20 +332,40 @@ canvas {
     margin: 0 !important;
 }
 
+.margin-top-125em {
+    margin-top: 1.25rem !important;
+}
+
 .margin-top-1em {
-    margin-top: 1em !important;
+    margin-top: 1rem !important;
+}
+
+.margin-top-75em {
+    margin-top: 0.75rem !important;
+}
+
+.margin-btm-2em {
+    margin-bottom: 2rem !important;
 }
 
 .margin-btm-1em {
-    margin-bottom: 1em !important;
+    margin-bottom: 1rem !important;
 }
 
 .margin-btm-75em {
     margin-bottom: .75rem !important;
 }
 
+.margin-btm-50em {
+    margin-bottom: .50rem !important;
+}
+
 .margin-btm-25em {
     margin-bottom: .25rem !important;
+}
+
+.margin-top-btm-1em {
+    margin: 1rem 0 !important;
 }
 
 .p1w {
@@ -383,5 +438,12 @@ canvas {
 
 .rounded-circle {
     display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    padding: 0.25em;
+    background-color: $superlight-green;
+    line-height: 1em;
+    color: #fff;
+    text-align: center;
     @include rounded(50px);
 }

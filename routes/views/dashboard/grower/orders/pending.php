@@ -38,7 +38,7 @@
                     $i = 1;
 
                     foreach($pending as $order) {
-                        $time_elapsed = $Time->elapsed($order['confirmed_on']);
+                        $time_elapsed = \Time::elapsed($order['confirmed_on']);
                         
                         $ThisUser = new User([
                             'DB' => $DB,
