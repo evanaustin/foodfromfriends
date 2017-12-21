@@ -15,7 +15,8 @@ class OrderFoodListing extends Base {
         $unit_weight,
         $weight_units,
         $quantity,
-        $total;
+        $total,
+        $food_listing_rating_id;
         
     function __construct($parameters) {
         $this->table = 'order_food_listings';
@@ -64,17 +65,6 @@ class OrderFoodListing extends Base {
      * Changes the quantity of this item in the cart
      */
     public function modify_quantity($quantity) {
-        // ? use Base function
-        /* $this->DB->run('
-            UPDATE order_food_listings 
-            SET quantity = :quantity 
-            WHERE id = :id 
-            LIMIT 1
-        ', [
-            'quantity' => $quantity,
-            'id' => $this->id
-        ]); */
-
         $this->update([
             'quantity' => $quantity 
         ]);
@@ -101,5 +91,40 @@ class OrderFoodListing extends Base {
         $this->unit_weight = $FoodListing->weight;
         $this->weight_units = $FoodListing->units;
         $this->total = $this->quantity * $FoodListing->price;
+    }
+
+    /**
+     * Record the item's rating
+     * Store rating ID in order_food_listing record
+     * 
+     * @param int $buyer_id The buyer's user ID
+     * @param int $score The buyer's numerical score for the item
+     * @param text $review The buyer's written review of the item
+     */
+    public function rate($buyer_id, $score, $review) {
+        $item_rating = $this->add([
+            'food_listing_id' => $this->food_listing_id,
+            'user_id'   => $buyer_id,
+            'score'     => $score,
+            'review'    => $review
+        ], 'food_listing_ratings');
+
+        $this->update([
+            'food_listing_rating_id' => $item_rating['last_insert_id']
+        ]);
+
+        $this->food_listing_rating_id = $item_rating['last_insert_id'];
+
+        $results = $this->DB->run('
+            SELECT AVG(score) AS average
+            FROM food_listing_ratings
+            WHERE food_listing_id=:food_listing_id
+        ',[
+            'food_listing_id' => $this->food_listing_id
+        ]);
+
+        $this->update([
+            'average_rating' => $results[0]['average']
+        ], 'id', $this->food_listing_id, 'food_listings');
     }
 }
