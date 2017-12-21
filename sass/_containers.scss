@@ -209,7 +209,7 @@ keymap {
  * Used: alone, in .bubbles, in .blocks
  */
 .callout {
-    margin: 20px 0;
+    margin-bottom: 0.5rem;
     padding: 10px 20px;
     border-left: 5px solid #eee;
     color: $muted;
@@ -235,7 +235,7 @@ keymap {
     }
 
     + .callout {
-        margin-top: -5px;
+        // margin-top: -5px;
     }
 
     &.bordered {
@@ -611,6 +611,7 @@ fable {
         display: flex;
         align-items: center;
         justify-content: center;
+        min-width: 75px;
         margin: 0;
     }
 
@@ -624,6 +625,7 @@ fable {
 
         div {
             display: flex;
+            align-items: center;
         
             &:last-child {
                 justify-content: flex-end;
