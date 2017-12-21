@@ -10,7 +10,7 @@
 
                     <div class="row">
                         <div class="col-lg-3">
-                            <div id="sidebar-content">
+                            <div id="sidebar-content" class="sticky-top">
                                 <div class="photo box">
                                     <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                 </div>
@@ -19,33 +19,31 @@
                                     <div id="map"></div>
                                 </div>
 
-                                <div class="photo box">
-                                    <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
-                                </div>
-                            </div> <!-- end div.sidebar-content -->
+                                <!-- <div class="photo box">
+                                    <?php //img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
+                                </div> -->
+                            </div>
                         </div>
 
                         <div class="col-lg-5">
                             <div id="main-content">
-                                <h3 class="listing-name">
+                                <h2 class="dark-gray bold margin-btm-25em">
                                     <?php echo $FoodListing->title; ?>
-                                </h3>
+                                </h2>
 
-                                <h6 class="listing-subtitle">
-                                    <!-- ! dynamically construct -->
-                                    <span class="listing-rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                <h6 class="muted normal margin-btm-1em">
+                                    <span class="brand">
+                                        <?php echo $item_stars; ?>
                                     </span>
 
-                                    <!-- ! this is dirty -->
+                                    <div class="rounded-circle"><?php echo count($ratings); ?></div>
+
+                                    <!-- ! dirty -->
                                     &nbsp;&bull;&nbsp;
                                     
                                     $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
                                     
+                                    <!-- ! dirty -->
                                     &nbsp;&bull;&nbsp;
                                     
                                     <?php echo $FoodListing->quantity . ' in stock'; ?>
@@ -53,52 +51,22 @@
                                 
                                 <?php
                                 
-                                if (!empty($FoodListing->description)) echo "<div class=\"bio\">{$FoodListing->description}</div>";
+                                if (!empty($FoodListing->description)) {
+                                    echo "<p class=\"muted margin-btm-2em\">{$FoodListing->description}</p>";
+                                }
 
                                 ?>
 
-                                <div class="grower-snapshot set">
-                                    <div class="title">
-                                        <strong>About the grower</strong>
-                                    </div>
-
-                                    <div class="subtitle">
-                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
-                                    </div>
-
-                                    <div class="callout">   
-                                        <div class="grower-title">
-                                            <div class="name">
-                                                <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
-                                                    <?php echo $GrowerOperation->details['name']; ?>
-                                                </a>
-                                            </div>
-
-                                            <div class="rating">
-                                                <?php echo $grower_stars; ?>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="text-muted">
-                                            <?php echo $GrowerOperation->details['bio']; ?>
-                                        </div>
-
-                                        <div class="grower-location">
-                                            <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="available-exchange-options set">
-                                    <div class="title">
-                                        <strong>Exchange options</strong> 
-                                        (<?php echo count($exchange_options_available); ?>)
-                                    </div>
+                                    <h4 class="margin-btm-50em">
+                                        <bold class="dark-gray">Exchange options</bold>
+                                        <light class="light-gray">(<?php echo count($exchange_options_available); ?>)</light>
+                                    </h4>
 
-                                    <div class="subtitle">
+                                    <div class="muted margin-btm-1em">
                                         Available options for getting your food
                                     </div>
-
+                                    
                                     <?php
                                                 
                                     if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
@@ -106,29 +74,27 @@
                                         ?>
 
                                         <div class="callout">
-                                            <h6>
+                                            <div class="muted font-18 thick">
                                                 Delivery
-                                            </h6>
+                                            </div>
                                             
-                                            <p>
-                                                Will deliver within: 
-                                                <?php echo $GrowerOperation->Delivery->distance; ?> 
-                                                miles
-                                            </p>
+                                            <div>
+                                                Will deliver within: <?php echo $GrowerOperation->Delivery->distance; ?> miles
+                                            </div>
 
                                             <?php
                                             
                                             if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
                                                 
-                                                echo "<p>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</p>";
+                                                echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
 
                                             }
 
                                             ?>
 
-                                            <p>
-                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . '/' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
-                                            </p>
+                                            <div>
+                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                            </div>
                                         </div>
 
                                         <?php
@@ -138,18 +104,18 @@
                                         ?>
                                         
                                         <div class="callout">
-                                            <h6>
+                                            <div class="muted font-18 thick">
                                                 Pickup
-                                            </h6>
+                                            </div>
 
-                                            <p>
+                                            <div>
                                                 <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
-                                            </p>
+                                            </div>
                                             
                                             <?php
                                             
-                                            if (isset($distance)) {
-                                                echo "<p>{$distance['length']} {$distance['units']} away</p>";
+                                            if (isset($distance) && $distance['length'] > 0) {
+                                                echo "<div>{$distance['length']} {$distance['units']} away</div>";
                                             }
 
                                             ?>
@@ -162,14 +128,14 @@
                                         ?>
                                         
                                         <div class="callout">
-                                            <h6>
+                                            <div class="muted font-18 thick">
                                                 Meetup
-                                            </h6>
+                                            </div>
 
-                                            <p>
+                                            <div>
                                                 <?php echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : ''); ?><br>
                                                 <?php echo $GrowerOperation->Meetup->city . ', ' . $GrowerOperation->Meetup->state . ' ' . $GrowerOperation->Meetup->zipcode; ?>
-                                            </p>
+                                        </div>
                                         </div>
 
                                         <?php
@@ -178,8 +144,82 @@
                                     
                                     ?>
                                 </div>
+
+                                <div class="reviews set">
+                                    <h4 class="margin-btm-50em ">
+                                        <bold class="dark-gray">Reviews</bold> 
+                                        <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                    </h4>
+                                    
+                                    <div class="muted margin-btm-1em">
+                                        Ratings & reviews from customers
+                                    </div>
+
+                                    <?php 
+                                    
+                                    foreach ($ratings as $rating) { 
+                                    
+                                        $ReviewUser = new User([
+                                            'DB' => $DB,
+                                            'id' => $rating['user_id']
+                                        ]);
+
+                                        ?>           
+                                        
+                                        <div class="user-block margin-btm-1em">                  
+                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                            
+                                            <div class="user-content">
+                                                <p class="muted margin-btm-25em">
+                                                    &quot;<?php echo $rating['review']; ?>&quot;
+                                                </p>
+
+                                                <small class="dark-gray bold flexstart">
+                                                    <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        
+                                        <?php
+
+                                        }
+
+                                    ?>
+                                </div>
+
+                                <div class="about-grower set">
+                                    <h4 class="margin-btm-50em ">
+                                        <bold class="dark-gray">About the grower</bold> 
+                                    </h4>
+
+                                    <div class="muted margin-btm-1em">
+                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
+                                    </div>
+
+                                    <div class="user-block">
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>    
+                                    
+                                        <div class="user-content">
+                                            <div class="font-18 muted thick">    
+                                                <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
+                                                    <?php echo $GrowerOperation->details['name']; ?>
+                                                </a>
+                                            </div>
+                                                
+                                            <div class="font-85 muted bold margin-btm-50em">
+                                                <?php echo $grower_stars; ?>
+                                                &nbsp;&bull;&nbsp;
+                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
+                                            </div>
+                                            
+                                            <p class="light-gray">
+                                                <?php echo $GrowerOperation->details['bio']; ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>    
-                        </div> <!-- end div.main-content -->
+                        </div>
 
                         <div class="col-lg-4">
                             <div id="basket-form-container" class="sticky-top">
