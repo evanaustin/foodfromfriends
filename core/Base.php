@@ -35,7 +35,7 @@ abstract class Base {
         return (isset($results[0])) ? $results[0] : false;
     }
 
-    public function retrieve($field = null, $data = null, $table = null) {
+    public function retrieve($field = null, $data = null, $table = null, $recent = false) {
         if (!isset($table)) {
             $table = $this->table;
         }
@@ -51,9 +51,15 @@ abstract class Base {
                 'data' => $data
             ];
             
-            $results = $this->DB->run("
-                SELECT * FROM {$table} WHERE {$field}=:data 
-            ", $bind);
+            if (!$recent) {
+                $results = $this->DB->run("
+                    SELECT * FROM {$table} WHERE {$field}=:data ORDER BY id asc
+                ", $bind);
+            } else {
+                $results = $this->DB->run("
+                    SELECT * FROM {$table} WHERE {$field}=:data ORDER BY id desc
+                ", $bind);
+            }
             
             return (isset($results)) ? $results : false;
         } else {
