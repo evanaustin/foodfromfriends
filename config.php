@@ -15,7 +15,7 @@ switch($_SERVER['SERVER_NAME']) {
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
-            'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME'] . '/'
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/'
         ];    
         
         break;
@@ -37,6 +37,10 @@ $secrets = [
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
     'DB_PW'             => $DB_KEY,
+    'STRIPE_PK_LIVE'    => $STRIPE_PK_LIVE,
+    'STRIPE_SK_LIVE'    => $STRIPE_SK_LIVE,
+    'STRIPE_PK_TEST'    => $STRIPE_PK_TEST,
+    'STRIPE_SK_TEST'    => $STRIPE_SK_TEST,
     'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
     'AWS_SECRET'        => $AWS_SECRET,
@@ -79,7 +83,7 @@ try {
  * GUMP Validator
  **/
 
-$Gump = new GUMP();
+$Gump   = new GUMP();
 
 
 
@@ -87,8 +91,17 @@ $Gump = new GUMP();
  * AWS
  **/
 
-$AWS = new Aws();
-$S3 = new S3($AWS);
+$AWS    = new Aws();
+$S3     = new S3($AWS);
+
+
+
+/**
+ * Num & Time
+ **/
+
+$Num    = new Num();
+$Time   = new Time();
 
 
 

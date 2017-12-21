@@ -1,6 +1,15 @@
 App.Form = function() {
     function listener() {
         /*
+        * Focus input group
+        */
+        $('div.input-group.w-addon').on('focus', 'input, select', function() {
+            $(this).parent().addClass('focused');
+        }).on('blur', 'input, select', function() {
+            $(this).parent().removeClass('focused');
+        });
+
+        /*
         * Parsley
         */
         $('form').parsley({
@@ -17,11 +26,11 @@ App.Form = function() {
         });
 
         window.Parsley.on('field:error', function() {
-            this.$element.addClass('form-control-danger');
+            this.$element.removeClass('form-control-success').addClass('form-control-danger');
         });
-
+        
         window.Parsley.on('field:success', function() {
-            this.$element.addClass('form-control-success');
+            this.$element.removeClass('form-control-danger').addClass('form-control-success');
         });
 
 

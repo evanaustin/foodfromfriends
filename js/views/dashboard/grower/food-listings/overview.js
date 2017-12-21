@@ -12,11 +12,11 @@ $('a.remove-listing').on('click', function(e) {
         buttons: {
             confirm: {
                 label: 'Oh yeah',
-                className: 'btn-primary'
+                className: 'btn-warning'
             },
             cancel: {
                 label: 'Nope',
-                className: 'btn-secondary'
+                className: 'btn-muted'
             }
         },
         callback: function(result) {
@@ -34,15 +34,4 @@ $('a.remove-listing').on('click', function(e) {
         }
     });
     
-});
-
-/*
-* Show the image cards
-*/
-$('div.card').each(function(i, obj) {
-    $(this).imagesLoaded(function() {
-        setTimeout(function() {
-            $(obj).removeClass('hidden');
-        }, 200 * i);
-    });
 });

@@ -1,27 +1,33 @@
 @charset 'utf-8';
 
-$radius: 0.25rem;
-$edge-color: #f5f5f5;
-
 /**
 * Dependencies
 **/
 @import 'mixins';
-@import 'colors';
+@import 'variables';
 @import 'thirdparty/bootstrap/variables';
 
 /**
-* View Styles
+* Architecture
 **/
+@import 'architecture/universal';
+@import 'architecture/front';
+
+/**
+* Components
+**/
+@import 'components/front/cart';
+
+/**
+* Views
+**/
+@import 'views/front/map';
 @import 'views/front/user';
 @import 'views/front/grower';
 @import 'views/front/food-listing';
+@import 'views/front/checkout';
 
 /**
-* Modal Styles
+* Modals
 **/
 @import 'modals/account';
-
-main { // this should be templated
-    padding-bottom: 48px; // footer height
-}

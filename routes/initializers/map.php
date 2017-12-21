@@ -4,13 +4,13 @@ $settings = [
     'title' => 'Map | Food From Friends'
 ];
 
-$city = $_GET['city'];
+// $city = $_GET['city'];
 
 $GrowerOperation = new GrowerOperation([
     'DB' => $DB
 ]);
 
-$growers = $GrowerOperation->pull_all_active();
+$growers = $GrowerOperation->retrieve('is_active', true);
 
 // Set the tile width for the results pane
 $grower_count = count($growers);
@@ -42,107 +42,93 @@ $data = [
 
 $c = 0;
 
-foreach ($growers as $grower) {
-    // get grower type
-    $ThisGrowerOperation = new GrowerOperation([
-        'DB' => $DB,
-        'id' => $grower['id']
-    ]);
-
-    $growers[$c]['listing_count'] = $ThisGrowerOperation->count_listings();
-
-    // variances
-    if ($ThisGrowerOperation->type == 'none') {
-        $ThisUser   = new User([
+if (!empty($growers)) {
+    foreach ($growers as $grower) {
+        // get grower type
+        $ThisGrowerOperation = new GrowerOperation([
             'DB' => $DB,
-            'id' => $grower['user_id']
+            'id' => $grower['id'],
+        ], [
+            'details'   => true
         ]);
     
-        $growers[$c]['filename']   = (!empty($ThisUser->filename)) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg';
+        $growers[$c]['listing_count'] = $ThisGrowerOperation->count_listings();
+    
+        $growers[$c]['path']        = $ThisGrowerOperation->details['path'];
+        $growers[$c]['ext']         = $ThisGrowerOperation->details['ext'];
         
-        $growers[$c]['latitude']   = $ThisUser->latitude;
-        $growers[$c]['longitude']  = $ThisUser->longitude;
+        $growers[$c]['latitude']    = $ThisGrowerOperation->details['lat'];
+        $growers[$c]['longitude']   = $ThisGrowerOperation->details['lng'];
     
-        $growers[$c]['name']       = $ThisUser->first_name;
-        $growers[$c]['city']       = $ThisUser->bio;
+        $growers[$c]['name']        = $ThisGrowerOperation->details['name'];
+        $growers[$c]['bio']         = $ThisGrowerOperation->details['bio'];
     
-        $growers[$c]['city']       = $ThisUser->city;
-        $growers[$c]['state']      = $ThisUser->state;
+        $growers[$c]['city']        = $ThisGrowerOperation->details['city'];
+        $growers[$c]['state']       = $ThisGrowerOperation->details['state'];
     
-        $growers[$c]['joined_on']  = $ThisUser->registered_on;
-    } else {
-        $growers[$c]['filename']   = (!empty($ThisGrowerOperation->filename)) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/grower-operation-images/' . $ThisGrowerOperation->filename . '.' . $ThisGrowerOperation->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg';
-        
-        $growers[$c]['latitude']   = $ThisGrowerOperation->latitude;
-        $growers[$c]['longitude']  = $ThisGrowerOperation->longitude;
+        $growers[$c]['joined_on']   = $ThisGrowerOperation->details['joined'];
     
-        $growers[$c]['name']       = $ThisGrowerOperation->name;
-        $growers[$c]['bio']        = $ThisGrowerOperation->bio;
+        // get star rating
+        /* $stars  = '';
     
-        $growers[$c]['city']       = $ThisGrowerOperation->city;
-        $growers[$c]['state']      = $ThisGrowerOperation->state;
+        $floor  = floor($grower['rating']);
+        $ceil   = ceil($grower['rating']);
     
-        $growers[$c]['joined_on']  = $ThisGrowerOperation->created_on;
-    }
-
-    // get star rating
-    /* $stars  = '';
-
-    $floor  = floor($grower['rating']);
-    $ceil   = ceil($grower['rating']);
-
-    for ($i = 0; $i < $floor; $i++) {
-        $stars .= '<i class="fa fa-star"></i>';
-    } if ($floor < $grower['rating'] && $grower['rating'] < $ceil) {
-        $stars .= '<i class="fa fa-star-half-o"></i>';
-    } for ($i = $ceil; $i < 5; $i++) {
-        $stars .= '<i class="fa fa-star-o"></i>';
-    }
-
-    $growers[$c]['stars'] = (isset($grower['rating']) ? $stars : '<span class="no-rating">New</span>'); */
-
-
-    // get distance between user and grower
-    if (!empty($User->latitude) && !empty($User->longitude)) {
-        $distance = [];
-
-        $length = getDistance([
-            'lat' => $User->latitude,
-            'lng' => $User->longitude
-        ],
-        [
-            'lat' => $growers[$c]['latitude'],
-            'lng' => $growers[$c]['longitude']
-        ]);
-
-        if ($length < 0.1) {
-            $distance['length'] = round($length * 5280);
-            $distance['units'] = 'feet';
-        } else {
-            $distance['length'] = round($length, 1);
-            $distance['units'] = 'miles';
+        for ($i = 0; $i < $floor; $i++) {
+            $stars .= '<i class="fa fa-star"></i>';
+        } if ($floor < $grower['rating'] && $grower['rating'] < $ceil) {
+            $stars .= '<i class="fa fa-star-half-o"></i>';
+        } for ($i = $ceil; $i < 5; $i++) {
+            $stars .= '<i class="fa fa-star-o"></i>';
         }
-
-        $growers[$c]['distance'] = $distance;
+    
+        $growers[$c]['stars'] = (isset($grower['rating']) ? $stars : '<span class="no-rating">New</span>'); */
+    
+    
+        // get distance between user and grower
+        if (isset($User) 
+        && !empty($User->latitude) && !empty($User->longitude) 
+        && !empty($GrowerOperation->details['lat']) && !empty($GrowerOperation->details['lng'])) {
+            $distance = [];
+    
+            $length = getDistance([
+                'lat' => $User->latitude,
+                'lng' => $User->longitude
+            ],
+            [
+                'lat' => $growers[$c]['latitude'],
+                'lng' => $growers[$c]['longitude']
+            ]);
+    
+            if ($length < 0.1) {
+                $distance['length'] = round($length * 5280);
+                $distance['units'] = 'feet';
+            } else {
+                $distance['length'] = round($length, 1);
+                $distance['units'] = 'miles';
+            }
+    
+            $growers[$c]['distance'] = $distance;
+        }
+    
+        $data['features'][] = [
+            'type'          => 'Feature',
+            'properties'    => [
+                // 'scale'         => $grower['id'] * 10,
+                'photo'         => $growers[$c]['path'] . '.' . $growers[$c]['ext'],
+                'name'          => $growers[$c]['name'],
+                // 'rating'        => $growers[$c]['stars'],
+                'distance'      => (!empty($distance) ? $distance['length'] . ' ' . $distance['units'] . ' away' : $growers[$c]['city'] . ', ' . $growers[$c]['state']),
+                'listings'      => $growers[$c]['listing_count'] . ' listing' . ($growers[$c]['listing_count'] > 1 ? 's' : '')
+            ],
+            'geometry'      => [
+                'type'          => 'Point',
+                'coordinates'   => [$growers[$c]['longitude'], $growers[$c]['latitude']]
+            ]
+        ];
+    
+        $c++;
     }
-
-    $data['features'][] = [
-        'type'          => 'Feature',
-        'properties'    => [
-            // 'scale'         => $grower['id'] * 10,
-            'photo'         => $growers[$c]['filename'],
-            'name'          => $growers[$c]['name'],
-            // 'rating'        => $growers[$c]['stars'],
-            'distance'      => (!empty($distance) ? $distance['length'] . ' ' . $distance['units'] . ' away' : $city . ', ' . $state),
-            'listings'      => $growers[$c]['listing_count'] . ' listing' . ($growers[$c]['listing_count'] > 1 ? 's' : '')
-        ],
-        'geometry'      => [
-            'type'          => 'Point',
-            'coordinates'   => [$growers[$c]['longitude'], $growers[$c]['latitude']]
-        ]
-    ];
-
-    $c++;
 }
 
 ?>

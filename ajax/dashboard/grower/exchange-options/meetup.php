@@ -12,16 +12,16 @@ $_POST = $Gump->sanitize($_POST);
 foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $rules = [
-    'is-offered'        => 'required|boolean',
-    'address-line-2'    => 'alpha_space|max_len,15'
+    'is-offered' => 'required|boolean'
 ];
 
 if ($is_offered) {
-    $rules['address-line-1'] = 'required|alpha_numeric_space|max_len,25';
-    $rules['city'] = 'required|alpha_space|max_len,25';
-    $rules['state'] = 'required|regex,/^[A-Z]{2}$/';
-    $rules['zip'] = 'required|regex,/^[0-9]{5}$/';
-    $rules['time'] = 'required';
+    $rules['address-line-1']    = 'required|alpha_numeric_space|max_len,35';
+    $rules['address-line-2']    = 'alpha_numeric_space|max_len,25';
+    $rules['city']              = 'required|alpha_space|max_len,35';
+    $rules['state']             = 'required|regex,/^[A-Z]{2}$/';
+    $rules['zipcode']           = 'required|regex,/^[0-9]{5}$/';
+    $rules['time']              = 'required';
 }
 
 $Gump->validation_rules($rules);
@@ -36,7 +36,7 @@ $Gump->filter_rules([
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
-	'zip'               => 'trim|whole_number'
+	'zipcode'           => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -54,7 +54,7 @@ if ($Meetup->exists('grower_operation_id', $User->GrowerOperation->id)) {
         'address_line_2'        => ($is_offered ? $address_line_2 : ''),
         'city'                  => ($is_offered ? $city : ''),
         'state'                 => ($is_offered ? $state : ''),
-        'zip'                   => ($is_offered ? $zip : ''),
+        'zipcode'                   => ($is_offered ? $zipcode : ''),
         'time'                  => ($is_offered ? $time : ''),
     ], 'grower_operation_id', $User->GrowerOperation->id);
 
@@ -67,7 +67,7 @@ if ($Meetup->exists('grower_operation_id', $User->GrowerOperation->id)) {
         'address_line_2'        => $address_line_2,
         'city'                  => $city,
         'state'                 => $state,
-        'zip'                   => $zip,
+        'zipcode'                   => $zipcode,
         'time'                  => $time
     ]);
 

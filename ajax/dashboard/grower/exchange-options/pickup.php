@@ -16,8 +16,8 @@ $rules = [
 ];
 
 if ($is_offered) {
-    $rules['instructions'] = 'required';
-    $rules['availability'] = 'required';
+    $rules['instructions']  = 'required';
+    $rules['time']          = 'required';
 }
 
 $Gump->validation_rules($rules);
@@ -30,7 +30,7 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
     'instructions'  => 'trim|sanitize_string',
-	'availability'  => 'trim|sanitize_string'
+	'time'          => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -45,7 +45,7 @@ if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
     $updated = $Pickup->update([
         'is_offered'            => $is_offered,
         'instructions'          => ($is_offered ? $instructions : ''),
-        'availability'          => ($is_offered ? $availability : '')
+        'time'                  => ($is_offered ? $time : '')
     ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your pickup preferences');
@@ -54,7 +54,7 @@ if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
         'grower_operation_id'   => $User->GrowerOperation->id,
         'is_offered'            => $is_offered,
         'instructions'          => $instructions,
-        'availability'          => $availability
+        'time'                  => $time
     ]);
 
     if (!$added) quit('We could not save your pickup preferences');

@@ -46,9 +46,9 @@ if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
         'is_offered'            => $is_offered,
         'distance'              => $distance,
         'delivery_type'         => $delivery_type,
-        'free_distance'         => $free_distance,
-        'pricing_rate'          => $pricing_rate,
-        'fee'                   => $fee * 100
+        'free_distance'         => (isset($free_distance) ? $free_delivery : 0),
+        'fee'                   => $fee * 100,
+        'pricing_rate'          => $pricing_rate
     ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your delivery preferences');
@@ -58,10 +58,9 @@ if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
         'is_offered'            => $is_offered,
         'distance'              => (isset($distance) ? $distance : ''),
         'delivery_type'         => (isset($delivery_type) ? $delivery_type : ''),
-        'free_delivery'         => (isset($free_delivery) ? $free_delivery : ''),
-        'free_miles'            => (isset($free_miles) ? $free_miles : ''),
-        'pricing_rate'          => (isset($pricing_rate) ? $pricing_rate : ''),
-        'fee'                   => (isset($fee) ? $fee : '')
+        'free_distance'         => (isset($free_distance) ? $free_distance : 0),
+        'fee'                   => (isset($fee) ? $fee : ''),
+        'pricing_rate'          => (isset($pricing_rate) ? $pricing_rate : '')
     ]);
 
     if (!$added) quit('We could not add your delivery preferences');

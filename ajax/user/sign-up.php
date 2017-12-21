@@ -91,12 +91,10 @@ $Mail = new Mail([
 
 $Mail->thanks_signup();
 
-if (isset($GrowerOperation)) {
-    if ($GrowerOperation->permission == 2) {
-        $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
-    } else {
-        $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower/food-listings/overview';
-    }
+if (isset($redirect) && $redirect == 'false') {
+    $json['redirect'] = false;
+} else if (isset($GrowerOperation)) {
+    $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
 } else {
     $json['redirect'] = PUBLIC_ROOT . 'map';
 }

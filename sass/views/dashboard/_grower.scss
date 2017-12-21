@@ -1,41 +1,6 @@
-$radius: 0.25rem;
-$edge-color: #f5f5f5;
-
 body.dashboard-grower {
-    div.main.container-fluid {
+    div.container-fluid {
         padding: 10px;
-
-        div.seamless {
-            div.row {
-                margin: 0;
-    
-                > div {
-                    padding: 10px;
-                }
-            }
-        }
-
-        div.block {
-            padding: 2em 0;
-            background-color: #fff;
-            text-align: center;
-            color: $muted;
-            @include rounded($radius);
-    
-            div.value {
-                line-height: 1.25;
-                font-size: 48px;
-                font-family: 'Signika';
-                font-weight: 500;
-            }
-    
-            div.descriptor {
-                font-size: 14px;
-                font-weight: 300;
-                text-transform: uppercase;
-                color: $dark-gray;
-            }
-        }
 
         div.list-blocks {
             div.list-group {
@@ -49,7 +14,7 @@ body.dashboard-grower {
                 div.description {
                     padding: 1em;
                     background: $muted;
-                    border: 1px solid $edge-color;
+                    border: 1px solid $superlight-gray;
                     border-top-width: 0;
                     border-bottom-width: 0;
                     font-size: 85%;
@@ -62,32 +27,45 @@ body.dashboard-grower {
                     @include rounded(0px);
                 }
 
-                a {
-                    display: block;
-                    padding-left: 1em;
-                    padding-right: 1em;
-                    border-color: $edge-color;
+                div.list-ticks {
+                    @include drop-shadow(0, 2px, 4px);
+                    @include rounded($radius);
                     
-                    &.disabled {
-                        cursor: text;
-                        color: $light-gray;
-                    }
+                    a {
+                        display: block;
+                        padding-left: 1em;
+                        padding-right: 1em;
+                        border-color: $edge-color;
 
-                    &:not(.disabled):not(.active) {
-                        color: $muted;
-                    }
-                    
-                    i {
-                        float: right;
-                        opacity: 0.75;
-                        line-height: 1.5;
-
-                        &.fa-check {
-                            color: $brand-success;
+                        &.list-group-item {
+                            border-width: 0px;
+                            
+                            &:not(:first-child) {
+                                border-top-width: 1px;
+                            }
+                        }
+                        
+                        &.disabled {
+                            cursor: text;
+                            color: $light-gray;
                         }
 
-                        &.fa-times {
-                            color: $light-gray;
+                        &:not(.disabled):not(.active) {
+                            color: $muted;
+                        }
+                        
+                        i {
+                            float: right;
+                            opacity: 0.75;
+                            line-height: 1.5;
+
+                            &.fa-check {
+                                color: $brand-success;
+                            }
+
+                            &.fa-times {
+                                color: $light-gray;
+                            }
                         }
                     }
                 }

@@ -71,7 +71,15 @@ abstract class Base {
         return (isset($results)) ? $results : false;
     }
 
-    public function delete($field, $data, $table = null) {
+    public function delete($field = null, $data = null, $table = null) {
+        if (!isset($field)) {
+            $field = 'id';
+        }
+
+        if (!isset($data)) {
+            $data = $this->id;
+        }
+
         if (!isset($table)) {
             $table = $this->table;
         }
@@ -83,7 +91,15 @@ abstract class Base {
         return ($success) ? true : false;
     }
 
-    public function update($info, $field, $data, $table = null) {
+    public function update($info, $field = null, $data = null, $table = null) {
+        if (!isset($field)) {
+            $field = 'id';
+        }
+
+        if (!isset($data)) {
+            $data = $this->id;
+        }
+       
         if (!isset($table)) {
             $table = $this->table;
         }

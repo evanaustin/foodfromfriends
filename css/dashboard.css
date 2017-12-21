@@ -1,110 +1,261 @@
 /**
 * Dependencies
 **/
+/*
+ * Layering
+ */
+/*
+ * Component Dimensions
+ */
+/*
+* Misc Values
+*/
+/*
+ * Colors
+ */
 /**
-* Component Styles
+* Architecture
 **/
-body.dashboard div.sidebar {
-  height: auto;
+html {
+  height: 100%;
+  box-sizing: border-box; }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit; }
+
+body {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  font-family: 'Museo Sans Rounded', sans-serif;
+  font-weight: 300;
+  color: #404040; }
+
+[canvas=container] {
+  position: absolute;
+  top: 65px;
+  width: 100%;
+  height: calc(100% - 65px);
+  /* > div.container, > div.container-fluid {
+      height: 100%;
+  } */ }
+
+[off-canvas*=right] {
+  top: 65px;
+  height: calc(100% - 65px); }
+
+#header.navbar {
+  /* computed height: 65px */
+  position: fixed;
+  z-index: 99;
+  width: 100%; }
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%; }
+
+body.dashboard {
+  display: flex;
+  flex-direction: column; }
+  @media (max-width: 767px) {
+    body.dashboard {
+      padding-bottom: 60px;
+      /* footer height */ } }
+  body.dashboard div.sidebar {
+    position: fixed; }
+    @media (min-width: 768px) {
+      body.dashboard div.sidebar {
+        width: 16.66667%;
+        height: calc(100% - 65px); } }
+    @media (max-width: 767px) {
+      body.dashboard div.sidebar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        min-height: 60px;
+        z-index: 1; } }
+  body.dashboard main {
+    position: absolute;
+    left: 16.66667%;
+    width: 83.33333%;
+    height: 100%;
+    padding: 0;
+    background-color: #fafafb;
+    z-index: 1; }
+    body.dashboard main div.subheader {
+      /* computed height: 52px */
+      position: fixed;
+      width: inherit;
+      z-index: 99; }
+    body.dashboard main > div.container {
+      padding: 2em; }
+    body.dashboard main > div.container-fluid {
+      padding: 0.5em; }
+    body.dashboard main > div.container,
+    body.dashboard main > div.container-fluid {
+      position: absolute;
+      top: 52px;
+      width: 100%;
+      height: auto;
+      background-color: #fafafb; }
+      body.dashboard main > div.container div.page-title,
+      body.dashboard main > div.container-fluid div.page-title {
+        padding: 0 0 0.5rem;
+        font-weight: 400;
+        color: #4c4c4c; }
+      body.dashboard main > div.container div.seamless div.row,
+      body.dashboard main > div.container-fluid div.seamless div.row {
+        margin: 0; }
+        body.dashboard main > div.container div.seamless div.row > div,
+        body.dashboard main > div.container-fluid div.seamless div.row > div {
+          padding: 10px; }
+      body.dashboard main > div.container div.controls,
+      body.dashboard main > div.container-fluid div.controls {
+        margin: 0 0 0.5rem; }
+        @media (min-width: 768px) {
+          body.dashboard main > div.container div.controls,
+          body.dashboard main > div.container-fluid div.controls {
+            float: right; } }
+        body.dashboard main > div.container div.controls .btn,
+        body.dashboard main > div.container-fluid div.controls .btn {
+          display: block;
+          min-width: 200px;
+          color: #fff;
+          font-size: 0.875rem; }
+          @media (max-width: 767px) {
+            body.dashboard main > div.container div.controls .btn,
+            body.dashboard main > div.container-fluid div.controls .btn {
+              margin-top: 10px;
+              width: 100%; } }
+          body.dashboard main > div.container div.controls .btn:first-child,
+          body.dashboard main > div.container-fluid div.controls .btn:first-child {
+            margin-bottom: 0.5rem; }
+          body.dashboard main > div.container div.controls .btn i.pre,
+          body.dashboard main > div.container-fluid div.controls .btn i.pre {
+            float: left; }
+          body.dashboard main > div.container div.controls .btn i.post,
+          body.dashboard main > div.container-fluid div.controls .btn i.post {
+            margin-top: 1px;
+            float: right; }
+      body.dashboard main > div.container table.datatable,
+      body.dashboard main > div.container-fluid table.datatable {
+        margin-top: 1em; }
+
+/**
+* Components
+**/
+/*
+ * artistic styles reside here
+ * formatting styles can be found in /architecture/dashboard
+ */
+div.sidebar {
   padding-left: 0;
   padding-right: 0;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #f5f5f5;
   box-sizing: border-box; }
   @media (max-width: 767px) {
-    body.dashboard div.sidebar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      min-height: 60px;
-      background-color: #fff;
-      z-index: 1; } }
+    div.sidebar {
+      background-color: #fff; } }
   @media (max-width: 767px) {
-    body.dashboard div.sidebar .navbar {
+    div.sidebar .navbar {
       padding-left: 0;
       padding-right: 0;
       min-height: 60px;
       background-color: #fff;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
       box-sizing: border-box; }
-      body.dashboard div.sidebar .navbar .navbar-collapse {
+      div.sidebar .navbar .navbar-collapse {
         margin-top: calc(60px + 0.5rem - 1rem - 1px); } }
   @media (min-width: 768px) {
-    body.dashboard div.sidebar .navbar {
+    div.sidebar .navbar {
       padding: 0; }
-      body.dashboard div.sidebar .navbar ul.nav {
+      div.sidebar .navbar ul.nav {
         width: 100%; } }
-  body.dashboard div.sidebar .navbar button {
+  div.sidebar .navbar button {
     height: calc(60px - 1rem - 1px); }
-    body.dashboard div.sidebar .navbar button i {
-      color: #7f7f7f; }
-  body.dashboard div.sidebar a.nav-link {
+    div.sidebar .navbar button i {
+      color: #b2b2b2; }
+  div.sidebar a.nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
     font-size: 14px;
     border-left: 2px solid transparent; }
     @media (max-width: 767px) {
-      body.dashboard div.sidebar a.nav-link {
+      div.sidebar a.nav-link {
         padding-left: 15px;
         padding-right: 15px; } }
-    body.dashboard div.sidebar a.nav-link:hover {
+    div.sidebar a.nav-link:hover {
       color: #58707b; }
-    body.dashboard div.sidebar a.nav-link[aria-expanded="true"] {
-      background-color: #f9f9fe;
-      color: #00b371;
+    div.sidebar a.nav-link[aria-expanded="true"] {
+      background-color: #fafafb;
+      color: #00c079;
       font-weight: 500; }
-    body.dashboard div.sidebar a.nav-link.parent:after {
+    div.sidebar a.nav-link.parent:after {
       float: right; }
-    body.dashboard div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+    div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
       content: '\002b'; }
-    body.dashboard div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+    div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
       content: '\2013'; }
-    body.dashboard div.sidebar a.nav-link.child {
+    div.sidebar a.nav-link.child {
       padding: 10px 30px; }
       @media (max-width: 767px) {
-        body.dashboard div.sidebar a.nav-link.child {
+        div.sidebar a.nav-link.child {
           padding-left: 15px;
           padding-right: 15px; } }
-      body.dashboard div.sidebar a.nav-link.child.active {
-        background-color: rgba(0, 179, 113, 0.25);
+      div.sidebar a.nav-link.child.active {
+        background-color: #00c079;
         border-color: #007349;
-        color: #007349;
+        color: #fff;
         font-weight: 400; }
-    body.dashboard div.sidebar a.nav-link.active:not(.parent):not(.child) {
-      color: #006e44;
+      div.sidebar a.nav-link.child i {
+        float: right;
+        margin-top: 5px;
+        font-size: .75rem; }
+    div.sidebar a.nav-link.active:not(.parent):not(.child) {
+      color: #00c079;
       font-weight: 500; }
-  body.dashboard div.sidebar li.nav-item div.collapse.show {
-    background-color: #f9f9fe; }
+  div.sidebar li.nav-item div.collapse.show {
+    background-color: #fafafb; }
 
-body.dashboard div.subheader {
+/*
+ * artistic styles reside here
+ * formatting styles can be found in /architecture/subheader
+ */
+div.subheader {
   background-color: #fff;
-  border-bottom: 1px solid #eee; }
-  body.dashboard div.subheader a.nav-link {
+  border-bottom: 1px solid #f5f5f5; }
+  div.subheader a.nav-link {
     cursor: pointer;
     padding: 15px 0;
     color: #8ca3ad;
     font-size: 14px;
     font-weight: 500; }
-    body.dashboard div.subheader a.nav-link:hover {
+    div.subheader a.nav-link:hover {
       color: #58707b; }
-    body.dashboard div.subheader a.nav-link.active {
-      color: #00A669;
+    div.subheader a.nav-link.active {
+      color: #00c079;
       position: relative; }
-      body.dashboard div.subheader a.nav-link.active:before {
+      div.subheader a.nav-link.active:before {
         content: '';
         position: absolute;
         display: block;
         bottom: 0;
         width: 100%;
         height: 5px;
-        background-color: #007349; }
-  body.dashboard div.subheader div.dropdown-menu {
+        background-color: #00c079; }
+  div.subheader div.dropdown-menu {
     width: 50%;
     left: 0;
     right: 0;
+    z-index: 999;
     margin: 0 auto;
     padding: 0;
-    border-color: #eee;
-    border-top: 0px;
+    border: 0px;
     text-align: center;
     -webkit-border-top-right-radius: 0;
     -webkit-border-bottom-right-radius: 3px;
@@ -120,91 +271,79 @@ body.dashboard div.subheader {
     border-top-left-radius: 0;
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
-    background-clip: padding-box; }
-    body.dashboard div.subheader div.dropdown-menu a {
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
+    div.subheader div.dropdown-menu a {
       cursor: pointer;
       padding: 0.5em 0;
+      font-size: 0.85em;
       color: #636c72; }
-      body.dashboard div.subheader div.dropdown-menu a:not(:last-child) {
+      div.subheader div.dropdown-menu a:not(:last-child) {
         border-bottom: 1px solid #f8f8f8; }
-      body.dashboard div.subheader div.dropdown-menu a.active {
+      div.subheader div.dropdown-menu a.active {
         background-color: #fff;
         font-weight: 400; }
-      body.dashboard div.subheader div.dropdown-menu a:not(.active):hover {
-        background-color: rgba(0, 179, 113, 0.25) !important;
-        color: #005434 !important; }
+      div.subheader div.dropdown-menu a:not(.active):hover {
+        background-color: #00c079 !important;
+        color: #fff !important; }
 
 /**
-* View Styles
+* Views
 * ! these should be loaded elsewhere, individually, as necessary
 **/
-body.dashboard-grower div.main.container-fluid {
+body.dashboard-grower div.container-fluid {
   padding: 10px; }
-  body.dashboard-grower div.main.container-fluid div.seamless div.row {
-    margin: 0; }
-    body.dashboard-grower div.main.container-fluid div.seamless div.row > div {
-      padding: 10px; }
-  body.dashboard-grower div.main.container-fluid div.block {
-    padding: 2em 0;
-    background-color: #fff;
-    text-align: center;
-    color: #636c72;
-    -webkit-border-radius: 0.25rem;
-    -moz-border-radius: 0.25rem;
-    border-radius: 0.25rem; }
-    body.dashboard-grower div.main.container-fluid div.block div.value {
-      line-height: 1.25;
-      font-size: 48px;
-      font-family: 'Signika';
-      font-weight: 500; }
-    body.dashboard-grower div.main.container-fluid div.block div.descriptor {
-      font-size: 14px;
-      font-weight: 300;
-      text-transform: uppercase;
-      color: #4c4c4c; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.heading {
+  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.heading {
     background-color: #4c4c4c;
     border: 0px;
     color: #fff;
     font-weight: 400; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.description {
+  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.description {
     padding: 1em;
     background: #636c72;
-    border: 1px solid #f5f5f5;
+    border: 1px solid #fafafb;
     border-top-width: 0;
     border-bottom-width: 0;
     font-size: 85%;
     color: #fff; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group div.progress {
+  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.progress {
     border-top-width: 0;
     border-bottom-width: 0;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px; }
-  body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a {
-    display: block;
-    padding-left: 1em;
-    padding-right: 1em;
-    border-color: #f5f5f5; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a.disabled {
-      cursor: text;
-      color: #b2b2b2; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a:not(.disabled):not(.active) {
-      color: #636c72; }
-    body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i {
-      float: right;
-      opacity: 0.75;
-      line-height: 1.5; }
-      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-check {
-        color: #5cb85c; }
-      body.dashboard-grower div.main.container-fluid div.list-blocks div.list-group a i.fa-times {
+  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks {
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem; }
+    body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a {
+      display: block;
+      padding-left: 1em;
+      padding-right: 1em;
+      border-color: #f5f5f5; }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item {
+        border-width: 0px; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child) {
+          border-top-width: 1px; }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled {
+        cursor: text;
         color: #b2b2b2; }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active) {
+        color: #636c72; }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i {
+        float: right;
+        opacity: 0.75;
+        line-height: 1.5; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check {
+          color: #5cb85c; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times {
+          color: #b2b2b2; }
 
-body.dashboard-grower-food-listings-overview div.tree-art img {
-  max-width: 75%;
-  max-height: 475px;
-  float: right;
-  opacity: 0.5; }
 body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) div.card {
   margin-top: 0.25em; }
 body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child(n+4) div.card {
@@ -212,11 +351,33 @@ body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child
 @media (max-width: 767px) {
   body.dashboard-grower-food-listings-overview div.listings div.col-md-4:not(:last-child) div.card {
     margin-bottom: 10px; } }
-body.dashboard-grower-food-listings-overview div.card-block {
+body.dashboard-grower-food-listings-overview div.card {
+  border: 0px; }
+body.dashboard-grower-food-listings-overview div.card-img-top {
   padding: 0; }
+  body.dashboard-grower-food-listings-overview div.card-img-top img {
+    border: 0px;
+    -webkit-border-top-right-radius: 0.25rem;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-left-radius: 0.25rem;
+    -moz-border-radius-topright: 0.25rem;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0.25rem;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
+body.dashboard-grower-food-listings-overview div.card-block {
+  padding: 0;
+  border: 0px; }
   body.dashboard-grower-food-listings-overview div.card-block h6.card-subtitle {
-    color: #b2b2b2;
-    padding: 0.25rem 0; }
+    padding: 0.25rem 0;
+    color: #b2b2b2; }
   body.dashboard-grower-food-listings-overview div.card-block p.card-text {
     margin-top: 0.25rem;
     color: #7f7f7f; }
@@ -229,7 +390,7 @@ body.dashboard-grower-food-listings-overview div.listing-info {
   flex-grow: 2;
   justify-content: center;
   padding: 1.25rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.15); }
+  border-right: 1px solid #f5f5f5; }
 body.dashboard-grower-food-listings-overview div.listing-controls {
   flex-grow: 1; }
   body.dashboard-grower-food-listings-overview div.listing-controls a {
@@ -239,60 +400,59 @@ body.dashboard-grower-food-listings-overview div.listing-controls {
     justify-content: center;
     width: 100%; }
     body.dashboard-grower-food-listings-overview div.listing-controls a:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
+      border-bottom: 1px solid #f5f5f5; }
 
-/**
-* Dashboard styles
-* ! maybe pull this out
-*/
-body.dashboard {
+div.seamless .card {
   display: flex;
-  flex-direction: column; }
-  @media (max-width: 767px) {
-    body.dashboard {
-      padding-bottom: 60px;
-      /* footer height */ } }
-  body.dashboard div.container-fluid {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin: 0; }
-    body.dashboard div.container-fluid > div.row {
-      flex-grow: 1; }
-  body.dashboard main {
-    padding: 0;
-    background-color: #fafafb; }
-    body.dashboard main div.page-title {
-      padding: 0.5rem 0;
-      font-weight: 400;
-      color: #4c4c4c; }
-    body.dashboard main div.controls {
-      margin: 0.5rem 0; }
-      @media (min-width: 768px) {
-        body.dashboard main div.controls {
-          float: right; } }
-      body.dashboard main div.controls .btn {
-        display: block;
-        min-width: 200px;
-        color: #fff;
-        font-size: 0.875rem; }
-        @media (max-width: 767px) {
-          body.dashboard main div.controls .btn {
-            margin-top: 10px;
-            width: 100%; } }
-        body.dashboard main div.controls .btn:first-child {
-          margin-bottom: 0.5rem; }
-        body.dashboard main div.controls .btn i.pre {
-          float: left; }
-        body.dashboard main div.controls .btn i.post {
-          margin-top: 1px;
-          float: right; }
-    body.dashboard main div.main.container {
-      padding: 15px; }
-      body.dashboard main div.main.container div.side-art img {
-        float: right;
-        max-width: 75%;
-        max-height: 475px;
-        opacity: 0.5; }
+  flex-direction: row;
+  margin-top: 1em;
+  /* + .card {
+      margin-top: 1em;
+  } */ }
+  div.seamless .card div.item-image {
+    flex-basis: 30%;
+    padding: 0.5em; }
+    div.seamless .card div.item-image img {
+      border: 1px solid #f5f5f5;
+      -webkit-border-radius: 0.25rem;
+      -moz-border-radius: 0.25rem;
+      border-radius: 0.25rem; }
+  div.seamless .card .card-subtitle {
+    margin-top: 0; }
+div.seamless .block.map {
+  position: relative;
+  padding: 0 !important;
+  text-align: left !important; }
+  div.seamless .block.map:before {
+    content: '';
+    display: block;
+    padding-top: 100%; }
+  div.seamless .block.map div#map {
+    top: 0.5rem;
+    left: 0.5rem;
+    bottom: 0.5em;
+    width: calc(100% - 1rem);
+    height: calc(100% - 1.25em); }
+div.seamless .block + .block {
+  margin-top: 1em; }
+div.seamless .block div.buyer-photo {
+  margin: 0 auto 1em;
+  height: 75px;
+  width: 75px;
+  background-size: cover;
+  background-position: center center;
+  border: 1px solid #f5f5f5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+div.seamless .block .callout {
+  text-align: left; }
+  div.seamless .block .callout + .callout {
+    margin-top: 0px; }
+  div.seamless .block .callout p {
+    margin-bottom: 0; }
 
 /*# sourceMappingURL=dashboard.css.map */

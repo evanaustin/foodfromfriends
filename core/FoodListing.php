@@ -2,6 +2,26 @@
  
 class FoodListing extends Base {
     
+    public
+        $id,
+        $grower_operation_id,
+        $food_subcategory_id,
+        $other_subcategory,
+        $price,
+        $weight,
+        $units,
+        $quantity,
+        $is_available,
+        $description,
+        $archived_on,
+        $subcategory_title,
+        $category_title,
+        $filename,
+        $ext;
+
+    public
+        $name;
+
     protected
         $class_dependencies,
         $DB,
@@ -20,6 +40,8 @@ class FoodListing extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully($this->id);
+
+            $this->title = ucfirst((!empty($this->other_subcategory)) ? $this->other_subcategory : $this->subcategory_title);
         }
     }
 

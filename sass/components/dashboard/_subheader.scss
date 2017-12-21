@@ -1,65 +1,72 @@
-body.dashboard {
-    div.subheader {
-        background-color: #fff;
-        border-bottom: 1px solid #eee;
-        
-        a.nav-link {
-            cursor: pointer;
-            padding: 15px 0;
-            color: #8ca3ad;
-            font-size: 14px;
-            font-weight: 500;
+/*
+ * artistic styles reside here
+ * formatting styles can be found in /architecture/subheader
+ */
 
-            &:hover {
-                color: #58707b;
+div.subheader {
+    background-color: #fff;
+    border-bottom: 1px solid $edge-color;
+    
+    a.nav-link {
+        cursor: pointer;
+        padding: 15px 0;
+        color: #8ca3ad;
+        font-size: 14px;
+        font-weight: 500;
+
+        &:hover {
+            color: #58707b;
+        }
+
+        &.active {
+            color: $superlight-green;
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                display: block;
+                bottom: 0;
+                width: 100%;
+                height: 5px;
+                background-color: $superlight-green;
+            }
+        }
+    }
+
+    div.dropdown-menu {
+        width: 50%;
+        left: 0; 
+        right: 0;
+        z-index: $super-z;
+        margin: 0 auto;
+        padding: 0;
+        // border-color: $edge-color;
+        // border-top: 0px;
+        border: 0px;
+        text-align: center;
+        @include border-radius(0, 3px, 3px, 0);
+        @include drop-shadow(0, 5px, 10px);
+
+        a {
+            cursor: pointer;
+            padding: 0.5em 0;
+            font-size: 0.85em;
+            color: $muted;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba(248,248,248,1);
             }
 
             &.active {
-                color: $light-green;
-                position: relative;
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                    display: block;
-                    bottom: 0;
-                    width: 100%;
-                    height: 5px;
-                    background-color: darken($light-green, 10%);
-                }
+                background-color: #fff;
+                // color: $light-green;
+                font-weight: 400;
             }
-        }
 
-        div.dropdown-menu {
-            width: 50%;
-            left: 0; 
-            right: 0; 
-            margin: 0 auto;
-            padding: 0;
-            border-color: #eee;
-            border-top: 0px;
-            text-align: center;
-            @include border-radius(0, 3px, 3px, 0);
-
-            a {
-                cursor: pointer;
-                padding: 0.5em 0;
-                color: $muted;
-
-                &:not(:last-child) {
-                    border-bottom: 1px solid rgba(248,248,248,1);
-                }
-
-                &.active {
-                    background-color: #fff;
-                    // color: $light-green;
-                    font-weight: 400;
-                }
-
-                &:not(.active):hover {
-                    background-color: $faded-green !important; 
-                    color: $dark-green !important;
-                }
+            &:not(.active):hover {
+                background-color: $superlight-green !important; 
+                color: #fff !important;
             }
         }
     }

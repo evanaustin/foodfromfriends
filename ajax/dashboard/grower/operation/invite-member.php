@@ -44,7 +44,7 @@ if (!$invitee) {
     // existing user
 
     // check to see if association exists
-    $association = $User->GrowerOperation->check_association($User->GrowerOperation->id, $invitee[0]['id']);
+    $association = $User->GrowerOperation->check_association($invitee[0]['id'], $User->GrowerOperation->id);
 
     if (!$association) {
         // create association

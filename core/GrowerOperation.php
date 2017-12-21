@@ -2,11 +2,40 @@
  
 class GrowerOperation extends Base {
     
+    public
+        $id,
+        $grower_operation_type_id,
+        $name,
+        $bio,
+        $referral_key,
+        $created_on,
+        $is_active,
+        $type,
+        $address_line_1,
+        $address_line_2,
+        $city,
+        $state,
+        $zipcode,
+        $latitude,
+        $longitude,
+        $filename,
+        $ext;
+
+    public
+        $details,
+        $new_orders,
+        $pending_orders;
+
+    public
+        $Delivery,
+        $Pickup,
+        $Meetup;
+    
     protected
         $class_dependencies,
         $DB;
 
-    function __construct($parameters) {
+    function __construct($parameters, $configure = null) {
         $this->table = 'grower_operations';
 
         $this->class_dependencies = [
@@ -18,7 +47,14 @@ class GrowerOperation extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully();
-            $this->configure_exchange_options();
+
+            if (isset($configure['details']) && $configure['details'] == true) {
+                $this->configure_details();
+            }
+
+            if (isset($configure['exchange']) && $configure['exchange'] == true) {
+                $this->configure_exchange_options();
+            }
         }
     }
     
@@ -57,7 +93,48 @@ class GrowerOperation extends Base {
 
         if (!isset($results[0])) return false;
         
-        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+        foreach ($results[0] as $k => $v) $this->{$k} = $v;
+    }
+    
+    private function configure_details() {
+        if ($this->type == 'none') {
+            $owner_id = $this->get_owner();
+            
+            $Owner = new User([
+                'DB' => $this->DB,
+                'id' => $owner_id
+            ]);
+    
+            $this->details = [
+                'name'      => $Owner->first_name,
+                'lat'       => $Owner->latitude,
+                'lng'       => $Owner->longitude,
+                'bio'       => $Owner->bio,
+                'address_line_1' => $Owner->address_line_1,
+                'address_line_2' => $Owner->address_line_2,
+                'city'      => $Owner->city,
+                'state'     => $Owner->state,
+                'zipcode'   => $Owner->zipcode,
+                'path'      => '/profile-photos/' . $Owner->filename,
+                'ext'       => $Owner->ext,
+                'joined'    => $Owner->registered_on   
+            ];
+        } else {
+            $this->details = [
+                'name'      => $this->name,
+                'lat'       => $this->latitude,
+                'lng'       => $this->longitude,
+                'bio'       => $this->bio,
+                'address_line_1' => $this->address_line_1,
+                'address_line_2' => $this->address_line_2,
+                'city'      => $this->city,
+                'state'     => $this->state,
+                'zipcode'   => $this->zipcode,
+                'path'      => '/grower-operation-images/' . $this->filename,
+                'ext'       => $this->ext,
+                'joined'    => $this->created_on   
+            ];
+        }
     }
 
     private function configure_exchange_options() {
@@ -143,6 +220,70 @@ class GrowerOperation extends Base {
         return $this->is_active;
     }
 
+    public function determine_outstanding_orders() {
+        $new = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.expired_on   IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.confirmed_on IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $pending = $this->DB->run('
+            SELECT 
+                og.id
+
+            FROM order_growers og
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.placed_on    IS NOT NULL
+                AND os.confirmed_on IS NOT NULL
+                AND os.fulfilled_on IS NULL
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        $this->new_orders       = isset($new[0]);
+        $this->pending_orders   = isset($pending[0]);
+    }
+
+    public function get_owner() {
+        $results = $this->DB->run('
+            SELECT u.id
+
+            FROM grower_operation_members gom
+
+            JOIN users u
+                ON gom.user_id = u.id
+
+            WHERE gom.grower_operation_id = :grower_operation_id
+                AND gom.permission = 2
+
+            LIMIT 1
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        return (isset($results[0])) ? $results[0]['id'] : false;
+    }
+
     public function get_team_members() {
         $results = $this->DB->run('
             SELECT 
@@ -173,7 +314,11 @@ class GrowerOperation extends Base {
         return (isset($results)) ? $results : false;
     }
 
-    public function check_association($grower_operation_id, $user_id) {
+    public function check_association($user_id, $grower_operation_id = null) {
+        if (!isset($grower_operation_id)) {
+            $grower_operation_id = $this->id;
+        }
+
         $results = $this->DB->run('
             SELECT *
 
@@ -208,26 +353,6 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results[0]['grower_operation_id'] : false;
     }
 
-    public function pull_all_active() {
-        $results = $this->DB->run('
-            SELECT 
-                go.id,
-                gom.user_id
-            
-            FROM grower_operations go
-
-            JOIN grower_operation_members gom
-                ON gom.grower_operation_id = go.id
-
-            WHERE go.is_active = 1
-                AND gom.permission = 2
-
-            GROUP BY go.id
-        ');
-
-        return (isset($results[0])) ? $results : false;
-    }
-
     public function count_listings($grower_operation_id = null) {
         if (!isset($grower_operation_id)) {
             $grower_operation_id = $this->id;
@@ -254,6 +379,43 @@ class GrowerOperation extends Base {
         return (!empty($slug) ? $slug . '_' . $code : $code);
     }
 
-}
+    /**
+     * Returns an array of `Order` objects for all orders that included items from this grower.  Note that
+     * data for all growers in the order is present in each Order->Growers array, so on display you'll
+     * have to show only the data for this grower, which is present in Order->Growers[operation_id].
+     *
+     * By default this method returns all orders.  To return only open orders (ones that haven't been
+     * fulfilled), pass in a `$subset` argument value of `open`.  To return fulfilled orders, pass
+     * in `fulfilled`.
+     *
+     * @param string|null $subset Either `all`, `open`, or `fulfilled`.  Defaults to `all`.
+     * @return array Array of `Order` objects
+     */
+    public function get_orders($subset = 'all') {
+        if ($subset == 'open') {
+            $where = 'AND og.fulfilled_on IS NULL';
+        } else if ($subset == 'fulfilled') {
+            $where = 'AND og.fulfilled_on IS NOT NULL';
+        } else {
+            $where = '';
+        }
 
-?>
+        $results = $this->DB->run('
+            SELECT o.id
+            FROM order_growers og
+            INNER JOIN orders o ON o.id = og.order_id
+            WHERE og.grower_operation_id = :operation_id ' . $where . '
+        ', [
+            'operation_id' => $this->id
+        ]);
+
+        $Orders = [];
+
+        foreach ($results as $result) {
+            $Orders []= new Order(['id' => $result['id']]);
+        }
+
+        return $Orders;
+    }
+
+}

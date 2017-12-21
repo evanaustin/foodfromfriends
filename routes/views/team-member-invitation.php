@@ -9,14 +9,14 @@
                 <?php echo 'Welcome! ' . $invited_by . ' has requested your assistance in managing ' . $operation_name . ' on Food From Friends. Fill out the form below to sign up and join the team.'; ?>
             </p>
 
-            <div class="alert"></div>
+            <div class="alerts"></div>
 
             <form id="sign-up">
                 <input type="hidden" name="operation-key" value="<?php echo $operation_key; ?>">
                 <input type="hidden" name="personal-key" value="<?php echo $personal_key; ?>">
 
                 <div class="form-group">
-                    <div class="input-group"> 
+                    <div class="input-group w-addon"> 
                         <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -26,7 +26,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -46,7 +46,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="password" name="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
                         
                         <span class="input-group-addon">
