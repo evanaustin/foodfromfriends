@@ -6,7 +6,7 @@ $settings = [
 
 $order_grower_id = $_GET['id'];
 
-if ($Num->is_id($order_grower_id)) {
+if (\Num::is_id($order_grower_id)) {
     $OrderGrower = new OrderGrower([
         'DB' => $DB,
         'id' => $order_grower_id,
