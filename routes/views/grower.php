@@ -10,7 +10,7 @@
 
                     <div class="row">   
                         <div class="col-lg-3">
-                            <div class="sidebar-content">
+                            <div id="sidebar-content">
                                 <div class="photo box">
                                     <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
                                 </div>
@@ -64,61 +64,39 @@
                                         </ul>
                                     </ul>
                                 </div>
-                            </div> <!-- end div.left-content -->
+                            </div>
                         </div>
                     
                         <div class="col-lg-9">
                             <div id="main-content">
-                                <div class="name">
-                                    <small>food from </small>
-                                    <span><?php echo $GrowerOperation->details['name']; ?></span>
+                                <h2 class="dark-gray bold margin-btm-25em">
+                                    <?php echo $GrowerOperation->details['name']; ?>
+                                </h2>
+
+                                <div class="muted normal margin-btm-25em">
+                                    <?php echo '<span class="brand">' . $grower_stars . '</span> <div class="rounded-circle">' . count($ratings) . '</div> &bull; ' . $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state'] . ((isset($distance) && $distance['length'] > 0) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
+                                </div>
+
+                                <div class="muted bold margin-btm-1em">
+                                    <?php echo 'Joined in ' . date('F Y', $GrowerOperation->details['joined']); ?>
                                 </div>
 
                                 <?php
                                 
                                 if (!empty($GrowerOperation->details['bio'])) {
-
-                                    ?>
-                                
-                                    <div class="bio">
-                                        <?php echo $GrowerOperation->details['bio']; ?>
-                                    </div>
-                                        
-                                    <div class="location">
-                                        <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state'] . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
-                                    </div>
-
-                                    <div class="joined">
-                                        Joined in <?php echo date('F Y', $GrowerOperation->details['joined']); ?>
-                                    </div>
-
-                                    <?php
-                                
+                                    echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->details['bio']}</p>";
                                 }
-
-                                if (!empty($reviews)) {
-
-                                    ?>
-
-                                    <div class="review-count">
-                                        <div><?php echo count($reviews); ?></div>
-                                        <strong>Reviews</strong>
-                                    </div>
-
-                                    <?php
                                 
-                                }
-
                                 ?>
 
                                 <div class="available-food-listings set">
-                                    <div class="title">
-                                        <strong>Food listings</strong> 
-                                        (<?php echo count($listings); ?>)
-                                    </div>
+                                    <h4 class="margin-btm-50em ">
+                                        <bold class="dark-gray">Items</bold> 
+                                        <light class="light-gray">(<?php echo count($listings); ?>)</light>
+                                    </h4>
 
-                                    <div class="subtitle">
-                                        Available food from <?php echo $GrowerOperation->details['name']; ?>
+                                    <div class="muted margin-btm-1em">
+                                        Available food for sale from <?php echo $GrowerOperation->details['name']; ?>
                                     </div>
 
                                     <div class='row'>
@@ -142,11 +120,17 @@
 
                                                     <div class="card-block d-flex flex-row">
                                                         <div class="listing-info d-flex flex-column">
-                                                            <h5 class="card-title">
+                                                            <h5 class="dark-gray bold margin-btm-50em">
                                                                 <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
                                                             </h5>
                                                             
-                                                            <h6 class="card-subtitle">
+                                                            <h6 class="muted normal margin-btm-50em">
+                                                                <span class="brand">
+                                                                    <?php echo stars($listing['average_rating']); ?>
+                                                                </span>
+
+                                                                &nbsp;&bull;&nbsp;
+
                                                                 <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
                                                             </h6>
 
@@ -187,46 +171,42 @@
                                 
                                 <?php
 
-                                if (!empty($reviews)) {
+                                if (!empty($ratings)) {
 
                                     ?>
 
                                     <div class="reviews set">
-                                        <div class="title">
-                                            <strong>Reviews</strong>
-                                            <?php echo '(' . count($reviews) . ')'; ?>
-                                        </div>
-
-                                        <div class="subtitle">
-                                            Reviews from customers
+                                        <h4 class="margin-btm-50em ">
+                                            <bold class="dark-gray">Reviews</bold> 
+                                            <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                        </h4>
+                                        
+                                        <div class="muted margin-btm-1em">
+                                            Ratings & reviews from customers
                                         </div>
 
                                         <?php 
                                         
-                                        foreach ($reviews as $review) { 
+                                        foreach ($ratings as $rating) { 
                                         
                                             $ReviewUser = new User([
                                                 'DB' => $DB,
-                                                'id' => $review['reviewer_id']
+                                                'id' => $rating['user_id']
                                             ]);
 
                                             ?>           
                                             
-                                            <div class="review-block">                  
-                                                <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                            <div class="user-block margin-btm-1em">                  
+                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
                                                 
-                                                <div class="review-content">
-                                                    <div class="quote">
-                                                        <?php echo $review['content']; ?>
-                                                    </div>
+                                                <div class="user-content">
+                                                    <p class="muted margin-btm-25em">
+                                                        &quot;<?php echo $rating['review']; ?>&quot;
+                                                    </p>
 
-                                                    <div class="reviewer-details">
-                                                        <small><?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?></small>
-                                                    </div>
-                                                    
-                                                    <div class="reviewed-on">
-                                                        <small><?php echo date('F Y', $review['reviewed_on']); ?></small>
-                                                    </div>
+                                                    <small class="dark-gray bold flexstart">
+                                                        <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                                    </small>
                                                 </div>
                                             </div>
                                             
@@ -235,6 +215,7 @@
                                             }
 
                                         ?>
+
                                     </div>
 
                                     <?php
@@ -242,14 +223,14 @@
                                 }
 
                                 ?>
-                            </div> <!-- end div.right-content -->
+                            </div>
                         </div>
                     </div>
                     
                     <?php
 
                 } else {
-                    echo 'Oops! This ID does not belong to an active grower.';
+                    echo 'Oops! This ID is invalid.';
                 }
 
             ?>
