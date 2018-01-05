@@ -2,6 +2,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: inherit;
 }
 
+a {
+    color: inherit;
+}
+
 a, button {
     &:focus {
         outline: 0;
@@ -18,95 +22,20 @@ canvas {
     }
 }
 
-.btn {
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: inherit;
-    // border: 0px;
-    border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
-    @include transition(all .2s);
-
-    &:not([disabled]):hover {
-        @include transform(translateY(-2px));
-        @include drop-shadow(0, 5px, 10px, 0.2);
-    }
-
-    &:focus, &.focus {
-        border-top: 0.5px solid $lightedge-color;
-        border-color: $lightedge-color;
-        @include box-shadow(0 0 0 transparent);
-    }
+.inline-block {
+    display: inline-block;
 }
 
-.btn-primary {
-    &:not([disabled]):hover {
-        background-color: lighten($superlight-green, 5%);
-        border-color: lighten($superlight-green, 5%);
-    }
-}
-
-.btn-muted {
-    background-color: $muted;
-    color: #fff;
-    
-    &:not([disabled]):hover {
-        background-color: lighten($muted, 5%);
-        border-color: lighten($muted, 5%);
-    }
-}
-
-.btn-dark {
-    background-color: $dark-gray;
-    color: #fff;
-    
-    &:not([disabled]):hover {
-        background-color: lighten($superlight-green, 5%);
-        border-color: lighten($superlight-green, 5%);
-    }
-}
-
-.btn-medium-gray {
-    background-color: #00000080;
-    color: #fff;
-    
-    &:not([disabled]):hover {
-        background-color: $dark-gray;
-        border-color: $dark-gray;
-    }
-}
-
-.btn-group {
-    @include drop-shadow(0, 2px, 4px);
-    @include rounded($radius);
-
-    .btn {
-        border-width: 0px;
-        border-color: $edge-color;
-        @include drop-shadow(0, 0, 0, 0);
-
-        &:not(:first-child) {
-            border-left-width: 1px;
-        }
-
-        &:last-child {
-            border-right-width: 1px;
-        }
-
-        &:hover {
-            border-color: transparent;
-            @include transform(none);
-            @include drop-shadow(0, 0, 0, 0);
-        }
-    }
-}
-
-.font-18 {
-    font-size: 18px;
+.tiny {
+    font-size: 0.7rem;
 }
 
 .font-85 {
     font-size: 0.85rem;
+}
+
+.font-18 {
+    font-size: 18px;
 }
 
 .line-18 {
@@ -117,137 +46,6 @@ canvas {
     > * {
         display: inline-block;
         vertical-align: middle;
-    }
-}
-
-.brand {
-    color: $superlight-green;
-}
-
-.white {
-    color: #fff;
-}
-
-.light-gray {
-    color: $light-gray;
-} .light-gray-bg {
-    background-color: $light-gray;
-} .light-gray-bg-hover {
-    &:hover {
-        background-color: $light-gray;
-        color: #fff;
-    }
-}
-
-.medium-gray {
-    color: #00000080;
-} .medium-gray-bg {
-    background-color: #00000080;
-} .medium-gray-bg-hover {
-    &:hover {
-        background-color: #00000080;
-        color: #fff;
-    }
-}
-
-.dark-gray {
-    color: $dark-gray;
-} .dark-gray-bg {
-    background-color: $dark-gray;
-} .dark-gray-bg-hover {
-    &:hover {
-        background-color: $dark-gray;
-        color: #fff;
-    }
-}
-
-.muted {
-    color: $muted;
-} .muted-hover {
-    &:hover {
-        color: $muted !important;
-    }
-} .muted-bg {
-    background-color: $muted;
-} .muted-bg-hover {
-    &:hover {
-        background-color: $muted;
-        color: #fff;
-    }
-}
-
-.info, .teal {
-    color: $teal;
-} .info-hover, .teal-hover {
-    &:hover {
-        color: $teal !important;
-    }
-} .info-bg, .teal-bg {
-    background-color: $teal;
-} .info-bg-hover, .teal-bg-hover {
-    &:hover {
-        background-color: $teal;
-        color: #fff;
-    }
-}
-
-.success, .green {
-    color: $green;
-} .success-hover, .green-hover {
-    &:hover {
-        color: $green !important;
-    }
-} .success-bg, .green-bg {
-    background-color: $green;
-} .success-bg-hover, .green-bg-hover {
-    &:hover {
-        background-color: $green;
-        color: #fff;
-    }
-}
-
-.waiting, .yellow {
-    color: $yellow;
-} .warning-hover, .orange-hover {
-    &:hover {
-        color: $yellow !important;
-    }
-} .waiting-bg, .yellow-bg {
-    background-color: $yellow;
-} .waiting-bg-hover, .yellow-bg-hover {
-    &:hover {
-        background-color: $yellow;
-        color: #fff;
-    }
-}
-
-.warning, .orange {
-    color: $orange;
-} .warning-hover, .orange-hover {
-    &:hover {
-        color: $orange !important;
-    }
-} .warning-bg, .orange-bg {
-    background-color: $orange;
-} .warning-bg-hover, .orange-bg-hover {
-    &:hover {
-        background-color: $orange;
-        color: #fff;
-    }
-}
-
-.danger, .red {
-    color: $red;
-} .danger-hover, .red-hover {
-    &:hover {
-        color: $red !important;
-    }
-} .danger-bg, .red-bg {
-    background-color: $red;
-} .danger-bg-hover, .red-bg-hover {
-    &:hover {
-        background-color: $red;
-        color: #fff;
     }
 }
 
@@ -263,109 +61,12 @@ canvas {
     text-align: center;
 }
 
-.flexbox {
-    display: flex;
-
-    &.flexcolumn {
-        flex-direction: column;
-    }
-
-    &.flexrow {
-        flex-direction: row;
-    }
-}
-
-.flexgrow {
-    display: flex;
-    flex-grow: 1;
-}
-
-.flexcenter {
-    align-items: center;
-}
-
-.flexjustifycenter {
-    justify-content: center;
-}
-
-.flexstart {
-    justify-content: flex-start;
-}
-
-.flexend {
-    justify-content: flex-end;
-}
-
 .hidden {
     display: none !important;
 }
 
-.light, light {
-    font-weight: 100 !important;
-}
-
-.normal, normal {
-    font-weight: 300 !important;
-}
-
-.strong, strong {
-    font-weight: bolder !important;
-}
-
-.bold, bold {
-    font-weight: 500 !important;
-}
-
-.thick, thick {
-    font-weight: 700 !important;
-}
-
-.heavy, heavy {
-    font-weight: 700 !important;
-}
-
 .uppercase, uppercase {
     text-transform: uppercase;
-}
-
-.no-margin {
-    margin: 0 !important;
-}
-
-.margin-top-125em {
-    margin-top: 1.25rem !important;
-}
-
-.margin-top-1em {
-    margin-top: 1rem !important;
-}
-
-.margin-top-75em {
-    margin-top: 0.75rem !important;
-}
-
-.margin-btm-2em {
-    margin-bottom: 2rem !important;
-}
-
-.margin-btm-1em {
-    margin-bottom: 1rem !important;
-}
-
-.margin-btm-75em {
-    margin-bottom: .75rem !important;
-}
-
-.margin-btm-50em {
-    margin-bottom: .50rem !important;
-}
-
-.margin-btm-25em {
-    margin-bottom: .25rem !important;
-}
-
-.margin-top-btm-1em {
-    margin: 1rem 0 !important;
 }
 
 .p1w {
@@ -441,9 +142,381 @@ canvas {
     height: 1.5em;
     width: 1.5em;
     padding: 0.25em;
+    margin: 0 0.25em;
     background-color: $superlight-green;
     line-height: 1em;
     color: #fff;
     text-align: center;
     @include rounded(50px);
 }
+
+
+
+/* MARGIN */
+
+ .no-margin {
+    margin: 0 !important;
+ }
+
+ .margin-top-125em {
+    margin-top: 1.25rem !important;
+ }
+
+ .margin-top-1em {
+    margin-top: 1rem !important;
+ }
+
+ .margin-top-75em {
+    margin-top: 0.75rem !important;
+ }
+ 
+ .margin-top-50em {
+    margin-top: 0.5rem !important;
+ }
+
+ .margin-top-25em {
+    margin-top: 0.25rem !important;
+ }
+
+ .margin-btm-2em {
+    margin-bottom: 2rem !important;
+ }
+
+ .margin-btm-1em {
+    margin-bottom: 1rem !important;
+ }
+
+ .margin-btm-75em {
+    margin-bottom: .75rem !important;
+ }
+
+ .margin-btm-50em {
+    margin-bottom: .5rem !important;
+ }
+
+ .margin-btm-25em {
+    margin-bottom: .25rem !important;
+ }
+ 
+ .margin-btm-0 {
+    margin-bottom: 0 !important;
+ }
+
+ .margin-top-btm-1em {
+    margin: 1rem 0 !important;
+ }
+
+ .margin-right-1em {
+    margin-right: 1rem !important;
+ }
+ 
+ .margin-left-1em {
+    margin-left: 1rem !important;
+ }
+
+
+
+/* FONT WEIGHTS */
+ .light, light {
+    font-weight: 100 !important;
+ }
+
+ .normal, normal {
+    font-weight: 300 !important;
+ }
+
+ .strong, strong {
+    font-weight: bolder !important;
+ }
+
+ .bold, bold {
+    font-weight: 500 !important;
+ }
+
+ .thick, thick {
+    font-weight: 700 !important;
+ }
+
+ .heavy, heavy {
+    font-weight: 700 !important;
+ }
+
+
+
+/* COLORS */
+ .brand {
+    color: $superlight-green;
+ } .brand-hover {
+    &:hover {
+        color: $superlight-green !important;
+    }
+ } .brand-bg {
+    background-color: $superlight-green !important;
+    color: #fff;
+ } .brand-bg-hover {
+    &:hover {
+        background-color: $superlight-green !important;
+        color: #fff;
+    }
+ }
+
+ .white {
+    color: #fff;
+ }
+
+ .light-gray {
+    color: $light-gray;
+ } .light-gray-bg {
+    background-color: $light-gray;
+ } .light-gray-bg-hover {
+    &:hover {
+        background-color: $light-gray;
+        color: #fff;
+    }
+ }
+
+ .medium-gray {
+    color: #00000080;
+ } .medium-gray-bg {
+    background-color: #00000080;
+ } .medium-gray-bg-hover {
+    &:hover {
+        background-color: #00000080;
+        color: #fff;
+    }
+ }
+
+ .dark-gray {
+    color: $dark-gray !important;
+ } .dark-gray-bg {
+    background-color: $dark-gray !important;
+ } .dark-gray-bg-hover {
+    &:hover {
+        background-color: $dark-gray !important;
+        color: #fff;
+    }
+ }
+
+ .muted {
+    color: $muted !important;
+ } .muted-hover {
+    &:hover {
+        color: $muted !important;
+    }
+ } .muted-bg {
+    background-color: $muted !important;
+ } .muted-bg-hover {
+    &:hover {
+        background-color: $muted !important;
+        color: #fff;
+    }
+ }
+
+ .info, .teal {
+    color: $teal !important;
+ } .info-hover, .teal-hover {
+    &:hover {
+        color: $teal !important;
+    }
+ } .info-bg, .teal-bg {
+    background-color: $teal !important;
+ } .info-bg-hover, .teal-bg-hover {
+    &:hover {
+        background-color: $teal !important;
+        color: #fff;
+    }
+ }
+
+ .success, .green {
+    color: $green !important;
+ } .success-hover, .green-hover {
+    &:hover {
+        color: $green !important;
+    }
+ } .success-bg, .green-bg {
+    background-color: $green !important;
+ } .success-bg-hover, .green-bg-hover {
+    &:hover {
+        background-color: $green !important;
+        color: #fff;
+    }
+ }
+
+ .waiting, .yellow {
+    color: $yellow !important;
+ } .warning-hover, .orange-hover {
+    &:hover {
+        color: $yellow !important;
+    }
+ } .waiting-bg, .yellow-bg {
+    background-color: $yellow !important;
+ } .waiting-bg-hover, .yellow-bg-hover {
+    &:hover {
+        background-color: $yellow !important;
+        color: #fff;
+    }
+ }
+
+ .warning, .orange {
+    color: $orange !important;
+ } .warning-hover, .orange-hover {
+    &:hover {
+        color: $orange !important;
+    }
+ } .warning-bg, .orange-bg {
+    background-color: $orange !important;
+ } .warning-bg-hover, .orange-bg-hover {
+    &:hover {
+        background-color: $orange !important;
+        color: #fff;
+    }
+ }
+
+ .danger, .red {
+    color: $red;
+ } .danger-hover, .red-hover {
+    &:hover {
+        color: $red !important;
+    }
+ } .danger-bg, .red-bg {
+    background-color: $red !important;
+ } .danger-bg-hover, .red-bg-hover {
+    &:hover {
+        background-color: $red !important;
+        color: #fff;
+    }
+ }
+
+
+
+/* FLEXBOX */
+
+ .flexbox {
+    display: flex;
+
+    &.flexcolumn {
+        flex-direction: column;
+    }
+
+    &.flexrow {
+        flex-direction: row;
+    }
+ }
+
+ .flexgrow {
+    display: flex;
+    flex-grow: 1;
+ }
+
+ .flexgrow-0 {
+    flex-grow: 0;
+ }
+
+ .flexgrow-2 {
+    flex-grow: 2;
+ }
+
+ .flexgrow-3 {
+    flex-grow: 3;
+ }
+
+ .flexcenter {
+    align-items: center;
+ }
+
+ .flexjustifycenter {
+    justify-content: center;
+ }
+
+ .flexstart {
+    justify-content: flex-start;
+ }
+
+ .flexend {
+    justify-content: flex-end;
+ }
+
+
+
+/* BTN */
+ .btn {
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: inherit;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    &:not([disabled]):hover {
+        @include transform(translateY(-2px));
+        @include drop-shadow(0, 5px, 10px, 0.2);
+    }
+
+    &:focus, &.focus {
+        border-top: 0.5px solid $lightedge-color;
+        border-color: $lightedge-color;
+        @include box-shadow(0 0 0 transparent);
+    }
+ }
+
+ .btn-primary {
+    &:not([disabled]):hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+ }
+
+ .btn-muted {
+    background-color: $muted;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: lighten($muted, 5%);
+        border-color: lighten($muted, 5%);
+    }
+ }
+
+ .btn-dark {
+    background-color: $dark-gray;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+ }
+
+ .btn-medium-gray {
+    background-color: #00000080;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+ }
+
+ .btn-group {
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+
+    .btn {
+        border-width: 0px;
+        border-color: $edge-color;
+        @include drop-shadow(0, 0, 0, 0);
+
+        &:not(:first-child) {
+            border-left-width: 1px;
+        }
+
+        &:last-child {
+            border-right-width: 1px;
+        }
+
+        &:hover {
+            border-color: transparent;
+            @include transform(none);
+            @include drop-shadow(0, 0, 0, 0);
+        }
+    }
+ }
