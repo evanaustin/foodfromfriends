@@ -7,7 +7,7 @@ class Grower extends User {
         $DB;
         
     function __construct($parameters) {
-        $this->table = 'locavores';
+        $this->table = 'growers';
 
         $this->class_dependencies = [
             'DB',
