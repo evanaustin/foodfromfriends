@@ -2,10 +2,6 @@
 
 class Time {
 
-    function __construct() {
-        date_default_timezone_set('America/New_York');
-    }
-
     /**
      * Generates a `datetime` or `date` string for the current time
      *
