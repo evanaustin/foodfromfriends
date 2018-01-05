@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="<?php echo ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? PUBLIC_ROOT . 'dashboard/grower' : PUBLIC_ROOT . 'map'); ?>">
+    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
         <div class="hidden-md-down">
             <?php svg('logos/thin'); ?>
         </div>
@@ -50,7 +50,7 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation) && $User->GrowerOperation->permission == 2) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
@@ -80,6 +80,16 @@
                 ?>
 
                 <div class="hidden-lg-up">
+                    <?php if (isset($User->GrowerOperation)) {
+                        echo "<a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
+                    } ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                            Messages
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                             Edit profile
@@ -102,6 +112,26 @@
                         ></div>
                     
                         <div class="dropdown-menu dropdown-menu-right animated bounceIn">
+                            <?php if (isset($User->GrowerOperation)) {
+                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
+                            } ?>
+
+                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                                Messages
+
+                                <?php
+
+                                $Message = new Message([
+                                    'DB' => $DB
+                                ]);
+
+                                $unread = $Message->unread_aggregate($User);
+
+                                if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+
+                                ?>
+                            </a>
+
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                                 Edit profile
                             </a>
