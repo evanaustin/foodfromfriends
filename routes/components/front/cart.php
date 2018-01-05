@@ -125,7 +125,7 @@
             </div>
         </div>
         
-        <div class="line-amount">
+        <div class="line-amount <?php if (!$User->ActiveOrder || $User->ActiveOrder->exchange_fees == 0) { echo 'hidden'; } ?>">
             <a class="label" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees">
                 Delivery
                 <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees"></i> -->

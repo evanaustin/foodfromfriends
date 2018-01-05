@@ -117,15 +117,15 @@
 
                                                 $active = false;
 
-                                                if ($Routing->page == $alias && !isset($_GET['grower'])) {
+                                                if ($Routing->page == $alias && !($Routing->page == 'selling' && isset($_GET['grower']))) {
                                                     $active = true;
-                                                    echo 'active'; 
                                                 } else if ($Routing->subsection == 'inbox' && $Routing->page == 'selling' && isset($_GET['grower'])) {
                                                     if ($User->Operations[\Num::clean_int($_GET['grower'])]->name == $alias) {
                                                         $active = true;
-                                                        echo 'active';
                                                     }
                                                 }
+                                                
+                                                if ($active) echo 'active';
                                                 
                                                 ?>
                                             ">

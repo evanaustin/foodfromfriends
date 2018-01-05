@@ -132,7 +132,7 @@ App.Front.FoodListing = function() {
                                         '</div>' +
                                         
                                         '<div class="rate exchange-fee">' +
-                                            response.ordergrower.ex_fee +
+                                            ((response.ordergrower.exchange == 'Delivery') ? response.ordergrower.ex_fee : 'Free') +
                                         '</div>' +
                                     '</div>'
                                 );
@@ -140,9 +140,16 @@ App.Front.FoodListing = function() {
 
                             $('#end-breakdown').removeClass('hidden');
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
-                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
                             $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
                             $('#end-breakdown').find('.rate.total').text(response.order.total);
+                            
+                            if (response.order.ex_fee != '$0.00') {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
+                            } else {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(0);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
+                            }
                             
                             $(Slidebar.events).unbind('opened');
                         });
@@ -179,9 +186,16 @@ App.Front.FoodListing = function() {
                             $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option[value=' + formdata['quantity'] + ']').attr('selected', 'selected');
 
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
-                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
                             $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
                             $('#end-breakdown').find('.rate.total').text(response.order.total);
+
+                            if (response.order.ex_fee != '$0.00') {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
+                            } else {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(0);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
+                            }
 
                             $(Slidebar.events).unbind('opened');
                         });
@@ -217,9 +231,16 @@ App.Front.FoodListing = function() {
                             $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
 
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
-                            $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
                             $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
                             $('#end-breakdown').find('.rate.total').text(response.order.total);
+
+                            if (response.order.ex_fee != '$0.00') {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
+                            } else {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(0);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
+                            }
                             
                             $(Slidebar.events).unbind('opened');
                         });
