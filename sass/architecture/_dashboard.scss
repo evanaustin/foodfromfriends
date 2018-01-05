@@ -55,6 +55,7 @@ body.dashboard {
             top: $subheader-height;
             width: 100%;
             height: auto;
+            min-height: calc(100% - 52px);
             background-color: $superlight-gray;
 
             div.page-title {
