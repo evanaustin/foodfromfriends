@@ -20,19 +20,19 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="user-data col-md-6">
-                                        Evan Grinde
+                                        <?php echo $User->name; ?>
                                     </div>
 
                                     <div class="user-data col-md-6">
-                                        evan.grinde@gmail.com
+                                        <?php echo $User->email; ?>
                                     </div>
                                     
                                     <div class="user-data col-md-6">
-                                        (540) 484-3988
+                                        <?php echo $User->phone; ?>
                                     </div>
 
                                     <div class="user-data col-md-6">
-                                        303 Oakcliff Drive, Hardy, VA
+                                        <?php echo "{$User->address_line_1}, {$User->city} {$User->state}"; ?>
                                     </div>
                                 </div>
                             </div>
