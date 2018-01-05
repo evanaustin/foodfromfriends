@@ -30,7 +30,7 @@ App.Front.FoodListing = function() {
 
                 $sign_up_modal.modal();
 
-                App.Util.msg('Hey! Sign on up first &mdash; then we can build your cart!', 'info', $sign_up_form);
+                App.Util.msg('Hey! Sign up first &mdash; then we can build your cart!', 'info', $sign_up_form);
 
                 $sign_up_form
                     .find('input[name="redirect"]')
