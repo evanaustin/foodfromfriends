@@ -62,11 +62,11 @@ $('#edit-basic-information').on('submit', function(e) {
 	    formdata = new FormData($form[0]);
 	    
 	    if (App.Image.files.length > 0) {
-		  $.each(App.Image.files, function(k, v) {
-			formdata.append('img' + k, v);
-		  });
-		  
-		  formdata.append('images', JSON.stringify(App.Image.getCropData()));
+            $.each(App.Image.files, function(k, v) {
+                formdata.append('img' + k, v);
+            });
+            
+            formdata.append('images', JSON.stringify(App.Image.getCropData()));
 		}
 		
 		data = formdata;
