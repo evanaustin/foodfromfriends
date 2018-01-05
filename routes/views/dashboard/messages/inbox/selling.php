@@ -19,7 +19,7 @@
                     ]);
 
                     $sent_on = new DateTime($ThisMessage->sent_on);
-                    $date_sent = $sent_on->format('g:i A m/d/y'); 
+                    $date_sent = $sent_on->format('g:i A n/j/y'); 
                     
                     $snippet = truncate($ThisMessage->body, 85);
 
