@@ -38,6 +38,10 @@ $Review = new Review([
     'DB' => $DB
 ]);
 
-$reviews = $Review->retrieve('grower_id', $ThisUser->id);
+$reviews = $Review->retrieve([
+    'where' => [
+        'grower_id' => $ThisUser->id
+    ]
+]);
 
 ?>

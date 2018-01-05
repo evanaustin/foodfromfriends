@@ -25,7 +25,11 @@ $Mail = new Mail([
     'toEmail' => $email
 ]);
 
-$invitee = $User->retrieve('email', $email);
+$invitee = $User->retrieve([
+    'where' => [
+        'email' => $email
+    ]
+]);
 
 if (!$invitee) {
     // new user

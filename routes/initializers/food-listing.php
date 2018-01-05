@@ -52,7 +52,13 @@ if (isset($FoodListing->id)) {
         $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);
         $item_stars     = ($FoodListing->average_rating == 0) ? 'New' : stars($FoodListing->average_rating);
 
-        $ratings = $FoodListing->get_ratings();
+        $ratings = $FoodListing->retrieve([
+            'where' => [
+                'food_listing_id' => $FoodListing->id
+            ],
+            'table' => 'food_listing_ratings',
+            'recent' => true
+        ]);
 
         $settings['title'] = $FoodListing->title . ' from ' . $GrowerOperation->details['name'] . ' | Food From Friends';
     }

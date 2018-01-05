@@ -49,7 +49,13 @@ if ($User->exists('email', $email)) {
     // check if joining team
     if (!empty($operation_key) && !empty($personal_key)) {
         // should probably search by both referral key & operation ID
-        $association = $User->retrieve('referral_key', $personal_key, 'grower_operation_members');
+        $association = $User->retrieve([
+            'where' => [
+                'referral_key' => $personal_key
+            ],
+            'table' => 'grower_operation_members'
+        ]);
+        
         $association = $association[0];
 
         // make sure association exists
