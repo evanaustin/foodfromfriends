@@ -39,21 +39,24 @@
                     $i = 1;
 
                     foreach($new as $order) {
+                        $OrderGrower = new OrderGrower([
+                            'DB' => $DB,
+                            'id' => $order['id']
+                        ]);
+                        
                         $time_elapsed = \Time::elapsed($order['placed_on']);
                         
-                        // skip expired orders
-                        // if ($time_elapsed['diff']->days >= 1) continue;
+                        // handle expired orders
+                        if ($time_elapsed['diff']->days >= 1) {
+                            $OrderGrower->Status->expire();
+                            continue;
+                        }
 
                         $time_until = \Time::until($order['placed_on'], '24 hours');
 
                         $ThisUser = new User([
                             'DB' => $DB,
                             'id' => $order['user_id']
-                        ]);
-
-                        $OrderGrower = new OrderGrower([
-                            'DB' => $DB,
-                            'id' => $order['id']
                         ]);
 
                         ?>
@@ -72,7 +75,7 @@
                             </td>
 
                             <td class="amount">
-                                $<?php echo number_format($order['total'] / 100, 2); ?>
+                                <?php amount($order['total']); ?>
                             </td>
                             
                             <td class="exchange-type">
@@ -80,7 +83,7 @@
                             </td>
                             
                             <td class="buyer">
-                                <?php echo $ThisUser->name; ?>
+                                <?php echo $ThisUser->first_name; ?>
                             </td>
 
                             <td class="details">
