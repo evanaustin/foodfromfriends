@@ -89,11 +89,9 @@ class OrderStatus extends Base {
     public function expire() {
         if (!isset($this->rejected_on) && !isset($this->confirmed_on)) {
             $time_elapsed = \Time::elapsed($this->placed_on);
-            error_log(json_encode($time_elapsed));
             
             if ($time_elapsed['diff']->days >= 1) {
                 $this->expired_on = \Time::now();
-                error_log(json_encode($this->expired_on));
                 
                 $this->update([
                     'expired_on' => $this->expired_on
