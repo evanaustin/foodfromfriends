@@ -14,6 +14,7 @@ class User extends Base {
         $bio,
         $registered_on,
         $stripe_customer_id,
+        $timezone,
         $address_line_1,
         $address_line_2,
         $city,
