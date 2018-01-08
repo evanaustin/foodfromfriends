@@ -15,7 +15,20 @@ var App = function() {
 
 		$('.card').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 			$(this).removeClass('animated fadeIn zoomIn bounceIn slideIn');
-		});
+        });
+        
+        /*
+         * Toastr options
+         */
+        toastr.options = {
+            toastClass: 'alert',
+            iconClasses: {
+                error: 'alert-danger',
+                info: 'alert-info',
+                success: 'alert-success',
+                warning: 'alert-warning'
+            }
+        }
 	}
 
 	return {
