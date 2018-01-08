@@ -214,6 +214,11 @@ canvas {
     margin-left: 1rem !important;
  }
 
+ .margin-w-1em {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+ }
+
 
 
 /* FONT WEIGHTS */
@@ -409,7 +414,7 @@ canvas {
  }
 
  .flexgrow-0 {
-    flex-grow: 0;
+    flex-grow: 0 !important;
  }
 
  .flexgrow-2 {
