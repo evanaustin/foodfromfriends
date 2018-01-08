@@ -34,7 +34,7 @@ App.Dashboard.PendingOrderView = function() {
                                 toastr.success('Fulfilled! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/grower/orders/completed/view?id=' + ordergrower_id;
+                                    window.location = PUBLIC_ROOT + 'dashboard/grower/orders/under-review/view?id=' + ordergrower_id;
                                 }, 1500);
                             },
                             function(response) {
