@@ -15,6 +15,9 @@ class OrderStatus extends Base {
         $cleared_on,
         $refunded_on; // ! this will probably go in a separate class/table
 
+    public
+        $status;
+
     protected
         $class_dependencies,
         $DB;
@@ -28,7 +31,49 @@ class OrderStatus extends Base {
 
         parent::__construct($parameters);
     
-        if (isset($parameters['id'])) $this->configure_object($parameters['id']);
+        if (isset($parameters['id'])) {
+            $this->configure_object($parameters['id']);
+            $this->classify();
+        }
+    }
+
+    private function classify() {
+        if (!isset($this->expired_on) && !isset($this->rejected_on) && !isset($this->confirmed_on)) {
+            $time_until = \Time::until($this->placed_on, '24 hours');
+            
+            if (!$time_until) {
+                $this->expire();
+            } else {
+                $this->status = 'not yet confirmed';
+            }
+            
+        } else if (isset($this->expired_on)) {
+            $this->status = 'expired';
+            
+        } else if (isset($this->rejected_on)) {
+            $this->status = 'rejected';
+            
+        } else if (isset($this->confirmed_on) && !isset($this->fulfilled_on)) {
+            $this->status = 'pending fulfillment';
+        
+        } else if (isset($this->buyer_cancelled_on)) {
+            $this->status = 'cancelled by buyer';
+            
+        } else if (isset($this->seller_cancelled_on)) {
+            $this->status = 'cancelled by seller';
+        
+        } else if (isset($this->fulfilled_on) && !isset($this->cleared_on)) {
+            $time_until = \Time::until($this->fulfilled_on, '3 days');
+            
+            if (!$time_until) {
+                $this->clear();
+            } else {
+                $this->status = 'open for review';
+            }
+        
+        } else if (isset($this->cleared_on)) {
+            $this->status = 'complete';
+        }
     }
 
     /**
@@ -44,13 +89,17 @@ class OrderStatus extends Base {
     public function expire() {
         if (!isset($this->rejected_on) && !isset($this->confirmed_on)) {
             $time_elapsed = \Time::elapsed($this->placed_on);
+            error_log(json_encode($time_elapsed));
             
             if ($time_elapsed['diff']->days >= 1) {
                 $this->expired_on = \Time::now();
+                error_log(json_encode($this->expired_on));
                 
                 $this->update([
                     'expired_on' => $this->expired_on
                 ]);
+
+                $this->status = 'expired';
             }
         }
     }
@@ -201,6 +250,8 @@ class OrderStatus extends Base {
                 $this->update([
                     'cleared_on' => $this->cleared_on
                 ]);
+
+                $this->status = 'complete';
             }
         }
     }
