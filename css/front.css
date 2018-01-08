@@ -879,6 +879,8 @@ body.front.grower div.main.container {
         -moz-border-radius: 0.15rem;
         border-radius: 0.15rem; }
 
+body.front.food-listing [canvas="container"] {
+  background-color: #fafafb; }
 body.front.food-listing div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }

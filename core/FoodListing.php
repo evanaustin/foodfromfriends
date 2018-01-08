@@ -107,10 +107,6 @@ class FoodListing extends Base {
         return (isset($results[0])) ? $results : false;
     }
 
-    public function get_ratings() {
-        return $this->retrieve('food_listing_id', $this->id, 'food_listing_ratings', true);
-    }
-
     public function get_categories() {
         $results = $this->DB->run('
             SELECT * FROM food_categories

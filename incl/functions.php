@@ -127,4 +127,23 @@ function stars($rating) {
     return $stars;
 }
 
+function truncate($string, $limit) {
+    $parts = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
+    $parts_count = count($parts);
+  
+    $length = 0;
+    $limited = false;
+
+    for ($last_part = 0; $last_part < $parts_count; ++$last_part) {
+        $length += strlen($parts[$last_part]);
+
+        if ($length > $limit) {
+            $limited = true;
+            break;
+        }
+    }
+  
+    return implode(array_slice($parts, 0, $last_part)) . (($limited) ? '&hellip;' : '');
+}
+
 ?>

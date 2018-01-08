@@ -11,7 +11,12 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('user/sign-up', $form.serialize(), 
+                var data = $($form).serializeArray();
+                
+                var tz = jstz.determine();
+                data.push({name: 'timezone', value: tz.name()});
+
+                App.Ajax.post('user/sign-up', data, 
                     function(response) {
                         if (response.redirect == false) {
                             window.location.reload();
@@ -37,7 +42,12 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('user/log-in', $form.serialize(), 
+                var data = $($form).serializeArray();
+                
+                var tz = jstz.determine();
+                data.push({name: 'timezone', value: tz.name()});
+
+                App.Ajax.post('user/log-in', data, 
                     function(response) {
                         if (response.redirect == false) {
                             window.location.reload();

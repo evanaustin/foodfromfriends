@@ -71,10 +71,6 @@ nav#header.navbar {
             }
         }
 
-        /* span {
-            border-bottom: 2px solid $light-gray;
-        } */
-
         &.profile {
             // computed height: 48px;
             padding-top: 4px;
@@ -107,13 +103,25 @@ nav#header.navbar {
         z-index: $super-z;
         margin-top: 0.75rem;
         border-color: $edge-color;
-        // @include rounded(0px);
         @include drop-shadow(0, 2px, 4px);
 
         a.dropdown-item {
+            @include transition(all .2s);
+
             &:hover {
                 background-color: $superlight-green;
                 color: #fff;
+
+                i {
+                    color: #fff !important;
+                }
+            }
+
+            i {
+                float: right;
+                margin-top: 7px;
+                font-size: .75rem;
+                @include transition(all .2s);
             }
         }
     }

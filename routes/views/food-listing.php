@@ -1,6 +1,7 @@
-<div class="container-fluid">
-    <div class="row">
-        <main class="col-md-12">
+<!-- <div class="container-fluid">
+    <div class="row"> -->
+        <!-- <main class="col-md-12"> -->
+        <main>
             <div class="main container">
                 <?php
 
@@ -10,7 +11,7 @@
 
                     <div class="row">
                         <div class="col-lg-3">
-                            <div id="sidebar-content" class="sticky-top">
+                            <div id="sidebar-content">
                                 <div class="photo box">
                                     <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                 </div>
@@ -36,10 +37,16 @@
                                         <?php echo $item_stars; ?>
                                     </span>
 
-                                    <div class="rounded-circle"><?php echo count($ratings); ?></div>
+                                    <?php
+                                    
+                                    if (!empty($ratings) && count($ratings) > 0) {
+                                        echo '<div class="rounded-circle">' . count($ratings) . '</div>';
+                                    }
+                                    
+                                    ?>
 
                                     <!-- ! dirty -->
-                                    &nbsp;&bull;&nbsp;
+                                    &bull;&nbsp;
                                     
                                     $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
                                     
@@ -145,47 +152,59 @@
                                     ?>
                                 </div>
 
-                                <div class="reviews set">
-                                    <h4 class="margin-btm-50em ">
-                                        <bold class="dark-gray">Reviews</bold> 
-                                        <light class="light-gray">(<?php echo count($ratings); ?>)</light>
-                                    </h4>
+                                <?php
                                     
-                                    <div class="muted margin-btm-1em">
-                                        Ratings & reviews from customers
+                                if (!empty($ratings) && count($ratings) > 0) {
+                                    
+                                    ?>
+
+                                    <div class="reviews set">
+                                        <h4 class="margin-btm-50em ">
+                                            <bold class="dark-gray">Reviews</bold> 
+                                            <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                        </h4>
+                                        
+                                        <div class="muted margin-btm-1em">
+                                            Item reviews from customers
+                                        </div>
+
+                                        <?php 
+                                        
+                                        foreach ($ratings as $rating) { 
+                                        
+                                            $ReviewUser = new User([
+                                                'DB' => $DB,
+                                                'id' => $rating['user_id']
+                                            ]);
+
+                                            ?>           
+                                            
+                                            <div class="user-block margin-btm-1em">                  
+                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                                
+                                                <div class="user-content">
+                                                    <p class="muted margin-btm-25em">
+                                                        &quot;<?php echo $rating['review']; ?>&quot;
+                                                    </p>
+
+                                                    <small class="dark-gray bold flexstart">
+                                                        <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <?php
+
+                                            }
+
+                                        ?>
                                     </div>
 
-                                    <?php 
-                                    
-                                    foreach ($ratings as $rating) { 
-                                    
-                                        $ReviewUser = new User([
-                                            'DB' => $DB,
-                                            'id' => $rating['user_id']
-                                        ]);
+                                    <?php
 
-                                        ?>           
-                                        
-                                        <div class="user-block margin-btm-1em">                  
-                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
-                                            
-                                            <div class="user-content">
-                                                <p class="muted margin-btm-25em">
-                                                    &quot;<?php echo $rating['review']; ?>&quot;
-                                                </p>
+                                    }
 
-                                                <small class="dark-gray bold flexstart">
-                                                    <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
-                                                </small>
-                                            </div>
-                                        </div>
-                                        
-                                        <?php
-
-                                        }
-
-                                    ?>
-                                </div>
+                                ?>
 
                                 <div class="about-grower set">
                                     <h4 class="margin-btm-50em ">
@@ -355,9 +374,9 @@
 
             ?>
             </div>
-        </main> <!-- end main -->
-    </div> <!-- end div.row -->
-</div> <!-- end div.container-fluid -->
+        </main>
+    <!-- </div> -->
+<!-- </div> -->
 
 <script>
     var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;

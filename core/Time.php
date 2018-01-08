@@ -2,18 +2,20 @@
 
 class Time {
 
-    function __construct() {
-        date_default_timezone_set('America/New_York');
-    }
-
     /**
-     * Generates a `datetime` or `date` string for the current time
+     * Generates a `datetime` object or `date` string for the current time
      *
-     * @param bool $date_only Pass in `true` to return the date without time information
+     * @param array $params format (bool) / timezone (string)
      * @return string
      */
-    public static function now($date_only = false) {
-        return date(($date_only === false ? 'Y-m-d H:i:s' : 'Y-m-d'));
+    public static function now($params) {
+        $date = new DateTime('now', new DateTimeZone('UTC'));
+        
+        if (isset($params['timezone'])) {
+            $date->setTimezone(new DateTimeZone($params['timezone']));
+        }
+
+        return (!isset($params['format']) || $params['format'] == true) ? $date->format('Y-m-d H:i:s') : $date;
     }
 
     /**
@@ -133,9 +135,15 @@ class Time {
      * - string $full A readable string of the time elapsed
      * - object $diff A data structure containing the difference between the datetimes
      */
-    public static function elapsed($then) {
-        $now = new \DateTime(\Time::now());
-        $then = new \DateTime($then);
+    public static function elapsed($then, $timezone = 'America/New_York') {
+        $now = \Time::now([
+            'format' => false,
+            // 'timezone' => $timezone
+        ]);
+
+        $then = new DateTime($then, new DateTimeZone('UTC'));
+        // $then->setTimezone(new DateTimeZone($timezone));
+
         $diff = $now->diff($then);
     
         $diff->w = floor($diff->d / 7);
@@ -177,9 +185,15 @@ class Time {
      * - string $full A readable string of the time elapsed
      * - object $diff A data structure containing the difference between the datetimes
      */
-    public static function until($then, $deadline, $abbreviated = false) {
-        $now    = new \DateTime(\Time::now());
-        $then   = new \DateTime($then);
+    public static function until($then, $deadline, $abbreviated = false, $timezone = 'America/New_York') {
+        $now = \Time::now([
+            'format'    => false,
+            // 'timezone'  => $timezone
+        ]);
+
+        $then   = new DateTime($then, new DateTimeZone('UTC'));
+        // $then->setTimezone(new DateTimeZone($timezone));
+
         $until  = date_add($then, date_interval_create_from_date_string($deadline));
         $diff   = $now->diff($until);
     
@@ -190,7 +204,7 @@ class Time {
 
         if (!$diff->invert) {
             if ($d > 0) {
-                $full = $d . ' day' . (($d != 1) ? 's ' : ' ' . $h . (($abbreviated) ? ' hr' : ' hour') . (($h != 1) ? 's' : ''));
+                $full = $d . ' day' . (($d != 1) ? 's ' : ' ') . $h . (($abbreviated) ? ' hr' : ' hour') . (($h != 1) ? 's' : '');
             } else if ($d == 0 && $h < 24 && $h > 0) {
                 $full = $h . (($abbreviated) ? ' hr' : ' hour') . (($h != 1) ? 's ': ' ') . $m . (($abbreviated) ? ' min' : ' minute') . (($m != 1) ? 's' : '');
             } else if ($h == 0 && $m > 0) {

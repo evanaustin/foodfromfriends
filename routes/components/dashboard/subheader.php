@@ -48,6 +48,7 @@
 
             foreach ([
                 // 'grower'    => 'food-listings/overview',
+                'messages'  => 'inbox/buying',
                 'account'   => 'edit-profile/basic-information'
             ] as $section => $subsection) { ?>
                 <li class="nav-item">
@@ -55,7 +56,24 @@
                         href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . (!empty($subsection) ? '/' . $subsection : ''); ?>" 
                         class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                     >
-                        <?php echo ucfirst($section) ?>
+                        <?php
+                        
+                        // insert bubble for unread message
+                        if ($section == 'messages' && $Routing->section != 'messages') {
+                            $Message = new Message([
+                                'DB' => $DB
+                            ]);
+
+                            $unread = $Message->unread_aggregate($User);
+
+                            if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated" data-toggle="tooltip" data-placement="left" data-title="You have unread messages"></i>';
+                        }
+
+                        echo ucfirst($section);
+
+                        ?>
+
+                        
                     </a>
                 </li>
             <?php } ?>

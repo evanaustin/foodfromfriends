@@ -54,8 +54,9 @@ form {
     }
 
     input, textarea, select, button {
-        font-family: 'Roboto', sans-serif;
+        font-family: inherit;
         font-weight: 300;
+        color: $muted;
         
         &:focus {
             outline: 0;
@@ -93,7 +94,7 @@ form {
 
     .form-control {
         border: 0px;
-        color: $dark-gray;
+        color: $muted;
 
         @include placeholder() {
             color: $light-gray;
@@ -152,6 +153,16 @@ form {
         }
     }
     
+    .input-group {
+        textarea {
+            resize: none;
+            width: 100%;
+            padding: 1rem;
+            border: 0px;
+            @include border-radius(0,0,$radius,$radius);
+        }
+    }
+
     select.input-group-addon {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -161,6 +172,20 @@ form {
         padding: .5em;
         padding-right: 1.5em;
         @include border-radius($radius, $radius, 0, 0);
+    }
+    
+    button.input-group-addon {
+        align-items: center;
+        font-size: 24px;
+        color: $superlight-green;
+        @include drop-shadow(0,0,0,0);
+
+        &:hover {
+            transform: translateY(0) !important;
+            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+            -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+        }
     }
 
     div.image-box {

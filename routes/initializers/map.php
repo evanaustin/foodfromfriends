@@ -10,7 +10,11 @@ $GrowerOperation = new GrowerOperation([
     'DB' => $DB
 ]);
 
-$growers = $GrowerOperation->retrieve('is_active', true);
+$growers = $GrowerOperation->retrieve([
+    'where' => [
+        'is_active' => true
+    ]
+]);
 
 // Set the tile width for the results pane
 $grower_count = count($growers);

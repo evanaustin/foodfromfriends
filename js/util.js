@@ -326,18 +326,12 @@ App.Util = function() {
         return ua.os + ' ' + ua.browser + ' v' + ua.version;
     }
 
-    // Scroll to an anchor point on the screen
-    function scrollToAnchor(anchor_name, offset) {
-        if (typeof anchor_name == 'undefined') {
-            var anchor = $('body');
-        } else {
-            var anchor = $("a[name='"+ anchor_name +"']");
-            if (!anchor.length) {
-                anchor = $('#' + anchor_name);
-            }
-        }
-        var slider_offset = (offset && offset != '' ? parseInt(offset) : 0);
-        $('html,body').animate({scrollTop: anchor.offset().top - $('header').height() + slider_offset}, 'slow');
+    // Scroll to an ID point on the screen
+    function scrollToID(id, offset) {
+        var el = $('#' + id);
+        var off = (offset && offset != '' ? parseInt(offset) : 0);
+
+        $('html,body').animate({scrollTop: el.offset().top /* - $('header').height() */ + off}, 'slow');
     };
 
     // JS doesn't have multidimensional arrays, it has objects.
@@ -928,7 +922,7 @@ App.Util = function() {
         browserDetect: BrowserDetect,
         userAgent: getUA,
         appendUserAgentClasses: appendUserAgentClasses,
-        scrollToAnchor: scrollToAnchor,
+        scrollToID: scrollToID,
         objectLength: objectLength,
         isNumber: isNumber,
         convertToSlug: convertToSlug,

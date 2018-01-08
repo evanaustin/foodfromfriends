@@ -21,6 +21,11 @@
                             'add-new'
                         ]
                     ],
+                    'messages' => [
+                        'inbox' => [
+                            'buying'
+                        ]
+                    ],
                     'account' => [
                         'edit-profile' => [
                             'basic-information',
@@ -59,6 +64,14 @@
                     ];
                 }
 
+                foreach($User->Operations as $Op) {
+                    if ($Op->type != 'none') {
+                        $sidebar['messages']['inbox']['selling?grower=' . $Op->id] = $Op->name;
+                    } else {
+                        array_splice($sidebar['messages']['inbox'], 1, 0, 'selling');
+                    }
+                }
+
                 ?>
 
                 <?php if ($Routing->template == 'dashboard' && $Routing->section == 'grower') { ?>
@@ -90,19 +103,84 @@
                                 <ul class="nav flex-column">
                                     <?php
                                     
-                                    foreach($v as $l) {
-                                        if (!empty($l)) {
-                                            
+                                    foreach($v as $alias_key => $alias) {
+                                        if (!empty($alias)) {
+                                        
                                         ?>
 
                                         <li class="nav-item">
                                             <a 
-                                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . $l; ?>"
-                                                class="nav-link child <?php if ($Routing->page == $l) echo 'active'; ?>">
+                                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
+                                                class="nav-link child 
+                                                
+                                                <?php 
+
+                                                $active = false;
+
+                                                if ($Routing->page == $alias && !($Routing->page == 'selling' && isset($_GET['grower']))) {
+                                                    $active = true;
+                                                } else if ($Routing->subsection == 'inbox' && $Routing->page == 'selling' && isset($_GET['grower'])) {
+                                                    if ($User->Operations[\Num::clean_int($_GET['grower'])]->name == $alias) {
+                                                        $active = true;
+                                                    }
+                                                }
+                                                
+                                                if ($active) echo 'active';
+                                                
+                                                ?>
+                                            ">
+
                                                 <?php
-                                                echo ucfirst(str_replace('-', ' ', $l));
-                                                if ($l == 'new' && $Routing->section == 'grower' && $Routing->page != $l && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
-                                                if ($l == 'pending' && $Routing->section == 'grower' && $Routing->page != $l && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
+
+                                                echo ucfirst(str_replace('-', ' ', $alias));
+
+                                                // insert bubbles for new orders
+                                                if ($alias == 'new' && $Routing->section == 'grower' && $Routing->page != $alias && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                if ($alias == 'pending' && $Routing->section == 'grower' && $Routing->page != $alias && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
+                                                
+                                                // insert bubbles for unread messages
+                                                if ($Routing->section == 'messages' && $Routing->subsection == 'inbox') {
+                                                    $Message = new Message([
+                                                        'DB' => $DB
+                                                    ]);
+
+                                                    if ($alias == 'buying' && !$active) {
+                                                        $unread = $Message->retrieve([
+                                                            'where' => [
+                                                                'user_id' => $User->id,
+                                                                'sent_by' => 'grower',
+                                                                'read_on' => null
+                                                            ],
+                                                            'limit' => 1
+                                                        ]);
+    
+                                                        if (!empty($unread)) {
+                                                            echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                        }
+                                                    } else if (!$active) {
+                                                        if ($alias != 'selling') {
+                                                            $seller_id = str_replace('selling?grower=', '', $alias_key);
+                                                        } else if ($User->GrowerOperation->type == 'none') {
+                                                            $seller_id = $User->GrowerOperation->id;
+                                                        }
+                                                        
+                                                        if (isset($seller_id)) {
+                                                            $unread = $Message->retrieve([
+                                                                'where' => [
+                                                                    'grower_operation_id' => $seller_id,
+                                                                    'sent_by' => 'user',
+                                                                    'read_on' => null
+                                                                ],
+                                                                'limit' => 1
+                                                            ]);
+        
+                                                            if (!empty($unread)) {
+                                                                echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
                                                 ?>
                                             </a>
 

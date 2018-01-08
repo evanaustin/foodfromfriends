@@ -64,7 +64,7 @@
                             </td>
                             
                             <td class="details">
-                                <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/orders/completed/view?id=' . $order['id']; ?>">
+                                <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/orders/under-review/view?id=' . $order['id']; ?>">
                                     <i class="fa fa-external-link" data-toggle="tooltip" data-placement="top" data-title="View order details"></i>
                                 </a>
                             </td>

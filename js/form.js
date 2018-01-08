@@ -3,9 +3,9 @@ App.Form = function() {
         /*
         * Focus input group
         */
-        $('div.input-group.w-addon').on('focus', 'input, select', function() {
+        $('div.input-group.w-addon').on('focus', 'input, select, textarea', function() {
             $(this).parent().addClass('focused');
-        }).on('blur', 'input, select', function() {
+        }).on('blur', 'input, select, textarea', function() {
             $(this).parent().removeClass('focused');
         });
 
@@ -67,6 +67,8 @@ App.Form = function() {
 
             $target.attr('data-content', name);
         });
+
+        autosize($('.input-group > textarea'));
     }
 
 	return {

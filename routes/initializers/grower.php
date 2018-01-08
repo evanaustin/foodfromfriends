@@ -4,6 +4,8 @@ $settings = [
     'title' => 'Grower profile | Food From Friends'
 ];
 
+// ! verify ID
+
 $GrowerOperation = new GrowerOperation([
     'DB' => $DB,
     'id' => $_GET['id']
@@ -37,12 +39,18 @@ if ($GrowerOperation->is_active) {
     $FoodListing = new FoodListing([
         'DB' => $DB
     ]);
+
+    $grower_stars = stars($GrowerOperation->average_rating);
     
     $listings = $FoodListing->get_listings($GrowerOperation->id);
-    
-    $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);
 
-    $ratings = $GrowerOperation->get_ratings();
+    $ratings = $GrowerOperation->retrieve([
+        'where' => [
+            'grower_operation_id' => $GrowerOperation->id
+        ],
+        'table' => 'grower_operation_ratings',
+        'recent' => true
+    ]);
 
     $settings['title'] = $GrowerOperation->details['name'] . ' | Food From Friends';
 }

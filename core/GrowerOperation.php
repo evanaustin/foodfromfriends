@@ -380,10 +380,6 @@ class GrowerOperation extends Base {
         return (!empty($slug) ? $slug . '_' . $code : $code);
     }
 
-    public function get_ratings() {
-        return $this->retrieve('grower_operation_id', $this->id, 'grower_operation_ratings', true);
-    }
-
     /**
      * Returns an array of `Order` objects for all orders that included items from this grower.  Note that
      * data for all growers in the order is present in each Order->Growers array, so on display you'll

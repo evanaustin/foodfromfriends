@@ -1,24 +1,10 @@
-/* var logID = 'log',
-log = $('<div id="'+logID+'"></div>');
-$('body').append(log);
-$('[type*="radio"]').change(function () {
-  var me = $(this);
-  log.html(me.attr('value'));
-}); */
-
 App.Dashboard.OrderReview = function() {
     function listener() {
-        // var ordergrower_id = $('#ordergrower-id').val();
-
         $('#review-order').on('submit', function(e) {
             e.preventDefault();
             
             $form = $(this);
 
-            /* var data = {
-                'ordergrower_id' : ordergrower_id
-            }; */
-        
             bootbox.confirm({
                 title: 'Submit review',
                 message: 'Please confirm that you want to submit your review of this order. You cannot change a review after it has been submitted.',

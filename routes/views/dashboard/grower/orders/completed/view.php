@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id) {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->status == 'complete') {
 
             ?>
 
@@ -166,15 +166,17 @@
             <?php
 
         } else {
-            echo 'This is an invalid ID!';
+
+            ?>
+
+            <div class="block strong">
+                Oops, looks like you found your way here by mistake &hellip; nothing to see here!
+            </div>
+
+            <?php
+
         }
 
         ?>
     </div>
 </main>
-
-<script>
-    /* var data    = <?php //echo json_encode($data); ?>;
-    var lat     = <?php //echo $Buyer->latitude; ?>;
-    var lng     = <?php //echo $Buyer->longitude; ?>; */
-</script>

@@ -1,6 +1,6 @@
 <?php
 
-$Template = new Template($Routing);
+$Template = new Template($Routing, $LOGGED_IN);
 
 if ($Routing->template == 'dashboard') {
     if (!$LOGGED_IN) {
@@ -105,6 +105,8 @@ foreach ([
             'node_modules/parsleyjs/dist/parsley.min',
             'node_modules/toastr/build/toastr.min',
             'node_modules/mapbox-gl/dist/mapbox-gl',            // not universal
+            'node_modules/autosize/dist/autosize.min',          // not universal
+            'node_modules/jstimezonedetect/dist/jstz.min',
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',                    // not universal

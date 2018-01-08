@@ -1,6 +1,7 @@
-<div class="container-fluid">
-    <div class="row">
-        <main class="col-md-12">
+<!-- <div class="container-fluid">
+    <div class="row"> -->
+        <!-- <main class="col-md-12"> -->
+        <main>
             <div class="main container">
                 <?php
                 
@@ -71,10 +72,16 @@
                             <div id="main-content">
                                 <h2 class="dark-gray bold margin-btm-25em">
                                     <?php echo $GrowerOperation->details['name']; ?>
+
+                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id; ?>">
+                                        <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                    </a>
                                 </h2>
 
                                 <div class="muted normal margin-btm-25em">
-                                    <?php echo '<span class="brand">' . $grower_stars . '</span> <div class="rounded-circle">' . count($ratings) . '</div> &bull; ' . $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state'] . ((isset($distance) && $distance['length'] > 0) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
+                                    <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . "&bull; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}" . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
                                 </div>
 
                                 <div class="muted bold margin-btm-1em">
@@ -235,11 +242,13 @@
 
             ?>
             </div>
-        </main> <!-- end main -->
-    </div> <!-- end div.row -->
-</div> <!-- end div.container-fluid -->
+        </main>
+    <!-- </div> -->
+<!-- </div> -->
 
 <script>
     var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
     var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
+
+    var user = <?php echo (isset($User)) ? $User->id : 0; ?>
 </script>
