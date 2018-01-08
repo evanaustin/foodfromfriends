@@ -127,7 +127,7 @@ if ($LOGGED_IN) {
 * Time Zone
 **/
 
-date_default_timezone_set('America/New_York');
+// date_default_timezone_set('America/New_York');
 
 
 
