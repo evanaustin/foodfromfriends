@@ -16,7 +16,8 @@ $Gump->validation_rules([
     'last-name'     => 'required|alpha_dash',
     'day'           => 'required|integer',
     'month'         => 'required|alpha',
-    'year'          => 'required|integer'
+    'year'          => 'required|integer',
+    'timezone'      => 'required|regex,/^[A-Za-z\/\_]+$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -32,7 +33,8 @@ $Gump->filter_rules([
 	'last-name'     => 'trim|sanitize_string',
 	'day'           => 'trim|whole_number',
 	'month'         => 'trim|sanitize_string',
-	'year'          => 'trim|whole_number'
+	'year'          => 'trim|whole_number',
+	'timezone'      => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -58,7 +60,8 @@ $new_user = $User->add([
     'first_name'    => $first_name,
     'last_name'     => $last_name,
     'dob'           => $dob,
-    'registered_on' => time()
+    'registered_on' => time(),
+    'timezone'      => $timezone
 ]);
 
 if ($new_user != false) {
