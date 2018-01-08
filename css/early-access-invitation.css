@@ -397,6 +397,10 @@ canvas:focus {
 .margin-left-1em {
   margin-left: 1rem !important; }
 
+.margin-w-1em {
+  margin-left: 1rem !important;
+  margin-right: 1rem !important; }
+
 /* FONT WEIGHTS */
 .light, light {
   font-weight: 100 !important; }
@@ -555,7 +559,7 @@ canvas:focus {
   flex-grow: 1; }
 
 .flexgrow-0 {
-  flex-grow: 0; }
+  flex-grow: 0 !important; }
 
 .flexgrow-2 {
   flex-grow: 2; }
