@@ -1,7 +1,9 @@
-// Create the root namespace
+// Root namespace
 var App = function() {
 	function listener() {
-		// show the tile cards after the images load
+        /*
+         * Show the tile cards after the images load
+         */
 		$('.card').each(function(i, obj) {
 			$(this).imagesLoaded(function() {
 				setTimeout(function() {
