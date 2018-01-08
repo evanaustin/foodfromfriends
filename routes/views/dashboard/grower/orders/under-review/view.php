@@ -1,19 +1,19 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
         <?php
-
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->status == 'complete') {
+        
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->status == 'open for review') {
 
             ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Completed order <span class="text-muted">(ID: <?php echo $Order->id . '0' . $OrderGrower->id; ?>)</span>
+                        Under review order <span class="muted">(ID: <?php echo $Order->id . '0' . $OrderGrower->id; ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
-                        Awesome job! Nothing further is required from you on this order. If you haven't yet received your payout, expect it next payout period as long as no issue is filed by the customer.
+                        This order has been fulfilled and is currently under review by the buyer. It will be cleared for payout three days after fulfillment or once the buyer submits a review, whichever is sooner.
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                $<?php echo number_format($OrderGrower->total / 100, 2); ?>
+                                <?php amount($OrderGrower->total); ?>
                             </div>
 
                             <div class="descriptor">
@@ -56,11 +56,11 @@
                             
                             <div class="callout">
                                 <h6>
-                                    Payout issued
+                                    Time for review
                                 </h6>
                                 
                                 <p>
-                                    <span class="warning">pending</span>
+                                    <span class="warning"><?php echo $time_until['full']; ?></span>
                                 </p>
                             </div>
 
@@ -99,7 +99,7 @@
                                 
                                 ?>
                                 
-                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListing->id; ?>" class="card animated zoomIn">
+                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListing->id; ?>" class="card animated zoomIn muted">
                                     <div class="item-image">
                                         <?php img(ENV . '/food-listings/fl.' . $FoodListing->id, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                     </div>
@@ -122,7 +122,7 @@
                                                 </span>
                                                 
                                                 <span class="float-right">
-                                                    $<?php echo number_format($OrderListing->total / 100, 2); ?>
+                                                    <?php amount($OrderListing->total); ?>
                                                 </span>
                                             </h6>
                                         </div>
@@ -139,25 +139,25 @@
 
                     <div class="col-md-4">
                         <div id="buyer-info" class="block animated zoomIn">
-                            <div 
-                                class="buyer-photo"
-                                style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"
-                            >
+                            <div class="user-block flexjustifycenter">
+                                <div class="user-photo" style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
+
+                                <div class="user-content flexgrow-0">
+                                    <h5 class="bold margin-btm-25em">
+                                        <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
+                                            <?php echo $Buyer->first_name; ?>
+                                        </a>
+                                    </h5>
+
+                                    <small>
+                                        <?php echo "{$Buyer->city}, {$Buyer->state}"; ?>
+                                    </small>
+                                </div>
                             </div>
 
-                            <div>
-                                <?php echo $Buyer->name; ?>
-                            </div>
-
-                            <div>
-                                <span class="listing-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </span>
-                            </div>
+                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'none') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                                Message
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
             <?php
 
         } else {
-
+            
             ?>
 
             <div class="block strong">
@@ -174,7 +174,7 @@
             </div>
 
             <?php
-
+            
         }
 
         ?>

@@ -13,7 +13,7 @@
         </div>
 
         <?php
-
+        
         if (isset($new) && ($new != false) && count($new) > 0) {
 
             ?>
@@ -42,7 +42,7 @@
                         $time_elapsed = \Time::elapsed($order['placed_on']);
                         
                         // skip expired orders
-                        if ($time_elapsed['diff']->days >= 1) continue;
+                        // if ($time_elapsed['diff']->days >= 1) continue;
 
                         $time_until = \Time::until($order['placed_on'], '24 hours');
 
@@ -53,9 +53,7 @@
 
                         $OrderGrower = new OrderGrower([
                             'DB' => $DB,
-                            'id' => $order['id'],
-                            'buyer_id' => $order['user_id'],
-                            'seller_id' => $GrowerOperation->id
+                            'id' => $order['id']
                         ]);
 
                         ?>

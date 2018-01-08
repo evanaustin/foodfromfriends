@@ -9,27 +9,30 @@ $order_grower_id = $_GET['id'];
 if (\Num::is_id($order_grower_id)) {
     $OrderGrower = new OrderGrower([
         'DB' => $DB,
-        'id' => $order_grower_id,
-        'buyer_id' => $Order->user_id,
-        'seller_id' => $GrowerOperation->id
+        'id' => $order_grower_id
     ]);
 
-    $Order = new Order([
-        'DB' => $DB,
-        'id' => $OrderGrower->order_id
-    ]);
-    
-    $Buyer = new User([
-        'DB' => $DB,
-        'id' => $Order->user_id
-    ]);
+    if ($OrderGrower->Status->status == 'pending fulfillment') {
+        $Order = new Order([
+            'DB' => $DB,
+            'id' => $OrderGrower->order_id
+        ]);
+        
+        $Buyer = new User([
+            'DB' => $DB,
+            'id' => $Order->user_id
+        ]);
 
-    $time_elapsed   = \Time::elapsed($OrderGrower->Status->confirmed_on);
-    $time_until     = \Time::until($OrderGrower->Status->confirmed_on, '24 hours');
+        $time_elapsed   = \Time::elapsed($OrderGrower->Status->confirmed_on);
+        $time_until     = \Time::until($OrderGrower->Status->confirmed_on, '24 hours');
 
-    foreach($OrderGrower->FoodListings as $OrderListing) {
-        $items_sold += $OrderListing->quantity;
-        $unique_items++;
+        $items_sold     = 0;
+        $unique_items   = 0;
+
+        foreach($OrderGrower->FoodListings as $OrderListing) {
+            $items_sold += $OrderListing->quantity;
+            $unique_items++;
+        }
     }
 }
 

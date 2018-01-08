@@ -2,18 +2,18 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id) {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->status == 'pending fulfillment') {
 
             ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Pending order <span class="text-muted">(ID: <?php echo $Order->id . '0' . $OrderGrower->id; ?>)</span>
+                        Pending order <span class="text-muted">(ID: <?php echo "{$Order->id}0{$OrderGrower->id}"; ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
-                        Great! Now that you've confirmed this order it's your responsibility to make sure it gets fulfilled. Only once fulfillment is complete will your payout be issued.
+                        Great! Now that you've confirmed this order it's your responsibility to make sure it gets fulfilled. Only once fulfillment is complete will the payout process continue.
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                     <div class="col-md-4">
                         <div id="order-total" class="block animated zoomIn">
                             <div class="value">
-                                $<?php echo number_format($OrderGrower->total / 100, 2); ?>
+                                <?php echo amount($OrderGrower->total); ?>
                             </div>
 
                             <div class="descriptor">
@@ -89,28 +89,24 @@
                         </div>
                         
                         <div id="buyer-info" class="block animated zoomIn">
-                            <div 
-                                class="buyer-photo"
-                                style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"
-                            >
+                            <div class="user-block flexjustifycenter">
+                                <div class="user-photo" style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
+
+                                <div class="user-content flexgrow-0">
+                                    <h5 class="bold margin-btm-25em">
+                                        <?php echo $Buyer->first_name; ?>
+                                    </h5>
+
+                                    <small>
+                                        <?php echo "{$Buyer->city}, {$Buyer->state}"; ?>
+                                    </small>
+                                </div>
                             </div>
 
-                            <div>
-                                <?php echo $Buyer->name; ?>
-                            </div>
-
-                            <div>
-                                <span class="listing-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </span>
-                            </div>
+                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'none') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                                Message
+                            </a>
                         </div>
-
-                        
                     </div>   
 
                     <div class="col-md-4">
@@ -141,7 +137,7 @@
                                         <?php img(ENV . '/food-listings/fl.' . $FoodListing->id, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                     </div>
 
-                                    <div class="card-block">
+                                    <div class="card-block muted">
                                         <div class="listing-info">
                                             <h5 class="card-title">
                                                 <span>
@@ -159,7 +155,7 @@
                                                 </span>
                                                 
                                                 <span class="float-right">
-                                                    $<?php echo number_format($OrderListing->total / 100, 2); ?>
+                                                    <?php echo amount($OrderListing->total); ?>
                                                 </span>
                                             </h6>
                                         </div>
@@ -196,7 +192,7 @@
                                 </p>
 
                                 <p>
-                                    <?php echo $OrderGrower->Exchange->city . ', ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
+                                    <?php echo "{$OrderGrower->Exchange->city}, {$OrderGrower->Exchange->state} {$OrderGrower->Exchange->zipcode}"; ?>
                                 </p>
                             </div>
 
@@ -212,7 +208,7 @@
                                     </h6>
 
                                     <p>
-                                        <?php echo $OrderGrower->Exchange->distance; ?> miles
+                                        <?php echo "{$OrderGrower->Exchange->distance} miles"; ?>
                                     </p>
                                 </div>
 
@@ -222,7 +218,7 @@
                                     </h6>
 
                                     <p>
-                                        $<?php echo number_format($OrderGrower->Exchange->fee / 100, 2); ?>
+                                        <?php amount($OrderGrower->Exchange->fee); ?>
                                     </p>
                                 </div>
 
@@ -281,15 +277,17 @@
             <?php
 
         } else {
-            echo 'This is an invalid ID!';
+            
+            ?>
+
+            <div class="block strong">
+                Oops, looks like you found your way here by mistake &hellip; nothing to see here!
+            </div>
+
+            <?php
+            
         }
 
         ?>
     </div>
 </main>
-
-<script>
-    /* var data    = <?php //echo json_encode($data); ?>;
-    var lat     = <?php //echo $Buyer->latitude; ?>;
-    var lng     = <?php //echo $Buyer->longitude; ?>; */
-</script>
