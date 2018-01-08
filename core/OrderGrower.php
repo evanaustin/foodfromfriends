@@ -215,7 +215,7 @@ class OrderGrower extends Base {
                 og.total,
                 og.order_exchange_id,
                 o.user_id,
-                o.placed_on
+                os.placed_on
 
             FROM order_growers og
 
@@ -294,7 +294,7 @@ class OrderGrower extends Base {
                 og.id,
                 og.total,
                 o.user_id,
-                o.placed_on,
+                os.placed_on,
                 os.fulfilled_on
 
             FROM order_growers og
@@ -331,7 +331,7 @@ class OrderGrower extends Base {
                 og.id,
                 og.total,
                 o.user_id,
-                o.placed_on,
+                os.placed_on,
                 os.fulfilled_on
 
             FROM order_growers og
