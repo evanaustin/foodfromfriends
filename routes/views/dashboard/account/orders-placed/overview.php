@@ -81,7 +81,7 @@
                             </cell>
                             
                             <cell>
-                                <h6><?php echo '<strong>' . $seller_count . '</strong>' . '&nbsp;' . 'seller' . (($seller_count > 1) ? 's' : ''); ?></h6>
+                                <h6><?php echo "<strong>{$seller_count}</strong>&nbsp;seller" . (($seller_count > 1) ? 's' : ''); ?></h6>
                             </cell>
                             
                             <cell>
@@ -98,7 +98,6 @@
                             <?php
 
                             foreach ($Order->Growers as $OrderGrower) {
-
                                 $ThisGrowerOperation = new GrowerOperation([
                                     'DB' => $DB,
                                     'id' => $OrderGrower->grower_operation_id
@@ -110,49 +109,62 @@
 
                                 $tab_highlight = 'tab-';
 
-                                $actions = '';
-                                
-                                // determine status settings
-                                if ($OrderGrower->Status->status == 'not yet confirmed') {
-                                    $time_until = \Time::until($OrderGrower->Status->placed_on, '24 hours');
-                                    
-                                    if (!$time_until) {
-                                        $OrderGrower->Status->expire();
+                                // Determine status settings
+                                if ($OrderGrower->Status->status == 'just expired') {
+                                    $OrderGrower->expire();
                                         
-                                        $tab_highlight .= 'danger';
-                                        $status     = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                        $actions    = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
-                                    } else {
-                                        $tab_highlight .= 'waiting';
-                                        $status     = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
-                                        $actions    = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order"><i class="fa fa-times"></i></a>';
-                                    }
-                                    
+                                    $tab_highlight .= 'danger';
+                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
+                                
+                                    $actions = [
+                                        'message'
+                                    ];
+                                } else if ($OrderGrower->Status->status == 'not yet confirmed') {
+                                    $tab_highlight .= 'waiting';
+                                    $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
+
+                                    $actions = [
+                                        'message',
+                                        'cancel order'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'expired') {
                                     $tab_highlight .= 'danger';
-                                    $status         = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions        = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
+                                    $actions = [
+                                        'message'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'rejected') {
                                     $tab_highlight .= 'danger';
-                                    $status         = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions        = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                    $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
+                                    $actions    = [
+                                        'message'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'pending fulfillment') {
                                     $tab_highlight .= 'warning';
-                                    $status         = 'Pending fulfillment';
-                                    $actions        = '<a href="" class="btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order"><i class="fa fa-times"></i></a>';
+                                    $status = 'Pending fulfillment';
                                 
+                                    $actions = [
+                                        'message',
+                                        'cancel order'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'cancelled by buyer') {
                                     $tab_highlight .= 'danger';
-                                    $status         = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions        = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                    $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                     
+                                    $actions = [
+                                        'message',
+                                        'view receipt'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'cancelled by seller') {
                                     $tab_highlight .= 'danger';
-                                    $status         = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    $actions        = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                    $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                 
+                                    $actions = [
+                                        'message',
+                                        'view receipt'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'open for review') {
                                     $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
                                     
@@ -160,18 +172,30 @@
                                         $OrderGrower->Status->clear();
 
                                         $tab_highlight .= 'success';
-                                        $status     = 'Complete';
-                                        $actions    = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                        $status = 'Complete';
+                                    
+                                        $actions = [
+                                            'message',
+                                            'view receipt'
+                                        ];
                                     } else {
                                         $tab_highlight .= 'info';
-                                        $status     = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
-                                        $actions    = '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a><a href="" class="btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue"><i class="fa fa-flag"></i></a>';
+                                        $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
+                                    
+                                        $actions = [
+                                            'leave a review',
+                                            'report an issue'
+                                        ];
                                     }
                                 
                                 } else if ($OrderGrower->Status->status == 'complete') {
                                     $tab_highlight .= 'success';
-                                    $status         = 'Completed';
-                                    $actions        = '<a href="" class="btn btn-medium-gray" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                    $status = 'Completed';
+                                    
+                                    $actions = [
+                                        'message',
+                                        'view receipt'
+                                    ];
                                 }
 
                                 ?>
@@ -186,7 +210,9 @@
                                                 
                                                 <div class="user-content">
                                                     <h5 class="bold margin-btm-25em">
-                                                        <a href=""><?php echo $ThisGrowerOperation->details['name']; ?></a>
+                                                        <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $ThisGrowerOperation->id; ?>">
+                                                            <?php echo $ThisGrowerOperation->details['name']; ?>
+                                                        </a>
                                                     </h5>
 
                                                     <small>
@@ -201,11 +227,11 @@
                                         </cell>
                                         
                                         <cell class="justify-center">
-                                            <h6><?php echo '<strong>' . $item_count . '</strong>' . '&nbsp;' . 'item' . (($item_count > 1) ? 's' : ''); ?></h6>
+                                            <h6><?php echo "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center">
-                                            <h6 class=""><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
+                                            <h6><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center">
@@ -213,7 +239,31 @@
                                         </cell>
 
                                         <cell class="actions">
-                                            <?php echo $actions; ?>
+
+                                            <?php
+                                            
+                                            foreach ($actions as $action) {
+                                                switch($action) {
+                                                    case 'message':
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
+                                                        break;
+                                                    case 'view receipt':
+                                                        echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                                        break;
+                                                    case 'leave a review':
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
+                                                        break;
+                                                    case 'report an issue':
+                                                        echo '<a class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
+                                                        break;
+                                                    case 'cancel order':
+                                                        echo '<a class="cancel-order btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-times"></i></a>';
+                                                        break;
+                                                }
+                                            }
+                                            
+                                            ?>
+
                                         </cell>
                                     </fable>
                                     
@@ -250,7 +300,7 @@
                                                             <?php
 
                                                             amount(($OrderListing->unit_price / $OrderListing->unit_weight));
-                                                            echo '/' . $OrderListing->weight_units;
+                                                            echo " / {$OrderListing->weight_units}";
 
                                                             ?>
                                                         </span>
