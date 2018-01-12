@@ -48,7 +48,7 @@
                         
                         // handle expired orders
                         if ($time_elapsed['diff']->days >= 1) {
-                            $OrderGrower->Status->expire();
+                            $OrderGrower->expire();
                             continue;
                         }
 
