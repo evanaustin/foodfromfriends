@@ -73,7 +73,7 @@ try {
             $card_id = $stripe_card_id;
         }
         
-        // Charge the customer
+        // Authorize the charge for the customer
         $charge = $Stripe->charge($customer->id, $card_id, $Order->total);
 
         $charge_id = $charge->id;
