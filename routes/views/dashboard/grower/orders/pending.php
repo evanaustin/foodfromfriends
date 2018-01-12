@@ -89,7 +89,7 @@
                     ?>
 
                     <tr>
-                        <td colspan=7>
+                        <td colspan=6>
                             <nav aria-label="Table navigation">
                                 <ul class="pagination">
                                     <li class="page-item active">
