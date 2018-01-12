@@ -490,15 +490,20 @@ canvas {
         border-color: lighten($superlight-green, 5%);
     }
  }
-
+ 
  .btn-medium-gray {
     background-color: #00000080;
     color: #fff;
-    
-    &:not([disabled]):hover {
+     
+     &:not([disabled]):hover {
         background-color: $dark-gray;
         border-color: $dark-gray;
     }
+ }
+    
+ .btn-light {
+    background-color: $light-gray;
+    color: #fff;
  }
 
  .btn-group {
