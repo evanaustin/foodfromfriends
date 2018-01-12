@@ -37,7 +37,8 @@
                     $i = 1;
 
                     foreach($under_review as $order) {
-                        $fulfilled_on = new DateTime($order['fulfilled_on']);
+                        $fulfilled_on = new DateTime($order['fulfilled_on'], new DateTimeZone('UTC'));
+                        $fulfilled_on->setTimezone(new DateTimeZone($User->timezone));
 
                         $ThisUser = new User([
                             'DB' => $DB,
@@ -52,15 +53,15 @@
                             </td>
 
                             <td clas="completed-on">
-                                <?php echo $fulfilled_on->format('F d, Y'); ?>
+                                <?php echo $fulfilled_on->format('F j, Y'); ?>
                             </td>
                             
                             <td class="amount">
-                                $<?php echo number_format($order['total'] / 100, 2); ?>
+                                <?php amount($order['total']); ?>
                             </td>
 
                             <td class="buyer">
-                                <?php echo $ThisUser->name; ?>
+                                <?php echo $ThisUser->first_name; ?>
                             </td>
                             
                             <td class="details">
@@ -79,8 +80,7 @@
                     ?>
 
                     <tr>
-                        <td colspan=6>
-                        <!-- <td colspan=7> -->
+                        <td colspan=5>
                             <nav aria-label="Table navigation">
                                 <ul class="pagination">
                                     <li class="page-item active">
