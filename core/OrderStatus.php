@@ -42,26 +42,20 @@ class OrderStatus extends Base {
             $time_until = \Time::until($this->placed_on, '24 hours');
             
             if (!$time_until) {
-                $this->expire();
+                $this->status = 'just expired';
             } else {
                 $this->status = 'not yet confirmed';
             }
-            
         } else if (isset($this->expired_on)) {
             $this->status = 'expired';
-            
         } else if (isset($this->rejected_on)) {
             $this->status = 'rejected';
-            
-        } else if (isset($this->confirmed_on) && !isset($this->fulfilled_on)) {
+        } else if (isset($this->confirmed_on) && !isset($this->fulfilled_on) && !isset($this->buyer_cancelled_on) && !isset($this->seller_cancelled_on)) {
             $this->status = 'pending fulfillment';
-        
         } else if (isset($this->buyer_cancelled_on)) {
             $this->status = 'cancelled by buyer';
-            
         } else if (isset($this->seller_cancelled_on)) {
             $this->status = 'cancelled by seller';
-        
         } else if (isset($this->fulfilled_on) && !isset($this->cleared_on)) {
             $time_until = \Time::until($this->fulfilled_on, '3 days');
             
@@ -70,7 +64,6 @@ class OrderStatus extends Base {
             } else {
                 $this->status = 'open for review';
             }
-        
         } else if (isset($this->cleared_on)) {
             $this->status = 'complete';
         }
@@ -79,63 +72,53 @@ class OrderStatus extends Base {
     /**
      * Suborder autonatically expires 24 hours has passed since the order was placed
      * 
-     * @condition[AND] Not rejected
-     * @condition[AND] Not confirmed
-     * 
-     * @todo Full refund is issued
-     * @todo Fees and payouts are recalculated
-     * @todo Penalty levied on seller
+     * @todo Recalculate fees and payouts
      */
     public function expire() {
-        if (!isset($this->rejected_on) && !isset($this->confirmed_on)) {
-            $time_elapsed = \Time::elapsed($this->placed_on);
+        $time_elapsed = \Time::elapsed($this->placed_on);
+        
+        if ($time_elapsed['diff']->days >= 1) {
+            $this->expired_on = \Time::now();
             
-            if ($time_elapsed['diff']->days >= 1) {
-                $this->expired_on = \Time::now();
-                
-                $this->update([
-                    'expired_on' => $this->expired_on
-                ]);
+            $this->update([
+                'expired_on' => $this->expired_on
+            ]);
 
-                $this->status = 'expired';
-            }
+            $this->status = 'expired';
         }
     }
     
     /**
-     * Seller rejects an OrderGrower
+     * Seller rejects a suborder
      * No penalties levied on either buyer or seller
      * 
-     * @condition[AND] Not expired
-     * @condition[AND] Not confirmed
-     * 
-     * @todo Full refund is issued
-     * @todo Fees and payouts are recalculated
+     * @todo Recalculate fees and payouts
      */
     public function reject() {
-        if (!isset($this->expired_on) && !isset($this->confirmed_on)) {
+        if ($this->status == 'not yet confirmed') {
             $this->rejected_on = \Time::now();
             
             $this->update([
                 'rejected_on' => $this->rejected_on
             ]);
+        } else {
+            return false;
         }
     }
     
     /**
-     * Seller confirms an suborder
+     * Seller confirms a suborder
      * Fulfillment process begins
-     * 
-     * @condition[AND] Not expired
-     * @condition[AND] Not rejected
      */
     public function confirm() {
-        if (!isset($this->expired_on) && !isset($this->rejected_on)) {
+        if ($this->status == 'not yet confirmed') {
             $this->confirmed_on = \Time::now();
             
             $this->update([
                 'confirmed_on' => $this->confirmed_on
             ]);
+        } else {
+            throw new \Exception('Oops! You cannot confirm this order');
         }
     }
 
@@ -143,17 +126,24 @@ class OrderStatus extends Base {
      * Buyer cancels a suborder
      * Penalties vary depending on confirmation status and exchange cancellation policy.
      * 
-     * @todo full refund if suborder unconfirmed
-     * @todo partial/full refunds determined by exchange cancellation policy
+     * @condition Not fulfilled
      * 
-     * @todo penalize buyer for cancellation
+     * @todo partial/full refunds determined by exchange cancellation policy
      */
     public function buyer_cancel() {
-        $this->buyer_cancelled_on = \Time::now();
-        
-        $this->update([
-            'buyer_cancelled_on' => $this->buyer_cancelled_on
-        ]);
+        if ($this->status == 'not yet confirmed' || $this->status == 'pending fulfillment') {
+            $this->buyer_cancelled_on = \Time::now();
+            
+            $this->update([
+                'buyer_cancelled_on' => $this->buyer_cancelled_on
+            ]);
+
+            if ($this->status == 'pending fulfillment') {
+                $this->refund();
+            }
+        } else {
+            throw new \Exception('Oops! You cannot cancel this order');
+        }
     }
     
     /**
@@ -162,16 +152,19 @@ class OrderStatus extends Base {
      * @condition Confirmed
      * 
      * @todo Full refund is issued
-     * @todo Fees and payouts are recalculated
      * @todo Penalty levied on seller
      */
     public function seller_cancel() {
-        if (isset($this->confirmed_on)) {
+        if ($this->status == 'pending fulfillment') {
             $this->seller_cancelled_on = \Time::now();
             
             $this->update([
                 'seller_cancelled_on' => $this->seller_cancelled_on
             ]);
+
+            $this->refund();
+        } else {
+            throw new \Exception('Oops! You cannot cancel this order');
         }
     }
     
@@ -257,6 +250,7 @@ class OrderStatus extends Base {
     /**
      * Issue a refund for a failed suborder
      * 
+     * @todo Stock, fees, and payouts are recalculated
      * @note this will probably go in a separate class/table
      */
     public function refund() {
