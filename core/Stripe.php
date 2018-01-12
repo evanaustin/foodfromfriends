@@ -14,8 +14,7 @@ class Stripe {
     }
 
     /**
-     * Stripe exceptions are weird.  After retrieving the error message from the exception object, we throw a
-     * simple `\Exception`.
+     * After retrieving the error message from the exception object, throw `\Exception`.
      *
      * @throws \Exception Exception with Stripe's error message.
      */
@@ -24,7 +23,7 @@ class Stripe {
         $err = $body['error'];
         $msg = $err['message'];
         error_log("Stripe API request failed: {$msg}");
-        throw new \Exception($e->getMessage());//msg);
+        throw new \Exception($e->getMessage());
     }
 
     /**
@@ -41,7 +40,6 @@ class Stripe {
                 'description' => "[{$user_id}] {$name}",
                 'email' => $email
             ]);
-            error_log('create customer');
         } catch (\Stripe\Error\RateLimit $e) {
             $this->handle_stripe_exception($e);
         } catch (\Stripe\Error\InvalidRequest $e) {
@@ -114,12 +112,13 @@ class Stripe {
      * @param array|null $metadata Extra data to store with the charge
      * @return \Stripe\Charge
      */
-    public function charge($stripe_customer_id, $stripe_card_id, $amount, $metadata = null) {
+    public function charge($stripe_customer_id, $stripe_card_id, $amount, $capture = false, $metadata = null) {
         try {
             $params = [
                 'amount' => $amount,
                 'currency' => 'usd',
                 'customer' => $stripe_customer_id,
+                'capture' => $capture,
                 'source' => $stripe_card_id
             ];
 
@@ -140,8 +139,74 @@ class Stripe {
             $this->handle_stripe_exception($e);
         }
 
+        return $charge;
+    }
+
+    /**
+     * Captures an authorized charge and returns the Stripe charge object.
+     * 
+     * @param string $stripe_charge_id ID of the charge being captured
+     * @param int $amount Amount to charge (in cents) - can be less than authorized amount
+     * @return \Stripe\Charge
+     */
+    public function capture_charge($stripe_charge_id, $amount = null) {
+        try {
+            $charge = \Stripe\Charge::retrieve($stripe_charge_id);
+
+            if (!isset($amount)) {
+                $charge->capture();
+            } else {
+                $charge->capture([
+                    'amount' => $amount
+                ]);
+            }
+        } catch (\Stripe\Error\RateLimit $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\Authentication $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\ApiConnection $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\Base $e) {
+            $this->handle_stripe_exception($e);
+        }
 
         return $charge;
+    }
+
+    /**
+     * Refunds a charge and returns the Stripe charge object.
+     * 
+     * @param string $stripe_charge_id ID of the charge being refunded
+     * @param int $amount Amount to refund (in cents)
+     * @return \Stripe\Refund
+     */
+    public function refund($stripe_charge_id, $amount = null) {
+        try {
+            $params = [
+                'charge' => $stripe_charge_id
+            ];
+
+            if (isset($amount)) {
+                $params['amount'] = $amount;
+            }
+
+            $refund = \Stripe\Refund::create($params);
+
+        } catch (\Stripe\Error\RateLimit $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\Authentication $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\ApiConnection $e) {
+            $this->handle_stripe_exception($e);
+        } catch (\Stripe\Error\Base $e) {
+            $this->handle_stripe_exception($e);
+        }
+
+        return $refund;
     }
 
     /**
@@ -228,8 +293,8 @@ class Stripe {
     }
 
     /**
-     * Retrieves all of a customer's cards.  Well, retrieves the first ten (Stripe-imposed
-     * limit; they do have paging options.  See https://stripe.com/docs/api#list_cards).
+     * Retrieves a customer's cards (ten at a time - a Stripe limit)
+     * They do have paging options. See https://stripe.com/docs/api#list_cards).
      *
      * @param string $stripe_customer_id
      * @return array Array of \Stripe\Card objects
@@ -237,7 +302,9 @@ class Stripe {
     public function retrieve_cards($stripe_customer_id) {
         try {
             $cards = \Stripe\Customer::retrieve($stripe_customer_id)->sources->all([
-  'limit' => 10, 'object' => 'card']);
+                'limit' => 10,
+                'object' => 'card'
+            ]);
         } catch (\Stripe\Error\RateLimit $e) {
             $this->handle_stripe_exception($e);
         } catch (\Stripe\Error\InvalidRequest $e) {
