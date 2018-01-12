@@ -634,6 +634,10 @@ canvas:focus {
     background-color: #4c4c4c;
     border-color: #4c4c4c; }
 
+.btn-light {
+  background-color: #b2b2b2;
+  color: #fff; }
+
 .btn-group {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -952,7 +956,8 @@ fable {
       justify-content: center;
       align-items: flex-end; }
       fable > cell.actions .btn {
-        padding: 0.5rem; }
+        padding: 0.5rem;
+        width: 2.5rem; }
         fable > cell.actions .btn i {
           color: #fff; }
         fable > cell.actions .btn + .btn {
@@ -1191,6 +1196,17 @@ fable {
   .modal-content .modal-body {
     padding: 1em;
     background-color: #fafafb; }
+
+/*
+ * Toastr
+ */
+#toast-container > div {
+  opacity: 1;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  filter: alpha(opacity=100);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
 
 div.alerts {
   display: none; }
