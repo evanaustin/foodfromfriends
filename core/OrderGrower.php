@@ -105,6 +105,8 @@ class OrderGrower extends Base {
             'DB' => $this->DB,
             'id' => $this->order_status_id,
         ]);
+
+        $this->Status->ordergrower_id = $this->id;
     }
 
     /**
@@ -148,6 +150,46 @@ class OrderGrower extends Base {
             'subtotal'  => $this->subtotal,
             'total'     => $this->total,
         ]);
+    }
+
+    /**
+     * Calls `OrderGrower->penalize()` to rate each item
+     * Calls `OrderGrower->Status->expire()` to mark order as expired
+     */
+    public function expire($data) {
+        $this->penalize();
+        $this->Status->expire();
+    }
+
+    /**
+     * Penalize seller
+     * Store rating ID in order_grower record
+     * Re-calculate & record seller's average rating
+     */
+    public function penalize() {
+        $grower_rating = $this->add([
+            'grower_operation_id' => $this->grower_operation_id,
+            'user_id'   => 0,
+            'score'     => 1,
+        ], 'grower_operation_ratings');
+
+        $this->update([
+            'grower_operation_rating_id' => $grower_rating['last_insert_id']
+        ]);
+
+        $this->grower_operation_rating_id = $grower_rating['last_insert_id'];
+
+        $results = $this->DB->run('
+            SELECT AVG(score) AS average
+            FROM grower_operation_ratings
+            WHERE grower_operation_id=:grower_operation_id
+        ',[
+            'grower_operation_id' => $this->grower_operation_id
+        ]);
+
+        $this->update([
+            'average_rating' => $results[0]['average']
+        ], 'id', $this->grower_operation_id, 'grower_operations');
     }
 
     /**
@@ -201,7 +243,7 @@ class OrderGrower extends Base {
             'average_rating' => $results[0]['average']
         ], 'id', $this->grower_operation_id, 'grower_operations');
     }
-
+    
     /** 
      * Get all the new orders
      * An order is new if it has not been confirmed and not yet expired.
