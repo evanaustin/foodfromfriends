@@ -39,6 +39,7 @@ body {
     position: fixed;
     z-index: $fixed-z;
     width: 100%;
+    min-height: $header-height;
 }
 
 #map {
