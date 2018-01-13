@@ -199,8 +199,7 @@ class GrowerOperation extends Base {
                 ($this->type == 'none' && !empty($User->zipcode))
                 || ($this->type != 'none' && !empty($this->zipcode))
             )
-            && ($this->Delivery || $this->Pickup || $this->Meetup)
-            && ($this->Delivery->is_offered || $this->Pickup->is_offered || $this->Meetup->is_offered)
+            && (($this->Delivery && $this->Delivery->is_offered) || ($this->Pickup && $this->Pickup->is_offered) || ($this->Meetup && $this->Meetup->is_offered))
             && $this->count_listings() > 0
         ) {
             $this->update([
