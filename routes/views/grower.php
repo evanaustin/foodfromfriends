@@ -111,7 +111,6 @@
                                         <?php
 
                                         foreach ($listings as $listing) {
-                                            if (!$listing['is_available']) continue;
                                             
                                             ?>
                                             

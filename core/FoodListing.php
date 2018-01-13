@@ -106,6 +106,37 @@ class FoodListing extends Base {
 
         return (isset($results[0])) ? $results : false;
     }
+    
+    public function get_available_listings($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                fl.*,
+                fsc.title AS subcategory_title,
+                fsc.food_category_id,
+                fc.title AS category_title,
+                fli.filename,
+                fli.ext
+            
+            FROM food_listings fl
+            
+            LEFT JOIN food_subcategories fsc
+                ON fl.food_subcategory_id = fsc.id
+            
+            LEFT JOIN food_categories fc
+                ON fsc.food_category_id = fc.id
+            
+            LEFT JOIN food_listing_images fli
+                ON fl.id = fli.food_listing_id
+            
+            WHERE fl.grower_operation_id = :grower_operation_id
+                AND fl.is_available = :is_available
+        ', [
+            'grower_operation_id' => $grower_operation_id,
+            'is_available' => 1
+        ]);
+
+        return (isset($results[0])) ? $results : false;
+    }
 
     public function get_categories() {
         $results = $this->DB->run('
