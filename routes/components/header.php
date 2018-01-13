@@ -23,7 +23,7 @@
                             Sign up
                         </span>
                         
-                        <i class="fa fa-rocket"></i>
+                        <!-- <i class="fa fa-rocket"></i> -->
                     </a>
                 </li>
 
@@ -33,7 +33,7 @@
                             Log in
                         </span>
                         
-                        <i class="fa fa-id-badge"></i>
+                        <!-- <i class="fa fa-id-badge"></i> -->
                     </a>
                 </li>
             <?php } else { ?>
