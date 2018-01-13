@@ -50,7 +50,8 @@ body {
   /* computed height: 65px */
   position: fixed;
   z-index: 99;
-  width: 100%; }
+  width: 100%;
+  min-height: 65px; }
 
 #map {
   position: absolute;
