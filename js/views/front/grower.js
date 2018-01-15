@@ -3,6 +3,8 @@ App.Front.Grower = function() {
         Mapbox.setCenter([lng, lat]);
 
         $('#message').on('click', function(e) {
+            e.preventDefault();
+
             // trigger sign up before directing to messages
             if (user == 0) {
                 var $sign_up_modal = $('#sign-up-modal');
