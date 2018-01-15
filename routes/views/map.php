@@ -29,8 +29,8 @@
                                             <div class="card-block d-flex flex-row">
                                                 <div class="listing-info d-flex flex-column">
                                                     <div class="card-title">
-                                                        <?php //echo '<div class="name">' . $grower['name'] . '</div><div class="rating">' . $grower['stars'] . '</div>'; ?>
-                                                        <?php echo '<div class="name">' . $grower['name'] . '</div>'; ?>
+                                                        <?php echo '<div class="name">' . $grower['name'] . '</div><div class="rating">' . $grower['stars'] . '</div>'; ?>
+                                                        <?php //echo '<div class="name">' . $grower['name'] . '</div>'; ?>
                                                     </div>
                                                     
                                                     <div class="distance">
