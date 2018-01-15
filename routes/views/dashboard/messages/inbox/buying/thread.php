@@ -27,7 +27,8 @@
                         'id' => $message['id']
                     ]);
 
-                    $sent_on = new DateTime($ThisMessage->sent_on);
+                    $sent_on = new DateTime($ThisMessage->sent_on, new DateTimeZone('UTC'));
+                    $sent_on->setTimezone(new DateTimeZone($User->timezone));
 
                     if (!isset($prev_sent_on)) {
                         $prev_sent_on = $sent_on;
