@@ -111,7 +111,7 @@
                             aria-expanded="false"
                         ></div>
                     
-                        <div class="dropdown-menu dropdown-menu-right animated bounceIn">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <?php if (isset($User->GrowerOperation)) {
                                 echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
                             } ?>
