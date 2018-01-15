@@ -400,7 +400,7 @@ body.map div.main {
 body.map .mapboxgl-popup {
   min-width: 200px;
   height: 100px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Museo Sans Rounded', sans-serif;
   font-weight: 300;
   color: #404040; }
   body.map .mapboxgl-popup .mapboxgl-popup-content {
@@ -422,17 +422,17 @@ body.map .mapboxgl-popup {
       -webkit-border-radius: 100px;
       -moz-border-radius: 100px;
       border-radius: 100px; }
-    body.map .mapboxgl-popup .mapboxgl-popup-content div.info {
+    body.map .mapboxgl-popup .mapboxgl-popup-content div.details {
       flex-grow: 2;
       padding-left: 10px; }
-      body.map .mapboxgl-popup .mapboxgl-popup-content div.info div.title div.name, body.map .mapboxgl-popup .mapboxgl-popup-content div.info div.title div.rating {
+      body.map .mapboxgl-popup .mapboxgl-popup-content div.details div.title div.name, body.map .mapboxgl-popup .mapboxgl-popup-content div.details div.title div.rating {
         display: inline-block;
         vertical-align: bottom; }
-      body.map .mapboxgl-popup .mapboxgl-popup-content div.info div.title div.name {
+      body.map .mapboxgl-popup .mapboxgl-popup-content div.details div.title div.name {
         padding-right: 5px;
         font-weight: bold;
         font-size: 18px; }
-      body.map .mapboxgl-popup .mapboxgl-popup-content div.info div.title div.rating {
+      body.map .mapboxgl-popup .mapboxgl-popup-content div.details div.title div.rating {
         padding: 0 3px;
         border: 1px solid #f0f0f0;
         background-color: #fff;
@@ -441,7 +441,7 @@ body.map .mapboxgl-popup {
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px; }
-        body.map .mapboxgl-popup .mapboxgl-popup-content div.info div.title div.rating i {
+        body.map .mapboxgl-popup .mapboxgl-popup-content div.details div.title div.rating i {
           line-height: 20px; }
     body.map .mapboxgl-popup .mapboxgl-popup-content .mapboxgl-popup-close-button {
       display: none; }
