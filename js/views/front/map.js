@@ -145,7 +145,11 @@ App.Front.Map = function() {
                 if ($('div.mapboxgl-popup.mapboxgl-popup-anchor-bottom:hover').length == 0) {
                     popup.remove();
                 }
-            }, 5);
+            }, 250);
+        });
+        
+        $(document).on('mouseleave', 'div.mapboxgl-popup.mapboxgl-popup-anchor-bottom', function() {
+            popup.remove();
         });
 
         // show/hide marker pulse 
