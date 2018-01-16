@@ -35,7 +35,7 @@ if (isset($User->GrowerOperation) && ((!isset($grower_operation_id) && $User->Gr
 
     $messages = $Message->retrieve([
         'where' => [
-            'user_id' => $User->id,
+            'user_id' => $user_id,
             'grower_operation_id' => $Grower->id,
         ],
         'order' => 'sent_on ASC'
