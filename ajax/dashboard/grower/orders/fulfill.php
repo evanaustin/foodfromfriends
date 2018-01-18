@@ -25,36 +25,13 @@ $Gump->filter_rules([
 
 $prepared_data = $Gump->run($validated_data);
 
-// Add to cart
-// ----------------------------------------------------------------------------
 try {
 	$OrderGrower = new OrderGrower([
         'DB' => $DB,
         'id' => $prepared_data['ordergrower_id']
     ]);
 
-    $OrderGrower->Status->fulfill();
-    
-    $Buyer = new User([
-        'DB' => $DB,
-        'id' => $OrderGrower->user_id
-    ]);
-    
-    $Seller = new GrowerOperation([
-        'DB' => $DB,
-        'id' => $OrderGrower->grower_operation_id
-    ],[
-        'details' => true
-    ]);
-
-    $Mail = new Mail([
-        'fromName'  => 'Food From Friends',
-        'fromEmail' => 'foodfromfriendsco@gmail.com',
-        'toName'    => $Buyer->name,
-        'toEmail'   => $Buyer->email
-    ]);
-    
-    $Mail->fulfilled_order_notification($Buyer, $OrderGrower, $Seller);
+    $OrderGrower->fulfill();
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
