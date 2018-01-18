@@ -13,7 +13,7 @@
                     </div>
                         
                     <div class="page-description text-muted small">
-                        Nothing further is required from you on this order.
+                        This order was <?php echo str_replace('cancelled by', 'cancelled by the', $OrderGrower->Status->status); ?>. Nothing further is required from you on this order.
                     </div>
                 </div>
             </div>
