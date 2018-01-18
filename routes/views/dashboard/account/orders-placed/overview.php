@@ -172,7 +172,7 @@
                                         $OrderGrower->Status->clear();
 
                                         $tab_highlight .= 'success';
-                                        $status = 'Complete';
+                                        $status = 'Completed';
                                     
                                         $actions = [
                                             'message',
@@ -188,7 +188,7 @@
                                         ];
                                     }
                                 
-                                } else if ($OrderGrower->Status->status == 'complete') {
+                                } else if ($OrderGrower->Status->status == 'completed') {
                                     $tab_highlight .= 'success';
                                     $status = 'Completed';
                                     
