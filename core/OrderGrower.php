@@ -310,6 +310,8 @@ class OrderGrower extends Base {
                 AND os.expired_on   IS NULL
                 AND os.rejected_on  IS NULL
                 AND os.confirmed_on IS NOT NULL
+                AND os.seller_cancelled_on IS NULL
+                AND os.buyer_cancelled_on IS NULL
                 AND os.fulfilled_on IS NULL
 
             ORDER BY os.confirmed_on desc

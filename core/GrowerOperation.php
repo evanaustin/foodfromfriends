@@ -266,6 +266,8 @@ class GrowerOperation extends Base {
                 AND os.expired_on   IS NULL
                 AND os.rejected_on  IS NULL
                 AND os.confirmed_on IS NULL
+                AND os.seller_cancelled_on IS NULL
+                AND os.buyer_cancelled_on IS NULL
 
             LIMIT 1
         ', [
@@ -284,6 +286,8 @@ class GrowerOperation extends Base {
             WHERE og.grower_operation_id=:grower_operation_id 
                 AND os.placed_on    IS NOT NULL
                 AND os.confirmed_on IS NOT NULL
+                AND os.seller_cancelled_on IS NULL
+                AND os.buyer_cancelled_on IS NULL
                 AND os.fulfilled_on IS NULL
 
             LIMIT 1
