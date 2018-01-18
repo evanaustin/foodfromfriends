@@ -23,7 +23,7 @@
                             Sign up
                         </span>
                         
-                        <i class="fa fa-rocket"></i>
+                        <!-- <i class="fa fa-rocket"></i> -->
                     </a>
                 </li>
 
@@ -33,7 +33,7 @@
                             Log in
                         </span>
                         
-                        <i class="fa fa-id-badge"></i>
+                        <!-- <i class="fa fa-id-badge"></i> -->
                     </a>
                 </li>
             <?php } else { ?>
@@ -111,10 +111,10 @@
                             aria-expanded="false"
                         ></div>
                     
-                        <div class="dropdown-menu dropdown-menu-right animated bounceIn">
-                            <?php if (isset($User->GrowerOperation)) {
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <?php /* if (isset($User->GrowerOperation)) {
                                 echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
-                            } ?>
+                            } */ ?>
 
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                                 Messages
@@ -130,6 +130,10 @@
                                 if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
 
                                 ?>
+                            </a>
+
+                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
+                                Orders placed
                             </a>
 
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">

@@ -5,6 +5,8 @@ App.Front.Grower = function() {
         $('#message').on('click', function(e) {
             // trigger sign up before directing to messages
             if (user == 0) {
+                e.preventDefault();
+                
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 

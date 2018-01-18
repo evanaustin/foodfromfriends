@@ -72,21 +72,7 @@ if (!empty($growers)) {
     
         $growers[$c]['joined_on']   = $ThisGrowerOperation->details['joined'];
     
-        // get star rating
-        /* $stars  = '';
-    
-        $floor  = floor($grower['rating']);
-        $ceil   = ceil($grower['rating']);
-    
-        for ($i = 0; $i < $floor; $i++) {
-            $stars .= '<i class="fa fa-star"></i>';
-        } if ($floor < $grower['rating'] && $grower['rating'] < $ceil) {
-            $stars .= '<i class="fa fa-star-half-o"></i>';
-        } for ($i = $ceil; $i < 5; $i++) {
-            $stars .= '<i class="fa fa-star-o"></i>';
-        }
-    
-        $growers[$c]['stars'] = (isset($grower['rating']) ? $stars : '<span class="no-rating">New</span>'); */
+        $growers[$c]['stars'] = stars($ThisGrowerOperation->average_rating);
     
     
         // get distance between user and grower
@@ -118,12 +104,13 @@ if (!empty($growers)) {
         $data['features'][] = [
             'type'          => 'Feature',
             'properties'    => [
-                // 'scale'         => $grower['id'] * 10,
-                'photo'         => $growers[$c]['path'] . '.' . $growers[$c]['ext'],
-                'name'          => $growers[$c]['name'],
-                // 'rating'        => $growers[$c]['stars'],
-                'distance'      => (!empty($distance) ? $distance['length'] . ' ' . $distance['units'] . ' away' : $growers[$c]['city'] . ', ' . $growers[$c]['state']),
-                'listings'      => $growers[$c]['listing_count'] . ' listing' . ($growers[$c]['listing_count'] > 1 ? 's' : '')
+                // 'scale'     => $growers[$c]['listing_count'] * 10,
+                'id'        => $grower['id'],
+                'photo'     => 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $growers[$c]['path'] . '.' . $growers[$c]['ext'],
+                'name'      => $growers[$c]['name'],
+                'rating'    => $growers[$c]['stars'],
+                'distance'  => (!empty($distance) ? $distance['length'] . ' ' . $distance['units'] . ' away' : $growers[$c]['city'] . ', ' . $growers[$c]['state']),
+                'listings'  => $growers[$c]['listing_count'] . ' listing' . ($growers[$c]['listing_count'] > 1 ? 's' : '')
             ],
             'geometry'      => [
                 'type'          => 'Point',

@@ -111,7 +111,7 @@
                                         <?php
 
                                         foreach ($listings as $listing) {
-
+                                            
                                             ?>
                                             
                                             <div class="col-md-4">

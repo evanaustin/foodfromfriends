@@ -5,7 +5,7 @@
             <div class="main container">
                 <?php
 
-                if ($GrowerOperation->id) {
+                if ($GrowerOperation->id && $FoodListing->is_available) {
 
                     ?>
 
@@ -369,7 +369,7 @@
                     <?php
 
                 } else {
-                    echo 'Oops! This ID does not belong to an active food listing.';
+                    echo 'Oops, looks like you found your way here by mistake &hellip; nothing to see here!';
                 }
 
             ?>

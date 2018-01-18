@@ -24,7 +24,7 @@ App.Front.FoodListing = function() {
             App.Util.hideMsg();
 
             // trigger sign up before adding to cart
-            if ($('input[name="user_id"]').val() == 0) {
+            if ($('input[name="user-id"]').val() == 0) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 

@@ -31,28 +31,11 @@ try {
         'id' => $prepared_data['ordergrower_id']
     ]);
 
-    $OrderGrower->Status->confirm();
+    $cancelled = $OrderGrower->Status->seller_cancel();
     
-    $Buyer = new User([
-        'DB' => $DB,
-        'id' => $OrderGrower->user_id
-    ]);
-    
-    $Seller = new GrowerOperation([
-        'DB' => $DB,
-        'id' => $OrderGrower->grower_operation_id
-    ],[
-        'details' => true
-    ]);
-
-    $Mail = new Mail([
-        'fromName'  => 'Food From Friends',
-        'fromEmail' => 'foodfromfriendsco@gmail.com',
-        'toName'    => $Buyer->name,
-        'toEmail'   => $Buyer->email
-    ]);
-    
-    $Mail->confirmed_order_notification($Buyer, $OrderGrower, $Seller);
+    if (!$cancelled) {
+        quit('Oops! You cannot cancel this order');
+    }
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }

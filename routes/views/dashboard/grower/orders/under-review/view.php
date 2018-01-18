@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Under review order <span class="muted">(ID: <?php echo $Order->id . '0' . $OrderGrower->id; ?>)</span>
+                        Under review order <span class="muted">(ID: <?php echo "{$Order->id}0{$OrderGrower->id}"; ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
@@ -144,9 +144,7 @@
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">
-                                        <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
-                                            <?php echo $Buyer->first_name; ?>
-                                        </a>
+                                        <?php echo $Buyer->first_name; ?>
                                     </h5>
 
                                     <small>

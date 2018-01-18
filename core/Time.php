@@ -8,7 +8,7 @@ class Time {
      * @param array $params format (bool) / timezone (string)
      * @return string
      */
-    public static function now($params) {
+    public static function now($params = null) {
         $date = new DateTime('now', new DateTimeZone('UTC'));
         
         if (isset($params['timezone'])) {

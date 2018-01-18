@@ -61,7 +61,7 @@ App.Front.Checkout = function () {
                         stripe_token: result.token.id
                     };
         
-                    App.Ajax.post('order/pay-for-order', data,
+                    App.Ajax.post('order/place-order', data,
                         function(response) {
                             wrapper.classList.remove('submitting');
                             wrapper.classList.add('submitted');

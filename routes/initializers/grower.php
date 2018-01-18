@@ -42,7 +42,7 @@ if ($GrowerOperation->is_active) {
 
     $grower_stars = stars($GrowerOperation->average_rating);
     
-    $listings = $FoodListing->get_listings($GrowerOperation->id);
+    $listings = $FoodListing->get_available_listings($GrowerOperation->id);
 
     $ratings = $GrowerOperation->retrieve([
         'where' => [

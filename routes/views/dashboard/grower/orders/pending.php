@@ -39,17 +39,15 @@
 
                     foreach($pending as $order) {
                         $time_elapsed = \Time::elapsed($order['confirmed_on']);
+
+                        $OrderGrower = new OrderGrower([
+                            'DB' => $DB,
+                            'id' => $order['id']
+                        ]);
                         
                         $ThisUser = new User([
                             'DB' => $DB,
                             'id' => $order['user_id']
-                        ]);
-
-                        $OrderGrower = new OrderGrower([
-                            'DB' => $DB,
-                            'id' => $order['id'],
-                            'buyer_id' => $order['user_id'],
-                            'seller_id' => $GrowerOperation->id
                         ]);
 
                         ?>
@@ -64,7 +62,7 @@
                             </td>
 
                             <td class="amount">
-                                $<?php echo number_format($order['total'] / 100, 2); ?>
+                                <?php amount($order['total']); ?>
                             </td>
                             
                             <td class="exchange-type">
@@ -72,7 +70,7 @@
                             </td>
 
                             <td class="buyer">
-                                <?php echo $ThisUser->name; ?>
+                                <?php echo $ThisUser->first_name; ?>
                             </td>
                             
                             <td class="details">
@@ -91,7 +89,7 @@
                     ?>
 
                     <tr>
-                        <td colspan=7>
+                        <td colspan=6>
                             <nav aria-label="Table navigation">
                                 <ul class="pagination">
                                     <li class="page-item active">
