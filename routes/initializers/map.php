@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Map | Food From Friends'
+    'title' => 'Food From Friends'
 ];
 
 // $city = $_GET['city'];
