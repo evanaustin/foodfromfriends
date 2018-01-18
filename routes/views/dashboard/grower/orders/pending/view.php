@@ -94,7 +94,7 @@
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">
-                                        <?php echo $Buyer->first_name; ?>
+                                        <?php echo $Buyer->name; ?>
                                     </h5>
 
                                     <small>
