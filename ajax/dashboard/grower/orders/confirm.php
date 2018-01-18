@@ -32,7 +32,7 @@ try {
     ]);
 
     $OrderGrower->Status->confirm();
-    
+
     $Buyer = new User([
         'DB' => $DB,
         'id' => $OrderGrower->user_id
