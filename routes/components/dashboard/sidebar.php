@@ -14,7 +14,8 @@
                             'new',
                             'pending',
                             'under-review',
-                            'completed'
+                            'completed',
+                            'failed'
                         ],
                         'food-listings' => [
                             'overview',
