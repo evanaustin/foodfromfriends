@@ -39,7 +39,7 @@ $Message = new Message([
     'DB' => $DB
 ]);
 
-$message_sent = $Message->add([
+$new_message = $Message->add([
     'user_id'   => $user_id,
     'grower_operation_id' => $grower_operation_id,
     'body'      => $message,
@@ -47,9 +47,58 @@ $message_sent = $Message->add([
     'sent_on'   => \Time::now()
 ]);
 
-if (!$message_sent) {
+if (!$new_message) {
     quit('Could not send message! Please try again');
 }
+
+$ThisUser = new User([
+    'DB' => $DB,
+    'id' => $user_id
+]);
+
+switch ($sent_by) {
+    case 'user':
+        $ThisGrowerOperation = new GrowerOperation([
+            'DB' => $DB,
+            'id' => $grower_operation_id
+        ],[
+            'details' => true,
+            'team' => true
+        ]);
+        
+        foreach ($ThisGrowerOperation->TeamMembers as $Member) {
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'   => $Member->name,
+                'toEmail'   => $Member->email
+            ]);
+            
+            $Mail->grower_new_message_notification($Member, $ThisGrowerOperation, $ThisUser, $message);
+        }
+
+        break;
+    
+    case 'grower':
+        $ThisGrowerOperation = new GrowerOperation([
+            'DB' => $DB,
+            'id' => $grower_operation_id
+        ],[
+            'details' => true
+        ]);
+
+        $Mail = new Mail([
+            'fromName'  => 'Food From Friends',
+            'fromEmail' => 'foodfromfriendsco@gmail.com',
+            'toName'   => $ThisUser->name,
+            'toEmail'   => $ThisUser->email
+        ]);
+
+        $Mail->user_new_message_notification($ThisUser, $ThisGrowerOperation, $message);
+
+        break;
+}
+
 
 echo json_encode($json);
 

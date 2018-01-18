@@ -32,13 +32,13 @@
 
                     if (!isset($prev_sent_on)) {
                         $prev_sent_on = $sent_on;
-                        $date_sent = $sent_on->format('n/j/y\, g:i A'); 
+                        $date_sent = $sent_on->format('n/j/y\, g:i A');
 
                         $margin = '';
                     } else {
                         $interval = $prev_sent_on->diff($sent_on);
                         $h = $interval->format('%H');
-                        $date_sent = ($h <= 1) ? false : $sent_on->format('n/j/y\, g:i A'); 
+                        $date_sent = ($h <= 1) ? false : $sent_on->format('n/j/y\, g:i A');
 
                         $margin = 'margin-top-1em';
 
