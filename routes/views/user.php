@@ -6,7 +6,7 @@
                     <div class="col-lg-3">
                         <div class="left-content">
                             <div class="profile-photo box">
-                                <img src="<?php echo (!empty($ThisUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>">
+                                <img src="<?php echo (!empty($ThisUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext /* . '?' . time() */ : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>">
                             </div>
                             
                             <div class="details box">
@@ -242,7 +242,7 @@
                                         ?>           
                                         
                                         <div class="review-block">                  
-                                            <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                            <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
                                             
                                             <div class="review-content">
                                                 <div class="quote">

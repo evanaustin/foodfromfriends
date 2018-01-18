@@ -19,7 +19,7 @@
                                     <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $grower['id']; ?>">
                                         <div class="card animated zoomIn">
                                             <div class="card-img-top">
-                                                <?php img(ENV . $grower['path'], $grower['ext'] . '?' . time(), 'S3', 'img-fluid animated fadeIn hidden'); ?>
+                                                <?php img(ENV . $grower['path'], $grower['ext'] /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
 
                                                 <div class="loading">
                                                     <i class="fa fa-circle-o-notch loading-icon"></i>
