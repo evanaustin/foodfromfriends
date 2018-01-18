@@ -27,7 +27,7 @@ App.Dashboard.NewOrderView = function() {
                         App.Util.loading('.save');
                         console.log(data);
         
-                        App.Ajax.post('order/confirm', data, 
+                        App.Ajax.post('dashboard/grower/orders/confirm', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
@@ -71,7 +71,7 @@ App.Dashboard.NewOrderView = function() {
                     if (result === true) {
                         App.Util.loading('.reject');
         
-                        App.Ajax.post('order/reject', data, 
+                        App.Ajax.post('dashboard/grower/orders/reject', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         

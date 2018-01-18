@@ -27,7 +27,7 @@ App.Dashboard.PendingOrderView = function() {
                         App.Util.loading('.save');
                         console.log(data);
         
-                        App.Ajax.post('order/fulfill', data, 
+                        App.Ajax.post('dashboard/grower/orders/fulfill', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
