@@ -3,7 +3,8 @@
     "sendgrid/sendgrid": "~6.0",
     "aws/aws-sdk-php": "^3.31",
     "wixel/gump": "dev-master",
-    "stripe/stripe-php": "^5.6"
+    "stripe/stripe-php": "^5.6",
+    "firebase/php-jwt": "^5.0"
   },
   "autoload": {
     "files": ["incl/functions.php"]
