@@ -24,7 +24,7 @@ App.Dashboard.OrdersPlaced = function() {
                     if (result === true) {
                         App.Util.loading();
 
-                        App.Ajax.post('order/buyer-cancel', data, 
+                        App.Ajax.post('dashboard/account/orders-placed/buyer-cancel', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         

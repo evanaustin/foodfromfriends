@@ -24,7 +24,7 @@ App.Dashboard.OrderReview = function() {
 
                         var data = $form.serialize();
 
-                        App.Ajax.post('order/review', data, 
+                        App.Ajax.post('dashboard/account/orders-placed/review', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
