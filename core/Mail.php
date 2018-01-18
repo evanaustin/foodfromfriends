@@ -262,6 +262,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
+    // @todo show items
     public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
         $subject = "New order - {$GrowerOperation->details['name']}";
         
@@ -275,12 +276,18 @@ class Mail {
         $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
+            <h1>
+                You've received a new order!
+            </h1>
+
+            <hr>
+
             <p>
                 Good news, {$Member->first_name}! {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
             </p>
 
             <p>
-                You have <strong>24 hours</strong> to either confirm or reject the order before it expires. Click the link below to view the details of the order.
+                You have <strong>24 hours</strong> to either confirm or reject the order before it expires.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -292,13 +299,15 @@ class Mail {
         
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
         
-        $mail->setTemplateId('4ed11a7f-9991-4b98-afa3-335bf37e555d');
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
     /* public function order_expiration_warning() {} */
     
+    // @todo show order summary
     public function confirmed_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Confirmed order - {$GrowerOperation->details['name']}";
         
@@ -312,12 +321,18 @@ class Mail {
         $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/overview?token=' . $jwt));
 
         $body = "
+            <h1>
+                Your order has been confirmed!
+            </h1>
+
+            <hr>
+
             <p>
                 Good news, {$Buyer->first_name}! {$GrowerOperation->details['name']} has confirmed your order.
             </p>
             
             <p>
-                This order is now ready for fulfillment. If you selected <strong>Pickup</strong> or <strong>Meetup</strong> as your exchange option from {$GrowerOperation->details['name']}, remember to go receive your order. Click the link below to view the order summary.
+                This order is now ready for fulfillment. If you selected <strong>Pickup</strong> or <strong>Meetup</strong> as your exchange option from {$GrowerOperation->details['name']}, remember to go receive your order.
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
@@ -329,11 +344,13 @@ class Mail {
         
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
         
-        $mail->setTemplateId('1108f7bb-ef1e-49e6-b7aa-d5922d17ab1c');
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    // @todo show order summary
     public function rejected_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Rejected order - {$GrowerOperation->details['name']}";
         
@@ -343,12 +360,17 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        // @todo scroll to order
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/overview?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
 
         $body = "
+            <h1>
+                Your order has been rejected
+            </h1>
+
+            <hr>
+
             <p>
-                Sorry to say that {$GrowerOperation->details['name']} has rejected your order. Don't take it personally! This usually means that the seller couldn't fulfill the item for some reason.
+                Hi, {$Buyer->first_name}. Sorry to say that {$GrowerOperation->details['name']} has rejected your order. Don't take it personally! This usually means that the seller couldn't fulfill the item for some reason.
             </p>
             
             <p>
@@ -356,7 +378,7 @@ class Mail {
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
-                Order history
+                Find other sellers
             </a>
         ";
         
@@ -364,31 +386,222 @@ class Mail {
         
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
         
-        $mail->setTemplateId('24f0c2d9-b5de-4715-beb3-aee3b283ade3');
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    // @todo show order summary
     public function expired_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        //
+        $subject = "Expired order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has expired
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Buyer->first_name}. Sorry to say that {$GrowerOperation->details['name']} has let your order expire. You will not be charged for your order to {$GrowerOperation->details['name']}.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Find other sellers
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
+    // ! @todo link to a new 'failed' order view
+    // @todo show order summary
     public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        //
+        /* $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        // $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                Order cancellation
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Member->first_name}. Sorry to say{$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
+            </p>
+
+            <p>
+                You are no longer responsible for fulfilling this order.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail); */
     }
     
+    // @todo show order summary
     public function seller_cancelled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        //
+        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has been cancelled
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Buyer->first_name}. Sorry to say that {$GrowerOperation->details['name']} has cancelled your order. You will not be charged for this order to {$GrowerOperation->details['name']}.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Find other sellers
+            </a>
+        ";
+
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
     /* public function order_fulfillment_reminder() {} */
 
+    // @todo show order summary
     public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        //
+        $subject = "Fulfilled order - {$GrowerOperation->details['name']}";
+        
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id;
+
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode($route . '?token=' . $jwt));
+
+        $report_link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/overview?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has been fulfilled!
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Buyer->first_name}. {$GrowerOperation->details['name']} has marked your order as fulfilled. If you believe this was done in error, please report an issue through your <a href=\"{$report_link}\">order overview</a>.
+            </p>
+
+            <p>
+                Otherwise, you have three days to review {$GrowerOperation->details['name']}. Be kind and be honest!
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Review {$GrowerOperation->details['name']}
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    // ! @todo this needs to link to a 'completed' order view with review
+    // @todo show score(s) & review(s)
     public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        //
+        $subject = "New review - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                You got a new review!
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Member->first_name}! {$Buyer->name} has left " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . " a new review.
+            </p>
+
+            <p>
+                This order is now cleared and marked for payout.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                Read review
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
     public function reported_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
