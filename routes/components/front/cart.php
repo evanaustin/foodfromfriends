@@ -1,7 +1,7 @@
 <div id="cart" off-canvas="slidebar-right right push">
     <?php
     
-    $is_active_cart = $User->ActiveOrder && !empty($User->ActiveOrder->Growers);
+    $is_active_cart =  isset($User) && $User->ActiveOrder && !empty($User->ActiveOrder->Growers);
     
     if ($is_active_cart) {
         echo '<div id="ordergrowers">';
@@ -121,18 +121,18 @@
             </a>
 
             <div class="rate subtotal">
-                $<?php echo number_format((($User->ActiveOrder) ? $User->ActiveOrder->subtotal : 0) / 100, 2); ?>
+                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->subtotal : 0) / 100, 2); ?>
             </div>
         </div>
         
-        <div class="line-amount <?php if (!$User->ActiveOrder || $User->ActiveOrder->exchange_fees == 0) { echo 'hidden'; } ?>">
+        <div class="line-amount <?php if (!isset($User) || !$User->ActiveOrder || isset($User) && $User->ActiveOrder->exchange_fees == 0) { echo 'hidden'; } ?>">
             <a class="label" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees">
                 Delivery
                 <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees"></i> -->
             </a>
 
             <div class="rate exchange-fee">
-                $<?php echo number_format((($User->ActiveOrder) ? $User->ActiveOrder->exchange_fees : 0) / 100, 2); ?>
+                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->exchange_fees : 0) / 100, 2); ?>
             </div>
         </div>
 
@@ -143,7 +143,7 @@
             </a>
 
             <div class="rate service-fee">
-                $<?php echo number_format((($User->ActiveOrder) ? $User->ActiveOrder->fff_fee : 0) / 100, 2); ?>
+                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->fff_fee : 0) / 100, 2); ?>
             </div>
         </div>
 
@@ -153,7 +153,7 @@
             </div>
 
             <div class="rate total">
-                $<?php echo number_format((($User->ActiveOrder) ? $User->ActiveOrder->total : 0) / 100, 2); ?>
+                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->total : 0) / 100, 2); ?>
             </div>
         </div>
 

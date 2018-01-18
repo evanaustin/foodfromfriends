@@ -135,8 +135,8 @@
                                                 echo ucfirst(str_replace('-', ' ', $alias));
 
                                                 // insert bubbles for new orders
-                                                if ($alias == 'new' && $Routing->section == 'grower' && $Routing->page != $alias && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
-                                                if ($alias == 'pending' && $Routing->section == 'grower' && $Routing->page != $alias && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
+                                                if ($alias == 'new' && $Routing->section == 'grower' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                if ($alias == 'pending' && $Routing->section == 'grower' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
                                                 
                                                 // insert bubbles for unread messages
                                                 if ($Routing->section == 'messages' && $Routing->subsection == 'inbox') {

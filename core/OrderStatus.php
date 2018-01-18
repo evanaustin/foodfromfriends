@@ -4,6 +4,7 @@ class OrderStatus extends Base {
     
     public
         $id,
+        $placed_on,
         $expired_on,
         $rejected_on,
         $confirmed_on,
