@@ -187,6 +187,81 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    public function user_new_message_notification($User, $GrowerOperation, $message) {
+        $subject = "New message from {$GrowerOperation->details['name']}";
+        
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
+
+        $token = [
+            'user_id' => $User->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode($route . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                {$subject}
+            </h1>
+
+            <blockquote>
+                {$message}
+            </blockquote>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View message thread
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function grower_new_message_notification($Member, $GrowerOperation, $User, $message) {
+        $subject = "New message from {$User->name}";
+        
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'none') ? '&grower=' . $GrowerOperation->id : '');
+
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode($route . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                {$subject}
+            </h1>
+
+            <blockquote>
+                {$message}
+            </blockquote>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View message thread
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
     public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
         $subject = "New order - {$GrowerOperation->details['name']}";
         
