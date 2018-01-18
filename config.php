@@ -37,6 +37,7 @@ $secrets = [
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
     'DB_PW'             => $DB_KEY,
+    'JWT_KEY'           => $JWT_KEY,
     'STRIPE_PK_LIVE'    => $STRIPE_PK_LIVE,
     'STRIPE_SK_LIVE'    => $STRIPE_SK_LIVE,
     'STRIPE_PK_TEST'    => $STRIPE_PK_TEST,
