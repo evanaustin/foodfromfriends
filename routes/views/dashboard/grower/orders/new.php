@@ -83,7 +83,7 @@
                             </td>
                             
                             <td class="buyer">
-                                <?php echo $ThisUser->first_name; ?>
+                                <?php echo $ThisUser->name; ?>
                             </td>
 
                             <td class="details">
