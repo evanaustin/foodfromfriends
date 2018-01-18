@@ -28,6 +28,7 @@ class GrowerOperation extends Base {
         $pending_orders;
 
     public
+        $TeamMembers,
         $Delivery,
         $Pickup,
         $Meetup;
@@ -51,6 +52,10 @@ class GrowerOperation extends Base {
 
             if (isset($configure['details']) && $configure['details'] == true) {
                 $this->configure_details();
+            }
+            
+            if (isset($configure['team']) && $configure['team'] == true) {
+                $this->configure_team();
             }
 
             if (isset($configure['exchange']) && $configure['exchange'] == true) {
@@ -135,6 +140,32 @@ class GrowerOperation extends Base {
                 'ext'       => $this->ext,
                 'joined'    => $this->created_on   
             ];
+        }
+    }
+
+    private function configure_team() {
+        $results = $this->DB->run('
+            SELECT *
+
+            FROM grower_operation_members gom
+
+            WHERE gom.grower_operation_id = :grower_operation_id
+                AND gom.permission > 0
+        ', [
+            'grower_operation_id' => $this->id
+        ]);
+
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $id = $result['user_id'];
+
+                $this->TeamMembers[$id] = new User([
+                    'DB' => $this->DB,
+                    'id' => $id
+                ]);
+            }
+        } else {
+            $this->TeamMembers = false;
         }
     }
 
