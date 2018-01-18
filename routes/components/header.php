@@ -18,6 +18,16 @@
 
             <?php if (!$LOGGED_IN) { ?>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                        <span>
+                            Discover
+                        </span>
+                        
+                        <!-- <i class="fa fa-map"></i> -->
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#sign-up-modal">
                         <span>
                             Sign up
