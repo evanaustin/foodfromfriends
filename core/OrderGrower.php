@@ -396,4 +396,40 @@ class OrderGrower extends Base {
 
         return $results;
     }
+    
+    /** 
+     * Get all the voided orders
+     * An order is complete if it has expired, been rejected, or been cancelled
+     * 
+     * @param int $grower_operation_id The seller ID
+     */
+    public function get_voided($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                og.id,
+                og.total,
+                o.user_id,
+                os.placed_on,
+                os.voided_on
+
+            FROM order_growers og
+
+            JOIN orders o
+                on o.id = og.order_id
+
+            JOIN order_statuses os
+                on os.id = og.order_status_id
+
+            WHERE og.grower_operation_id=:grower_operation_id 
+                AND os.voided_on IS NOT NULL
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results;
+    }
 }
