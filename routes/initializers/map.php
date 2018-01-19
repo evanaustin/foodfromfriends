@@ -6,6 +6,10 @@ $settings = [
 
 // $city = $_GET['city'];
 
+if (ENV != 'dev') {
+    $Cron->append_cronjob('30 8 * * 6 /var/www/chameleonrenaissance.sh >/dev/null 2>&1');
+}
+
 $GrowerOperation = new GrowerOperation([
     'DB' => $DB
 ]);
