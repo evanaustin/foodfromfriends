@@ -13,24 +13,20 @@ Class Cron {
         $this->handle    = 'crontab.txt';        
         $this->cron_file = "{$this->path}{$this->handle}";
     
-        try {
-            if (is_null($host) || is_null($port) || is_null($username) || is_null($password)) {
-                throw new Exception('Please specify the host, port, username and password');
-            }
-            
-            $this->connection = @ssh2_connect($host, $port);
-            
-            if (!$this->connection) {
-                throw new Exception('The SSH2 connection could not be established.');
-            }
-    
-            $authentication = @ssh2_auth_password($this->connection, $username, $password);
-            
-            if (!$authentication) {
-                throw new Exception("Could not authenticate '{$username}' using password: '{$password}'.");
-            }
-        } catch (Exception $e) {
-            $this->error_message($e->getMessage());
+        if (is_null($host) || is_null($port) || is_null($username) || is_null($password)) {
+            throw new \Exception('Please specify the host, port, username and password');
+        }
+        
+        $this->connection = @ssh2_connect($host, $port);
+        
+        if (!$this->connection) {
+            throw new \Exception('The SSH2 connection could not be established.');
+        }
+
+        $authentication = @ssh2_auth_password($this->connection, $username, $password);
+        
+        if (!$authentication) {
+            throw new \Exception("Could not authenticate '{$username}' using password: '{$password}'.");
         }
     }
  
@@ -39,7 +35,7 @@ Class Cron {
  
         try {
             if (!$argument_count) {
-                throw new Exception('There is nothing to execute, no arguments specified.');
+                throw new \Exception('There is nothing to execute, no arguments specified.');
             }
     
             $arguments = func_get_args();
@@ -49,9 +45,9 @@ Class Cron {
             $stream = @ssh2_exec($this->connection, $command_string);
             
             if (!$stream) {
-                throw new Exception("Unable to execute the specified commands:<br>{$command_string}");
+                throw new \Exception("Unable to execute the specified commands:<br>{$command_string}");
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error_message($e->getMessage());
         }
     
