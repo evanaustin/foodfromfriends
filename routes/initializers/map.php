@@ -7,7 +7,11 @@ $settings = [
 // $city = $_GET['city'];
 
 if (ENV != 'dev') {
-    $Cron->append_cronjob('30 8 * * 6 /var/www/chameleonrenaissance.sh >/dev/null 2>&1');
+    // $Cron->append_cronjob('30 8 * * 6 /var/www/chameleonrenaissance.sh >/dev/null 2>&1');
+    
+    /* $job = SERVER_ROOT . 'cron/test.php';
+    $time = 'now + 1min';
+    At::file($job, $time); */
 }
 
 $GrowerOperation = new GrowerOperation([
