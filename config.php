@@ -133,7 +133,7 @@ if ($LOGGED_IN) {
 **/
 
 if (ENV != 'dev') {
-    $crontab = new Ssh2_crontab_manager(SERVER_IP, '22', SERVER_USER, SERVER_PW);
+    $Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
 }
 
 

@@ -1,6 +1,6 @@
 <?php
  
-Class Ssh2_crontab_manager {
+Class Cron {
  
     private $connection;
     private $path;
