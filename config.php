@@ -8,14 +8,16 @@ switch($_SERVER['SERVER_NAME']) {
     case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/'
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'SERVER_IP'     => '45.77.100.31'
         ];
 
         break;
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/'
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'SERVER_IP'     => '45.77.104.9'
         ];    
         
         break;
@@ -45,7 +47,9 @@ $secrets = [
     'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
     'AWS_SECRET'        => $AWS_SECRET,
-    'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY
+    'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY,
+    'SERVER_USER'       => (!empty($SERV_USER) ? $SERV_USER : ''),
+    'SERVER_PW'         => (!empty($SERV_PW) ? $SERV_PW : '')
 ];
 
 $constants = $env + $secrets;
@@ -122,6 +126,15 @@ if ($LOGGED_IN) {
     }
 }
 
+
+
+/**
+* Cron connection
+**/
+
+if (ENV != 'dev') {
+    $crontab = new Ssh2_crontab_manager(SERVER_IP, '22', SERVER_USER, SERVER_PW);
+}
 
 
 /**
