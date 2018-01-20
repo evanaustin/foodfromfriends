@@ -159,7 +159,7 @@ class OrderGrower extends Base {
      * Calls `Mail->confirmed_order_notification()` to send trans email to buyer
      */
     public function confirm() {
-        if ($this->status == 'not yet confirmed') {
+        if ($this->Status->current == 'not yet confirmed') {
             // Mark as confirmed
             $this->Status->confirm();
 
@@ -197,7 +197,7 @@ class OrderGrower extends Base {
      * Calls `Mail->rejected_order_notification()` to send trans email to buyer
      */
     public function reject() {
-        if ($this->status == 'not yet confirmed') {
+        if ($this->Status->current == 'not yet confirmed') {
             // Mark as rejected
             $this->Status->reject();
             
@@ -239,7 +239,7 @@ class OrderGrower extends Base {
      * Calls `Mail->expired_order_notification()` to send trans email to buyer
      */
     public function expire() {
-        if ($this->status == 'not yet confirmed') {
+        if ($this->Status->current == 'not yet confirmed') {
             // Mark as expired
             $this->Status->expire();
 
@@ -284,7 +284,7 @@ class OrderGrower extends Base {
      * Calls `Mail->seller_cancelled_order_notification()` to send trans email to buyer
      */
     public function seller_cancel() {
-        if ($this->status == 'pending fulfillment') {
+        if ($this->Status->current == 'pending fulfillment') {
             // Mark as cancelled by seller
             $this->Status->seller_cancel();
             
@@ -329,7 +329,7 @@ class OrderGrower extends Base {
      * Calls `Mail->buyer_cancelled_order_notification()` to send trans email to seller
      */
     public function buyer_cancel() {
-        if ($this->status == 'not yet confirmed' || $this->status == 'pending fulfillment') {
+        if ($this->Status->current == 'not yet confirmed' || $this->Status->current == 'pending fulfillment') {
             // Mark as cancelled by buyer
             $this->Status->buyer_cancel();
             
@@ -377,7 +377,7 @@ class OrderGrower extends Base {
      * @todo schedule cron job: clear
      */
     public function fulfill() {
-        if ($this->status = 'pending fulfillment') {
+        if ($this->Status->current = 'pending fulfillment') {
             // Mark as fulfilled
             $this->Status->fulfill();
 
@@ -419,7 +419,7 @@ class OrderGrower extends Base {
      * @param array $data The full data from the buyer's review
      */
     public function review($data) {
-        if ($this->status = 'open for review') {
+        if ($this->Status->current = 'open for review') {
             // Rate the seller
             $this->rate($data['seller-score'], $data['seller-review']);
 
@@ -472,7 +472,7 @@ class OrderGrower extends Base {
      * @param array $data The full data from the buyer's report
      */
     public function report($data) {
-        if ($this->status = 'open for review') {
+        if ($this->Status->current = 'open for review') {
             // Mark as reported
             $this->Status->report();
 

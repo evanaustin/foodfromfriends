@@ -17,7 +17,7 @@ class OrderStatus extends Base {
         $voided_on;
 
     public
-        $status;
+        $current;
 
     protected
         $class_dependencies,
@@ -40,23 +40,23 @@ class OrderStatus extends Base {
 
     private function classify() {
         if (!isset($this->expired_on, $this->rejected_on, $this->confirmed_on)) {
-            $this->status = 'not yet confirmed';
+            $this->current = 'not yet confirmed';
         } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on, $this->seller_cancelled_on, $this->fulfilled_on)) {
-            $this->status = 'pending fulfillment';
+            $this->current = 'pending fulfillment';
         } else if (isset($this->rejected_on)) {
-            $this->status = 'rejected';
+            $this->current = 'rejected';
         } else if (isset($this->expired_on)) {
-            $this->status = 'expired';
+            $this->current = 'expired';
         } else if (isset($this->seller_cancelled_on)) {
-            $this->status = 'cancelled by seller';
+            $this->current = 'cancelled by seller';
         } else if (isset($this->buyer_cancelled_on)) {
-            $this->status = 'cancelled by buyer';
+            $this->current = 'cancelled by buyer';
         } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on, $this->reported_on)) {
-            $this->status = 'open for review';
+            $this->current = 'open for review';
         } else if (isset($this->reported_on) && !isset($cleared_on)) {
-            $this->status = 'issue reported';
+            $this->current = 'issue reported';
         } else if (isset($this->cleared_on)) {
-            $this->status = 'completed';
+            $this->current = 'completed';
         }
     }
 
@@ -70,7 +70,7 @@ class OrderStatus extends Base {
             'confirmed_on' => $this->confirmed_on
         ]);
 
-        $this->status = 'pending fulfillment';
+        $this->current = 'pending fulfillment';
     }
 
     /**
@@ -83,7 +83,7 @@ class OrderStatus extends Base {
             'rejected_on' => $this->rejected_on
         ]);
 
-        $this->status = 'rejected';
+        $this->current = 'rejected';
     }
 
     /**
@@ -96,7 +96,7 @@ class OrderStatus extends Base {
             'expired_on' => $this->expired_on
         ]);
 
-        $this->status = 'expired';
+        $this->current = 'expired';
     }
 
     /**
@@ -109,7 +109,7 @@ class OrderStatus extends Base {
             'seller_cancelled_on' => $this->seller_cancelled_on
         ]);
 
-        $this->status = 'cancelled by seller';
+        $this->current = 'cancelled by seller';
     }
 
     /**
@@ -122,7 +122,7 @@ class OrderStatus extends Base {
             'buyer_cancelled_on' => $this->buyer_cancelled_on
         ]);
 
-        $this->status = 'cancelled by buyer';
+        $this->current = 'cancelled by buyer';
     }
     
     /**
@@ -135,7 +135,7 @@ class OrderStatus extends Base {
             'fulfilled_on' => $this->fulfilled_on
         ]);
 
-        $this->status = 'open for review';
+        $this->current = 'open for review';
     }
     
     /**
@@ -148,7 +148,7 @@ class OrderStatus extends Base {
             'reviewed_on' => $this->reviewed_on
         ]);
 
-        $this->status = 'completed';
+        $this->current = 'completed';
     }
 
     /**
@@ -161,7 +161,7 @@ class OrderStatus extends Base {
             'reported_on' => $this->reported_on
         ]);
 
-        $this->status = 'issue reported';
+        $this->current = 'issue reported';
     }
     
     /**
