@@ -8,6 +8,7 @@ RewriteEngine On
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=index.php
 RewriteCond %{REQUEST_URI} !ajax
+RewriteCond %{REQUEST_URI} !scheduled
 RewriteCond %{REQUEST_URI} !syzygy
 RewriteCond %{REQUEST_URI} !.*\.jpg$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.png$ [NC]
