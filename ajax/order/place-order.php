@@ -90,7 +90,7 @@ try {
     if (ENV != 'dev') {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
-        $queue = 'capture';
+        $queue = 'a';
         At::cmd($job, $time, $queue);
     }
     
@@ -99,7 +99,7 @@ try {
         if (ENV != 'dev') {
             $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?order=' . $OrderGrower->id;
             $time = 'now + 1 day';
-            $queue = 'expire';
+            $queue = 'b';
             At::cmd($job, $time, $queue);
         }
         

@@ -7,9 +7,16 @@ require $config;
 use Treffynnon\At\Wrapper as At;
 
 echo '<pre>';
-var_dump(At::lq('capture'));
-var_dump(At::lq('expire'));
-var_dump(At::lq('clear'));
+
+    echo 'capture:';
+    var_dump(At::lq('a'));
+
+    echo 'expire:';
+    var_dump(At::lq('b'));
+
+    echo 'clear:';
+    var_dump(At::lq('c'));
+
 echo '</pre>';
 
 ?>
