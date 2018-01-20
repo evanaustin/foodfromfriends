@@ -90,7 +90,8 @@ try {
     if (ENV != 'dev') {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
-        At::cmd($job, $time);
+        $queue = 'capture';
+        At::cmd($job, $time, $queue);
     }
     
     foreach ($Order->Growers as $OrderGrower) {
@@ -98,7 +99,8 @@ try {
         if (ENV != 'dev') {
             $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?order=' . $OrderGrower->id;
             $time = 'now + 1 day';
-            At::cmd($job, $time);
+            $queue = 'expire';
+            At::cmd($job, $time, $queue);
         }
         
         // Send new order notification emails to each team member of each seller
