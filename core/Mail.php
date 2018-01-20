@@ -262,7 +262,6 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    // @todo show items
     public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
         $subject = "New order - {$GrowerOperation->details['name']}";
         
@@ -305,9 +304,8 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    /* public function order_expiration_warning() {} */
+    /* public function order_expiration_warning($Member, $GrowerOperation, $OrderGrower, $Buyer) {} */
     
-    // @todo show order summary
     public function confirmed_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Confirmed order - {$GrowerOperation->details['name']}";
         
@@ -350,7 +348,6 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    // @todo show order summary
     public function rejected_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Rejected order - {$GrowerOperation->details['name']}";
         
@@ -392,7 +389,6 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    // @todo show order summary
     public function expired_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Expired order - {$GrowerOperation->details['name']}";
         
@@ -430,51 +426,6 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    // ! @todo link to a new 'failed' order view
-    // @todo show order summary
-    public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        /* $subject = "Cancelled order - {$GrowerOperation->details['name']}";
-        
-        $token = [
-            'user_id' => $Member->id,
-            'grower_operation_id' => $GrowerOperation->id
-        ];
-
-        $jwt = JWT::encode($token, JWT_KEY);
-
-        // $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
-
-        $body = "
-            <h1>
-                Order cancellation
-            </h1>
-
-            <hr>
-
-            <p>
-                Hi, {$Member->first_name}. Sorry to say{$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
-            </p>
-
-            <p>
-                You are no longer responsible for fulfilling this order.
-            </p>
-            
-            <a href=\"{$link}\" class=\"button bg-green block\">
-                View order
-            </a>
-        ";
-        
-        $content = new SendGrid\Content('text/html', $body);
-        
-        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
-        
-        // Template: Canvas
-        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
-
-        return $this->sendgrid->client->mail()->send()->post($mail); */
-    }
-    
-    // @todo show order summary
     public function seller_cancelled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Cancelled order - {$GrowerOperation->details['name']}";
         
@@ -511,10 +462,51 @@ class Mail {
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
+
+    public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                Order cancellation
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Member->first_name}. Sorry to say{$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
+            </p>
+
+            <p>
+                You are no longer responsible for fulfilling this order.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
     
     /* public function order_fulfillment_reminder() {} */
 
-    // @todo show order summary
     public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Fulfilled order - {$GrowerOperation->details['name']}";
         
@@ -560,8 +552,6 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    // ! @todo this needs to link to a 'completed' order view with review
-    // @todo show score(s) & review(s)
     public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
         $subject = "New review - {$GrowerOperation->details['name']}";
         
@@ -604,7 +594,17 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function reported_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+    /**
+     * @todo craft message to seller
+     */ 
+    public function reported_order_seller_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        //
+    }
+    
+    /**
+     * @todo craft message to admin
+     */ 
+    public function reported_order_admin_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
         //
     }
     
