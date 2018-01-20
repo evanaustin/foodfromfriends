@@ -40,13 +40,7 @@ class OrderStatus extends Base {
 
     private function classify() {
         if (!isset($this->expired_on, $this->rejected_on, $this->confirmed_on)) {
-            $time_until = \Time::until($this->placed_on, '24 hours');
-            
-            if (!$time_until) {
-                $this->status = 'just expired';
-            } else {
-                $this->status = 'not yet confirmed';
-            }
+            $this->status = 'not yet confirmed';
         } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on, $this->seller_cancelled_on, $this->fulfilled_on)) {
             $this->status = 'pending fulfillment';
         } else if (isset($this->rejected_on)) {
@@ -58,13 +52,7 @@ class OrderStatus extends Base {
         } else if (isset($this->buyer_cancelled_on)) {
             $this->status = 'cancelled by buyer';
         } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on, $this->reported_on)) {
-            $time_until = \Time::until($this->fulfilled_on, '3 days');
-            
-            if (!$time_until) {
-                $this->status = 'just completed';
-            } else {
-                $this->status = 'open for review';
-            }
+            $this->status = 'open for review';
         } else if (isset($this->reported_on) && !isset($cleared_on)) {
             $this->status = 'issue reported';
         } else if (isset($this->cleared_on)) {

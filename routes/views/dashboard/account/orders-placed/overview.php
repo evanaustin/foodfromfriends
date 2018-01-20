@@ -110,16 +110,7 @@
                                 $tab_highlight = 'tab-';
 
                                 // Determine status settings
-                                if ($OrderGrower->Status->status == 'just expired') {
-                                    $OrderGrower->expire();
-                                        
-                                    $tab_highlight .= 'danger';
-                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
-                                
-                                    $actions = [
-                                        'message'
-                                    ];
-                                } else if ($OrderGrower->Status->status == 'not yet confirmed') {
+                                if ($OrderGrower->Status->status == 'not yet confirmed') {
                                     $tab_highlight .= 'waiting';
                                     $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
 
@@ -166,28 +157,13 @@
                                         'view receipt'
                                     ];
                                 } else if ($OrderGrower->Status->status == 'open for review') {
-                                    $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
-                                    
-                                    if (!$time_until) {
-                                        $OrderGrower->Status->clear();
-
-                                        $tab_highlight .= 'success';
-                                        $status = 'Completed';
-                                    
-                                        $actions = [
-                                            'message',
-                                            'view receipt'
-                                        ];
-                                    } else {
-                                        $tab_highlight .= 'info';
-                                        $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
-                                    
-                                        $actions = [
-                                            'leave a review',
-                                            'report an issue'
-                                        ];
-                                    }
+                                    $tab_highlight .= 'info';
+                                    $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
                                 
+                                    $actions = [
+                                        'leave a review',
+                                        'report an issue'
+                                    ];
                                 } else if ($OrderGrower->Status->status == 'completed') {
                                     $tab_highlight .= 'success';
                                     $status = 'Completed';

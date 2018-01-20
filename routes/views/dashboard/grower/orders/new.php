@@ -46,12 +46,6 @@
                         
                         $time_elapsed = \Time::elapsed($order['placed_on']);
                         
-                        // handle expired orders
-                        if ($time_elapsed['diff']->days >= 1) {
-                            $OrderGrower->expire();
-                            continue;
-                        }
-
                         $time_until = \Time::until($order['placed_on'], '24 hours');
 
                         $ThisUser = new User([
