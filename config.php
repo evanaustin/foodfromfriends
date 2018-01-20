@@ -5,6 +5,7 @@
 **/
 
 switch($_SERVER['SERVER_NAME']) {
+    case 'www.foodfromfriends.co':
     case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
@@ -13,6 +14,7 @@ switch($_SERVER['SERVER_NAME']) {
         ];
 
         break;
+    case 'www.chameleonrenaissance.com':
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
