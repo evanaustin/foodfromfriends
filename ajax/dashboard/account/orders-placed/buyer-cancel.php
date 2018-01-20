@@ -25,13 +25,13 @@ $Gump->filter_rules([
 
 $prepared_data = $Gump->run($validated_data);
 
-$OrderGrower = new OrderGrower([
-    'DB' => $DB,
-    'id' => $prepared_data['ordergrower_id']
-]);
-
 try {
-    $OrderGrower->Status->buyer_cancel();
+    $OrderGrower = new OrderGrower([
+        'DB' => $DB,
+        'id' => $prepared_data['ordergrower_id']
+    ]);
+
+    $OrderGrower->buyer_cancel();
 } catch(\Exception $e) {
     quit($e->getMessage());
 }
