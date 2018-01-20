@@ -91,16 +91,26 @@ try {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
         $queue = 'a';
-        At::cmd($job, $time, $queue);
+
+        try{
+            At::cmd($job, $time, $queue);
+        } catch(\Exception $e) {
+            error_log($e->getMessage());
+        }
     }
     
     foreach ($Order->Growers as $OrderGrower) {
         // Schedule system job for suborder expiration
         if (ENV != 'dev') {
-            $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?order=' . $OrderGrower->id;
+            $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?suborder=' . $OrderGrower->id;
             $time = 'now + 1 day';
             $queue = 'b';
-            At::cmd($job, $time, $queue);
+            
+            try {
+                At::cmd($job, $time, $queue);
+            } catch(\Exception $e) {
+                error_log($e->getMessage());
+            }
         }
         
         // Send new order notification emails to each team member of each seller

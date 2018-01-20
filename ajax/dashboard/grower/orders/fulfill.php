@@ -37,10 +37,15 @@ try {
 
     // Schedule system job for payout clearing
     if (ENV != 'dev') {
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?ordergrower=' . $OrderGrower->id;
+        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?suborder=' . $OrderGrower->id;
         $time = 'now + 3 days';
         $queue = 'c';
-        At::cmd($job, $time, $queue);
+        
+        try {
+            At::cmd($job, $time, $queue);
+        } catch(\Exception $e) {
+            error_log($e->getMessage());
+        }
     }
 } catch (\Exception $e) {
 	quit($e->getMessage());
