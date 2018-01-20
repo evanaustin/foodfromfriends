@@ -12,7 +12,7 @@ if (\Num::is_id($order_grower_id)) {
         'id' => $order_grower_id
     ]);
 
-    if ($OrderGrower->Status->status == 'pending fulfillment') {
+    if ($OrderGrower->Status->current == 'pending fulfillment') {
         $Order = new Order([
             'DB' => $DB,
             'id' => $OrderGrower->order_id

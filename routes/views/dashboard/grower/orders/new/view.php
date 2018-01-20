@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
         
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->days < 1 && $OrderGrower->Status->status == 'not yet confirmed') {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->days < 1 && $OrderGrower->Status->current == 'not yet confirmed') {
 
             ?>
 

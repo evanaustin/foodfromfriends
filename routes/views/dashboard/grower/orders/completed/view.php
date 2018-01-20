@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->status == 'completed') {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->current == 'completed') {
 
             ?>
 

@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && in_array($OrderGrower->Status->status, $voided)) {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && in_array($OrderGrower->Status->current, $voided)) {
 
             ?>
 
@@ -13,7 +13,7 @@
                     </div>
                         
                     <div class="page-description text-muted small">
-                        This order was <?php echo str_replace('cancelled by', 'cancelled by the', $OrderGrower->Status->status); ?>. Nothing further is required from you on this order.
+                        This order was <?php echo str_replace('cancelled by', 'cancelled by the', $OrderGrower->Status->current); ?>. Nothing further is required from you on this order.
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                             
                             <div class="callout">
                                 <h6>
-                                    Order <?php echo $OrderGrower->Status->status; ?>
+                                    Order <?php echo $OrderGrower->Status->current; ?>
                                 </h6>
                                 
                                 <p>

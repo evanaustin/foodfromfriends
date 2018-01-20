@@ -110,7 +110,7 @@
                                 $tab_highlight = 'tab-';
 
                                 // Determine status settings
-                                if ($OrderGrower->Status->status == 'not yet confirmed') {
+                                if ($OrderGrower->Status->current == 'not yet confirmed') {
                                     $tab_highlight .= 'waiting';
                                     $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
 
@@ -118,21 +118,21 @@
                                         'message',
                                         'cancel order'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'expired') {
+                                } else if ($OrderGrower->Status->current == 'expired') {
                                     $tab_highlight .= 'danger';
                                     $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
                                     $actions = [
                                         'message'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'rejected') {
+                                } else if ($OrderGrower->Status->current == 'rejected') {
                                     $tab_highlight .= 'danger';
                                     $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
                                     $actions    = [
                                         'message'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'pending fulfillment') {
+                                } else if ($OrderGrower->Status->current == 'pending fulfillment') {
                                     $tab_highlight .= 'warning';
                                     $status = 'Pending fulfillment';
                                 
@@ -140,7 +140,7 @@
                                         'message',
                                         'cancel order'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'cancelled by buyer') {
+                                } else if ($OrderGrower->Status->current == 'cancelled by buyer') {
                                     $tab_highlight .= 'danger';
                                     $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                     
@@ -148,7 +148,7 @@
                                         'message',
                                         'view receipt'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'cancelled by seller') {
+                                } else if ($OrderGrower->Status->current == 'cancelled by seller') {
                                     $tab_highlight .= 'danger';
                                     $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                 
@@ -156,7 +156,7 @@
                                         'message',
                                         'view receipt'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'open for review') {
+                                } else if ($OrderGrower->Status->current == 'open for review') {
                                     $tab_highlight .= 'info';
                                     $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
                                 
@@ -164,7 +164,7 @@
                                         'leave a review',
                                         'report an issue'
                                     ];
-                                } else if ($OrderGrower->Status->status == 'completed') {
+                                } else if ($OrderGrower->Status->current == 'completed') {
                                     $tab_highlight .= 'success';
                                     $status = 'Completed';
                                     

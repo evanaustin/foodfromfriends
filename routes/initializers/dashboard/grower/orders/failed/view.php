@@ -20,7 +20,7 @@ if (\Num::is_id($order_grower_id)) {
         'cancelled by seller'
     ];
 
-    if (in_array($OrderGrower->Status->status, $voided)) {
+    if (in_array($OrderGrower->Status->current, $voided)) {
         $Order = new Order([
             'DB' => $DB,
             'id' => $OrderGrower->order_id

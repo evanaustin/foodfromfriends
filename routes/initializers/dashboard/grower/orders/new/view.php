@@ -12,7 +12,7 @@ if (\Num::is_id($order_grower_id)) {
         'id' => $order_grower_id
     ]);
 
-    if ($OrderGrower->Status->status == 'not yet confirmed') {
+    if ($OrderGrower->Status->current == 'not yet confirmed') {
         $Order = new Order([
             'DB' => $DB,
             'id' => $OrderGrower->order_id
