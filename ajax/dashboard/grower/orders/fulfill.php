@@ -39,7 +39,7 @@ try {
     if (ENV != 'dev') {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?ordergrower=' . $OrderGrower->id;
         $time = 'now + 3 days';
-        $queue = 'clear';
+        $queue = 'c';
         At::cmd($job, $time, $queue);
     }
 } catch (\Exception $e) {
