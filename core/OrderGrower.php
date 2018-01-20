@@ -165,12 +165,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
             
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true
@@ -206,12 +206,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
             
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true
@@ -251,12 +251,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
             
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true
@@ -296,12 +296,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
             
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true
@@ -341,12 +341,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
 
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true,
@@ -383,12 +383,12 @@ class OrderGrower extends Base {
 
             // Send email notification
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
             
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
                 'details' => true
@@ -436,12 +436,12 @@ class OrderGrower extends Base {
 
             // Send email notifications
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
 
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $OrderGrower->grower_operation_id
             ],[
                 'details' => true,
@@ -478,12 +478,12 @@ class OrderGrower extends Base {
 
             // Send email notifications
             $Buyer = new User([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $this->user_id
             ]);
 
             $Seller = new GrowerOperation([
-                'DB' => $DB,
+                'DB' => $this->DB,
                 'id' => $OrderGrower->grower_operation_id
             ],[
                 'details' => true,
