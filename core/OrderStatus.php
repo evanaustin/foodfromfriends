@@ -39,9 +39,9 @@ class OrderStatus extends Base {
     }
 
     private function classify() {
-        if (!isset($this->expired_on, $this->rejected_on, $this->confirmed_on)) {
+        if (!isset($this->expired_on) && !isset($this->rejected_on) && !isset($this->confirmed_on)) {
             $this->current = 'not yet confirmed';
-        } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on, $this->seller_cancelled_on, $this->fulfilled_on)) {
+        } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on) && !isset($this->seller_cancelled_on) && !isset($this->fulfilled_on)) {
             $this->current = 'pending fulfillment';
         } else if (isset($this->rejected_on)) {
             $this->current = 'rejected';
@@ -51,7 +51,7 @@ class OrderStatus extends Base {
             $this->current = 'cancelled by seller';
         } else if (isset($this->buyer_cancelled_on)) {
             $this->current = 'cancelled by buyer';
-        } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on, $this->reported_on)) {
+        } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on) && !isset($this->reported_on)) {
             $this->current = 'open for review';
         } else if (isset($this->reported_on) && !isset($cleared_on)) {
             $this->current = 'issue reported';
