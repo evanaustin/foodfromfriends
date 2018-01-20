@@ -36,25 +36,6 @@ try {
     ]);
 
     $OrderGrower->review($prepared_data);
-    
-    $Seller = new GrowerOperation([
-        'DB' => $DB,
-        'id' => $OrderGrower->grower_operation_id
-    ],[
-        'details' => true,
-        'team' => true
-    ]);
-
-    foreach ($Seller->TeamMembers as $Member) {
-        $Mail = new Mail([
-            'fromName'  => 'Food From Friends',
-            'fromEmail' => 'foodfromfriendsco@gmail.com',
-            'toName'   => $Member->name,
-            'toEmail'   => $Member->email
-        ]);
-        
-        $Mail->reviewed_order_notification($Member, $Seller, $OrderGrower, $User);
-    }
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
