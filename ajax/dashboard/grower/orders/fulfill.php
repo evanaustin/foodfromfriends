@@ -4,6 +4,8 @@ $config = 'config.php';
 while (!file_exists($config)) $config = '../' . $config;
 require $config;
 
+use Treffynnon\At\Wrapper as At;
+
 $json['error'] = null;
 $json['success'] = true;
 

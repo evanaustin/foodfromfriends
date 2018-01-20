@@ -1,7 +1,5 @@
 <?php
 
-use Treffynnon\At\Wrapper as At;
-
 $settings = [
     'title' => 'Food From Friends'
 ];
