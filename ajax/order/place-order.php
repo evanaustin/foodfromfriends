@@ -85,15 +85,19 @@ try {
     $Order->mark_paid($charge_id);
 
     // Schedule system job for payment capture
-    $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
-    $time = 'now + 6 days';
-    At::cmd($job, $time);
+    if (ENV != 'dev') {
+        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
+        $time = 'now + 6 days';
+        At::cmd($job, $time);
+    }
     
     foreach ($Order->Growers as $OrderGrower) {
         // Schedule system job for suborder expiration
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?order=' . $OrderGrower->id;
-        $time = 'now + 1 day';
-        At::cmd($job, $time);
+        if (ENV != 'dev') {
+            $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?order=' . $OrderGrower->id;
+            $time = 'now + 1 day';
+            At::cmd($job, $time);
+        }
         
         // Send new order notification emails to each team member of each seller
         $Seller = new GrowerOperation([
@@ -116,7 +120,7 @@ try {
         }
     }
 
-    error_log('order placed: ' . json_encode(At::lq()));
+    if (ENV != 'dev') error_log('order placed: ' . json_encode(At::lq()));
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }
