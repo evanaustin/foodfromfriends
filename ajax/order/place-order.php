@@ -121,8 +121,6 @@ try {
             $Mail->new_order_notification($Member, $Seller, $OrderGrower, $User);
         }
     }
-
-    if (ENV != 'dev') error_log('order placed: ' . json_encode(At::lq()));
 } catch (\Exception $e) {
 	quit($e->getMessage());
 }

@@ -40,8 +40,6 @@ try {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?ordergrower=' . $OrderGrower->id;
         $time = 'now + 3 days';
         At::cmd($job, $time);
-
-        error_log('order fulfilled: ' . json_encode(At::lq()));
     }
 } catch (\Exception $e) {
 	quit($e->getMessage());
