@@ -49,7 +49,7 @@ class OrderGrower extends Base {
      * Creates an array of every OrderGrower:OrderExchange pair for a given order
      *
      * @param int $order_id
-     * @return array Growers keyed by `grower_operation_id`!
+     * @return array Growers keyed by `grower_operation_id`
      */
     public function load_for_order($order_id) {
         $results = $this->DB->run('
@@ -75,7 +75,7 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds the exchange for this grower in the current order and stores it in `$this->Exchange`.
+     * Finds the exchange for this grower in the current suborder and stores it in `$this->Exchange`
      */
     public function load_exchange() {
         $this->Exchange = new OrderExchange([
@@ -87,7 +87,7 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds all the food listings for this grower in the current order and stores them in `$this->FoodListings`.
+     * Finds all the food listings for this grower in the current suborder and stores them in `$this->FoodListings`
      */
     public function load_food_listings() {
         $OrderFoodListing = new OrderFoodListing([
@@ -98,7 +98,7 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds the status for this grower in the current order and stores it in `$this->Status`.
+     * Finds the status for this grower in the current suborder and stores it in `$this->Status`
      */
     public function load_status() {
         $this->Status = new OrderStatus([
@@ -134,8 +134,8 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Calculates the total price of all items in this order sold by this grower
-     * Call after calling `sync_exchange_order()` and `sync_food_listing()`.
+     * Calculates the total price of all items in this suborder sold by this grower
+     * Call after calling `sync_exchange_order()` and `sync_food_listing()`
      */
     public function calculate_total() {
         $this->subtotal = 0;
@@ -153,12 +153,378 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Calls `OrderGrower->penalize()` to rate each item
-     * Calls `OrderGrower->Status->expire()` to mark order as expired
+     * Seller confirms a suborder
+     * 
+     * Calls `OrderGrower->Status->confirm()` to mark order as confirmed
+     * Calls `Mail->confirmed_order_notification()` to send trans email to buyer
      */
-    public function expire($data) {
-        $this->penalize();
-        $this->Status->expire();
+    public function confirm() {
+        if ($this->status == 'not yet confirmed') {
+            // Mark as confirmed
+            $this->Status->confirm();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+            
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true
+            ]);
+        
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => $Buyer->name,
+                'toEmail'   => $Buyer->email
+            ]);
+            
+            $Mail->confirmed_order_notification($Buyer, $this, $Seller);
+        } else {
+            throw new \Exception('Oops! You cannot confirm this order');
+        }
+    }
+
+    /**
+     * Seller rejects a suborder
+     * 
+     * Calls `OrderGrower->Status->reject()` to mark suborder as rejected
+     * Calls `OrderGrower->void()` to void suborder
+     * Calls `Mail->rejected_order_notification()` to send trans email to buyer
+     */
+    public function reject() {
+        if ($this->status == 'not yet confirmed') {
+            // Mark as rejected
+            $this->Status->reject();
+            
+            // Proceed to void
+            $this->void();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+            
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true
+            ]);
+        
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => $Buyer->name,
+                'toEmail'   => $Buyer->email
+            ]);
+            
+            $Mail->rejected_order_notification($Buyer, $OrderGrower, $Seller);
+        } else {
+            throw new \Exception('Oops! You cannot reject this order');
+        }
+    }
+    
+    /**
+     * Suborder expires 24 hours after order was placed if not responded to
+     * 
+     * Calls `OrderGrower->Status->expire()` to mark order as expired
+     * Calls `OrderGrower->void()` to void payment
+     * Calls `OrderGrower->penalize()` to penalize seller
+     * Calls `Mail->expired_order_notification()` to send trans email to buyer
+     */
+    public function expire() {
+        if ($this->status == 'not yet confirmed') {
+            // Mark as expired
+            $this->Status->expire();
+
+            // Proceed to void
+            $this->void();
+            
+            // Proceed to penalize seller
+            $this->penalize();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+            
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true
+            ]);
+        
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => $Buyer->name,
+                'toEmail'   => $Buyer->email
+            ]);
+            
+            $Mail->expired_order_notification($Buyer, $this, $Seller);
+        } else {
+            throw new \Exception('This order cannot be expired');
+        }
+    }
+
+    /**
+     * Seller cancels a suborder
+     * 
+     * Calls `OrderGrower->Status->buyer_cancel()` to mark suborder as cancelled by seller
+     * Calls `OrderGrower->void()` to void suborder
+     * Calls `OrderGrower->penalize()` to penalize seller
+     * Calls `Mail->seller_cancelled_order_notification()` to send trans email to buyer
+     */
+    public function seller_cancel() {
+        if ($this->status == 'pending fulfillment') {
+            // Mark as cancelled by seller
+            $this->Status->seller_cancel();
+            
+            // Proceed to void
+            $this->void();
+
+            // Proceed to penalize seller
+            $this->penalize();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+            
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true
+            ]);
+        
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => $Buyer->name,
+                'toEmail'   => $Buyer->email
+            ]);
+            
+            $Mail->seller_cancelled_order_notification($Buyer, $this, $Seller);
+        } else {
+            throw new \Exception('Oops! You cannot cancel this order');
+        }
+    }
+
+    /**
+     * Buyer cancels a suborder
+     * 
+     * Calls `OrderGrower->Status->buyer_cancel()` to mark suborder as cancelled by buyer
+     * Calls `OrderGrower->void()` to void suborder
+     * @todo Calls `OrderGrower->penalize()` to penalize seller
+     * Calls `Mail->buyer_cancelled_order_notification()` to send trans email to seller
+     */
+    public function buyer_cancel() {
+        if ($this->status == 'not yet confirmed' || $this->status == 'pending fulfillment') {
+            // Mark as cancelled by buyer
+            $this->Status->buyer_cancel();
+            
+            // Proceed to void
+            $this->void();
+
+            // Proceed to penalize buyer
+            // $this->penalize();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true,
+                'team' => true
+            ]);
+    
+            foreach ($Seller->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+                
+                $Mail->buyer_cancelled_order_notification($Member, $Seller, $this, $Buyer);
+            }
+        } else {
+            throw new \Exception('Oops! You cannot cancel this order');
+        }
+    }
+
+    /**
+     * Seller fulfills an order
+     * 
+     * Calls `OrderGrower->Status->fulfill()` to mark order as fulfilled
+     * Calls `Mail->fulfilled_order_notification()` to send trans email to buyer
+     * 
+     * @todo schedule cron job: clear
+     */
+    public function fulfill() {
+        if ($this->status = 'pending fulfillment') {
+            // Mark as fulfilled
+            $this->Status->fulfill();
+
+            // Send email notification
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+            
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $this->grower_operation_id
+            ],[
+                'details' => true
+            ]);
+        
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => $Buyer->name,
+                'toEmail'   => $Buyer->email
+            ]);
+            
+            $Mail->fulfilled_order_notification($Buyer, $this, $Seller);
+        } else {
+            throw new \Exception('Oops! You cannot mark this order as fulfilled');
+        }
+    }
+
+    /**
+     * Buyer reviews seller & items
+     * 
+     * Calls `OrderGrower->rate()` to rate the seller
+     * Calls `OrderGrower->FoodListings->rate()` to rate each item
+     * Calls `OrderGrower->Status->review()` to mark the order as reviewed
+     * Calls `OrderGrower->clear()` to clear order
+     * Calls `Mail->reviewed_order_notification()` to send trans email to seller
+     * 
+     * @param array $data The full data from the buyer's review
+     */
+    public function review($data) {
+        if ($this->status = 'open for review') {
+            // Rate the seller
+            $this->rate($data['seller-score'], $data['seller-review']);
+
+            // Rate each item
+            foreach ($data['items'] as $food_listing_id => $rating) {
+                $this->FoodListings[$food_listing_id]->rate($this->user_id, $rating['score'], $rating['review']);
+            }
+
+            // Mark as reviewed
+            $this->Status->review();
+
+            // Proceed to clear
+            $this->clear();
+
+            // Send email notifications
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $OrderGrower->grower_operation_id
+            ],[
+                'details' => true,
+                'team' => true
+            ]);
+        
+            foreach ($Seller->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+                
+                $Mail->reviewed_order_notification($Member, $Seller, $OrderGrower, $Buyer);
+            }
+        } else {
+            throw new \Exception('Oops! You cannot review this order');
+        }
+    }
+    
+    /**
+     * Buyer reports issue with seller
+     * 
+     * Calls `OrderGrower->Status->report()` to mark the order as reported
+     * Calls `Mail->reported_order_notification()` to send trans email to seller
+     * 
+     * @param array $data The full data from the buyer's report
+     */
+    public function report($data) {
+        if ($this->status = 'open for review') {
+            // Mark as reported
+            $this->Status->report();
+
+            // Send email notifications
+            $Buyer = new User([
+                'DB' => $DB,
+                'id' => $this->user_id
+            ]);
+
+            $Seller = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $OrderGrower->grower_operation_id
+            ],[
+                'details' => true,
+                'team' => true
+            ]);
+        
+            foreach ($Seller->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+                
+                // $Mail->reported_order_notification($Member, $Seller, $OrderGrower, $User);
+            }
+        } else {
+            throw new \Exception('Oops! You cannot report this order');
+        }
+    }
+
+    /**
+     * Suborder is cleared for payout
+     * Review period closes
+     * 
+     * Calls `OrderGrower->Status->clear()` to mark order as voided
+     */
+    public function clear() {
+        // Mark as cleared
+        $this->Status->clear();
+    }
+
+    /**
+     * Void suborder
+     * @todo Stock, fees, and payouts are recalculated
+     * 
+     * Calls `OrderGrower->Status->void()` to mark order as voided
+     */
+    public function void() {
+        // Mark as void
+        $this->Status->void();
     }
 
     /**
@@ -190,23 +556,6 @@ class OrderGrower extends Base {
         $this->update([
             'average_rating' => $results[0]['average']
         ], 'id', $this->grower_operation_id, 'grower_operations');
-    }
-
-    /**
-     * Calls `OrderGrower->rate()` to rate the seller
-     * Calls `OrderGrower->FoodListings->rate()` to rate each item
-     * Calls `OrderGrower->Status->review()` to mark the order as reviewed
-     * 
-     * @param array $data The full data from the buyer's review
-     */
-    public function review($data) {
-        $this->rate($data['seller-score'], $data['seller-review']);
-
-        foreach ($data['items'] as $food_listing_id => $rating) {
-            $this->FoodListings[$food_listing_id]->rate($this->user_id, $rating['score'], $rating['review']);
-        }
-
-        $this->Status->review();
     }
 
     /**
@@ -401,11 +750,11 @@ class OrderGrower extends Base {
     
     /** 
      * Get all the voided orders
-     * An order is complete if it has expired, been rejected, or been cancelled
+     * An order is void if it has expired, been rejected, or been cancelled
      * 
      * @param int $grower_operation_id The seller ID
      */
-    public function get_voided($grower_operation_id) {
+    public function get_failed($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
                 og.id,
