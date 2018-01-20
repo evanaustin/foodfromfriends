@@ -8,6 +8,6 @@ $OrderGrower = new OrderGrower([
     'DB' => $DB
 ]);
 
-$completed = $OrderGrower->get_voided($User->GrowerOperation->id);
+$completed = $OrderGrower->get_failed($User->GrowerOperation->id);
 
 ?>
