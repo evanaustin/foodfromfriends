@@ -14,7 +14,7 @@ class OrderStatus extends Base {
         $reported_on,
         $reviewed_on,
         $cleared_on,
-        $refunded_on; // ! this will probably go in a separate class/table
+        $voided_on;
 
     public
         $status;
@@ -39,7 +39,7 @@ class OrderStatus extends Base {
     }
 
     private function classify() {
-        if (!isset($this->expired_on) && !isset($this->rejected_on) && !isset($this->confirmed_on)) {
+        if (!isset($this->expired_on, $this->rejected_on, $this->confirmed_on)) {
             $time_until = \Time::until($this->placed_on, '24 hours');
             
             if (!$time_until) {
@@ -47,170 +47,111 @@ class OrderStatus extends Base {
             } else {
                 $this->status = 'not yet confirmed';
             }
-        } else if (isset($this->expired_on)) {
-            $this->status = 'expired';
+        } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on, $this->seller_cancelled_on, $this->fulfilled_on)) {
+            $this->status = 'pending fulfillment';
         } else if (isset($this->rejected_on)) {
             $this->status = 'rejected';
-        } else if (isset($this->confirmed_on) && !isset($this->fulfilled_on) && !isset($this->buyer_cancelled_on) && !isset($this->seller_cancelled_on)) {
-            $this->status = 'pending fulfillment';
-        } else if (isset($this->buyer_cancelled_on)) {
-            $this->status = 'cancelled by buyer';
+        } else if (isset($this->expired_on)) {
+            $this->status = 'expired';
         } else if (isset($this->seller_cancelled_on)) {
             $this->status = 'cancelled by seller';
-        } else if (isset($this->fulfilled_on) && !isset($this->cleared_on)) {
+        } else if (isset($this->buyer_cancelled_on)) {
+            $this->status = 'cancelled by buyer';
+        } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on, $this->reported_on)) {
             $time_until = \Time::until($this->fulfilled_on, '3 days');
             
             if (!$time_until) {
-                $this->clear();
+                $this->status = 'just completed';
             } else {
                 $this->status = 'open for review';
             }
+        } else if (isset($this->reported_on) && !isset($cleared_on)) {
+            $this->status = 'issue reported';
         } else if (isset($this->cleared_on)) {
-            $this->status = 'complete';
+            $this->status = 'completed';
         }
     }
 
     /**
-     * Suborder autonatically expires 24 hours has passed since the order was placed
-     * 
-     * @todo Recalculate fees and payouts
-     */
-    public function expire() {
-        $time_elapsed = \Time::elapsed($this->placed_on);
-        
-        if ($time_elapsed['diff']->days >= 1) {
-            $this->expired_on = \Time::now();
-            
-            $this->update([
-                'expired_on' => $this->expired_on
-            ]);
-
-            $this->status = 'expired';
-        }
-    }
-    
-    /**
-     * Seller rejects a suborder
-     * No penalties levied on either buyer or seller
-     * 
-     * @todo Recalculate fees and payouts
-     */
-    public function reject() {
-        if ($this->status == 'not yet confirmed') {
-            $this->rejected_on = \Time::now();
-            
-            $this->update([
-                'rejected_on' => $this->rejected_on
-            ]);
-        } else {
-            return false;
-        }
-    }
-    
-    /**
-     * Seller confirms a suborder
-     * Fulfillment process begins
+     * Mark suborder as confirmed
      */
     public function confirm() {
-        if ($this->status == 'not yet confirmed') {
-            $this->confirmed_on = \Time::now();
-            
-            $this->update([
-                'confirmed_on' => $this->confirmed_on
-            ]);
-        } else {
-            throw new \Exception('Oops! You cannot confirm this order');
-        }
+        $this->confirmed_on = \Time::now();
+        
+        $this->update([
+            'confirmed_on' => $this->confirmed_on
+        ]);
+
+        $this->status = 'pending fulfillment';
     }
 
     /**
-     * Buyer cancels a suborder
-     * Penalties vary depending on confirmation status and exchange cancellation policy.
-     * 
-     * @condition Not fulfilled
-     * 
-     * @todo partial/full refunds determined by exchange cancellation policy
+     * Mark suborder as rejected
      */
-    public function buyer_cancel() {
-        if ($this->status == 'not yet confirmed' || $this->status == 'pending fulfillment') {
-            $this->buyer_cancelled_on = \Time::now();
-            
-            $this->update([
-                'buyer_cancelled_on' => $this->buyer_cancelled_on
-            ]);
+    public function reject() {
+        $this->rejected_on = \Time::now();
+        
+        $this->update([
+            'rejected_on' => $this->rejected_on
+        ]);
 
-            if ($this->status == 'pending fulfillment') {
-                $this->refund();
-            }
-        } else {
-            throw new \Exception('Oops! You cannot cancel this order');
-        }
+        $this->status = 'rejected';
     }
-    
+
     /**
-     * Seller cancels a suborder
-     * 
-     * @condition Confirmed
-     * 
-     * @todo Full refund is issued
-     * @todo Penalty levied on seller
+     * Mark suborder as expired
+     */
+    public function expire() {
+        $this->expired_on = \Time::now();
+        
+        $this->update([
+            'expired_on' => $this->expired_on
+        ]);
+
+        $this->status = 'expired';
+    }
+
+    /**
+     * Mark suborder as cancelled by seller
      */
     public function seller_cancel() {
-        if ($this->status == 'pending fulfillment') {
-            $this->seller_cancelled_on = \Time::now();
-            
-            $this->update([
-                'seller_cancelled_on' => $this->seller_cancelled_on
-            ]);
+        $this->seller_cancelled_on = \Time::now();
+        
+        $this->update([
+            'seller_cancelled_on' => $this->seller_cancelled_on
+        ]);
 
-            $this->refund();
-        } else {
-            throw new \Exception('Oops! You cannot cancel this order');
-        }
+        $this->status = 'cancelled by seller';
+    }
+
+    /**
+     * Mark suborder as cancelled by buyer
+     */
+    public function buyer_cancel() {
+        $this->buyer_cancelled_on = \Time::now();
+        
+        $this->update([
+            'buyer_cancelled_on' => $this->buyer_cancelled_on
+        ]);
+
+        $this->status = 'cancelled by buyer';
     }
     
     /**
-     * Seller marks a suborder as fulfilled
-     * Buyer review process begins
-     * 
-     * @condition Confirmed
+     * Mark suborder as fulfilled
      */
     public function fulfill() {
-        if (isset($this->confirmed_on)) {
-            $this->fulfilled_on = \Time::now();
-            
-            $this->update([
-                'fulfilled_on' => $this->fulfilled_on
-            ]);
-        }
-    }
-    
-    /**
-     * Buyer reports an issue with a suborder
-     * 
-     * @condition[AND] Fulfilled
-     * @condition[AND] Not yet reviewed
-     * @condition[AND] Within 3 days of fulfillment
-     * 
-     * @todo Contact seller > refund or clear
-     */
-    public function report() {
-        if (isset($this->fulfilled_on) && !isset($this->reviewed_on)) {
-            $time_elapsed = \Time::elapsed($this->fulfilled_on);
+        $this->fulfilled_on = \Time::now();
+        
+        $this->update([
+            'fulfilled_on' => $this->fulfilled_on
+        ]);
 
-            if ($time_elapsed['diff']->days < 3) {
-                $this->reported_on = \Time::now();
-                
-                $this->update([
-                    'reported_on' => $this->reported_on
-                ]);
-            }
-        }      
+        $this->status = 'open for review';
     }
     
     /**
-     * Buyer reviews a suborder (seller & items)
-     * Clear suborder
+     * Mark suborder as reviewed
      */
     public function review() {
         $this->reviewed_on = \Time::now();
@@ -219,46 +160,41 @@ class OrderStatus extends Base {
             'reviewed_on' => $this->reviewed_on
         ]);
 
-        $this->clear();
+        $this->status = 'completed';
+    }
+
+    /**
+     * Mark suborder as reported
+     */
+    public function report() {
+        $this->reported_on = \Time::now();
+        
+        $this->update([
+            'reported_on' => $this->reported_on
+        ]);
+
+        $this->status = 'issue reported';
     }
     
     /**
-     * Suborder is cleared for payment and the eview period closes
-     * 
-     * @condition[AND]  Fulfilled
-     * @condition[OR]   Fulfilled 3 days ago
-     * @condition[AND]  Not reported
-     * @condition[OR]   Reviewed
-     * 
-     * @todo Issue payout
+     * Mark suborder as cleared
      */
     public function clear() {
-        if ($this->fulfilled_on) {
-            $time_elapsed = \Time::elapsed($this->fulfilled_on);
-
-            if (($time_elapsed['diff']->days >= 3 && !isset($this->reported_on)) || isset($this->reviewed_on)) {
-                $this->cleared_on = \Time::now();
-                
-                $this->update([
-                    'cleared_on' => $this->cleared_on
-                ]);
-
-                $this->status = 'complete';
-            }
-        }
+        $this->cleared_on = \Time::now();
+        
+        $this->update([
+            'cleared_on' => $this->cleared_on
+        ]);
     }
 
     /**
-     * Issue a refund for a failed suborder
-     * 
-     * @todo Stock, fees, and payouts are recalculated
-     * @note this will probably go in a separate class/table
+     * Mark suborder as voided
      */
-    public function refund() {
-        $this->refunded_on = \Time::now();
+    public function void() {
+        $this->voided_on = \Time::now();
         
         $this->update([
-            'refunded_on' => $this->refunded_on
+            'voided_on' => $this->voided_on
         ]);
     }
 }
