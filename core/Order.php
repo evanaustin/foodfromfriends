@@ -281,7 +281,7 @@ class Order extends Base {
         // create & associate a status record for each suborder
         foreach ($this->Growers as $OrderGrower) {
             $status = $this->add([
-                'authorized_on' => $this->authorized_on
+                'placed_on' => $this->authorized_on
             ], 'order_statuses');
 
             $OrderGrower->update([
