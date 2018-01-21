@@ -91,12 +91,7 @@ try {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
         $queue = 'a';
-
-        try{
-            At::cmd($job, $time, $queue);
-        } catch(\Exception $e) {
-            error_log($e->getMessage());
-        }
+        At::cmd($job, $time, $queue);
     }
     
     foreach ($Order->Growers as $OrderGrower) {
@@ -105,12 +100,7 @@ try {
             $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?suborder=' . $OrderGrower->id;
             $time = 'now + 1 day';
             $queue = 'b';
-            
-            try {
-                At::cmd($job, $time, $queue);
-            } catch(\Exception $e) {
-                error_log($e->getMessage());
-            }
+            At::cmd($job, $time, $queue);
         }
         
         // Send new order notification emails to each team member of each seller

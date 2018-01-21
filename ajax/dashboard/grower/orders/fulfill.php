@@ -40,12 +40,7 @@ try {
         $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?suborder=' . $OrderGrower->id;
         $time = 'now + 3 days';
         $queue = 'c';
-        
-        try {
-            At::cmd($job, $time, $queue);
-        } catch(\Exception $e) {
-            error_log($e->getMessage());
-        }
+        At::cmd($job, $time, $queue);
     }
 } catch (\Exception $e) {
 	quit($e->getMessage());
