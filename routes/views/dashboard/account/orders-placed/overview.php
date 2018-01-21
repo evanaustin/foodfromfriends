@@ -61,7 +61,7 @@
 
                     $seller_count = count($Order->Growers);
 
-                    $placed_on = new Datetime($Order->placed_on);
+                    $placed_on = new Datetime($Order->authorized_on);
                     $placed_on = $placed_on->format('F j, Y');
 
                     // $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');

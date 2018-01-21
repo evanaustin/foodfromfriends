@@ -10,7 +10,9 @@ class Order extends Base {
         $exchange_fees,
         $total,
         $stripe_charge_id,
-        $placed_on;
+        $authorized_on,
+        $captured_on,
+        $voided_on;
 
     public 
         $Growers;
@@ -58,7 +60,7 @@ class Order extends Base {
             SELECT id
             FROM orders
             WHERE user_id=:user_id 
-                AND placed_on IS NULL'
+                AND authorized_on IS NULL'
         , [
             'user_id' => $user_id
         ]);
@@ -97,7 +99,7 @@ class Order extends Base {
      * @return bool
      */
     public function is_cart() {
-        return (!isset($this->placed_on));
+        return (!isset($this->authorized_on));
     }
 
     /**
@@ -256,17 +258,22 @@ class Order extends Base {
     }
 
     /**
-     * After payment has been collected, this method should be called to convert the "cart" to an "order", 
-     * save payment details, initiate the order status, and set up the payout.
+     * Once payment has been authorized, this method should be called to convert the "cart" to an "order", 
+     * save payment details, initiate the order status, and set up payout
      *
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
+     * 
+     * @todo change to 'authorize'
+     * @todo update item stocks
+     * @todo schedule cron job: expire
+     * @todo schedule cron job: capture
      */
     public function mark_paid($stripe_charge_id) {
-        $this->placed_on = \Time::now();
+        $this->authorized_on = \Time::now();
 
         $this->update([
             'stripe_charge_id' => $stripe_charge_id,
-            'placed_on' => $this->placed_on
+            'authorized_on' => $this->authorized_on
         ]);
 
         $this->stripe_charge_id = $stripe_charge_id;
@@ -274,7 +281,7 @@ class Order extends Base {
         // create & associate a status record for each suborder
         foreach ($this->Growers as $OrderGrower) {
             $status = $this->add([
-                'placed_on' => $this->placed_on
+                'authorized_on' => $this->authorized_on
             ], 'order_statuses');
 
             $OrderGrower->update([
@@ -290,21 +297,33 @@ class Order extends Base {
         $Payout->save_order($this);
     }
 
+    public function capture() {
+        //
+    }
+
+    public function void() {
+        $Stripe = new Stripe();
+        $Stripe->refund($this->stripe_charge_id);
+    }
+    
+    public function refund() {
+        $Stripe = new Stripe();
+        $Stripe->refund($this->stripe_charge_id);
+    }
+
     /** 
-     * Get all the placed orders in batches of 10.
+     * Get all the placed orders in batches of 10
      * 
      * @param int $user_id The buyer ID
      * @param int $start The Order ID each selection of 10 begins from
-     * 
-     * @todo paginate via start from
      */
     public function get_placed($user_id, $start = null) {
         $results = $this->DB->run('
             SELECT *
             FROM orders
             WHERE user_id=:user_id 
-                AND placed_on IS NOT NULL
-            ORDER BY placed_on desc
+                AND authorized_on IS NOT NULL
+            ORDER BY authorized_on desc
             LIMIT 10
         ', [
             'user_id' => $user_id
@@ -316,45 +335,5 @@ class Order extends Base {
 
         return $results;
     }
-    /* public function get_pending($user_id) {
-        $results = $this->DB->run('
-            SELECT *
-            FROM orders
-            WHERE user_id=:user_id 
-                AND placed_on IS NOT NULL
-                AND completed_on IS NULL
-            ORDER BY placed_on desc
-        ', [
-            'user_id' => $user_id
-        ]);
 
-        if (!isset($results[0])) {
-            return false;
-        }
-
-        return $results;
-    } */
-    
-    /** 
-     * Get all the completed orders. An order is complete if all of the sub orders are complete.
-     * 
-     * @param int $user_id The buyer ID
-     */
-    public function get_completed($user_id) {
-        $results = $this->DB->run('
-            SELECT *
-            FROM orders
-            WHERE user_id=:user_id 
-                AND placed_on IS NOT NULL
-                AND completed_on IS NOT NULL
-        ', [
-            'user_id' => $user_id
-        ]);
-
-        if (!isset($results[0])) {
-            return false;
-        }
-
-        return $results;
-    }
 }
