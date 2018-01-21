@@ -88,7 +88,7 @@ try {
 
     // Schedule system job for payment capture
     if (ENV != 'dev') {
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/capture.php?order=' . $Order->id;
+        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/attempt-capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
         $queue = 'a';
         At::cmd($job, $time, $queue);
