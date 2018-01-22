@@ -11,10 +11,8 @@ $OrderGrower = new OrderGrower([
 
 try {
     $OrderGrower->expire();
-    
-    error_log("Suborder {$OrderGrower->id} expired");
 } catch(\Exception $e) {
-    error_log("Suborder {$OrderGrower->id} not expired");
+    error_log($e->getMessage());
 }
 
 ?>

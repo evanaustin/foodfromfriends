@@ -11,10 +11,8 @@ $OrderGrower = new OrderGrower([
 
 try {
     $OrderGrower->clear();
-    
-    error_log("Suborder {$OrderGrower->id} cleared");
 } catch(\Exception $e) {
-    error_log("Suborder {$OrderGrower->id} not cleared");
+    error_log($e->getMessage());
 }
 
 ?>
