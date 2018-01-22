@@ -43,10 +43,6 @@
                             'DB' => $DB,
                             'id' => $order['id']
                         ]);
-                        
-                        $time_elapsed = \Time::elapsed($order['placed_on']);
-                        
-                        $time_until = \Time::until($order['placed_on'], '24 hours');
 
                         $ThisUser = new User([
                             'DB' => $DB,

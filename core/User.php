@@ -199,7 +199,7 @@ class User extends Base {
                     'id' => $id
                 ]);
 
-                if (empty($result['placed_on'])) {
+                if (empty($result['authorized_on'])) {
                     $this->ActiveOrder = $this->Orders[$id];
                 } 
             }

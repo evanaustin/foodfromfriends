@@ -27,6 +27,9 @@ if (\Num::is_id($order_grower_id)) {
         $placed_on->setTimezone(new DateTimeZone($User->timezone));
         $date_placed    = $placed_on->format('F j, Y \a\t g:i A');
         
+        $time_elapsed   = \Time::elapsed($OrderGrower->Status->placed_on);
+        $time_until     = \Time::until($OrderGrower->Status->placed_on, '24 hours');
+
         $fulfilled_on   = new DateTime($OrderGrower->Status->fulfilled_on, new DateTimeZone('UTC'));
         $fulfilled_on->setTimezone(new DateTimeZone($User->timezone));
         $date_fulfilled = $fulfilled_on->format('F j, Y');
