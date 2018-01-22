@@ -6,17 +6,19 @@ require $config;
 
 use Treffynnon\At\Wrapper as At;
 
-echo '<pre>';
+echo 'attempt capture';
+foreach(At::lq('a') as $Job) {
+    echo "<pre>{$Job->data['job_number']} : {$Job->data['date']}";
+}
 
-    echo 'capture:';
-    var_dump(At::lq('a'));
+echo 'expire';
+foreach(At::lq('b') as $Job) {
+    echo "<pre>{$Job->data['job_number']} : {$Job->data['date']}";
+}
 
-    echo 'expire:';
-    var_dump(At::lq('b'));
-
-    echo 'clear:';
-    var_dump(At::lq('c'));
-
-echo '</pre>';
+echo 'clear';
+foreach(At::lq('c') as $Job) {
+    echo "<pre>{$Job->data['job_number']} : {$Job->data['date']}";
+}
 
 ?>
