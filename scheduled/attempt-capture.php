@@ -4,17 +4,21 @@ $config = 'config.php';
 while (!file_exists($config)) $config = '../' . $config;
 require $config;
 
-$OrderGrower = new OrderGrower([
+$Order = new Order([
     'DB' => $DB,
     'id' => $_GET['order']
 ]);
 
 try {
-    $Order->attempt_capture();
-    
-    error_log("Order {$OrderGrower->id} captured");
+    $Stripe = new Stripe();
+
+    if ($Order->total > 0) {
+        $Stripe->capture($Order->stripe_charge_id, $Order->total);
+    } else {
+        $Stripe->refund($Order->stripe_charge_id);
+    }
 } catch(\Exception $e) {
-    error_log("Order {$OrderGrower->id} voided");
+    error_log($e->getMessage());
 }
 
 ?>
