@@ -253,33 +253,46 @@ class Order extends Base {
             'subtotal'      => $this->subtotal,
             'exchange_fees' => $this->exchange_fees,
             'fff_fee'       => $this->fff_fee,
-            'total'         => $this->total
+            'total'         => $this->total,
+            'capture_amount' => $this->total,
         ]);
     }
 
     /**
-     * Once payment has been authorized, this method should be called to convert the "cart" to an "order", 
-     * save payment details, initiate the order status, and set up payout
+     * Converts the "cart" to an "order"
+     * Save charge ID and authorization date
+     * Update item stocks
+     * Initiate the order status
      *
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
      * 
-     * @todo change to 'authorize'
      * @todo update item stocks
-     * @todo schedule cron job: expire
-     * @todo schedule cron job: capture
      */
-    public function mark_paid($stripe_charge_id) {
+    public function authorize($stripe_charge_id) {
         $this->authorized_on = \Time::now();
 
+        // Save payment info
         $this->update([
             'stripe_charge_id' => $stripe_charge_id,
             'authorized_on' => $this->authorized_on
         ]);
 
         $this->stripe_charge_id = $stripe_charge_id;
-
-        // create & associate a status record for each suborder
+        
         foreach ($this->Growers as $OrderGrower) {
+            // Update item stocks
+            foreach($OrderGrower->FoodListings as $key => $OrderFoodListing) {
+                $FoodListing = new FoodListing([
+                    'DB' => $this->DB,
+                    'id' => $key
+                ]);
+
+                $FoodListing->update([
+                    'quantity' => $FoodListing->quantity - $OrderFoodListing->quantity
+                ]);
+            }
+
+            // Create & associate a status record for each suborder
             $status = $this->add([
                 'placed_on' => $this->authorized_on
             ], 'order_statuses');
@@ -288,27 +301,50 @@ class Order extends Base {
                 'order_status_id' => $status['last_insert_id']
             ]);
         }
+    }
 
-        // update payout
-        $Payout = new Payout([
-            'DB' => $this->DB
+    public function void_suborder() {
+        $this->update([
+            'capture_amount' => $this->capture_amount - $OrderGrower->total
         ]);
-
-        $Payout->save_order($this);
     }
 
+    /**
+     * Proceeds with step 2 of buyer payment
+     * Save `$this->captured_on`
+     * 
+     * Calls `Stripe->capture()` to capture payment for this order
+     */
     public function capture() {
-        //
+        // capture payment
+        $Stripe = new Stripe();
+        $Stripe->capture($this->stripe_charge_id, $this->total);
+
+        $this->captured_on = \Time::now();
+
+        // save capture date
+        $this->update([
+            'captured_on' => $this->captured_on
+        ]);
     }
 
+    /**
+     * Voids step 2 of buyer payment
+     * Save `$this->voided_on`
+     * 
+     * Calls `Stripe->refund()` to void payment for this order
+     */
     public function void() {
+        // void payment
         $Stripe = new Stripe();
         $Stripe->refund($this->stripe_charge_id);
-    }
-    
-    public function refund() {
-        $Stripe = new Stripe();
-        $Stripe->refund($this->stripe_charge_id);
+
+        $this->voided_on = \Time::now();
+
+        // save voided date
+        $this->update([
+            'voided_on' => $this->voided_on
+        ]);
     }
 
     /** 
