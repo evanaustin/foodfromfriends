@@ -52,7 +52,7 @@ try {
 
 	$Order = $Order->get_cart($User->id);
     
-    // Hit Stripe API if we're not in dev
+    // Authorize charge on Stripe
     if (ENV != 'dev') {
         $Stripe = new Stripe();
     
@@ -84,11 +84,11 @@ try {
     }
 
 	// Mark order as paid
-    $Order->mark_paid($charge_id);
+    $Order->authorize($charge_id);
 
     // Schedule system job for payment capture
     if (ENV != 'dev') {
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/attempt-capture.php?order=' . $Order->id;
+        $job = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/attempt-capture.php?order=' . $Order->id;
         $time = 'now + 6 days';
         $queue = 'a';
         At::cmd($job, $time, $queue);
@@ -97,7 +97,7 @@ try {
     foreach ($Order->Growers as $OrderGrower) {
         // Schedule system job for suborder expiration
         if (ENV != 'dev') {
-            $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/expire.php?suborder=' . $OrderGrower->id;
+            $job = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/expire.php?suborder=' . $OrderGrower->id;
             $time = 'now + 1 day';
             $queue = 'b';
             At::cmd($job, $time, $queue);

@@ -37,7 +37,7 @@ try {
 
     // Schedule system job for payout clearing
     if (ENV != 'dev') {
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'cron/clear.php?suborder=' . $OrderGrower->id;
+        $job = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/clear.php?suborder=' . $OrderGrower->id;
         $time = 'now + 3 days';
         $queue = 'c';
         At::cmd($job, $time, $queue);
