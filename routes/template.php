@@ -50,6 +50,7 @@ foreach ([
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="google-site-verification" content="UmsixiFqd2YXf2qI8LFn_5Q4R-iDnuwQiPwdlDxTCvI" />
         <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
         <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
         <?php layer('css', [
