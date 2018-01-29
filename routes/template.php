@@ -2,8 +2,6 @@
 
 use \Firebase\JWT\JWT;
 
-$Template = new Template($Routing, $LOGGED_IN);
-
 if ($Routing->template == 'dashboard') {
     if (isset($_GET['token'])) {
         $JWT = JWT::decode($_GET['token'], JWT_KEY, array('HS256'));
@@ -35,6 +33,8 @@ if ($Routing->template == 'dashboard') {
         $User->GrowerOperation->determine_outstanding_orders();
     }
 }
+
+$Template = new Template($Routing, $LOGGED_IN);
 
 foreach ([
     $Template->initializer,
