@@ -83,23 +83,23 @@ try {
         $charge_id = 0;
     }
 
-	// Mark order as paid
-    $Order->authorize($charge_id);
+	// Change "cart" to "order"
+    $Order->submit_payment($charge_id);
 
     // Schedule system job for payment capture
     if (ENV != 'dev') {
-        $job = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/attempt-capture.php?order=' . $Order->id;
-        $time = 'now + 6 days';
-        $queue = 'a';
+        $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/attempt-capture.php?order=' . $Order->id;
+        $time   = 'now + 6 days';
+        $queue  = 'a';
         At::cmd($job, $time, $queue);
     }
     
     foreach ($Order->Growers as $OrderGrower) {
         // Schedule system job for suborder expiration
         if (ENV != 'dev') {
-            $job = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/expire.php?suborder=' . $OrderGrower->id;
-            $time = 'now + 1 day';
-            $queue = 'b';
+            $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/expire.php?suborder=' . $OrderGrower->id;
+            $time   = 'now + 1 day';
+            $queue  = 'b';
             At::cmd($job, $time, $queue);
         }
         
@@ -116,7 +116,7 @@ try {
             $Mail = new Mail([
                 'fromName'  => 'Food From Friends',
                 'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'   => $Member->name,
+                'toName'    => $Member->name,
                 'toEmail'   => $Member->email
             ]);
             
