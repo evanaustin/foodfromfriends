@@ -318,7 +318,7 @@ class Order extends Base {
     public function capture() {
         // capture payment
         $Stripe = new Stripe();
-        $Stripe->capture($this->stripe_charge_id, $this->total);
+        $Stripe->capture_charge($this->stripe_charge_id, $this->total);
 
         $this->captured_on = \Time::now();
 
