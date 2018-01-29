@@ -10,12 +10,10 @@ $Order = new Order([
 ]);
 
 try {
-    $Stripe = new Stripe();
-
     if ($Order->total > 0) {
-        $Stripe->capture($Order->stripe_charge_id, $Order->total);
+        $Order->capture();
     } else {
-        $Stripe->refund($Order->stripe_charge_id);
+        $Order->release();
     }
 } catch(\Exception $e) {
     error_log($e->getMessage());
