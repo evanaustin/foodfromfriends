@@ -20,6 +20,8 @@ if ($Routing->template == 'dashboard') {
 
             $User->log_in($JWT->user_id);
 
+            $LOGGED_IN = true;
+
             if (isset($JWT->grower_operation_id)) {
                 $User->switch_operation($JWT->grower_operation_id);
             }
