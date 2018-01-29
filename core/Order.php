@@ -9,13 +9,11 @@ class Order extends Base {
         $fff_fee,
         $exchange_fees,
         $total,
-        $stripe_charge_id,
-        $authorized_on,
-        $captured_on,
-        $voided_on;
+        $charge_id;
 
     public 
-        $Growers;
+        $Growers,
+        $Charge;
     
     protected
         $class_dependencies,
@@ -44,6 +42,7 @@ class Order extends Base {
                 $this->update_cart();
             } else {
                 $this->load_growers();
+                $this->load_charge();
             }
         }
     }
@@ -60,9 +59,10 @@ class Order extends Base {
             SELECT id
             FROM orders
             WHERE user_id=:user_id 
-                AND authorized_on IS NULL'
+                AND charge_id=:charge_id'
         , [
-            'user_id' => $user_id
+            'user_id'   => $user_id,
+            'charge_id' => 0
         ]);
 
         if (!isset($results[0]['id'])) {
@@ -94,12 +94,22 @@ class Order extends Base {
     }
 
     /**
+     * Finds the associated charge for this order and assigns it to `$this->Charge`.
+     */
+    public function load_charge() {
+        $this->Charge = new Charge([
+            'DB' => $this->DB,
+            'id' => $this->charge_id
+        ]);
+    }
+
+    /**
      * Tells us whether this order has been placed, or if it's still in the Shopping Cart status.
      *
      * @return bool
      */
     public function is_cart() {
-        return (!isset($this->authorized_on));
+        return (empty($this->charge_id));
     }
 
     /**
@@ -253,32 +263,41 @@ class Order extends Base {
             'subtotal'      => $this->subtotal,
             'exchange_fees' => $this->exchange_fees,
             'fff_fee'       => $this->fff_fee,
-            'total'         => $this->total,
-            'capture_amount' => $this->total,
+            'total'         => $this->total
         ]);
     }
 
     /**
      * Converts the "cart" to an "order"
-     * Save charge ID and authorization date
+     * Create `Charge` record and tie to `Order`
      * Update item stocks
-     * Initiate the order status
+     * Create `Status` records and tie to `$this->OrderGrowers`
      *
      * @param string $stripe_charge_id Stripe's charge ID (e.g. ch_r934249302829)
-     * 
-     * @todo update item stocks
      */
-    public function authorize($stripe_charge_id) {
-        $this->authorized_on = \Time::now();
+    public function submit_payment($stripe_charge_id) {
+        $authorized_on = \Time::now();
 
-        // Save payment info
+        // Create `Charge` record
+        $charge = $this->add([
+            'subtotal'          => $this->subtotal,
+            'fff_fee'           => $this->fff_fee,
+            'exchange_fees'     => $this->exchange_fees,
+            'total'             => $this->total,
+            'stripe_charge_id'  => $stripe_charge_id,
+            'authorized_on'     => $authorized_on
+        ], 'charges');
+
+        // Tie `Charge` to `$this`
+        $this->charge_id = $charge['last_insert_id'];
+
         $this->update([
-            'stripe_charge_id' => $stripe_charge_id,
-            'authorized_on' => $this->authorized_on
+            'charge_id' => $this->charge_id
         ]);
 
-        $this->stripe_charge_id = $stripe_charge_id;
-        
+        $this->load_charge();
+
+        // Run through suborders
         foreach ($this->Growers as $OrderGrower) {
             // Update item stocks
             foreach($OrderGrower->FoodListings as $key => $OrderFoodListing) {
@@ -292,11 +311,12 @@ class Order extends Base {
                 ]);
             }
 
-            // Create & associate a status record for each suborder
+            // Create `Status` record
             $status = $this->add([
-                'placed_on' => $this->authorized_on
+                'placed_on' => $authorized_on
             ], 'order_statuses');
 
+            // Tie `Status` to `$this->OrderGrower`
             $OrderGrower->update([
                 'order_status_id' => $status['last_insert_id']
             ]);
@@ -304,46 +324,11 @@ class Order extends Base {
     }
 
     public function void_suborder() {
-        $this->update([
-            'capture_amount' => $this->capture_amount - $OrderGrower->total
-        ]);
-    }
-
-    /**
-     * Proceeds with step 2 of buyer payment
-     * Save `$this->captured_on`
-     * 
-     * Calls `Stripe->capture()` to capture payment for this order
-     */
-    public function capture() {
-        // capture payment
-        $Stripe = new Stripe();
-        $Stripe->capture_charge($this->stripe_charge_id, $this->total);
-
-        $this->captured_on = \Time::now();
-
-        // save capture date
-        $this->update([
-            'captured_on' => $this->captured_on
-        ]);
-    }
-
-    /**
-     * Cancels step 2 of buyer payment
-     * Save `$this->voided_on` (! CHANGE TO RELEASED_ON)
-     * 
-     * Calls `Stripe->refund()` to void payment for this order
-     */
-    public function release() {
-        // release payment
-        $Stripe = new Stripe();
-        $Stripe->refund($this->stripe_charge_id);
-
-        $this->voided_on = \Time::now();
-
-        // save voided date
-        $this->update([
-            'voided_on' => $this->voided_on
+        $this->Charge->update([
+            'subtotal'      => $this->subtotal - $OrderGrower->subtotal,
+            // 'fff_fee'       => $this->fff_fee - $OrderGrower->fff_fee,
+            'exchange_fees' => $this->exchange_fees - $OrderGrower->Exchange->fee,
+            'total'         => $this->total - $OrderGrower->total
         ]);
     }
 
@@ -358,8 +343,8 @@ class Order extends Base {
             SELECT *
             FROM orders
             WHERE user_id=:user_id 
-                AND authorized_on IS NOT NULL
-            ORDER BY authorized_on desc
+                AND charge_id > 0
+            ORDER BY charge_id desc
             LIMIT 10
         ', [
             'user_id' => $user_id
