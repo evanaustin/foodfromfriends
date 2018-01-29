@@ -329,13 +329,13 @@ class Order extends Base {
     }
 
     /**
-     * Voids step 2 of buyer payment
-     * Save `$this->voided_on`
+     * Cancels step 2 of buyer payment
+     * Save `$this->voided_on` (! CHANGE TO RELEASED_ON)
      * 
      * Calls `Stripe->refund()` to void payment for this order
      */
-    public function void() {
-        // void payment
+    public function release() {
+        // release payment
         $Stripe = new Stripe();
         $Stripe->refund($this->stripe_charge_id);
 
