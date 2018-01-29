@@ -10,10 +10,10 @@ $Order = new Order([
 ]);
 
 try {
-    if ($Order->total > 0) {
-        $Order->capture();
+    if ($Order->Charge->total > 0) {
+        $Order->Charge->capture();
     } else {
-        $Order->release();
+        $Order->Charge->release();
     }
 } catch(\Exception $e) {
     error_log($e->getMessage());
