@@ -39,7 +39,7 @@ class OrderStatus extends Base {
     }
 
     private function classify() {
-        if (!isset($this->expired_on) && !isset($this->rejected_on) && !isset($this->confirmed_on)) {
+        if (!isset($this->confirmed_on) && !isset($this->voided_on)) {
             $this->current = 'not yet confirmed';
         } else if (isset($this->confirmed_on) && !isset($this->buyer_cancelled_on) && !isset($this->seller_cancelled_on) && !isset($this->fulfilled_on)) {
             $this->current = 'pending fulfillment';
