@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
         
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->current == 'open for review') {
+        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && ($OrderGrower->Status->current == 'open for review' || $OrderGrower->Status->current == 'issue reported')) {
 
             ?>
 
@@ -13,7 +13,7 @@
                     </div>
                         
                     <div class="page-description text-muted small">
-                        This order has been fulfilled and is currently under review by the buyer. It will be cleared for payout three days after fulfillment or once the buyer submits a review, whichever is sooner.
+                        This order has been fulfilled and is currently under review by the buyer. Unless the buyer reports an issue, this order will be cleared for payout three days after fulfillment <u>or</u> once the buyer submits a review (whichever is sooner).
                     </div>
                 </div>
             </div>
@@ -54,15 +54,49 @@
                                 </p>
                             </div>
                             
-                            <div class="callout">
-                                <h6>
-                                    Time for review
-                                </h6>
+                            <?php
+
+                            if ($OrderGrower->Status->current == 'open for review') {
                                 
-                                <p>
-                                    <span class="warning"><?php echo $time_until['full']; ?></span>
-                                </p>
-                            </div>
+                                $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
+
+                                ?>
+
+                                <div class="callout">
+                                    <h6>
+                                        Time for review
+                                    </h6>
+                                    
+                                    <p>
+                                        <span class="warning"><?php echo $time_until['full']; ?></span>
+                                    </p>
+                                </div>
+
+                                <?php
+
+                            } else if ($OrderGrower->Status->current == 'issue reported') {
+                                
+                                $reported_on   = new DateTime($OrderGrower->Status->reported_on, new DateTimeZone('UTC'));
+                                $reported_on->setTimezone(new DateTimeZone($User->timezone));
+                                $date_reported = $reported_on->format('F j, Y');
+
+                                ?>
+
+                                <div class="callout">
+                                    <h6>
+                                        Issue reported by buyer
+                                    </h6>
+                                    
+                                    <p>
+                                        <span class="warning"><?php echo $date_reported; ?></span>
+                                    </p>
+                                </div>
+
+                                <?php
+
+                            }
+
+                            ?>
 
                             <div class="callout">
                                 <h6>

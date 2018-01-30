@@ -112,6 +112,9 @@
                                 // Determine status settings
                                 if ($OrderGrower->Status->current == 'not yet confirmed') {
                                     $tab_highlight .= 'waiting';
+
+                                    $time_until = \Time::until($OrderGrower->Status->placed_on, '24 hours');
+
                                     $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
 
                                     $actions = [
@@ -158,11 +161,23 @@
                                     ];
                                 } else if ($OrderGrower->Status->current == 'open for review') {
                                     $tab_highlight .= 'info';
+
+                                    $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
+
                                     $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
                                 
                                     $actions = [
                                         'leave a review',
                                         'report an issue'
+                                    ];
+                                } else if ($OrderGrower->Status->current == 'issue reported') {
+                                    $tab_highlight .= 'info';
+
+                                    $status = 'Issue reported <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-title="Customer service is working to resolve this issue"></i>';
+                                
+                                    $actions = [
+                                        'leave a review',
+                                        'message'
                                     ];
                                 } else if ($OrderGrower->Status->current == 'completed') {
                                     $tab_highlight .= 'success';
@@ -230,7 +245,7 @@
                                                         echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
                                                         break;
                                                     case 'report an issue':
-                                                        echo '<a class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/report?id=' . $OrderGrower->id . '" class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
                                                         break;
                                                     case 'cancel order':
                                                         echo '<a class="cancel-order btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-times"></i></a>';
