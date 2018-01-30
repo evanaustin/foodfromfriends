@@ -36,7 +36,7 @@ class OrderFoodListing extends Base {
      * Creates an array of every `order_food_listings` record for a given `order_grower`.
      *
      * @param int $order_grower_id
-     * @return array Food listings keyed by `food_listing_id`!
+     * @return array Food listings keyed by `food_listing_id`
      */
     public function load_for_grower($order_grower_id) {
         $results = $this->DB->run('
@@ -78,19 +78,18 @@ class OrderFoodListing extends Base {
             'DB' => $this->DB,
             'id' => $this->food_listing_id
         ]);
+        
+        $this->unit_price   = $FoodListing->price;
+        $this->unit_weight  = $FoodListing->weight;
+        $this->weight_units = $FoodListing->units;
+        $this->total        = $this->quantity * $FoodListing->price;
 
         $this->update([
-            'unit_price'    => $FoodListing->price,
-            'unit_weight'   => $FoodListing->weight,
-            'weight_units'  => $FoodListing->units,
-            'total'         => $this->quantity * $FoodListing->price,
+            'unit_price'    => $this->unit_price,
+            'unit_weight'   => $this->unit_weight,
+            'weight_units'  => $this->weight_units,
+            'total'         => $this->total,
         ]);
-
-        // Update class properties
-        $this->unit_price = $FoodListing->price;
-        $this->unit_weight = $FoodListing->weight;
-        $this->weight_units = $FoodListing->units;
-        $this->total = $this->quantity * $FoodListing->price;
     }
 
     /**
