@@ -377,7 +377,7 @@ class OrderGrower extends Base {
      * @todo schedule cron job: clear
      */
     public function fulfill() {
-        if ($this->Status->current = 'pending fulfillment') {
+        if ($this->Status->current == 'pending fulfillment') {
             // Mark as fulfilled
             $this->Status->fulfill();
 
@@ -419,7 +419,7 @@ class OrderGrower extends Base {
      * @param array $data The full data from the buyer's review
      */
     public function review($data) {
-        if ($this->Status->current = 'open for review') {
+        if ($this->Status->current == 'open for review') {
             // Rate the seller
             $this->rate($data['seller-score'], $data['seller-review']);
 
@@ -456,7 +456,7 @@ class OrderGrower extends Base {
                     'toEmail'   => $Member->email
                 ]);
                 
-                $Mail->reviewed_order_notification($Member, $Seller, $OrderGrower, $Buyer);
+                $Mail->reviewed_order_notification($Member, $Seller, $this, $Buyer);
             }
         } else {
             throw new \Exception('Oops! You cannot review this order');
@@ -466,17 +466,29 @@ class OrderGrower extends Base {
     /**
      * Buyer reports issue with seller
      * 
+     * Create `OrderIssue` record and tie to `OrderGrower`
      * Calls `OrderGrower->Status->report()` to mark the order as reported
      * Calls `Mail->reported_order_notification()` to send trans email to seller
      * 
      * @param array $data The full data from the buyer's report
      */
     public function report($data) {
-        if ($this->Status->current = 'open for review') {
+        if ($this->Status->current == 'open for review') {
+            // Create `OrderIssue` record
+            $issue = $this->add([
+                'message' => $data['message']
+            ], 'order_issues');
+            
+            // Tie `OrderIssue` to `$this`
+            $this->order_issue_id = $issue['last_insert_id'];
+
+            $this->update([
+                'order_issue_id' => $this->order_issue_id
+            ]);
+
             // Mark as reported
             $this->Status->report();
 
-            // Send email notifications
             $Buyer = new User([
                 'DB' => $this->DB,
                 'id' => $this->user_id
@@ -484,12 +496,23 @@ class OrderGrower extends Base {
 
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
-                'id' => $OrderGrower->grower_operation_id
+                'id' => $this->grower_operation_id
             ],[
                 'details' => true,
                 'team' => true
             ]);
-        
+
+            // Send admin email notification
+            $Mail = new Mail([
+                'fromName'  => 'Food From Friends',
+                'fromEmail' => 'foodfromfriendsco@gmail.com',
+                'toName'    => 'Food From Friends',
+                'toEmail'   => 'foodfromfriendsco@gmail.com'
+            ]);
+            
+            $Mail->reported_order_admin_notification($Buyer, $Seller, $this, $data['message']);
+
+            // Send seller email notifications
             foreach ($Seller->TeamMembers as $Member) {
                 $Mail = new Mail([
                     'fromName'  => 'Food From Friends',
@@ -498,7 +521,7 @@ class OrderGrower extends Base {
                     'toEmail'   => $Member->email
                 ]);
                 
-                // $Mail->reported_order_notification($Member, $Seller, $OrderGrower, $User);
+                $Mail->reported_order_seller_notification($Member, $Seller, $this, $Buyer);
             }
         } else {
             throw new \Exception('Oops! You cannot report this order');
@@ -506,23 +529,70 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Suborder is cleared for payout
-     * Review period closes
+     * Suborder is cleared for payout & review period closes
+     * @todo Proceed with payout
      * 
      * Calls `OrderGrower->Status->clear()` to mark order as voided
      */
     public function clear() {
         // Mark as cleared
         $this->Status->clear();
+
+        // Initialize payout
+        $Payout = new Payout([
+            'DB' => $this->DB
+        ]);
+
+        $Payout->save_order($this);
     }
 
     /**
      * Void suborder
-     * @todo Stock, fees, and payouts are recalculated
      * 
+     * Update `$Order->Charge` with re-calculated amounts
+     * Update `$this->FoodListings->quantity` to add back listing stock
      * Calls `OrderGrower->Status->void()` to mark order as voided
      */
     public function void() {
+        $Order = new Order([
+            'DB' => $this->DB,
+            'id' => $this->order_id
+        ]);
+
+        // Re-calculate subtotal and exchange fee
+        $subtotal       = $Order->Charge->subtotal - $this->subtotal;
+        $exchange_fees  = $Order->Charge->exchange_fees - $this->Exchange->fee;
+
+        // Re-calculate FFF fee
+        $rate           = 0.1;
+        $fff_fee        = round($subtotal * $rate);
+        
+        // Charge the greater of 10% and $0.50 if not $0
+        $fff_fee        = (($fff_fee > 0) && ($fff_fee < 50)) ? 50 : $fff_fee;
+
+        // Re-calculate total
+        $total          = $subtotal + $exchange_fees + $fff_fee;
+
+        // Update `$Order->Charge`
+        $Order->Charge->update([
+            'subtotal'      => $subtotal,
+            'exchange_fees' => $exchange_fees,
+            'fff_fee'       => $fff_fee,
+            'total'         => $total
+        ]);
+
+        // Add back item stock
+        foreach($this->FoodListings as $key => $OrderFoodListing) {
+            $FoodListing = new FoodListing([
+                'DB' => $this->DB,
+                'id' => $key
+            ]);
+
+            $FoodListing->update([
+                'quantity' => $FoodListing->quantity + $OrderFoodListing->quantity
+            ]);
+        }
+
         // Mark as void
         $this->Status->void();
     }
@@ -530,7 +600,7 @@ class OrderGrower extends Base {
     /**
      * Penalize seller
      * Store rating ID in order_grower record
-     * Re-calculate & record seller's average rating
+     * Recalculate & record seller's average rating
      */
     public function penalize() {
         $grower_rating = $this->add([
@@ -561,7 +631,7 @@ class OrderGrower extends Base {
     /**
      * Record the seller's rating
      * Store rating ID in order_grower record
-     * Re-calculate & record seller's average rating
+     * Recalculate & record seller's average rating
      * 
      * @param int $score The buyer's numerical score for the seller
      * @param text $review The buyer's written review of the seller
@@ -617,10 +687,8 @@ class OrderGrower extends Base {
                 on os.id = og.order_status_id
 
             WHERE og.grower_operation_id=:grower_operation_id 
-                AND os.placed_on    IS NOT NULL
-                AND os.expired_on   IS NULL
-                AND os.rejected_on  IS NULL
-                AND os.confirmed_on IS NULL
+                AND os.placed_on IS NOT NULL
+                AND os.voided_on IS NULL
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
