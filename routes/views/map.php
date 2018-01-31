@@ -17,7 +17,7 @@
 
                                 <div class="<?php echo $tile_width; ?>">
                                     <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $grower['id']; ?>">
-                                        <div class="card animated zoomIn">
+                                        <div class="card animated fadeIn">
                                             <div class="card-img-top">
                                                 <?php img(ENV . $grower['path'], $grower['ext'] /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
 
