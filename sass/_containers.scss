@@ -689,5 +689,12 @@ fable {
         -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         filter: alpha(opacity=100);
         @include drop-shadow(0, 2px, 4px);
+        
+        &:hover {
+            opacity: 1;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+            filter: alpha(opacity=100);
+            @include drop-shadow(0, 2px, 20px);
+        }
     }
 }
