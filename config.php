@@ -9,7 +9,7 @@ switch($_SERVER['SERVER_NAME']) {
     case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'PUBLIC_ROOT'   => 'https://www.' . $_SERVER['SERVER_NAME'] . '/',
             'SERVER_IP'     => '45.77.100.31'
         ];
 
@@ -18,7 +18,7 @@ switch($_SERVER['SERVER_NAME']) {
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'PUBLIC_ROOT'   => 'https://www.' . $_SERVER['SERVER_NAME'] . '/',
             'SERVER_IP'     => '45.77.104.9'
         ];    
         
