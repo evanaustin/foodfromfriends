@@ -28,7 +28,7 @@ use Treffynnon\At\Wrapper as At;
 
 <p>
 
-    <strong>Expire</strong>';
+    <strong>Expire</strong>
 
     <?php
 
