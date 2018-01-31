@@ -22,7 +22,6 @@ class Routing {
             'splash',
             'early-access-invitation',
             'team-member-invitation',
-            'stripe-atlas',
             'log-in'
         ];
 
