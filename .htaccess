@@ -7,6 +7,7 @@ RewriteEngine On
 
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=index.php
+RewriteCond %{REQUEST_URI} !=syzygyinfo.php
 RewriteCond %{REQUEST_URI} !ajax
 RewriteCond %{REQUEST_URI} !scheduled
 RewriteCond %{REQUEST_URI} !syzygy
