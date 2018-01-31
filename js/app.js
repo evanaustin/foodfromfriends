@@ -9,7 +9,7 @@ var App = function() {
 				setTimeout(function() {
 					$(obj).find('div.card-img-top div.loading').addClass('hidden');
 					$(obj).find('div.card-img-top img').removeClass('hidden');
-				}, 200 * i);
+				}, 500 * i);
 			});
 		});
 
