@@ -1,6 +1,6 @@
 <?php
  
-class Grower extends User {
+class Grower extends Base {
     
     protected
         $class_dependencies,
