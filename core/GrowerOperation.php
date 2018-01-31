@@ -112,7 +112,7 @@ class GrowerOperation extends Base {
             ]);
     
             $this->details = [
-                'name'      => $Owner->first_name,
+                'name'      => $Owner->name,
                 'lat'       => $Owner->latitude,
                 'lng'       => $Owner->longitude,
                 'bio'       => $Owner->bio,
