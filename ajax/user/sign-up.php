@@ -99,7 +99,7 @@ if (isset($redirect) && $redirect == 'false') {
 } else if (isset($GrowerOperation)) {
     $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
 } else {
-    $json['redirect'] = PUBLIC_ROOT . 'map';
+    $json['redirect'] = PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information';
 }
 
 echo json_encode($json);
