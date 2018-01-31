@@ -122,7 +122,7 @@ if ($User->exists('email', $email)) {
     } else if ($User->GrowerOperation != false) {
         $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
     } else {
-        $json['redirect'] = PUBLIC_ROOT . 'map';
+        $json['redirect'] = PUBLIC_ROOT;
     }
 
     // error_log('Directing ' . $logged_in . ' to ' . $json['redirect']);

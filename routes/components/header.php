@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
   
-    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
         <div class="hidden-md-down">
             <?php svg('logos/thin'); ?>
         </div>
@@ -50,7 +50,7 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
-                        href="<?php echo PUBLIC_ROOT . 'map?city=harrisonburg'; ?>"
+                        href="<?php echo PUBLIC_ROOT; ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Map"
                     >
                         <i class="fa fa-map"></i>
@@ -122,9 +122,11 @@
                         ></div>
                     
                         <div class="dropdown-menu dropdown-menu-right">
-                            <?php /* if (isset($User->GrowerOperation)) {
-                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
-                            } */ ?>
+                            <?php if (isset($User->GrowerOperation)) {
+                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "grower?id={$User->GrowerOperation->id}\">View profile</a>";
+                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Dashboard</a>";
+                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a>";
+                            } ?>
 
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                                 Messages
@@ -143,7 +145,7 @@
                             </a>
 
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
-                                Orders placed
+                                Your purchases
                             </a>
 
                             <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
