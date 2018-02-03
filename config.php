@@ -10,7 +10,7 @@ switch($_SERVER['SERVER_NAME']) {
         $env = [
             'ENV'           => 'prod',
             'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
-            'SERVER_IP'     => '45.77.100.31'
+            'SERVER_IP'     => '45.77.107.173'
         ];
 
         break;
@@ -81,7 +81,7 @@ spl_autoload_register(function($class_name) {
 try {
     $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
 } catch(PDOException $e) {
-    echo $e->getMessage();
+    error_log($e->getMessage());
 }
 
 
@@ -135,7 +135,11 @@ if ($LOGGED_IN) {
 **/
 
 if (ENV != 'dev') {
-    $Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
+    try {
+    	$Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
+	} catch (\Exception $e) {
+		error_log($e->getMessage());
+	}
 }
 
 
