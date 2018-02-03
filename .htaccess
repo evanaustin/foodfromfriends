@@ -1,9 +1,5 @@
-# Turn rewriting on
 Options +FollowSymLinks
 RewriteEngine On
-
-# Set project base
-# RewriteBase /
 
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=index.php
