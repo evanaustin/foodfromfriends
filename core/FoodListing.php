@@ -78,35 +78,6 @@ class FoodListing extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_listings($grower_operation_id) {
-        $results = $this->DB->run('
-            SELECT 
-                fl.*,
-                fsc.title AS subcategory_title,
-                fsc.food_category_id,
-                fc.title AS category_title,
-                fli.filename,
-                fli.ext
-            
-            FROM food_listings fl
-            
-            LEFT JOIN food_subcategories fsc
-                ON fl.food_subcategory_id = fsc.id
-            
-            LEFT JOIN food_categories fc
-                ON fsc.food_category_id = fc.id
-            
-            LEFT JOIN food_listing_images fli
-                ON fl.id = fli.food_listing_id
-            
-            WHERE fl.grower_operation_id = :grower_operation_id
-        ', [
-            'grower_operation_id' => $grower_operation_id
-        ]);
-
-        return (isset($results[0])) ? $results : false;
-    }
-    
     public function get_all_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
@@ -129,6 +100,7 @@ class FoodListing extends Base {
                 ON fl.id = fli.food_listing_id
             
             WHERE fl.grower_operation_id = :grower_operation_id
+                AND fl.archived_on IS NULL
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
