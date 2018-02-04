@@ -43,16 +43,20 @@ foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $dob = strtotime($day . ' ' . $month . ' ' . $year);
 
+if ($dob > strtotime('-18 years')) {
+    quit('You must be 18 or older to sign up');
+}
+
 $User = new User([
     'DB' => $DB
 ]);
 
-// run checks
-if ($dob > strtotime('-18 years')) {
-    quit('You must be 18 or older to sign up');
-} else if ($User->exists('email', $email)) {
+if ($User->exists('email', $email)) {
     quit('An existing account is already using this email');
 }
+
+$date = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
+$dob = $date->format('Y-m-d H:i:s');
 
 $new_user = $User->add([
     'email'         => $email,
