@@ -66,7 +66,7 @@
                                     </select>
     
                                     <div class="item-price">
-                                        $<?php echo number_format($CartItem->total / 100, 2); ?>
+                                        <?php amount($CartItem->total); ?>
                                     </div>
                                 </div>
                             </div>

@@ -112,7 +112,7 @@
                                                 </span>
                                                 
                                                 <span class="float-right">
-                                                    $<?php echo number_format($OrderListing->total / 100, 2); ?>
+                                                    <?php amount($OrderListing->total); ?>
                                                 </span>
                                             </h6>
                                         </div>

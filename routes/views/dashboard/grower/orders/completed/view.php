@@ -25,7 +25,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                $<?php echo number_format($OrderGrower->total / 100, 2); ?>
+                                <?php amount($OrderGrower->total); ?>
                             </div>
 
                             <div class="descriptor">
@@ -122,7 +122,7 @@
                                                 </span>
                                                 
                                                 <span class="float-right">
-                                                    $<?php echo number_format($OrderListing->total / 100, 2); ?>
+                                                    <?php amount($OrderListing->total); ?>
                                                 </span>
                                             </h6>
                                         </div>

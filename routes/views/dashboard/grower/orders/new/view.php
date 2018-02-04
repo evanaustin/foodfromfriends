@@ -212,7 +212,7 @@
                                     </h6>
 
                                     <p>
-                                        $<?php echo number_format($OrderGrower->Exchange->fee / 100, 2); ?>
+                                        <?php amount($OrderGrower->Exchange->fee); ?>
                                     </p>
                                 </div>
 
