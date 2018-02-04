@@ -9,7 +9,7 @@ $FoodListing = new FoodListing([
     'id' => $_GET['id']
 ]);
 
-if (isset($FoodListing->id) && $FoodListing->is_available) {
+if (isset($FoodListing->id)) {
     $GrowerOperation = new GrowerOperation([
         'DB' => $DB,
         'id' => $FoodListing->grower_operation_id

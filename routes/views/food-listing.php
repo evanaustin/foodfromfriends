@@ -5,7 +5,7 @@
             <div class="main container">
                 <?php
 
-                if ($GrowerOperation->id && $FoodListing->is_available) {
+                if ($GrowerOperation->id) {
 
                     ?>
 
