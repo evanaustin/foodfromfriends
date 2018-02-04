@@ -85,7 +85,7 @@
                                 </div>
 
                                 <div class="muted bold margin-btm-1em">
-                                    <?php echo 'Joined in ' . date('F Y', $GrowerOperation->details['joined']); ?>
+                                    <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
                                 </div>
 
                                 <?php

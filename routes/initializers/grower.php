@@ -15,6 +15,9 @@ $GrowerOperation = new GrowerOperation([
 ]);
 
 if ($GrowerOperation->is_active) {
+    $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
+    $joined_on->setTimezone(new DateTimeZone('America/New_York'));
+
     if (isset($User) 
     && !empty($User->latitude) && !empty($User->longitude) 
     && !empty($GrowerOperation->details['lat']) && !empty($GrowerOperation->details['lng'])) {
