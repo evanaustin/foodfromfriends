@@ -47,10 +47,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <small class="form-text text-muted">
-                            Your public profile only shows your first name. During order fulfillment, the other party will see your first and last name.
-                        </small>
                     </div>
                     
                     <div class="row">
@@ -108,7 +104,12 @@
                                     <?php 
                                     
                                     foreach ($months as $month) {
-                                        ?><option value="<?php echo $month; ?>" <?php if ($month == date('F', $User->dob)) echo 'selected'; ?>><?php echo $month; ?></option><?php
+                                        if (isset($User->dob)) {
+                                            $dob = new DateTime($User->dob, new DateTimeZone('UTC'));
+                                            $dob->setTimezone(new DateTimeZone('America/New_York'));
+                                        }
+
+                                        echo "<option value=\"{$month}\" " . ((isset($dob) && $month == $dob->format('F')) ? "selected" : "") . ">{$month}</option>";
                                     }
 
                                     ?>
@@ -122,7 +123,12 @@
                                     <?php 
                                     
                                     for ($i=1; $i <= 31; $i++) {
-                                        ?><option value="<?php echo $i; ?>" <?php if ($i == date('d', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
+                                        if (isset($User->dob)) {
+                                            $dob = new DateTime($User->dob, new DateTimeZone('UTC'));
+                                            $dob->setTimezone(new DateTimeZone('America/New_York'));
+                                        }
+
+                                        echo "<option value=\"{$i}\" " . ((isset($dob) && $i == $dob->format('d')) ? "selected" : "") . ">{$i}</option>";
                                     }
                                     
                                     ?>
@@ -136,7 +142,12 @@
                                     <?php 
                                     
                                     for ($i = (date('Y') - 18); $i >= (date('Y') - 120); $i--) {
-                                        ?><option value="<?php echo $i; ?>" <?php if ($i == date('Y', $User->dob)) echo 'selected'; ?>><?php echo $i; ?></option><?php
+                                        if (isset($User->dob)) {
+                                            $dob = new DateTime($User->dob, new DateTimeZone('UTC'));
+                                            $dob->setTimezone(new DateTimeZone('America/New_York'));
+                                        }
+
+                                        echo "<option value=\"{$i}\" " . ((isset($dob) && $i == $dob->format('Y')) ? "selected" : "") . ">{$i}</option>";
                                     }
                                     
                                     ?>
