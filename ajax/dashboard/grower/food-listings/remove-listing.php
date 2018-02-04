@@ -13,17 +13,21 @@ $FoodListing = new FoodListing([
     'id' => $_POST['listing_id']
 ]);
 
-// this is a temporary hard-coded value to represent the number 
-// of orders placed on this listing until the order class is built
-$past_orders = 0;
+$OrderFoodListing = new OrderFoodListing([
+    'DB' => $DB
+]);
 
-$listing_deleted = false;
+$ordered_listings = $OrderFoodListing->retrieve([
+    'where' => [
+        'food_listing_id' => $FoodListing->id
+    ]
+]);
 
 // check whether any orders reference this listing
-if ($past_orders > 0) {
+if (count($ordered_listings) > 0) {
     $listing_deleted = $FoodListing->update([
-        'deleted_on' => time()
-    ], 'id', $FoodListing->id);
+        'archived_on' => \Time::now()
+    ]);
 } else {
     // first remove the image and its record, if they exist
     if (!empty($FoodListing->filename)) {
