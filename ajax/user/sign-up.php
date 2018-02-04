@@ -60,7 +60,7 @@ $new_user = $User->add([
     'first_name'    => $first_name,
     'last_name'     => $last_name,
     'dob'           => $dob,
-    'registered_on' => time(),
+    'registered_on' => \Time::now(),
     'timezone'      => $timezone
 ]);
 

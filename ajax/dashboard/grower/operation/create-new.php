@@ -105,7 +105,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
             'name'                      => $name,
             'bio'                       => $bio,
             'referral_key'              => $GrowerOperation->gen_referral_key(4, $name),
-            'created_on'                => time(),
+            'created_on'                => \Time::now(),
             'is_active'                 => 0
         ]);
         

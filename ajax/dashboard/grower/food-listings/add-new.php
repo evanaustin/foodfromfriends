@@ -62,7 +62,7 @@ if (!$User->GrowerOperation) {
     // initialize shell operation
     $operation_added = $GrowerOperation->add([
         'grower_operation_type_id'  => 1,
-        'created_on'                => time(),
+        'created_on'                => \Time::now(),
         'is_active'                 => 0
     ]);
     
