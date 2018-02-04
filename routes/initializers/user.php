@@ -10,6 +10,9 @@ $ThisUser = new User([
 ]);
 
 if (!empty($User->latitude) && !empty($User->longitude) && !empty($ThisUser->latitude) && !empty($ThisUser->longitude)) {
+    $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
+    $joined_on->setTimezone(new DateTimeZone('America/New_York'));
+    
     $length = getDistance([
         'lat' => $User->latitude,
         'lng' => $User->longitude
@@ -32,7 +35,7 @@ $FoodListing = new FoodListing([
     'DB' => $DB
 ]);
 
-$listings = $FoodListing->get_listings($ThisUser->GrowerOperation->id);
+$listings = $FoodListing->get_all_listings($ThisUser->GrowerOperation->id);
 
 $Review = new Review([
     'DB' => $DB

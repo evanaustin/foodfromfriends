@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="joined">
-                                Joined in <?php echo date('F Y', $ThisUser->registered_on); ?>
+                                <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
                             </div>
 
                             <?php
