@@ -59,8 +59,8 @@ function validate_image($image) {
     // Check image attributes
     $allowed = [
         'size'       => $mb * 1024 * 1024,
-        'mimetypes'  => array('image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png'),
-        'extensions' => array('jpg', 'jpeg', 'png')
+        'mimetypes'  => ['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png'],
+        'extensions' => ['jpg', 'jpeg', 'png']
     ];
 
     $file = [
@@ -71,7 +71,7 @@ function validate_image($image) {
     ];
 
     if ($file['size'] > $allowed['size']) {
-        return 'Please keep the filesize under ' . $mb . 'mb';
+        return 'Please upload an image smaller than ' . $mb . 'mb';
     }
 
     if (in_array($file['type'], $allowed['mimetypes']) !== true) {
