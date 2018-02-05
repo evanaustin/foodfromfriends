@@ -149,10 +149,10 @@ App.Image = function () {
         App.Util.animation($('a.remove-image'), 'bounceOut', 'out');
     }
     
-    function destroy() {
+    function destroy(path, data = null) {
         var self = this;
         
-        App.Ajax.post('dashboard/grower/operation/remove-image', null,
+        App.Ajax.post(path, data,
             function(response) {
                 self.discard();
                 toastr.success('Your image has been deleted');

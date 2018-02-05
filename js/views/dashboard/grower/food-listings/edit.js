@@ -93,10 +93,14 @@ $('a.remove-image').on('click', function(e) {
             }
         },
         callback: function(result) {
+            var data = {
+                listing_id : $('a.remove-image').data('listing-id')
+            };
+
             if (result === true) {
                 if ($('div.image-box').hasClass('existing-image')) {
                     App.Util.loading('.save');
-                    App.Image.destroy(id);
+                    App.Image.destroy('dashboard/grower/food-listings/remove-image', data);
                 } else {
                     App.Image.discard(id);
                 }

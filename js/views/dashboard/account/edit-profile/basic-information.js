@@ -43,7 +43,7 @@ $('a.remove-image').on('click', function(e) {
 			if (result === true) {
 				if ($('div.image-box').hasClass('existing-image')) {
 					App.Util.loading();
-					App.Image.destroy();
+					App.Image.destroy('dashboard/account/edit-profile/remove-image');
 				} else {
 					App.Image.discard();
 				}
