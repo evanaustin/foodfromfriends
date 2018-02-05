@@ -103,7 +103,7 @@
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
-                                        Available food for sale from <?php echo $GrowerOperation->details['name']; ?>
+                                        Food for sale from <?php echo $GrowerOperation->details['name']; ?>
                                     </div>
 
                                     <div class='row'>
@@ -114,54 +114,58 @@
                                             
                                             ?>
                                             
-                                            <div class="col-md-4">
-                                            <!-- <div class="<?php //echo $tile_width; ?>"> -->
-                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>" class="card animated zoomIn">
-                                                    <div class="card-img-top">
-                                                        <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'animated fadeIn hidden'); ?>
-                                                    
-                                                        <div class="loading">
-                                                            <i class="fa fa-circle-o-notch loading-icon"></i>
+                                            <div class="col-md-4 <?php /* echo $tile_width; */ ?>">
+                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
+                                                    <div class="card animated zoomIn">
+                                                        <div class="card-img-top">
+                                                            <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'animated fadeIn hidden'); ?>
+                                                        
+                                                            <div class="loading">
+                                                                <i class="fa fa-circle-o-notch loading-icon"></i>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="card-block d-flex flex-row">
-                                                        <div class="listing-info d-flex flex-column">
-                                                            <h5 class="dark-gray bold margin-btm-50em">
-                                                                <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
-                                                            </h5>
-                                                            
-                                                            <h6 class="muted normal margin-btm-50em">
-                                                                <span class="brand">
-                                                                    <?php echo stars($listing['average_rating']); ?>
-                                                                </span>
+                                                        <div class="card-block d-flex flex-row">
+                                                            <div class="listing-info d-flex flex-column">
+                                                                <h5 class="dark-gray bold margin-btm-50em">
+                                                                    <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
+                                                                </h5>
+                                                                
+                                                                <h6 class="muted normal margin-btm-50em">
+                                                                    <span class="brand">
+                                                                        <?php echo stars($listing['average_rating']); ?>
+                                                                    </span>
 
-                                                                &nbsp;&bull;&nbsp;
+                                                                    &nbsp;&bull;&nbsp;
 
-                                                                <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
-                                                            </h6>
+                                                                    <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
+                                                                </h6>
 
-                                                            <p class="card-text">
-                                                                <?php
-                                                                    if (!$listing['is_available']) {
-                                                                        $niblet = 'bg-faded text-muted';
-                                                                        $availability = 'text-muted';
-                                                                    } else {
-                                                                        $niblet = 'text-white';
-                                                                        $availability = 'text-success';
+                                                                <p class="card-text">
+                                                                    <?php
+                                                                        if (!$listing['is_available']) {
+                                                                            // $niblet = 'bg-faded text-muted';
+                                                                            // $availability = 'text-muted';
 
-                                                                        if ($listing['quantity'] == 0) {
-                                                                            $niblet .= ' bg-danger';
-                                                                        } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
-                                                                            $niblet .= ' bg-warning';
-                                                                        } else if ($listing['quantity'] > 5) {
-                                                                            $niblet .= ' bg-success';
+                                                                            echo 'Unavailable';
+                                                                        } else {
+                                                                            $niblet = 'text-white';
+                                                                            $availability = 'text-success';
+
+                                                                            if ($listing['quantity'] == 0) {
+                                                                                $niblet .= ' bg-danger';
+                                                                            } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
+                                                                                $niblet .= ' bg-warning';
+                                                                            } else if ($listing['quantity'] > 5) {
+                                                                                $niblet .= ' bg-success';
+                                                                            }
+
+                                                                            echo "<span class=\"quantity {$niblet}\">{$listing['quantity']}</span> in stock";
                                                                         }
-                                                                    }
 
-                                                                    echo '<span class="quantity ' . $niblet . '">' . $listing['quantity'] . '</span> in stock';
-                                                                ?>
-                                                            </p>
+                                                                    ?>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </a>
