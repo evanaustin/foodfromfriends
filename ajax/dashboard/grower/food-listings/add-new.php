@@ -138,8 +138,11 @@ if (isset($_POST['images'])) {
     // set filename
     $filename = 'fl.' . $id;
 
+    // quit(json_encode(explode('/', $_FILES['listing-image'])));
+    // quit(json_encode(explode('/', $file['type'])));
     // determine file type
-    $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
+    $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';
+    // $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
     
     // set temporary storage paths
     $tmp1 = SERVER_ROOT . 'media/tmp/start/';
