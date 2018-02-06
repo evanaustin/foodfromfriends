@@ -1556,7 +1556,7 @@ form .form-control-feedback {
 **/
 body.log-in {
   padding-top: 10em;
-  background-color: #005434;
+  background-color: #fafafb;
   font-family: 'Signika';
   color: #00A669; }
   body.log-in div.logo svg {
