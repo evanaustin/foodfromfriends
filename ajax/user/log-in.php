@@ -10,10 +10,11 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'email'     => 'required|valid_email',
-    'password'  => 'required|min_len,8',
+    'email'         => 'required|valid_email|max_len,254',
+    'password'      => 'required|min_len,8',
+    'timezone'      => 'required|regex,/^[A-Za-z\/\_]+$/',
     'operation-key' => 'min_len,4',
-    'personal-key' => 'min_len,7',
+    'personal-key'  => 'min_len,7'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -24,7 +25,8 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'email'     => 'trim|sanitize_email',
-	'password'  => 'trim|sanitize_string'
+	'password'  => 'trim|sanitize_string',
+	'timezone'  => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -49,7 +51,13 @@ if ($User->exists('email', $email)) {
     // check if joining team
     if (!empty($operation_key) && !empty($personal_key)) {
         // should probably search by both referral key & operation ID
-        $association = $User->retrieve('referral_key', $personal_key, 'grower_operation_members');
+        $association = $User->retrieve([
+            'where' => [
+                'referral_key' => $personal_key
+            ],
+            'table' => 'grower_operation_members'
+        ]);
+        
         $association = $association[0];
 
         // make sure association exists
@@ -94,7 +102,7 @@ if ($User->exists('email', $email)) {
 
     $logged_in = $User->log_in($user_id);
 
-    error_log($logged_in . ' logging in');
+    // error_log($logged_in . ' logging in');
 
     if ($logged_in < 1) quit('We could not log you in');
 
@@ -103,17 +111,21 @@ if ($User->exists('email', $email)) {
         'id' => $user_id
     ]);
 
-    if ($User->GrowerOperation != false) {
-        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'none') {
-            $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
-        } else {
-            $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower/food-listings/overview';
-        }
-    } else {
-        $json['redirect'] = PUBLIC_ROOT . 'map';
+    if ($timezone != $User->timezone) {
+        $User->update([
+            'timezone' => $timezone
+        ]);
     }
 
-    error_log('Directing ' . $logged_in . ' to ' . $json['redirect']);
+    if (isset($redirect) && $redirect == 'false') {
+        $json['redirect'] = false;
+    } else if ($User->GrowerOperation != false) {
+        $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
+    } else {
+        $json['redirect'] = PUBLIC_ROOT;
+    }
+
+    // error_log('Directing ' . $logged_in . ' to ' . $json['redirect']);
 } else {
     quit('You don\'t have an account with us yet');
 }

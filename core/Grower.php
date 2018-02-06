@@ -1,13 +1,13 @@
 <?php
  
-class Grower extends User {
+class Grower extends Base {
     
     protected
         $class_dependencies,
         $DB;
         
     function __construct($parameters) {
-        $this->table = 'locavores';
+        $this->table = 'growers';
 
         $this->class_dependencies = [
             'DB',

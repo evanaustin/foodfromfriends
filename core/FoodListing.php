@@ -2,6 +2,27 @@
  
 class FoodListing extends Base {
     
+    public
+        $id,
+        $grower_operation_id,
+        $food_subcategory_id,
+        $other_subcategory,
+        $price,
+        $weight,
+        $units,
+        $quantity,
+        $is_available,
+        $description,
+        $average_rating,
+        $archived_on,
+        $subcategory_title,
+        $category_title,
+        $filename,
+        $ext;
+
+    public
+        $name;
+
     protected
         $class_dependencies,
         $DB,
@@ -20,6 +41,8 @@ class FoodListing extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully($this->id);
+
+            $this->title = ucfirst((!empty($this->other_subcategory)) ? $this->other_subcategory : $this->subcategory_title);
         }
     }
 
@@ -55,7 +78,7 @@ class FoodListing extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_listings($grower_operation_id) {
+    public function get_all_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
                 fl.*,
@@ -77,8 +100,40 @@ class FoodListing extends Base {
                 ON fl.id = fli.food_listing_id
             
             WHERE fl.grower_operation_id = :grower_operation_id
+                AND fl.archived_on IS NULL
         ', [
             'grower_operation_id' => $grower_operation_id
+        ]);
+
+        return (isset($results[0])) ? $results : false;
+    }
+
+    public function get_available_listings($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                fl.*,
+                fsc.title AS subcategory_title,
+                fsc.food_category_id,
+                fc.title AS category_title,
+                fli.filename,
+                fli.ext
+            
+            FROM food_listings fl
+            
+            LEFT JOIN food_subcategories fsc
+                ON fl.food_subcategory_id = fsc.id
+            
+            LEFT JOIN food_categories fc
+                ON fsc.food_category_id = fc.id
+            
+            LEFT JOIN food_listing_images fli
+                ON fl.id = fli.food_listing_id
+            
+            WHERE fl.grower_operation_id = :grower_operation_id
+                AND fl.is_available = :is_available
+        ', [
+            'grower_operation_id' => $grower_operation_id,
+            'is_available' => 1
         ]);
 
         return (isset($results[0])) ? $results : false;

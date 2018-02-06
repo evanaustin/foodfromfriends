@@ -18,6 +18,9 @@ class Pickup extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
     
+    /**
+     * @todo rearchitect so delivery_id is stored in GrowerOperation & rm grower_operation_id from Delivery
+     */
     public function get_details($grower_operation_id) {
         $results = $this->DB->run('
             SELECT * FROM pickup_settings WHERE grower_operation_id = :grower_operation_id LIMIT 1

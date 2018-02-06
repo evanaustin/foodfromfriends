@@ -19,6 +19,10 @@ function layer($language, $files) {
     }
 }
 
+function amount($amount, $dollar = true) {
+    echo ($dollar ? '$' : ' ') . number_format($amount / 100, 2);
+}
+
 function img($path, $ext, $server = 'local', $class = '') {
     echo '<img src="' . (($server == 'local') ? PUBLIC_ROOT . 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($class) ? 'class="' . $class . '"' : '') .'/>';
 }
@@ -55,8 +59,8 @@ function validate_image($image) {
     // Check image attributes
     $allowed = [
         'size'       => $mb * 1024 * 1024,
-        'mimetypes'  => array('image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png'),
-        'extensions' => array('jpg', 'jpeg', 'png')
+        'mimetypes'  => ['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/x-png'],
+        'extensions' => ['jpg', 'jpeg', 'png']
     ];
 
     $file = [
@@ -67,7 +71,7 @@ function validate_image($image) {
     ];
 
     if ($file['size'] > $allowed['size']) {
-        return 'Please keep the filesize under ' . $mb . 'mb';
+        return 'Please upload an image smaller than ' . $mb . 'mb';
     }
 
     if (in_array($file['type'], $allowed['mimetypes']) !== true) {
@@ -98,7 +102,48 @@ function getDistance($p1, $p2) {
             sin($dLong / 2) * sin($dLong / 2);
     $c      = 2 * atan2(sqrt($a), sqrt(1 - $a));
     $d      = $R * $c;
+
     return $d; // returns the distance in miles
 };
+
+function stars($rating) {
+    if ($rating == 0) {
+        $stars = '<bold>New</bold>';
+    } else {
+        $floor  = floor($rating);
+        $ceil   = ceil($rating);
+        
+        $stars  = '';
+        
+        for ($i = 0; $i < $floor; $i++) {
+            $stars .= '<i class="fa fa-star"></i>';
+        } if ($floor < $rating && $rating < $ceil) {
+            $stars .= '<i class="fa fa-star-half-o"></i>';
+        } for ($i = $ceil; $i < 5; $i++) {
+            $stars .= '<i class="fa fa-star-o"></i>';
+        }
+    }
+
+    return $stars;
+}
+
+function truncate($string, $limit) {
+    $parts = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
+    $parts_count = count($parts);
+  
+    $length = 0;
+    $limited = false;
+
+    for ($last_part = 0; $last_part < $parts_count; ++$last_part) {
+        $length += strlen($parts[$last_part]);
+
+        if ($length > $limit) {
+            $limited = true;
+            break;
+        }
+    }
+  
+    return implode(array_slice($parts, 0, $last_part)) . (($limited) ? '&hellip;' : '');
+}
 
 ?>

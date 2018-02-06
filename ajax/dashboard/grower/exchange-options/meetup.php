@@ -12,16 +12,16 @@ $_POST = $Gump->sanitize($_POST);
 foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $rules = [
-    'is-offered'        => 'required|boolean',
-    'address-line-2'    => 'alpha_space|max_len,15'
+    'is-offered' => 'required|boolean'
 ];
 
 if ($is_offered) {
-    $rules['address-line-1'] = 'required|alpha_numeric_space|max_len,25';
-    $rules['city'] = 'required|alpha_space|max_len,25';
-    $rules['state'] = 'required|regex,/^[A-Z]{2}$/';
-    $rules['zip'] = 'required|regex,/^[0-9]{5}$/';
-    $rules['time'] = 'required';
+    $rules['address-line-1']    = 'required|alpha_numeric_space|max_len,35';
+    $rules['address-line-2']    = 'alpha_numeric_space|max_len,25';
+    $rules['city']              = 'required|alpha_space|max_len,35';
+    $rules['state']             = 'required|regex,/^[A-Z]{2}$/';
+    $rules['zipcode']           = 'required|regex,/^[0-9]{5}$/';
+    $rules['time']              = 'required';
 }
 
 $Gump->validation_rules($rules);
@@ -36,38 +36,67 @@ $Gump->filter_rules([
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
-	'zip'               => 'trim|whole_number'
+	'zipcode'           => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+if (!$User->GrowerOperation) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
+
+    // initialize shell operation
+    $operation_added = $GrowerOperation->add([
+        'grower_operation_type_id'  => 1,
+        'created_on'                => \Time::now(),
+        'is_active'                 => 0
+    ]);
+    
+    if (!$operation_added) quit('Could not initialize grower');
+    
+    $grower_operation_id = $operation_added['last_insert_id'];
+
+    // assign user ownership of new shell operation
+    $association_added = $GrowerOperation->add([
+        'grower_operation_id'   => $grower_operation_id,
+        'user_id'               => $User->id,
+        'permission'            => 2,
+        'is_default'            => 1
+    ], 'grower_operation_members');
+
+    if (!$association_added) quit('Could not associate user');
+} else {
+    $grower_operation_id = $User->GrowerOperation->id;
+}
+
 $Meetup = new Meetup([
     'DB' => $DB
 ]);
 
-if ($Meetup->exists('grower_operation_id', $User->GrowerOperation->id)) { 
+if ($Meetup->exists('grower_operation_id', $grower_operation_id)) { 
     $updated = $Meetup->update([
         'is_offered'            => $is_offered,
         'address_line_1'        => ($is_offered ? $address_line_1 : ''),
         'address_line_2'        => ($is_offered ? $address_line_2 : ''),
         'city'                  => ($is_offered ? $city : ''),
         'state'                 => ($is_offered ? $state : ''),
-        'zip'                   => ($is_offered ? $zip : ''),
+        'zipcode'                   => ($is_offered ? $zipcode : ''),
         'time'                  => ($is_offered ? $time : ''),
-    ], 'grower_operation_id', $User->GrowerOperation->id);
+    ], 'grower_operation_id', $grower_operation_id);
 
     if (!$updated) quit('We could not update your meetup preferences');
 } else {
     $added = $Meetup->add([
-        'grower_operation_id'   => $User->GrowerOperation->id,
+        'grower_operation_id'   => $grower_operation_id,
         'is_offered'            => $is_offered,
         'address_line_1'        => $address_line_1,
         'address_line_2'        => $address_line_2,
         'city'                  => $city,
         'state'                 => $state,
-        'zip'                   => $zip,
+        'zipcode'                   => $zipcode,
         'time'                  => $time
     ]);
 

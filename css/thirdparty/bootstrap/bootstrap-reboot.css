@@ -207,7 +207,7 @@ html {
   width: device-width; }
 html {
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -260,10 +260,10 @@ blockquote {
   margin: 0 0 1rem; }
 
 a {
-  color: #00A669;
+  color: #636c72;
   text-decoration: none; }
   a:focus, a:hover {
-    color: #005a39;
+    color: #00c079;
     text-decoration: none; }
 
 a:not([href]):not([tabindex]) {

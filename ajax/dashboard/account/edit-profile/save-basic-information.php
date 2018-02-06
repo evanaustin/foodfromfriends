@@ -44,16 +44,17 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$dob = strtotime($day . ' ' . $month . ' ' . $year);
+$date   = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
+$dob    = $date->format('Y-m-d H:i:s');
 
 $profile_updated = $User->update([
-    'email' => $email,
-    'first_name' => $first_name,
-    'last_name' => $last_name,
-    'phone' => $phone,
-    'dob' => $dob,
-    'gender' => $gender, 
-    'bio' => $bio
+    'email'         => $email,
+    'first_name'    => $first_name,
+    'last_name'     => $last_name,
+    'phone'         => $phone,
+    'dob'           => $dob,
+    'gender'        => $gender, 
+    'bio'           => $bio
 ], 
 'id', $User->id);
 

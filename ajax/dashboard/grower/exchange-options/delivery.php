@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $config = 'config.php';
 while (!file_exists($config)) $config = '../' . $config;
 require $config;
@@ -37,31 +38,59 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+if (!$User->GrowerOperation) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
+
+    // initialize shell operation
+    $operation_added = $GrowerOperation->add([
+        'grower_operation_type_id'  => 1,
+        'created_on'                => \Time::now(),
+        'is_active'                 => 0
+    ]);
+    
+    if (!$operation_added) quit('Could not initialize grower');
+    
+    $grower_operation_id = $operation_added['last_insert_id'];
+
+    // assign user ownership of new shell operation
+    $association_added = $GrowerOperation->add([
+        'grower_operation_id'   => $grower_operation_id,
+        'user_id'               => $User->id,
+        'permission'            => 2,
+        'is_default'            => 1
+    ], 'grower_operation_members');
+
+    if (!$association_added) quit('Could not associate user');
+} else {
+    $grower_operation_id = $User->GrowerOperation->id;
+}
+
 $Delivery = new Delivery([
     'DB' => $DB
 ]);
 
-if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
+if ($Delivery->exists('grower_operation_id', $grower_operation_id)) {
     $updated = $Delivery->update([
         'is_offered'            => $is_offered,
         'distance'              => $distance,
         'delivery_type'         => $delivery_type,
-        'free_distance'         => $free_distance,
-        'pricing_rate'          => $pricing_rate,
-        'fee'                   => $fee * 100
-    ], 'grower_operation_id', $User->GrowerOperation->id);
+        'free_distance'         => (isset($free_distance) ? $free_delivery : 0),
+        'fee'                   => $fee * 100,
+        'pricing_rate'          => $pricing_rate
+    ], 'grower_operation_id', $grower_operation_id);
 
     if (!$updated) quit('We could not update your delivery preferences');
 } else {
     $added = $Delivery->add([
-        'grower_operation_id'   => $User->GrowerOperation->id,
+        'grower_operation_id'   => $grower_operation_id,
         'is_offered'            => $is_offered,
         'distance'              => (isset($distance) ? $distance : ''),
         'delivery_type'         => (isset($delivery_type) ? $delivery_type : ''),
-        'free_delivery'         => (isset($free_delivery) ? $free_delivery : ''),
-        'free_miles'            => (isset($free_miles) ? $free_miles : ''),
-        'pricing_rate'          => (isset($pricing_rate) ? $pricing_rate : ''),
-        'fee'                   => (isset($fee) ? $fee : '')
+        'free_distance'         => (isset($free_distance) ? $free_distance : 0),
+        'fee'                   => (isset($fee) ? $fee : ''),
+        'pricing_rate'          => (isset($pricing_rate) ? $pricing_rate : '')
     ]);
 
     if (!$added) quit('We could not add your delivery preferences');

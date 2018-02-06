@@ -10,6 +10,4 @@ $Meetup = new Meetup([
 
 $details = $Meetup->get_details($User->GrowerOperation->id);
 
-$imgs = ['corn','tree','lemongrass'];
-
 ?>

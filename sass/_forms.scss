@@ -1,5 +1,12 @@
-div.alert {
+$unchecked-star: '\2606';
+$checked-star: '\2605';
+
+div.alerts {
     display: none;
+
+    div.alert {
+        @include drop-shadow(0, 2px, 4px);
+    }
 }
 
 div.controls {
@@ -47,36 +54,97 @@ form {
     }
 
     input, textarea, select, button {
-        font-family: 'Roboto', sans-serif;
+        font-family: inherit;
         font-weight: 300;
-
+        color: $muted;
+        
         &:focus {
             outline: 0;
+            border-width: 0px;
         }
     }
     
+    select.custom-select, 
+    input.form-control:only-child, 
+    div.form-group > label + input.form-control, 
+    div.input-group.w-addon, 
+    textarea.form-control, 
+    div.image-box {
+        border: 0px;
+        border-top: 0.5px solid $lightedge-color;
+        @include drop-shadow(0, 2px, 4px);
+        @include rounded($radius);
+        @include transition(all .2s);
+
+        &:focus, &.focused {
+            border-color: $lightedge-color;
+            color: $superlight-green;
+            @include transform(translateY(-2px));
+            @include drop-shadow(0, 5px, 10px);
+
+            input, span {
+                color: $superlight-green;
+            }
+        }
+    }
+
     select:not(.input-group-addon) {
         width: 100%;
     }
 
     .form-control {
-        color: $dark-gray;
+        border: 0px;
+        color: $muted;
 
         @include placeholder() {
             color: $light-gray;
         }
     }
 
+    .form-control-danger {
+        color: $brand-danger;
+    }
+
+    .btn-group {
+        &.has-danger {
+            border-color: $brand-danger !important;
+            
+            .btn {
+                border-color: $brand-danger !important;
+                color: $brand-danger !important;
+                
+                &:hover {
+                    background-color: transparent;
+                    color: $muted !important;
+                }
+            }
+
+            + .form-control-danger {
+                background-image: none;
+            }
+        }
+    }
+
     div.radio-box {
         margin: 0.5rem 0;
 
+        .custom-control-input:checked ~ .custom-control-indicator {
+            background-color: $superlight-green;
+            color: #fff;
+        }
+
         span.custom-control-indicator {
             top: 0.2rem;
+            background-color: #fff;
+            @include drop-shadow(0, 2px, 4px);
         }
     }
 
     .input-group-addon {
         min-width: 3rem;
+        border: 0px;
+        background: $superlight-gray;
+        color: $muted;
     }
 
     div.input-group-btn {
@@ -85,6 +153,16 @@ form {
         }
     }
     
+    .input-group {
+        textarea {
+            resize: none;
+            width: 100%;
+            padding: 1rem;
+            border: 0px;
+            @include border-radius(0,0,$radius,$radius);
+        }
+    }
+
     select.input-group-addon {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -93,8 +171,21 @@ form {
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
         padding: .5em;
         padding-right: 1.5em;
-        
-        @include border-radius(0.25rem, 0.25rem, 0, 0);
+        @include border-radius($radius, $radius, 0, 0);
+    }
+    
+    button.input-group-addon {
+        align-items: center;
+        font-size: 24px;
+        color: $superlight-green;
+        @include drop-shadow(0,0,0,0);
+
+        &:hover {
+            transform: translateY(0) !important;
+            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+            -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+        }
     }
 
     div.image-box {
@@ -103,44 +194,113 @@ form {
         width: 100%;
         max-width: 540px;
         max-height: 630px;
-        border: 1px solid rgba(0, 0, 0, 0.15);
+        padding: 0.5em;
+        background: #fff;
+        border-top: 0.5px solid $lightedge-color;
         cursor: pointer;
-        @include rounded(0.3rem);
+        @include rounded($radius);
+        @include transition(all .2s);
 
         &.slide-over:hover {
+            @include transform(translateY(-2px));
+            @include drop-shadow(0, 5px, 20px);
+
             div.overlay-slide {
                 visibility: visible;
                 opacity: 1;
             }
         }
 
-        img {
-            width: 100%;
-        }
+        div.image-container {
+            position: relative;
+            border: 1px solid $lightedge-color;
+            @include rounded($radius);
+            
+            img {
+                width: 100%;
+                @include rounded($radius);
+                @include transition(all 0.2s ease);
+            }
 
-        div.overlay-slide {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.875rem;
-            font-weight: 400;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            @include border-radius(0, 0.25rem, 0.25rem, 0);
-            @include transition(all 0.35s ease);
-
-            i {
-                padding-right: 0.25em;
+            div.overlay-slide {
+                visibility: hidden;
+                opacity: 0;
+                position: absolute;
+                bottom: -1px;
+                width: 100%;
+                padding: 1rem;
+                background-color: $superlight-green;
+                border: 1px solid $superlight-green;
+                text-align: center;
+                font-size: 0.875rem;
+                font-weight: 400;
+                color: #fff;
+                @include border-radius(0, 0.225rem, 0.225rem, 0);
+                @include transition(all 0.2s ease);
+    
+                i {
+                    padding-right: 0.25em;
+                }
+            }
+    
+            input[type="file"] {
+                position: absolute;
+                left: -9999px;
             }
         }
+    }
 
-        input[type="file"] {
-            position: absolute;
-            left: -9999px;
+    .form-star-group {
+        /* remove inline-block whitespace */
+        font-size: 0;
+    
+        /* flip the order so we can use the + and ~ combinators */
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    
+        label {
+            margin-bottom: 0;
+        }
+    
+        & > input {
+            display: none;
+    
+            & + label {
+                /* only enough room for the star */
+                display: inline-block;
+                overflow: hidden;
+                text-indent: 9999px;
+                width: 1.5em;
+                white-space: nowrap;
+                cursor: pointer;
+                
+                &:before {
+                    display: inline-block;
+                    text-indent: -9999px;
+                    content: $unchecked-star;
+                    color: $superlight-green;
+                    font-size: 1.5em;
+                }
+            }
+    
+            &:checked ~ label:before,
+            & + label:hover ~ label:before,
+            & + label:hover:before {
+                content: $checked-star;
+                color: $superlight-green;
+            }
+        }
+      
+        &:hover > input + label:before {
+            content: $unchecked-star;
+            color: $superlight-green;
+            text-shadow: none;
+        }
+    
+        &:hover > input + label:hover ~ label:before,
+        &:hover > input + label:hover:before {
+            content: $checked-star;
+            color: $superlight-green;
         }
     }
 

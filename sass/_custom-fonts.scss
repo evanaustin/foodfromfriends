@@ -1,5 +1,44 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i');
+// @import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
+
+
+@font-face {
+    font-family: 'Museo Sans Rounded';
+    src: url('../fonts/museo/MuseoSansRounded-100.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans Rounded';
+    src: url('../fonts/museo/MuseoSansRounded-300.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans Rounded';
+    src: url('../fonts/museo/MuseoSansRounded-500.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans Rounded';
+    src: url('../fonts/museo/MuseoSansRounded-700.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans Rounded';
+    src: url('../fonts/museo/MuseoSansRounded-900.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+
 
 @font-face {
     font-family: 'Signika';
@@ -45,6 +84,8 @@
     font-style: normal;
 }
 
+
+
 @font-face {
     font-family: 'Riya';
     src: url('../fonts/riya/Riya-Black.woff') format('woff'),
@@ -52,3 +93,133 @@
     font-weight: 400;
     font-style: normal;
 }
+
+
+
+/*
+ * Proxima Nova Soft
+ */
+
+/*
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-regular-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-medium-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-semibold-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Soft';
+    src: url('../fonts/proximanovasoft/proxima-nova-soft-bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaThin-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaRegular-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+*/
+
+
+
+/*
+ * Proxima Nova
+ */
+
+/*
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaSemibold-webfont.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaBold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova/ProximaNovaBlack-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+*/
+
+
+
+/*
+ * Future
+ */
+
+/*
+@font-face {
+    font-family: 'Future';
+    src: url('../fonts/future/regular.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Future';
+    src: url('../fonts/future/bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+*/
+
+
+
+/*
+ * Nunito
+ */
+
+/*
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-Bold.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/nunito/Nunito-ExtraBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+*/

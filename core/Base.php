@@ -35,25 +35,47 @@ abstract class Base {
         return (isset($results[0])) ? $results[0] : false;
     }
 
-    public function retrieve($field = null, $data = null, $table = null) {
+    /**
+     * $params = []
+     *  'where' => ['field' => 'data']
+     *  'group' => string
+     *  'order' => string
+     *  'table' => string
+     */
+    public function retrieve($params) {
+        foreach ($params as $k => $v) ${$k} = $v;
+        
         if (!isset($table)) {
             $table = $this->table;
         }
+        
+        $sql = "SELECT * FROM {$table}";
 
-        if (!isset($field) && !isset($data)) {
-            $results = $this->DB->run("
-                SELECT * FROM {$table}  
-            ");
+        if (!isset($where)) {
+            if (isset($limit)) $sql .= " LIMIT {$limit}";
+
+            $results = $this->DB->run($sql);
         
             return (isset($results)) ? $results : false;
-        } else if (isset($field) && isset($data)) {
-            $bind = [
-                'data' => $data
-            ];
+        } else if (isset($where)) {
+            $bind = [];
+            $i = 0;
             
-            $results = $this->DB->run("
-                SELECT * FROM {$table} WHERE {$field}=:data 
-            ", $bind);
+            foreach ($where as $field => $data) {
+                $sql .= (($i == 0) ? " WHERE " : " AND ") . "{$field}" . ((isset($data)) ? "=:" . $field : " IS NULL");
+                
+                if (isset($data)) $bind[$field] = $data;
+
+                $i++;
+            }
+            
+            if (isset($group)) $sql .= " GROUP BY {$group}";
+
+            if (isset($order)) $sql .= " ORDER BY {$order}";
+
+            if (isset($limit)) $sql .= " LIMIT {$limit}";
+            
+            $results = $this->DB->run($sql, $bind);
             
             return (isset($results)) ? $results : false;
         } else {
@@ -71,7 +93,15 @@ abstract class Base {
         return (isset($results)) ? $results : false;
     }
 
-    public function delete($field, $data, $table = null) {
+    public function delete($field = null, $data = null, $table = null) {
+        if (!isset($field)) {
+            $field = 'id';
+        }
+
+        if (!isset($data)) {
+            $data = $this->id;
+        }
+
         if (!isset($table)) {
             $table = $this->table;
         }
@@ -83,7 +113,15 @@ abstract class Base {
         return ($success) ? true : false;
     }
 
-    public function update($info, $field, $data, $table = null) {
+    public function update($info, $field = null, $data = null, $table = null) {
+        if (!isset($field)) {
+            $field = 'id';
+        }
+
+        if (!isset($data)) {
+            $data = $this->id;
+        }
+       
         if (!isset($table)) {
             $table = $this->table;
         }

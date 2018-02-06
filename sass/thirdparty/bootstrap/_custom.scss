@@ -4,16 +4,25 @@
 // without modifying source files.
 
 $light-green: #00A669;
+$superlight-green: lighten($light-green, 5%);
 $dark-green: #005434;
 $faded-green: rgba(0, 179, 113, 0.25);
 
-$brand-primary: $light-green;
+$off-white: #eee;
+
+$gray: #7f7f7f;
+$light-gray: lighten($gray, 20%);
+$dark-gray: darken($gray, 20%);
+
+$muted: #636c72;
+
+$brand-primary: $superlight-green;
 $brand-inverse: $dark-green;
 
 $font-weight-normal: 300;
 
-$link-color: $brand-primary;
-$link-hover-color: darken($link-color, 15%);
+$link-color: $muted;
+$link-hover-color: $brand-primary;
 $link-hover-decoration: none;
 
 $btn-primary-bg: $brand-primary;
@@ -30,3 +39,21 @@ $dropdown-link-active-bg: $light-green;
 
 $list-group-active-bg: #4c4c4c;
 $list-group-active-border: #4c4c4c;
+
+$badge-primary-bg: $brand-primary;
+
+$alert-success-bg:      $brand-primary;
+$alert-success-border:  $brand-primary;
+$alert-success-text:    #fff;
+
+$alert-info-bg:         $brand-info;
+$alert-info-border:     $brand-info;
+$alert-info-text:       #fff;
+
+$alert-warning-bg:      $brand-warning;
+$alert-warning-border:  $brand-warning;
+$alert-warning-text:    #fff;
+
+$alert-danger-bg:       $brand-danger;
+$alert-danger-border:   $brand-danger;
+$alert-danger-text:     #fff;

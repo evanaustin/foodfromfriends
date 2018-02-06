@@ -11,9 +11,18 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('user/sign-up', $form.serialize(), 
+                var data = $($form).serializeArray();
+                
+                var tz = jstz.determine();
+                data.push({name: 'timezone', value: tz.name()});
+
+                App.Ajax.post('user/sign-up', data, 
                     function(response) {
-                        window.location.replace(response.redirect);
+                        if (response.redirect == false) {
+                            window.location.reload();
+                        } else {
+                            window.location.replace(response.redirect);
+                        }
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');
@@ -33,9 +42,18 @@ App.Account = function() {
             if ($form.parsley().isValid()) {
                 App.Util.hideMsg();
 
-                App.Ajax.post('user/log-in', $form.serialize(), 
+                var data = $($form).serializeArray();
+                
+                var tz = jstz.determine();
+                data.push({name: 'timezone', value: tz.name()});
+
+                App.Ajax.post('user/log-in', data, 
                     function(response) {
-                        window.location.replace(response.redirect);
+                        if (response.redirect == false) {
+                            window.location.reload();
+                        } else {
+                            window.location.replace(response.redirect);
+                        }
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');

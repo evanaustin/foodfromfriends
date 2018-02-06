@@ -7,21 +7,21 @@
 
             <p>Lucky you! You've been specially chosen for early access to the Food From Friends <small><strong>BETA</strong></small>. Register here to upload all the different food you produce and be first in line to sell when we open the flood gates to locavores in your area.</p>
 
-            <div class="alert"></div>
+            <div class="alerts"></div>
 
             <form id="sign-up">
                 <div class="form-group">
-                        <div class="input-group"> 
-                        <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
+                    <div class="input-group w-addon"> 
+                    <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" data-parsley-trigger="submit" required>
 
-                            <span class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                        </span>
-                        </div>
+                        <span class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    </div>
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="email" name="email" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
@@ -41,7 +41,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group w-addon">
                         <input type="password" name="password" class="form-control" aria-describedby="password" placeholder="Password" data-parsley-trigger="submit" data-parsley-minlength="8" required>
                         
                         <span class="input-group-addon">

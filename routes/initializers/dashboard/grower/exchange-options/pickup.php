@@ -10,6 +10,4 @@ $Pickup = new Pickup([
 
 $details = $Pickup->get_details($User->GrowerOperation->id);
 
-$imgs = ['corn','tree','lemongrass'];
-
 ?>

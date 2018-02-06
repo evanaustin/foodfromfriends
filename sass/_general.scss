@@ -1,25 +1,9 @@
-html {
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-
-body {
-    position: relative;
-    min-height: 100%;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    color: #404040;
-}
-
 h1, h2, h3, h4, h5, h6 {
     font-weight: inherit;
+}
+
+a {
+    color: inherit;
 }
 
 a, button {
@@ -28,33 +12,41 @@ a, button {
     }
 }
 
+hr {
+    border-color: darken($edge-color, 2.5%);
+}
+
 canvas {
     &:focus {
         outline: none;
     }
 }
 
-.btn {
-    cursor: pointer;
-    font-weight: inherit;
+.inline-block {
+    display: inline-block;
+}
 
-    &:focus, &.focus {
-        @include box-shadow(0 0 0 transparent);
+.tiny {
+    font-size: 0.7rem;
+}
+
+.font-85 {
+    font-size: 0.85rem;
+}
+
+.font-18 {
+    font-size: 18px;
+}
+
+.line-18 {
+    line-height: 18px;
+}
+
+.inline-middle {
+    > * {
+        display: inline-block;
+        vertical-align: middle;
     }
-}
-
-div.card {
-    flex: 0 0 calc(33.33333% - 20px); /* 60px of padding total between 3 cards -> avg 20px each */
-}
-
-img.card-img-top {
-    width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-div.modal-content {
-    border: 0px;
-    @include border-radius(0);
 }
 
 .align-left {
@@ -69,40 +61,26 @@ div.modal-content {
     text-align: center;
 }
 
-.flexbox {
-    display: flex;
-
-    &.flexcolumn {
-        flex-direction: column;
-    }
-
-    &.flexrow {
-        flex-direction: row;
-    }
-}
-
-.flexgrow {
-    flex-grow: 1;
-}
-
 .hidden {
     display: none !important;
 }
 
-.strong {
-    font-weight: bolder !important;
+.uppercase, uppercase {
+    text-transform: uppercase;
 }
 
-.no-margin {
-    margin: 0 !important;
+.p1w {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-.margin-btm-1em {
-    margin-bottom: 1em !important;
+.p25w {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
 }
 
-.margin-btm-75pem {
-    margin-bottom: .75em !important;
+.multi-line {
+    line-height: 1.25;
 }
 
 .line-after {
@@ -123,79 +101,432 @@ div.modal-content {
     }
 }
 
-.callout {
-    margin: 20px 0;
-    padding: 10px 20px;
-    border-left: 5px solid #eee;
-    
-    &.bordered {
-        padding: 20px;
-        border: 1px solid #eee;
-        border-radius: 3px;
-    }
-    
-    h4 {
-        margin-top: 0;
-        margin-bottom: 5px;
+.tooltip {
+    opacity: 1 !important;
+
+    .tooltip-inner {
+        z-index: $superultra-z;
+        background-color: $dark-gray;
+        font-family: 'Museo Sans Rounded';
+        font-size: 0.8rem !important;
     }
 
-    p:last-child {
-        margin-bottom: 0;
+    &.bs-tether-element-attached-top .tooltip-inner:before {
+        border-bottom-color: $dark-gray !important;
     }
 
-    code {
-        border-radius: 3px;
-    }
-    
-    +.callout {
-        margin-top: -5px;
+    &.bs-tether-element-attached-right .tooltip-inner:before {
+        border-left-color: $dark-gray !important;
     }
 
-    &.default {
-        border-left-color: #777;
-        
-        h4 {
-            color: #777;
-        }
-    }
-    
-    &.primary {
-        border-left-color: $light-green;
-        
-        h4 {
-            color: $light-green;
-        }
+    &.bs-tether-element-attached-bottom .tooltip-inner:before {
+        border-top-color: $dark-gray !important;
     }
 
-    &.success {
-        border-left-color: #5cb85c;
-        
-        h4 {
-            color: #5cb85c;
-        }
-    }
-
-    &.danger {
-        border-left-color: #d9534f;
-        
-        h4 {
-            color: #d9534f;
-        }
-    }
-
-    &.warning {
-        border-left-color: #f0ad4e;
-        
-        h4 {
-            color: #f0ad4e;
-        }
-    }
-
-    &.info {
-        border-left-color: #5bc0de;
-        
-        h4 {
-            color: #5bc0de;
-        }
+    &.bs-tether-element-attached-left .tooltip-inner:before {
+        border-right-color: $dark-gray !important;
     }
 }
+
+.drop-shadow {
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+}
+
+.rounded {
+    @include rounded($radius);
+}
+
+.rounded-circle {
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    padding: 0.25em;
+    margin: 0 0.25em;
+    background-color: $superlight-green;
+    line-height: 1em;
+    color: #fff;
+    text-align: center;
+    @include rounded(50px);
+}
+
+
+
+/* MARGIN */
+
+ .no-margin {
+    margin: 0 !important;
+ }
+
+ .margin-top-125em {
+    margin-top: 1.25rem !important;
+ }
+
+ .margin-top-1em {
+    margin-top: 1rem !important;
+ }
+
+ .margin-top-75em {
+    margin-top: 0.75rem !important;
+ }
+ 
+ .margin-top-50em {
+    margin-top: 0.5rem !important;
+ }
+
+ .margin-top-25em {
+    margin-top: 0.25rem !important;
+ }
+
+ .margin-btm-2em {
+    margin-bottom: 2rem !important;
+ }
+
+ .margin-btm-1em {
+    margin-bottom: 1rem !important;
+ }
+
+ .margin-btm-75em {
+    margin-bottom: .75rem !important;
+ }
+
+ .margin-btm-50em {
+    margin-bottom: .5rem !important;
+ }
+
+ .margin-btm-25em {
+    margin-bottom: .25rem !important;
+ }
+ 
+ .margin-btm-0 {
+    margin-bottom: 0 !important;
+ }
+
+ .margin-top-btm-1em {
+    margin: 1rem 0 !important;
+ }
+
+ .margin-right-1em {
+    margin-right: 1rem !important;
+ }
+ 
+ .margin-left-1em {
+    margin-left: 1rem !important;
+ }
+
+ .margin-w-1em {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+ }
+
+
+
+/* FONT WEIGHTS */
+ .light, light {
+    font-weight: 100 !important;
+ }
+
+ .normal, normal {
+    font-weight: 300 !important;
+ }
+
+ .strong, strong {
+    font-weight: bolder !important;
+ }
+
+ .bold, bold {
+    font-weight: 500 !important;
+ }
+
+ .thick, thick {
+    font-weight: 700 !important;
+ }
+
+ .heavy, heavy {
+    font-weight: 700 !important;
+ }
+
+
+
+/* COLORS */
+ .brand {
+    color: $superlight-green;
+ } .brand-hover {
+    &:hover {
+        color: $superlight-green !important;
+    }
+ } .brand-bg {
+    background-color: $superlight-green !important;
+    color: #fff;
+ } .brand-bg-hover {
+    &:hover {
+        background-color: $superlight-green !important;
+        color: #fff;
+    }
+ }
+
+ .white {
+    color: #fff;
+ }
+
+ .light-gray {
+    color: $light-gray;
+ } .light-gray-bg {
+    background-color: $light-gray;
+ } .light-gray-bg-hover {
+    &:hover {
+        background-color: $light-gray;
+        color: #fff;
+    }
+ }
+
+ .medium-gray {
+    color: #00000080;
+ } .medium-gray-bg {
+    background-color: #00000080;
+ } .medium-gray-bg-hover {
+    &:hover {
+        background-color: #00000080;
+        color: #fff;
+    }
+ }
+
+ .dark-gray {
+    color: $dark-gray !important;
+ } .dark-gray-bg {
+    background-color: $dark-gray !important;
+ } .dark-gray-bg-hover {
+    &:hover {
+        background-color: $dark-gray !important;
+        color: #fff;
+    }
+ }
+
+ .muted {
+    color: $muted !important;
+ } .muted-hover {
+    &:hover {
+        color: $muted !important;
+    }
+ } .muted-bg {
+    background-color: $muted !important;
+ } .muted-bg-hover {
+    &:hover {
+        background-color: $muted !important;
+        color: #fff;
+    }
+ }
+
+ .info, .teal {
+    color: $teal !important;
+ } .info-hover, .teal-hover {
+    &:hover {
+        color: $teal !important;
+    }
+ } .info-bg, .teal-bg {
+    background-color: $teal !important;
+ } .info-bg-hover, .teal-bg-hover {
+    &:hover {
+        background-color: $teal !important;
+        color: #fff;
+    }
+ }
+
+ .success, .green {
+    color: $green !important;
+ } .success-hover, .green-hover {
+    &:hover {
+        color: $green !important;
+    }
+ } .success-bg, .green-bg {
+    background-color: $green !important;
+ } .success-bg-hover, .green-bg-hover {
+    &:hover {
+        background-color: $green !important;
+        color: #fff;
+    }
+ }
+
+ .waiting, .yellow {
+    color: $yellow !important;
+ } .warning-hover, .orange-hover {
+    &:hover {
+        color: $yellow !important;
+    }
+ } .waiting-bg, .yellow-bg {
+    background-color: $yellow !important;
+ } .waiting-bg-hover, .yellow-bg-hover {
+    &:hover {
+        background-color: $yellow !important;
+        color: #fff;
+    }
+ }
+
+ .warning, .orange {
+    color: $orange !important;
+ } .warning-hover, .orange-hover {
+    &:hover {
+        color: $orange !important;
+    }
+ } .warning-bg, .orange-bg {
+    background-color: $orange !important;
+ } .warning-bg-hover, .orange-bg-hover {
+    &:hover {
+        background-color: $orange !important;
+        color: #fff;
+    }
+ }
+
+ .danger, .red {
+    color: $red;
+ } .danger-hover, .red-hover {
+    &:hover {
+        color: $red !important;
+    }
+ } .danger-bg, .red-bg {
+    background-color: $red !important;
+ } .danger-bg-hover, .red-bg-hover {
+    &:hover {
+        background-color: $red !important;
+        color: #fff;
+    }
+ }
+
+
+
+/* FLEXBOX */
+
+ .flexbox {
+    display: flex;
+
+    &.flexcolumn {
+        flex-direction: column;
+    }
+
+    &.flexrow {
+        flex-direction: row;
+    }
+ }
+
+ .flexgrow {
+    display: flex;
+    flex-grow: 1;
+ }
+
+ .flexgrow-0 {
+    flex-grow: 0 !important;
+ }
+
+ .flexgrow-2 {
+    flex-grow: 2;
+ }
+
+ .flexgrow-3 {
+    flex-grow: 3;
+ }
+
+ .flexcenter {
+    align-items: center;
+ }
+
+ .flexjustifycenter {
+    justify-content: center;
+ }
+
+ .flexstart {
+    justify-content: flex-start;
+ }
+
+ .flexend {
+    justify-content: flex-end;
+ }
+
+
+
+/* BTN */
+ .btn {
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: inherit;
+    border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 2px, 4px);
+    @include transition(all .2s);
+
+    &:not([disabled]):hover {
+        @include transform(translateY(-2px));
+        @include drop-shadow(0, 5px, 10px, 0.2);
+    }
+
+    &:focus, &.focus {
+        border-top: 0.5px solid $lightedge-color;
+        border-color: $lightedge-color;
+        @include box-shadow(0 0 0 transparent);
+    }
+ }
+
+ .btn-primary {
+    &:not([disabled]):hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+ }
+
+ .btn-muted {
+    background-color: $muted;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: lighten($muted, 5%);
+        border-color: lighten($muted, 5%);
+    }
+ }
+
+ .btn-dark {
+    background-color: $dark-gray;
+    color: #fff;
+    
+    &:not([disabled]):hover {
+        background-color: lighten($superlight-green, 5%);
+        border-color: lighten($superlight-green, 5%);
+    }
+ }
+ 
+ .btn-medium-gray {
+    background-color: #00000080;
+    color: #fff;
+     
+     &:not([disabled]):hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+ }
+    
+ .btn-light {
+    background-color: $light-gray;
+    color: #fff;
+ }
+
+ .btn-group {
+    @include drop-shadow(0, 2px, 4px);
+    @include rounded($radius);
+
+    .btn {
+        border-width: 0px;
+        border-color: $edge-color;
+        @include drop-shadow(0, 0, 0, 0);
+
+        &:not(:first-child) {
+            border-left-width: 1px;
+        }
+
+        &:last-child {
+            border-right-width: 1px;
+        }
+
+        &:hover {
+            border-color: transparent;
+            @include transform(none);
+            @include drop-shadow(0, 0, 0, 0);
+        }
+    }
+ }

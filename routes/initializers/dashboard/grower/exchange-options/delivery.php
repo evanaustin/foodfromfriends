@@ -10,6 +10,4 @@ $Delivery = new Delivery([
 
 $details = $Delivery->get_details($User->GrowerOperation->id);
 
-$imgs = ['corn','tree','lemongrass'];
-
 ?>

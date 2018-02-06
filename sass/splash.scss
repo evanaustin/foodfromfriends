@@ -9,20 +9,27 @@
 * Dependencies
 **/
 @import 'mixins';
-@import 'colors';
+@import 'variables';
+@import 'thirdparty/bootstrap/variables';
+
+/**
+* Architecture
+**/
+@import 'architecture/universal';
 
 /**
 * Universal
 **/
 @import 'general';
+@import 'containers';
 @import 'forms';
 
 /**
-* View Styles
+* View
 **/
 @import 'views/splash';
 
 /**
-* Modal Styles
+* Modal
 **/
 @import 'modals/account';

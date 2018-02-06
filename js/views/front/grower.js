@@ -1,8 +1,29 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiZm9vZGZyb21mcmllbmRzIiwiYSI6ImNqN2twb2gwdTJmdWkzMm5wNmw0ejJ2cHEifQ.vv9p76S-5nm9ku_guP3-Pg';
+App.Front.Grower = function() {
+    function listener() {
+        Mapbox.setCenter([lng, lat]);
 
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v10',
-    center: [lng, lat],
-    zoom: 13
-});
+        $('#message').on('click', function(e) {
+            // trigger sign up before directing to messages
+            if (user == 0) {
+                e.preventDefault();
+                
+                var $sign_up_modal = $('#sign-up-modal');
+                var $sign_up_form = $sign_up_modal.find('#sign-up');
+
+                $sign_up_modal.modal();
+
+                App.Util.msg('Hey! Sign up first &mdash; then you can send a message!', 'info', $sign_up_form);
+
+                $sign_up_form
+                    .find('input[name="redirect"]')
+                    .val(false);
+
+                return;
+            }
+        });
+    };
+
+    return {
+        listener: listener
+    };
+}();

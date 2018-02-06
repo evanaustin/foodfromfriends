@@ -1,6 +1,9 @@
 <?php
 
+use \Firebase\JWT\JWT;
+
 class Mail {
+
     private
         $api_key;
     
@@ -50,7 +53,7 @@ class Mail {
     public function thanks_signup() {
         $subject = 'Welcome to Food From Friends!';
     
-        $body = 'You\'re awesome for joining Food From Friends. Our platform is still in its early stages, but you can upload your food listings and build out your presence as a grower in the meantime. Then when we open up to buyers this Fall you\'ll be ready to go!';
+        $body = 'You\'re awesome for joining Food From Friends. Our platform is still in its early stages, but you can upload your food listings and build out your presence as a grower in the meantime. Then when we open up to buyers you\'ll be ready to go!';
         $content = new SendGrid\Content('text/html', $body);
     
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
@@ -183,6 +186,518 @@ class Mail {
 
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
+    
+    public function user_new_message_notification($User, $GrowerOperation, $message) {
+        $subject = "New message from {$GrowerOperation->details['name']}";
+        
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
+
+        $token = [
+            'user_id' => $User->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode($route . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                {$subject}
+            </h1>
+
+            <blockquote>
+                {$message}
+            </blockquote>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View message thread
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function grower_new_message_notification($Member, $GrowerOperation, $User, $message) {
+        $subject = "New message from {$User->name}";
+        
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'none') ? '&grower=' . $GrowerOperation->id : '');
+
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode($route . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                {$subject}
+            </h1>
+
+            <blockquote>
+                {$message}
+            </blockquote>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View message thread
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        $subject = "New order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                You've received a new order!
+            </h1>
+
+            <hr>
+
+            <p>
+                Good news, {$Member->first_name}!
+            </p>
+            
+            <p>
+                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
+            </p>
+
+            <p>
+                You have <strong>24 hours</strong> to either confirm or reject the order before it expires.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    /* public function order_expiration_warning($Member, $GrowerOperation, $OrderGrower, $Buyer) {} */
+    
+    public function confirmed_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+        $subject = "Confirmed order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        // @todo scroll to order
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/overview?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has been confirmed!
+            </h1>
+
+            <hr>
+
+            <p>
+                Good news, {$Buyer->first_name}!
+            </p>
+            
+            <p>
+                {$GrowerOperation->details['name']} has confirmed your order, which means this order is now ready for fulfillment.
+            </p>
+            
+            <p>
+                If you selected <strong>Pickup</strong> or <strong>Meetup</strong> as your exchange option from {$GrowerOperation->details['name']}, remember to go receive your order.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function rejected_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+        $subject = "Rejected order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order was rejected
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Buyer->first_name},
+            </p>
+            
+            <p>
+                Sorry to say that {$GrowerOperation->details['name']} has rejected your order. Don't take it personally! This usually means that the seller couldn't fulfill the item for some reason. You will not be charged for your order to {$GrowerOperation->details['name']}.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Find other sellers
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function expired_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+        $subject = "Expired order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has expired
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Buyer->first_name},
+            </p>
+                
+            <p>
+                Sorry to say that {$GrowerOperation->details['name']} has let your order expire. You will not be charged for your order to {$GrowerOperation->details['name']}.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Find other sellers
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    public function seller_cancelled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has been cancelled
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Buyer->first_name},
+            </p>
+            
+            <p>
+                Sorry to say that {$GrowerOperation->details['name']} has cancelled your order. You will not be charged for this order to {$GrowerOperation->details['name']}.
+            </p>
+            
+            <a href=\"" . $link . "\" class=\"button bg-green block\">
+                Find other sellers
+            </a>
+        ";
+
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                Order cancellation
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Member->first_name},
+            </p>
+                
+            <p>
+                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ". You are no longer responsible for fulfilling this order.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    /* public function order_fulfillment_reminder() {} */
+
+    public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+        $subject = "Fulfilled order - {$GrowerOperation->details['name']}";
+        
+        
+        $token = [
+            'user_id' => $Buyer->id
+        ];
+        
+        $jwt = JWT::encode($token, JWT_KEY);
+        
+        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/';
+
+        $review_route = 'review?id=' . $OrderGrower->id;
+        $review_link = urldecode(urlencode($review_route . '?token=' . $jwt));
+        
+        $review_route = 'report?id=' . $OrderGrower->id;
+        $report_link = urldecode(urlencode($report_route . '?token=' . $jwt));
+
+        $body = "
+            <h1>
+                Your order has been fulfilled!
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Buyer->first_name},
+            </p>
+
+            <p>
+                {$GrowerOperation->details['name']} has marked your order as fulfilled. If you believe this was done in error, you can <a href=\"{$report_link}\">report an issue</a>.
+            </p>
+
+            <p>
+                Otherwise, you have three days to review {$GrowerOperation->details['name']}. Be kind and be honest!
+            </p>
+            
+            <a href=\"" . $review_link . "\" class=\"button bg-green block\">
+                Review {$GrowerOperation->details['name']}
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        $subject = "New review - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                You got a new review!
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Member->first_name}!
+            </p>
+
+            <p>
+                {$Buyer->name} has left " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . " a new review. This order is now cleared and marked for payout.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                Read review
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function reported_order_seller_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+        $subject = "New issue reported - {$GrowerOperation->details['name']}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+
+        $body = "
+            <h1>
+                Issue reported
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi {$Member->first_name},
+            </p>
+
+            <p>
+                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
+            </p>
+            
+            <a href=\"{$link}\" class=\"button bg-green block\">
+                View order
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function reported_order_admin_notification($Buyer, $GrowerOperation, $OrderGrower, $message) {
+        $subject = "Issue reported - {$GrowerOperation->details['name']}";
+        
+        $body = "
+            <p>
+                <strong>{$Buyer->name}</strong> reported an issue with <strong>{$GrowerOperation->details['name']}</strong>:
+            </p>
+
+            <blockquote>
+                {$message}
+            </blockquote>
+
+            <hr>
+
+            <pre>
+                <strong>Suborder ID</strong>: {$OrderGrower->id}
+            </pre>
+
+            <pre>
+                <strong>Buyer ID</strong>: {$Buyer->id}
+            </pre>
+            
+            <pre>
+                <strong>Grower ID</strong>: {$GrowerOperation->id}
+            </pre>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    /* public function payout_notification() {} */
+
 }
 
 ?>

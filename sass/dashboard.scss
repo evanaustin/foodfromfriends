@@ -4,101 +4,26 @@
 * Dependencies
 **/
 @import 'mixins';
-@import 'colors';
+@import 'variables';
 @import 'thirdparty/bootstrap/variables';
 
 /**
-* Component Styles
+* Architecture
+**/
+@import 'architecture/universal';
+@import 'architecture/dashboard';
+
+/**
+* Components
 **/
 @import 'components/dashboard/sidebar';
 @import 'components/dashboard/subheader';
 
 /**
-* View Styles
+* Views
 * ! these should be loaded elsewhere, individually, as necessary
 **/
 @import 'views/dashboard/grower';
 @import 'views/dashboard/grower/food-listings/overview';
-
-/**
-* Dashboard styles
-* ! maybe pull this out
-*/
-body.dashboard {
-    display: flex;
-    flex-direction: column;
-
-    @include phones() {
-        padding-bottom: 60px; /* footer height */
-    }
-
-    div.container-fluid {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        margin: 0;
-
-        > div.row {
-            flex-grow: 1;
-        }
-    }
-
-    main {
-        padding: 0;
-        background-color: #fafafb;
-
-        div.page-title {
-            padding: 0.5rem 0;
-            font-weight: 400;
-            color: $dark-gray;
-        }
-
-        div.controls {
-            margin: 0.5rem 0;
-            
-            @include all-but-phones() {
-                float: right;
-            }
-
-            .btn {
-                display: block;
-                min-width: 200px;
-                color: #fff;
-                font-size: 0.875rem;
-
-                @include phones() {
-                    margin-top: 10px;
-                    width: 100%;
-                }
-
-                &:first-child {
-                    margin-bottom: 0.5rem;
-                }
-
-                i {
-                    &.pre {
-                        float: left;
-                    }
-                    
-                    &.post {
-                        margin-top: 1px;
-                        float: right;
-                    }
-                }
-            }
-        }
-    
-        div.main.container {
-            padding: 15px;
-
-            div.side-art {
-                img {
-                    float: right;
-                    max-width: 75%;
-                    max-height: 475px;
-                    opacity: 0.5;
-                }
-            }
-        }
-    }
-}
+@import 'views/dashboard/grower/orders/view';
+@import 'views/dashboard/messages/thread';

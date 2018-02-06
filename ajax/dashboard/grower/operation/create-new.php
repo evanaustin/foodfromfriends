@@ -30,7 +30,13 @@ $prepared_data = $Gump->run($validated_data);
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 if (!empty($operation_key) && !empty($personal_key)) {
-    $association = $User->retrieve('referral_key', $personal_key, 'grower_operation_members');
+    $association = $User->retrieve([
+        'where' => [
+            'referral_key' => $personal_key
+        ],
+        'table' => 'grower_operation_members'
+    ]);
+
     $association = $association[0];
 
     // make sure association exists
@@ -99,7 +105,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
             'name'                      => $name,
             'bio'                       => $bio,
             'referral_key'              => $GrowerOperation->gen_referral_key(4, $name),
-            'created_on'                => time(),
+            'created_on'                => \Time::now(),
             'is_active'                 => 0
         ]);
         

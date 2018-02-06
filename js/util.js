@@ -17,36 +17,43 @@ App.Util = function() {
     };
 
     // Error message handling 
-    // You have to create a container element, eg: <div id="alerts"></div>
+    // You have to create a container element, eg: <div id="alert"></div>
     // alert_type = 'error', 'success', 'info'
-    /* function msg(message, alert_type, alert_container) {
-        var alert_container = alert_container || '#alerts';
-        console.log($(alert_container));
-        hideMsg('all', alert_container);
-        $(alert_container).append('<div class="alert alert-' +  alert_type + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>').show();
-    } */
     
-    function msg(message, alert_type) {
-        $('div.alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-' + alert_type).html(message).fadeIn();
+    function msg(message, alert_type, form) {
+        if (form != undefined) {
+            var $alert_container = form.siblings('div.alerts');
+        } else {
+            var $alert_container = $('div.alerts');
+        }
+
+        hideMsg('all', $alert_container);
+
+        message = htmlEntityDecode(message);
+
+        $alert_container
+            .append('<div class="alert alert-' +  alert_type + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>')
+            .fadeIn();
     }
 
     // Leave msg_type blank to clear all alerts
     // Leave container blank to call all alerts of a given type in a single container only
     function hideMsg(msg_type, container) {
-        var container = ((container || '') != '' ? container+' ' : '');
         var msg_type = msg_type || 'all';
+        var $container = container || $('div.alerts');
+
         switch (msg_type) {
             case 'all':
-                $(container + '.alert').fadeOut();
+                $container.fadeOut().empty();
                 break;
-            case 'error':
-                $(container + '.alert-danger').fadeOut();
+                case 'error':
+                $container.hasClass('alert-danger').fadeOut().empty();
                 break;
             case 'success':
-                $(container + '.alert-success').fadeOut();
+                $container.hasClass('alert-success').fadeOut().empty();
                 break;
             case 'info':
-                $(container + '.alert-info').fadeOut();
+                $container.hasClass('alert-info').fadeOut().empty();
                 break;
         }
     }
@@ -98,6 +105,29 @@ App.Util = function() {
             $('button[type=submit]').prop('disabled', false);
         }
     }
+
+    function slidebar(controller, action, target, e) {
+        if (e != null) {
+            e.stopPropagation();
+        }
+
+        switch(action) {
+            case 'open':
+                controller.open('slidebar-' + target);
+                break;
+            case 'close':
+                controller.close('slidebar-' + target);
+                break;
+            case 'toggle':
+                controller.toggle('slidebar-' + target);
+        };
+
+        /* $(controller.events).on('opened', function () {
+            $('[canvas="container"]').addClass('close-any-slidebar');
+        }).on('closed', function () {
+            $('[canvas="container"]').removeClass('close-any-slidebar');
+        }); */
+    };
 
     // Replaces the some HTML entities with their Unicode values
     function htmlDecode(input) {
@@ -296,18 +326,12 @@ App.Util = function() {
         return ua.os + ' ' + ua.browser + ' v' + ua.version;
     }
 
-    // Scroll to an anchor point on the screen
-    function scrollToAnchor(anchor_name, offset) {
-        if (typeof anchor_name == 'undefined') {
-            var anchor = $('body');
-        } else {
-            var anchor = $("a[name='"+ anchor_name +"']");
-            if (!anchor.length) {
-                anchor = $('#' + anchor_name);
-            }
-        }
-        var slider_offset = (offset && offset != '' ? parseInt(offset) : 0);
-        $('html,body').animate({scrollTop: anchor.offset().top - $('header').height() + slider_offset}, 'slow');
+    // Scroll to an ID point on the screen
+    function scrollToID(id, offset) {
+        var el = $('#' + id);
+        var off = (offset && offset != '' ? parseInt(offset) : 0);
+
+        $('html,body').animate({scrollTop: el.offset().top /* - $('header').height() */ + off}, 'slow');
     };
 
     // JS doesn't have multidimensional arrays, it has objects.
@@ -338,7 +362,7 @@ App.Util = function() {
     }
 
     function scrollToTop() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
     }
 
     function closePopovers() {
@@ -888,6 +912,7 @@ App.Util = function() {
         animation: animation,
         loading: loading,
         finishedLoading: finishedLoading,
+        slidebar: slidebar,
         htmlDecode: htmlDecode,
         parseVideoURL: parseVideoURL,
         urlParams: urlParams,
@@ -897,7 +922,7 @@ App.Util = function() {
         browserDetect: BrowserDetect,
         userAgent: getUA,
         appendUserAgentClasses: appendUserAgentClasses,
-        scrollToAnchor: scrollToAnchor,
+        scrollToID: scrollToID,
         objectLength: objectLength,
         isNumber: isNumber,
         convertToSlug: convertToSlug,

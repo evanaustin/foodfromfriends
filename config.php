@@ -5,17 +5,21 @@
 **/
 
 switch($_SERVER['SERVER_NAME']) {
+    case 'www.foodfromfriends.co':
     case 'foodfromfriends.co':
         $env = [
             'ENV'           => 'prod',
-            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/'
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'SERVER_IP'     => '45.77.107.173'
         ];
 
         break;
+    case 'www.chameleonrenaissance.com':
     case 'chameleonrenaissance.com':
         $env = [
             'ENV'           => 'stage',
-            'PUBLIC_ROOT'   => 'http://' . $_SERVER['SERVER_NAME'] . '/'
+            'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
+            'SERVER_IP'     => '45.77.104.9'
         ];    
         
         break;
@@ -37,10 +41,17 @@ $secrets = [
     'DB_NAME'           => $DB_NAME,
     'DB_USER'           => $DB_USER,
     'DB_PW'             => $DB_KEY,
+    'JWT_KEY'           => $JWT_KEY,
+    'STRIPE_PK_LIVE'    => $STRIPE_PK_LIVE,
+    'STRIPE_SK_LIVE'    => $STRIPE_SK_LIVE,
+    'STRIPE_PK_TEST'    => $STRIPE_PK_TEST,
+    'STRIPE_SK_TEST'    => $STRIPE_SK_TEST,
     'SENDGRID_KEY'      => $SENDGRID_KEY,
     'AWS_KEY'           => $AWS_KEY,
     'AWS_SECRET'        => $AWS_SECRET,
-    'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY
+    'GOOGLE_MAPS_KEY'   => $GOOGLE_MAPS_KEY,
+    'SERVER_USER'       => (!empty($SERV_USER) ? $SERV_USER : ''),
+    'SERVER_PW'         => (!empty($SERV_PW) ? $SERV_PW : '')
 ];
 
 $constants = $env + $secrets;
@@ -70,7 +81,7 @@ spl_autoload_register(function($class_name) {
 try {
     $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
 } catch(PDOException $e) {
-    echo $e->getMessage();
+    error_log($e->getMessage());
 }
 
 
@@ -79,7 +90,7 @@ try {
  * GUMP Validator
  **/
 
-$Gump = new GUMP();
+$Gump   = new GUMP();
 
 
 
@@ -87,8 +98,8 @@ $Gump = new GUMP();
  * AWS
  **/
 
-$AWS = new Aws();
-$S3 = new S3($AWS);
+$AWS    = new Aws();
+$S3     = new S3($AWS);
 
 
 
@@ -117,6 +128,19 @@ if ($LOGGED_IN) {
     }
 }
 
+
+
+/**
+* Cron connection
+**/
+
+if (ENV != 'dev') {
+    try {
+    	$Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
+	} catch (\Exception $e) {
+		error_log($e->getMessage());
+	}
+}
 
 
 /**

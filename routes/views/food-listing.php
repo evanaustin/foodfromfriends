@@ -1,6 +1,7 @@
-<div class="container-fluid">
-    <div class="row">
-        <main class="col-md-12">
+<!-- <div class="container-fluid">
+    <div class="row"> -->
+        <!-- <main class="col-md-12"> -->
+        <main>
             <div class="main container">
                 <?php
 
@@ -10,150 +11,138 @@
 
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="left-content">
+                            <div id="sidebar-content">
                                 <div class="photo box">
-                                    <img src="<?php echo $listing_filename; ?>" class="img-fluid" alt="<?php echo $listing_title; ?>">
+                                    <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                 </div>
                                 
-                                <div class="photo box">
-                                    <img src="<?php echo $op_filename; ?>" class="img-fluid" alt="<?php echo $name; ?>">
-                                </div>
-
                                 <div class="map box">
                                     <div id="map"></div>
                                 </div>
-                            </div> <!-- end div.left-content -->
+
+                                <!-- <div class="photo box">
+                                    <?php //img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
+                                </div> -->
+                            </div>
                         </div>
 
                         <div class="col-lg-5">
-                            <div class="middle-content">
-                                <h3 class="name">
-                                    <?php echo ucfirst($listing_title); ?>
-                                </h3>
+                            <div id="main-content">
+                                <h2 class="dark-gray bold margin-btm-25em">
+                                    <?php echo $FoodListing->title; ?>
+                                </h2>
 
-                                <h6 class="text-muted">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                <h6 class="muted normal margin-btm-1em">
+                                    <span class="brand">
+                                        <?php echo $item_stars; ?>
+                                    </span>
 
-                                    &nbsp;&bull;&nbsp;
+                                    <?php
+                                    
+                                    if (!empty($ratings) && count($ratings) > 0) {
+                                        echo '<div class="rounded-circle">' . count($ratings) . '</div>';
+                                    }
+                                    
+                                    ?>
+
+                                    <!-- ! dirty -->
+                                    &bull;&nbsp;
                                     
                                     $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
                                     
+                                    <!-- ! dirty -->
                                     &nbsp;&bull;&nbsp;
                                     
-                                    <?php echo $FoodListing->quantity . ' in stock'; ?>
+                                    <?php echo ($FoodListing->is_available) ? $FoodListing->quantity . ' in stock' : 'Unavailable'; ?>
                                 </h6>
                                 
                                 <?php
                                 
                                 if (!empty($FoodListing->description)) {
-
-                                    echo "<div class=\"bio\">{$FoodListing->description}</div>";
-
+                                    echo "<p class=\"muted margin-btm-2em\">{$FoodListing->description}</p>";
                                 }
 
                                 ?>
 
-                                <div class="grower-snapshot set">
-                                    <div class="title">
-                                        <strong>About the grower</strong>
-                                    </div>
-
-                                    <div class="subtitle">
-                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
-                                    </div>
-
-                                    <div class="callout">   
-                                        <div class="grower-title">
-                                            <?php echo "<div class=\"name\">{$name}</div><div class=\"rating\">{$grower_stars}</div>"; ?>
-                                        </div>
-                                        
-                                        <div class="text-muted">
-                                            <?php echo $bio; ?>
-                                        </div>
-
-                                        <div class="grower-location">
-                                            <?php echo $city . ', ' . $state; ?>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="available-exchange-options set">
-                                    <div class="title">
-                                        <strong>Exchange options</strong> 
-                                        (<?php echo count($exchange_options_available); ?>)
-                                    </div>
+                                    <h4 class="margin-btm-50em">
+                                        <bold class="dark-gray">Exchange options</bold>
+                                        <light class="light-gray">(<?php echo count($exchange_options_available); ?>)</light>
+                                    </h4>
 
-                                    <div class="subtitle">
+                                    <div class="muted margin-btm-1em">
                                         Available options for getting your food
                                     </div>
-
+                                    
                                     <?php
                                                 
-                                    if ($GrowerOperation->Delivery->is_offered) {
+                                    if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
 
                                         ?>
 
                                         <div class="callout">
-                                            <h6>
+                                            <div class="muted font-18 thick">
                                                 Delivery
-                                            </h6>
+                                            </div>
                                             
-                                            <p>
-                                                Will deliver within: 
-                                                <?php echo $GrowerOperation->Delivery->distance; ?> 
-                                                miles
-                                            </p>
+                                            <div>
+                                                Will deliver within: <?php echo $GrowerOperation->Delivery->distance; ?> miles
+                                            </div>
 
                                             <?php
                                             
                                             if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
                                                 
-                                                echo "<p>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</p>";
+                                                echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
 
                                             }
 
                                             ?>
 
-                                            <p>
-                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee, 2) . '/' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
-                                            </p>
+                                            <div>
+                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                            </div>
                                         </div>
 
                                         <?php
 
-                                    } if ($GrowerOperation->Pickup->is_offered) {
+                                    } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
                                         
                                         ?>
                                         
                                         <div class="callout">
-                                            <h6>
+                                            <div class="muted font-18 thick">
                                                 Pickup
-                                            </h6>
+                                            </div>
 
-                                            <p>
-                                                <?php echo $city . ', ' . $state; ?>
-                                            </p>
+                                            <div>
+                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
+                                            </div>
                                             
-                                            <p>
-                                                <?php echo $distance['length'] . ' ' . $distance['units'] . ' away'; ?>
-                                            </p>
+                                            <?php
+                                            
+                                            if (isset($distance) && $distance['length'] > 0) {
+                                                echo "<div>{$distance['length']} {$distance['units']} away</div>";
+                                            }
+
+                                            ?>
                                         </div>
 
                                         <?php
                                         
-                                    } if ($GrowerOperation->Meetup->is_offered) {
+                                    } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
                                         
                                         ?>
                                         
                                         <div class="callout">
-                                            <strong>Meetup</strong>
-                                            <p>Will deliver within: <?php echo $GrowerOperation->Delivery->distance; ?> miles</p>
-                                            <p>Free delivery within: <?php echo $GrowerOperation->Delivery->free_distance; ?> miles</p>
-                                            <p><?php echo $GrowerOperation->Delivery->fee . '/' . $GrowerOperation->Delivery->pricing_rate; ?></p>
+                                            <div class="muted font-18 thick">
+                                                Meetup
+                                            </div>
+
+                                            <div>
+                                                <?php echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : ''); ?><br>
+                                                <?php echo $GrowerOperation->Meetup->city . ', ' . $GrowerOperation->Meetup->state . ' ' . $GrowerOperation->Meetup->zipcode; ?>
+                                        </div>
                                         </div>
 
                                         <?php
@@ -162,14 +151,100 @@
                                     
                                     ?>
                                 </div>
+
+                                <?php
+                                    
+                                if (!empty($ratings) && count($ratings) > 0) {
+                                    
+                                    ?>
+
+                                    <div class="reviews set">
+                                        <h4 class="margin-btm-50em ">
+                                            <bold class="dark-gray">Reviews</bold> 
+                                            <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                        </h4>
+                                        
+                                        <div class="muted margin-btm-1em">
+                                            Item reviews from customers
+                                        </div>
+
+                                        <?php 
+                                        
+                                        foreach ($ratings as $rating) { 
+                                        
+                                            $ReviewUser = new User([
+                                                'DB' => $DB,
+                                                'id' => $rating['user_id']
+                                            ]);
+
+                                            ?>           
+                                            
+                                            <div class="user-block margin-btm-1em">                  
+                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                                
+                                                <div class="user-content">
+                                                    <p class="muted margin-btm-25em">
+                                                        &quot;<?php echo $rating['review']; ?>&quot;
+                                                    </p>
+
+                                                    <small class="dark-gray bold flexstart">
+                                                        <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <?php
+
+                                            }
+
+                                        ?>
+                                    </div>
+
+                                    <?php
+
+                                    }
+
+                                ?>
+
+                                <div class="about-grower set">
+                                    <h4 class="margin-btm-50em ">
+                                        <bold class="dark-gray">About the grower</bold> 
+                                    </h4>
+
+                                    <div class="muted margin-btm-1em">
+                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
+                                    </div>
+
+                                    <div class="user-block">
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>    
+                                    
+                                        <div class="user-content">
+                                            <div class="font-18 muted thick">    
+                                                <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
+                                                    <?php echo $GrowerOperation->details['name']; ?>
+                                                </a>
+                                            </div>
+                                                
+                                            <div class="font-85 muted bold margin-btm-50em">
+                                                <?php echo $grower_stars; ?>
+                                                &nbsp;&bull;&nbsp;
+                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
+                                            </div>
+                                            
+                                            <p class="light-gray">
+                                                <?php echo $GrowerOperation->details['bio']; ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>    
-                        </div> <!-- end div.middle-content -->
+                        </div>
 
                         <div class="col-lg-4">
-                            <div class="right-content sticky-top">
+                            <div id="basket-form-container" class="sticky-top">
                                 <div class="box">
                                     <div class="header">    
-                                        <?php echo '$' . number_format($FoodListing->price / 100, 2); ?>
+                                        <?php amount($FoodListing->price); ?>
                                         
                                         <small>
                                             each
@@ -177,43 +252,120 @@
                                     </div>
 
                                     <div class="content">
-                                        <form id="add-to-cart">
-                                            <div class="form-group">
-                                                <label>
-                                                    Quantity
-                                                </label>
-                                                
-                                                <select id="" name="" class="custom-select form-control" data-parsley-trigger="change" required>
-                                                    <?php
-                                                    
-                                                    for ($i = 1; $i <= $FoodListing->quantity; $i++) {
-                                                        echo "<option value=\"{$i}\">{$i}</option>";
-                                                    }
-                                                    
-                                                    ?>
-                                                </select>
-                                            </div>
+                                        <div class="alerts"></div>
 
-                                            <div class="form-group">
-                                                <label>
-                                                    Exchange option
-                                                </label>
+                                        <?php
 
-                                                <div class="btn-group">
-                                                    <?php
-                                                    
-                                                    foreach ($exchange_options_available as $option) {
-                                                        echo "<button type=\"button\" class=\"btn btn-secondary\">" . ucfirst($option) . "</button>";
-                                                    }
-                                                    
-                                                    ?>
-                                                </div>
-                                            </div>
+                                        if (!$FoodListing->is_available) {
+                                            echo '<span class="muted">This item is currently unavailable</span>';
+                                        } else {
+                                            // if (isset($User) && isset($User->ActiveOrder) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])) {
+                                            if (isset($User, $User->ActiveOrder, $User->ActiveOrder->Growers[$GrowerOperation->id], $User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])) {
+                                        
+                                                $OrderGrower = $User->ActiveOrder->Growers[$GrowerOperation->id];
+                                                $OrderItem = $OrderGrower->FoodListings[$FoodListing->id];
 
-                                            <button class="btn btn-primary btn-block">
-                                                Add to cart
-                                            </button>
-                                        </form>
+                                                ?>
+
+                                                <form id="update-item">
+                                                    <input type="hidden" name="grower-operation-id" value="<?php echo $GrowerOperation->id; ?>">
+                                                    <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Quantity
+                                                        </label>
+                                                        
+                                                        <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                                            <?php
+                                                            
+                                                            for ($i = 1; $i <= $FoodListing->quantity; $i++) {
+                                                                echo "<option value=\"{$i}\"" . (($OrderItem->quantity == $i) ? 'selected' : '') . ">{$i}</option>";
+                                                            }
+                                                            
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="exchange form-group">
+                                                        <label>
+                                                            Exchange option
+                                                        </label>
+
+                                                        <div class="btn-group">
+                                                            <?php
+                                                            
+                                                            foreach ($exchange_options_available as $option) {
+                                                                echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                            }
+                                                            
+                                                            ?>
+                                                        </div>
+
+                                                        <div class="form-control-feedback hidden">
+                                                            Please select an exchange type
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                <?php
+
+                                            } else {
+                                            
+                                                ?>
+
+                                                <form id="add-item">
+                                                    <input type="hidden" name="user-id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
+                                                    <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Quantity
+                                                        </label>
+                                                        
+                                                        <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                                            <?php
+                                                            
+                                                            for ($i = 1; $i <= $FoodListing->quantity; $i++) {
+                                                                echo "<option value=\"{$i}\">{$i}</option>";
+                                                            }
+                                                            
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="exchange form-group">
+                                                        <label>
+                                                            Exchange option
+                                                        </label>
+
+                                                        <div class="btn-group">
+                                                            <?php
+                                                            
+                                                            foreach ($exchange_options_available as $option) {
+                                                                echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                            }
+                                                            
+                                                            ?>
+                                                        </div>
+
+                                                        <div class="form-control-feedback hidden">
+                                                            Please select an exchange type
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary btn-block">
+                                                        Add to basket
+                                                    </button>
+                                                </form>
+
+                                                <?php
+
+                                            }
+
+                                        }
+
+                                        ?>
                                     </div>
                                 </div>
                             </div> <!-- end div.right-content -->
@@ -223,16 +375,16 @@
                     <?php
 
                 } else {
-                    echo 'Oops! This ID does not belong to an active food listing.';
+                    echo 'Oops, looks like you found your way here by mistake &hellip; nothing to see here!';
                 }
 
             ?>
             </div>
-        </main> <!-- end main -->
-    </div> <!-- end div.row -->
-</div> <!-- end div.container-fluid -->
+        </main>
+    <!-- </div> -->
+<!-- </div> -->
 
 <script>
-    var lat = <?php echo number_format($latitude, 2); ?>;
-    var lng = <?php echo number_format($longitude, 2); ?>;
+    var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
+    var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
 </script>

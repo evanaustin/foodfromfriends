@@ -1,189 +1,69 @@
 body.front.food-listing {
+    [canvas="container"] {
+        background-color: $superlight-gray;
+    }
+
     div.main.container {
         margin-top: 30px;
         margin-bottom: 30px;
 
-        div.middle-content {
-            h3.name {
-                color: $dark-gray;
-                font-size: 2em;
-                font-weight: 500;
-                
-                small {
-                    color: $light-gray;
-                    font-weight: 100;
-                }
-                
-                span {
-                    border-bottom: 3px solid $light-green;
-                }
-            }
-
-            div.bio {
-                margin: 1em 0;
-                color: $muted;
-            }
-        }
-
-        div.box {
-            border: 1px solid $edge-color;
-            border-bottom-width: 0px;
-            
-            &:first-child {
-                @include border-radius($radius, 0, 0, $radius);
-                
-                &.photo {
-                    img {
-                        @include border-radius($radius, 0, 0, $radius);
+        #main-content {
+            div.set {
+                margin-top: 2em;
+    
+                .user-block {
+                    + .user-block {
+                        padding-top: 1rem;
+                        border-top: 1px solid $edge-color;
                     }
                 }
-            }
-            
-            &:last-child {
-                border-bottom-width: 1px;
-                @include border-radius(0, $radius, $radius, 0);
-
-                &.photo {
-                    img {
-                        @include border-radius(0, $radius, $radius, 0);
-                    }
-                }
-            }
-
-            div.header {
-                padding: 0.5rem 1.5rem;
-                background-color: $dark-gray;
-                color: #fff;
-                font-size: 1.5em;
-                font-weight: 500;
-                // @include border-radius($radius, 0 , 0, $radius);
-
-                small {
-                    font-weight: 100;
-                }
-            }
-
-            div.content {
-                padding: 1rem 1.5rem 1.5rem;
-            }
-
-            div.btn-group {
-                width: 100%;
-                margin: 0 auto 10px auto;
-
-                button {
-                    flex-grow: 1;
-                    font-size: 0.85em;
-                    text-align: center;
-                    color: $muted;
+    
+                div.callout {
+                    position: relative;
                     
-                    &:hover {
-                        background-color: lighten($muted, 10%);
-                        border-color: lighten($muted, 10%);
-                        color: #fff;
-                    }
-
-                    &.active {
-                        background: $muted;
-                        border-color: $muted;
-                        color: #fff;
-                    }
-                }
-            }
-
-            &.map {
-                padding: 0;
-                height: 250px;
-                
-                div#map {
-                    width: 100%;
-                    height: 100%;
-                    @include border-radius(0, 3px, 3px, 0);
-                }
-            }
-        }
-
-        div.set {
-            margin-top: 2em;
-
-            div.title {
-                font-size: 1.5em;
-                font-weight: 100;
-                color: $light-gray;
-        
-                strong {
-                    color: $dark-gray;
-                }
-            }
-
-            div.subtitle {
-                margin: 0.5em 0;
-                color: $muted;
-            }
-
-            div.callout {
-                position: relative;
-                
-                &:not(:last-child) {
-                    margin-bottom: 40px;
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        width: 100%;
-                        bottom: -20px;
-                        border-bottom: 1px solid $edge-color;
-                    }
-                }
-
-                h6 {
-                    margin-bottom: 0.5em;
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    color: $muted;
-                }
-
-                p {
-                    color: $light-gray;
-
                     &:not(:last-child) {
+                        margin-bottom: 1.5rem;
+    
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            width: 100%;
+                            bottom: -0.75rem;
+                            border-bottom: 1px solid $edge-color;
+                        }
+                    }
+    
+                    h6 {
                         margin-bottom: 0.5em;
-                    } 
+                        font-weight: 500;
+                        text-transform: uppercase;
+                        color: $muted;
+                    }
+    
+                    p {
+                        color: $light-gray;
+    
+                        &:not(:last-child) {
+                            margin-bottom: 0.5em;
+                        } 
+                    }
                 }
             }
         }
 
-        div.grower-title {
-            div.name, div.rating {
-                display: inline-block;
-                vertical-align: middle;
-            }
-            
-            div.name {
-                padding-right: 5px;
-                font-weight: bold;
-                font-size: 18px;
-            }
-            
-            div.rating {
-                padding: 0 3px;
-                border: 1px solid #f0f0f0;
-                background-color: #fff;
-                font-size: 0.75em;
-                color: #3FC592;
-                @include rounded(5px);
-                
-                i {
-                    line-height: 18px;
+        #basket-form-container {
+            background-color: #fff;
+            @include drop-shadow(0, 2px, 4px);
+            @include border-radius(0, $radius, $radius, 0);
+
+            select.custom-select, div.btn-group {
+                border: 1px solid $edge-color;
+                @include drop-shadow(0, 0, 0, 0);
+
+                &:focus {
+                    @include transform(none);
                 }
             }
-        }
-
-        div.grower-location {
-            padding-top: 0.75em;
-            color: $dark-gray;
-            font-weight: 400;
-            font-size: 0.85em;
         }
     }
 }

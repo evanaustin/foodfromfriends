@@ -4,55 +4,30 @@ $settings = [
     'title' => 'Grower profile | Food From Friends'
 ];
 
+// ! verify ID
+
 $GrowerOperation = new GrowerOperation([
     'DB' => $DB,
     'id' => $_GET['id']
+], [
+    'details'   => true,
+    'exchange'  => true
 ]);
 
 if ($GrowerOperation->is_active) {
-    $team_members = $GrowerOperation->get_team_members();
-    
-    if ($GrowerOperation->type == 'none') {
-        $ThisUser   = new User([
-            'DB' => $DB,
-            'id' => $team_members[0]['id']
-        ]);
-    
-        $filename   = (!empty($ThisUser->filename)) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg';
-        
-        $latitude   = $ThisUser->latitude;
-        $longitude  = $ThisUser->longitude;
-    
-        $name       = $ThisUser->first_name;
-        $city       = $ThisUser->bio;
-    
-        $city       = $ThisUser->city;
-        $state      = $ThisUser->state;
-    
-        $joined_on  = $ThisUser->registered_on;
-    } else {
-        $filename   = (!empty($GrowerOperation->filename)) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/grower-operation-images/' . $GrowerOperation->filename . '.' . $GrowerOperation->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg';
-        
-        $latitude   = $GrowerOperation->latitude;
-        $longitude  = $GrowerOperation->longitude;
-    
-        $name       = $GrowerOperation->name;
-        $bio        = $GrowerOperation->bio;
-    
-        $city       = $GrowerOperation->city;
-        $state      = $GrowerOperation->state;
-    
-        $joined_on  = $GrowerOperation->created_on;
-    }
-    
-    if (!empty($User->latitude) && !empty($User->longitude) && !empty($latitude) && !empty($longitude)) {
+    $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
+    $joined_on->setTimezone(new DateTimeZone('America/New_York'));
+
+    if (isset($User) 
+    && !empty($User->latitude) && !empty($User->longitude) 
+    && !empty($GrowerOperation->details['lat']) && !empty($GrowerOperation->details['lng'])) {
         $length = getDistance([
             'lat' => $User->latitude,
             'lng' => $User->longitude
         ],
         [
-            'lat' => $latitude,
-            'lng' => $longitude
+            'lat' => $GrowerOperation->details['lat'],
+            'lng' => $GrowerOperation->details['lng']
         ]);
     
         if ($length < 0.1) {
@@ -67,14 +42,20 @@ if ($GrowerOperation->is_active) {
     $FoodListing = new FoodListing([
         'DB' => $DB
     ]);
+
+    $grower_stars = stars($GrowerOperation->average_rating);
     
-    $listings = $FoodListing->get_listings($GrowerOperation->id);
-    
-    $Review = new Review([
-        'DB' => $DB
+    $listings = $FoodListing->get_all_listings($GrowerOperation->id);
+
+    $ratings = $GrowerOperation->retrieve([
+        'where' => [
+            'grower_operation_id' => $GrowerOperation->id
+        ],
+        'table' => 'grower_operation_ratings',
+        'recent' => true
     ]);
-    
-    $reviews = $Review->retrieve('grower_id', $GrowerOperation->id);
+
+    $settings['title'] = $GrowerOperation->details['name'] . ' | Food From Friends';
 }
 
 ?>

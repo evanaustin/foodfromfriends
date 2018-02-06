@@ -16,7 +16,8 @@ $Gump->validation_rules([
     'last-name'     => 'required|alpha_dash',
     'day'           => 'required|integer',
     'month'         => 'required|alpha',
-    'year'          => 'required|integer'
+    'year'          => 'required|integer',
+    'timezone'      => 'required|regex,/^[A-Za-z\/\_]+$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -32,7 +33,8 @@ $Gump->filter_rules([
 	'last-name'     => 'trim|sanitize_string',
 	'day'           => 'trim|whole_number',
 	'month'         => 'trim|sanitize_string',
-	'year'          => 'trim|whole_number'
+	'year'          => 'trim|whole_number',
+	'timezone'      => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -41,16 +43,20 @@ foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 $dob = strtotime($day . ' ' . $month . ' ' . $year);
 
+if ($dob > strtotime('-18 years')) {
+    quit('You must be 18 or older to sign up');
+}
+
 $User = new User([
     'DB' => $DB
 ]);
 
-// run checks
-if ($dob > strtotime('-18 years')) {
-    quit('You must be 18 or older to sign up');
-} else if ($User->exists('email', $email)) {
+if ($User->exists('email', $email)) {
     quit('An existing account is already using this email');
 }
+
+$date = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
+$dob = $date->format('Y-m-d H:i:s');
 
 $new_user = $User->add([
     'email'         => $email,
@@ -58,7 +64,8 @@ $new_user = $User->add([
     'first_name'    => $first_name,
     'last_name'     => $last_name,
     'dob'           => $dob,
-    'registered_on' => time()
+    'registered_on' => \Time::now(),
+    'timezone'      => $timezone
 ]);
 
 if ($new_user != false) {
@@ -91,14 +98,12 @@ $Mail = new Mail([
 
 $Mail->thanks_signup();
 
-if (isset($GrowerOperation)) {
-    if ($GrowerOperation->permission == 2) {
-        $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
-    } else {
-        $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower/food-listings/overview';
-    }
+if (isset($redirect) && $redirect == 'false') {
+    $json['redirect'] = false;
+} else if (isset($GrowerOperation)) {
+    $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
 } else {
-    $json['redirect'] = PUBLIC_ROOT . 'map';
+    $json['redirect'] = PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information';
 }
 
 echo json_encode($json);

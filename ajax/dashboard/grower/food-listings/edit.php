@@ -75,7 +75,7 @@ if (isset($_POST['images'])) {
     // validate image
     $valid = validate_image($image);
 
-    if (!$valid) {
+    if ($valid !== true) {
         quit($valid);
     }
 

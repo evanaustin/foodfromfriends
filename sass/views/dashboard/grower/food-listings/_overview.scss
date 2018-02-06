@@ -1,13 +1,4 @@
 body.dashboard-grower-food-listings-overview {
-    div.tree-art {
-        img {
-            max-width: 75%;
-            max-height: 475px;
-            float: right;
-            opacity: 0.5;
-        }
-    }
-
     div.listings {
         div.col-md-4 {
             &:nth-child(-n+3) {
@@ -32,12 +23,26 @@ body.dashboard-grower-food-listings-overview {
         }
     }
     
+    div.card {
+        border: 0px;
+    }
+    
+    div.card-img-top {
+        padding: 0;
+        
+        img {
+            border: 0px;
+            @include border-radius($radius, 0, 0, $radius);
+        }
+    }
+    
     div.card-block {
         padding: 0;
+        border: 0px;
     
         h6.card-subtitle {
-            color: $light-gray;
             padding: 0.25rem 0;
+            color: $light-gray;
         }
     
         p.card-text {
@@ -55,7 +60,7 @@ body.dashboard-grower-food-listings-overview {
         flex-grow: 2;
         justify-content: center;
         padding: 1.25rem;
-        border-right: 1px solid rgba(0, 0, 0, 0.15);
+        border-right: 1px solid $edge-color;
     }
     
     div.listing-controls {
@@ -69,7 +74,7 @@ body.dashboard-grower-food-listings-overview {
             width: 100%;
     
             &:not(:last-child) {
-                border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+                border-bottom: 1px solid $edge-color;
             }
         }
     }
