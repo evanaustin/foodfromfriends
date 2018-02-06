@@ -60,7 +60,7 @@ $requirements += [
         'status'    => (($listing_count > 0) ? 'complete' : 'incomplete'),
     ],
     'enable at least one exchange option' =>  [
-        'link'      => 'dashboard/grower/exchange-options/delivery',
+        'link'      => 'dashboard/grower/exchange-options/pickup',
         'status'    => (!empty($User->GrowerOperation->Delivery->is_offered) || !empty($User->GrowerOperation->Pickup->is_offered) || !empty($User->GrowerOperation->Meetup->is_offered) ? 'complete' : 'incomplete'),
     ]
 ];
