@@ -20,6 +20,11 @@
                         'food-listings' => [
                             'overview',
                             'add-new'
+                        ],
+                        'exchange-options' => [
+                            'delivery',
+                            'pickup',
+                            'meetup'
                         ]
                     ],
                     'messages' => [
@@ -45,12 +50,6 @@
                 ];
 
                 if ($User->GrowerOperation->permission == 2) {
-                    $sidebar['grower']['exchange-options'] = [
-                        'delivery',
-                        'pickup',
-                        'meetup'
-                    ];
-
                     $sidebar['grower']['operation'] = [
                         'create-new'
                     ];
@@ -58,7 +57,6 @@
                     if ($User->GrowerOperation->type != 'none') {
                         array_unshift($sidebar['grower']['operation'], 'basic-information', 'location', 'team-members');
                     }
-
                 } else {
                     $sidebar['grower']['operation'] = [
                         'create-new'

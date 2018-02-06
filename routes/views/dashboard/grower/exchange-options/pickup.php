@@ -1,91 +1,77 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if ($User->GrowerOperation->permission == 2) {
-
-            ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="page-title">
-                        Set your pickup preferencs
-                    </div>
-
-                    <div class="page-description text-muted small">
-                        After purchase, let your customers come to a location of your choice and pick up their food at a time that works for you.
-                    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title">
+                    Set your pickup preferencs
                 </div>
 
-                <div class="col-md-6">
-                    <div class="controls">
-                        <button type="submit" form="save-pickup" class="btn btn-primary">
-                            <i class="pre fa fa-floppy-o"></i>
-                            Save changes
-                            <i class="post fa fa-gear loading-icon"></i>
-                        </button>
-                    </div>
+                <div class="page-description text-muted small">
+                    After purchase, let your customers come to a location of your choice and pick up their food at a time that works for you.
                 </div>
             </div>
-            
-            <hr>
 
-            <div class="row">
-                <div class="col-md-6">                       
-                    <div class="alerts"></div>
+            <div class="col-md-6">
+                <div class="controls">
+                    <button type="submit" form="save-pickup" class="btn btn-primary">
+                        <i class="pre fa fa-floppy-o"></i>
+                        Save changes
+                        <i class="post fa fa-gear loading-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
 
-                    <form id="save-pickup" data-parsley-excluded="[disabled=disabled]">
-                        <div id="pickup-setting">
-                            <div class="form-group">
-                                <label>Do you want to offer free pickup?</label>
-                                
-                                <div class="radio-box">
-                                    <label class="custom-control custom-radio">
-                                        <input name="is-offered" type="radio" value="1" class="custom-control-input" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
-                                        
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">
-                                            Yes
-                                        </span>
-                                    </label>
+        <div class="row">
+            <div class="col-md-6">                       
+                <div class="alerts"></div>
 
-                                    <label class="custom-control custom-radio">
-                                        <input name="is-offered" type="radio" value="0" class="custom-control-input" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>> 
-                                        
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">
-                                            No
-                                        </span>
-                                    </label>
-                                </div>
+                <form id="save-pickup" data-parsley-excluded="[disabled=disabled]">
+                    <div id="pickup-setting">
+                        <div class="form-group">
+                            <label>Do you want to offer free pickup?</label>
+                            
+                            <div class="radio-box">
+                                <label class="custom-control custom-radio">
+                                    <input name="is-offered" type="radio" value="1" class="custom-control-input" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
+                                    
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">
+                                        Yes
+                                    </span>
+                                </label>
+
+                                <label class="custom-control custom-radio">
+                                    <input name="is-offered" type="radio" value="0" class="custom-control-input" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>> 
+                                    
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">
+                                        No
+                                    </span>
+                                </label>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="instructions" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
-                            <label>
-                                Instructions
-                            </label>
+                    <div id="instructions" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
+                        <label>
+                            Instructions
+                        </label>
 
-                            <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
-                        </div>
+                        <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
+                    </div>
 
-                        <div id="time" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
-                            <label>
-                                Availability
-                            </label>
+                    <div id="time" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
+                        <label>
+                            Availability
+                        </label>
 
-                            <textarea name="time" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
-                        </div>
-                    </form>
-                </div>
+                        <textarea name="time" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
+                    </div>
+                </form>
             </div>
-
-            <?php
-
-        } else {
-            echo 'Oops! You\'re not supposed to be here.';
-        }
-
-        ?>
+        </div>
     </div>
 </main>
