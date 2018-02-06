@@ -1556,7 +1556,7 @@ form .form-control-feedback {
 **/
 body.early-access-invitation {
   padding-top: 3.5em;
-  background-color: #005434;
+  background-color: #fafafb;
   font-family: 'Signika';
   color: #00A669; }
   body.early-access-invitation div.logo svg {
