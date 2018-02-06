@@ -6,8 +6,6 @@
 class Stripe {
     /**
      * Initialize Stripe with our API key.
-     *
-     * @todo Figure out how to set/load environment variables in FFF?
      */
     public function __construct() {
         \Stripe\Stripe::setApiKey(STRIPE_SK_TEST);
