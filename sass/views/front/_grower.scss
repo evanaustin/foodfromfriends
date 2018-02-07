@@ -116,9 +116,41 @@ body.front.grower {
             }
         }
 
+        div.row {
+            // display: table;
+        }
+
+        div.col-md-4 {
+            // float: none;
+            // display: table-cell;
+            // vertical-align: top;
+
+            &:nth-child(-n+3) {
+                div.card {
+                    margin-top: 0.25em;
+                }
+            }
+    
+            &:nth-child(n+4) {
+                div.card {
+                    margin-top: 2em;
+                }
+            }
+
+            @include phones() {
+                &:not(:last-child) {
+                    div.card {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+
         .card {
             div.card-block {
-                padding: 1.25rem;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                min-height: 130px;
             
                 h6.card-subtitle {
                     color: $light-gray;

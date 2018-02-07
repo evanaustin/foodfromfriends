@@ -96,7 +96,7 @@
                                 
                                 ?>
 
-                                <div class="available-food-listings set">
+                                <div class="food-listings set">
                                     <h4 class="margin-btm-50em ">
                                         <bold class="dark-gray">Items</bold> 
                                         <light class="light-gray">(<?php echo count($listings); ?>)</light>
