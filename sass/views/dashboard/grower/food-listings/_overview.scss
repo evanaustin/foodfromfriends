@@ -38,6 +38,9 @@ body.dashboard-grower-food-listings-overview {
     
     div.card-block {
         padding: 0;
+        // align-items: center;
+        // padding: 0.75rem 1rem;
+        min-height: 155px;
         border: 0px;
     
         h6.card-subtitle {
@@ -57,18 +60,22 @@ body.dashboard-grower-food-listings-overview {
     }
     
     div.listing-info {
-        flex-grow: 2;
+        flex-grow: 1;
         justify-content: center;
         padding: 1.25rem;
         border-right: 1px solid $edge-color;
+
+        .card-title {
+            line-height: 1.2;
+        }
     }
     
     div.listing-controls {
-        flex-grow: 1;
+        min-width: 5em;
     
         a {
-            flex-grow: 1;
             display: flex;
+            flex-grow: 1;
             align-items: center;
             justify-content: center;
             width: 100%;

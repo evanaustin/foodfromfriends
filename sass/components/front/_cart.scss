@@ -1,7 +1,8 @@
 #cart[off-canvas*=right] {
     padding: 1em;
-    background: #fff;
     overflow-y: scroll;
+    background-color: #fff;
+    border-left: 1px solid $edge-color;
     color: $muted;
 
     #ordergrowers {

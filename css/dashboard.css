@@ -33,6 +33,9 @@ body {
   font-weight: 300;
   color: #404040; }
 
+p a {
+  color: #00c079; }
+
 [canvas=container] {
   position: absolute;
   top: 65px;
@@ -379,6 +382,7 @@ body.dashboard-grower-food-listings-overview div.card-img-top {
     background-clip: padding-box; }
 body.dashboard-grower-food-listings-overview div.card-block {
   padding: 0;
+  min-height: 155px;
   border: 0px; }
   body.dashboard-grower-food-listings-overview div.card-block h6.card-subtitle {
     padding: 0.25rem 0;
@@ -392,15 +396,17 @@ body.dashboard-grower-food-listings-overview div.card-block {
       -moz-border-radius: 0.15rem;
       border-radius: 0.15rem; }
 body.dashboard-grower-food-listings-overview div.listing-info {
-  flex-grow: 2;
+  flex-grow: 1;
   justify-content: center;
   padding: 1.25rem;
   border-right: 1px solid #f5f5f5; }
+  body.dashboard-grower-food-listings-overview div.listing-info .card-title {
+    line-height: 1.2; }
 body.dashboard-grower-food-listings-overview div.listing-controls {
-  flex-grow: 1; }
+  min-width: 5em; }
   body.dashboard-grower-food-listings-overview div.listing-controls a {
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
     align-items: center;
     justify-content: center;
     width: 100%; }
