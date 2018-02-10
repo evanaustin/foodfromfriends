@@ -78,25 +78,6 @@ App.Front.Checkout = function () {
                 }
             });
         });
-
-        resetButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Resetting the form (instead of setting the value to `''` for each input)
-            // helps us clear webkit autofill styles.
-            form.reset();
-
-            // Clear each Element.
-            elements.forEach(function (element) {
-                element.clear();
-            });
-
-            // Reset error state as well.
-            error.classList.remove('visible');
-
-            // Resetting the form does not un-disable inputs, so we need to do it separately:
-            enableInputs();
-            wrapper.classList.remove('submitted');
-        });
     }
 
     function listener() {
