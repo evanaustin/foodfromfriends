@@ -65,6 +65,11 @@ App.Front.Checkout = function () {
                         function(response) {
                             wrapper.classList.remove('submitting');
                             wrapper.classList.add('submitted');
+                            
+                            App.Util.fadeAndRemove($('#ordergrowers'));
+                            $('#end-breakdown, hr').addClass('hidden');
+                            $('#empty-basket').removeClass('hidden');
+                            
                             // result.complete('success');
                         }, function(response) {
                             wrapper.classList.remove('submitting');
