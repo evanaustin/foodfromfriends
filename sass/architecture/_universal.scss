@@ -18,6 +18,12 @@ body {
     color: #404040;
 }
 
+p {
+    a {
+        color: $superlight-green;
+    }
+}
+
 [canvas=container] {
     position: absolute;
     top: $header-height;
