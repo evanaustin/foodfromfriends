@@ -45,6 +45,9 @@
         }
 
         .icon {
+            margin-top: 2rem;
+            transform: translateY(-1rem) !important;
+
             .border,
             .checkmark {
                 opacity: 1;
@@ -192,9 +195,6 @@
         }
 
         .icon {
-            margin: 15px 0 30px;
-            transform: translateY(70px) scale(0.75);
-            
             svg {
                 will-change: transform;
             }
