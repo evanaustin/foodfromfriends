@@ -31,8 +31,6 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-// Add to cart
-// ----------------------------------------------------------------------------
 try {
 	$Order = new Order([
 		'DB' => $DB
@@ -57,7 +55,23 @@ try {
 		'exchange' => true
 	]);
 
-	$Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity);
+    $proceed = true;
+
+    if ($exchange_option  == 'delivery') {
+        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->latitude . ',' . $User->longitude . '&destinations=' . $Seller->details['lat'] . ',' . $Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
+        $output = json_decode($geocode);
+        $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
+        
+        $distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
+    
+        if ($distance > $Seller->Delivery->distance) {
+            quit("This seller delivers up to {$Seller->Delivery->distance} miles, but you are {$distance} miles away");
+        }
+    } else {
+        $distance = 0;
+    }
+    
+    $Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity);
 
 	$OrderGrower = $Order->Growers[$Seller->id];
 
