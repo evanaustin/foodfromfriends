@@ -77,11 +77,11 @@ App.Front = function() {
 
                                     // no more items from this ordergrower
                                     if (response.ordergrower.items == 0) {
-                                        console.log('block');
                                         App.Util.fadeAndRemove($('#ordergrower-' + response.ordergrower.id));
                                     }
                                 }
-                                console.log(response);
+                                
+                                $('#checkout-total').text(response.order.total);
                             }, function(response) {
                                 App.Util.msg(response.error, 'danger');
                             }
@@ -114,6 +114,8 @@ App.Front = function() {
                         $('#end-breakdown').find('.rate.exchange-fee').text(0);
                         $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
                     }
+
+                    $('#checkout-total').text(response.order.total);
                 }, function(response) {
                     console.log(response.error);
                 }

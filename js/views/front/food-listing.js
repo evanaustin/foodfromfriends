@@ -150,6 +150,8 @@ App.Front.FoodListing = function() {
                                 $('#end-breakdown').find('.rate.exchange-fee').text(0);
                                 $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
                             }
+
+                            $('#checkout-total').text(response.order.total);
                             
                             $(Slidebar.events).unbind('opened');
                         });
@@ -197,6 +199,8 @@ App.Front.FoodListing = function() {
                                 $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
                             }
 
+                            $('#checkout-total').text(response.order.total);
+
                             $(Slidebar.events).unbind('opened');
                         });
                     }, function(response) {
@@ -242,6 +246,8 @@ App.Front.FoodListing = function() {
                                 $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
                             }
                             
+                            $('#checkout-total').text(response.order.total);
+
                             $(Slidebar.events).unbind('opened');
                         });
                     }, function(response) {
