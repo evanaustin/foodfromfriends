@@ -116,15 +116,7 @@ body.front.grower {
             }
         }
 
-        div.row {
-            // display: table;
-        }
-
         div.col-md-4 {
-            // float: none;
-            // display: table-cell;
-            // vertical-align: top;
-
             &:nth-child(-n+3) {
                 div.card {
                     margin-top: 0.25em;

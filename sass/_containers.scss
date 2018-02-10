@@ -660,13 +660,16 @@ fable {
  */
 .modal-content {
     border: 0px;
+    background-color: $superlight-gray;
     @include rounded($radius);
     @include drop-shadow(0, 2px, 4px);
 
     .modal-header {
         padding: 0.5em 1em;
-        color: $muted;
+        background-color: #fff;
         border-color: $edge-color;
+        color: $muted;
+        @include border-radius($radius, 0, 0, $radius);
 
         h3 {
             font-size: 1.25rem;
@@ -676,7 +679,14 @@ fable {
 
     .modal-body {
         padding: 1em;
-        background-color: $superlight-gray;
+    }
+
+    .modal-footer {
+        display: block;
+        background-color: #fff;
+        text-align: center;
+        color: $muted;
+        @include border-radius(0, $radius, $radius, 0);
     }
 }
 
