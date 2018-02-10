@@ -2,11 +2,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Sign up</h3>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span> 
                 </button>
-
-                <h3 class="modal-title">Join the community</h3>
             </div>
             
             <div class="modal-body">
@@ -108,7 +108,7 @@
                     </div>
 
                     <small>
-                        By clicking <strong>Sign up</strong>, I agree to Food From Friends’s Terms of Service, Payments Terms of Service, Privacy Policy, and Nondiscrimination Policy.
+                        By clicking <strong>Sign up</strong>, you agree to the Food From Friends <a href="<?php echo PUBLIC_ROOT . 'info/terms-of-service'; ?>" target="_blank">Terms of Service</a> and <a href="<?php echo PUBLIC_ROOT . 'info/privacy-policy'; ?>" target="_blank">Privacy Policy</a>.
                     </small>
 
                     <button type="submit" class="btn btn-primary btn-block">Sign up</button>
@@ -116,7 +116,7 @@
             </div>
 
             <div class="modal-footer">
-                <h6>Already have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#log-in-modal">Log in</a></h6>
+                Already have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#log-in-modal">Log in</a>
             </div>
         </div>
     </div>

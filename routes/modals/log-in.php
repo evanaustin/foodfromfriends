@@ -2,11 +2,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Log in</h3>
+                
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span> 
                 </button>
-
-                <h3 class="modal-title">Welcome back</h3>
             </div>
             
             <div class="modal-body">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="modal-footer <?php if ($Routing->landing == 'splash') { echo 'hidden'; } ?>">
-                <h6>Don't have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#sign-up-modal">Sign up</a></h6>
+                Don't have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#sign-up-modal">Sign up</a>
             </div>
         </div>
     </div>
