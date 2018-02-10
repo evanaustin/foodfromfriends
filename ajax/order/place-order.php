@@ -91,7 +91,12 @@ try {
         $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/attempt-capture.php?order=' . $Order->id;
         $time   = 'now + 6 days';
         $queue  = 'a';
-        At::cmd($job, $time, $queue);
+        
+        try {
+            At::cmd($job, $time, $queue);
+        } catch (\JobAddException $e) {
+            error_log(str_replace(array('\r', '\n'), '', $e));
+        }
     }
     
     foreach ($Order->Growers as $OrderGrower) {
@@ -100,7 +105,12 @@ try {
             $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/expire.php?suborder=' . $OrderGrower->id;
             $time   = 'now + 1 day';
             $queue  = 'b';
-            At::cmd($job, $time, $queue);
+            
+            try {
+                At::cmd($job, $time, $queue);
+            } catch (\JobAddException $e) {
+                error_log(str_replace(array('\r', '\n'), '', $e));
+            }
         }
         
         // Send new order notification emails to each team member of each seller
