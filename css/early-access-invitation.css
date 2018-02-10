@@ -206,6 +206,9 @@ body {
   font-weight: 300;
   color: #404040; }
 
+p a {
+  color: #00c079; }
+
 [canvas=container] {
   position: absolute;
   top: 65px;
@@ -1181,6 +1184,7 @@ fable {
  */
 .modal-content {
   border: 0px;
+  background-color: #fafafb;
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
   border-radius: 0.25rem;
@@ -1189,14 +1193,49 @@ fable {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
   .modal-content .modal-header {
     padding: 0.5em 1em;
+    background-color: #fff;
+    border-color: #f5f5f5;
     color: #636c72;
-    border-color: #f5f5f5; }
+    -webkit-border-top-right-radius: 0.25rem;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-left-radius: 0.25rem;
+    -moz-border-radius-topright: 0.25rem;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0.25rem;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
     .modal-content .modal-header h3 {
       font-size: 1.25rem;
       font-weight: 500; }
   .modal-content .modal-body {
-    padding: 1em;
-    background-color: #fafafb; }
+    padding: 1em; }
+  .modal-content .modal-footer {
+    display: block;
+    background-color: #fff;
+    text-align: center;
+    color: #636c72;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0.25rem;
+    -webkit-border-bottom-left-radius: 0.25rem;
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0.25rem;
+    -moz-border-radius-bottomleft: 0.25rem;
+    -moz-border-radius-topleft: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box; }
 
 /*
  * Toastr

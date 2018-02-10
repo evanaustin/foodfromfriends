@@ -33,6 +33,9 @@ body {
   font-weight: 300;
   color: #404040; }
 
+p a {
+  color: #00c079; }
+
 [canvas=container] {
   position: absolute;
   top: 65px;
