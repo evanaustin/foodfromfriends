@@ -34,7 +34,7 @@ switch($_SERVER['SERVER_NAME']) {
 
 define('SERVER_ROOT', __DIR__ . '/');
 
-require SERVER_ROOT . 'secrets.php';
+require SERVER_ROOT . (ENV != 'dev' ? '../' : '') . 'secrets.php';
 
 $secrets = [
     'DB_HOST'           => $DB_HOST,
@@ -135,11 +135,11 @@ if ($LOGGED_IN) {
 **/
 
 if (ENV != 'dev') {
-    try {
+    /*try {
     	$Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
 	} catch (\Exception $e) {
 		error_log($e->getMessage());
-	}
+	}*/
 }
 
 
