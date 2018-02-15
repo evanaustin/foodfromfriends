@@ -153,21 +153,20 @@ class OrderExchange extends Base {
      * Given the exchange method selected for this grower in this order, calculate and save the exchange fee.
      */
     private function calculate_fee() {
-        // Only delivery incurs a fee. For everything else, charge $0
+        // Only delivery incurs a fee
         if ($this->type == 'delivery') {
             if ($this->distance > $this->Seller->Delivery->free_distance) {
                 if ($this->Seller->Delivery->pricing_rate == 'per-mile') {
-                    $this->fee = $this->Seller->Delivery->fee * ($this->distance - $this->Seller->Delivery->free_distance);
+                    $fee = $this->Seller->Delivery->fee * ($this->distance - $this->Seller->Delivery->free_distance);
                 } else {
-                    $this->fee = $this->Seller->Delivery->fee;
+                    $fee = $this->Seller->Delivery->fee;
                 }
-            } else {
-                $this->fee = 0;
-            }            
-        } else {
-            $this->fee = 0;
+            }          
         }
         
+        // For everything else, charge $0 (and check for non-chargeable values)
+        $this->fee = ($fee >= 1 ? $fee : 0);
+
         $this->update([
             'fee' => $this->fee
         ]);

@@ -8,6 +8,7 @@ App.Dashboard.OrdersPlaced = function() {
             };
 
             bootbox.confirm({
+                closeButton: false,
                 title: 'Cancel order',
                 message: 'Please confirm that you want to cancel this order.',
                 buttons: {

@@ -30,6 +30,7 @@ $('a.remove-image').on('click', function(e) {
 	App.Util.animation($(this), 'bounce');
 
 	bootbox.confirm({
+        closeButton: false,
 		message: 'You want to remove the current image?',
 		buttons: {
 			confirm: {

@@ -1215,7 +1215,8 @@ fable {
       font-size: 1.25rem;
       font-weight: 500; }
   .modal-content .modal-body {
-    padding: 1em; }
+    padding: 1em;
+    color: #636c72; }
   .modal-content .modal-footer {
     display: block;
     background-color: #fff;

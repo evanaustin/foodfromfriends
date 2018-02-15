@@ -8,6 +8,7 @@ $('a.remove-listing').on('click', function(e) {
     };
 
     bootbox.confirm({
+        closeButton: false,
         message: 'You want to remove this listing?',
         buttons: {
             confirm: {

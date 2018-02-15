@@ -979,10 +979,13 @@ body.front.food-listing div.main.container {
       transition-delay: 0.2s; }
     .elements.submitted .success > :nth-child(4) {
       transition-delay: 0.3s; }
-    .elements.submitted .success .icon .border,
-    .elements.submitted .success .icon .checkmark {
-      opacity: 1;
-      stroke-dashoffset: 0 !important; }
+    .elements.submitted .success .icon {
+      margin-top: 2rem;
+      transform: translateY(-1rem) !important; }
+      .elements.submitted .success .icon .border,
+      .elements.submitted .success .icon .checkmark {
+        opacity: 1;
+        stroke-dashoffset: 0 !important; }
   .elements * {
     margin: 0;
     padding: 0; }
@@ -1085,23 +1088,20 @@ body.front.food-listing div.main.container {
       transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
       opacity: 0;
       transform: translateY(50px); }
-    .elements .success .icon {
-      margin: 15px 0 30px;
-      transform: translateY(70px) scale(0.75); }
-      .elements .success .icon svg {
-        will-change: transform; }
-      .elements .success .icon .border {
-        stroke-dasharray: 251;
-        stroke-dashoffset: 62.75;
-        transform-origin: 50% 50%;
-        transition: stroke-dashoffset 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-        animation: spin 1s linear infinite;
-        stroke: #00c079; }
-      .elements .success .icon .checkmark {
-        stroke-dasharray: 60;
-        stroke-dashoffset: 60;
-        transition: stroke-dashoffset 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) 0.35s;
-        stroke: #00c079; }
+    .elements .success .icon svg {
+      will-change: transform; }
+    .elements .success .icon .border {
+      stroke-dasharray: 251;
+      stroke-dashoffset: 62.75;
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      animation: spin 1s linear infinite;
+      stroke: #00c079; }
+    .elements .success .icon .checkmark {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      transition: stroke-dashoffset 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) 0.35s;
+      stroke: #00c079; }
     .elements .success .title {
       font-size: 17px;
       font-weight: 500;
