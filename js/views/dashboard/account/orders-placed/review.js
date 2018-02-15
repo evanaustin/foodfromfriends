@@ -6,6 +6,7 @@ App.Dashboard.OrderReview = function() {
             $form = $(this);
 
             bootbox.confirm({
+                closeButton: false,
                 title: 'Submit review',
                 message: 'Please confirm that you want to submit your review of this order. You cannot change a review after it has been submitted.',
                 buttons: {

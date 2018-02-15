@@ -7,6 +7,7 @@ App.Dashboard.OrderIssue = function() {
             $form = $(this);
 
             bootbox.confirm({
+                closeButton: false,
                 title: 'Submit report',
                 message: 'Please confirm that you want to report an issue with this order.',
                 buttons: {

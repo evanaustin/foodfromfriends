@@ -81,6 +81,7 @@ $('a.remove-image').on('click', function(e) {
     var id = $(this).data('listing-id');
 
     bootbox.confirm({
+        closeButton: false,
         message: 'You want to remove the current image?',
         buttons: {
             confirm: {
@@ -119,6 +120,7 @@ $('a.remove-listing').on('click', function(e) {
     };
 
     bootbox.confirm({
+        closeButton: false,
         message: 'You sure you want to remove this listing?',
         buttons: {
             confirm: {

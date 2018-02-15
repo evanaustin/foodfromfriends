@@ -36,6 +36,7 @@ App.Front = function() {
             var listing_id = $cart_item.data('listing-id');
 
             bootbox.confirm({
+                closeButton: false,
                 message: 'You want to remove this item from your basket?',
                 buttons: {
                     confirm: {

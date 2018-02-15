@@ -10,6 +10,7 @@ App.Dashboard.PendingOrderView = function() {
             };
         
             bootbox.confirm({
+                closeButton: false,
                 title: 'Mark order as fulfilled',
                 message: 'Please confirm that you want to mark this order as fulfilled. The buyer will be allowed three days to report an issue with their order before your payout is issued.',
                 buttons: {
