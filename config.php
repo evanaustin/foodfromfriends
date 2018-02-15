@@ -34,7 +34,7 @@ switch($_SERVER['SERVER_NAME']) {
 
 define('SERVER_ROOT', __DIR__ . '/');
 
-require SERVER_ROOT . (ENV != 'dev' ? '../' : '') . 'secrets.php';
+require SERVER_ROOT . ($env['ENV'] == 'dev' ? '' : '../') . 'secrets.php';
 
 $secrets = [
     'DB_HOST'           => $DB_HOST,
