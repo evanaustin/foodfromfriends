@@ -40,7 +40,7 @@ App.Image = function () {
             return;
         }
 
-        if (file.size > 7 * 1024 * 1024) {
+        if (file.size > 5 * 1024 * 1024) {
             App.Util.msg('Please select a file less than 3MB in size', 'danger');
             return;
         }

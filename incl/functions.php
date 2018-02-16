@@ -54,7 +54,7 @@ function validate_image($image) {
         return (string)$image['source']['w'];
     }
 
-    $mb = 7;
+    $mb = 5;
 
     // Check image attributes
     $allowed = [
