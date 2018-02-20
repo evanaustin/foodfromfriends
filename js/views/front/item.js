@@ -1,4 +1,4 @@
-App.Front.FoodListing = function() {
+App.Front.Item = function() {
     function listener() {
         // Mapbox.setZoom(13);
         Mapbox.setCenter([lng, lat]);

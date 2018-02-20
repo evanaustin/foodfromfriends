@@ -5,7 +5,7 @@
             <div class="main container">
                 <?php
 
-                if ($GrowerOperation->id) {
+                if ($FoodListing->id) {
 
                     ?>
 
@@ -53,7 +53,7 @@
                                     <!-- ! dirty -->
                                     &nbsp;&bull;&nbsp;
                                     
-                                    <?php echo ($FoodListing->is_available) ? $FoodListing->quantity . ' in stock' : 'Unavailable'; ?>
+                                    <?php echo ($FoodListing->is_available) ? "{$FoodListing->quantity} in stock" : 'Unavailable'; ?>
                                 </h6>
                                 
                                 <?php
@@ -86,7 +86,7 @@
                                             </div>
                                             
                                             <div>
-                                                Will deliver within: <?php echo $GrowerOperation->Delivery->distance; ?> miles
+                                               <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
                                             </div>
 
                                             <?php
@@ -116,7 +116,7 @@
                                             </div>
 
                                             <div>
-                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
+                                                <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
                                             </div>
                                             
                                             <?php
@@ -140,9 +140,13 @@
                                             </div>
 
                                             <div>
-                                                <?php echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : ''); ?><br>
-                                                <?php echo $GrowerOperation->Meetup->city . ', ' . $GrowerOperation->Meetup->state . ' ' . $GrowerOperation->Meetup->zipcode; ?>
-                                        </div>
+                                                <?php
+                                                
+                                                echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
+                                                echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}";
+                                                
+                                                ?>
+                                            </div>
                                         </div>
 
                                         <?php
@@ -188,7 +192,7 @@
                                                     </p>
 
                                                     <small class="dark-gray bold flexstart">
-                                                        <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                                        <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
@@ -220,15 +224,13 @@
                                     
                                         <div class="user-content">
                                             <div class="font-18 muted thick">    
-                                                <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $GrowerOperation->id; ?>">
-                                                    <?php echo $GrowerOperation->details['name']; ?>
+                                                <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link; ?>">
+                                                    <?php echo $GrowerOperation->name; ?>
                                                 </a>
                                             </div>
                                                 
                                             <div class="font-85 muted bold margin-btm-50em">
-                                                <?php echo $grower_stars; ?>
-                                                &nbsp;&bull;&nbsp;
-                                                <?php echo $GrowerOperation->details['city'] . ', ' . $GrowerOperation->details['state']; ?>
+                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
                                             </div>
                                             
                                             <p class="light-gray">
@@ -259,7 +261,6 @@
                                         if (!$FoodListing->is_available) {
                                             echo '<span class="muted">This item is currently unavailable</span>';
                                         } else {
-                                            // if (isset($User) && isset($User->ActiveOrder) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]) && isset($User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])) {
                                             if (isset($User, $User->ActiveOrder, $User->ActiveOrder->Growers[$GrowerOperation->id], $User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])) {
                                         
                                                 $OrderGrower = $User->ActiveOrder->Growers[$GrowerOperation->id];
@@ -375,7 +376,7 @@
                     <?php
 
                 } else {
-                    echo 'Oops, looks like you found your way here by mistake &hellip; nothing to see here!';
+                    echo 'Oops! This URL does not belong to an active item.';
                 }
 
             ?>
@@ -385,6 +386,6 @@
 <!-- </div> -->
 
 <script>
-    var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
-    var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
+    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
+    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
 </script>
