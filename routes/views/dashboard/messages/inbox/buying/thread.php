@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Conversation with <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>" class=""><?php echo $Grower->details['name']; ?></a>
+                        Conversation with <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>"><?php echo $Grower->name; ?></a>
                     </div>
 
                     <div class="page-description text-muted small">
@@ -90,7 +90,7 @@
                             <div class="col-md-9">
                                 <fable class="margin-btm-25em">
                                     <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
-                                        <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
+                                        <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                             <div class="user-photo no-margin" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
                                         </a>
                                     </cell>

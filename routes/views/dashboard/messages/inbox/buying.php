@@ -34,14 +34,14 @@
                 <fable class="bubble">
                     <cell class="align-center">
                         <div class="user-block">
-                            <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
+                            <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                 <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
                             </a>
                                             
                             <div class="user-content">
                                 <h5 class="bold margin-btm-25em">
-                                    <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
-                                        <?php echo $Grower->details['name']; ?>
+                                    <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
+                                        <?php echo $Grower->name; ?>
                                     </a>
                                 </h5>
 

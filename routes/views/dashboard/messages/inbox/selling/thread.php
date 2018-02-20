@@ -96,7 +96,7 @@
                                 <div class="col-md-9">
                                     <fable class="margin-btm-25em">
                                         <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
-                                            <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
+                                            <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                                 <div class="user-photo no-margin" style="background-image: url('<?php echo (!empty($Customer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
                                             </a>
                                         </cell>

@@ -36,11 +36,11 @@
                         
                         <div class="user-content">
                             <h5 class="bold margin-btm-25em">
-                                <a href=""><?php echo $Seller->details['name']; ?></a>
+                                <a href=""><?php echo $Seller->name; ?></a>
                             </h5>
 
                             <small>
-                                <?php echo $Seller->details['city'] . ', ' . $Seller->details['state']; ?>
+                                <?php echo "{$Seller->details['city']}, {$Seller->details['state']}"; ?>
                             </small>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
 
                             <div class="card-block">
                                 <h6 class="strong">
-                                    <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListing->id; ?>">
+                                    <a href="<?php echo PUBLIC_ROOT . $Seller->link . '/' . $FoodListing->link; ?>">
                                         <?php echo ucfirst($FoodListing->title); ?>
                                     </a>
                                 </h6>

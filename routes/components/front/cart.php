@@ -18,8 +18,8 @@
 
             <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set">
                 <h6>
-                    <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $Grower->id; ?>">
-                        <?php echo $Grower->details['name']; ?>
+                    <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
+                        <?php echo $Grower->name; ?>
                     </a>
                 </h6>
 
@@ -43,7 +43,7 @@
                             
                             <div class="item-content">
                                 <div class="item-title">
-                                    <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListingItem->id ; ?>">
+                                    <a href="<?php echo PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
                                         <?php echo ucfirst((!empty($FoodListingItem->other_subcategory)) ? $FoodListingItem->other_subcategory : $FoodListingItem->subcategory_title); ?>
                                     </a>
 

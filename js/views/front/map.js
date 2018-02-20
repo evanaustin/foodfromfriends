@@ -112,7 +112,7 @@ App.Front.Map = function() {
                         '<div class="details">' +
                             '<div class="title">' +
                                 '<div class="name">' +
-                                    '<a href="' + PUBLIC_ROOT + 'grower?id=' + e.features[0].properties.id + '">' +
+                                    '<a href="' + PUBLIC_ROOT + e.features[0].properties.link + '">' +
                                         e.features[0].properties.name +
                                     '</a>' +
                                 '</div>' +
