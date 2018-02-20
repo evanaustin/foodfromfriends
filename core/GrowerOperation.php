@@ -23,6 +23,7 @@ class GrowerOperation extends Base {
         $ext;
 
     public
+        $link,
         $details,
         $new_orders,
         $pending_orders;
@@ -62,6 +63,7 @@ class GrowerOperation extends Base {
 
         if (isset($this->id)) {
             $this->populate_fully();
+            $this->link = ($this->type == 'none' ? 'grower' : $this->type) . '/' . $this->slug;
 
             if (isset($configure['details']) && $configure['details'] == true) {
                 $this->configure_details();
@@ -133,7 +135,6 @@ class GrowerOperation extends Base {
                 'city'      => $Owner->city,
                 'state'     => $Owner->state,
                 'zipcode'   => $Owner->zipcode,
-                'link'      => 'grower/' . $this->slug,
                 'path'      => '/profile-photos/' . $Owner->filename,
                 'ext'       => $Owner->ext,
                 'joined'    => $Owner->registered_on   
@@ -148,7 +149,6 @@ class GrowerOperation extends Base {
                 'city'      => $this->city,
                 'state'     => $this->state,
                 'zipcode'   => $this->zipcode,
-                'link'      => $this->type. '/' . $this->slug,
                 'path'      => '/grower-operation-images/' . $this->filename,
                 'ext'       => $this->ext,
                 'joined'    => $this->created_on   
