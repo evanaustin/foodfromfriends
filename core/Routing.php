@@ -75,7 +75,7 @@ class Routing extends Base {
 
                 if (isset($exp_path[1])) {
                     $this->buyer    = $exp_path[1];
-                    $this->path     = 'user';
+                    $this->path     = 'buyer-profile';
                 }
             }
 
