@@ -21,7 +21,8 @@ class FoodListing extends Base {
         $ext;
 
     public
-        $name;
+        $title,
+        $link;
 
     protected
         $class_dependencies,
@@ -43,6 +44,12 @@ class FoodListing extends Base {
             $this->populate_fully($this->id);
 
             $this->title = ucfirst((!empty($this->other_subcategory)) ? $this->other_subcategory : $this->subcategory_title);
+
+            $Slug = new Slug([
+                'DB' => $this->DB
+            ]);
+
+            $this->link = $Slug->slugify($this->category_title) . '/' . $Slug->slugify($this->title);
         }
     }
 
@@ -137,6 +144,23 @@ class FoodListing extends Base {
         ]);
 
         return (isset($results[0])) ? $results : false;
+    }
+
+    public function get_category_associations() {
+        $results = $this->DB->run('
+            SELECT 
+                fc.id       AS category_id,
+                fc.title    AS category_title,
+                fsc.id      AS subcategory_id,
+                fsc.title   AS subcategory_title
+            
+            FROM food_categories fc
+            
+            LEFT JOIN food_subcategories fsc
+                ON fc.id = fsc.food_category_id
+        ');
+
+        return $results;
     }
 
     public function get_categories() {
