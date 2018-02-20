@@ -11,15 +11,15 @@
                         <div class="row">
                             <?php
                             
-                            foreach ($growers as $grower) {
+                            foreach ($Growers as $Grower) {
                                 
                                 ?>
 
                                 <div class="<?php echo $tile_width; ?>">
-                                    <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $grower['id']; ?>">
+                                    <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                         <div class="card animated fadeIn">
                                             <div class="card-img-top">
-                                                <?php img(ENV . $grower['path'], $grower['ext'] /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
+                                                <?php img(ENV . $Grower->details['path'], $Grower->details['ext'] /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
 
                                                 <div class="loading">
                                                     <i class="fa fa-circle-o-notch loading-icon"></i>
@@ -29,21 +29,18 @@
                                             <div class="card-block d-flex flex-row">
                                                 <div class="listing-info d-flex flex-column">
                                                     <div class="card-title">
-                                                        <?php echo '<div class="name">' . $grower['name'] . '</div><div class="rating">' . $grower['stars'] . '</div>'; ?>
-                                                        <?php //echo '<div class="name">' . $grower['name'] . '</div>'; ?>
+                                                        <?php echo "<div class=\"name\">{$Grower->name}</div><div class=\"rating\">{$Grower->stars}</div>"; ?>
                                                     </div>
                                                     
                                                     <div class="distance">
-                                                        <?php echo (!empty($distance) ? $grower['distance']['length'] . ' ' . $grower['distance']['units'] . ' away' : $grower['city'] . ', ' . $grower['state']); ?>
+                                                        <?php echo (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!-- <a href="<?php //echo PUBLIC_ROOT . 'grower?id=' . $grower['id']; ?>"> -->
-                                                <div class="card-footer">
-                                                    <?php echo '<strong>' . $grower['listing_count'] . '</strong>' . 'listing'  . ($grower['listing_count'] > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
-                                                </div>
-                                            <!-- </a> -->
+                                            <div class="card-footer">
+                                                <?php echo "<strong>{$Grower->listing_count}</strong>listing"  . ($Grower->listing_count > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                            </div>
                                         </div>
 
                                         <!-- <i class="fa fa-circle-o-notch loading-icon"></i> -->
