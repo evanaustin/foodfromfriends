@@ -77,7 +77,7 @@ foreach ([
         <![endif]-->
     </head>
 
-    <body class="<?php echo $Routing->template . ' ' . $Routing->fullpage; ?>">
+    <body class="<?php echo $Routing->template . ((isset($Routing->profile_type)) ? ' ' . $Routing->profile_type : '') . ' ' . $Routing->fullpage; ?>">
         <?php
         
         if ($Routing->template == 'front' || $Routing->template == 'dashboard') {

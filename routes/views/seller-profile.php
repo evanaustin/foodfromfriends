@@ -5,8 +5,8 @@
             <div class="main container">
                 <?php
                 
-                if ($GrowerOperation->is_active) {
-
+                if (isset($GrowerOperation) && $GrowerOperation->is_active) {
+                    
                     ?>
 
                     <div class="row">   
@@ -71,7 +71,7 @@
                         <div class="col-lg-9">
                             <div id="main-content">
                                 <h2 class="dark-gray bold margin-btm-25em">
-                                    <?php echo $GrowerOperation->details['name']; ?>
+                                    <?php echo $GrowerOperation->name; ?>
 
                                     <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id; ?>">
                                         <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
@@ -103,7 +103,7 @@
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
-                                        Food for sale from <?php echo $GrowerOperation->details['name']; ?>
+                                        Food for sale from <?php echo $GrowerOperation->name; ?>
                                     </div>
 
                                     <div class='row'>
@@ -112,13 +112,18 @@
 
                                         foreach ($listings as $listing) {
                                             
+                                            $Item = new FoodListing([
+                                                'DB' => $DB,
+                                                'id' => $listing['id']
+                                            ]);
+
                                             ?>
                                             
                                             <div class="col-md-4 <?php /* echo $tile_width; */ ?>">
-                                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $listing['id']; ?>">
+                                                <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
                                                     <div class="card animated zoomIn">
                                                         <div class="card-img-top">
-                                                            <?php img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'animated fadeIn hidden'); ?>
+                                                            <?php img(ENV . '/food-listings/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden'); ?>
                                                         
                                                             <div class="loading">
                                                                 <i class="fa fa-circle-o-notch loading-icon"></i>
@@ -128,22 +133,22 @@
                                                         <div class="card-block d-flex flex-row">
                                                             <div class="listing-info d-flex flex-column">
                                                                 <h5 class="dark-gray bold margin-btm-50em">
-                                                                    <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
+                                                                    <?php echo $Item->title; ?>
                                                                 </h5>
                                                                 
                                                                 <h6 class="muted normal margin-btm-50em">
                                                                     <span class="brand">
-                                                                        <?php echo stars($listing['average_rating']); ?>
+                                                                        <?php echo stars($Item->average_rating); ?>
                                                                     </span>
 
                                                                     &nbsp;&bull;&nbsp;
 
-                                                                    <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
+                                                                    <?php echo '$' . number_format($Item->price / 100, 2) . ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units; ?> 
                                                                 </h6>
 
                                                                 <p class="card-text">
                                                                     <?php
-                                                                        if (!$listing['is_available']) {
+                                                                        if (!$Item->is_available) {
                                                                             // $niblet = 'bg-faded text-muted';
                                                                             // $availability = 'text-muted';
 
@@ -152,15 +157,15 @@
                                                                             $niblet = 'text-white';
                                                                             $availability = 'text-success';
 
-                                                                            if ($listing['quantity'] == 0) {
+                                                                            if ($Item->quantity == 0) {
                                                                                 $niblet .= ' bg-danger';
-                                                                            } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
+                                                                            } else if ($Item->quantity > 0 && $Item->quantity < 6) {
                                                                                 $niblet .= ' bg-warning';
-                                                                            } else if ($listing['quantity'] > 5) {
+                                                                            } else if ($Item->quantity > 5) {
                                                                                 $niblet .= ' bg-success';
                                                                             }
 
-                                                                            echo "<span class=\"quantity {$niblet}\">{$listing['quantity']}</span> in stock";
+                                                                            echo "<span class=\"quantity {$niblet}\">{$Item->quantity}</span> in stock";
                                                                         }
 
                                                                     ?>
@@ -241,7 +246,7 @@
                     <?php
 
                 } else {
-                    echo 'Oops! This ID is invalid.';
+                    echo 'Oops! This URL does not belong to an active grower.';
                 }
 
             ?>
@@ -251,8 +256,8 @@
 <!-- </div> -->
 
 <script>
-    var lat = <?php echo number_format($GrowerOperation->details['lat'], 2); ?>;
-    var lng = <?php echo number_format($GrowerOperation->details['lng'], 2); ?>;
+    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
+    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
 
     var user = <?php echo (isset($User)) ? $User->id : 0; ?>
 </script>

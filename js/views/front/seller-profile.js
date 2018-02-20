@@ -1,4 +1,4 @@
-App.Front.Grower = function() {
+App.Front.SellerProfile = function() {
     function listener() {
         Mapbox.setCenter([lng, lat]);
 
