@@ -41,6 +41,7 @@ abstract class Base {
      *  'group' => string
      *  'order' => string
      *  'table' => string
+     *  'limit' => int
      */
     public function retrieve($params) {
         foreach ($params as $k => $v) ${$k} = $v;
