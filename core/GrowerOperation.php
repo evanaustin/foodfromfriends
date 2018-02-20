@@ -48,6 +48,19 @@ class GrowerOperation extends Base {
 
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
+        } else if (isset($parameters['slug'])) {
+            $results = $this->DB->run("
+                SELECT * FROM {$this->table} WHERE slug=:slug LIMIT 1
+            ", [
+                'slug' => $parameters['slug']
+            ]);
+            
+            if (!isset($results[0])) return false;
+    
+            foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+        }
+
+        if (isset($this->id)) {
             $this->populate_fully();
 
             if (isset($configure['details']) && $configure['details'] == true) {
@@ -112,7 +125,6 @@ class GrowerOperation extends Base {
             ]);
     
             $this->details = [
-                'name'      => $Owner->name,
                 'lat'       => $Owner->latitude,
                 'lng'       => $Owner->longitude,
                 'bio'       => $Owner->bio,
@@ -121,13 +133,13 @@ class GrowerOperation extends Base {
                 'city'      => $Owner->city,
                 'state'     => $Owner->state,
                 'zipcode'   => $Owner->zipcode,
+                'link'      => 'grower/' . $this->slug,
                 'path'      => '/profile-photos/' . $Owner->filename,
                 'ext'       => $Owner->ext,
                 'joined'    => $Owner->registered_on   
             ];
         } else {
             $this->details = [
-                'name'      => $this->name,
                 'lat'       => $this->latitude,
                 'lng'       => $this->longitude,
                 'bio'       => $this->bio,
@@ -136,6 +148,7 @@ class GrowerOperation extends Base {
                 'city'      => $this->city,
                 'state'     => $this->state,
                 'zipcode'   => $this->zipcode,
+                'link'      => $this->type. '/' . $this->slug,
                 'path'      => '/grower-operation-images/' . $this->filename,
                 'ext'       => $this->ext,
                 'joined'    => $this->created_on   
@@ -217,6 +230,67 @@ class GrowerOperation extends Base {
             ]);
         } else {
             $this->Meetup = false;
+        }
+    }
+
+    /*
+     * Creates a `grower_operation` record
+     * Creates a `grower_operation_members` to tie op record to owner
+     * 
+     * @param $User the operation owner
+     * @param array $data the data for `grower_operations` - shell ops only require $data['type']; other ops require $data['type'] AND $data['name']
+     *  ['type', 'name', 'bio']
+     * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
+     *  ['permission', 'is_default']
+     */
+    public function create($User, $data, $options = null) {
+        // shell ops are named after the owner; other ops are explicity created with a given name
+        $name = ($data['type'] == 0) ? $User->name : ((isset($data['name'])) ? $data['name'] : '');
+
+        if (!empty($name) && !empty($data['type'])) {
+            $Slug = new Slug([
+                'DB' => $this->DB
+            ]);
+
+            // craft the op slug - only needs to be unique within op type
+            $slug = $Slug->slugify_name($name, 'grower_operations', $data['type'], 'grower_operation_type_id');
+
+            if (empty($slug)) {
+                throw new \Exception('Slug generation failed');
+            }
+
+            // initialize operation
+            $grower_added = $this->add([
+                'grower_operation_type_id'  => $data['type'],
+                'name'                      => $name,
+                'bio'                       => (isset($data['bio'])) ? $data['bio'] : '',
+                'slug'                      => $slug,
+                'referral_key'              => $this->gen_referral_key(4, $name),
+                'created_on'                => \Time::now(),
+                'is_active'                 => 0
+            ]);
+
+            if (!$grower_added) {
+                throw new \Exception('Operation creation failed');
+            }
+
+            $grower_operation_id = $grower_added['last_insert_id'];
+
+            // assign user ownership of new operation
+            $association_added = $this->add([
+                'grower_operation_id'   => $grower_operation_id,
+                'user_id'               => $User->id,
+                'permission'            => (isset($options, $options['permission'])) ? $options['permission'] : 2,
+                'is_default'            => (isset($options, $options['is_default'])) ? $options['is_default'] : 1
+            ], 'grower_operation_members');
+
+            if (!$association_added) {
+                throw new \Exception('Operation + User association failed');
+            }
+        
+            return $grower_operation_id;
+        } else {
+            throw new \Exception('Operation name not supplied');
         }
     }
 

@@ -42,26 +42,14 @@ if (!$User->GrowerOperation) {
         'DB' => $DB
     ]);
 
-    // initialize shell operation
-    $operation_added = $GrowerOperation->add([
-        'grower_operation_type_id'  => 1,
-        'created_on'                => \Time::now(),
-        'is_active'                 => 0
-    ]);
-    
-    if (!$operation_added) quit('Could not initialize grower');
-    
-    $grower_operation_id = $operation_added['last_insert_id'];
-
-    // assign user ownership of new shell operation
-    $association_added = $GrowerOperation->add([
-        'grower_operation_id'   => $grower_operation_id,
-        'user_id'               => $User->id,
-        'permission'            => 2,
-        'is_default'            => 1
-    ], 'grower_operation_members');
-
-    if (!$association_added) quit('Could not associate user');
+    try {
+        $grower_operation_id = $GrowerOperation->create($User, [
+            'type' => 1
+        ]);
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+        quit('Hmm, something went wrong!');
+    }
 } else {
     $grower_operation_id = $User->GrowerOperation->id;
 }

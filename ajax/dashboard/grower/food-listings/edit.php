@@ -48,7 +48,7 @@ $listing_edited = $FoodListing->update([
     'quantity'      => $quantity,
     'is_available'  => $is_available,
     'description'   => $description
-], 'id', $id);
+]);
 
 if (!$listing_edited) {
     quit('Could not edit listing');
