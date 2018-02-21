@@ -64,15 +64,6 @@ class Routing extends Base {
                 'user'
             ];
 
-            // Retrieve & index seller operation types
-            $seller_types = $this->retrieve([
-                'table' => 'grower_operation_types'
-            ]);
-
-            foreach($seller_types as $type) {
-                $this->seller_profiles[$type['id']] = $type['title'];
-            }
-
             // Check if section is a buyer profile
             if (in_array($this->section, $this->buyer_profiles)) {
                 $this->profile_type = 'buyer';
@@ -83,6 +74,17 @@ class Routing extends Base {
                     $this->path     = 'buyer-profile';
                 }
             }
+
+            // Retrieve & index seller operation types + catch solo ops
+            $seller_types = $this->retrieve([
+                'table' => 'grower_operation_types'
+            ]);
+
+            foreach($seller_types as $type) {
+                $this->seller_profiles[$type['id']] = $type['title'];
+            }
+
+            $this->seller_profiles []= 'grower';
 
             // Check if section is a seller profile
             if (in_array($this->section, $this->seller_profiles)) {
