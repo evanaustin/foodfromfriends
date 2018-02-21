@@ -10,6 +10,18 @@ $FoodListing = new FoodListing([
     'id' => $_GET['id']
 ]);
 
-$listing_title = ucfirst(!empty($FoodListing->subcategory_title) && empty($FoodListing->other_subcategory) ? $FoodListing->subcategory_title : $FoodListing->other_subcategory); 
+// $listing_title = ucfirst(!empty($FoodListing->subcategory_title) && empty($FoodListing->other_subcategory) ? $FoodListing->subcategory_title : $FoodListing->other_subcategory); 
+
+$item_categories    = $FoodListing->retrieve([
+    'table' => 'food_categories'
+]);
+
+$item_subcategories = $FoodListing->retrieve([
+    'table' => 'food_subcategories'
+]);
+
+$item_varieties     = $FoodListing->retrieve([
+    'table' => 'item_varieties'
+]);
 
 ?>

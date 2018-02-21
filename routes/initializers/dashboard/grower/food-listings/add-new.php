@@ -1,15 +1,23 @@
 <?php
 
 $settings = [
-    'title' => 'Add new food listing | Food From Friends'
+    'title' => 'Add a new item listing | Food From Friends'
 ];
 
 $FoodListing = new FoodListing([
     'DB' => $DB
 ]);
 
-$food_categories = $FoodListing->get_categories();
+$item_categories    = $FoodListing->retrieve([
+    'table' => 'food_categories'
+]);
 
-$food_subcategories = $FoodListing->get_subcategories();
+$item_subcategories = $FoodListing->retrieve([
+    'table' => 'food_subcategories'
+]);
+
+$item_varieties     = $FoodListing->retrieve([
+    'table' => 'item_varieties'
+]);
 
 ?>
