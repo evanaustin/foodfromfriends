@@ -10,6 +10,9 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
+    'item-category'     => 'required|integer',
+	'item-subcategory'  => 'required|integer',
+    'item-variety'      => 'integer',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
 	'units'             => 'required|alpha',
@@ -24,6 +27,9 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
+    'item-category'     => 'trim|whole_number',
+	'item-subcategory'  => 'trim|whole_number',
+    'item-variety'      => 'trim|whole_number',
 	'price'             => 'trim|sanitize_floats',
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
@@ -41,13 +47,18 @@ $FoodListing = new FoodListing([
     'id' => $id
 ]);
 
+// ! TODO: make sure category + subcategory + variety are valid
+
 $listing_edited = $FoodListing->update([
-    'price'         => $price * 100,
-    'weight'        => $weight,
-    'units'         => $units,
-    'quantity'      => $quantity,
-    'is_available'  => $is_available,
-    'description'   => $description
+    'food_category_id'      => $item_category,
+    'food_subcategory_id'   => $item_subcategory,
+    'item_variety_id'       => $item_variety,
+    'price'                 => $price * 100,
+    'weight'                => $weight,
+    'units'                 => $units,
+    'quantity'              => $quantity,
+    'is_available'          => $is_available,
+    'description'           => $description
 ]);
 
 if (!$listing_edited) {
