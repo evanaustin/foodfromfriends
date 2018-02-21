@@ -10,9 +10,9 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'food-category'     => 'required|integer',
-	'food-subcategory'  => 'required|integer',
-    'other-subcategory' => 'alpha_space',
+	'item-category'     => 'required|integer',
+	'item-subcategory'  => 'required|integer',
+    'item-variety'      => 'integer',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
 	'units'             => 'required|alpha',
@@ -27,9 +27,9 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'food-category'     => 'trim|whole_number',
-	'food-subcategory'  => 'trim|whole_number',
-    'other-subcategory' => 'trim|sanitize_string',
+	'item-category'     => 'trim|whole_number',
+	'item-subcategory'  => 'trim|whole_number',
+    'item-variety'      => 'trim|whole_number',
 	'price'             => 'trim|sanitize_floats',
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
@@ -45,14 +45,6 @@ $FoodListing = new FoodListing([
     'DB' => $DB,
     'S3' => $S3
 ]);
-
-if ($other_subcategory) {
-    $food_category_title = $FoodListing->other_exists($other_subcategory);
-
-    if ($food_category_title) {
-        quit(ucfirst($other_subcategory) . ' already exists as a ' . ucfirst($food_category_title));
-    }
-}
 
 if (!$User->GrowerOperation) {
     $GrowerOperation = new GrowerOperation([
@@ -71,10 +63,13 @@ if (!$User->GrowerOperation) {
     $grower_operation_id = $User->GrowerOperation->id;
 }
 
+// ! TODO: make sure category + subcategory + variety are valid
+
 $listing_added = $FoodListing->add([
     'grower_operation_id'   => $grower_operation_id,
-    'food_subcategory_id'   => $food_subcategory,
-    'other_subcategory'     => $other_subcategory,
+    'food_category_id'      => $item_category,
+    'food_subcategory_id'   => $item_subcategory,
+    'item_variety_id'       => $item_variety,
     'price'                 => $price * 100,
     'weight'                => $weight,
     'units'                 => $units,
