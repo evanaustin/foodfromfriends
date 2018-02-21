@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        Let's take another gander at this food. Revise the listing details and/or upload a new image. Only foods marked as available can be purchased by buyers.
+                        Revise the listing details and/or upload a new image. Only foods marked as available can be purchased by buyers.
                     </div>
                 </div>
 

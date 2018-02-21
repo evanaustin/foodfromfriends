@@ -107,7 +107,7 @@ App.Dashboard.EditItemListing = function() {
                 App.Ajax.postFiles('dashboard/grower/food-listings/edit', data, 
                     function(response) {
                         App.Util.finishedLoading('.save');
-                        toastr.success('Your listing has been updated!');
+                        App.Util.msg('Your item has been updated! Click <strong><a href="' + PUBLIC_ROOT + response.link + '">here</a></strong> to view it.', 'success');
                     },
                     function(response) {
                         App.Util.msg(response.error, 'danger');

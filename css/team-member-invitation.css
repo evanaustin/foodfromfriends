@@ -1262,6 +1262,9 @@ div.alerts {
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+    div.alerts div.alert.alert-success a:hover {
+      color: #fff;
+      text-decoration: underline; }
 
 div.controls i.loading-icon {
   visibility: hidden;

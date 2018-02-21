@@ -219,6 +219,8 @@ if (isset($_POST['images'])) {
     }
 }
 
+$json['link'] = $User->GrowerOperation->link . '/' . $FoodListing->link;
+
 echo json_encode($json);
 
 ?>  
