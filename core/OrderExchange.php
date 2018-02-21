@@ -165,7 +165,7 @@ class OrderExchange extends Base {
         }
         
         // For everything else, charge $0 (and check for non-chargeable values)
-        $this->fee = ($fee >= 1 ? $fee : 0);
+        $this->fee = ((isset($fee) && $fee >= 1) ? $fee : 0);
 
         $this->update([
             'fee' => $this->fee
