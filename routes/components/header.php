@@ -123,7 +123,7 @@
                     
                         <div class="dropdown-menu dropdown-menu-right">
                             <?php if (isset($User->GrowerOperation)) {
-                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "grower?id={$User->GrowerOperation->id}\">View profile</a>";
+                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a>";
                                 echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Dashboard</a>";
                                 echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a>";
                             } ?>
