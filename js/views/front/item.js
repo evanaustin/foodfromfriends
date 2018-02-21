@@ -1,4 +1,4 @@
-App.Front.FoodListing = function() {
+App.Front.Item = function() {
     function listener() {
         // Mapbox.setZoom(13);
         Mapbox.setCenter([lng, lat]);
@@ -97,7 +97,7 @@ App.Front.FoodListing = function() {
                                     
                                     '<div class="item-content">' +
                                         '<div class="item-title">' +
-                                            '<a href="' + PUBLIC_ROOT + 'food-listing?id=' + response.listing.id + '">' +
+                                            '<a href="' + PUBLIC_ROOT + response.listing.link + '">' +
                                                 response.listing.name +
                                             '</a>' +
                                             '<a class="remove-item float-right">' +

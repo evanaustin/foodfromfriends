@@ -71,7 +71,7 @@ $goals += [
         'status'    => (!empty($User->bio) ? 'complete' : 'incomplete'),
     ],
     'sell your first listing' =>  [
-        'link'      => 'grower?id=' . $User->GrowerOperation->id,
+        'link'      => $User->GrowerOperation->link,
         'status'    => ((false) ? 'complete' : 'incomplete'),
     ]
 ];

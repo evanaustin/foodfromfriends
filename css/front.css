@@ -597,13 +597,13 @@ body.map nav#footer {
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0); } }
-body.front.user div.main.container {
+body.front.buyer div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  body.front.user div.main.container div.left-content div.box {
+  body.front.buyer div.main.container div.left-content div.box {
     border: 1px solid #f5f5f5;
     border-bottom-width: 0px; }
-    body.front.user div.main.container div.left-content div.box:first-child {
+    body.front.buyer div.main.container div.left-content div.box:first-child {
       -webkit-border-top-right-radius: 0.25rem;
       -webkit-border-bottom-right-radius: 0;
       -webkit-border-bottom-left-radius: 0;
@@ -619,7 +619,7 @@ body.front.user div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    body.front.user div.main.container div.left-content div.box:last-child {
+    body.front.buyer div.main.container div.left-content div.box:last-child {
       border-bottom-width: 1px;
       -webkit-border-top-right-radius: 0;
       -webkit-border-bottom-right-radius: 0.25rem;
@@ -636,15 +636,15 @@ body.front.user div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    body.front.user div.main.container div.left-content div.box div.title {
+    body.front.buyer div.main.container div.left-content div.box div.title {
       padding: 0.75em;
       background-color: #fff;
       border-bottom: 1px solid #f5f5f5;
       font-weight: 300;
       color: #636c72; }
-    body.front.user div.main.container div.left-content div.box div.content {
+    body.front.buyer div.main.container div.left-content div.box div.content {
       padding: 0.75em; }
-    body.front.user div.main.container div.left-content div.box.profile-photo img {
+    body.front.buyer div.main.container div.left-content div.box.profile-photo img {
       width: 100%;
       height: 100%;
       -webkit-border-top-right-radius: 4px;
@@ -662,9 +662,9 @@ body.front.user div.main.container {
       -webkit-background-clip: padding-box;
       -moz-background-clip: padding;
       background-clip: padding-box; }
-    body.front.user div.main.container div.left-content div.box.details {
+    body.front.buyer div.main.container div.left-content div.box.details {
       padding: 0 0.5em; }
-      body.front.user div.main.container div.left-content div.box.details ul li {
+      body.front.buyer div.main.container div.left-content div.box.details ul li {
         display: block;
         padding-left: 1em;
         padding-right: 1em;
@@ -674,51 +674,51 @@ body.front.user div.main.container {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0; }
-        body.front.user div.main.container div.left-content div.box.details ul li.sub {
+        body.front.buyer div.main.container div.left-content div.box.details ul li.sub {
           border-top-width: 1px; }
-          body.front.user div.main.container div.left-content div.box.details ul li.sub:first-child {
+          body.front.buyer div.main.container div.left-content div.box.details ul li.sub:first-child {
             border-top: 0; }
-        body.front.user div.main.container div.left-content div.box.details ul li.heading {
+        body.front.buyer div.main.container div.left-content div.box.details ul li.heading {
           margin-top: 0.5em;
           background-color: #f5f5f5;
           color: #4c4c4c;
           font-weight: 400; }
-        body.front.user div.main.container div.left-content div.box.details ul li span.inactive {
+        body.front.buyer div.main.container div.left-content div.box.details ul li span.inactive {
           text-decoration: line-through;
           color: #b2b2b2; }
-        body.front.user div.main.container div.left-content div.box.details ul li i {
+        body.front.buyer div.main.container div.left-content div.box.details ul li i {
           opacity: 0.75; }
-          body.front.user div.main.container div.left-content div.box.details ul li i.fa-check {
+          body.front.buyer div.main.container div.left-content div.box.details ul li i.fa-check {
             color: #5cb85c; }
-          body.front.user div.main.container div.left-content div.box.details ul li i.fa-times {
+          body.front.buyer div.main.container div.left-content div.box.details ul li i.fa-times {
             color: #b2b2b2; }
-      body.front.user div.main.container div.left-content div.box.details p {
+      body.front.buyer div.main.container div.left-content div.box.details p {
         font-weight: 300;
         padding-left: 15px; }
-    body.front.user div.main.container div.left-content div.box.map {
+    body.front.buyer div.main.container div.left-content div.box.map {
       padding: 0;
       height: 250px; }
-  body.front.user div.main.container div.right-content div.name {
+  body.front.buyer div.main.container div.right-content div.name {
     color: #4c4c4c;
     font-size: 2em;
     font-weight: 500; }
-    body.front.user div.main.container div.right-content div.name small {
+    body.front.buyer div.main.container div.right-content div.name small {
       color: #b2b2b2;
       font-weight: 100; }
-    body.front.user div.main.container div.right-content div.name span {
+    body.front.buyer div.main.container div.right-content div.name span {
       border-bottom: 3px solid #00A669; }
-  body.front.user div.main.container div.bio {
+  body.front.buyer div.main.container div.bio {
     margin: 1em 0;
     color: #636c72; }
-  body.front.user div.main.container div.location {
+  body.front.buyer div.main.container div.location {
     color: #4c4c4c;
     font-weight: 500; }
-  body.front.user div.main.container div.joined {
+  body.front.buyer div.main.container div.joined {
     color: #636c72;
     font-weight: 300; }
-  body.front.user div.main.container div.review-count {
+  body.front.buyer div.main.container div.review-count {
     margin: 1em 0; }
-    body.front.user div.main.container div.review-count div {
+    body.front.buyer div.main.container div.review-count div {
       display: inline-block;
       height: 2em;
       width: 2em;
@@ -732,40 +732,40 @@ body.front.user div.main.container {
       -webkit-border-radius: 50px;
       -moz-border-radius: 50px;
       border-radius: 50px; }
-    body.front.user div.main.container div.review-count strong {
+    body.front.buyer div.main.container div.review-count strong {
       color: #636c72; }
-  body.front.user div.main.container div.set {
+  body.front.buyer div.main.container div.set {
     margin-top: 1.25em; }
-    body.front.user div.main.container div.set div.title {
+    body.front.buyer div.main.container div.set div.title {
       font-size: 1.5em;
       font-weight: 100;
       color: #b2b2b2; }
-      body.front.user div.main.container div.set div.title strong {
+      body.front.buyer div.main.container div.set div.title strong {
         color: #4c4c4c; }
-    body.front.user div.main.container div.set div.subtitle {
+    body.front.buyer div.main.container div.set div.subtitle {
       margin: 0.5em 0;
       color: #636c72; }
-  body.front.user div.main.container div.card {
+  body.front.buyer div.main.container div.card {
     border-color: #f5f5f5; }
-    body.front.user div.main.container div.card div.card-block {
+    body.front.buyer div.main.container div.card div.card-block {
       padding: 1.25rem; }
-      body.front.user div.main.container div.card div.card-block h6.card-subtitle {
+      body.front.buyer div.main.container div.card div.card-block h6.card-subtitle {
         color: #b2b2b2;
         padding: 0.25rem 0; }
-      body.front.user div.main.container div.card div.card-block p.card-text {
+      body.front.buyer div.main.container div.card div.card-block p.card-text {
         margin-top: 0.25rem;
         color: #7f7f7f; }
-        body.front.user div.main.container div.card div.card-block p.card-text span.quantity {
+        body.front.buyer div.main.container div.card div.card-block p.card-text span.quantity {
           padding: 0.15rem 0.25rem;
           -webkit-border-radius: 0.15rem;
           -moz-border-radius: 0.15rem;
           border-radius: 0.15rem; }
-  body.front.user div.main.container div.review-block {
+  body.front.buyer div.main.container div.review-block {
     display: flex;
     flex-direction: row;
     padding: 15px 0;
     border-top: 1px solid #f5f5f5; }
-    body.front.user div.main.container div.review-block div.reviewer-photo {
+    body.front.buyer div.main.container div.review-block div.reviewer-photo {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -777,44 +777,44 @@ body.front.user div.main.container {
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%; }
-    body.front.user div.main.container div.review-block div.review-content {
+    body.front.buyer div.main.container div.review-block div.review-content {
       display: flex;
       flex-grow: 2;
       flex-direction: column;
       justify-content: center;
       padding-left: 15px; }
-      body.front.user div.main.container div.review-block div.review-content div.quote {
+      body.front.buyer div.main.container div.review-block div.review-content div.quote {
         color: #636c72; }
-        body.front.user div.main.container div.review-block div.review-content div.quote:before {
+        body.front.buyer div.main.container div.review-block div.review-content div.quote:before {
           content: '\0022';
           margin-right: -3px; }
-        body.front.user div.main.container div.review-block div.review-content div.quote:after {
+        body.front.buyer div.main.container div.review-block div.review-content div.quote:after {
           content: '\0022';
           margin-left: -3px; }
-      body.front.user div.main.container div.review-block div.review-content div.reviewer-details small {
+      body.front.buyer div.main.container div.review-block div.review-content div.reviewer-details small {
         color: #4c4c4c;
         font-weight: 500; }
-      body.front.user div.main.container div.review-block div.review-content div.reviewed-on {
+      body.front.buyer div.main.container div.review-block div.review-content div.reviewed-on {
         color: #b2b2b2; }
 
-body.front.grower [canvas="container"] {
+body.front.seller-profile [canvas="container"] {
   background-color: #fafafb; }
-body.front.grower div.main.container {
+body.front.seller-profile div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  body.front.grower div.main.container #main-content div.name {
+  body.front.seller-profile div.main.container #main-content div.name {
     color: #4c4c4c;
     font-size: 2em;
     font-weight: 500; }
-    body.front.grower div.main.container #main-content div.name small {
+    body.front.seller-profile div.main.container #main-content div.name small {
       color: #b2b2b2;
       font-weight: 100; }
-    body.front.grower div.main.container #main-content div.name span {
+    body.front.seller-profile div.main.container #main-content div.name span {
       border-bottom: 3px solid #00c079; }
-  body.front.grower div.main.container #sidebar-content div.box.details {
+  body.front.seller-profile div.main.container #sidebar-content div.box.details {
     padding: 0 0.5em;
     background: #fff; }
-    body.front.grower div.main.container #sidebar-content div.box.details ul li {
+    body.front.seller-profile div.main.container #sidebar-content div.box.details ul li {
       display: block;
       padding-left: 1em;
       padding-right: 1em;
@@ -824,11 +824,11 @@ body.front.grower div.main.container {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0; }
-      body.front.grower div.main.container #sidebar-content div.box.details ul li.sub {
+      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.sub {
         border-top-width: 1px; }
-        body.front.grower div.main.container #sidebar-content div.box.details ul li.sub:first-child {
+        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.sub:first-child {
           border-top: 0; }
-      body.front.grower div.main.container #sidebar-content div.box.details ul li.heading {
+      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.heading {
         margin-top: 0.5em;
         background-color: #fafafb;
         color: #4c4c4c;
@@ -836,21 +836,21 @@ body.front.grower div.main.container {
         -webkit-border-radius: 0.25rem;
         -moz-border-radius: 0.25rem;
         border-radius: 0.25rem; }
-      body.front.grower div.main.container #sidebar-content div.box.details ul li span.inactive {
+      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li span.inactive {
         text-decoration: line-through;
         color: #b2b2b2; }
-      body.front.grower div.main.container #sidebar-content div.box.details ul li i {
+      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i {
         opacity: 0.75; }
-        body.front.grower div.main.container #sidebar-content div.box.details ul li i.fa-check {
+        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i.fa-check {
           color: #5cb85c; }
-        body.front.grower div.main.container #sidebar-content div.box.details ul li i.fa-times {
+        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i.fa-times {
           color: #b2b2b2; }
-    body.front.grower div.main.container #sidebar-content div.box.details p {
+    body.front.seller-profile div.main.container #sidebar-content div.box.details p {
       font-weight: 300;
       padding-left: 15px; }
-  body.front.grower div.main.container div.review-count {
+  body.front.seller-profile div.main.container div.review-count {
     margin: 1em 0; }
-    body.front.grower div.main.container div.review-count div {
+    body.front.seller-profile div.main.container div.review-count div {
       display: inline-block;
       height: 2em;
       width: 2em;
@@ -863,66 +863,66 @@ body.front.grower div.main.container {
       -webkit-border-radius: 50px;
       -moz-border-radius: 50px;
       border-radius: 50px; }
-    body.front.grower div.main.container div.review-count strong {
+    body.front.seller-profile div.main.container div.review-count strong {
       color: #636c72; }
-  body.front.grower div.main.container div.set {
+  body.front.seller-profile div.main.container div.set {
     margin-top: 2rem; }
-    body.front.grower div.main.container div.set .user-block + .user-block {
+    body.front.seller-profile div.main.container div.set .user-block + .user-block {
       padding-top: 1rem;
       border-top: 1px solid #f5f5f5; }
-  body.front.grower div.main.container div.col-md-4:nth-child(-n+3) div.card {
+  body.front.seller-profile div.main.container div.col-md-4:nth-child(-n+3) div.card {
     margin-top: 0.25em; }
-  body.front.grower div.main.container div.col-md-4:nth-child(n+4) div.card {
+  body.front.seller-profile div.main.container div.col-md-4:nth-child(n+4) div.card {
     margin-top: 2em; }
   @media (max-width: 767px) {
-    body.front.grower div.main.container div.col-md-4:not(:last-child) div.card {
+    body.front.seller-profile div.main.container div.col-md-4:not(:last-child) div.card {
       margin-bottom: 10px; } }
-  body.front.grower div.main.container .card div.card-block {
+  body.front.seller-profile div.main.container .card div.card-block {
     align-items: center;
     padding: 0.75rem 1rem;
     min-height: 130px; }
-    body.front.grower div.main.container .card div.card-block h6.card-subtitle {
+    body.front.seller-profile div.main.container .card div.card-block h6.card-subtitle {
       color: #b2b2b2;
       padding: 0.25rem 0; }
-    body.front.grower div.main.container .card div.card-block p.card-text {
+    body.front.seller-profile div.main.container .card div.card-block p.card-text {
       margin-top: 0.25rem;
       color: #7f7f7f; }
-      body.front.grower div.main.container .card div.card-block p.card-text span.quantity {
+      body.front.seller-profile div.main.container .card div.card-block p.card-text span.quantity {
         padding: 0.15rem 0.25rem;
         -webkit-border-radius: 0.15rem;
         -moz-border-radius: 0.15rem;
         border-radius: 0.15rem; }
 
-body.front.food-listing [canvas="container"] {
+body.front.item [canvas="container"] {
   background-color: #fafafb; }
-body.front.food-listing div.main.container {
+body.front.item div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  body.front.food-listing div.main.container #main-content div.set {
+  body.front.item div.main.container #main-content div.set {
     margin-top: 2em; }
-    body.front.food-listing div.main.container #main-content div.set .user-block + .user-block {
+    body.front.item div.main.container #main-content div.set .user-block + .user-block {
       padding-top: 1rem;
       border-top: 1px solid #f5f5f5; }
-    body.front.food-listing div.main.container #main-content div.set div.callout {
+    body.front.item div.main.container #main-content div.set div.callout {
       position: relative; }
-      body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child) {
+      body.front.item div.main.container #main-content div.set div.callout:not(:last-child) {
         margin-bottom: 1.5rem; }
-        body.front.food-listing div.main.container #main-content div.set div.callout:not(:last-child):after {
+        body.front.item div.main.container #main-content div.set div.callout:not(:last-child):after {
           content: '';
           position: absolute;
           width: 100%;
           bottom: -0.75rem;
           border-bottom: 1px solid #f5f5f5; }
-      body.front.food-listing div.main.container #main-content div.set div.callout h6 {
+      body.front.item div.main.container #main-content div.set div.callout h6 {
         margin-bottom: 0.5em;
         font-weight: 500;
         text-transform: uppercase;
         color: #636c72; }
-      body.front.food-listing div.main.container #main-content div.set div.callout p {
+      body.front.item div.main.container #main-content div.set div.callout p {
         color: #b2b2b2; }
-        body.front.food-listing div.main.container #main-content div.set div.callout p:not(:last-child) {
+        body.front.item div.main.container #main-content div.set div.callout p:not(:last-child) {
           margin-bottom: 0.5em; }
-  body.front.food-listing div.main.container #basket-form-container {
+  body.front.item div.main.container #basket-form-container {
     background-color: #fff;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -942,12 +942,12 @@ body.front.food-listing div.main.container {
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box; }
-    body.front.food-listing div.main.container #basket-form-container select.custom-select, body.front.food-listing div.main.container #basket-form-container div.btn-group {
+    body.front.item div.main.container #basket-form-container select.custom-select, body.front.item div.main.container #basket-form-container div.btn-group {
       border: 1px solid #f5f5f5;
       -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
       -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
       box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
-      body.front.food-listing div.main.container #basket-form-container select.custom-select:focus, body.front.food-listing div.main.container #basket-form-container div.btn-group:focus {
+      body.front.item div.main.container #basket-form-container select.custom-select:focus, body.front.item div.main.container #basket-form-container div.btn-group:focus {
         -webkit-transform: none;
         -moz-transform: none;
         -ms-transform: none;

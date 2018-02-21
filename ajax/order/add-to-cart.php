@@ -77,15 +77,16 @@ try {
 
 	$json['ordergrower'] = [
 		'id'		=> $OrderGrower->id,
-		'name'		=> $Seller->details['name'],
+		'name'		=> $Seller->name,
 		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
 		'exchange'	=> ucfirst($OrderGrower->Exchange->type),
-		'ex_fee'	=> '$' . number_format($OrderGrower->Exchange->fee / 100, 2)
+		'ex_fee'	=> (($OrderGrower->Exchange->fee > 0) ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free')
 	];
 
 	$json['listing'] = [
-		'id'		=> $FoodListing->id,
-		'name'		=> ucfirst((!empty($FoodListing->other_subcategory)) ? $FoodListing->other_subcategory : $FoodListing->subcategory_title),
+        'id'		=> $FoodListing->id,
+        'link'      => $Seller->link . '/' . $FoodListing->link,
+		'name'		=> $FoodListing->title,
 		'quantity'	=> $FoodListing->quantity,
 		'filename'	=> $FoodListing->filename,
 		'ext'		=> $FoodListing->ext
@@ -101,8 +102,8 @@ try {
 
 	$json['order'] = [
 		'subtotal'	=> '$' . number_format($Order->subtotal / 100, 2),
-		'ex_fee'		=> '$' . number_format($Order->exchange_fees / 100, 2),
-		'fff_fee'		=> '$' . number_format($Order->fff_fee / 100, 2),
+		'ex_fee'    => '$' . number_format($Order->exchange_fees / 100, 2),
+		'fff_fee'   => '$' . number_format($Order->fff_fee / 100, 2),
 		'total'		=> '$' . number_format($Order->total / 100, 2)
 	];
 } catch (\Exception $e) {

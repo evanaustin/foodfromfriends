@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Add new food listing
+                    Add a new item listing
                 </div>
 
                 <div class="page-description text-muted small">
-                    Yippie-ki-yay! Let's list some food. Select a food type (or create your own), enter the listing details, and upload an image. Only foods marked as available can be purchased by buyers.
+                    Select an item type, enter the listing details, and upload an image. Only items marked as available can be purchased by buyers.
                 </div>
             </div>
 
@@ -32,38 +32,50 @@
                     <div class="row">
                         <div class="col-md-12"> 
                             <label for="food-categories">
-                                What kind of food do you have?
+                                What kind of item do you have?
                             </label>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <select id="food-categories" name="food-category" class="custom-select form-control" data-parsley-trigger="change" required>
-                                    <option selected disabled>Select a food category</option>
+                                <select id="item-categories" name="item-category" class="custom-select form-control" data-parsley-trigger="change" required>
+                                    <option selected disabled>Select category</option>
 
-                                    <?php foreach($food_categories as $food_category) { ?>
-                                        <option value="<?php echo $food_category['id'] ?>"><?php echo ucfirst($food_category['title']); ?></option>
-                                    <?php } ?>
+                                    <?php
+                                        
+                                    foreach($item_categories as $category) {
+                                        echo "<option value=\"{$category['id']}\">" . ucfirst($category['title']) . "</option>";
+                                    }
+                                    
+                                    ?>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-md-6"> 
+                        <div class="col-md-4"> 
                             <div class="form-group">
-                                <select id="food-subcategories" name="food-subcategory" class="custom-select form-control" data-parsley-trigger="change" disabled required>
-                                    <option selected disabled>Select a food subcategory</option>
+                                <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" disabled required>
+                                    <option selected disabled>Select subcategory</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                                <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" disabled>
+                                    <option selected disabled>Select variety</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div id="other-option" class="form-group hidden">
+                    <!-- <div id="other-option" class="form-group hidden">
                         <label for="other-subcategory">
                             Can't find the food you're trying to list?
                         </label>
 
                         <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label for="price">
@@ -169,5 +181,6 @@
 </main>
 
 <script>
-    var food_subcategories = <?php echo json_encode($food_subcategories); ?>;
+    var item_subcategories  = <?php echo json_encode($item_subcategories); ?>;
+    var item_varieties      = <?php echo json_encode($item_varieties); ?>;
 </script>

@@ -201,13 +201,13 @@
                                                 
                                                 <div class="user-content">
                                                     <h5 class="bold margin-btm-25em">
-                                                        <a href="<?php echo PUBLIC_ROOT . 'grower?id=' . $ThisGrowerOperation->id; ?>">
-                                                            <?php echo $ThisGrowerOperation->details['name']; ?>
+                                                        <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link; ?>">
+                                                            <?php echo $ThisGrowerOperation->name; ?>
                                                         </a>
                                                     </h5>
 
                                                     <small>
-                                                        <?php echo $ThisGrowerOperation->details['city'] . ', ' . $ThisGrowerOperation->details['state']; ?>
+                                                        <?php echo "{$ThisGrowerOperation->details['city']}, {$ThisGrowerOperation->details['state']}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@
 
                                                 <div class="card-block">
                                                     <h6 class="strong">
-                                                        <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $ThisFoodListing->id; ?>">
+                                                        <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
                                                             <?php echo ucfirst($ThisFoodListing->title); ?>
                                                         </a>
 

@@ -5,8 +5,9 @@ class FoodListing extends Base {
     public
         $id,
         $grower_operation_id,
+        $food_category_id,
         $food_subcategory_id,
-        $other_subcategory,
+        $item_variety_id,
         $price,
         $weight,
         $units,
@@ -15,13 +16,15 @@ class FoodListing extends Base {
         $description,
         $average_rating,
         $archived_on,
-        $subcategory_title,
         $category_title,
+        $subcategory_title,
+        $variety_title,
         $filename,
         $ext;
 
     public
-        $name;
+        $title,
+        $link;
 
     protected
         $class_dependencies,
@@ -42,7 +45,13 @@ class FoodListing extends Base {
             $this->configure_object($parameters['id']);
             $this->populate_fully($this->id);
 
-            $this->title = ucfirst((!empty($this->other_subcategory)) ? $this->other_subcategory : $this->subcategory_title);
+            $this->title = ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
+
+            $Slug = new Slug([
+                'DB' => $this->DB
+            ]);
+
+            $this->link = $Slug->slugify($this->category_title) . '/' . $Slug->slugify($this->subcategory_title) . (isset($this->variety_title) ? '/' . $Slug->slugify($this->variety_title) : '');
         }
     }
 
@@ -50,19 +59,23 @@ class FoodListing extends Base {
         $results = $this->DB->run('
             SELECT 
                 fl.*,
-                fsc.title AS subcategory_title,
-                fc.title AS category_title,
+                fc.title    AS category_title,
+                fsc.title   AS subcategory_title,
+                iv.title    AS variety_title,
                 fli.filename,
                 fli.ext
             
             FROM food_listings fl
             
-            LEFT JOIN food_subcategories fsc
-                ON fsc.id = fl.food_subcategory_id
-            
             LEFT JOIN food_categories fc
-                ON fc.id = fsc.food_category_id
-            
+                ON fc.id    = fl.food_category_id
+                
+            LEFT JOIN food_subcategories fsc
+                ON fsc.id   = fl.food_subcategory_id
+                
+            LEFT JOIN item_varieties iv
+                ON iv.id    = fl.item_variety_id
+                
             LEFT JOIN food_listing_images fli
                 ON fli.food_listing_id = fl.id
             
@@ -137,6 +150,28 @@ class FoodListing extends Base {
         ]);
 
         return (isset($results[0])) ? $results : false;
+    }
+
+    public function get_category_associations() {
+        $results = $this->DB->run('
+            SELECT 
+                fc.id       AS category_id,
+                fc.title    AS category_title,
+                fsc.id      AS subcategory_id,
+                fsc.title   AS subcategory_title,
+                iv.id       AS variety_id,
+                iv.title    AS variety_title
+            
+            FROM food_categories fc
+            
+            LEFT JOIN food_subcategories fsc
+                ON fsc.food_category_id = fc.id
+
+            LEFT JOIN item_varieties iv
+                ON iv.food_subcategory_id = fsc.id
+        ');
+
+        return $results;
     }
 
     public function get_categories() {

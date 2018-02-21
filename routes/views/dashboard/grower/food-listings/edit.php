@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Edit listing: <strong><?php echo $listing_title; ?></strong>
+                        Edit listing: <strong><?php echo $FoodListing->title; ?></strong>
                     </div>
 
                     <div class="page-description text-muted small">
@@ -43,6 +43,73 @@
 
                 <div class="row">
                     <div class="col-md-8 flexbox flexcolumn">
+                        <div class="row">
+                            <div class="col-md-12"> 
+                                <label for="food-categories">
+                                    What kind of item do you have?
+                                </label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select id="item-categories" name="item-category" class="custom-select form-control" data-parsley-trigger="change" required>
+                                        <option selected disabled>Select an item category</option>
+
+                                        <?php
+                                        
+                                        foreach($item_categories as $category) {
+                                            $selected   = ($category['id'] == $FoodListing->food_category_id) ? 'selected' : '';
+                                            $title      = ucfirst($category['title']);
+                                            
+                                            echo "<option value=\"{$category['id']}\" {$selected}>{$title}</option>";
+                                        }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"> 
+                                <div class="form-group">
+                                    <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" required>
+                                        <option selected disabled>Select an item subcategory</option>
+
+                                        <?php
+                                        
+                                        foreach($item_subcategories as $subcategory) {
+                                            $selected   = ($subcategory['id'] == $FoodListing->food_subcategory_id) ? 'selected' : '';
+                                            $title      = ucfirst($subcategory['title']);
+                                            
+                                            echo "<option value=\"{$subcategory['id']}\" {$selected}>{$title}</option>";
+                                        }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4"> 
+                                <div class="form-group">
+                                    <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" required <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
+                                        <option selected disabled>Select an item variety</option>
+
+                                        <?php
+                                        
+                                        if ($FoodListing->item_variety_id) {
+                                            foreach($item_varieties as $variety) {
+                                                $selected   = ($variety['id'] == $FoodListing->item_variety_id) ? 'selected' : '';
+                                                $title      = ucfirst($variety['title']);
+                                                
+                                                echo "<option value=\"{$variety['id']}\" {$selected}>{$title}</option>";
+                                            }
+                                        }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -170,3 +237,8 @@
         ?>
     </div>
 </main>
+
+<script>
+    var item_subcategories  = <?php echo json_encode($item_subcategories); ?>;
+    var item_varieties      = <?php echo json_encode($item_varieties); ?>;
+</script>

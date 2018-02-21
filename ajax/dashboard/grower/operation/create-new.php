@@ -87,8 +87,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
             'name'                      => $name,
             'bio'                       => $bio,
             'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
-        ], 
-        'id', $User->GrowerOperation->id);
+        ]);
     } else {
         // either no operation yet exists or already on legitimite operation
 
@@ -99,29 +98,18 @@ if (!empty($operation_key) && !empty($personal_key)) {
         // allow duplicate operation names ... for now
         // if ($GrowerOperation->exists('name', $name)) quit('An operation with this name already exists!');
 
-        // create new operation
-        $operation_added = $GrowerOperation->add([
-            'grower_operation_type_id'  => $type,
-            'name'                      => $name,
-            'bio'                       => $bio,
-            'referral_key'              => $GrowerOperation->gen_referral_key(4, $name),
-            'created_on'                => \Time::now(),
-            'is_active'                 => 0
-        ]);
-        
-        if (!$operation_added) quit('Could not create operation');
-        
-        $grower_operation_id = $operation_added['last_insert_id'];
-
-        // assign user ownership of new operation
-        $association_added = $GrowerOperation->add([
-            'grower_operation_id'   => $grower_operation_id,
-            'user_id'               => $User->id,
-            'permission'            => 2,
-            'is_default'            => (isset($User->GrowerOperation) ? 0 : 1),
-        ], 'grower_operation_members');
-
-        if (!$association_added) quit('Could not associate user to operation');
+        try {
+            $grower_operation_id = $GrowerOperation->create($User, [
+                'type'  => $type,
+                'name'  => $name,
+                'bio'   => $bio
+            ],[
+                'is_default' => (isset($User->GrowerOperation) ? 0 : 1)
+            ]);
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            quit('Hmm, something went wrong!');
+        }
 
         $User->switch_operation($grower_operation_id);
     }

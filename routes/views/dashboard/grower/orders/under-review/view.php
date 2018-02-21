@@ -133,7 +133,7 @@
                                 
                                 ?>
                                 
-                                <a href="<?php echo PUBLIC_ROOT . 'food-listing?id=' . $FoodListing->id; ?>" class="card animated zoomIn muted">
+                                <a href="<?php echo PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" class="card animated zoomIn muted">
                                     <div class="item-image">
                                         <?php img(ENV . '/food-listings/fl.' . $FoodListing->id, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                     </div>
