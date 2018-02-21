@@ -77,10 +77,12 @@
                                         <?php
                                         
                                         foreach($item_subcategories as $subcategory) {
-                                            $selected   = ($subcategory['id'] == $FoodListing->food_subcategory_id) ? 'selected' : '';
-                                            $title      = ucfirst($subcategory['title']);
-                                            
-                                            echo "<option value=\"{$subcategory['id']}\" {$selected}>{$title}</option>";
+                                            if ($subcategory['food_category_id'] == $FoodListing->food_category_id) {
+                                                $selected   = ($subcategory['id'] == $FoodListing->food_subcategory_id) ? 'selected' : '';
+                                                $title      = ucfirst($subcategory['title']);
+                                                
+                                                echo "<option value=\"{$subcategory['id']}\" {$selected}>{$title}</option>";
+                                            }
                                         }
                                         
                                         ?>
@@ -90,7 +92,7 @@
                             
                             <div class="col-md-4"> 
                                 <div class="form-group">
-                                    <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" required <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
+                                    <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
                                         <option selected disabled>Select an item variety</option>
 
                                         <?php
