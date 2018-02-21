@@ -80,13 +80,13 @@ try {
 		'name'		=> $Seller->name,
 		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
 		'exchange'	=> ucfirst($OrderGrower->Exchange->type),
-		'ex_fee'	=> '$' . number_format($OrderGrower->Exchange->fee / 100, 2)
+		'ex_fee'	=> (($OrderGrower->Exchange->fee > 0) ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free')
 	];
 
 	$json['listing'] = [
         'id'		=> $FoodListing->id,
         'link'      => $Seller->link . '/' . $FoodListing->link,
-		'name'		=> ucfirst((!empty($FoodListing->other_subcategory)) ? $FoodListing->other_subcategory : $FoodListing->subcategory_title),
+		'name'		=> $FoodListing->title,
 		'quantity'	=> $FoodListing->quantity,
 		'filename'	=> $FoodListing->filename,
 		'ext'		=> $FoodListing->ext

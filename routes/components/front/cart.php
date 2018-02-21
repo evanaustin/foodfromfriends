@@ -44,7 +44,7 @@
                             <div class="item-content">
                                 <div class="item-title">
                                     <a href="<?php echo PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
-                                        <?php echo ucfirst((!empty($FoodListingItem->other_subcategory)) ? $FoodListingItem->other_subcategory : $FoodListingItem->subcategory_title); ?>
+                                        <?php echo $FoodListingItem->title; ?>
                                     </a>
 
                                     <a class="remove-item float-right">

@@ -29,19 +29,44 @@ $('a.remove-image').on('click', function(e) {
 
 
 // Re-populate subcategory select menu
-$('#food-categories').on('change', function() {
-    $('#food-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select a food subcategory</option>');
+$('#item-categories').on('change', function() {
+    $('#item-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select subcategory</option>');
 
-    food_subcategories.forEach(function(sub) {
+    item_subcategories.forEach(function(sub) {
          if ($(this).val() == sub.food_category_id) {
-            $('#food-subcategories').append($('<option>', {
+            $('#item-subcategories').append($('<option>', {
                 value: sub.id, 
                 text: sub.title.charAt(0).toUpperCase() + sub.title.slice(1)
             }));
         } 
     }, this);
+});
 
-    $('#food-subcategories').append('<option value="0">Other</option>');
+
+// Re-populate varieties select menu
+$('#item-subcategories').on('change', function() {
+    $('#item-varieties').empty().append('<option selected disabled>Select variety</option>');
+
+    var varieties = false;
+
+    item_varieties.forEach(function(vari) {
+        if ($(this).val() == vari.food_subcategory_id) {
+            varieties = true;
+
+            $('#item-varieties').append($('<option>', {
+                value:  vari.id, 
+                text:   vari.title.charAt(0).toUpperCase() + vari.title.slice(1)
+            }));
+        } 
+    }, this);
+
+    if (varieties == true) {
+        // are varieties
+        $('#item-varieties').prop('disabled', false).focus().removeClass('hidden');
+    } else {
+        // are varieties
+        $('#item-varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
+    }
 });
 
 

@@ -4,7 +4,7 @@ $settings = [
     'title' => 'Item listing | Food From Friends'
 ];
 
-if (isset($Routing->item_subcategory)) {
+if (isset($Routing->item_type)) {
     $GrowerOperation = new GrowerOperation([
         'DB' => $DB,
         'slug' => $Routing->seller
@@ -18,7 +18,7 @@ if (isset($Routing->item_subcategory)) {
         $results = $GrowerOperation->retrieve([
             'where' => [
                 'grower_operation_id' => $GrowerOperation->id,
-                'food_subcategory_id' => $Routing->item_subcategory
+                (($Routing->item_type == 'subcategory') ? 'food_subcategory_id' : 'item_variety_id') => $Routing->item_id
             ],
             'table' => 'food_listings',
             'limit' => 1
