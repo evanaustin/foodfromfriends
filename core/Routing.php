@@ -25,7 +25,12 @@ class Routing extends Base {
 
     public
         $item_category,
-        $item_subcategory;
+        $item_subcategory,
+        $item_variety,
+        $item_type,
+        $item_id;
+
+    public $assns;
 
     function __construct($parameters) {
         $this->DB = $parameters['DB'];
@@ -101,13 +106,20 @@ class Routing extends Base {
                         // Get item category:subcateory associations & construct data structure to map relationships
                         $raw_assns      = $Item->get_category_associations();
                         $category_assns = [];
-
+                        // $this->assns = $raw_assns;
                         foreach ($raw_assns as $assn) {
                             $category_slug      = $Slug->slugify($assn['category_title']);
                             $subcategory_slug   = $Slug->slugify($assn['subcategory_title']);
-    
-                            $category_assns[$category_slug][$subcategory_slug] = $assn['subcategory_id'];
+                            
+                            if (isset($assn['variety_id'])) {
+                                $variety_slug   = $Slug->slugify($assn['variety_title']);
+                                $category_assns[$category_slug][$subcategory_slug][$variety_slug] = $assn['variety_id'];
+                            } else {
+                                $category_assns[$category_slug][$subcategory_slug] = $assn['subcategory_id'];
+                            }
                         }
+
+                        $this->assns = $category_assns;
                         
                         // Check if item subcategory slug is set
                         if (isset($category_assns[$exp_path[2]])) {
@@ -116,10 +128,26 @@ class Routing extends Base {
                             // Check if given subcategory actually belongs to given category
                             if (isset($exp_path[3], $category_assns[$exp_path[2]][$exp_path[3]])) {
                                 // Item page
-                                $this->path = 'item';
+                                $this->path                 = 'item';
+                                $this->item_subcategory     = $exp_path[3];
 
-                                // (this is actually the subcategory ID)
-                                $this->item_subcategory = $category_assns[$exp_path[2]][$exp_path[3]];
+                                if (isset($exp_path[4])) {
+                                    if (is_array($category_assns[$exp_path[2]][$exp_path[3]]) && isset($category_assns[$exp_path[2]][$exp_path[3]][$exp_path[4]])) {
+                                        // Variety page
+                                        $this->item_variety = $exp_path[4];
+                                        $this->item_type    = 'variety';
+                                        $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]][$exp_path[4]];
+                                    } else {
+                                        // Subcategory:variety mis-association
+                                        // (direct to seller profile for now)
+                                        $this->path = 'seller-profile';
+                                        error_log('Subcategory:variety mis-association');
+                                    }
+                                } else {
+                                    // Subcategory page
+                                    $this->item_type        = 'subcategory';
+                                    $this->item_id          = $category_assns[$exp_path[2]][$exp_path[3]];
+                                }
                             } else {
                                 // Category:subcategory mis-association
                                 // (direct to seller profile for now)
