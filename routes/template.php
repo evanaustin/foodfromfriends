@@ -146,6 +146,7 @@ foreach ([
             'node_modules/mapbox-gl/dist/mapbox-gl',            // not universal
             'node_modules/autosize/dist/autosize.min',          // not universal
             'node_modules/jstimezonedetect/dist/jstz.min',
+            'node_modules/popper.js/dist/umd/popper.min',
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',                    // not universal
@@ -165,7 +166,7 @@ foreach ([
         ?>
 
         <script>
-            var ENV = <?php echo json_encode(ENV); ?>;
+            var ENV         = <?php echo json_encode(ENV); ?>;
             var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>;
         </script>
     </body>
