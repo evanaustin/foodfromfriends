@@ -1,5 +1,5 @@
 App.Front.Checkout = function () {
-    var stripe = Stripe(STRIPE_TEST);
+    var stripe = Stripe(STRIPE_PK);
 
     function registerElements(elements) {
         var wrapper = document.querySelector('.elements');
