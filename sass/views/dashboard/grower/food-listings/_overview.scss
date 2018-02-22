@@ -32,7 +32,7 @@ body.dashboard-grower-food-listings-overview {
         
         img {
             border: 0px;
-            @include border-radius($radius, 0, 0, $radius);
+            @include border-top-radius($radius);
         }
     }
     

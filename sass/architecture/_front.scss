@@ -13,11 +13,11 @@ div.box {
     background-color: #fff;
 
     &:first-child {
-        @include border-radius($radius, 0, 0, $radius);
+        @include border-top-radius($radius);
 
         &.photo {
             img {
-                @include border-radius($radius, 0, 0, $radius);
+                @include border-top-radius($radius);
             }
         }
     }
@@ -27,11 +27,11 @@ div.box {
     }
     
     &:last-child {
-        @include border-radius(0, $radius, $radius, 0);
+        @include border-bottom-radius($radius);
 
         &.photo {
             img {
-                @include border-radius(0, $radius, $radius, 0);
+                @include border-bottom-radius($radius);
             }
         }
     }

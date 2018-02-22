@@ -54,7 +54,7 @@ body.front.item {
         #basket-form-container {
             background-color: #fff;
             @include drop-shadow(0, 2px, 4px);
-            @include border-radius(0, $radius, $radius, 0);
+            @include border-bottom-radius($radius);
 
             select.custom-select, div.btn-group {
                 border: 1px solid $edge-color;

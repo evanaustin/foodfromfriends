@@ -9,12 +9,12 @@ body.front.buyer {
                 border-bottom-width: 0px;
                 
                 &:first-child {
-                    @include border-radius($radius, 0, 0, $radius);
+                    @include border-top-radius($radius);
                 }
                 
                 &:last-child {
                     border-bottom-width: 1px;
-                    @include border-radius(0, $radius, $radius, 0);
+                    @include border-bottom-radius($radius);
                 }
 
                 div.title {
@@ -33,7 +33,7 @@ body.front.buyer {
                     img {
                         width: 100%;
                         height: 100%;
-                        @include border-radius(4px, 0, 0, 4px);
+                        @include border-top-radius($radius);
                     }
                 }
                 
@@ -74,7 +74,7 @@ body.front.buyer {
                                 opacity: 0.75;
 
                                 &.fa-check {
-                                    color: $brand-success;
+                                    color: $success;
                                 }
 
                                 &.fa-times {
@@ -96,7 +96,7 @@ body.front.buyer {
                     
                     div#map {
                         // height: 100%;
-                        // @include border-radius(0, 3px, 3px, 0);
+                        // @include border-bottom-radius($radius);
                     }
                 }
             }

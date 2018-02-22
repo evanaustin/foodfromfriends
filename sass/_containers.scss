@@ -669,7 +669,7 @@ fable {
         background-color: #fff;
         border-color: $edge-color;
         color: $muted;
-        @include border-radius($radius, 0, 0, $radius);
+        @include border-top-radius($radius);
 
         h3 {
             font-size: 1.25rem;
@@ -687,7 +687,7 @@ fable {
         background-color: #fff;
         text-align: center;
         color: $muted;
-        @include border-radius(0, $radius, $radius, 0);
+        @include border-bottom-radius($radius);
     }
 }
 
