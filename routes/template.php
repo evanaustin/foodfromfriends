@@ -55,6 +55,19 @@ foreach ([
         <meta name="google-site-verification" content="UmsixiFqd2YXf2qI8LFn_5Q4R-iDnuwQiPwdlDxTCvI" />
         <title><?php if (isset($settings['title'])) echo $settings['title']; ?></title>
         <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
+
+        <?php if (ENV == 'prod') { ?>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114682144-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'UA-114682144-1');
+            </script>
+        <?php } ?>
+
         <?php layer('css', [
             'css/thirdparty/bootstrap/bootstrap-reboot',
             'css/thirdparty/bootstrap/bootstrap-grid',
