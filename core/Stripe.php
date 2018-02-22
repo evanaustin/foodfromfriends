@@ -8,7 +8,7 @@ class Stripe {
      * Initialize Stripe with our API key.
      */
     public function __construct() {
-        \Stripe\Stripe::setApiKey(STRIPE_SK_TEST);
+        \Stripe\Stripe::setApiKey((ENV == 'prod' ? STRIPE_SK_LIVE : STRIPE_SK_TEST));
     }
 
     /**

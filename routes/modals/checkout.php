@@ -95,5 +95,5 @@
 </div>
 
 <script>
-    var STRIPE_TEST = <?php echo json_encode(STRIPE_PK_TEST); ?>;
+    var STRIPE_PK = <?php echo json_encode((ENV == 'prod' ? STRIPE_PK_LIVE : STRIPE_PK_TEST)); ?>;
 </script>
