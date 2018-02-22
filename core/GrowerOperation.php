@@ -63,7 +63,7 @@ class GrowerOperation extends Base {
 
         if (isset($this->id)) {
             $this->populate_fully();
-            $this->link = ($this->type == 'none' ? 'grower' : $this->type) . '/' . $this->slug;
+            $this->link = ($this->type == 'none' || $this->type == 'other' ? 'grower' : $this->type) . '/' . $this->slug;
 
             if (isset($configure['details']) && $configure['details'] == true) {
                 $this->configure_details();
