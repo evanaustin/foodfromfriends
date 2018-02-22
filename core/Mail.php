@@ -188,7 +188,7 @@ class Mail {
     }
     
     public function user_new_message_notification($User, $GrowerOperation, $message) {
-        $subject = "New message from {$GrowerOperation->details['name']}";
+        $subject = "New message from {$GrowerOperation->name}";
         
         $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
 
@@ -263,7 +263,7 @@ class Mail {
     }
 
     public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        $subject = "New order - {$GrowerOperation->details['name']}";
+        $subject = "New order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Member->id,
@@ -286,7 +286,7 @@ class Mail {
             </p>
             
             <p>
-                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ".
+                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ".
             </p>
 
             <p>
@@ -311,7 +311,7 @@ class Mail {
     /* public function order_expiration_warning($Member, $GrowerOperation, $OrderGrower, $Buyer) {} */
     
     public function confirmed_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        $subject = "Confirmed order - {$GrowerOperation->details['name']}";
+        $subject = "Confirmed order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Buyer->id
@@ -334,11 +334,11 @@ class Mail {
             </p>
             
             <p>
-                {$GrowerOperation->details['name']} has confirmed your order, which means this order is now ready for fulfillment.
+                {$GrowerOperation->name} has confirmed your order, which means this order is now ready for fulfillment.
             </p>
             
             <p>
-                If you selected <strong>Pickup</strong> or <strong>Meetup</strong> as your exchange option from {$GrowerOperation->details['name']}, remember to go receive your order.
+                If you selected <strong>Pickup</strong> or <strong>Meetup</strong> as your exchange option from {$GrowerOperation->name}, remember to go receive your order.
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
@@ -357,7 +357,7 @@ class Mail {
     }
     
     public function rejected_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        $subject = "Rejected order - {$GrowerOperation->details['name']}";
+        $subject = "Rejected order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Buyer->id
@@ -379,7 +379,7 @@ class Mail {
             </p>
             
             <p>
-                Sorry to say that {$GrowerOperation->details['name']} has rejected your order. Don't take it personally! This usually means that the seller couldn't fulfill the item for some reason. You will not be charged for your order to {$GrowerOperation->details['name']}.
+                Sorry to say that {$GrowerOperation->name} has rejected your order. Don't take it personally! This usually means that the seller couldn't fulfill the item for some reason. You will not be charged for your order to {$GrowerOperation->name}.
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
@@ -398,7 +398,7 @@ class Mail {
     }
     
     public function expired_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        $subject = "Expired order - {$GrowerOperation->details['name']}";
+        $subject = "Expired order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Buyer->id
@@ -420,7 +420,7 @@ class Mail {
             </p>
                 
             <p>
-                Sorry to say that {$GrowerOperation->details['name']} has let your order expire. You will not be charged for your order to {$GrowerOperation->details['name']}.
+                Sorry to say that {$GrowerOperation->name} has let your order expire. You will not be charged for your order to {$GrowerOperation->name}.
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
@@ -439,7 +439,7 @@ class Mail {
     }
 
     public function seller_cancelled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        $subject = "Cancelled order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Buyer->id
@@ -461,7 +461,7 @@ class Mail {
             </p>
             
             <p>
-                Sorry to say that {$GrowerOperation->details['name']} has cancelled your order. You will not be charged for this order to {$GrowerOperation->details['name']}.
+                Sorry to say that {$GrowerOperation->name} has cancelled your order. You will not be charged for this order to {$GrowerOperation->name}.
             </p>
             
             <a href=\"" . $link . "\" class=\"button bg-green block\">
@@ -480,7 +480,7 @@ class Mail {
     }
 
     public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        $subject = "Cancelled order - {$GrowerOperation->details['name']}";
+        $subject = "Cancelled order - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Member->id,
@@ -503,7 +503,7 @@ class Mail {
             </p>
                 
             <p>
-                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ". You are no longer responsible for fulfilling this order.
+                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". You are no longer responsible for fulfilling this order.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -524,7 +524,7 @@ class Mail {
     /* public function order_fulfillment_reminder() {} */
 
     public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
-        $subject = "Fulfilled order - {$GrowerOperation->details['name']}";
+        $subject = "Fulfilled order - {$GrowerOperation->name}";
         
         
         $token = [
@@ -553,15 +553,15 @@ class Mail {
             </p>
 
             <p>
-                {$GrowerOperation->details['name']} has marked your order as fulfilled. If you believe this was done in error, you can <a href=\"{$report_link}\">report an issue</a>.
+                {$GrowerOperation->name} has marked your order as fulfilled. If you believe this was done in error, you can <a href=\"{$report_link}\">report an issue</a>.
             </p>
 
             <p>
-                Otherwise, you have three days to review {$GrowerOperation->details['name']}. Be kind and be honest!
+                Otherwise, you have three days to review {$GrowerOperation->name}. Be kind and be honest!
             </p>
             
             <a href=\"" . $review_link . "\" class=\"button bg-green block\">
-                Review {$GrowerOperation->details['name']}
+                Review {$GrowerOperation->name}
             </a>
         ";
         
@@ -576,7 +576,7 @@ class Mail {
     }
     
     public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        $subject = "New review - {$GrowerOperation->details['name']}";
+        $subject = "New review - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Member->id,
@@ -599,7 +599,7 @@ class Mail {
             </p>
 
             <p>
-                {$Buyer->name} has left " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . " a new review. This order is now cleared and marked for payout.
+                {$Buyer->name} has left " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . " a new review. This order is now cleared and marked for payout.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -618,7 +618,7 @@ class Mail {
     }
     
     public function reported_order_seller_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
-        $subject = "New issue reported - {$GrowerOperation->details['name']}";
+        $subject = "New issue reported - {$GrowerOperation->name}";
         
         $token = [
             'user_id' => $Member->id,
@@ -641,7 +641,7 @@ class Mail {
             </p>
 
             <p>
-                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->details['name']}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
+                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -660,11 +660,11 @@ class Mail {
     }
     
     public function reported_order_admin_notification($Buyer, $GrowerOperation, $OrderGrower, $message) {
-        $subject = "Issue reported - {$GrowerOperation->details['name']}";
+        $subject = "Issue reported - {$GrowerOperation->name}";
         
         $body = "
             <p>
-                <strong>{$Buyer->name}</strong> reported an issue with <strong>{$GrowerOperation->details['name']}</strong>:
+                <strong>{$Buyer->name}</strong> reported an issue with <strong>{$GrowerOperation->name}</strong>:
             </p>
 
             <blockquote>
