@@ -1,17 +1,11 @@
-<nav id="header" class="navbar navbar-toggleable-md navbar-light">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-  
+<nav id="header" class="navbar navbar-expand-md navbar-light">
     <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
-        <div class="hidden-md-down">
-            <?php svg('logos/thin'); ?>
-        </div>
-
-        <div class="hidden-lg-up">
-            <?php svg('logos/full_simplified'); ?>
-        </div>
+        <?php svg('logos/thin'); ?>
     </a>
+
+    <button id="mobile-nav">
+        <i class="fa fa-bars"></i>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
@@ -47,7 +41,59 @@
                     </a>
                 </li>
             <?php } else { ?>
-                <li class="nav-item">
+                <!-- PHONES -->
+                <!-- <div class="d-md-none">
+                    <li class="nav-item">
+                        <a 
+                            id="cart-toggle" 
+                            class="nav-link"
+                            data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                        >
+                            Basket
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
+                            href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        >
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                            Messages
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
+                            Your purchases
+                        </a>
+                    </li>
+
+                    <?php if (isset($User->GrowerOperation)) {
+                        //echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a></li>";
+                        //echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a></li>";
+                    } ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                            Edit profile
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="log-out" class="nav-link" href="#">Log out</a>
+                    </li>
+                </div> -->
+                <!-- END PHONES -->
+
+                <!-- TABLETS + DESKTOPS -->
+                <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
                         href="<?php echo PUBLIC_ROOT; ?>"
@@ -57,7 +103,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
                         href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
@@ -73,10 +119,9 @@
                     
                     ?>
 
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-md-block">
                         <a 
-                            id="cart-toggle" 
-                            class="nav-link"
+                            class="nav-link cart-toggle"
                             data-toggle="tooltip" data-placement="bottom" title="Basket"
                         >
                             <i class="fa fa-shopping-basket"></i>
@@ -89,73 +134,50 @@
 
                 ?>
 
-                <div class="hidden-lg-up">
-                    <?php if (isset($User->GrowerOperation)) {
-                        echo "<a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Grower Dashboard</a>";
-                    } ?>
+                <li class="nav-item profile dropdown d-none d-md-block">
+                    <div 
+                        class="nav-link dropdown-toggle" 
+                        style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                    ></div>
+                
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <?php if (isset($User->GrowerOperation)) {
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a>";
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Dashboard</a>";
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a>";
+                        } ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                             Messages
-                        </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                            <?php
+
+                            $Message = new Message([
+                                'DB' => $DB
+                            ]);
+
+                            $unread = $Message->unread_aggregate($User);
+
+                            if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+
+                            ?>
+                        </a>
+
+                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
+                            Your purchases
+                        </a>
+
+                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                             Edit profile
                         </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a id="log-out" class="nav-link" href="#">Log out</a>
-                    </li>
-                </div>
-
-                <div class="hidden-md-down">
-                    <li class="nav-item profile dropdown">
-                        <div 
-                            class="nav-link dropdown-toggle" 
-                            style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
-                            data-toggle="dropdown" 
-                            aria-haspopup="true" 
-                            aria-expanded="false"
-                        ></div>
-                    
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <?php if (isset($User->GrowerOperation)) {
-                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a>";
-                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Dashboard</a>";
-                                echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a>";
-                            } ?>
-
-                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
-                                Messages
-
-                                <?php
-
-                                $Message = new Message([
-                                    'DB' => $DB
-                                ]);
-
-                                $unread = $Message->unread_aggregate($User);
-
-                                if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
-
-                                ?>
-                            </a>
-
-                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
-                                Your purchases
-                            </a>
-
-                            <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
-                                Edit profile
-                            </a>
-                            
-                            <a id="log-out" class="dropdown-item" href="#">Log out</a>
-                        </div>
-                    </li>
-                </div>
+                        
+                        <a id="log-out" class="dropdown-item" href="#">Log out</a>
+                    </div>
+                </li>
+                <!-- END TABLETS + DESKTOPS -->
             <?php } ?>
         </ul>
     </div>
