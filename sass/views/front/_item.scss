@@ -7,50 +7,62 @@ body.front.item {
         margin-top: 30px;
         margin-bottom: 30px;
 
+        #basket-form-container {
+            @include phones() {
+                margin-bottom: 1rem;
+            }
+        }
+
         #main-content {
             // don't understand why this is necessary, but it prevents horizontal overflow on phones
             max-width: calc(100% - 0.75rem);
             margin: 0 auto;
 
-            div.set {
-                margin-top: 2em;
-    
-                .user-block {
-                    + .user-block {
-                        padding-top: 1rem;
-                        border-top: 1px solid $edge-color;
+            p.description {
+                @include all-but-phones() {
+                    margin-bottom: 2rem;
+                }
+            }
+        }
+
+        div.set {
+            margin-top: 2em;
+
+            .user-block {
+                + .user-block {
+                    padding-top: 1rem;
+                    border-top: 1px solid $edge-color;
+                }
+            }
+
+            div.callout {
+                position: relative;
+                
+                &:not(:last-child) {
+                    margin-bottom: 1.5rem;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        bottom: -0.75rem;
+                        border-bottom: 1px solid $edge-color;
                     }
                 }
-    
-                div.callout {
-                    position: relative;
-                    
+
+                h6 {
+                    margin-bottom: 0.5em;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    color: $muted;
+                }
+
+                p {
+                    color: $light-gray;
+
                     &:not(:last-child) {
-                        margin-bottom: 1.5rem;
-    
-                        &:after {
-                            content: '';
-                            position: absolute;
-                            width: 100%;
-                            bottom: -0.75rem;
-                            border-bottom: 1px solid $edge-color;
-                        }
-                    }
-    
-                    h6 {
                         margin-bottom: 0.5em;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                        color: $muted;
-                    }
-    
-                    p {
-                        color: $light-gray;
-    
-                        &:not(:last-child) {
-                            margin-bottom: 0.5em;
-                        } 
-                    }
+                    } 
                 }
             }
         }

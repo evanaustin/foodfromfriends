@@ -8,7 +8,7 @@
 
             <div class="row">   
                 <div class="col-12 order-2 col-lg-3 order-lg-1">
-                    <div id="sidebar-content">
+                    <div class="sidebar-content">
                         <div class="photo box">
                             <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
                         </div>

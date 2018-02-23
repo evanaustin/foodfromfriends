@@ -6559,7 +6559,7 @@ main {
   padding-bottom: 48px;
   background-color: #fafafb; }
 
-#sidebar-content {
+.sidebar-content {
   border-top: 0.5px solid rgba(0, 0, 0, 0.025);
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -7209,10 +7209,10 @@ body.front.seller-profile div.main.container {
         font-weight: 100; }
       body.front.seller-profile div.main.container #main-content div.name span {
         border-bottom: 3px solid #00c079; }
-  body.front.seller-profile div.main.container #sidebar-content div.box.details {
+  body.front.seller-profile div.main.container .sidebar-content div.box.details {
     padding: 0 0.5em;
     background: #fff; }
-    body.front.seller-profile div.main.container #sidebar-content div.box.details ul li {
+    body.front.seller-profile div.main.container .sidebar-content div.box.details ul li {
       display: block;
       padding-left: 1em;
       padding-right: 1em;
@@ -7222,11 +7222,11 @@ body.front.seller-profile div.main.container {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0; }
-      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.sub {
+      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li.sub {
         border-top-width: 1px; }
-        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.sub:first-child {
+        body.front.seller-profile div.main.container .sidebar-content div.box.details ul li.sub:first-child {
           border-top: 0; }
-      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li.heading {
+      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li.heading {
         margin-top: 0.5em;
         background-color: #fafafb;
         color: #4c4c4c;
@@ -7234,16 +7234,16 @@ body.front.seller-profile div.main.container {
         -webkit-border-radius: 0.25rem;
         -moz-border-radius: 0.25rem;
         border-radius: 0.25rem; }
-      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li span.inactive {
+      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li span.inactive {
         text-decoration: line-through;
         color: #b2b2b2; }
-      body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i {
+      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li i {
         opacity: 0.75; }
-        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i.fa-check {
+        body.front.seller-profile div.main.container .sidebar-content div.box.details ul li i.fa-check {
           color: #28a745; }
-        body.front.seller-profile div.main.container #sidebar-content div.box.details ul li i.fa-times {
+        body.front.seller-profile div.main.container .sidebar-content div.box.details ul li i.fa-times {
           color: #b2b2b2; }
-    body.front.seller-profile div.main.container #sidebar-content div.box.details p {
+    body.front.seller-profile div.main.container .sidebar-content div.box.details p {
       font-weight: 300;
       padding-left: 15px; }
   body.front.seller-profile div.main.container div.review-count {
@@ -7297,33 +7297,39 @@ body.front.item [canvas="container"] {
 body.front.item div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
+  @media (max-width: 767px) {
+    body.front.item div.main.container #basket-form-container {
+      margin-bottom: 1rem; } }
   body.front.item div.main.container #main-content {
     max-width: calc(100% - 0.75rem);
     margin: 0 auto; }
-    body.front.item div.main.container #main-content div.set {
-      margin-top: 2em; }
-      body.front.item div.main.container #main-content div.set .user-block + .user-block {
-        padding-top: 1rem;
-        border-top: 1px solid #f5f5f5; }
-      body.front.item div.main.container #main-content div.set div.callout {
-        position: relative; }
-        body.front.item div.main.container #main-content div.set div.callout:not(:last-child) {
-          margin-bottom: 1.5rem; }
-          body.front.item div.main.container #main-content div.set div.callout:not(:last-child):after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            bottom: -0.75rem;
-            border-bottom: 1px solid #f5f5f5; }
-        body.front.item div.main.container #main-content div.set div.callout h6 {
-          margin-bottom: 0.5em;
-          font-weight: 500;
-          text-transform: uppercase;
-          color: #636c72; }
-        body.front.item div.main.container #main-content div.set div.callout p {
-          color: #b2b2b2; }
-          body.front.item div.main.container #main-content div.set div.callout p:not(:last-child) {
-            margin-bottom: 0.5em; }
+    @media (min-width: 768px) {
+      body.front.item div.main.container #main-content p.description {
+        margin-bottom: 2rem; } }
+  body.front.item div.main.container div.set {
+    margin-top: 2em; }
+    body.front.item div.main.container div.set .user-block + .user-block {
+      padding-top: 1rem;
+      border-top: 1px solid #f5f5f5; }
+    body.front.item div.main.container div.set div.callout {
+      position: relative; }
+      body.front.item div.main.container div.set div.callout:not(:last-child) {
+        margin-bottom: 1.5rem; }
+        body.front.item div.main.container div.set div.callout:not(:last-child):after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          bottom: -0.75rem;
+          border-bottom: 1px solid #f5f5f5; }
+      body.front.item div.main.container div.set div.callout h6 {
+        margin-bottom: 0.5em;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #636c72; }
+      body.front.item div.main.container div.set div.callout p {
+        color: #b2b2b2; }
+        body.front.item div.main.container div.set div.callout p:not(:last-child) {
+          margin-bottom: 0.5em; }
   body.front.item div.main.container #basket-form-container {
     background-color: #fff;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
