@@ -38,15 +38,15 @@ App.Front = function() {
         var nav = document.getElementById('nav');
         // var nav = $('#nav');
         var navswipe = new Hammer(nav);
-        navswipe.on('swipeleft', function(ev) {
-            App.Util.slidebar(Slidebar, 'close', 'left', e);
+        navswipe.on('swipeleft', function() {
+            App.Util.slidebar(Slidebar, 'close', 'left');
         });
         
         var cart = document.getElementById('cart');
         // var cart = $('#cart');
         var cartswipe = new Hammer(cart);
-        cartswipe.on('swipeleft', function(ev) {
-            App.Util.slidebar(Slidebar, 'close', 'right', e);
+        cartswipe.on('swiperight', function(e) {
+            App.Util.slidebar(Slidebar, 'close', 'right');
         });
 
         $('div[canvas="container"]').on('click', function(e) {
