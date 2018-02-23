@@ -112,6 +112,7 @@ foreach ([
 
         if ($Routing->template == 'front') {
             $extensions = [
+                'nav'   => 'routes/components/front/nav',
                 'cart'  => 'routes/components/front/cart',
                 'modal' =>'routes/modals/' . $Routing->path
             ];
