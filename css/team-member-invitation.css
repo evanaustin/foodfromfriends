@@ -7249,6 +7249,9 @@ keymap key {
       padding: 1rem; } }
   .card .card-body .card-title {
     font-weight: 400; }
+  @media (max-width: 767px) {
+    .card .card-footer {
+      padding: 0.5rem 0.75rem; } }
   .card + .loading-icon {
     text-align: center;
     margin: 0 auto;

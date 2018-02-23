@@ -107,6 +107,12 @@ keymap {
         }
     }
 
+    .card-footer {
+        @include phones() {
+            padding: 0.5rem 0.75rem;
+        }
+    }
+
     + .loading-icon {
         text-align: center;
         margin: 0 auto;
