@@ -1,4 +1,5 @@
 #cart[off-canvas*=right] {
+    width: calc(100% - 2.5rem);
     padding: 1em;
     overflow-y: scroll;
     background-color: #fff;

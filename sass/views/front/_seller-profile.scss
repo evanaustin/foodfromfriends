@@ -117,29 +117,30 @@ body.front.seller-profile {
         }
 
         div.col-md-4 {
-            &:nth-child(-n+3) {
-                div.card {
-                    margin-top: 0.25em;
+            @include all-but-phones() {
+                &:nth-child(-n+3) {
+                    .card {
+                        margin-top: 0.25em;
+                    }
                 }
-            }
-    
-            &:nth-child(n+4) {
-                div.card {
-                    margin-top: 2em;
+        
+                &:nth-child(n+4) {
+                    .card {
+                        margin-top: 2em;
+                    }
                 }
             }
 
             @include phones() {
-                &:not(:last-child) {
-                    div.card {
-                        margin-bottom: 10px;
-                    }
+                .card {
+                    margin-bottom: 10px;
                 }
             }
         }
 
+
         .card {
-            div.card-block {
+            .card-block {
                 align-items: center;
                 padding: 0.75rem 1rem;
                 min-height: 130px;
