@@ -10,7 +10,7 @@
                     ?>
 
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-12 order-3 col-lg-3 order-lg-1">
                             <div id="sidebar-content">
                                 <div class="photo box">
                                     <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-5">
+                        <div class="col-12 order-1 col-lg-5 order-lg-2">
                             <div id="main-content">
                                 <h2 class="dark-gray bold margin-btm-25em">
                                     <?php echo $FoodListing->title; ?>
@@ -242,7 +242,7 @@
                             </div>    
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-12 order-2 col-lg-4 order-lg-3">
                             <div id="basket-form-container" class="sticky-top">
                                 <div class="box">
                                     <div class="header">    
