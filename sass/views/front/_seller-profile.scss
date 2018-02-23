@@ -11,7 +11,7 @@ body.front.seller-profile {
             // don't understand why this is necessary, but it prevents horizontal overflow on phones
             max-width: calc(100% - 0.75rem);
             margin: 0 auto;
-            
+
             div.name {
                 color: $dark-gray;
                 font-size: 2em;
@@ -144,7 +144,7 @@ body.front.seller-profile {
 
 
         .card {
-            .card-block {
+            .card-body {
                 align-items: center;
                 padding: 0.75rem 1rem;
                 min-height: 130px;

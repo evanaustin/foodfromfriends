@@ -93,7 +93,15 @@ keymap {
         }
     }
 
-    .card-block {
+    .card-body {
+        @include phones() {
+            padding: 0.5rem 0.75rem;
+        }
+
+        @include all-but-phones() {
+            padding: 1rem;
+        }
+
         .card-title {
             font-weight: 400;
         }
@@ -158,7 +166,7 @@ keymap {
         }
     }
 
-    .card-block {
+    .card-body {
         display: flex;
         flex-direction: column;
         justify-content: center;

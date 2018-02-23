@@ -178,9 +178,7 @@ body.front.buyer {
         .card {
             border-color: $edge-color;
             
-            .card-block {
-                padding: 1.25rem;
-            
+            .card-body {
                 h6.card-subtitle {
                     color: $light-gray;
                     padding: 0.25rem 0;

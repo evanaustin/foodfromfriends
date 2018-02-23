@@ -58,7 +58,7 @@ body.map {
         .card {
             margin: 5px 0 5px 0;
 
-            .card-block {
+            .card-body {
                 .card-title {
                     font-weight: bold;
                     margin-bottom: 0;
@@ -98,6 +98,7 @@ body.map {
             .card-footer {
                 background-color: #fff;
                 border-color: $edge-color;
+                border-top-width: 1px;
                 font-size: 14px;
                 color: $muted;
                 @include transition(all .3s);
