@@ -26,14 +26,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card-block d-flex flex-row">
+                                            <div class="card-body d-flex flex-row">
                                                 <div class="listing-info d-flex flex-column">
                                                     <div class="card-title">
-                                                        <?php echo "<div class=\"name\">{$Grower->name}</div><div class=\"rating\">{$Grower->stars}</div>"; ?>
+                                                        <?php echo "<div class=\"name\">{$Grower->name}</div>"; ?>
                                                     </div>
                                                     
                                                     <div class="distance">
-                                                        <?php echo (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->stars) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
                                                     </div>
                                                 </div>
                                             </div>
