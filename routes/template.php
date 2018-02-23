@@ -151,6 +151,7 @@ foreach ([
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',                    // not universal
+            'js/thirdparty/hammer/hammer.min',
             'js/thirdparty/slidebars/dist/slidebars.min',
             'js/app',
             'js/ajax',
