@@ -19,15 +19,19 @@ App.Front = function() {
             .find('input[name="redirect"]')
             .val(false);
 
-        $('#cart-toggle').on('click', function(e) {
+        $('#mobile-nav').on('click', function(e) {
+            App.Util.slidebar(Slidebar, 'toggle', 'left', e);
+        });
+
+        $('.cart-toggle').on('click', function(e) {
             App.Util.slidebar(Slidebar, 'toggle', 'right', e);
         });
 
         $(Slidebar.events).on('opened', function () {
-            $('a#cart-toggle').addClass('active');
+            $('a.cart-toggle').addClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-primary').addClass('btn-dark');
         }).on('closed', function () {
-            $('a#cart-toggle').removeClass('active');
+            $('a.cart-toggle').removeClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
         });
 

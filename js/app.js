@@ -7,8 +7,8 @@ var App = function() {
 		$('.card').each(function(i, obj) {
 			$(this).imagesLoaded(function() {
 				setTimeout(function() {
-					$(obj).find('div.card-img-top div.loading').addClass('hidden');
-					$(obj).find('div.card-img-top img').removeClass('hidden');
+					$(obj).find('.card-img-top div.loading').addClass('hidden');
+					$(obj).find('.card-img-top img').removeClass('hidden');
 				}, 500 * i);
 			});
 		});
