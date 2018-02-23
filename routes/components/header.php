@@ -3,7 +3,7 @@
         <?php svg('logos/thin'); ?>
     </a>
 
-    <button id="mobile-nav">
+    <button id="mobile-nav" class="btn btn-primary d-md-none">
         <i class="fa fa-bars"></i>
     </button>
 
