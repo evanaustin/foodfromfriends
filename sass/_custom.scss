@@ -30,6 +30,8 @@ $btn-primary-border:    $primary;
 
 $input-border-focus:                    lighten($primary, 5%);
 $custom-control-active-indicator-bg:    lighten($primary, 5%);
+$custom-select-bg:                      #fff;
+$custom-select-indicator:               none;
 $custom-select-focus-border-color:      lighten($primary, 5%);
 $custom-control-checked-indicator-bg:   $primary;
 // $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $primary;
