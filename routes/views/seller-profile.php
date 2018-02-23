@@ -58,7 +58,7 @@
                                 </ul>
                             </ul>
                         </div>
-                        
+
                         <div class="map box">
                             <div id="map"></div>
                         </div>
@@ -127,7 +127,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="card-block d-flex flex-row">
+                                                <div class="card-body d-flex flex-row">
                                                     <div class="listing-info d-flex flex-column">
                                                         <h5 class="dark-gray bold margin-btm-50em">
                                                             <?php echo $Item->title; ?>

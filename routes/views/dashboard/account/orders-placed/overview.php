@@ -275,7 +275,7 @@
                                                     <?php img(ENV . '/food-listings/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, 'S3', 'img-fluid'); ?>
                                                 </div>
 
-                                                <div class="card-block">
+                                                <div class="card-body">
                                                     <h6 class="strong">
                                                         <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
                                                             <?php echo ucfirst($ThisFoodListing->title); ?>

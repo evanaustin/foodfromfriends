@@ -104,7 +104,7 @@
                                         <?php img(ENV . '/food-listings/fl.' . $FoodListing->id, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                     </div>
 
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="listing-info">
                                             <h5 class="card-title">
                                                 <span>
