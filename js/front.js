@@ -35,12 +35,16 @@ App.Front = function() {
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
         });
 
-        var navswipe = new Hammer($('#nav'));
+        var nav = document.getElementById('nav');
+        // var nav = $('#nav');
+        var navswipe = new Hammer(nav);
         navswipe.on('swipeleft', function(ev) {
             App.Util.slidebar(Slidebar, 'close', 'left', e);
         });
         
-        var cartswipe = new Hammer($('#cart'));
+        var cart = document.getElementById('cart');
+        // var cart = $('#cart');
+        var cartswipe = new Hammer(cart);
         cartswipe.on('swipeleft', function(ev) {
             App.Util.slidebar(Slidebar, 'close', 'right', e);
         });
