@@ -344,7 +344,7 @@
                                                             <?php
                                                             
                                                             foreach ($exchange_options_available as $option) {
-                                                                echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                                echo "<button type=\"button\" class=\"exchange-btn btn" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
                                                             }
                                                             
                                                             ?>
