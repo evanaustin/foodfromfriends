@@ -7241,7 +7241,13 @@ keymap key {
         animation: spin 2s linear infinite;
         font-size: 2em;
         color: #636c72; }
-  .card .card-block .card-title {
+  @media (max-width: 767px) {
+    .card .card-body {
+      padding: 0.5rem 0.75rem; } }
+  @media (min-width: 768px) {
+    .card .card-body {
+      padding: 1rem; } }
+  .card .card-body .card-title {
     font-weight: 400; }
   .card + .loading-icon {
     text-align: center;
@@ -7296,7 +7302,7 @@ keymap key {
       -webkit-border-radius: 0.25rem;
       -moz-border-radius: 0.25rem;
       border-radius: 0.25rem; }
-  .card-alt .card-block {
+  .card-alt .card-body {
     display: flex;
     flex-direction: column;
     justify-content: center;

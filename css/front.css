@@ -6782,16 +6782,16 @@ body.map div.main {
           padding-right: 5px; }
   body.map div.main .card {
     margin: 5px 0 5px 0; }
-    body.map div.main .card .card-block .card-title {
+    body.map div.main .card .card-body .card-title {
       font-weight: bold;
       margin-bottom: 0; }
-    body.map div.main .card .card-block div.name, body.map div.main .card .card-block div.rating {
+    body.map div.main .card .card-body div.name, body.map div.main .card .card-body div.rating {
       display: inline-block;
       vertical-align: bottom;
       line-height: 18px; }
-    body.map div.main .card .card-block div.name {
+    body.map div.main .card .card-body div.name {
       padding-right: 5px; }
-    body.map div.main .card .card-block div.rating {
+    body.map div.main .card .card-body div.rating {
       padding: 0 3px;
       border: 1px solid #f0f0f0;
       background-color: #fff;
@@ -6800,9 +6800,9 @@ body.map div.main {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px; }
-      body.map div.main .card .card-block div.rating i {
+      body.map div.main .card .card-body div.rating i {
         line-height: 18px; }
-    body.map div.main .card .card-block div.distance {
+    body.map div.main .card .card-body div.distance {
       padding-top: 0.5em;
       font-size: 12px;
       color: #cbcbcb;
@@ -6810,6 +6810,7 @@ body.map div.main {
     body.map div.main .card .card-footer {
       background-color: #fff;
       border-color: #f5f5f5;
+      border-top-width: 1px;
       font-size: 14px;
       color: #636c72;
       transition: all 0.3s; }
@@ -7143,19 +7144,17 @@ body.front.buyer div.main.container {
       color: #636c72; }
   body.front.buyer div.main.container .card {
     border-color: #f5f5f5; }
-    body.front.buyer div.main.container .card .card-block {
-      padding: 1.25rem; }
-      body.front.buyer div.main.container .card .card-block h6.card-subtitle {
-        color: #b2b2b2;
-        padding: 0.25rem 0; }
-      body.front.buyer div.main.container .card .card-block p.card-text {
-        margin-top: 0.25rem;
-        color: #7f7f7f; }
-        body.front.buyer div.main.container .card .card-block p.card-text span.quantity {
-          padding: 0.15rem 0.25rem;
-          -webkit-border-radius: 0.15rem;
-          -moz-border-radius: 0.15rem;
-          border-radius: 0.15rem; }
+    body.front.buyer div.main.container .card .card-body h6.card-subtitle {
+      color: #b2b2b2;
+      padding: 0.25rem 0; }
+    body.front.buyer div.main.container .card .card-body p.card-text {
+      margin-top: 0.25rem;
+      color: #7f7f7f; }
+      body.front.buyer div.main.container .card .card-body p.card-text span.quantity {
+        padding: 0.15rem 0.25rem;
+        -webkit-border-radius: 0.15rem;
+        -moz-border-radius: 0.15rem;
+        border-radius: 0.15rem; }
   body.front.buyer div.main.container div.review-block {
     display: flex;
     flex-direction: row;
@@ -7277,17 +7276,17 @@ body.front.seller-profile div.main.container {
   @media (max-width: 767px) {
     body.front.seller-profile div.main.container div.col-md-4 .card {
       margin-bottom: 10px; } }
-  body.front.seller-profile div.main.container .card .card-block {
+  body.front.seller-profile div.main.container .card .card-body {
     align-items: center;
     padding: 0.75rem 1rem;
     min-height: 130px; }
-    body.front.seller-profile div.main.container .card .card-block h6.card-subtitle {
+    body.front.seller-profile div.main.container .card .card-body h6.card-subtitle {
       color: #b2b2b2;
       padding: 0.25rem 0; }
-    body.front.seller-profile div.main.container .card .card-block p.card-text {
+    body.front.seller-profile div.main.container .card .card-body p.card-text {
       margin-top: 0.25rem;
       color: #7f7f7f; }
-      body.front.seller-profile div.main.container .card .card-block p.card-text span.quantity {
+      body.front.seller-profile div.main.container .card .card-body p.card-text span.quantity {
         padding: 0.15rem 0.25rem;
         -webkit-border-radius: 0.15rem;
         -moz-border-radius: 0.15rem;
