@@ -8,6 +8,10 @@ body.front.item {
         margin-bottom: 30px;
 
         #main-content {
+            // don't understand why this is necessary, but it prevents horizontal overflow on phones
+            max-width: calc(100% - 0.75rem);
+            margin: 0 auto;
+
             div.set {
                 margin-top: 2em;
     
