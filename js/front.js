@@ -35,6 +35,11 @@ App.Front = function() {
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
         });
 
+        $('div[canvas="container"]').on('click', function(e) {
+            App.Util.slidebar(Slidebar, 'close', 'left', e);
+            App.Util.slidebar(Slidebar, 'close', 'right', e);
+        });
+
         $(document).on('click', '#cart a.remove-item', function(e) {
             $cart_item = $(this).parents('div.cart-item');
             var listing_id = $cart_item.data('listing-id');
