@@ -1,6 +1,26 @@
 // Root namespace
 var App = function() {
+    /*
+     * Create & initialize a new instance of Slidebars
+     */
+    this.Slidebar = new slidebars();
+    Slidebar.init();
+
 	function listener() {
+        /*
+         * Set up mobile nav
+         */
+        $('#mobile-nav').on('click', function(e) {
+            App.Util.slidebar(Slidebar, 'toggle', 'left', e);
+        });
+
+        var nav = document.getElementById('nav');
+        var navswipe = new Hammer(nav);
+        
+        navswipe.on('swipeleft', function() {
+            App.Util.slidebar(Slidebar, 'close', 'left');
+        });
+
         /*
          * Show the tile cards after the images load
          */
@@ -32,6 +52,7 @@ var App = function() {
 	}
 
 	return {
+        Slidebar: this.Slidebar,
 		listener: listener
 	};
 }();
