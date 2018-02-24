@@ -1605,7 +1605,7 @@ pre {
     background-color: #fff;
     border-color: #40ffb9;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 192, 121, 0.25); }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
   .form-control::placeholder {
     color: #6c757d;
     opacity: 1; }
@@ -7842,8 +7842,10 @@ form .form-control {
     color: #b2b2b2; }
   form .form-control.placeholder {
     color: #b2b2b2; }
-form .form-control-danger {
-  color: #dc3545; }
+form .form-control.danger {
+  color: #dc3545;
+  border-width: 0;
+  box-shadow: 0 0 0 1px #dc3545; }
 form .btn-group.has-danger {
   border-color: #dc3545 !important; }
   form .btn-group.has-danger .btn {
@@ -7852,7 +7854,7 @@ form .btn-group.has-danger {
     form .btn-group.has-danger .btn:hover {
       background-color: transparent;
       color: #636c72 !important; }
-  form .btn-group.has-danger + .form-control-danger {
+  form .btn-group.has-danger + .form-control.danger {
     background-image: none; }
 form div.radio-box {
   margin: 0.5rem 0; }
@@ -8001,7 +8003,9 @@ form .form-star-group {
     content: "★";
     color: #00c079; }
 form .form-control-feedback {
-  font-size: 0.75rem; }
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #dc3545; }
 @media (max-width: 767px) {
   form .input-group, form .custom-select, form .image-box {
     margin-bottom: 10px; } }

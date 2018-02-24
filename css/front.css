@@ -1432,7 +1432,7 @@ pre {
     background-color: #fff;
     border-color: #40ffb9;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 192, 121, 0.25); }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
   .form-control::placeholder {
     color: #6c757d;
     opacity: 1; }
@@ -6646,12 +6646,14 @@ div.box {
         padding-left: 0.75rem; }
 
 #cart[off-canvas*=right] {
-  width: calc(100% - 2.5rem);
   padding: 1em;
   overflow-y: scroll;
   background-color: #fff;
   border-left: 1px solid #f5f5f5;
   color: #636c72; }
+  @media (max-width: 767px) {
+    #cart[off-canvas*=right] {
+      width: calc(100% - 2.5rem); } }
   #cart[off-canvas*=right] #ordergrowers div.set:not(:last-child) {
     margin-bottom: 1em; }
   #cart[off-canvas*=right] #ordergrowers div.set h6 {
