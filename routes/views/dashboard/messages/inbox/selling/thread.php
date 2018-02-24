@@ -74,7 +74,7 @@
                                 ?>
 
                                 <div class="col-md-9 offset-md-3">
-                                    <fable class="margin-btm-50em">
+                                    <fable class="message grower-message">
                                         <cell class="flexend">
                                             <div class="bubble inline-block align-left muted">
                                                 <?php echo $ThisMessage->body; ?>
@@ -82,7 +82,7 @@
                                         </cell>
 
                                         <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                        <div class="user-photo no-margin" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
+                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
                                         </cell>
                                     </fable>
                                 </div>
@@ -94,10 +94,10 @@
                                 ?>
 
                                 <div class="col-md-9">
-                                    <fable class="margin-btm-25em">
+                                    <fable class="message buyer-message">
                                         <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
                                             <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
-                                                <div class="user-photo no-margin" style="background-image: url('<?php echo (!empty($Customer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
+                                                <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo (!empty($Customer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
                                             </a>
                                         </cell>
 
