@@ -20,11 +20,11 @@
                             
                             <div class="container">
                                 <div class="row">
-                                    <div class="user-data col-md-6">
+                                    <div class="user-data col-12 order-2 col-md-6 order-md-1">
                                         <?php echo $User->name; ?>
                                     </div>
                                     
-                                    <div class="user-data col-md-6">
+                                    <div class="user-data col-12 order-1 col-md-6 order-md-2">
                                         <span id="checkout-total"><?php if (isset($User->ActiveOrder)) { amount($User->ActiveOrder->total); } ?></span>
                                     </div>
                                 </div>
