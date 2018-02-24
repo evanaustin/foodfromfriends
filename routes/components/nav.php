@@ -1,15 +1,17 @@
 <div id="nav" off-canvas="slidebar-left left push">
     <ul class="navbar-nav ml-auto">
-        <?php if ($LOGGED_IN) { ?>
-            <li class="nav-item">
-                <a 
-                    class="nav-link cart-toggle"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                >
-                    Basket
-                </a>
-            </li>
+        <?php if ($LOGGED_IN) {
+            if ($Routing->template == 'front') { ?>
+                <li class="nav-item">
+                    <a 
+                        class="nav-link cart-toggle"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                    >
+                        Basket
+                    </a>
+                </li>
+            <?php } ?>
             
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
@@ -17,14 +19,16 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a 
-                    class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                    href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
-                >
-                    Dashboard
-                </a>
-            </li>
+            <?php if ($Routing->template == 'front') { ?>
+                <li class="nav-item">
+                    <a 
+                        class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
+                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                    >
+                        Dashboard
+                    </a>
+                </li>
+            <?php } ?>
 
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
