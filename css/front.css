@@ -6638,6 +6638,12 @@ div.box {
   border-right: 1px solid #f5f5f5;
   color: #636c72;
   font-size: 1.5rem; }
+  #nav[off-canvas*=left] .nav-item ul {
+    margin-left: 1rem; }
+    #nav[off-canvas*=left] .nav-item ul .nav-item {
+      font-size: 1.25rem; }
+      #nav[off-canvas*=left] .nav-item ul .nav-item i {
+        padding-left: 0.75rem; }
 
 #cart[off-canvas*=right] {
   width: calc(100% - 2.5rem);

@@ -6,4 +6,18 @@
     border-right: 1px solid $edge-color;
     color: $muted;
     font-size: 1.5rem;
+
+    .nav-item {
+        ul {
+            margin-left: 1rem;
+
+            .nav-item {
+                font-size: 1.25rem;
+
+                i {
+                    padding-left: 0.75rem;
+                }
+            }
+        }
+    }
 }
