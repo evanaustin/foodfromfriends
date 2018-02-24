@@ -15,7 +15,7 @@
                         <fieldset id="billing-info">
                             <legend>
                                 Billing info
-                                <span class="normal light-gray"><a href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile'; ?>">(edit)</a></span>
+                                <span class="normal light-gray"><a href="<?php echo PUBLIC_ROOT . 'dashboard/account/billing-info'; ?>">(edit)</a></span>
                             </legend>
                             
                             <div class="container">
