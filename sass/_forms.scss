@@ -152,6 +152,12 @@ form {
         border: 0px;
         background: $superlight-gray;
         color: $muted;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     div.input-group-btn {

@@ -7830,7 +7830,13 @@ form .input-group-addon {
   min-width: 3rem;
   border: 0px;
   background: #fafafb;
-  color: #636c72; }
+  color: #636c72;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
 form div.input-group-btn .btn {
   background-color: #eceeef; }
 form .input-group textarea {
