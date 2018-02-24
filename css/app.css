@@ -7437,13 +7437,16 @@ fable {
     display: flex;
     flex-grow: 1;
     align-items: center; }
+    @media (max-width: 767px) {
+      fable > cell {
+        margin: 0.25rem 0; } }
     @media (min-width: 768px) {
       fable > cell {
-        flex-basis: 0; } }
+        flex-basis: 0; }
+        fable > cell.justify-end {
+          justify-content: flex-end; } }
     fable > cell.justify-center {
       justify-content: center; }
-    fable > cell.justify-end {
-      justify-content: flex-end; }
     fable > cell.align-end {
       align-items: flex-end; }
     fable > cell.min-third {
@@ -7452,12 +7455,20 @@ fable {
       color: #00c079; }
     fable > cell.actions {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: flex-end; }
+      @media (max-width: 767px) {
+        fable > cell.actions {
+          flex-direction: row; } }
+      @media (min-width: 768px) {
+        fable > cell.actions {
+          flex-direction: column; } }
       fable > cell.actions .btn {
         padding: 0.5rem;
         width: 2.5rem; }
+        @media (max-width: 767px) {
+          fable > cell.actions .btn {
+            margin: 0 0.5rem; } }
         fable > cell.actions .btn i {
           color: #fff; }
         fable > cell.actions .btn + .btn {
@@ -7556,8 +7567,12 @@ fable {
       .ledger .record.closed > [data-toggle="collapse"]:before, ledger .record.closed > [data-toggle="collapse"]:before {
         content: '\f142';
         font-size: 12px; }
-      .ledger .record.closed > fable > cell:first-child, ledger .record.closed > fable > cell:first-child {
-        padding-left: 1.25rem; }
+      @media (max-width: 767px) {
+        .ledger .record.closed > fable > cell, ledger .record.closed > fable > cell {
+          padding-left: 1.25rem; } }
+      @media (min-width: 768px) {
+        .ledger .record.closed > fable > cell:first-child, ledger .record.closed > fable > cell:first-child {
+          padding-left: 1.25rem; } }
       .ledger .record.closed > fable .user-block, ledger .record.closed > fable .user-block {
         padding-left: 0rem; }
         .ledger .record.closed > fable .user-block .user-photo, ledger .record.closed > fable .user-block .user-photo {
@@ -7583,8 +7598,13 @@ fable {
     .ledger .record + .record, ledger .record + .record {
       margin-top: 1rem; }
     .ledger .record fable > cell:first-child, ledger .record fable > cell:first-child {
-      padding-left: 0.75rem;
       transition: all 0.2s; }
+      @media (max-width: 767px) {
+        .ledger .record fable > cell:first-child, ledger .record fable > cell:first-child {
+          padding-left: 1.25rem; } }
+      @media (min-width: 768px) {
+        .ledger .record fable > cell:first-child, ledger .record fable > cell:first-child {
+          padding-left: 0.75rem; } }
   .ledger .card-alt, ledger .card-alt {
     margin-top: 0.75rem; }
     .ledger .card-alt + fable, ledger .card-alt + fable {

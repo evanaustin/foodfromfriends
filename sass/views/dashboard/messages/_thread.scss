@@ -1,3 +1,9 @@
+@include phones() {
+    .last-message {
+        justify-content: center;
+    }
+}
+
 #messages {
     min-height: calc(100vh - 65px - 52px - 57px - 5rem);
 

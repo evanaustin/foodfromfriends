@@ -362,16 +362,20 @@ fable {
         flex-grow: 1;
         align-items: center;
         
+        @include phones() {
+            margin: 0.25rem 0;
+        }
+
         @include all-but-phones() {
             flex-basis: 0;
+
+            &.justify-end {
+                justify-content: flex-end;
+            }
         }
 
         &.justify-center {
             justify-content: center;
-        }
-        
-        &.justify-end {
-            justify-content: flex-end;
         }
         
         &.align-end {
@@ -388,13 +392,24 @@ fable {
 
         &.actions {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: flex-end;
+            
+            @include phones() {
+                flex-direction: row;
+            }
 
+            @include all-but-phones() {
+                flex-direction: column;
+            }
+            
             .btn {
                 padding: 0.5rem;
                 width: 2.5rem;
+
+                @include phones() {
+                    margin: 0 0.5rem;
+                }
 
                 i {
                     color: #fff;
@@ -545,9 +560,18 @@ fable {
             }
 
             > fable {
-                > cell:first-child {
-                    padding-left: 1.25rem;
+                @include phones() {
+                    > cell {
+                        padding-left: 1.25rem;
+                    }
                 }
+
+                @include all-but-phones() {
+                    > cell:first-child {
+                        padding-left: 1.25rem;
+                    }
+                }
+
                 
                 .user-block {
                     padding-left: 0rem;
@@ -596,7 +620,14 @@ fable {
 
         fable {
             > cell:first-child {
-                padding-left: 0.75rem;
+                @include phones () {
+                    padding-left: 1.25rem;
+                }
+
+                @include all-but-phones() {
+                    padding-left: 0.75rem;
+                }
+
                 @include transition(all .2s);
             }
         }
