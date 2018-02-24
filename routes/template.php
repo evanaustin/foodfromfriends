@@ -115,8 +115,8 @@ foreach ([
         ];
 
         if ($Routing->template == 'front') {
-            $extensions['cart']     = 'routes/components/front/cart';
-            $extensions['modal']    = 'routes/modals/' . $Routing->path;
+            $extensions['cart']         = 'routes/components/front/cart';
+            $extensions['modal']        = 'routes/modals/' . $Routing->path;
 
             if (!$LOGGED_IN) {
                 $extensions['sign-up']  = 'routes/modals/sign-up';
