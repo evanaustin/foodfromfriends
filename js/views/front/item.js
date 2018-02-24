@@ -3,12 +3,12 @@ App.Front.Item = function() {
         // Mapbox.setZoom(13);
         Mapbox.setCenter([lng, lat]);
         
-        var ex = 'div.exchange.form-group' + ' ';
+        var ex = '.exchange.form-group' + ' ';
 
         // toggle active exchange option
-        $(document).on('click', ex + 'div.btn-group button', function() {
+        $('.exchange-btn').on('click', function() {
             $('#add-item, #update-item')
-                .find('div.btn-group')
+                .find('.btn-group')
                 .removeClass('has-danger')
                 .find('button')
                 .removeClass('active');
