@@ -1,5 +1,21 @@
 #messages {
     min-height: calc(100vh - 65px - 52px - 57px - 5rem);
+
+    .message {
+        @include phones() {
+            margin-bottom: 1rem;
+        }
+
+        @include all-but-phones() {
+            &.right-message {
+                margin-bottom: 0.5rem;
+            }
+    
+            &.left-message {
+                margin-bottom: 0.25rem;
+            }
+        }
+    }
 }
 
 #new-message {
