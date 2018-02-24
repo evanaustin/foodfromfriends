@@ -9,24 +9,17 @@ App.Front = function() {
         });
     }
 
-    // create & initialize a new instance of Slidebars
-    this.Slidebar = new slidebars();
-    Slidebar.init();
-
     function listener() {
         // make login direct back to current page
         $('form#log-in')
             .find('input[name="redirect"]')
             .val(false);
 
-        $('#mobile-nav').on('click', function(e) {
-            App.Util.slidebar(Slidebar, 'toggle', 'left', e);
-        });
-
         $('.cart-toggle').on('click', function(e) {
             App.Util.slidebar(Slidebar, 'toggle', 'right', e);
         });
 
+        // ! dirty - shouldn't be capturing universally and applying specificall -
         $(Slidebar.events).on('opened', function () {
             $('a.cart-toggle').addClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-primary').addClass('btn-dark');
@@ -35,16 +28,9 @@ App.Front = function() {
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
         });
 
-        var nav = document.getElementById('nav');
-        // var nav = $('#nav');
-        var navswipe = new Hammer(nav);
-        navswipe.on('swipeleft', function() {
-            App.Util.slidebar(Slidebar, 'close', 'left');
-        });
-        
         var cart = document.getElementById('cart');
-        // var cart = $('#cart');
         var cartswipe = new Hammer(cart);
+
         cartswipe.on('swiperight', function(e) {
             App.Util.slidebar(Slidebar, 'close', 'right');
         });
@@ -164,7 +150,6 @@ App.Front = function() {
 
     return {
         Mapbox: this.Mapbox,
-        Slidebar: this.Slidebar,
         listener: listener
     };
 }();
