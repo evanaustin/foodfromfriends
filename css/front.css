@@ -7297,15 +7297,17 @@ body.front.item [canvas="container"] {
 body.front.item div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
+  @media (min-width: 768px) {
+    body.front.item div.main.container #main-content p.description {
+      margin-bottom: 2rem; } }
   @media (max-width: 767px) {
     body.front.item div.main.container #basket-form-container {
       margin-bottom: 1rem; } }
-  body.front.item div.main.container #main-content {
-    max-width: calc(100% - 0.75rem);
-    margin: 0 auto; }
-    @media (min-width: 768px) {
-      body.front.item div.main.container #main-content p.description {
-        margin-bottom: 2rem; } }
+  @media (max-width: 767px) {
+    body.front.item div.main.container #main-content, body.front.item div.main.container #basket-form-container, body.front.item div.main.container .sidebar-content, body.front.item div.main.container .set {
+      max-width: calc(100% - 0.75rem);
+      margin-left: auto;
+      margin-right: auto; } }
   body.front.item div.main.container div.set {
     margin-top: 2em; }
     body.front.item div.main.container div.set .user-block + .user-block {
@@ -7337,6 +7339,10 @@ body.front.item div.main.container {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem; }
+    @media (max-width: 767px) {
+      body.front.item div.main.container #basket-form-container .box .header {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem; } }
     body.front.item div.main.container #basket-form-container select.custom-select, body.front.item div.main.container #basket-form-container div.btn-group {
       border: 1px solid #f5f5f5;
       -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
