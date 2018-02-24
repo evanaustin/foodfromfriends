@@ -7,6 +7,10 @@
     position: relative;
     min-height: 300px;
 
+    @include phones() {
+        min-height: 350px;
+    }
+
     &.submitted form,
     &.submitting form {
         opacity: 0;

@@ -17,6 +17,7 @@ $dark-gray:             darken($gray, 20%);
 $muted:                 #636c72;
 
 $primary:               $superlight-green;
+$secondary:             #fff;
 $inverse:               $dark-green;
 
 $font-weight-normal:    300;
@@ -34,6 +35,7 @@ $custom-select-bg:                      #fff;
 $custom-select-indicator:               none;
 $custom-select-focus-border-color:      lighten($primary, 5%);
 $custom-control-checked-indicator-bg:   $primary;
+$tooltip-arrow-color:                   $dark-gray;
 // $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $primary;
 
 $dropdown-link-color:       #7f7f7f;

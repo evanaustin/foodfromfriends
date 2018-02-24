@@ -392,7 +392,6 @@ fable {
 
         &.actions {
             display: flex;
-            justify-content: center;
             align-items: flex-end;
             
             @include phones() {
@@ -401,6 +400,7 @@ fable {
 
             @include all-but-phones() {
                 flex-direction: column;
+                justify-content: center;
             }
             
             .btn {
@@ -408,7 +408,9 @@ fable {
                 width: 2.5rem;
 
                 @include phones() {
-                    margin: 0 0.5rem;
+                    + .btn {
+                        margin-left: 0.5rem;
+                    }
                 }
 
                 i {
@@ -599,7 +601,9 @@ fable {
                 }
 
                 .user-block {
-                    padding-left: 0.75rem;
+                    @include all-but-phones() {
+                        padding-left: 0.75rem;
+                    }
 
                     .user-photo {
                         @include drop-shadow(0, 2px, 4px);
@@ -638,6 +642,12 @@ fable {
 
         + fable {
             margin-top: 1rem;
+
+            @include phones() {
+                > cell:first-child {
+                    padding-left: 0;
+                }
+            }
         }
     }
 
@@ -666,12 +676,20 @@ fable {
     display: flex;
     flex-direction: row;
 
+    @include phones() {
+        margin-bottom: 0.5rem;
+    }
+
     div.user-photo {
         display: flex;
         align-items: center;
         justify-content: center;
         min-width: 75px;
         margin: 0;
+
+        @include phones() {
+            margin-right: 15px;
+        }
     }
 
     div.user-content {
@@ -680,7 +698,10 @@ fable {
         flex-direction: column;
         justify-content: center;
         text-align: left;
-        padding-left: 15px;
+
+        @include all-but-phones() {
+            padding-left: 15px;
+        }
 
         div {
             display: flex;

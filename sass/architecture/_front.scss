@@ -91,15 +91,15 @@ div.box {
             color: $muted;
             
             &:hover {
-                background-color: lighten($muted, 10%);
-                border-color: lighten($muted, 10%);
-                color: #fff;
+                background-color: lighten($muted, 10%) !important;
+                border-color: lighten($muted, 10%) !important;
+                color: #fff !important;
             }
 
             &.active {
-                background: $muted;
-                border-color: $muted;
-                color: #fff;
+                background: $muted !important;
+                border-color: $muted !important;
+                color: #fff !important;
             }
         }
     }

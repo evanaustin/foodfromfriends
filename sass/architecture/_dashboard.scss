@@ -13,11 +13,6 @@ body.dashboard {
             width: 100%;
             min-height: 60px;
             z-index: $fixed-z;
-            
-            .navbar {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
         }
         
         @include all-but-phones() {
