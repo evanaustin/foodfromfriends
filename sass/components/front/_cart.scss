@@ -1,10 +1,13 @@
 #cart[off-canvas*=right] {
-    width: calc(100% - 2.5rem);
     padding: 1em;
     overflow-y: scroll;
     background-color: #fff;
     border-left: 1px solid $edge-color;
     color: $muted;
+
+    @include phones() {
+        width: calc(100% - 2.5rem);
+    }
 
     #ordergrowers {
         div.set {
