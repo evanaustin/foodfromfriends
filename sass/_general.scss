@@ -423,6 +423,12 @@ canvas {
     justify-content: center;
  }
 
+ .d-justify-center {
+    @include phones() {
+        justify-content: center;
+    }
+}
+
  .flexstart {
     justify-content: flex-start;
  }

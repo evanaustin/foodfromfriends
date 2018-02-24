@@ -1,28 +1,20 @@
-@include phones() {
-    .container {
-        padding-bottom: calc(95px + 2rem) !important;
-    }
-
-    .last-message {
-        justify-content: center;
-    }
-
-    .sendbox {
-        .btn {
-            width: 100%;
-        }
-    }
-}
-
 #messages {
     min-height: calc(100vh - 65px - 52px - 57px - 5rem);
 
     .message {
         @include phones() {
-            margin-bottom: 1rem;
+            margin-top: 0;
+
+            &.right-message {
+                margin-bottom: 0.5rem;
+            }
+    
+            &.left-message {
+                margin-bottom: 0.75rem;
+            }
             
             > cell {
-                margin-top: 0;
+                margin: 0;
             }
         }
 
@@ -39,6 +31,16 @@
 }
 
 #new-message {
-    height: 57px;
+    min-height: 57px;
     margin-top: 1rem;
+
+    @include phones() {
+        texarea {
+            @include border-top-radius($radius);
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
 }

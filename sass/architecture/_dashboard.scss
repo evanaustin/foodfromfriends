@@ -6,19 +6,8 @@ body.dashboard {
 
     div.sidebar {
         position: fixed;
-        
-        @include phones() {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            min-height: 60px;
-            z-index: $fixed-z;
-        }
-        
-        @include all-but-phones() {
-            width: 16.66667%;
-            height: calc(100% - 65px);
-        }
+        width: 16.66667%;
+        height: calc(100% - 65px);
     }
 
     main {
@@ -60,10 +49,6 @@ body.dashboard {
             height: auto;
             min-height: calc(100% - 52px);
             background-color: $superlight-gray;
-
-            @include phones() {
-                padding-bottom: calc(60px + 1rem); /* footer height */
-            }
 
             div.page-title {
                 padding: 0 0 0.5rem;

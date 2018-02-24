@@ -7065,6 +7065,10 @@ canvas:focus {
 .flexjustifycenter {
   justify-content: center; }
 
+@media (max-width: 767px) {
+  .d-justify-center {
+    justify-content: center; } }
+
 .flexstart {
   justify-content: flex-start; }
 

@@ -6559,18 +6559,9 @@ body.dashboard {
   display: flex;
   flex-direction: column; }
   body.dashboard div.sidebar {
-    position: fixed; }
-    @media (max-width: 767px) {
-      body.dashboard div.sidebar {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        min-height: 60px;
-        z-index: 99; } }
-    @media (min-width: 768px) {
-      body.dashboard div.sidebar {
-        width: 16.66667%;
-        height: calc(100% - 65px); } }
+    position: fixed;
+    width: 16.66667%;
+    height: calc(100% - 65px); }
   body.dashboard main {
     position: absolute;
     height: 100%;
@@ -6601,11 +6592,6 @@ body.dashboard {
       height: auto;
       min-height: calc(100% - 52px);
       background-color: #fafafb; }
-      @media (max-width: 767px) {
-        body.dashboard main > div.container,
-        body.dashboard main > div.container-fluid {
-          padding-bottom: calc(60px + 1rem);
-          /* footer height */ } }
       body.dashboard main > div.container div.page-title,
       body.dashboard main > div.container-fluid div.page-title {
         padding: 0 0 0.5rem;
@@ -6959,22 +6945,17 @@ div.seamless .block .callout {
   div.seamless .block .callout p {
     margin-bottom: 0; }
 
-@media (max-width: 767px) {
-  .container {
-    padding-bottom: calc(95px + 2rem) !important; }
-
-  .last-message {
-    justify-content: center; }
-
-  .sendbox .btn {
-    width: 100%; } }
 #messages {
   min-height: calc(100vh - 65px - 52px - 57px - 5rem); }
   @media (max-width: 767px) {
     #messages .message {
-      margin-bottom: 1rem; }
+      margin-top: 0; }
+      #messages .message.right-message {
+        margin-bottom: 0.5rem; }
+      #messages .message.left-message {
+        margin-bottom: 0.75rem; }
       #messages .message > cell {
-        margin-top: 0; } }
+        margin: 0; } }
   @media (min-width: 768px) {
     #messages .message.right-message {
       margin-bottom: 0.5rem; }
@@ -6982,7 +6963,13 @@ div.seamless .block .callout {
       margin-bottom: 0.25rem; } }
 
 #new-message {
-  height: 57px;
+  min-height: 57px;
   margin-top: 1rem; }
+  @media (max-width: 767px) {
+    #new-message texarea {
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem; }
+    #new-message .btn {
+      width: 100%; } }
 
 /*# sourceMappingURL=dashboard.css.map */
