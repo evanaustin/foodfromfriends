@@ -347,14 +347,24 @@ keymap {
  */
 fable {
     display: flex;
-    flex-direction: row;
     margin-bottom: 0;
+
+    @include phones() {
+        flex-direction: column;
+    }
+
+    @include all-but-phones() {
+        flex-direction: row;
+    }
 
     > cell {
         display: flex;
-        flex-basis: 0;
         flex-grow: 1;
         align-items: center;
+        
+        @include all-but-phones() {
+            flex-basis: 0;
+        }
 
         &.justify-center {
             justify-content: center;
