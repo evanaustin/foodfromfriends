@@ -11,10 +11,12 @@ body.dashboard {
     }
 
     main {
-        position: absolute;
+        position: fixed;
+        overflow: auto;
         height: 100%;
         padding: 0;
         background-color: $superlight-gray;
+        border-left: 1px solid $edge-color;
         
         @include phones() {
             width: 100%;
