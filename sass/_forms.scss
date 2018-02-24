@@ -108,8 +108,10 @@ form {
         }
     }
 
-    .form-control-danger {
+    .form-control.danger {
         color: $danger;
+        border-width: 0;
+        box-shadow: 0 0 0 1px $danger;
     }
 
     .btn-group {
@@ -126,7 +128,7 @@ form {
                 }
             }
 
-            + .form-control-danger {
+            + .form-control.danger {
                 background-image: none;
             }
         }
@@ -318,7 +320,9 @@ form {
     }
 
     .form-control-feedback {
+        margin-top: 0.25rem;
         font-size: 0.75rem;
+        color: $danger;
     }
 
     @include phones() {

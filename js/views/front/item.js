@@ -13,7 +13,7 @@ App.Front.Item = function() {
                 .find('button')
                 .removeClass('active');
 
-            $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('form-control-danger');
+            $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
             
             $(this).addClass('active');
         });
@@ -47,12 +47,12 @@ App.Front.Item = function() {
 
             if (!$active_ex_op) {
                 $(ex + 'div.btn-group').addClass('has-danger');
-                $(ex + 'div.form-control-feedback').removeClass('hidden').addClass('form-control-danger');
+                $(ex + 'div.form-control-feedback').removeClass('hidden').addClass('danger');
                 
                 return;
             } else {
                 $(ex + 'div.btn-group').removeClass('has-danger');
-                $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('form-control-danger');
+                $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
                 
                 data.push({
                     name: 'exchange-option', 

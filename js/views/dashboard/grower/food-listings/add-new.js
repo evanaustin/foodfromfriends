@@ -152,7 +152,7 @@ $('#add-listing').on('submit', function(e) {
                 $form.each(function() {
                     this.reset();
                     $('div.form-group').removeClass('has-success');
-                    $('input, select').removeClass('form-control-success');
+                    $('input, select').removeClass('success');
                 });
 
                 // reset subcategories
