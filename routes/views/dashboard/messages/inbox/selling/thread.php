@@ -74,7 +74,7 @@
                                 ?>
 
                                 <div class="col-md-9 offset-md-3">
-                                    <fable class="message grower-message">
+                                    <fable class="message right-message">
                                         <cell class="flexend">
                                             <div class="bubble inline-block align-left muted">
                                                 <?php echo $ThisMessage->body; ?>
@@ -94,7 +94,7 @@
                                 ?>
 
                                 <div class="col-md-9">
-                                    <fable class="message buyer-message">
+                                    <fable class="message left-message">
                                         <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
                                             <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                                 <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo (!empty($Customer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
@@ -140,7 +140,7 @@
                     <input type="hidden" name="grower-operation-id" value="<?php echo $Grower->id;?>">
                     <input type="hidden" name="sent-by" value="grower">
 
-                    <div class="sendbox input-group w-addon">
+                    <div class="input-group w-addon">
                         <textarea name="message" placeholder="Enter message&hellip;" rows="1" autofocus></textarea>
 
                         <button class="input-group-addon btn btn-primary">

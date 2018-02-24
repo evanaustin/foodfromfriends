@@ -52,7 +52,7 @@
                             <?php echo $date_sent; ?>
                         </cell>
                         
-                        <cell class="last-message flexgrow-3 muted">
+                        <cell class="flexgrow-3 muted d-justify-center">
                             <?php echo '<i class="fa fa-' . (($ThisMessage->sent_by == 'user') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
 
                             <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (isset($grower_operation_id) ? 'grower=' . $grower_operation_id . '&' : '') . 'user=' . $Customer->id; ?>">
