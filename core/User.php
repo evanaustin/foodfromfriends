@@ -22,6 +22,12 @@ class User extends Base {
         $zipcode,
         $latitude,
         $longitude,
+        $billing_card_name,
+        $billing_address_line_1,
+        $billing_address_line_2,
+        $billing_city,
+        $billing_state,
+        $billing_zipcode,
         $filename,
         $ext;
 
@@ -71,6 +77,12 @@ class User extends Base {
                 ua.zipcode,
                 ua.latitude,
                 ua.longitude,
+                ub.card_name AS billing_card_name,
+                ub.address_line_1 AS billing_address_line_1,
+                ub.address_line_2 AS billing_address_line_2,
+                ub.city AS billing_city,
+                ub.state AS billing_state,
+                ub.zipcode AS billing_zipcode,
                 upi.filename,
                 upi.ext
             
@@ -78,6 +90,9 @@ class User extends Base {
             
             LEFT JOIN user_addresses ua
                 ON u.id = ua.user_id
+            
+            LEFT JOIN user_billing_info ub
+                ON u.id = ub.user_id
             
             LEFT JOIN user_profile_images upi
                 ON u.id = upi.user_id
