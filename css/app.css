@@ -7426,13 +7426,20 @@ keymap key {
  */
 fable {
   display: flex;
-  flex-direction: row;
   margin-bottom: 0; }
+  @media (max-width: 767px) {
+    fable {
+      flex-direction: column; } }
+  @media (min-width: 768px) {
+    fable {
+      flex-direction: row; } }
   fable > cell {
     display: flex;
-    flex-basis: 0;
     flex-grow: 1;
     align-items: center; }
+    @media (min-width: 768px) {
+      fable > cell {
+        flex-basis: 0; } }
     fable > cell.justify-center {
       justify-content: center; }
     fable > cell.justify-end {
