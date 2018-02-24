@@ -1,6 +1,6 @@
 <div class="sidebar">
     <nav class="navbar navbar-expand-sm navbar-light">
-        <button class="navbar-toggler navbar-toggler-left animated bounceIn" type="button" data-toggle="collapse" data-target="#sidebar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-left btn-primary animated bounceIn" type="button" data-toggle="collapse" data-target="#sidebar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-clone"></i>
         </button>
     
