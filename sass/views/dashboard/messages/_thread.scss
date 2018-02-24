@@ -1,6 +1,16 @@
 @include phones() {
+    .container {
+        padding-bottom: calc(95px + 2rem) !important;
+    }
+
     .last-message {
         justify-content: center;
+    }
+
+    .sendbox {
+        .btn {
+            width: 100%;
+        }
     }
 }
 
@@ -10,6 +20,10 @@
     .message {
         @include phones() {
             margin-bottom: 1rem;
+            
+            > cell {
+                margin-top: 0;
+            }
         }
 
         @include all-but-phones() {

@@ -6943,13 +6943,21 @@ div.seamless .block .callout {
     margin-bottom: 0; }
 
 @media (max-width: 767px) {
+  .container {
+    padding-bottom: calc(95px + 2rem) !important; }
+
   .last-message {
-    justify-content: center; } }
+    justify-content: center; }
+
+  .sendbox .btn {
+    width: 100%; } }
 #messages {
   min-height: calc(100vh - 65px - 52px - 57px - 5rem); }
   @media (max-width: 767px) {
     #messages .message {
-      margin-bottom: 1rem; } }
+      margin-bottom: 1rem; }
+      #messages .message > cell {
+        margin-top: 0; } }
   @media (min-width: 768px) {
     #messages .message.right-message {
       margin-bottom: 0.5rem; }

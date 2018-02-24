@@ -134,7 +134,7 @@
                 <input type="hidden" name="grower-operation-id" value="<?php echo $Grower->id;?>">
                 <input type="hidden" name="sent-by" value="user">
 
-                <div class="input-group w-addon">
+                <div class="sendbox input-group w-addon">
                     <textarea name="message" placeholder="Enter message&hellip;" rows="1" autofocus></textarea>
 
                     <button class="input-group-addon btn btn-primary">
