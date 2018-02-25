@@ -37,7 +37,7 @@ body.map {
             }
 
             @include all-but-phones() {
-                overflow-y: scroll;
+                overflow-y: auto;
             }
             
             div#list {
