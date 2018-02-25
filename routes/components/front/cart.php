@@ -46,10 +46,6 @@
                                     <a href="<?php echo PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
                                         <?php echo $FoodListingItem->title; ?>
                                     </a>
-
-                                    <a class="remove-item float-right">
-                                        <i class="fa fa-times"></i>
-                                    </a>
                                 </div>
     
                                 <div class="item-details">
@@ -57,17 +53,21 @@
                                     
                                     <?php
                                                             
-                                        for ($i = 1; $i <= $FoodListingItem->quantity; $i++) {
-                                            echo "<option value=\"{$i}\"" . (($i == $CartItem->quantity) ? 'selected' : '') . ">{$i}</option>";
-                                        }
+                                    for ($i = 1; $i <= $FoodListingItem->quantity; $i++) {
+                                        echo "<option value=\"{$i}\"" . (($i == $CartItem->quantity) ? 'selected' : '') . ">{$i}</option>";
+                                    }
                                         
                                     ?>
     
                                     </select>
-    
+
                                     <div class="item-price">
                                         <?php amount($CartItem->total); ?>
                                     </div>
+    
+                                    <a class="remove-item">
+                                        <i class="fa fa-times"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
