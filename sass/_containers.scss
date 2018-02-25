@@ -736,6 +736,7 @@ fable {
 .modal-content {
     border: 0px;
     background-color: $superlight-gray;
+    border: 0;
     @include rounded($radius);
     @include drop-shadow(0, 2px, 4px);
 
@@ -754,6 +755,7 @@ fable {
 
     .modal-body {
         padding: 1em;
+        background-color: $superlight-gray;
         color: $muted;
     }
 
