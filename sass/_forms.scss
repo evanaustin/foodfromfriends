@@ -5,7 +5,7 @@ div.alerts {
     display: none;
 
     div.alert {
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
 
         &.alert-success {
             a:hover {
@@ -79,7 +79,7 @@ form {
     div.image-box {
         border: 0px;
         // border-top: 0.5px solid $lightedge-color;
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
         @include rounded($radius);
         @include transition(all .2s);
 
@@ -151,7 +151,7 @@ form {
         span.custom-control-indicator {
             top: 0.2rem;
             background-color: #fff;
-            @include drop-shadow(0, 2px, 4px);
+            @include drop-shadow(0, 1px, 3px);
         }
     }
 

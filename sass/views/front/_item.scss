@@ -74,7 +74,7 @@ body.front.item {
 
         #basket-form-container {
             background-color: #fff;
-            @include drop-shadow(0, 2px, 4px);
+            @include drop-shadow(0, 1px, 3px);
             @include border-bottom-radius($radius);
 
             @include phones() {

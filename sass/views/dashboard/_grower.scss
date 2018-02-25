@@ -28,7 +28,7 @@ body.dashboard-grower {
                 }
 
                 div.list-ticks {
-                    @include drop-shadow(0, 2px, 4px);
+                    @include drop-shadow(0, 1px, 3px);
                     @include rounded($radius);
                     
                     a {

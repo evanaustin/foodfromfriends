@@ -18,7 +18,7 @@ keymap, key {
     padding: 0.75rem;
     background-color: #fff;
     @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
 
     + .bubble {
         margin-top: 1rem;
@@ -54,7 +54,7 @@ keymap {
 .card {
     flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
     border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
     @include transition(all .2s);
 
     &:hover {
@@ -191,7 +191,7 @@ keymap {
     text-align: center;
     color: $muted;
     border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
     @include rounded($radius);
 
     div.value {
@@ -318,7 +318,7 @@ keymap {
     background-color: #fff;
     border-color: $superlight-gray;
     @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
 
     th {
         border-top: 0px;
@@ -483,7 +483,7 @@ fable {
                     width: 1.25rem;
                     height: 100%;
                     @include rounded($radius);
-                    @include drop-shadow(0, 2px, 4px);
+                    @include drop-shadow(0, 1px, 3px);
                     @include transition(all .2s);
                 }
 
@@ -552,7 +552,7 @@ fable {
 
         &.closed {
             background-color: #fff;
-            @include drop-shadow(0, 2px, 4px);
+            @include drop-shadow(0, 1px, 3px);
             
             > [data-toggle="collapse"] {
                 &:before {
@@ -606,7 +606,7 @@ fable {
                     }
 
                     .user-photo {
-                        @include drop-shadow(0, 2px, 4px);
+                        @include drop-shadow(0, 1px, 3px);
                     }
                 }
             }
@@ -726,7 +726,7 @@ fable {
     background-position: center center;
     border: 1px solid $edge-color;
     @include rounded(50%);
-    @include drop-shadow(0, 2px, 4px)
+    @include drop-shadow(0, 1px, 3px)
 }
 
 /*
@@ -738,7 +738,7 @@ fable {
     background-color: $superlight-gray;
     border: 0;
     @include rounded($radius);
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
 
     .modal-header {
         padding: 0.5em 1em;
@@ -775,7 +775,7 @@ fable {
         opacity: 1;
         -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         filter: alpha(opacity=100);
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
         
         &:hover {
             opacity: 1;

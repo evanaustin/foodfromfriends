@@ -28,7 +28,7 @@
                     margin-bottom: 0.5em;
                     background: $superlight-gray;
                     color: $muted;
-                    @include drop-shadow(0, 2px, 4px);
+                    @include drop-shadow(0, 1px, 3px);
                     @include rounded($radius);
 
                     div.item-image {
@@ -79,6 +79,7 @@
                             }
 
                             a.remove-item {
+                                cursor: pointer;
                                 justify-content: flex-end;
                             }
                         }

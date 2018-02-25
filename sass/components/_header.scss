@@ -6,7 +6,7 @@
 nav#header.navbar {
     background-color: #fff;
     border-bottom: 1px solid $edge-color;
-    // @include drop-shadow(0, 2px, 4px);
+    // @include drop-shadow(0, 1px, 3px);
 
     @include all-but-phones() {
         padding: 0.5rem 1rem;
@@ -73,14 +73,14 @@ nav#header.navbar {
                 background: $superlight-green;
                 border: 1px solid $superlight-green;
                 color: #fff;
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
             }
 
             &:not(.active):hover {
                 border-top: 0.5px solid $lightedge-color;
                 color: $superlight-green;
                 @include transform(translateY(-2px));
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
             }
 
             span + i {
@@ -101,7 +101,7 @@ nav#header.navbar {
                 background-size: cover;
                 background-position: center center;
                 @include rounded(50px);
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
                 @include transition(all .2s);
     
                 &:hover {
@@ -125,7 +125,7 @@ nav#header.navbar {
         z-index: $super-z;
         margin-top: 0.75rem;
         border-color: $edge-color;
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
 
         a.dropdown-item {
             @include transition(all .2s);
