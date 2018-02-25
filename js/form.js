@@ -29,9 +29,9 @@ App.Form = function() {
             this.$element.removeClass('success').addClass('danger');
         });
         
-        /* window.Parsley.on('field:success', function() {
+        window.Parsley.on('field:success', function() {
             this.$element.removeClass('danger').addClass('success');
-        }); */
+        });
 
 
         /*
