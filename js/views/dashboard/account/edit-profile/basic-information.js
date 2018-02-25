@@ -80,7 +80,8 @@ $('#edit-basic-information').on('submit', function(e) {
 	    
 		App.Ajax.postFiles('dashboard/account/edit-profile/save-basic-information', data, 
 			function(response) {
-				toastr.success('Your basic information has been updated!');
+                // toastr.success('Your basic information has been updated!');
+                App.Util.msg('Your information has been updated!', 'success');
 				App.Util.finishedLoading();
 			},
 			function(response) {
