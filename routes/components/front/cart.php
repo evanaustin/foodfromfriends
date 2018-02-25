@@ -91,7 +91,11 @@
                             <?php
                             
                             if ($OrderGrower->Exchange->type == 'delivery') {
-                                amount($OrderGrower->Exchange->fee);
+                                if ($OrderGrower->Exchange->fee > 0) {
+                                    amount($OrderGrower->Exchange->fee);
+                                } else {
+                                    echo 'Free';
+                                }
                             } else {
                                 echo 'Free';
                             }
