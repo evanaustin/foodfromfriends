@@ -89,7 +89,7 @@ App.Front.Checkout = function () {
             stripe.createToken(card).then(function(result) {
                 if (result.error) {
                     // Inform the user if there was an error
-                    handleError(result.error);
+                    handleError(result.error.message);
                 } else {
                     // Send the token to server
                     stripeTokenHandler(result.token);
