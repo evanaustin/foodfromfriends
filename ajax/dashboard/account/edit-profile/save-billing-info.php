@@ -47,7 +47,7 @@ if ($User->exists('user_id', $User->id, 'user_billing_info')) {
         'zipcode'           => $zipcode
     ], 'user_id', $User->id, 'user_billing_info');
     
-    if (!$updated) quit('We could not update your location');
+    if (!$updated) quit('We could not update your billing information');
 } else {
     $added = $User->add([
         'card_name'         => $card_name,
@@ -59,7 +59,7 @@ if ($User->exists('user_id', $User->id, 'user_billing_info')) {
         'zipcode'           => $zipcode
     ], 'user_billing_info');
     
-    if (!$added) quit('We could not add your location');
+    if (!$added) quit('We could not add your billing information');
 }
 
 echo json_encode($json);
