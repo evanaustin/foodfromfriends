@@ -78,7 +78,7 @@ form {
     textarea.form-control, 
     div.image-box {
         border: 0px;
-        border-top: 0.5px solid $lightedge-color;
+        // border-top: 0.5px solid $lightedge-color;
         @include drop-shadow(0, 2px, 4px);
         @include rounded($radius);
         @include transition(all .2s);
@@ -106,6 +106,12 @@ form {
         @include placeholder() {
             color: $light-gray;
         }
+    }
+
+    .form-control.success {
+        color: $success;
+        border-width: 0;
+        box-shadow: 0 0 0 1px $success;
     }
 
     .form-control.danger {
@@ -211,7 +217,7 @@ form {
         max-height: 630px;
         padding: 0.5em;
         background: #fff;
-        border-top: 0.5px solid $lightedge-color;
+        // border-top: 0.5px solid $lightedge-color;
         cursor: pointer;
         @include rounded($radius);
         @include transition(all .2s);
