@@ -6561,9 +6561,9 @@ main {
 
 .sidebar-content {
   border-top: 0.5px solid rgba(0, 0, 0, 0.025);
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
   border-radius: 0.25rem; }
@@ -6666,9 +6666,9 @@ div.box {
     margin-bottom: 0.5em;
     background: #fafafb;
     color: #636c72;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
@@ -6708,6 +6708,7 @@ div.box {
           padding: 0 0.75rem;
           font-size: 0.85rem; }
         #cart[off-canvas*=right] #ordergrowers div.set div.cart-items div.cart-item div.item-content div.item-details a.remove-item {
+          cursor: pointer;
           justify-content: flex-end; }
   #cart[off-canvas*=right] div.line-amount {
     display: flex;
@@ -7342,9 +7343,9 @@ body.front.item div.main.container {
           margin-bottom: 0.5em; }
   body.front.item div.main.container #basket-form-container {
     background-color: #fff;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem; }
     @media (max-width: 767px) {
@@ -7369,9 +7370,11 @@ body.front.item div.main.container {
   padding: 10px 12px;
   border-radius: 4px;
   border: 1px solid transparent;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
   -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease; }
+  transition: box-shadow 150ms ease;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
   #stripe-elements .StripeElement .StripeElement--focus {
     box-shadow: 0 1px 3px 0 #cfd7df; }
   #stripe-elements .StripeElement .StripeElement--invalid {

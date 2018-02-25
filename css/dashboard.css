@@ -6814,9 +6814,9 @@ body.dashboard-grower div.container-fluid {
     -moz-border-radius: 0px;
     border-radius: 0px; }
   body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks {
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
@@ -6935,9 +6935,9 @@ div.seamless .block div.buyer-photo {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
 div.seamless .block .callout {
   text-align: left; }
   div.seamless .block .callout + .callout {
