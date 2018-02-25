@@ -66,18 +66,20 @@
         
                             select.custom-select {
                                 height: auto;
-                                padding: 0.25rem 1.70rem 0.25rem 0.7rem;
                                 border-color: $edge-color;
-                                font-size: 0.85em;
+                                font-size: 0.85rem;
                                 color: $muted;
                                 @include drop-shadow(0,0,0);
                             }
         
-                            div.item-price {
+                            .item-price {
                                 flex-grow: 1;
-                                padding-left: 0.5em;
-                                text-align: right;
-                                font-size: 0.85em;
+                                padding: 0 0.75rem;
+                                font-size: 0.85rem;
+                            }
+
+                            a.remove-item {
+                                justify-content: flex-end;
                             }
                         }
                     }
