@@ -8,7 +8,7 @@ App.Dashboard.OrderReview = function() {
             bootbox.confirm({
                 closeButton: false,
                 title: 'Submit review',
-                message: 'Please confirm that you want to submit your review of this order. You cannot change a review after it has been submitted.',
+                message: 'Please confirm you want to submit your review of this order. You cannot change a review after it has been submitted.',
                 buttons: {
                     confirm: {
                         label: 'Submit',

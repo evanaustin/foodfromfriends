@@ -9,7 +9,7 @@ App.Dashboard.OrderIssue = function() {
             bootbox.confirm({
                 closeButton: false,
                 title: 'Submit report',
-                message: 'Please confirm that you want to report an issue with this order.',
+                message: '<div class="text-center">Please confirm you want to report an issue with this order</div>',
                 buttons: {
                     confirm: {
                         label: 'Submit',
