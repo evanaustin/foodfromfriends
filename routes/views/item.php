@@ -328,7 +328,7 @@
                                                             <?php
                                                             
                                                             for ($i = 1; $i <= $FoodListing->quantity; $i++) {
-                                                                echo "<option value=\"{$i}\">{$i}</option>";
+                                                                echo "<option value=\"{$i}\"" . (isset($_GET['quantity']) && $_GET['quantity'] == $i ? 'selected' : '') . ">{$i}</option>";
                                                             }
                                                             
                                                             ?>
@@ -344,7 +344,7 @@
                                                             <?php
                                                             
                                                             foreach ($exchange_options_available as $option) {
-                                                                echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" /* . (($active_ex_op == $option) ? ' active' : '') */ . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
+                                                                echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . ((isset($_GET['exchange']) && $_GET['exchange'] == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
                                                             }
                                                             
                                                             ?>
