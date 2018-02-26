@@ -157,7 +157,7 @@ try {
                 'toEmail'   => $Member->email
             ]);
             
-            // $Mail->new_order_notification($Member, $Seller, $OrderGrower, $User);
+            $Mail->new_order_notification($Member, $Seller, $OrderGrower, $User);
         }
     }
 } catch (\Exception $e) {
