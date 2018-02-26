@@ -90,19 +90,21 @@ App.Util = function() {
 
     function loading(element, display_type) {
         var spinner = element || '';
+        $spinner = $('i.loading-icon' + spinner);
 
-        if ($('i.loading-icon' + spinner).length > 0) {
-            $('i.loading-icon' + spinner).css('visibility', 'visible').css('opacity', '1');
-            $('button[type=submit]').prop('disabled', true);
+        if ($spinner.length > 0) {
+            $spinner.css('visibility', 'visible').css('opacity', '1');
+            $spinner.parents('button[type=submit]').prop('disabled', true);
         }
     }
 
     function finishedLoading(element) {
         var spinner = element || '';
+        $spinner = $('i.loading-icon' + spinner);
 
-        if ($('i.loading-icon' + spinner).length > 0) {
-            $('i.loading-icon' + spinner).css('visibility', 'hidden').css('opacity', '0');
-            $('button[type=submit]').prop('disabled', false);
+        if ($spinner.length > 0) {
+            $spinner.css('visibility', 'hidden').css('opacity', '0');
+            $spinner.parents('button[type=submit]').prop('disabled', false);
         }
     }
 
