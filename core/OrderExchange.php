@@ -157,9 +157,9 @@ class OrderExchange extends Base {
         if ($this->type == 'delivery') {
             if ($this->distance > $this->Seller->Delivery->free_distance) {
                 if ($this->Seller->Delivery->pricing_rate == 'per-mile') {
-                    $fee = $this->Seller->Delivery->fee * ($this->distance - $this->Seller->Delivery->free_distance);
+                    $fee = number_format($this->Seller->Delivery->fee * ($this->distance - $this->Seller->Delivery->free_distance), 0);
                 } else {
-                    $fee = $this->Seller->Delivery->fee;
+                    $fee = number_format($this->Seller->Delivery->fee, 0);
                 }
             }          
         }
