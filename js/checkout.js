@@ -28,7 +28,7 @@ App.Front.Checkout = function () {
             city:           $('input[name="city"]').val(),
             state:          $('input[name="state"]').val(),
             zipcode:        $('input[name="zipcode"]').val(),
-            stripe_token:   token
+            stripe_token:   token.id
         };
 
         App.Ajax.post('order/place-order', data,
