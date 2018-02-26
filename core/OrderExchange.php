@@ -93,11 +93,11 @@ class OrderExchange extends Base {
         switch($this->type) {
             case 'delivery':
                 // use buyer address
-                $this->address_line_1 = $this->Buyer->address_line_1;
-                $this->address_line_2 = $this->Buyer->address_line_2;
-                $this->city           = $this->Buyer->city;
-                $this->state          = $this->Buyer->state;
-                $this->zipcode        = $this->Buyer->zipcode;
+                $this->address_line_1 = $this->Buyer->delivery_address_line_1;
+                $this->address_line_2 = $this->Buyer->delivery_address_line_2;
+                $this->city           = $this->Buyer->delivery_city;
+                $this->state          = $this->Buyer->delivery_state;
+                $this->zipcode        = $this->Buyer->delivery_zipcode;
 
                 break;
             case 'pickup':
@@ -133,7 +133,7 @@ class OrderExchange extends Base {
     private function calculate_distance() {
         // Only delivery stores a distance. For everything else, set as 0
         if ($this->type == 'delivery') {
-            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->Buyer->latitude . ',' . $this->Buyer->longitude . '&destinations=' . $this->Seller->details['lat'] . ',' . $this->Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
+            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->Buyer->delivery_latitude . ',' . $this->Buyer->delivery_longitude . '&destinations=' . $this->Seller->details['lat'] . ',' . $this->Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
             $output = json_decode($geocode);
             $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
             
@@ -176,7 +176,13 @@ class OrderExchange extends Base {
      * Given the exchange method selected for this grower in this order, set the time and instruction details.
      */
     private function set_details() {
-        if ($this->type == 'pickup') {
+        if ($this->type == 'delivery') {
+            $this->update([
+                'instructions'  => $this->Buyer->delivery_instructions
+            ]);
+    
+            $this->instructions = $this->Buyer->delivery_instructions;
+        } else if ($this->type == 'pickup') {
             $this->update([
                 'time'          => $this->Seller->Pickup->time,
                 'instructions'  => $this->Seller->Pickup->instructions
