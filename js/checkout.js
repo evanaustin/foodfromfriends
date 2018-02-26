@@ -7,7 +7,7 @@ App.Front.Checkout = function () {
 
     function handleError(error) {
         stripeElements.removeClass('submitting');
-        displayError.textContent = error;
+        displayError.text(error);
     }
 
     function handleSuccess() {
