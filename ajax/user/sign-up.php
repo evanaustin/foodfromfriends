@@ -100,6 +100,8 @@ $Mail->thanks_signup();
 
 if (isset($redirect) && $redirect == 'false') {
     $json['redirect'] = false;
+} else if (isset($redirect)) {
+    $json['redirect'] = $redirect;
 } else if (isset($GrowerOperation)) {
     $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
 } else {
