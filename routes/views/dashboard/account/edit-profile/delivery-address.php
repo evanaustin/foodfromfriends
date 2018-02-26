@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea name="instructions" class="form-control" placeholder="Enter any special delivery instructions the seller should know"><?php if (!empty($User->delivery_zipcode)) { echo $User->delivery_zipcode; } ?></textarea>
+                        <textarea name="instructions" class="form-control" placeholder="Enter any special delivery instructions the seller should know"><?php if (!empty($User->delivery_instructions)) { echo $User->delivery_instructions; } ?></textarea>
                     </div>
                 </div>
             </div>
