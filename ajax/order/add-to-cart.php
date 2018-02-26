@@ -58,11 +58,11 @@ try {
     $proceed = true;
 
     if ($exchange_option  == 'delivery') {
-        if (!isset($User->address_line_1) || !isset($User->city) || !isset($User->state) || !isset($User->zipcode)) {
-            quit('Please set your address <a href="' . PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information">here</a>');
+        if (!isset($User->delivery_latitude) || !isset($User->delivery_longitude)) {
+            quit('Please set your address <a href="' . PUBLIC_ROOT . 'dashboard/account/edit-profile/delivery-address">here</a>');
         }
 
-        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->latitude . ',' . $User->longitude . '&destinations=' . $Seller->details['lat'] . ',' . $Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
+        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->delivery_latitude . ',' . $User->delivery_longitude . '&destinations=' . $Seller->details['lat'] . ',' . $Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
         $output = json_decode($geocode);
         $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
         
