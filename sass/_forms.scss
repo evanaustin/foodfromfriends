@@ -16,13 +16,11 @@ div.alerts {
     }
 }
 
-div.controls {
-    i.loading-icon {
-        visibility: hidden;
-        opacity: 0;
-        animation: spin 2s linear infinite;
-        @include transition(all 0.35s ease);
-    }
+i.loading-icon {
+    visibility: hidden;
+    opacity: 0;
+    animation: spin 2s linear infinite;
+    @include transition(all 0.35s ease);
 }
 
 form {

@@ -7740,7 +7740,7 @@ div.alerts {
       color: #fff;
       text-decoration: underline; }
 
-div.controls i.loading-icon {
+i.loading-icon {
   visibility: hidden;
   opacity: 0;
   animation: spin 2s linear infinite;
