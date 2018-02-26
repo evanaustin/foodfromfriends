@@ -7386,7 +7386,7 @@ body.front.item div.main.container {
   color: #dc3545;
   font-size: 0.85rem;
   text-align: center; }
-#stripe-elements button[type="submit"] {
+#stripe-elements button {
   margin-top: 1rem; }
 #stripe-elements #payment-success {
   display: -ms-flexbox;
