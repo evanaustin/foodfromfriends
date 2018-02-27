@@ -59,8 +59,8 @@ $dob    = $date->format('Y-m-d H:i:s');
 
 $profile_updated = $User->update([
     'email'         => $email,
-    'first_name'    => $first_name,
-    'last_name'     => $last_name,
+    'first_name'    => ucfirst($first_name),
+    'last_name'     => ucfirst($last_name),
     'phone'         => $phone,
     'dob'           => $dob,
     'gender'        => $gender, 
