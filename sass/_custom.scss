@@ -1,0 +1,71 @@
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+
+$light-green:           #00A669;
+$superlight-green:      lighten($light-green, 5%);
+$dark-green:            #005434;
+$faded-green:           rgba(0, 179, 113, 0.25);
+
+$off-white:             #eee;
+
+$gray:                  #7f7f7f;
+$light-gray:            lighten($gray, 20%);
+$dark-gray:             darken($gray, 20%);
+
+$muted:                 #636c72;
+
+$primary:               $superlight-green;
+$secondary:             #fff;
+$inverse:               $dark-green;
+
+$font-weight-normal:    300;
+
+$link-color:            $muted;
+$link-hover-color:      $primary;
+$link-hover-decoration: none;
+
+$btn-primary-bg:        $primary;
+$btn-primary-border:    $primary;
+
+$input-border-focus:                    lighten($primary, 5%);
+$custom-control-active-indicator-bg:    lighten($primary, 5%);
+$custom-select-bg:                      #fff;
+$custom-select-indicator:               none;
+$custom-select-focus-border-color:      lighten($primary, 5%);
+$custom-control-checked-indicator-bg:   $primary;
+$tooltip-arrow-color:                   $dark-gray;
+// $custom-control-focus-indicator-box-shadow: 0 0 0 1px $body-bg, 0 0 0 3px $primary;
+
+$dropdown-link-color:       #7f7f7f;
+$dropdown-link-active-bg:   $light-green;
+
+$list-group-active-bg:      #4c4c4c;
+$list-group-active-border:  #4c4c4c;
+
+$card-border-width:     0px;
+
+$badge-primary-bg:      $primary;
+
+$alert-success-bg:      $primary;
+$alert-success-border:  $primary;
+$alert-success-text:    #fff;
+
+// $alert-info-bg:         $info;
+// $alert-info-border:     $info;
+$alert-info-text:       #fff;
+
+// $alert-warning-bg:      $warning;
+// $alert-warning-border:  $warning;
+$alert-warning-text:    #fff;
+
+// $alert-danger-bg:       $danger;
+// $alert-danger-border:   $danger;
+$alert-danger-text:     #fff;
+
+// $enable-shadows:            true;
+// $enable-gradients:          true;
+
+@import 'thirdparty/bootstrap/functions';
+@import 'thirdparty/bootstrap/bootstrap';

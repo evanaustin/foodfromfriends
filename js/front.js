@@ -9,26 +9,35 @@ App.Front = function() {
         });
     }
 
-    // create & initialize a new instance of Slidebars
-    this.Slidebar = new slidebars();
-    Slidebar.init();
-
     function listener() {
         // make login direct back to current page
         $('form#log-in')
             .find('input[name="redirect"]')
             .val(false);
 
-        $('#cart-toggle').on('click', function(e) {
+        $('.cart-toggle').on('click', function(e) {
             App.Util.slidebar(Slidebar, 'toggle', 'right', e);
         });
 
+        // ! dirty - shouldn't be capturing universally and applying specificall -
         $(Slidebar.events).on('opened', function () {
-            $('a#cart-toggle').addClass('active');
+            $('a.cart-toggle').addClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-primary').addClass('btn-dark');
         }).on('closed', function () {
-            $('a#cart-toggle').removeClass('active');
+            $('a.cart-toggle').removeClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
+        });
+
+        var cart = document.getElementById('cart');
+        var cartswipe = new Hammer(cart);
+
+        cartswipe.on('swiperight', function(e) {
+            App.Util.slidebar(Slidebar, 'close', 'right');
+        });
+
+        $('div[canvas="container"]').on('click', function(e) {
+            App.Util.slidebar(Slidebar, 'close', 'left', e);
+            App.Util.slidebar(Slidebar, 'close', 'right', e);
         });
 
         $(document).on('click', '#cart a.remove-item', function(e) {
@@ -141,7 +150,6 @@ App.Front = function() {
 
     return {
         Mapbox: this.Mapbox,
-        Slidebar: this.Slidebar,
         listener: listener
     };
 }();

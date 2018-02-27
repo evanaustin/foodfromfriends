@@ -2,20 +2,20 @@ body.dashboard-grower-food-listings-overview {
     div.listings {
         div.col-md-4 {
             &:nth-child(-n+3) {
-                div.card {
+                .card {
                     margin-top: 0.25em;
                 }
             }
     
             &:nth-child(n+4) {
-                div.card {
+                .card {
                     margin-top: 2em;
                 }
             }
 
             @include phones() {
                 &:not(:last-child) {
-                    div.card {
+                    .card {
                         margin-bottom: 10px;
                     }
                 }
@@ -23,23 +23,23 @@ body.dashboard-grower-food-listings-overview {
         }
     }
     
-    div.card {
+    .card {
         border: 0px;
     }
     
-    div.card-img-top {
+    .card-img-top {
         padding: 0;
         
         img {
             border: 0px;
-            @include border-radius($radius, 0, 0, $radius);
+            @include border-top-radius($radius);
+            @include border-bottom-radius(0);
         }
     }
     
-    div.card-block {
+    .card-body {
         padding: 0;
         // align-items: center;
-        // padding: 0.75rem 1rem;
         min-height: 155px;
         border: 0px;
     
@@ -62,9 +62,9 @@ body.dashboard-grower-food-listings-overview {
     div.listing-info {
         flex-grow: 1;
         justify-content: center;
-        padding: 1.25rem;
         border-right: 1px solid $edge-color;
-
+        padding: 0.75rem 1rem;
+        
         .card-title {
             line-height: 1.2;
         }

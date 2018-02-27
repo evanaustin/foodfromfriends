@@ -6,47 +6,68 @@ body.front.item {
     div.main.container {
         margin-top: 30px;
         margin-bottom: 30px;
-
+        
         #main-content {
-            div.set {
-                margin-top: 2em;
-    
-                .user-block {
-                    + .user-block {
-                        padding-top: 1rem;
-                        border-top: 1px solid $edge-color;
+            p.description {
+                @include all-but-phones() {
+                    margin-bottom: 2rem;
+                }
+            }
+        }
+
+        #basket-form-container {
+            @include phones() {
+                margin-bottom: 1rem;
+            }
+        }
+
+        #main-content, #basket-form-container, .sidebar-content, .set {
+            // don't understand why this is necessary, but it prevents horizontal overflow on phones
+            @include phones() {
+                max-width: calc(100% - 0.75rem);
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        div.set {
+            margin-top: 2em;
+
+            .user-block {
+                + .user-block {
+                    padding-top: 1rem;
+                    border-top: 1px solid $edge-color;
+                }
+            }
+
+            div.callout {
+                position: relative;
+                
+                &:not(:last-child) {
+                    margin-bottom: 1.5rem;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        bottom: -0.75rem;
+                        border-bottom: 1px solid $edge-color;
                     }
                 }
-    
-                div.callout {
-                    position: relative;
-                    
+
+                h6 {
+                    margin-bottom: 0.5em;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    color: $muted;
+                }
+
+                p {
+                    color: $light-gray;
+
                     &:not(:last-child) {
-                        margin-bottom: 1.5rem;
-    
-                        &:after {
-                            content: '';
-                            position: absolute;
-                            width: 100%;
-                            bottom: -0.75rem;
-                            border-bottom: 1px solid $edge-color;
-                        }
-                    }
-    
-                    h6 {
                         margin-bottom: 0.5em;
-                        font-weight: 500;
-                        text-transform: uppercase;
-                        color: $muted;
-                    }
-    
-                    p {
-                        color: $light-gray;
-    
-                        &:not(:last-child) {
-                            margin-bottom: 0.5em;
-                        } 
-                    }
+                    } 
                 }
             }
         }
@@ -54,7 +75,15 @@ body.front.item {
         #basket-form-container {
             background-color: #fff;
             @include drop-shadow(0, 2px, 4px);
-            @include border-radius(0, $radius, $radius, 0);
+            @include border-bottom-radius($radius);
+
+            @include phones() {
+                .box {
+                    .header {
+                        @include border-top-radius($radius);
+                    }
+                }
+            }
 
             select.custom-select, div.btn-group {
                 border: 1px solid $edge-color;

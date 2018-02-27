@@ -1,7 +1,7 @@
 $('a.remove-listing').on('click', function(e) {
     e.preventDefault();
 
-    $card = $(this).parents('div.card');
+    $card = $(this).parents('.card');
 
     var data = {
         'listing_id': $(this).data('id')

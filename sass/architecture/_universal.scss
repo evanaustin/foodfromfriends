@@ -35,7 +35,7 @@ p {
     } */
 }
 
-[off-canvas*=right] {
+[off-canvas*=left], [off-canvas*=right] {
     top: $header-height;
     height: calc(100% - 65px);
 }

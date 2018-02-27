@@ -7,6 +7,10 @@
     position: relative;
     min-height: 300px;
 
+    @include phones() {
+        min-height: 350px;
+    }
+
     &.submitted form,
     &.submitting form {
         opacity: 0;
@@ -153,7 +157,7 @@
             margin-right: 10px;
         
             .base {
-                fill: $brand-danger;
+                fill: $danger;
             }
 
             .glyph {
@@ -162,7 +166,7 @@
         }
         
         .message {
-            color: $brand-danger;
+            color: $danger;
             line-height: 16px;
         }
     }

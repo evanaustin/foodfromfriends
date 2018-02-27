@@ -3,7 +3,7 @@ main {
     background-color: $superlight-gray;
 }
 
-#sidebar-content {
+.sidebar-content {
     border-top: 0.5px solid $lightedge-color;
     @include drop-shadow(0, 2px, 4px);
     @include rounded($radius);
@@ -13,11 +13,11 @@ div.box {
     background-color: #fff;
 
     &:first-child {
-        @include border-radius($radius, 0, 0, $radius);
+        @include border-top-radius($radius);
 
         &.photo {
             img {
-                @include border-radius($radius, 0, 0, $radius);
+                @include border-top-radius($radius);
             }
         }
     }
@@ -27,11 +27,11 @@ div.box {
     }
     
     &:last-child {
-        @include border-radius(0, $radius, $radius, 0);
+        @include border-bottom-radius($radius);
 
         &.photo {
             img {
-                @include border-radius(0, $radius, $radius, 0);
+                @include border-bottom-radius($radius);
             }
         }
     }
@@ -91,15 +91,15 @@ div.box {
             color: $muted;
             
             &:hover {
-                background-color: lighten($muted, 10%);
-                border-color: lighten($muted, 10%);
-                color: #fff;
+                background-color: lighten($muted, 10%) !important;
+                border-color: lighten($muted, 10%) !important;
+                color: #fff !important;
             }
 
             &.active {
-                background: $muted;
-                border-color: $muted;
-                color: #fff;
+                background: $muted !important;
+                border-color: $muted !important;
+                color: #fff !important;
             }
         }
     }

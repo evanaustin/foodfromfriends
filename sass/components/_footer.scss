@@ -20,8 +20,12 @@ nav#footer.navbar {
     font-size: 0.75rem;
     color: $light-gray;
 
+    .nav-link {
+        width: 100%;
+    }
+
     @include phones () {
-        display: none;
+        // display: none;
     }
 
     p {

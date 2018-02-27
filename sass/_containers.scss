@@ -53,7 +53,6 @@ keymap {
  */
 .card {
     flex: 0 0 calc(33.33333% - 20px); /* 65px of padding total between 3 cards -> avg 20px each */
-    border: 0px;
     border-top: 0.5px solid $lightedge-color;
     @include drop-shadow(0, 2px, 4px);
     @include transition(all .2s);
@@ -94,9 +93,23 @@ keymap {
         }
     }
 
-    div.card-block {
+    .card-body {
+        @include phones() {
+            padding: 0.5rem 0.75rem;
+        }
+
+        @include all-but-phones() {
+            padding: 1rem;
+        }
+
         .card-title {
             font-weight: 400;
+        }
+    }
+
+    .card-footer {
+        @include phones() {
+            padding: 0.5rem 0.75rem;
         }
     }
 
@@ -159,7 +172,7 @@ keymap {
         }
     }
 
-    .card-block {
+    .card-body {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -334,21 +347,35 @@ keymap {
  */
 fable {
     display: flex;
-    flex-direction: row;
     margin-bottom: 0;
+
+    @include phones() {
+        flex-direction: column;
+    }
+
+    @include all-but-phones() {
+        flex-direction: row;
+    }
 
     > cell {
         display: flex;
-        flex-basis: 0;
         flex-grow: 1;
         align-items: center;
+        
+        @include phones() {
+            margin: 0.25rem 0;
+        }
+
+        @include all-but-phones() {
+            flex-basis: 0;
+
+            &.justify-end {
+                justify-content: flex-end;
+            }
+        }
 
         &.justify-center {
             justify-content: center;
-        }
-        
-        &.justify-end {
-            justify-content: flex-end;
         }
         
         &.align-end {
@@ -365,13 +392,26 @@ fable {
 
         &.actions {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: flex-end;
+            
+            @include phones() {
+                flex-direction: row;
+            }
 
+            @include all-but-phones() {
+                flex-direction: column;
+                justify-content: center;
+            }
+            
             .btn {
                 padding: 0.5rem;
                 width: 2.5rem;
+
+                @include phones() {
+                    + .btn {
+                        margin-left: 0.5rem;
+                    }
+                }
 
                 i {
                     color: #fff;
@@ -522,9 +562,18 @@ fable {
             }
 
             > fable {
-                > cell:first-child {
-                    padding-left: 1.25rem;
+                @include phones() {
+                    > cell {
+                        padding-left: 1.25rem;
+                    }
                 }
+
+                @include all-but-phones() {
+                    > cell:first-child {
+                        padding-left: 1.25rem;
+                    }
+                }
+
                 
                 .user-block {
                     padding-left: 0rem;
@@ -552,7 +601,9 @@ fable {
                 }
 
                 .user-block {
-                    padding-left: 0.75rem;
+                    @include all-but-phones() {
+                        padding-left: 0.75rem;
+                    }
 
                     .user-photo {
                         @include drop-shadow(0, 2px, 4px);
@@ -573,7 +624,14 @@ fable {
 
         fable {
             > cell:first-child {
-                padding-left: 0.75rem;
+                @include phones () {
+                    padding-left: 1.25rem;
+                }
+
+                @include all-but-phones() {
+                    padding-left: 0.75rem;
+                }
+
                 @include transition(all .2s);
             }
         }
@@ -584,6 +642,12 @@ fable {
 
         + fable {
             margin-top: 1rem;
+
+            @include phones() {
+                > cell:first-child {
+                    padding-left: 0;
+                }
+            }
         }
     }
 
@@ -612,12 +676,20 @@ fable {
     display: flex;
     flex-direction: row;
 
+    @include phones() {
+        margin-bottom: 0.5rem;
+    }
+
     div.user-photo {
         display: flex;
         align-items: center;
         justify-content: center;
         min-width: 75px;
         margin: 0;
+
+        @include phones() {
+            margin-right: 15px;
+        }
     }
 
     div.user-content {
@@ -626,7 +698,10 @@ fable {
         flex-direction: column;
         justify-content: center;
         text-align: left;
-        padding-left: 15px;
+
+        @include all-but-phones() {
+            padding-left: 15px;
+        }
 
         div {
             display: flex;
@@ -669,7 +744,7 @@ fable {
         background-color: #fff;
         border-color: $edge-color;
         color: $muted;
-        @include border-radius($radius, 0, 0, $radius);
+        @include border-top-radius($radius);
 
         h3 {
             font-size: 1.25rem;
@@ -687,7 +762,7 @@ fable {
         background-color: #fff;
         text-align: center;
         color: $muted;
-        @include border-radius(0, $radius, $radius, 0);
+        @include border-bottom-radius($radius);
     }
 }
 

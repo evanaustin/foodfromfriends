@@ -61,6 +61,12 @@ canvas {
     text-align: center;
 }
 
+.d-align-left {
+    @include phones() {
+        text-align: left;
+    }
+}
+
 .hidden {
     display: none !important;
 }
@@ -109,22 +115,6 @@ canvas {
         background-color: $dark-gray;
         font-family: 'Museo Sans Rounded';
         font-size: 0.8rem !important;
-    }
-
-    &.bs-tether-element-attached-top .tooltip-inner:before {
-        border-bottom-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-right .tooltip-inner:before {
-        border-left-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-bottom .tooltip-inner:before {
-        border-top-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-left .tooltip-inner:before {
-        border-right-color: $dark-gray !important;
     }
 }
 
@@ -318,16 +308,16 @@ canvas {
  }
 
  .info, .teal {
-    color: $teal !important;
+    color: $cyan !important;
  } .info-hover, .teal-hover {
     &:hover {
-        color: $teal !important;
+        color: $cyan !important;
     }
  } .info-bg, .teal-bg {
-    background-color: $teal !important;
+    background-color: $cyan !important;
  } .info-bg-hover, .teal-bg-hover {
     &:hover {
-        background-color: $teal !important;
+        background-color: $cyan !important;
         color: #fff;
     }
  }
@@ -432,6 +422,12 @@ canvas {
  .flexjustifycenter {
     justify-content: center;
  }
+
+ .d-justify-center {
+    @include phones() {
+        justify-content: center;
+    }
+}
 
  .flexstart {
     justify-content: flex-start;

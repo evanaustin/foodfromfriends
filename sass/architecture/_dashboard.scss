@@ -4,35 +4,27 @@ body.dashboard {
     display: flex;
     flex-direction: column;
 
-    @include phones() {
-        padding-bottom: 60px; /* footer height */
-    }
-
     div.sidebar {
         position: fixed;
-        
-        @include all-but-phones() {
-            width: 16.66667%;
-            height: calc(100% - 65px);
-        }
-
-        @include phones() {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            min-height: 60px;
-            z-index: $flow-z;
-        }
+        width: 16.66667%;
+        height: calc(100% - 65px);
     }
 
     main {
         position: absolute;
-        left: 16.66667%;
-        width: 83.33333%;
         height: 100%;
         padding: 0;
         background-color: $superlight-gray;
-        z-index: $flow-z;
+        
+        @include phones() {
+            width: 100%;
+            z-index: $flow-z;
+        }
+        
+        @include all-but-phones() {
+            left: 16.66667%;
+            width: 83.33333%;
+        }
 
         div.subheader {
             /* computed height: 52px */
