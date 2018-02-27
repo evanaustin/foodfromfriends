@@ -2,7 +2,13 @@ App.Front.Map = function() {
     function listener() {
         // set center to Harrisonburg
         Mapbox.setCenter([-78.8689, 38.4496]);
-        Mapbox.setZoom(7);
+
+        // set zoom
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        
+        var zoom = (w < 640) ? 4 : 7 ;
+
+        Mapbox.setZoom(zoom);
         // Mapbox.flyTo({ zoom:14 });
 
         var markers = [];

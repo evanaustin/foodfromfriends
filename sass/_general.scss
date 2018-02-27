@@ -61,6 +61,12 @@ canvas {
     text-align: center;
 }
 
+.d-align-left {
+    @include phones() {
+        text-align: left;
+    }
+}
+
 .hidden {
     display: none !important;
 }
@@ -110,27 +116,11 @@ canvas {
         font-family: 'Museo Sans Rounded';
         font-size: 0.8rem !important;
     }
-
-    &.bs-tether-element-attached-top .tooltip-inner:before {
-        border-bottom-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-right .tooltip-inner:before {
-        border-left-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-bottom .tooltip-inner:before {
-        border-top-color: $dark-gray !important;
-    }
-
-    &.bs-tether-element-attached-left .tooltip-inner:before {
-        border-right-color: $dark-gray !important;
-    }
 }
 
 .drop-shadow {
-    border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
+    // border-top: 0.5px solid $lightedge-color;
+    @include drop-shadow(0, 1px, 3px);
 }
 
 .rounded {
@@ -318,31 +308,31 @@ canvas {
  }
 
  .info, .teal {
-    color: $teal !important;
+    color: $cyan !important;
  } .info-hover, .teal-hover {
     &:hover {
-        color: $teal !important;
+        color: $cyan !important;
     }
  } .info-bg, .teal-bg {
-    background-color: $teal !important;
+    background-color: $cyan !important;
  } .info-bg-hover, .teal-bg-hover {
     &:hover {
-        background-color: $teal !important;
+        background-color: $cyan !important;
         color: #fff;
     }
  }
 
- .success, .green {
-    color: $green !important;
+ .green {
+    color: $success !important;
  } .success-hover, .green-hover {
     &:hover {
-        color: $green !important;
+        color: $success !important;
     }
  } .success-bg, .green-bg {
-    background-color: $green !important;
+    background-color: $success !important;
  } .success-bg-hover, .green-bg-hover {
     &:hover {
-        background-color: $green !important;
+        background-color: $success !important;
         color: #fff;
     }
  }
@@ -377,17 +367,17 @@ canvas {
     }
  }
 
- .danger, .red {
-    color: $red;
+ .red {
+    color: $danger;
  } .danger-hover, .red-hover {
     &:hover {
-        color: $red !important;
+        color: $danger !important;
     }
  } .danger-bg, .red-bg {
-    background-color: $red !important;
+    background-color: $danger !important;
  } .danger-bg-hover, .red-bg-hover {
     &:hover {
-        background-color: $red !important;
+        background-color: $danger !important;
         color: #fff;
     }
  }
@@ -433,6 +423,12 @@ canvas {
     justify-content: center;
  }
 
+ .d-justify-center {
+    @include phones() {
+        justify-content: center;
+    }
+}
+
  .flexstart {
     justify-content: flex-start;
  }
@@ -449,7 +445,7 @@ canvas {
     font-family: inherit;
     font-weight: inherit;
     border-top: 0.5px solid $lightedge-color;
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
     @include transition(all .2s);
 
     &:not([disabled]):hover {
@@ -469,6 +465,11 @@ canvas {
         background-color: lighten($superlight-green, 5%);
         border-color: lighten($superlight-green, 5%);
     }
+ }
+
+ .btn-warning,
+ .btn-danger {
+    color: #fff !important;
  }
 
  .btn-muted {
@@ -507,7 +508,7 @@ canvas {
  }
 
  .btn-group {
-    @include drop-shadow(0, 2px, 4px);
+    @include drop-shadow(0, 1px, 3px);
     @include rounded($radius);
 
     .btn {

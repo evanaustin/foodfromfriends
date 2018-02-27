@@ -4,16 +4,27 @@
  */
 
 nav#header.navbar {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     background-color: #fff;
     border-bottom: 1px solid $edge-color;
-    // @include drop-shadow(0, 2px, 4px);
+    // @include drop-shadow(0, 1px, 3px);
 
+    @include all-but-phones() {
+        padding: 0.5rem 1rem;
+    }
+    
     @include phones() {
+        padding: 0.75rem 0;
+
+        a.navbar-brand {
+            margin-left: 1rem;
+        }
+        
+        button {
+            margin-right: 1rem;
+        }
+
         div.navbar-collapse {
-            padding-left: 1em;
-            padding-top: 1em;
+            padding: 1rem 0 1rem;
         }
     }
 
@@ -27,7 +38,7 @@ nav#header.navbar {
             height: 40px !important;
 
             @include phones() {
-                width: 95px !important;
+                width: 275px !important;
             }
 
             @include all-but-phones() {
@@ -38,6 +49,12 @@ nav#header.navbar {
 
     ul.navbar-nav {
         align-items: center;
+
+        @include phones() {
+            > * {
+                width: 100%;
+            }
+        }
     }
 
     li.nav-item {
@@ -56,14 +73,14 @@ nav#header.navbar {
                 background: $superlight-green;
                 border: 1px solid $superlight-green;
                 color: #fff;
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
             }
 
             &:not(.active):hover {
                 border-top: 0.5px solid $lightedge-color;
                 color: $superlight-green;
                 @include transform(translateY(-2px));
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
             }
 
             span + i {
@@ -84,7 +101,7 @@ nav#header.navbar {
                 background-size: cover;
                 background-position: center center;
                 @include rounded(50px);
-                @include drop-shadow(0, 2px, 4px);
+                @include drop-shadow(0, 1px, 3px);
                 @include transition(all .2s);
     
                 &:hover {
@@ -97,13 +114,18 @@ nav#header.navbar {
                 }
             }
         }
+
+        @include phones() {
+            font-size: 1.5rem;
+            // text-align: center;
+        }
     }
 
     div.dropdown-menu {
         z-index: $super-z;
         margin-top: 0.75rem;
         border-color: $edge-color;
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
 
         a.dropdown-item {
             @include transition(all .2s);

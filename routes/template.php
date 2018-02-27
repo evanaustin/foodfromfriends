@@ -75,10 +75,10 @@ foreach ([
             'css/thirdparty/bootstrap-form-helper/bootstrap-formhelpers',
             'css/thirdparty/animate/animate',
             'css/thirdparty/fontawesome-4.7/font-awesome',
+            'css/thirdparty/slidebars/slidebars',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
             (($Routing->template == 'dashboard') ? 'css/thirdparty/cropbox/cropbox' : ''),
-            (($Routing->template == 'front') ? 'css/thirdparty/slidebars/slidebars' : ''),
             (($Routing->template == 'front') ? 'node_modules/mapbox-gl/dist/mapbox-gl' : ''),
             (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
             $Template->styles
@@ -110,11 +110,13 @@ foreach ([
             echo '</div>';
         }
 
+        $extensions = [
+            'nav'   => 'routes/components/nav',
+        ];
+
         if ($Routing->template == 'front') {
-            $extensions = [
-                'cart'  => 'routes/components/front/cart',
-                'modal' =>'routes/modals/' . $Routing->path
-            ];
+            $extensions['cart']         = 'routes/components/front/cart';
+            $extensions['modal']        = 'routes/modals/' . $Routing->path;
 
             if (!$LOGGED_IN) {
                 $extensions['sign-up']  = 'routes/modals/sign-up';
@@ -123,10 +125,11 @@ foreach ([
                 $extensions['checkout'] = 'routes/modals/checkout';
             }
 
-            foreach ($extensions as $extension) {
-                $file = SERVER_ROOT . $extension . '.php';
-                if (file_exists($file)) include $file;
-            }
+        }
+        
+        foreach ($extensions as $extension) {
+            $file = SERVER_ROOT . $extension . '.php';
+            if (file_exists($file)) include $file;
         }
         
         ?>
@@ -146,9 +149,11 @@ foreach ([
             'node_modules/mapbox-gl/dist/mapbox-gl',            // not universal
             'node_modules/autosize/dist/autosize.min',          // not universal
             'node_modules/jstimezonedetect/dist/jstz.min',
+            'node_modules/popper.js/dist/umd/popper.min',
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',                    // not universal
+            'js/thirdparty/hammer/hammer.min',
             'js/thirdparty/slidebars/dist/slidebars.min',
             'js/app',
             'js/ajax',
@@ -165,7 +170,7 @@ foreach ([
         ?>
 
         <script>
-            var ENV = <?php echo json_encode(ENV); ?>;
+            var ENV         = <?php echo json_encode(ENV); ?>;
             var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>;
         </script>
     </body>

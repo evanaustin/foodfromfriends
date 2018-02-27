@@ -37,7 +37,7 @@ body.map {
             }
 
             @include all-but-phones() {
-                overflow-y: scroll;
+                overflow-y: auto;
             }
             
             div#list {
@@ -55,11 +55,11 @@ body.map {
             }
         }
     
-        div.card {
+        .card {
             margin: 5px 0 5px 0;
 
-            div.card-block {
-                div.card-title {
+            .card-body {
+                .card-title {
                     font-weight: bold;
                     margin-bottom: 0;
                 }
@@ -95,9 +95,10 @@ body.map {
                 }
             }
             
-            div.card-footer {
+            .card-footer {
                 background-color: #fff;
                 border-color: $edge-color;
+                border-top-width: 1px;
                 font-size: 14px;
                 color: $muted;
                 @include transition(all .3s);

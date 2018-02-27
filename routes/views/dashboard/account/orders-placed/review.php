@@ -90,7 +90,7 @@
                                 <?php img(ENV . '/food-listings/fl.' . $FoodListing->id, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                             </div>
 
-                            <div class="card-block">
+                            <div class="card-body">
                                 <h6 class="strong">
                                     <a href="<?php echo PUBLIC_ROOT . $Seller->link . '/' . $FoodListing->link; ?>">
                                         <?php echo ucfirst($FoodListing->title); ?>

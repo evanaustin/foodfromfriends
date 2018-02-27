@@ -5,7 +5,7 @@ div.alerts {
     display: none;
 
     div.alert {
-        @include drop-shadow(0, 2px, 4px);
+        @include drop-shadow(0, 1px, 3px);
 
         &.alert-success {
             a:hover {
@@ -16,13 +16,11 @@ div.alerts {
     }
 }
 
-div.controls {
-    i.loading-icon {
-        visibility: hidden;
-        opacity: 0;
-        animation: spin 2s linear infinite;
-        @include transition(all 0.35s ease);
-    }
+i.loading-icon {
+    visibility: hidden;
+    opacity: 0;
+    animation: spin 2s linear infinite;
+    @include transition(all 0.35s ease);
 }
 
 form {
@@ -78,8 +76,8 @@ form {
     textarea.form-control, 
     div.image-box {
         border: 0px;
-        border-top: 0.5px solid $lightedge-color;
-        @include drop-shadow(0, 2px, 4px);
+        // border-top: 0.5px solid $lightedge-color;
+        @include drop-shadow(0, 1px, 3px);
         @include rounded($radius);
         @include transition(all .2s);
 
@@ -108,17 +106,25 @@ form {
         }
     }
 
-    .form-control-danger {
-        color: $brand-danger;
+    .form-control.success {
+        color: $success;
+        border-width: 0;
+        box-shadow: 0 0 0 1px $success;
+    }
+
+    .form-control.danger {
+        color: $danger;
+        border-width: 0;
+        box-shadow: 0 0 0 1px $danger;
     }
 
     .btn-group {
         &.has-danger {
-            border-color: $brand-danger !important;
+            border-color: $danger !important;
             
             .btn {
-                border-color: $brand-danger !important;
-                color: $brand-danger !important;
+                border-color: $danger !important;
+                color: $danger !important;
                 
                 &:hover {
                     background-color: transparent;
@@ -126,7 +132,7 @@ form {
                 }
             }
 
-            + .form-control-danger {
+            + .form-control.danger {
                 background-image: none;
             }
         }
@@ -143,7 +149,7 @@ form {
         span.custom-control-indicator {
             top: 0.2rem;
             background-color: #fff;
-            @include drop-shadow(0, 2px, 4px);
+            @include drop-shadow(0, 1px, 3px);
         }
     }
 
@@ -152,6 +158,12 @@ form {
         border: 0px;
         background: $superlight-gray;
         color: $muted;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     div.input-group-btn {
@@ -166,7 +178,7 @@ form {
             width: 100%;
             padding: 1rem;
             border: 0px;
-            @include border-radius(0,0,$radius,$radius);
+            @include border-left-radius($radius);
         }
     }
 
@@ -178,7 +190,7 @@ form {
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
         padding: .5em;
         padding-right: 1.5em;
-        @include border-radius($radius, $radius, 0, 0);
+        @include border-right-radius($radius);
     }
     
     button.input-group-addon {
@@ -203,7 +215,7 @@ form {
         max-height: 630px;
         padding: 0.5em;
         background: #fff;
-        border-top: 0.5px solid $lightedge-color;
+        // border-top: 0.5px solid $lightedge-color;
         cursor: pointer;
         @include rounded($radius);
         @include transition(all .2s);
@@ -242,7 +254,7 @@ form {
                 font-size: 0.875rem;
                 font-weight: 400;
                 color: #fff;
-                @include border-radius(0, 0.225rem, 0.225rem, 0);
+                @include border-bottom-radius(0.225rem);
                 @include transition(all 0.2s ease);
     
                 i {
@@ -312,7 +324,9 @@ form {
     }
 
     .form-control-feedback {
+        margin-top: 0.25rem;
         font-size: 0.75rem;
+        color: $danger;
     }
 
     @include phones() {

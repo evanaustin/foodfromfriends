@@ -30,7 +30,7 @@ App.Dashboard.Message = function() {
                                     '</div>' +
                                 '</cell>' +
                         
-                                '<cell class="justify-center flexcenter flexgrow-0 margin-left-1em">' +
+                                '<cell class="justify-center flexcenter flexgrow-0 margin-left-1em d-none d-md-block">' +
                                     '<div class="user-photo no-margin" style="background-image: url(\'https://s3.amazonaws.com/foodfromfriends/' + ENV + ((formdata['sent-by'] == 'grower') ? '/grower-operation-images/' : '/profile-photos/') + formdata.filename + '.' + formdata.fileext + '\');"></div>' +
                                 '</cell>' +
                             '</fable>' +

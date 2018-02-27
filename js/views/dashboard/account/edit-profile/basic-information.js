@@ -29,14 +29,14 @@ $('a.remove-image').on('click', function(e) {
 
 	bootbox.confirm({
         closeButton: false,
-		message: 'You want to remove the current image?',
+		message: '<div class="text-center">Please confirm you want to remove the current image</div>',
 		buttons: {
 			confirm: {
-				label: 'Oh yeah',
+				label: 'Confirm',
 				className: 'btn-warning'
 			},
 			cancel: {
-				label: 'Nope',
+				label: 'Cancel',
 				className: 'btn-muted'
 			}
 		},
@@ -80,7 +80,8 @@ $('#edit-basic-information').on('submit', function(e) {
 	    
 		App.Ajax.postFiles('dashboard/account/edit-profile/save-basic-information', data, 
 			function(response) {
-				toastr.success('Your basic information has been updated!');
+                // toastr.success('Your basic information has been updated!');
+                App.Util.msg('Your information has been updated!', 'success');
 				App.Util.finishedLoading();
 			},
 			function(response) {

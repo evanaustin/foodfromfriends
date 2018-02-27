@@ -1,0 +1,23 @@
+#nav[off-canvas*=left] {
+    width: calc(100% - 2.5rem);
+    padding: 1em;
+    overflow-y: auto;
+    background-color: #fff;
+    border-right: 1px solid $edge-color;
+    color: $muted;
+    font-size: 1.5rem;
+
+    .nav-item {
+        ul {
+            margin-left: 1rem;
+
+            .nav-item {
+                font-size: 1.25rem;
+
+                i {
+                    padding-left: 0.75rem;
+                }
+            }
+        }
+    }
+}

@@ -14,14 +14,35 @@ class User extends Base {
         $bio,
         $registered_on,
         $stripe_customer_id,
-        $timezone,
+        $timezone;
+
+    public
         $address_line_1,
         $address_line_2,
         $city,
         $state,
         $zipcode,
         $latitude,
-        $longitude,
+        $longitude;
+
+    public
+        $delivery_address_line_1,
+        $delivery_address_line_2,
+        $delivery_city,
+        $delivery_state,
+        $delivery_zipcode,
+        $delivery_latitude,
+        $delivery_longitude,
+        $delivery_instructions;
+    
+    public
+        $billing_address_line_1,
+        $billing_address_line_2,
+        $billing_city,
+        $billing_state,
+        $billing_zipcode;
+
+    public
         $filename,
         $ext;
 
@@ -71,6 +92,20 @@ class User extends Base {
                 ua.zipcode,
                 ua.latitude,
                 ua.longitude,
+                ub.card_name        AS billing_card_name,
+                ub.address_line_1   AS billing_address_line_1,
+                ub.address_line_2   AS billing_address_line_2,
+                ub.city             AS billing_city,
+                ub.state            AS billing_state,
+                ub.zipcode          AS billing_zipcode,
+                ud.address_line_1   AS delivery_address_line_1,
+                ud.address_line_2   AS delivery_address_line_2,
+                ud.city             AS delivery_city,
+                ud.state            AS delivery_state,
+                ud.zipcode          AS delivery_zipcode,
+                ud.latitude         AS delivery_latitude,
+                ud.longitude        AS delivery_longitude,
+                ud.instructions     AS delivery_instructions,
                 upi.filename,
                 upi.ext
             
@@ -78,6 +113,12 @@ class User extends Base {
             
             LEFT JOIN user_addresses ua
                 ON u.id = ua.user_id
+            
+            LEFT JOIN user_billing_info ub
+                ON u.id = ub.user_id
+            
+            LEFT JOIN user_delivery_address ud
+                ON u.id = ud.user_id
             
             LEFT JOIN user_profile_images upi
                 ON u.id = upi.user_id

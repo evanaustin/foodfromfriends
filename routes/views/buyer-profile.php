@@ -167,7 +167,7 @@
 
                                                 ?>
 
-                                                <div class="card-block d-flex flex-row">
+                                                <div class="card-body d-flex flex-row">
                                                     <div class="listing-info d-flex flex-column">
                                                         <h4 class="card-title">
                                                             <!-- <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>"> -->

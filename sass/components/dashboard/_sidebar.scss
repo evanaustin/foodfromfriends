@@ -6,8 +6,6 @@
 div.sidebar {
     padding-left: 0;
     padding-right: 0;
-    border-right: 1px solid $edge-color;
-    box-sizing: border-box;
 
     @include phones() {
         background-color: #fff;
@@ -23,7 +21,8 @@ div.sidebar {
             box-sizing: border-box;
 
             .navbar-collapse {
-                margin-top: calc(60px + 0.5rem - 1rem - 1px);
+                // margin-top: calc(60px + 0.5rem - 1rem - 1px);
+                margin-top: 0.5rem;
             }
         }
         
@@ -37,10 +36,12 @@ div.sidebar {
 
         button {
             height: calc(60px - 1rem - 1px);
+            margin-left: 0.5rem;
+            background-color: $superlight-green;
+            border-color: $superlight-green;
 
             i {
-                // color: #7f7f7f;
-                color: $light-gray;
+                color: #fff;
             }
         }
     }
@@ -95,12 +96,13 @@ div.sidebar {
             }
 
             &.active {
-                // background-color: $faded-green;
                 background-color: $superlight-green;
-                border-color: darken($light-green, 10%);
-                // color: darken($light-green, 10%);
                 color: #fff;
                 font-weight: 400;
+                
+                @include all-but-phones() {
+                    border-color: darken($light-green, 10%);
+                }
             }
             
             i {

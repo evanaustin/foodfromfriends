@@ -197,7 +197,7 @@
                                     <fable>
                                         <cell class="min-third">
                                             <div class="user-block">
-                                                <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
+                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
                                                 
                                                 <div class="user-content">
                                                     <h5 class="bold margin-btm-25em">
@@ -213,19 +213,19 @@
                                             </div>
                                         </cell>
 
-                                        <cell class="justify-center align-center">
+                                        <cell class="justify-center d-block d-md-flex align-center d-align-left">
                                             <h6><?php echo $status; ?></h6>
                                         </cell>
                                         
-                                        <cell class="justify-center">
+                                        <cell class="justify-center d-none d-md-flex">
                                             <h6><?php echo "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6>
                                         </cell>
                                         
-                                        <cell class="justify-center">
+                                        <cell class="justify-center d-none d-md-flex">
                                             <h6><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
                                         </cell>
                                         
-                                        <cell class="justify-center">
+                                        <cell class="justify-center d-block d-md-flex align-center d-align-left">
                                             <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
                                         </cell>
 
@@ -275,7 +275,7 @@
                                                     <?php img(ENV . '/food-listings/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, 'S3', 'img-fluid'); ?>
                                                 </div>
 
-                                                <div class="card-block">
+                                                <div class="card-body">
                                                     <h6 class="strong">
                                                         <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
                                                             <?php echo ucfirst($ThisFoodListing->title); ?>

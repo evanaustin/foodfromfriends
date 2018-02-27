@@ -10,7 +10,7 @@ App.Dashboard.OrdersPlaced = function() {
             bootbox.confirm({
                 closeButton: false,
                 title: 'Cancel order',
-                message: 'Please confirm that you want to cancel this order.',
+                message: '<div class="text-center">Please confirm you want to cancel this order</div>',
                 buttons: {
                     confirm: {
                         label: 'Submit cancellation',

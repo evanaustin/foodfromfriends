@@ -1,6 +1,5 @@
 div.seamless {
     .card {
-        display: flex;
         flex-direction: row;
         margin-top: 1em;
 
@@ -56,7 +55,7 @@ div.seamless {
             background-position: center center;
             border: 1px solid $edge-color;
             @include rounded(50%);
-            @include drop-shadow(0, 2px, 4px)
+            @include drop-shadow(0, 1px, 3px)
         }
 
         .callout {

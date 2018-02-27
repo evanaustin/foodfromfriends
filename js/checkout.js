@@ -1,106 +1,56 @@
 App.Front.Checkout = function () {
+    // Create a Stripe client
     var stripe = Stripe(STRIPE_PK);
 
-    function registerElements(elements) {
-        var wrapper = document.querySelector('.elements');
+    var stripeElements  = $('#stripe-elements');
+    var displayError    = $('#card-errors');
 
-        var form = wrapper.querySelector('form');
-        var resetButton = wrapper.querySelector('a.reset');
-        var error = form.querySelector('.error');
-        var errorMessage = error.querySelector('.message');
+    function handleError(error) {
+        stripeElements.removeClass('submitting');
+        displayError.text(error);
+    }
 
-        function enableInputs() {
-            Array.prototype.forEach.call(
-                form.querySelectorAll(
-                    "input[type='text'], input[type='email'], input[type='tel']"
-                ),
-                function(input) {
-                    input.removeAttribute('disabled');
-                }
-            );
-        }
-
-        function disableInputs() {
-            Array.prototype.forEach.call(
-                form.querySelectorAll(
-                    "input[type='text'], input[type='email'], input[type='tel']"
-                ),
-                function(input) {
-                    input.setAttribute('disabled', 'true');
-                }
-            );
-        }
-
-        // Listen for errors from each Element, and show error messages in the UI.
-        elements.forEach(function(element) {
-            element.on('change', function(event) {
-                if (event.error) {
-                    error.classList.add('visible');
-                    errorMessage.innerText = event.error.message;
-                } else {
-                    error.classList.remove('visible');
-                }
-            });
-        });
-
-        // Listen on the form's 'submit' handler...
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Show a loading screen...
-            wrapper.classList.add('submitting');
-
-            // Disable all inputs.
-            disableInputs();
-
-            // Use Stripe.js to create a token. We only need to pass in one Element
-            // from the Element group in order to create a token.
-            stripe.createToken(elements[0]).then(function(result) {
-                if (result.token) {
-                    var data = {
-                        stripe_token: result.token.id
-                    };
+    function handleSuccess() {
+        stripeElements.removeClass('submitting');
+        stripeElements.addClass('submitted');
         
-                    App.Ajax.post('order/place-order', data,
-                        function(response) {
-                            wrapper.classList.remove('submitting');
-                            wrapper.classList.add('submitted');
-                            
-                            App.Util.fadeAndRemove($('#ordergrowers'));
-                            $('#end-breakdown, hr').addClass('hidden');
-                            $('#empty-basket').removeClass('hidden');
-                            
-                            // result.complete('success');
-                        }, function(response) {
-                            wrapper.classList.remove('submitting');
-                            console.log(response.error);
-                            // result.complete('fail');
-                        } 
-                    );
-                } else {
-                    // Otherwise, un-disable inputs.
-                    enableInputs();
-                }
-            });
-        });
+        // Reset cart
+        App.Util.fadeAndRemove($('#ordergrowers'));
+        $('#end-breakdown, hr').addClass('hidden');
+        $('#empty-basket').removeClass('hidden');
+    }
+    
+    function stripeTokenHandler(token) {
+        var data = {
+            card_name:      $('input[name="card-name"]').val(),
+            address_line_1: $('input[name="billing-address-line-1"]').val(),
+            address_line_2: $('input[name="billing-address-line-2"]').val(),
+            city:           $('input[name="billing-city"]').val(),
+            state:          $('input[name="billing-state"]').val(),
+            zipcode:        $('input[name="billing-zipcode"]').val(),
+            stripe_token:   token.id
+        };
+
+        App.Ajax.post('order/place-order', data,
+            function(response) {
+                handleSuccess();
+            }, function(response) {
+                handleError(response.error);
+            } 
+        );
     }
 
     function listener() {
-        'use strict';
+        // Create an instance of Elements
+        var elements = stripe.elements();
 
-        // Initialize the card input
-        var elements = stripe.elements({
-            fonts: [{cssSrc: 'https://rsms.me/inter/inter-ui.css'}],
-            locale: 'auto'
-        });
-
-        // Customize the card Element
+        // Custom styling passed to options when creating an Element
         var style = {
             base: {
                 color: '#4c4c4c',
                 fontWeight: 500,
-                fontFamily: 'Inter UI, Open Sans, Segoe UI, sans-serif',
-                fontSize: '15px',
+                fontFamily: 'Museo Sans Rounded, Inter UI, Open Sans, Segoe UI, sans-serif',
+                fontSize: '16px',
                 fontSmoothing: 'antialiased',
 
                 '::placeholder': {
@@ -115,74 +65,37 @@ App.Front.Checkout = function () {
         // Create an instance of the card Element
         var card = elements.create('card', {style: style});
 
-        // Add an instance of the card Element into the 'card' <div>
-        card.mount('#card');
+        // Add an instance of the card Element into the `card-element` <div>
+        card.mount('#card-element');
 
-        /* $('#payment-form').on('submit', function(e) {
-            e.preventDefault();
-            // getStripeToken(card);
-        }); */
-
-        /**
-         * Payment Request Element
-         */
-        /* var paymentRequest = stripe.paymentRequest({
-            country: 'US',
-            currency: 'usd',
-            total: {
-                amount: 2000,
-                label: 'Total'
-            }
-        }); */
-
-        /* paymentRequest.on("token", function (result) {
-            var example = document.querySelector("elements");
-            example.querySelector(".token").innerText = result.token.id;
-            example.classList.add("submitted");
-            result.complete("success");
-        }); */
-
-        /* paymentRequest.on('token', function (ev) {
-            console.log('on token');
-            // Send the token to your server to charge it!
-            fetch('/charges', {
-                method: 'POST',
-                body: JSON.stringify({ token: ev.token.id }),
-            }).then(function (response) {
-                if (response.ok) {
-                    // Report to the browser that the payment was successful, prompting
-                    // it to close the browser payment interface.
-                    ev.complete('success');
-                } else {
-                    // Report to the browser that the payment failed, prompting it to
-                    // re-show the payment interface, or show an error message and close
-                    // the payment interface.
-                    ev.complete('fail');
-                }
-            });
-        }); */
-
-        /* var paymentRequestElement = elements.create('paymentRequestButton', {
-            paymentRequest: paymentRequest,
-            style: {
-                paymentRequestButton: {
-                    type: 'pay'
-                }
+        // Handle real-time validation errors from the card Element
+        card.addEventListener('change', function(event) {
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
             }
         });
 
-        paymentRequest.canMakePayment().then(function (result) {
-            if (result) {
-                document.querySelector('elements .card-only').style.display = 'none';
-                document.querySelector(
-                    'elements .payment-request-available'
-                ).style.display =
-                    'block';
-                paymentRequestElement.mount('#paymentRequest');
-            }
-        }); */
+        // Handle form submission
+        var form = document.getElementById('payment-form');
 
-        registerElements([card/* , paymentRequestElement */]);
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Spin loading icon
+            stripeElements.addClass('submitting');
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error
+                    handleError(result.error.message);
+                } else {
+                    // Send the token to server
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
     }
 
     return {

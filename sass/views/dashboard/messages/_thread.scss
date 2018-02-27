@@ -1,8 +1,58 @@
 #messages {
     min-height: calc(100vh - 65px - 52px - 57px - 5rem);
+
+    .message {
+        @include phones() {
+            margin-top: 0;
+
+            &.right-message {
+                margin-bottom: 0.5rem;
+            }
+    
+            &.left-message {
+                margin-bottom: 0.75rem;
+            }
+            
+            > cell {
+                margin: 0;
+            }
+        }
+
+        @include all-but-phones() {
+            &.right-message {
+                margin-bottom: 0.5rem;
+            }
+    
+            &.left-message {
+                margin-bottom: 0.25rem;
+            }
+        }
+    }
 }
 
 #new-message {
-    height: 57px;
+    min-height: 57px;
     margin-top: 1rem;
+
+    @include phones() {
+        texarea {
+            @include border-top-radius($radius);
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+
+    @include all-but-phones() {
+        textarea {
+            width: calc(100% - 3rem);
+        }
+
+        .btn {
+            width: 3rem;
+            @include border-left-radius(0);
+            @include border-right-radius($radius);
+        }
+    }
 }
