@@ -1,7 +1,7 @@
 #nav[off-canvas*=left] {
     width: calc(100% - 2.5rem);
     padding: 1em;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #fff;
     border-right: 1px solid $edge-color;
     color: $muted;

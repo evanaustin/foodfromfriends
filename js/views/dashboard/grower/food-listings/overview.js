@@ -9,14 +9,14 @@ $('a.remove-listing').on('click', function(e) {
 
     bootbox.confirm({
         closeButton: false,
-        message: 'You want to remove this listing?',
+        message: '<div class="text-center">Please confirm you want to remove this listing</div>',
         buttons: {
             confirm: {
-                label: 'Oh yeah',
+                label: 'Confirm',
                 className: 'btn-warning'
             },
             cancel: {
-                label: 'Nope',
+                label: 'Cancel',
                 className: 'btn-muted'
             }
         },

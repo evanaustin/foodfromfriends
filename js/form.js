@@ -26,11 +26,11 @@ App.Form = function() {
         });
 
         window.Parsley.on('field:error', function() {
-            this.$element.removeClass('form-control-success').addClass('form-control-danger');
+            this.$element.removeClass('success').addClass('danger');
         });
         
         window.Parsley.on('field:success', function() {
-            this.$element.removeClass('form-control-danger').addClass('form-control-success');
+            this.$element.removeClass('danger').addClass('success');
         });
 
 

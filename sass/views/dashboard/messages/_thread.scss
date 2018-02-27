@@ -43,4 +43,16 @@
             width: 100%;
         }
     }
+
+    @include all-but-phones() {
+        textarea {
+            width: calc(100% - 3rem);
+        }
+
+        .btn {
+            width: 3rem;
+            @include border-left-radius(0);
+            @include border-right-radius($radius);
+        }
+    }
 }

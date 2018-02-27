@@ -6,8 +6,6 @@
 div.sidebar {
     padding-left: 0;
     padding-right: 0;
-    border-right: 1px solid $edge-color;
-    box-sizing: border-box;
 
     @include phones() {
         background-color: #fff;

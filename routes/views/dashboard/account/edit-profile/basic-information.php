@@ -28,7 +28,7 @@
 
         <form id="edit-basic-information">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-12 col-md-8">
                     <div class="form-group">
                         <label>
                             Name
@@ -185,9 +185,50 @@
                             We use this data for analysis and never share it with other users.
                         </small>
                     </div>
+
+                    <label>
+                        Where do you live?
+                    </label>
+
+                    <div class="form-group">
+                        <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->address_line_1)) { echo $User->address_line_1; } ?>" data-parsley-trigger="change" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->address_line_2)) { echo $User->address_line_2; } ?>" data-parsley-trigger="change">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->city)) { echo $User->city; } ?>" data-parsley-trigger="change" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->state)) { echo $User->state; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->zipcode)) { echo $User->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Bio
+                        </label>
+                        
+                        <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe yourself! Food From Friends is built on relationships."><?php if (!empty($User->bio)) { echo $User->bio ; } ?></textarea>
+                    </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-12 col-md-4">
                     <label>
                         Profile photo
                     </label>
@@ -219,14 +260,6 @@
                         Upload a good photo of your face to make more friends!
                     </small>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    Bio
-                </label>
-                
-                <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe yourself! Food From Friends is built on relationships."><?php if (!empty($User->bio)) { echo $User->bio ; } ?></textarea>
             </div>
         </form>
     </div>

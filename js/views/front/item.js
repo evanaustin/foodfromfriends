@@ -13,7 +13,7 @@ App.Front.Item = function() {
                 .find('button')
                 .removeClass('active');
 
-            $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('form-control-danger');
+            $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
             
             $(this).addClass('active');
         });
@@ -30,7 +30,7 @@ App.Front.Item = function() {
 
                 $sign_up_modal.modal();
 
-                App.Util.msg('Hey! Sign up first &mdash; then we can build your cart!', 'info', $sign_up_form);
+                App.Util.msg('Hey! Sign up first &mdash; then we can add to your basket!', 'info', $sign_up_form);
 
                 $sign_up_form
                     .find('input[name="redirect"]')
@@ -47,12 +47,12 @@ App.Front.Item = function() {
 
             if (!$active_ex_op) {
                 $(ex + 'div.btn-group').addClass('has-danger');
-                $(ex + 'div.form-control-feedback').removeClass('hidden').addClass('form-control-danger');
+                $(ex + 'div.form-control-feedback').removeClass('hidden').addClass('danger');
                 
                 return;
             } else {
                 $(ex + 'div.btn-group').removeClass('has-danger');
-                $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('form-control-danger');
+                $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
                 
                 data.push({
                     name: 'exchange-option', 
@@ -100,15 +100,15 @@ App.Front.Item = function() {
                                             '<a href="' + PUBLIC_ROOT + response.listing.link + '">' +
                                                 response.listing.name +
                                             '</a>' +
-                                            '<a class="remove-item float-right">' +
-                                                '<i class="fa fa-times"></i>' +
-                                            '</a>' +
                                         '</div>' +
                     
                                         '<div class="item-details">' +
                                             '<div class="item-price">' +
-                                                response.item.subtotal +
+                                            response.item.subtotal +
                                             '</div>' +
+                                            '<a class="remove-item">' +
+                                                '<i class="fa fa-times"></i>' +
+                                            '</a>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>'

@@ -30,7 +30,7 @@
                 'account' => [
                     'edit-profile' => [
                         'basic-information',
-                        'location'
+                        'billing-info'
                     ],
                     'orders-placed' => [
                         'overview'
