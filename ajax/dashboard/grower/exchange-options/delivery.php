@@ -64,7 +64,7 @@ if ($Delivery->exists('grower_operation_id', $grower_operation_id)) {
         'is_offered'            => $is_offered,
         'distance'              => $distance,
         'delivery_type'         => $delivery_type,
-        'free_distance'         => (isset($free_distance) ? $free_delivery : 0),
+        'free_distance'         => (isset($free_distance) ? $free_distance : 0),
         'fee'                   => $fee * 100,
         'pricing_rate'          => $pricing_rate
     ], 'grower_operation_id', $grower_operation_id);
