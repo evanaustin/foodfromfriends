@@ -229,7 +229,7 @@
                                             <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
                                         </cell>
 
-                                        <cell class="actions">
+                                        <cell class="actions flexgrow-0">
 
                                             <?php
                                             
