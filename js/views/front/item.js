@@ -7,6 +7,24 @@ App.Front.Item = function() {
 
         // toggle active exchange option
         $('.exchange-btn').on('click', function() {
+            // trigger sign up first
+            if ($('input[name="user-id"]').val() == 0) {
+                var $sign_up_modal = $('#sign-up-modal');
+                var $sign_up_form = $sign_up_modal.find('#sign-up');
+
+                $sign_up_modal.modal();
+
+                App.Util.msg('Hey! Sign up first &mdash; then we can add to your basket!', 'info', $sign_up_form);
+
+                var getvars = 'quantity=' + $('select[name="quantity"]').val() + '&exchange=' + $(this).data('option');
+
+                $sign_up_form
+                    .find('input[name="redirect"]')
+                    .val(location.pathname + '?' + getvars);
+
+                return;
+            }
+
             $('#add-item, #update-item')
                 .find('.btn-group')
                 .removeClass('has-danger')
@@ -23,7 +41,10 @@ App.Front.Item = function() {
             e.preventDefault();
             App.Util.hideMsg();
 
-            // trigger sign up before adding to cart
+            $form = $(this);
+            var data = $form.serializeArray();
+            
+            // trigger sign up first
             if ($('input[name="user-id"]').val() == 0) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
@@ -32,16 +53,15 @@ App.Front.Item = function() {
 
                 App.Util.msg('Hey! Sign up first &mdash; then we can add to your basket!', 'info', $sign_up_form);
 
+                var getvars = 'quantity=' + $('select[name="quantity"]').val() + '&exchange=' + $(this).data('option');
+
                 $sign_up_form
                     .find('input[name="redirect"]')
-                    .val(false);
+                    .val(location.pathname + '?' + getvars);
 
                 return;
             }
 
-            $form = $(this);
-            var data = $form.serializeArray();
-            
             // make sure exchange option is selected
             $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
             var exchange_option;
