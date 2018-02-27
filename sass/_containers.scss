@@ -385,7 +385,7 @@ fable {
         &.min-third {
             min-width: 33%;
         }
-
+        
         i {
             color: $superlight-green;
         }
@@ -512,13 +512,13 @@ fable {
 
                 &.tab-info {
                     &:after {
-                        background-color: $teal;
+                        background-color: $cyan;
                     }
                 }
                 
                 &.tab-success {
                     &:after {
-                        background-color: $green;
+                        background-color: $success;
                     }
                 }
 
