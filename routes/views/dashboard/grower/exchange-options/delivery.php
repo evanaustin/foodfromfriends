@@ -36,23 +36,15 @@
                             </label>
                             
                             <div class="radio-box">
-                                <label class="custom-control custom-radio">
-                                    <input name="is-offered" type="radio" value="1" class="custom-control-input" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        Yes
-                                    </span>
-                                </label>
-
-                                <label class="custom-control custom-radio">
-                                    <input name="is-offered" type="radio" value="0" class="custom-control-input" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?> >
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        No
-                                    </span>
-                                </label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="yes-offered" name="is-offered" class="custom-control-input" value="1" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="yes-offered">Yes</label>
+                                </div>
+                                
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="no-offered" name="is-offered" class="custom-control-input" value="0" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="no-offered">No</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,32 +69,20 @@
                             </label>
 
                             <div class="radio-box">
-                                <label class="custom-control custom-radio">
-                                    <input name="delivery-type" type="radio" value="charge" class="custom-control-input" <?php if ($details['delivery_type'] == 'charge') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        Charge
-                                    </span>
-                                </label>
-
-                                <label class="custom-control custom-radio">
-                                    <input name="delivery-type" type="radio" value="free" class="custom-control-input"  <?php if ($details['delivery_type'] == 'free') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        Free
-                                    </span>
-                                </label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="delivery-charge" name="delivery-type" class="custom-control-input" value="charge" <?php if ($details['delivery_type'] == 'charge') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
+                                    <label class="custom-control-label" for="delivery-charge">Charge</label>
+                                </div>
                                 
-                                <label class="custom-control custom-radio">
-                                    <input name="delivery-type" type="radio" value="conditional" class="custom-control-input" <?php if ($details['delivery_type'] == 'conditional') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        Free under a certain distance
-                                    </span>
-                                </label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="delivery-free" name="delivery-type" class="custom-control-input" value="free" <?php if ($details['delivery_type'] == 'free') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
+                                    <label class="custom-control-label" for="delivery-free">Free</label>
+                                </div>
+                                
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="delivery-conditional" name="delivery-type" class="custom-control-input" value="conditional" <?php if ($details['delivery_type'] == 'conditional') { echo 'checked'; } else if (empty($details['is_offered'])) { echo 'disabled'; } ?>>
+                                    <label class="custom-control-label" for="delivery-conditional">Free under a certain distance</label>
+                                </div>
                             </div>
                         </div>
                     </div>
