@@ -92,7 +92,14 @@
                                     </h5>
 
                                     <small>
-                                        <?php echo "{$Buyer->city}, {$Buyer->state}"; ?>
+                                        <?php
+                                        
+                                        $city   = (!empty($Buyer->city)) ? $Buyer->city : $Buyer->billing_city;
+                                        $state  = (!empty($Buyer->state)) ? $Buyer->state : $Buyer->billing_state;
+                                        
+                                        echo "{$city}, {$state}";
+                                        
+                                        ?>
                                     </small>
                                 </div>
                             </div>
