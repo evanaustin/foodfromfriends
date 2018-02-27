@@ -85,7 +85,8 @@
                     'account' => [
                         'edit-profile' => [
                             'basic-information',
-                            'billing-info'
+                            'billing-info',
+                            'delivery-address'
                         ],
                         'orders-placed' => [
                             'overview'

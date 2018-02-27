@@ -19,15 +19,15 @@ App.Front.Checkout = function () {
         $('#end-breakdown, hr').addClass('hidden');
         $('#empty-basket').removeClass('hidden');
     }
-
+    
     function stripeTokenHandler(token) {
         var data = {
             card_name:      $('input[name="card-name"]').val(),
-            address_line_1: $('input[name="address-line-1"]').val(),
-            address_line_2: $('input[name="address-line-2"]').val(),
-            city:           $('input[name="city"]').val(),
-            state:          $('input[name="state"]').val(),
-            zipcode:        $('input[name="zipcode"]').val(),
+            address_line_1: $('input[name="billing-address-line-1"]').val(),
+            address_line_2: $('input[name="billing-address-line-2"]').val(),
+            city:           $('input[name="billing-city"]').val(),
+            state:          $('input[name="billing-state"]').val(),
+            zipcode:        $('input[name="billing-zipcode"]').val(),
             stripe_token:   token.id
         };
 

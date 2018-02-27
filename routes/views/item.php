@@ -572,6 +572,8 @@
 <!-- </div> -->
 
 <script>
-    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
-    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
+    var buyer_lat   = <?php echo (isset($User->delivery_latitude)) ? $User->delivery_latitude : 0; ?>;
+    var buyer_lng   = <?php echo (isset($User->delivery_longitude)) ? $User->delivery_longitude : 0; ?>;
+    var seller_lat  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
+    var seller_lng  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
 </script>

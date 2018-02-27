@@ -1,7 +1,7 @@
 App.Front.Item = function() {
     function listener() {
         // Mapbox.setZoom(13);
-        Mapbox.setCenter([lng, lat]);
+        Mapbox.setCenter([seller_lng, seller_lat]);
         
         var ex = '.exchange.form-group' + ' ';
 
@@ -44,6 +44,7 @@ App.Front.Item = function() {
             
             // make sure exchange option is selected
             $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
+            var exchange_option;
 
             if (!$active_ex_op) {
                 $(ex + 'div.btn-group').addClass('has-danger');
@@ -54,10 +55,17 @@ App.Front.Item = function() {
                 $(ex + 'div.btn-group').removeClass('has-danger');
                 $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
                 
+                exchange_option = $active_ex_op.data('option')
+
                 data.push({
                     name: 'exchange-option', 
                     value: $active_ex_op.data('option')
                 });
+            }
+
+            if (exchange_option == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
+                $('#delivery-address-modal').modal('show');
+                return;
             }
 
             if ($form.parsley().isValid()) {
@@ -83,10 +91,10 @@ App.Front.Item = function() {
                                 $set.append('<h6>' + response.ordergrower.name + '</h6>');
 
                                 $cart_items = $('<div class="cart-items">').appendTo($set);
-                                $breakdown = $('<div class="breakdown">').appendTo($set);
+                                $breakdown  = $('<div class="breakdown">').appendTo($set);
                             } else {
                                 $cart_items = $('#ordergrower-' + response.ordergrower.id).find('div.cart-items');
-                                $breakdown = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
+                                $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
                             }
                              
                             $cart_item = $(
@@ -256,6 +264,34 @@ App.Front.Item = function() {
                 );
             }
         });
+
+        $('#edit-delivery-address').on('submit', function(e) {
+            e.preventDefault();
+            App.Util.hideMsg();
+            
+            $form = $(this);
+            data = $form.serialize();
+        
+            if ($form.parsley().isValid()) {
+                App.Util.loading();
+
+                App.Ajax.post('dashboard/account/edit-profile/save-delivery-address', data, 
+                    function(response) {
+                        App.Util.finishedLoading();
+                        
+                        buyer_lat = true;
+                        buyer_lng = true;
+
+                        $('#delivery-address-modal').modal('hide');
+                        $('#add-item').submit();
+                    },
+                    function(response) {
+                        App.Util.finishedLoading();
+                        App.Util.msg(response.error, 'danger');
+                    }
+                );
+            }
+        });	
     };
 
     return {
