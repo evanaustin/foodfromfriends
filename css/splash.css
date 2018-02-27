@@ -7549,9 +7549,9 @@ fable {
         .ledger .record.closed > [data-toggle="collapse"].tab:hover:after, .ledger .record.opened > [data-toggle="collapse"].tab:hover:after, ledger .record.closed > [data-toggle="collapse"].tab:hover:after, ledger .record.opened > [data-toggle="collapse"].tab:hover:after {
           background-color: #636c72; }
         .ledger .record.closed > [data-toggle="collapse"].tab-info:after, .ledger .record.opened > [data-toggle="collapse"].tab-info:after, ledger .record.closed > [data-toggle="collapse"].tab-info:after, ledger .record.opened > [data-toggle="collapse"].tab-info:after {
-          background-color: #20c997; }
+          background-color: #17a2b8; }
         .ledger .record.closed > [data-toggle="collapse"].tab-success:after, .ledger .record.opened > [data-toggle="collapse"].tab-success:after, ledger .record.closed > [data-toggle="collapse"].tab-success:after, ledger .record.opened > [data-toggle="collapse"].tab-success:after {
-          background-color: #28a745; }
+          background-color: #00c079; }
         .ledger .record.closed > [data-toggle="collapse"].tab-waiting:after, .ledger .record.opened > [data-toggle="collapse"].tab-waiting:after, ledger .record.closed > [data-toggle="collapse"].tab-waiting:after, ledger .record.opened > [data-toggle="collapse"].tab-waiting:after {
           background-color: #ffc107; }
         .ledger .record.closed > [data-toggle="collapse"].tab-warning:after, .ledger .record.opened > [data-toggle="collapse"].tab-warning:after, ledger .record.closed > [data-toggle="collapse"].tab-warning:after, ledger .record.opened > [data-toggle="collapse"].tab-warning:after {
