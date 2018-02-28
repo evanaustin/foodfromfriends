@@ -124,25 +124,23 @@
                             </div> 
 
                             <div class="col-md-6"> 
-                            <div class="form-group">
-                                <label>
-                                    Availability
-                                </label>
-                                
-                                <div class="radio-box">
-                                    <label class="custom-control custom-radio">
-                                        <input id="available" name="is-available" value="1" type="radio" class="custom-control-input" data-parsley-trigger="change" required>
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Available</span>
+                                <div class="form-group">
+                                    <label>
+                                        Availability
                                     </label>
-
-                                    <label class="custom-control custom-radio">
-                                        <input id="unavailable" name="is-available" value="0" type="radio" class="custom-control-input" data-parsley-trigger="change" required>
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Unavailable</span>
-                                    </label>
+                                    
+                                    <div class="radio-box">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" required>
+                                            <label class="custom-control-label" for="available">Available</label>
+                                        </div>
+                                        
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" required>
+                                            <label class="custom-control-label" for="unavailable">Unavailable</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                             </div> 
                         </div> 
                 </div>
