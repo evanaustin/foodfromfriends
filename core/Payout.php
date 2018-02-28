@@ -2,13 +2,23 @@
  
 class Payout extends Base {
 
-    public 
-        $LineItems;
-    
     protected
         $class_dependencies,
         $DB;
         
+    public
+        $id,
+        $grower_operation_id,
+        $amount_gross,
+        $amount_grower,
+        $amount_fff,
+        $fff_fee,
+        $stripe_charge_id,
+        $processed_on;
+
+    public 
+        $LineItems;
+
     function __construct($parameters) {
         $this->table = 'payouts';
 
@@ -26,9 +36,8 @@ class Payout extends Base {
     }
 
     /**
-     * Finds this grower operation's current (unpaid) payout and returns it.
-     *
-     * If one doesn't exist, a new one will be created and returned.
+     * Finds this grower operation's current (unpaid) payout and returns it
+     * If one doesn't exist, a new one will be created and returned
      *
      * @param int $grower_operation_id
      * @return self
@@ -37,7 +46,9 @@ class Payout extends Base {
         $results = $this->DB->run('
             SELECT id 
             FROM payouts 
-            WHERE grower_operation_id = :grower_operation_id AND processed_on IS NULL
+            WHERE 
+                grower_operation_id =:grower_operation_id 
+                AND processed_on IS NULL
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
@@ -47,14 +58,18 @@ class Payout extends Base {
                 'grower_operation_id' => $grower_operation_id,
             ]);
 
-            $payout = $result['last_insert_id'];
+            $id = $result['last_insert_id'];
         } else {
-            $payout = $results[0]['id'];
+            $id = $results[0]['id'];
         }
 
+        $this->id = $id;
+
+        error_log('constructed: ' . $this->id);
+        
         return new Payout([
             'DB' => $this->DB,
-            'id' => $payout
+            'id' => $this->id
         ]);
     }
 
@@ -70,35 +85,43 @@ class Payout extends Base {
     }
 
     /**
-     * Given order data, adds it all to the appropriate payout records.  Note that totals are not
+     * Given order data, adds it all to the appropriate payout records. Note that totals are not
      * calculated at this point.
      */
-    public function save_order(Order $Order) {
-        foreach ($Order->Growers as $OrderGrower) {
-            // Fetches _or_ creates payout for this grower
-            $Payout = $this->get_current_payout($OrderGrower->grower_operation_id);
-
-            // Add line item for this `order_growers` record to the payout
-            $Payout->add_line_item($OrderGrower->id, $OrderGrower->total);
-        }
+    public function save_order(OrderGrower $OrderGrower) {
+        // Fetches _or_ creates payout for this grower
+        $Payout = $this->get_current_payout($OrderGrower->grower_operation_id);
+        error_log('got current payout');
+        // Add line item for this `order_growers` record to the payout
+        $Payout->add_line_item($OrderGrower->id, $OrderGrower->total);
     }
 
     /**
      * Adds a line item to this payout
      *
-     * @param int $order_growers_id Which OrderGrower record this line item corresponds to
+     * @param int $order_grower_id Which OrderGrower record this line item corresponds to
      * @param int $total Total price paid for goods from that OrderGrower (in cents)
      */
-    public function add_line_item($order_growers_id, $total) {
+    public function add_line_item($order_grower_id, $total) {
+        error_log('adding line item...');
         $PayoutLineItem = new PayoutLineItem([
             'DB' => $this->DB
         ]);
 
-        $PayoutLineItem->add([
-            'payout_id' => $this->id,
-            'order_growers_id' => $order_growers_id,
-            'total' => $total
+        $result = $PayoutLineItem->add([
+            'payout_id'         => $this->id,
+            'order_grower_id'  => $order_grower_id,
+            'total'             => $total
         ]);
+        
+        $this->LineItems []= new PayoutLineItem([
+            'DB' => $this->DB,
+            'id' => $result['last_insert_id']
+            ]);
+            
+        error_log(json_encode($this->LineItems));
+
+        $this->calculate_totals();
     }
 
     /**
@@ -154,42 +177,48 @@ class Payout extends Base {
      * could calculate this every time a line item is added or removed. (should probably do that instead)
      */
     public function calculate_totals() {
-        $amount_gross = 0;
-        $fff_fee = 0;
-        $amount_grower = 0;
-        $amount_fff = 0;
+        $this->amount_gross     = 0;
+        $this->fff_fee          = 0;
+        $this->amount_grower    = 0;
+        $this->amount_fff       = 0;
 
         foreach ($this->LineItems as $LineItem) {
-            $amount_gross += $LineItem->total;
+            $this->amount_gross += $LineItem->total;
         }
 
-        $fff_fee = $amount_gross * 0.05;
-        $amount_grower = $amount_gross - $fff_fee;
-        $amount_fff = $amount_gross - $amount_grower;
+        error_log('gross: ' . $this->amount_gross);
 
-        // Save totals to DB
-        $this->DB->run('
-            UPDATE payouts 
-            SET 
-                amount_gross = :amount_gross, 
-                fff_fee = :fff_fee, 
-                amount_grower = :fff_fee, 
-                amount_fff = :total
-            WHERE id = :id
-            LIMIT 1
-        ', [
-            'amount_gross' => $amount_gross,
-            'fff_fee' => $fff_fee,
-            'amount_grower' => $amount_grower,
-            'amount_fff' => $amount_fff,
-            'id' => $this->id
+        $this->fff_fee        = round($this->amount_gross * 0.05);
+        $this->amount_grower  = $this->amount_gross - $this->fff_fee;
+        $this->amount_fff     = $this->amount_gross - $this->amount_grower;
+
+        error_log($this->id);
+
+        $updated = $this->update([
+            'amount_gross'  => $this->amount_gross,
+            'fff_fee'       => $this->fff_fee,
+            'amount_grower' => $this->amount_grower,
+            'amount_fff'    => $this->amount_fff
         ]);
 
-        // Update class properties
-        $this->amount_gross = $amount_gross;
-        $this->fff_fee = $fff_fee;
-        $this->amount_grower = $amount_grower;
-        $this->amount_fff = $amount_fff;
+        /* $result = $this->DB->run('
+            UPDATE payouts 
+            SET 
+                amount_gross    =:amount_gross, 
+                fff_fee         =:fff_fee, 
+                amount_grower   =:fff_fee, 
+                amount_fff      =:total
+            WHERE id =:id
+            LIMIT 1
+        ', [
+            'amount_gross'  => $amount_gross,
+            'fff_fee'       => $fff_fee,
+            'amount_grower' => $amount_grower,
+            'amount_fff'    => $amount_fff,
+            'id'            => $this->id
+        ]); */
+
+        error_log(json_encode($updated));
     }
 
     /**

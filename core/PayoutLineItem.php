@@ -5,6 +5,12 @@ class PayoutLineItem extends Base {
     protected
         $class_dependencies,
         $DB;
+
+    public
+        $id,
+        $payout_id,
+        $order_grower_id,
+        $total;
         
     function __construct($parameters) {
         $this->table = 'payout_line_items';
