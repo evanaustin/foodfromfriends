@@ -15,7 +15,7 @@ $Gump->validation_rules([
     'item-variety'      => 'integer',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
-	'units'             => 'required|alpha',
+	'units'             => 'required|alpha_space',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
 	'is-available'      => 'required|boolean'
 ]);
