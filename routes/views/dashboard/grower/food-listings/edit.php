@@ -126,7 +126,7 @@
                                     
                                     <div class="radio-box">
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" <?php if (!$FoodListing->is_available) echo 'checked'; ?> required>
+                                            <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" <?php if ($FoodListing->is_available) echo 'checked'; ?> required>
                                             <label class="custom-control-label" for="available">Available</label>
                                         </div>
                                         
