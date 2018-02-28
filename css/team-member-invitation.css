@@ -7747,6 +7747,8 @@ i.loading-icon {
   animation: spin 2s linear infinite;
   transition: all 0.35s ease; }
 
+form label.custom-control-label {
+  line-height: 2.25; }
 form label:not(.custom-radio):not(.custom-file) {
   font-size: 0.75rem;
   text-transform: uppercase;
