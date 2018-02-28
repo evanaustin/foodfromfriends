@@ -56,8 +56,17 @@
                             <?php
 
                             foreach ($scores as $score => $title) {
-                                echo "<input type=\"radio\" id=\"seller-rating-{$score}\" name=\"seller-score\" value=\"{$score}\"/>";
-                                echo "<label for=\"seller-rating-{$score}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>";
+                                
+                                echo "
+                                    <div class=\"custom-control custom-radio custom-control-inline\">
+                                        <input type=\"radio\" id=\"seller-rating-{$score}\" name=\"seller-score\" class=\"custom-control-input\" value=\"{$score}\">
+                                        <label class=\"custom-control-label\" for=\"seller-rating-{$score}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>
+                                    </div>
+                                ";
+                                        
+
+                                // echo "<input type=\"radio\" id=\"seller-rating-{$score}\" name=\"seller-score\" value=\"{$score}\"/>";
+                                // echo "<label for=\"seller-rating-{$score}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>";
 
                             }
 
@@ -123,8 +132,15 @@
                                 foreach ($scores as $score => $title) {
                                     $item_id = "item-{$OrderFoodListing->food_listing_id}-rating-{$score}";
 
-                                    echo "<input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderFoodListing->food_listing_id}][score]\" value=\"{$score}\"/>";
-                                    echo "<label for=\"{$item_id}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>";
+                                    // echo "<input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderFoodListing->food_listing_id}][score]\" value=\"{$score}\"/>";
+                                    // echo "<label for=\"{$item_id}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>";
+
+                                    echo "
+                                        <div class=\"custom-control custom-radio custom-control-inline\">
+                                            <input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderFoodListing->food_listing_id}][score]\" class=\"custom-control-input\" value=\"{$score}\">
+                                            <label class=\"custom-control-label\" for=\"{$item_id}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>
+                                        </div>
+                                    ";
 
                                 }
 
