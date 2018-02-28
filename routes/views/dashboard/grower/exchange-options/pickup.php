@@ -34,23 +34,15 @@
                             <label>Do you want to offer free pickup?</label>
                             
                             <div class="radio-box">
-                                <label class="custom-control custom-radio">
-                                    <input name="is-offered" type="radio" value="1" class="custom-control-input" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        Yes
-                                    </span>
-                                </label>
-
-                                <label class="custom-control custom-radio">
-                                    <input name="is-offered" type="radio" value="0" class="custom-control-input" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>> 
-                                    
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">
-                                        No
-                                    </span>
-                                </label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="yes-offered" name="is-offered" class="custom-control-input" value="1" <?php if ($details['is_offered'] == 1) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="yes-offered">Yes</label>
+                                </div>
+                                
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="no-offered" name="is-offered" class="custom-control-input" value="0" <?php if ($details['is_offered'] == 0) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="no-offered">No</label>
+                                </div>
                             </div>
                         </div>
                     </div>

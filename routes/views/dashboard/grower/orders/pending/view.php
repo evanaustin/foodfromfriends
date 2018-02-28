@@ -98,7 +98,14 @@
                                     </h5>
 
                                     <small>
-                                        <?php echo "{$Buyer->city}, {$Buyer->state}"; ?>
+                                        <?php
+                                        
+                                        $city   = (!empty($Buyer->city)) ? $Buyer->city : $Buyer->billing_city;
+                                        $state  = (!empty($Buyer->state)) ? $Buyer->state : $Buyer->billing_state;
+                                        
+                                        echo "{$city}, {$state}";
+                                        
+                                        ?>
                                     </small>
                                 </div>
                             </div>
@@ -143,21 +150,21 @@
                                                 <span>
                                                     <?php echo ucfirst($FoodListing->title); ?>
                                                 </span>
-
-                                                <span class="float-right">
-                                                    <small>x</small> <?php echo $OrderListing->quantity; ?>
-                                                </span>
                                             </h5>
                                             
-                                            <h6 class="card-subtitle">
-                                                <span>
-                                                    Total: <?php echo bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
-                                                </span>
+                                            <fable>
+                                                <cell>
+                                                    <strong class="rounded-circle success no-margin"><span class="white"><?php echo $OrderListing->quantity; ?></span></strong>
+                                                </cell>
                                                 
-                                                <span class="float-right">
-                                                    <?php echo amount($OrderListing->total); ?>
-                                                </span>
-                                            </h6>
+                                                <cell>
+                                                    <?php echo bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
+                                                </cell>
+
+                                                <cell class="float-right">
+                                                    <?php amount($OrderListing->total); ?>
+                                                </cell>
+                                            </fable>
                                         </div>
                                     </div>
                                 </a>

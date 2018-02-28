@@ -25,6 +25,10 @@ i.loading-icon {
 
 form {
     label {
+        &.custom-control-label {
+            line-height: 2.25;
+        }
+
         &:not(.custom-radio):not(.custom-file) {
             font-size: 0.75rem;
             text-transform: uppercase;

@@ -442,7 +442,7 @@ class OrderGrower extends Base {
 
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
-                'id' => $OrderGrower->grower_operation_id
+                'id' => $this->grower_operation_id
             ],[
                 'details' => true,
                 'team' => true
