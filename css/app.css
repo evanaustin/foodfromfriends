@@ -6846,6 +6846,9 @@ canvas:focus {
 .no-margin {
   margin: 0 !important; }
 
+.margin-top-2em {
+  margin-top: 2rem !important; }
+
 .margin-top-125em {
   margin-top: 1.25rem !important; }
 
@@ -7405,14 +7408,9 @@ keymap key {
  * Used: on <tables>
  */
 .table {
-  background-color: #fff;
-  border-color: #fafafb;
-  -webkit-border-radius: 0.25rem;
-  -moz-border-radius: 0.25rem;
-  border-radius: 0.25rem;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+  margin-bottom: 0 !important; }
+  .table tr.w-25 th, .table tr.w-25 td {
+    width: 25%; }
   .table th {
     border-top: 0px; }
   .table th, .table td {
@@ -7422,6 +7420,16 @@ keymap key {
     .table ul.pagination li.active .page-link {
       background-color: #00c079;
       border-color: #00c079; }
+
+.table-responsive {
+  background-color: #fff;
+  border-color: #fafafb;
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  border-radius: 0.25rem;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
 
 /*
  * A container structure for tabular data
