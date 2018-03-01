@@ -7607,6 +7607,11 @@ fable {
       .ledger .record.opened .tab + fable, ledger .record.opened .tab + fable {
         margin-bottom: 1rem;
         color: #b2b2b2; }
+        .ledger .record.opened .tab + fable cell.actions .btn-muted, ledger .record.opened .tab + fable cell.actions .btn-muted {
+          background-color: #fff;
+          border-color: #fff; }
+          .ledger .record.opened .tab + fable cell.actions .btn-muted i, ledger .record.opened .tab + fable cell.actions .btn-muted i {
+            color: #b2b2b2; }
     .ledger .record + .record, ledger .record + .record {
       margin-top: 1rem; }
     .ledger .record fable > cell:first-child, ledger .record fable > cell:first-child {

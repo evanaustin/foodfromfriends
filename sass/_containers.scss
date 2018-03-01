@@ -625,6 +625,17 @@ fable {
             .tab + fable {
                 margin-bottom: 1rem;
                 color: $light-gray;
+
+                cell.actions {
+                    .btn-muted {
+                        background-color: #fff;
+                        border-color: #fff;
+                        
+                        i {
+                            color: $light-gray;
+                        }
+                    }
+                }
             }
         }
 
