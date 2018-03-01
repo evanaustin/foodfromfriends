@@ -20,80 +20,82 @@
 
             <div class="alerts"></div>
 
-            <table class="table table-default datatable">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Failed on</th>
-                        <th>Amount</th>
-                        <th>Buyer</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <?php 
-                    
-                    $i = 1;
-
-                    foreach($completed as $order) {
-                        $voided_on = new DateTime($order['voided_on']);
-                        $voided_on->setTimezone(new DateTimeZone($User->timezone));
-
-                        $ThisUser = new User([
-                            'DB' => $DB,
-                            'id' => $order['user_id']
-                        ]);
-
-                        ?>
-                        
+            <div class="table-responsive margin-top-1em">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td scope="row">
-                                <?php echo $i; ?>
-                            </td>
+                            <th>#</th>
+                            <th>Failed on</th>
+                            <th>Amount</th>
+                            <th>Buyer</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                            <td clas="failed-on">
-                                <?php echo $voided_on->format('F j, Y'); ?>
-                            </td>
-                            
-                            <td class="amount">
-                                <?php amount($order['total']); ?>
-                            </td>
+                    <tbody>
+                        <?php 
+                        
+                        $i = 1;
 
-                            <td class="buyer">
-                                <?php echo $ThisUser->name; ?>
-                            </td>
+                        foreach($completed as $order) {
+                            $voided_on = new DateTime($order['voided_on']);
+                            $voided_on->setTimezone(new DateTimeZone($User->timezone));
+
+                            $ThisUser = new User([
+                                'DB' => $DB,
+                                'id' => $order['user_id']
+                            ]);
+
+                            ?>
                             
-                            <td class="details">
-                                <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/orders/failed/view?id=' . $order['id']; ?>">
-                                    <i class="fa fa-external-link" data-toggle="tooltip" data-placement="top" data-title="View order details"></i>
-                                </a>
+                            <tr>
+                                <td scope="row">
+                                    <?php echo $i; ?>
+                                </td>
+
+                                <td clas="failed-on">
+                                    <?php echo $voided_on->format('F j, Y'); ?>
+                                </td>
+                                
+                                <td class="amount">
+                                    <?php amount($order['total']); ?>
+                                </td>
+
+                                <td class="buyer">
+                                    <?php echo $ThisUser->name; ?>
+                                </td>
+                                
+                                <td class="details">
+                                    <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/orders/failed/view?id=' . $order['id']; ?>">
+                                        <i class="fa fa-external-link" data-toggle="tooltip" data-placement="top" data-title="View order details"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                    
+                            <?php
+                    
+                            $i++;
+
+                        }
+                        
+                        ?>
+
+                        <tr>
+                            <td colspan=5>
+                                <nav aria-label="Table navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">
+                                                1
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </td>
                         </tr>
-                
-                        <?php
-                
-                        $i++;
-
-                    }
-                    
-                    ?>
-
-                    <tr>
-                        <td colspan=5>
-                            <nav aria-label="Table navigation">
-                                <ul class="pagination">
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">
-                                            1
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
             <?php
 

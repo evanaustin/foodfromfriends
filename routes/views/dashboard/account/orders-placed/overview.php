@@ -64,6 +64,8 @@
                     $placed_on = new Datetime($Order->Charge->authorized_on);
                     $placed_on = $placed_on->format('F j, Y');
 
+                    $encrypted_id = substr($Order->Charge->stripe_charge_id, -4) . '-' . $Order->id * 3;
+
                     // $tab_highlight = 'tab-' . (!isset($Order->completed_on) ? 'warning' : 'success');
 
                     ?>
@@ -77,7 +79,7 @@
                             </cell>
                             
                             <cell>
-                                <h6>ID:&nbsp;<strong><?php echo $Order->id . '0' . substr((pow($Order->id, 3) - pow($Order->id, 2)), 0, 3); ?></strong></h6>
+                                <h6>ID:&nbsp;<strong><?php echo $encrypted_id; ?></strong></h6>
                             </cell>
                             
                             <cell>
@@ -88,8 +90,12 @@
                                 <h6>Placed:&nbsp;<strong><?php echo $placed_on; ?></strong></h6>
                             </cell>
                             
-                            <cell class="justify-end">
+                            <cell class="justify-center">
                                 <h5 class="strong"><?php amount($Order->total); ?></h5>
+                            </cell>
+
+                            <cell class="actions flexgrow-0">
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>
                             </cell>
                         </fable>
                     
@@ -238,9 +244,9 @@
                                                     case 'message':
                                                         echo '<a href="' . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
                                                         break;
-                                                    case 'view receipt':
-                                                        echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
-                                                        break;
+                                                    // case 'view receipt':
+                                                    //     echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
+                                                    //     break;
                                                     case 'leave a review':
                                                         echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
                                                         break;

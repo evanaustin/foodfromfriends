@@ -46,44 +46,46 @@
                                 </button>
                             </div>
                         </div>
-                        
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Role</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                <?php foreach($team_members as $team_member) { ?>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <?php
-
-                                            switch($team_member['permission']) {
-                                                case 0:
-                                                    $role = 'invited';
-                                                    break;
-                                                case 1:
-                                                    $role = 'manager';
-                                                    break;
-                                                case 2:
-                                                    $role = 'owner';
-                                                    break;
-                                            }
-
-                                            echo ucfirst($role);
-                                            
-                                            ?>
-                                        </td>
-                                        <td><?php echo $team_member['first_name']; ?></td>
-                                        <td><?php echo $team_member['last_name']; ?></td>
+                                        <th>Role</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    <?php foreach($team_members as $team_member) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php
+
+                                                switch($team_member['permission']) {
+                                                    case 0:
+                                                        $role = 'invited';
+                                                        break;
+                                                    case 1:
+                                                        $role = 'manager';
+                                                        break;
+                                                    case 2:
+                                                        $role = 'owner';
+                                                        break;
+                                                }
+
+                                                echo ucfirst($role);
+                                                
+                                                ?>
+                                            </td>
+                                            <td><?php echo $team_member['first_name']; ?></td>
+                                            <td><?php echo $team_member['last_name']; ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </form>
