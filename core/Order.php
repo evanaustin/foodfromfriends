@@ -233,8 +233,6 @@ class Order extends Base {
 
     /**
      * Calculates the final tally of order fees, subtotals, totals, etc.
-     * 
-     * @todo Introduce tiered pricing
      */
     private function calculate_total_and_fees() {
         $this->subtotal = 0;
@@ -245,16 +243,26 @@ class Order extends Base {
             $this->exchange_fees += $OrderGrower->Exchange->fee;
         }
 
-        /**
-         * The rate should be variable depending on order total:
-         * if ($this->subtotal < $50) then $rate = 10%
-         * if ($this->subtotal > $50 && < $100) then $rate = 7.5%
-         * if ($this->subtotal > $100) then $rate = 5%
-         */
-        $rate = 0.1;
+        // Set rate gradiations between 5% ($100+) and 7.5% ($75-)
+        if ($this->subtotal >= 10000) {
+            $rate = 0.05;
+        } else if ($this->subtotal < 10000  && $this->subtotal >= 9500) {
+            $rate = 0.055;
+        } else if ($this->subtotal < 9500   && $this->subtotal >= 9000) {
+            $rate = 0.06;
+        } else if ($this->subtotal < 9000   && $this->subtotal >= 8500) {
+            $rate = 0.0625;
+        } else if ($this->subtotal < 8500   && $this->subtotal >= 8000) {
+            $rate = 0.065;
+        } else if ($this->subtotal < 8000   && $this->subtotal >= 7500) {
+            $rate = 0.07;
+        } else if ($this->subtotal < 7500) {
+            $rate = 0.075;
+        }
+        
         $fff_fee = round($this->subtotal * $rate);
         
-        // charge the greater of 10% and $0.50
+        // Charge minimum of $0.50
         $this->fff_fee = ($fff_fee < 50) ? 50 : $fff_fee;
 
         $this->total = $this->subtotal + $this->exchange_fees + $this->fff_fee;
