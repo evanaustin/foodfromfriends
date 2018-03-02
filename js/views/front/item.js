@@ -144,7 +144,7 @@ App.Front.Item = function() {
                             
                             $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
                             
-                            for (var i = 1; i < response.listing.quantity; i++) {
+                            for (var i = 1; i <= response.listing.quantity; i++) {
                                 // $option = $('<option>').attr('value', i).text(i);
                                 $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
                             };
@@ -212,8 +212,12 @@ App.Front.Item = function() {
                         App.Util.slidebar(Slidebar, 'open', 'right', e);
 
                         $(Slidebar.events).on('opened', function () {
-                            // update quantity for cart item
-                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option[value=' + formdata['quantity'] + ']').attr('selected', 'selected');
+                            // Update quantity for cart item
+                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option').attr('selected', false);
+                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option[value=' + response.item.quantity + ']').attr('selected', 'selected');
+
+                            // Update item subtotal
+                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('.item-price').text(response.item.subtotal);
 
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
                             $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
