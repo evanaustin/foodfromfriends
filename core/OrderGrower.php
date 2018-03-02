@@ -117,6 +117,7 @@ class OrderGrower extends Base {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
+            'user_id'           => $this->user_id,
             'food_listing_id'   => $FoodListing->id,
             'quantity'          => $quantity
         ], 'order_food_listings');
