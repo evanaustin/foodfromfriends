@@ -245,8 +245,8 @@ class GrowerOperation extends Base {
      */
     public function create($User, $data, $options = null) {
         // shell ops are named after the owner; other ops are explicity created with a given name
-        $name = ($data['type'] == 0) ? $User->name : ((isset($data['name'])) ? $data['name'] : '');
-
+        $name = ($data['type'] == 1) ? $User->name : ((isset($data['name'])) ? $data['name'] : '');
+        
         if (!empty($name) && !empty($data['type'])) {
             $Slug = new Slug([
                 'DB' => $this->DB
