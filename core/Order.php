@@ -314,9 +314,18 @@ class Order extends Base {
                     'id' => $key
                 ]);
 
-                $FoodListing->update([
-                    'quantity' => $FoodListing->quantity - $OrderFoodListing->quantity
-                ]);
+                $remaining = $FoodListing->quantity - $OrderFoodListing->quantity;
+                
+                if ($remaining > 0) {
+                    $FoodListing->update([
+                        'quantity'      => $remaining
+                    ]);
+                } else {
+                    $FoodListing->update([
+                        'quantity'      => 0,
+                        'is_available'  => 0
+                    ]);
+                }
             }
 
             // Create `Status` record
