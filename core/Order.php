@@ -178,10 +178,10 @@ class Order extends Base {
         
         $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->delete();
         
-        // If this was the only listing for this grower, remove the OrderGrower entirely
+        // If this was the only listing for this grower, remove the OrderGrower & OrderGrower->Exchange entirely
         if (count($this->Growers[$FoodListing->grower_operation_id]->FoodListings) == 1) {
+            $this->Growers[$FoodListing->grower_operation_id]->Exchange->delete();
             $this->Growers[$FoodListing->grower_operation_id]->delete();
-            // ! do this for OrderExchange too
         }
 
         // Refresh the cart
@@ -192,6 +192,24 @@ class Order extends Base {
      * Updates the quantity of the provided item.
      */
     public function modify_quantity(FoodListing $FoodListing, $quantity) {
+        if ($this->is_cart() !== true) {
+            throw new \Exception('Cannot add items to this order.');
+        }
+
+        if ($quantity == 0) {
+            return $this->remove_from_cart($FoodListing);
+        }
+
+        $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->modify_quantity($quantity);
+
+        // Refresh the cart
+        $this->update_cart();
+    }
+    
+    /**
+     * Updates the quantity of the provided item.
+     */
+    public function modify_exchange(FoodListing $FoodListing, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
