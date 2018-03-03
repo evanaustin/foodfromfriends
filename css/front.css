@@ -6721,6 +6721,15 @@ div.box {
       margin-top: 0.5rem;
       font-size: 1em;
       font-weight: 500; }
+    #cart[off-canvas*=right] div.line-amount select {
+      height: auto;
+      width: auto;
+      margin-left: -0.5rem;
+      border-width: 0;
+      font-size: 0.75rem;
+      color: #636c72; }
+      #cart[off-canvas*=right] div.line-amount select:focus {
+        box-shadow: none; }
     #cart[off-canvas*=right] div.line-amount a.label:hover {
       cursor: default;
       color: #00c079; }

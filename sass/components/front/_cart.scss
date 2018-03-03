@@ -103,6 +103,19 @@
             font-weight: 500;
         }
 
+        select {
+            height: auto;
+            width: auto;
+            margin-left: -0.5rem;
+            border-width: 0;
+            font-size: 0.75rem;
+            color: #636c72;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
         a.label {
             &:hover {
                 cursor: default;
