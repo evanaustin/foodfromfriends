@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Your placed orders | Food From Friends'
+    'title' => 'Your orders | Food From Friends'
 ];
 
 $Order = new Order([

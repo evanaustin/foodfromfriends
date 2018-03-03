@@ -25,14 +25,14 @@ App.Dashboard.OrderReview = function() {
 
                         var data = $form.serialize();
 
-                        App.Ajax.post('dashboard/account/orders-placed/review', data, 
+                        App.Ajax.post('dashboard/account/buying/review', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
                                 toastr.success('Reviewed! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/account/orders-placed/overview';
+                                    window.location = PUBLIC_ROOT + 'dashboard/account/buying/orders';
                                 }, 1500);
                             },
                             function(response) {

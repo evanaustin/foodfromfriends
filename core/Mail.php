@@ -320,7 +320,7 @@ class Mail {
         $jwt = JWT::encode($token, JWT_KEY);
 
         // @todo scroll to order
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/overview?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/buying/orders?token=' . $jwt));
 
         $body = "
             <h1>
@@ -533,7 +533,7 @@ class Mail {
         
         $jwt = JWT::encode($token, JWT_KEY);
         
-        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/orders-placed/';
+        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/buying/';
 
         $review_route = 'review?id=' . $OrderGrower->id;
         $review_link = urldecode(urlencode($review_route . '?token=' . $jwt));
