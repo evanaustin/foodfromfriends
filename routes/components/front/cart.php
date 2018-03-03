@@ -16,7 +16,7 @@
 
             ?>
 
-            <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set">
+            <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set" data-grower-operation-id="<?php echo $Grower->id; ?>">
                 <h6>
                     <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                         <?php echo $Grower->name; ?>
@@ -83,9 +83,23 @@
 
                 <div class="breakdown">
                     <div class="line-amount">
-                        <div class="label exchange">
-                            <strong><?php echo ucfirst($OrderGrower->Exchange->type); ?></strong>
-                        </div>
+                        <?php
+
+                        $exchange_options_available = [];
+                            
+                        if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered)   $exchange_options_available []= 'delivery';
+                        if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered)       $exchange_options_available []= 'pickup';
+                        if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered)       $exchange_options_available []= 'meetup';
+
+                        echo "<select class=\"custom-select ordergrower-exchange\" name=\"exchange\">";
+                        
+                        foreach($exchange_options_available as $option) {
+                            echo "<option value=\"{$option}\" " . ($OrderGrower->Exchange->type == $option ? "selected" : "") . ">" . ucfirst($option) . "</option>";
+                        }
+                        
+                        echo "</select>";
+
+                        ?>
                         
                         <div class="rate exchange-fee">
                             <?php
