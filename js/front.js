@@ -19,7 +19,7 @@ App.Front = function() {
             App.Util.slidebar(Slidebar, 'toggle', 'right', e);
         });
 
-        // ! dirty - shouldn't be capturing universally and applying specificall -
+        // ! dirty - shouldn't be capturing universally and applying specifically -
         $(Slidebar.events).on('opened', function () {
             $('a.cart-toggle').addClass('active');
             $('#basket-form-container button[type="submit"]').removeClass('btn-primary').addClass('btn-dark');
@@ -28,18 +28,22 @@ App.Front = function() {
             $('#basket-form-container button[type="submit"]').removeClass('btn-dark').addClass('btn-primary');
         });
 
-        var cart = document.getElementById('cart');
-        var cartswipe = new Hammer(cart);
+        // Active mobile methods of closing the sidebars
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            var cart = document.getElementById('cart');
+            var cartswipe = new Hammer(cart);
+    
+            cartswipe.on('swiperight', function(e) {
+                App.Util.slidebar(Slidebar, 'close', 'right');
+            });
+    
+            $('div[canvas="container"]').on('click', function(e) {
+                App.Util.slidebar(Slidebar, 'close', 'left', e);
+                App.Util.slidebar(Slidebar, 'close', 'right', e);
+            });
+        }
 
-        cartswipe.on('swiperight', function(e) {
-            App.Util.slidebar(Slidebar, 'close', 'right');
-        });
-
-        $('div[canvas="container"]').on('click', function(e) {
-            App.Util.slidebar(Slidebar, 'close', 'left', e);
-            App.Util.slidebar(Slidebar, 'close', 'right', e);
-        });
-
+        // Remove item
         $(document).on('click', '#cart a.remove-item', function(e) {
             $cart_item = $(this).parents('div.cart-item');
             var listing_id = $cart_item.data('listing-id');
@@ -101,6 +105,7 @@ App.Front = function() {
             });
         });
 
+        // Update item quantity
         $(document).on('change', '#cart .cart-item select', function(e) {
             $cart_item = $(this).parents('div.cart-item');
 
@@ -128,6 +133,41 @@ App.Front = function() {
                     $('#checkout-total').text(response.order.total);
                 }, function(response) {
                     console.log(response.error);
+                }
+            );
+        });
+        
+        // Update OrderGrower Exchange type
+        $(document).on('change', '#cart .ordergrower-exchange', function(e) {
+            var data = {
+                'grower-operation-id': $(this).parents('div.set').data('grower-operation-id'),
+                'exchange-option': $(this).val()
+            };
+
+            App.Ajax.post('order/set-exchange-method', $.param(data), 
+                function(response) {
+                    $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
+
+                    if ($('.exchange-btn').length > 1) {
+                        $('.exchange-btn').removeClass('active');
+                        $('.exchange-btn[data-option="' + response.ordergrower.exchange + '"]').addClass('active');
+                    }
+
+                    $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
+                    $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
+                    $('#end-breakdown').find('.rate.total').text(response.order.total);
+
+                    if (response.order.ex_fee != '$0.00') {
+                        $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                        $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
+                    } else {
+                        $('#end-breakdown').find('.rate.exchange-fee').text(0);
+                        $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
+                    }
+                    
+                    $('#checkout-total').text(response.order.total);
+                }, function(response) {
+                    App.Util.msg(response.error, 'danger');
                 }
             );
         });
