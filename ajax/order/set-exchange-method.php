@@ -38,30 +38,18 @@ try {
 
 	$Order = $Order->get_cart($User->id);
 
-	$GrowerOperation = new GrowerOperation([
-		'DB' => $DB,
-		'id' => $grower_operation_id
-	],[
-		'details' => true,
-		'exchange' => true
-	]);
-
-	if (!isset($Order->Growers[$GrowerOperation->id])) {
+	if (!isset($Order->Growers[$grower_operation_id])) {
 		quit('You are not ordering from this grower');
 	}
 
-	$Order->set_exchange_method(
-		$exchange_option,
-		$User,
-		$GrowerOperation 
-	);
-
 	$OrderGrower = $Order->Growers[$grower_operation_id];
+    
+    $OrderGrower->Exchange->set_type($exchange_option);
 
 	$json['ordergrower'] = [
 		'id'		=> $OrderGrower->id,
-		'exchange'	=> ucfirst($OrderGrower->exchange_option),
-		'ex_fee'	=> '$' . number_format($OrderGrower->exchange_fee / 100, 2),
+		'exchange'	=> $OrderGrower->Exchange->type,
+		'ex_fee'	=> ($OrderGrower->Exchange->fee > 0 ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free'),
 	];
 
 	$json['order'] = [
