@@ -58,7 +58,7 @@ keymap {
     @include transition(all .2s);
 
     &:hover {
-        @include transform(translateY(-2px));
+        @include transform(translateY(-1px));
         @include drop-shadow(0, 5px, 20px);
     }
 
@@ -503,7 +503,7 @@ fable {
                     }
                     
                     &:after {
-                        @include transform(translateY(-2px));
+                        @include transform(translateY(-1px));
                         @include drop-shadow(0, 5px, 20px);
                     }
                 }
