@@ -1,23 +1,21 @@
-App.Dashboard.OrdersPlaced = function() {
+App.Dashboard.OrderReview = function() {
     function listener() {
-        $('a.cancel-order').on('click', function(e) {
+        $('#review-order').on('submit', function(e) {
             e.preventDefault();
-        
-            var data = {
-                'ordergrower_id': $(this).data('ordergrower-id')
-            };
+            
+            $form = $(this);
 
             bootbox.confirm({
                 closeButton: false,
-                title: 'Cancel order',
-                message: '<div class="text-center">Please confirm you want to cancel this order</div>',
+                title: 'Submit review',
+                message: 'Please confirm you want to submit your review of this order. You cannot change a review after it has been submitted.',
                 buttons: {
                     confirm: {
-                        label: 'Submit cancellation',
+                        label: 'Submit',
                         className: 'btn-warning'
                     },
                     cancel: {
-                        label: 'Go back',
+                        label: 'Cancel',
                         className: 'btn-muted'
                     }
                 },
@@ -25,14 +23,16 @@ App.Dashboard.OrdersPlaced = function() {
                     if (result === true) {
                         App.Util.loading();
 
-                        App.Ajax.post('dashboard/account/orders-placed/buyer-cancel', data, 
+                        var data = $form.serialize();
+
+                        App.Ajax.post('dashboard/account/buying/review', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
-                                toastr.success('Cancelled. Now reloading...');
+                                toastr.success('Reviewed! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location.reload(true);
+                                    window.location = PUBLIC_ROOT + 'dashboard/account/buying/orders';
                                 }, 1500);
                             },
                             function(response) {
@@ -40,7 +40,6 @@ App.Dashboard.OrdersPlaced = function() {
                                 App.Util.finishedLoading();
                             }
                         );
-                        console.log(data);
 
                         App.Util.finishedLoading();
                     }

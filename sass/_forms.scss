@@ -88,7 +88,7 @@ form {
         &:focus, &.focused {
             border-color: $lightedge-color;
             color: $superlight-green;
-            @include transform(translateY(-2px));
+            @include transform(translateY(-1px));
             @include drop-shadow(0, 5px, 10px);
 
             input, span {
@@ -225,7 +225,7 @@ form {
         @include transition(all .2s);
 
         &.slide-over:hover {
-            @include transform(translateY(-2px));
+            @include transform(translateY(-1px));
             @include drop-shadow(0, 5px, 20px);
 
             div.overlay-slide {

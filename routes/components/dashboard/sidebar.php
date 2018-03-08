@@ -33,8 +33,10 @@
                         'billing-info',
                         'delivery-address',
                     ],
-                    'orders-placed' => [
-                        'overview'
+                    'buying' => [
+                        'orders',
+                        'wish-list',
+                        //'saved-items'
                     ],
                     /* 'account-settings' => [
                         'notifications',

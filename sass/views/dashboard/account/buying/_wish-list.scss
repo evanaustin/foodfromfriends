@@ -1,0 +1,11 @@
+.subcategory {
+    .btn {
+        background: #fff;
+
+        &:hover, &.active {
+            background-color: $muted !important;
+            border-color: $muted !important;
+            color: white !important;
+        }
+    }
+}

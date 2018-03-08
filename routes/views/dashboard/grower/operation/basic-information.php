@@ -13,13 +13,13 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        Howdy neighbor! Setting an operation for yourself assigns any food listings you create to that operation rather than to you as an individual. This clarifies your presence as a grower and lets teams work together through Food From Friends.
+                        Setting an operation for yourself assigns any food listings you create to that operation rather than to you as an individual. This clarifies your presence as a grower and lets teams work together through Food From Friends.
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="controls">
-                        <button type="submit" form="edit-basic-information" class="btn btn-primary">
+                        <button type="submit" form="edit-basic-information" class="btn btn-success">
                             <i class="pre fa fa-floppy-o"></i>
                             Save changes
                             <i class="post fa fa-gear loading-icon"></i>

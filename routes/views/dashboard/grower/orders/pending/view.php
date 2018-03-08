@@ -21,7 +21,7 @@
                     <div class="controls">
                         <input id="ordergrower-id" type="hidden" value="<?php echo $OrderGrower->id; ?>">
 
-                        <button id="fulfill-order" class="btn btn-primary">
+                        <button id="fulfill-order" class="btn btn-success">
                             <i class="pre fa fa-check"></i>
                             Mark as fulfilled
                             <i class="post fa fa-gear loading-icon save"></i>

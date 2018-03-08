@@ -1,14 +1,15 @@
-App.Dashboard.OrderReview = function() {
+
+App.Dashboard.OrderIssue = function() {
     function listener() {
-        $('#review-order').on('submit', function(e) {
+        $('#report-order').on('submit', function(e) {
             e.preventDefault();
             
             $form = $(this);
 
             bootbox.confirm({
                 closeButton: false,
-                title: 'Submit review',
-                message: 'Please confirm you want to submit your review of this order. You cannot change a review after it has been submitted.',
+                title: 'Submit report',
+                message: '<div class="text-center">Please confirm you want to report an issue with this order</div>',
                 buttons: {
                     confirm: {
                         label: 'Submit',
@@ -25,14 +26,14 @@ App.Dashboard.OrderReview = function() {
 
                         var data = $form.serialize();
 
-                        App.Ajax.post('dashboard/account/orders-placed/review', data, 
+                        App.Ajax.post('dashboard/account/buying/report', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
-                                toastr.success('Reviewed! Now redirecting...');
+                                toastr.success('Reported. Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/account/orders-placed/overview';
+                                    window.location = PUBLIC_ROOT + 'dashboard/account/buying/orders';
                                 }, 1500);
                             },
                             function(response) {

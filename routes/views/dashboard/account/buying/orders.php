@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Your placed orders
+                    Your orders
                 </div>
         
                 <div class="page-description text-muted small">
-                    Check it out! These are the orders you've placed. Each order tab is clickable and color-coded according to the order's status.
+                    These are the orders you've placed. Each order tab is clickable and color-coded according to the order's status.
                 </div>
             </div>
         
@@ -95,7 +95,7 @@
                             </cell>
 
                             <cell class="actions flexgrow-0">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>
                             </cell>
                         </fable>
                     
@@ -248,10 +248,10 @@
                                                     //     echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
                                                     //     break;
                                                     case 'leave a review':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/buying/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
                                                         break;
                                                     case 'report an issue':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/orders-placed/report?id=' . $OrderGrower->id . '" class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/account/buying/report?id=' . $OrderGrower->id . '" class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
                                                         break;
                                                     case 'cancel order':
                                                         echo '<a class="cancel-order btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-times"></i></a>';

@@ -1624,7 +1624,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .custom-control-input.is-valid ~ .valid-tooltip {
   display: block; }
 .was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .custom-control-input.is-valid:checked ~ .custom-control-label::before {
-  background-color: #00f39a; }
+  background-color: #00f399; }
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before, .custom-control-input.is-valid:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 192, 121, 0.25); }
 
@@ -6626,13 +6626,16 @@ body.dashboard {
           body.dashboard main > div.container div.controls .btn:first-child,
           body.dashboard main > div.container-fluid div.controls .btn:first-child {
             margin-bottom: 0.5rem; }
-          body.dashboard main > div.container div.controls .btn i.pre,
-          body.dashboard main > div.container-fluid div.controls .btn i.pre {
-            float: left; }
-          body.dashboard main > div.container div.controls .btn i.post,
-          body.dashboard main > div.container-fluid div.controls .btn i.post {
-            margin-top: 1px;
-            float: right; }
+          body.dashboard main > div.container div.controls .btn i,
+          body.dashboard main > div.container-fluid div.controls .btn i {
+            font-size: 1rem; }
+            body.dashboard main > div.container div.controls .btn i.pre,
+            body.dashboard main > div.container-fluid div.controls .btn i.pre {
+              float: left; }
+            body.dashboard main > div.container div.controls .btn i.post,
+            body.dashboard main > div.container-fluid div.controls .btn i.post {
+              margin-top: 1px;
+              float: right; }
       body.dashboard main > div.container table.datatable,
       body.dashboard main > div.container-fluid table.datatable {
         margin-top: 1em; }
@@ -6980,5 +6983,12 @@ div.seamless .block .callout {
       border-bottom-left-radius: 0;
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem; } }
+
+.subcategory .btn {
+  background: #fff; }
+  .subcategory .btn:hover, .subcategory .btn.active {
+    background-color: #636c72 !important;
+    border-color: #636c72 !important;
+    color: white !important; }
 
 /*# sourceMappingURL=dashboard.css.map */

@@ -13,7 +13,7 @@
 
             <div class="col-md-6">
                 <div class="controls">
-                    <button type="submit" form="save-delivery" class="btn btn-primary">
+                    <button type="submit" form="save-delivery" class="btn btn-success">
                         <i class="pre fa fa-floppy-o"></i>
                         Save changes
                         <i class="post fa fa-gear loading-icon"></i>

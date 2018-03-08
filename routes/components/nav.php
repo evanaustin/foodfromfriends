@@ -36,7 +36,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
                         Your purchases
                     </a>
                 </li>
@@ -88,8 +88,9 @@
                             'billing-info',
                             'delivery-address'
                         ],
-                        'orders-placed' => [
-                            'overview'
+                        'buying' => [
+                            'orders',
+                            'wish-list',
                         ],
                         /* 'account-settings' => [
                             'notifications',

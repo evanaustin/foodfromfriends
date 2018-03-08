@@ -1,22 +1,23 @@
-
-App.Dashboard.OrderIssue = function() {
+App.Dashboard.Orders = function() {
     function listener() {
-        $('#report-order').on('submit', function(e) {
+        $('a.cancel-order').on('click', function(e) {
             e.preventDefault();
-            
-            $form = $(this);
+        
+            var data = {
+                'ordergrower_id': $(this).data('ordergrower-id')
+            };
 
             bootbox.confirm({
                 closeButton: false,
-                title: 'Submit report',
-                message: '<div class="text-center">Please confirm you want to report an issue with this order</div>',
+                title: 'Cancel order',
+                message: '<div class="text-center">Please confirm you want to cancel this order</div>',
                 buttons: {
                     confirm: {
-                        label: 'Submit',
+                        label: 'Submit cancellation',
                         className: 'btn-warning'
                     },
                     cancel: {
-                        label: 'Cancel',
+                        label: 'Go back',
                         className: 'btn-muted'
                     }
                 },
@@ -24,16 +25,14 @@ App.Dashboard.OrderIssue = function() {
                     if (result === true) {
                         App.Util.loading();
 
-                        var data = $form.serialize();
-
-                        App.Ajax.post('dashboard/account/orders-placed/report', data, 
+                        App.Ajax.post('dashboard/account/buying/cancel-order', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
-                                toastr.success('Reported. Now redirecting...');
+                                toastr.success('Cancelled. Now reloading...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/account/orders-placed/overview';
+                                    window.location.reload(true);
                                 }, 1500);
                             },
                             function(response) {
@@ -41,6 +40,7 @@ App.Dashboard.OrderIssue = function() {
                                 App.Util.finishedLoading();
                             }
                         );
+                        console.log(data);
 
                         App.Util.finishedLoading();
                     }

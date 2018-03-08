@@ -80,7 +80,7 @@
                 
                         <p class="message">
                             Thanks! Your order has been submitted.<br>
-                            Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/orders-placed/overview'; ?>">here</a> to check on its status.
+                            Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">here</a> to check on its status.
                         </p>
                     </div>
                 </div>

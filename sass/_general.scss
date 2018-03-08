@@ -75,6 +75,10 @@ canvas {
     text-transform: uppercase;
 }
 
+.padding-1em {
+    padding: 1rem;
+}
+
 .p1w {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -453,7 +457,7 @@ canvas {
     @include transition(all .2s);
 
     &:not([disabled]):hover {
-        @include transform(translateY(-2px));
+        @include transform(translateY(-1px));
         @include drop-shadow(0, 5px, 10px, 0.2);
     }
 
@@ -466,8 +470,15 @@ canvas {
 
  .btn-primary {
     &:not([disabled]):hover {
-        background-color: lighten($superlight-green, 5%);
-        border-color: lighten($superlight-green, 5%);
+        background-color: lighten($primary, 5%);
+        border-color: lighten($primary, 5%);
+    }
+ }
+ 
+ .btn-success {
+    &:not([disabled]):hover {
+        background-color: lighten($success, 5%);
+        border-color: lighten($success, 5%);
     }
  }
 

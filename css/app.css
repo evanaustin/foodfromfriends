@@ -1797,7 +1797,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .custom-control-input.is-valid ~ .valid-tooltip {
   display: block; }
 .was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .custom-control-input.is-valid:checked ~ .custom-control-label::before {
-  background-color: #00f39a; }
+  background-color: #00f399; }
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before, .custom-control-input.is-valid:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 192, 121, 0.25); }
 
@@ -6784,6 +6784,9 @@ canvas:focus {
 .uppercase, uppercase {
   text-transform: uppercase; }
 
+.padding-1em {
+  padding: 1rem; }
+
 .p1w {
   padding-left: 1rem;
   padding-right: 1rem; }
@@ -7088,11 +7091,11 @@ canvas:focus {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.2s; }
   .btn:not([disabled]):hover {
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
@@ -7101,6 +7104,10 @@ canvas:focus {
     border-color: rgba(0, 0, 0, 0.025); }
 
 .btn-primary:not([disabled]):hover {
+  background-color: #00d989;
+  border-color: #00d989; }
+
+.btn-success:not([disabled]):hover {
   background-color: #00d989;
   border-color: #00d989; }
 
@@ -7216,11 +7223,11 @@ keymap key {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.2s; }
   .card:hover {
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
     -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
@@ -7544,11 +7551,11 @@ fable {
         .ledger .record.closed > [data-toggle="collapse"]:hover:before, .ledger .record.opened > [data-toggle="collapse"]:hover:before, ledger .record.closed > [data-toggle="collapse"]:hover:before, ledger .record.opened > [data-toggle="collapse"]:hover:before {
           transform: translateY(-12px); }
         .ledger .record.closed > [data-toggle="collapse"]:hover:after, .ledger .record.opened > [data-toggle="collapse"]:hover:after, ledger .record.closed > [data-toggle="collapse"]:hover:after, ledger .record.opened > [data-toggle="collapse"]:hover:after {
-          -webkit-transform: translateY(-2px);
-          -moz-transform: translateY(-2px);
-          -ms-transform: translateY(-2px);
-          -o-transform: translateY(-2px);
-          transform: translateY(-2px);
+          -webkit-transform: translateY(-1px);
+          -moz-transform: translateY(-1px);
+          -ms-transform: translateY(-1px);
+          -o-transform: translateY(-1px);
+          transform: translateY(-1px);
           -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
@@ -7816,11 +7823,11 @@ form div.image-box {
   form div.image-box.focused {
     border-color: rgba(0, 0, 0, 0.025);
     color: #00c079;
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
@@ -7946,11 +7953,11 @@ form div.image-box {
   border-radius: 0.25rem;
   transition: all 0.2s; }
   form div.image-box.slide-over:hover {
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
     -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
@@ -8098,11 +8105,11 @@ nav#header.navbar {
       nav#header.navbar li.nav-item a.nav-link:not(.active):hover {
         border-top: 0.5px solid rgba(0, 0, 0, 0.025);
         color: #00c079;
-        -webkit-transform: translateY(-2px);
-        -moz-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-        -o-transform: translateY(-2px);
-        transform: translateY(-2px);
+        -webkit-transform: translateY(-1px);
+        -moz-transform: translateY(-1px);
+        -ms-transform: translateY(-1px);
+        -o-transform: translateY(-1px);
+        transform: translateY(-1px);
         -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
@@ -8126,11 +8133,11 @@ nav#header.navbar {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         transition: all 0.2s; }
         nav#header.navbar li.nav-item.profile .nav-link:hover {
-          -webkit-transform: translateY(-2px);
-          -moz-transform: translateY(-2px);
-          -ms-transform: translateY(-2px);
-          -o-transform: translateY(-2px);
-          transform: translateY(-2px);
+          -webkit-transform: translateY(-1px);
+          -moz-transform: translateY(-1px);
+          -ms-transform: translateY(-1px);
+          -o-transform: translateY(-1px);
+          transform: translateY(-1px);
           -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }

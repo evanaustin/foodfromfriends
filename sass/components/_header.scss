@@ -79,7 +79,7 @@ nav#header.navbar {
             &:not(.active):hover {
                 border-top: 0.5px solid $lightedge-color;
                 color: $superlight-green;
-                @include transform(translateY(-2px));
+                @include transform(translateY(-1px));
                 @include drop-shadow(0, 1px, 3px);
             }
 
@@ -105,7 +105,7 @@ nav#header.navbar {
                 @include transition(all .2s);
     
                 &:hover {
-                    @include transform(translateY(-2px));
+                    @include transform(translateY(-1px));
                     @include drop-shadow(0, 5px, 20px);
                 }
 
