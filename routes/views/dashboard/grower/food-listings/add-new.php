@@ -13,7 +13,7 @@
 
             <div class="col-md-6">
                 <div class="controls">
-                    <button type="submit" form="add-listing" class="btn btn-primary">
+                    <button type="submit" form="add-listing" class="btn btn-success">
                         <i class="pre fa fa-upload"></i>
                         Create listing
                         <i class="post fa fa-gear loading-icon"></i>

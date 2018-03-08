@@ -13,7 +13,7 @@
         
             <div class="col-md-6">
                 <div class="controls">
-                    <button type="submit" form="review-order" class="btn btn-primary">
+                    <button type="submit" form="review-order" class="btn btn-success">
                         <i class="pre fa fa-pencil"></i>
                         Submit review
                         <i class="post fa fa-gear loading-icon"></i>

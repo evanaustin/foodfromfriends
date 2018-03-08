@@ -19,7 +19,8 @@ $muted:                 #636c72;
 $primary:               $superlight-green;
 $secondary:             #fff;
 $inverse:               $dark-green;
-$success:               darken(#40ffb9, 25%);
+$success:               $primary;
+// $success:               darken($primary, 20%);
 
 $font-weight-normal:    300;
 

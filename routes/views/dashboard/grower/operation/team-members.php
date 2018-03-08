@@ -39,7 +39,7 @@
                             </div>
                                 
                             <div class="col-md-6">
-                                <button type="submit" form="invite-member" class="btn btn-primary btn-block">
+                                <button type="submit" form="invite-member" class="btn btn-success btn-block">
                                     <i class="pre fa fa-share float-left"></i>
                                     Invite
                                     &emsp;

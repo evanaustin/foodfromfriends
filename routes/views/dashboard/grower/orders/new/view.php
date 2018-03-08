@@ -21,7 +21,7 @@
                     <input type="hidden" id="ordergrower-id" value="<?php echo $OrderGrower->id; ?>">
 
                     <div class="controls">
-                        <button id="confirm-order" class="btn btn-primary">
+                        <button id="confirm-order" class="btn btn-success">
                             <i class="pre fa fa-check"></i>
                             Confirm
                             <i class="post fa fa-gear loading-icon save"></i>

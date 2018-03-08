@@ -46,7 +46,7 @@
                                 </h5>
 
                                 <small>
-                                    <?php echo $Grower->details['city'] . ', ' . $Grower->details['state']; ?>
+                                    <?php echo "{$Grower->details['city']}, {$Grower->details['state']}"; ?>
                                 </small>
                             </div>
                         </div>    

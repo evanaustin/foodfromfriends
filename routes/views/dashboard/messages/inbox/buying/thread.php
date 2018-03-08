@@ -137,7 +137,7 @@
                 <div class="input-group w-addon">
                     <textarea name="message" placeholder="Enter message&hellip;" rows="1" autofocus></textarea>
 
-                    <button class="input-group-addon btn btn-primary">
+                    <button class="input-group-addon btn btn-success">
                         <i class="fa fa-arrow-circle-up"></i>
                     </button>
                 </div>
