@@ -52,6 +52,7 @@ try {
 	$Item = $Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id];
 
 	$json['item'] = [
+		'quantity'	=> $Item->quantity,
 		'subtotal'	=> '$' . number_format($Item->total / 100, 2)
 	];
 

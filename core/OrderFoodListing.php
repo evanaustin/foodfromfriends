@@ -10,6 +10,7 @@ class OrderFoodListing extends Base {
         $id,
         $order_id,
         $order_grower_id,
+        $user_id,
         $food_listing_id,
         $unit_price,
         $unit_weight,
@@ -79,17 +80,26 @@ class OrderFoodListing extends Base {
             'id' => $this->food_listing_id
         ]);
         
-        $this->unit_price   = $FoodListing->price;
-        $this->unit_weight  = $FoodListing->weight;
-        $this->weight_units = $FoodListing->units;
-        $this->total        = $this->quantity * $FoodListing->price;
+        if (!$FoodListing->is_available) {
+            $this->add([
+                'user_id'           => $this->user_id,
+                'food_listing_id'   => $this->food_listing_id,
+            ], 'saved_items');
 
-        $this->update([
-            'unit_price'    => $this->unit_price,
-            'unit_weight'   => $this->unit_weight,
-            'weight_units'  => $this->weight_units,
-            'total'         => $this->total,
-        ]);
+            $this->delete();
+        } else {
+            $this->unit_price   = $FoodListing->price;
+            $this->unit_weight  = $FoodListing->weight;
+            $this->weight_units = $FoodListing->units;
+            $this->total        = $this->quantity * $FoodListing->price;
+    
+            $this->update([
+                'unit_price'    => $this->unit_price,
+                'unit_weight'   => $this->unit_weight,
+                'weight_units'  => $this->weight_units,
+                'total'         => $this->total,
+            ]);
+        }
     }
 
     /**
