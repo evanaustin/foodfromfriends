@@ -143,7 +143,8 @@
                                                 <?php
                                                 
                                                 echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
-                                                echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}";
+                                                echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
+                                                echo $GrowerOperation->Meetup->time;
                                                 
                                                 ?>
                                             </div>
@@ -460,7 +461,8 @@
                                             <?php
                                             
                                             echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
-                                            echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}";
+                                            echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
+                                            echo $GrowerOperation->Meetup->time;
                                             
                                             ?>
                                         </div>
