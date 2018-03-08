@@ -5,9 +5,9 @@ App.Front.Item = function() {
         
         var ex = '.exchange.form-group' + ' ';
 
-        // toggle active exchange option
-        $('.exchange-btn').on('click', function() {
-            // trigger sign up first
+        // Toggle active exchange option
+        $('#add-item .exchange-btn').on('click', function() {
+            // Trigger sign up first
             if ($('input[name="user-id"]').val() == 0) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
@@ -25,7 +25,7 @@ App.Front.Item = function() {
                 return;
             }
 
-            $('#add-item, #update-item')
+            $('#add-item')
                 .find('.btn-group')
                 .removeClass('has-danger')
                 .find('button')
@@ -36,7 +36,7 @@ App.Front.Item = function() {
             $(this).addClass('active');
         });
 
-        // add item to cart
+        // Add item to cart
         $('#add-item').on('submit', function(e) {
             e.preventDefault();
             App.Util.hideMsg();
@@ -44,7 +44,7 @@ App.Front.Item = function() {
             $form = $(this);
             var data = $form.serializeArray();
             
-            // trigger sign up first
+            // Trigger sign up first
             if ($('input[name="user-id"]').val() == 0) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
@@ -62,7 +62,7 @@ App.Front.Item = function() {
                 return;
             }
 
-            // make sure exchange option is selected
+            // Make sure exchange option is selected
             $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
             var exchange_option;
 
@@ -83,11 +83,14 @@ App.Front.Item = function() {
                 });
             }
 
+            // Make sure delivery address is set
             if (exchange_option == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
+                $('#edit-delivery-address').attr('data-action', 'add-item');
                 $('#delivery-address-modal').modal('show');
                 return;
             }
 
+            // Add to cart
             if ($form.parsley().isValid()) {
                 App.Util.loading();
 
@@ -96,7 +99,7 @@ App.Front.Item = function() {
                         App.Util.slidebar(Slidebar, 'open', 'right', e);
 
                         $(Slidebar.events).on('opened', function () {
-                            // check if empty cart
+                            // Check if cart is empty
                             if (!$('#ordergrowers').length) {
                                 $('#empty-basket').addClass('hidden');
                                 $('hr').removeClass('hidden');
@@ -104,9 +107,9 @@ App.Front.Item = function() {
                                 $ordergrowers = $('<div id="ordergrowers">').prependTo('#cart');
                             }
 
-                            // add ordergrower if not already in cart
+                            // Add ordergrower if not already in cart
                             if (!$('#ordergrower-' + response.ordergrower.id).length) {
-                                $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set">').appendTo('#ordergrowers');
+                                $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set" data-grower-operation="' + response.ordergrower.grower_id + '">').appendTo('#ordergrowers');
                                 
                                 $set.append('<h6>' + response.ordergrower.name + '</h6>');
 
@@ -192,7 +195,7 @@ App.Front.Item = function() {
             }
         });
         
-        // update quantity of item already in cart
+        // Update quantity of item already in cart
         $('#update-item select[name="quantity"]').on('change', function(e) {
             App.Util.hideMsg();
 
@@ -242,28 +245,37 @@ App.Front.Item = function() {
             }
         });
 
-        // update exchange setting of ordergrower
-        $(document).on('click', '#update-item .exchange-btn:not(.active)', function(e) {
-            e.preventDefault();
-            App.Util.hideMsg();
-            
-            $form = $('#update-item');
-            var data = $form.serializeArray();
-            
-            data.push({
-                name: 'exchange-option', 
-                value: $(this).data('option')
-            });
+        // Update exchange setting of OrderGrower
+        $('#update-item .exchange-btn').on('click', function(e) {
+            if (!$(this).hasClass('active')) {
+                if ($(this).data('option') == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
+                    $('#edit-delivery-address').attr('data-action', 'update-exchange');
+                    $('#delivery-address-modal').modal('show');
+                    return;
+                }
 
-            if ($form.parsley().isValid()) {
-                App.Util.loading();
+                e.preventDefault();
+                App.Util.hideMsg();
+                
+                $form = $('#update-item');
+                var data = $form.serializeArray();
+                
+                data.push({
+                    name: 'exchange-option', 
+                    value: $(this).data('option')
+                });
 
-                App.Ajax.post('order/set-exchange-method', $.param(data), 
-                    function(response) {
-                        App.Util.slidebar(Slidebar, 'open', 'right', e);
-                        
-                        $(Slidebar.events).on('opened', function () {
-                            $('#ordergrower-' + response.ordergrower.id).find('.label.exchange').text(response.ordergrower.exchange);
+                if ($form.parsley().isValid()) {
+                    App.Util.loading();
+
+                    App.Ajax.post('order/set-exchange-method', $.param(data), 
+                        function(response) {
+                            if (!Slidebar.isActiveSlidebar('slidebar-right')) {
+                                App.Util.slidebar(Slidebar, 'open', 'right', e);
+                            }
+                            console.log(response.ordergrower.exchange);
+                            $('#ordergrower-' + response.ordergrower.id).find('.ordergrower-exchange option').attr('selected', false);
+                            $('#ordergrower-' + response.ordergrower.id).find('.ordergrower-exchange option[value="' + response.ordergrower.exchange + '"]').attr('selected', 'selected');
                             $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
 
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
@@ -279,14 +291,15 @@ App.Front.Item = function() {
                             }
                             
                             $('#checkout-total').text(response.order.total);
-
-                            $(Slidebar.events).unbind('opened');
-                        });
-                    }, function(response) {
-                        App.Util.msg(response.error, 'danger');
-                    }
-                );
+                        }, function(response) {
+                            App.Util.msg(response.error, 'danger');
+                        }
+                    );
+                }
             }
+
+            $('#update-item .exchange-btn').removeClass('active');
+            $(this).addClass('active');
         });
 
         $('#edit-delivery-address').on('submit', function(e) {
@@ -307,7 +320,14 @@ App.Front.Item = function() {
                         buyer_lng = true;
 
                         $('#delivery-address-modal').modal('hide');
-                        $('#add-item').submit();
+
+                        switch($form.data('action')) {
+                            case 'add-item':
+                                $('#add-item').submit();
+                                break;
+                            case 'update-exchange':
+                                $('#update-item .exchange-btn[data-option="delivery"]').click();
+                        }
                     },
                     function(response) {
                         App.Util.finishedLoading();

@@ -81,6 +81,7 @@ try {
 
 	$json['ordergrower'] = [
 		'id'		=> $OrderGrower->id,
+		'grower_id'	=> $OrderGrower->grower_operation_id,
 		'name'		=> $Seller->name,
 		'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
 		'exchange'	=> ucfirst($OrderGrower->Exchange->type),
