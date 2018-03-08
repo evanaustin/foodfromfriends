@@ -1,4 +1,4 @@
-App.Dashboard.OrdersPlaced = function() {
+App.Dashboard.Orders = function() {
     function listener() {
         $('a.cancel-order').on('click', function(e) {
             e.preventDefault();
