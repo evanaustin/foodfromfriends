@@ -6889,6 +6889,8 @@ body.map .mapboxgl-popup {
     body.map .mapboxgl-popup .mapboxgl-popup-content .details {
       flex-grow: 2;
       padding-left: 10px; }
+      body.map .mapboxgl-popup .mapboxgl-popup-content .details h6 {
+        padding-right: 12px; }
     body.map .mapboxgl-popup .mapboxgl-popup-content .mapboxgl-popup-close-button {
       display: none; }
 body.map .pulse {
