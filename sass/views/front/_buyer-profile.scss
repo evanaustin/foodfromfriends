@@ -1,4 +1,8 @@
-body.front.buyer {
+body.front.buyer-profile {
+    [canvas="container"] {
+        background-color: $superlight-gray;
+    }
+
     div.main.container {
         margin-top: 30px;
         margin-bottom: 30px;
@@ -29,14 +33,6 @@ body.front.buyer {
                     padding: 0.75em;
                 }
             
-                &.profile-photo {
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        @include border-top-radius($radius);
-                    }
-                }
-                
                 &.details{
                     padding: 0 0.5em;
 
