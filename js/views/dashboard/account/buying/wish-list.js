@@ -4,7 +4,7 @@ App.Dashboard.WishList = function() {
             'remove': [],
             'new': []
         };
-        // console.log(extant_wishlist);
+        
         $('.subcategory .btn').on('click', function() {
             if (!$(this).hasClass('active')) {
                 $(this).addClass('active');
@@ -35,7 +35,7 @@ App.Dashboard.WishList = function() {
             
             App.Ajax.post('dashboard/account/buying/save-wishes', {wishlist:wishlist},
                 function(response) {
-                    toastr.success('Your wishes were saved!');
+                    App.Util.msg('Your wishes were saved! <a href="' + PUBLIC_ROOT + 'user/' + user_slug + '">Go view your profile  <i class="fa fa-angle-right"></i></a>', 'success');
                 },
                 function(response) {
                     toastr.error(response.error);

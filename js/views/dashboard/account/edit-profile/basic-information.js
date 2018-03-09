@@ -80,13 +80,12 @@ $('#edit-basic-information').on('submit', function(e) {
 	    
 		App.Ajax.postFiles('dashboard/account/edit-profile/save-basic-information', data, 
 			function(response) {
-                // toastr.success('Your basic information has been updated!');
-                App.Util.msg('Your information has been updated!', 'success');
-				App.Util.finishedLoading();
+                App.Util.finishedLoading();
+                App.Util.msg('Your information has been updated! <a href="' + PUBLIC_ROOT + 'user/' + user_slug + '">Go view your profile <i class="fa fa-angle-right"></i></a>', 'success');
 			},
 			function(response) {
+                App.Util.finishedLoading();
 				App.Util.msg(response.error, 'danger');
-				App.Util.finishedLoading();
 			}
 		);
 	}
