@@ -7132,15 +7132,15 @@ body.front.buyer-profile div.main.container {
     body.front.buyer-profile div.main.container div.review-count strong {
       color: #636c72; }
   body.front.buyer-profile div.main.container div.set {
-    margin-top: 1.25em; }
-    body.front.buyer-profile div.main.container div.set div.title {
-      font-size: 1.5em;
+    margin-top: 2rem; }
+    body.front.buyer-profile div.main.container div.set .title {
+      font-size: 1.5rem;
       font-weight: 100;
       color: #b2b2b2; }
-      body.front.buyer-profile div.main.container div.set div.title strong {
+      body.front.buyer-profile div.main.container div.set .title strong {
         color: #4c4c4c; }
     body.front.buyer-profile div.main.container div.set div.subtitle {
-      margin: 0.5em 0;
+      margin: 0.5rem 0;
       color: #636c72; }
   body.front.buyer-profile div.main.container .card {
     border-color: #f5f5f5; }

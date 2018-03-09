@@ -153,10 +153,10 @@ body.front.buyer-profile {
         }
 
         div.set {
-            margin-top: 1.25em;
+            margin-top: 2rem;
 
-            div.title {
-                font-size: 1.5em;
+            .title {
+                font-size: 1.5rem;
                 font-weight: 100;
                 color: $light-gray;
         
@@ -166,7 +166,7 @@ body.front.buyer-profile {
             }
 
             div.subtitle {
-                margin: 0.5em 0;
+                margin: 0.5rem 0;
                 color: $muted;
             }
         }
