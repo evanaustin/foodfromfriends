@@ -137,18 +137,26 @@
                 <li class="nav-item profile dropdown d-none d-md-block">
                     <div 
                         class="nav-link dropdown-toggle" 
-                        style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');" 
+                        style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');" 
                         data-toggle="dropdown" 
                         aria-haspopup="true" 
                         aria-expanded="false"
                     ></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <?php if (isset($User->GrowerOperation)) {
-                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a>";
+                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . "user/{$User->slug}"; ?>">
+                            View profile
+                        </a>
+
+                        <?php
+
+                        if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active) {
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a>";
                             echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower\">Dashboard</a>";
-                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a>";
-                        } ?>
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your items</a>";
+                        }
+                        
+                        ?>
 
                         <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                             Messages
@@ -167,7 +175,7 @@
                         </a>
 
                         <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
-                            Your purchases
+                            Order history
                         </a>
 
                         <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">

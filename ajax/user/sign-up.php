@@ -58,12 +58,23 @@ if ($User->exists('email', $email)) {
 $date = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
 $dob = $date->format('Y-m-d H:i:s');
 
+$Slug = new Slug([
+    'DB' => $DB
+]);
+
+$slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
+
+if (empty($slug)) {
+    throw new \Exception('Slug generation failed');
+}
+
 $new_user = $User->add([
     'email'         => $email,
     'password'      => hash('sha256', $password),
     'first_name'    => ucfirst($first_name),
     'last_name'     => ucfirst($last_name),
     'dob'           => $dob,
+    'slug'          => $slug,
     'registered_on' => \Time::now(),
     'timezone'      => $timezone
 ]);

@@ -1,286 +1,220 @@
-<div class="container-fluid">
-    <div class="row">
-        <main class="col-md-12">
-            <div class="main container">
-                <div class="row">   
-                    <div class="col-lg-3">
-                        <div class="left-content">
-                            <div class="profile-photo box">
-                                <img src="<?php echo (!empty($ThisUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ThisUser->filename . '.' . $ThisUser->ext /* . '?' . time() */ : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>">
-                            </div>
-                            
-                            <div class="details box">
-                                <ul class="list-group">
-                                    <li class="list-group-item heading">
-                                        <span>Verified info:</span>
-                                    </li>
+<main>
+    <div class="main container">
+        <?php
+        
+        if (isset($ThisUser->id)) {
+            
+            ?>
 
-                                    <ul class="list-group">
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!isset($ThisUser->email)) { echo 'inactive'; } ?>">Email address</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if (isset($ThisUser->email)) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
+            <div class="row">
 
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!isset($ThisUser->phone)) { echo 'inactive'; } ?>">Phone number</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if (isset($ThisUser->phone)) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!isset($ThisUser->zipcode)) { echo 'inactive'; } ?>">Location</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if (isset($ThisUser->zipcode)) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    <li class="list-group-item heading">
-                                        <span>Food exchange options:</span>
-                                    </li>
-
-                                    <ul class="list-group">
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!$ThisUser->GrowerOperation->Delivery || !$ThisUser->GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if ($ThisUser->GrowerOperation->Delivery && $ThisUser->GrowerOperation->Delivery->is_offered) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!$ThisUser->GrowerOperation->Pickup || !$ThisUser->GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if ($ThisUser->GrowerOperation->Pickup && $ThisUser->GrowerOperation->Pickup->is_offered) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-group-item sub">
-                                            <span class="<?php if (!$ThisUser->GrowerOperation->Meetup || !$ThisUser->GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</span>
-                                            
-                                            <div class="float-right">
-                                                <?php if ($ThisUser->GrowerOperation->Meetup && $ThisUser->GrowerOperation->Meetup->is_offered) { ?>
-                                                    <i class="fa fa-check"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa fa-times"></i>
-                                                <?php } ?>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </ul>
-                            </div>
-
-                            <div class="map box">
-                                <div id="map"></div>
-                            </div>
-                        </div> <!-- end div.left-content -->
-                    </div>
+                <?php
                 
-                    <div class="col-lg-9">
-                        <div class="right-content">
-                            <div class="name">
-                                <small>food from </small>
-                                <span><?php echo $ThisUser->first_name; ?></span>
-                            </div>
+                /* if ($is_owner) {
 
-                            <div class="bio">
-                                <?php echo $ThisUser->bio; ?>
-                            </div>
+                    ?>
+
+                    <div class="col-12">
+                        <fable class="rounded muted-bg padding-1em">
+                            <cell><a href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>" class="white">Edit profile<i class="fa fa-pencil" data-toggle="tooltip" data-placement="right" data-title="Edit profile"></i></a></cell>
+                        </fable>
+                    </div>
+
+                    <?php
+
+                } */
+
+                ?>
+
+                <div class="col-12 order-2 col-lg-3 order-lg-1">
+                    <div class="sidebar-content">
+                        <div class="photo box">
+                            <?php
+                                    
+                            if (isset($ThisUser->filename)) {
+                                img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext . '?' . time(), 'S3', 'img-fluid');
+                            } else {
+                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta btn-block\">Set your profile picture</a>";
+                                }
+                            }
+
+                            ?>
+                        </div>
+                        
+                        <div class="<?php echo (isset($ThisUser->latitude, $ThisUser->longitude) ? 'map' : 'photo'); ?> box">
+                            <?php
+                                    
+                            if (isset($ThisUser->latitude, $ThisUser->longitude)) {
+                                echo "<div id=\"map\"></div>";
+                            } else {
+                                img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta btn-block\">Set your address</a>";
+                                }
+                            }
+
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 order-1 col-lg-9 order-lg-2">
+                    <div id="main-content">
+                        <h2 class="dark-gray bold margin-btm-25em">
+                            <?php
+                            
+                            echo $ThisUser->name;
+
+                            if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active && !$is_owner) {
                                 
-                            <div class="location">
-                                <?php echo $ThisUser->city . ', ' . $ThisUser->state . (isset($distance) ? ' &bull; ' . $distance['length'] . ' ' . $distance['units'] . ' away' : ''); ?>
-                            </div>
+                                ?>
 
-                            <div class="joined">
-                                <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?buyer=' . $ThisUser->id; ?>">
+                                    <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                </a>
+
+                                <?php
+
+                            }
+
+                            ?>
+                        </h2>
+
+                        <div class="muted normal margin-btm-25em">
+                            <?php echo (isset($ThisUser->city, $ThisUser->state)) ? "{$ThisUser->city}, {$ThisUser->state}" : ''; ?>
+                        </div>
+
+                        <div class="muted bold margin-btm-1em">
+                            <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
+                        </div>
+
+                        <?php
+                        
+                        if (!empty($ThisUser->details['bio'])) {
+                            echo "<p class=\"muted margin-btm-2em\">{$ThisUser->bio}</p>";
+                        } else if ($is_owner) {
+                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta\">Add a bio</a>";
+                        }
+                        
+                            
+                        ?>
+
+                        <div class="wish-list set">
+                            <h4 class="margin-btm-50em ">
+                                <bold class="dark-gray">Wish list</bold> 
+                            </h4>
+
+                            <div class="muted margin-btm-1em">
+                                <?php echo "Items on {$ThisUser->first_name}'s wish list"; ?>
                             </div>
 
                             <?php
 
-                            if (!empty($reviews)) {
+                            if (!empty($wishlist)) {
+                                foreach ($wishlist as $category_id => $category) {
+                                    
+                                    ?>
+                                    
+                                    <div class="callout margin-btm-1em">
+                                        <h4 class="strong">
+                                            <?php echo ucfirst($category['title']); ?>
+                                            <light class="light-gray">(<?php echo count($category['subcategories']); ?>)</light>
+                                        </h4>
 
-                                ?>
+                                        <?php
+                                    
+                                        foreach ($category['subcategories'] as $subcategory_id => $subcategory) {
+                                            echo '<div>' . ucfirst($subcategory['title']) . '</div>';
+                                        }
 
-                                <div class="review-count">
-                                    <div><?php echo count($reviews); ?></div>
-                                    <strong>Reviews</strong>
-                                </div>
-
-                                <?php
-                            
-                            }
-
-                            ?>
-
-                            <div class="available-food-listings set">
-                                <div class="title">
-                                    <strong>Food listings</strong> 
-                                    (<?php echo count($listings); ?>)
-                                </div>
-
-                                <div class="subtitle">
-                                    Available food from <?php echo $ThisUser->first_name; ?>
-                                </div>
-
-                                <div class='row'>
+                                        ?>
+                                    
+                                    </div>
 
                                     <?php
 
-                                    foreach ($listings as $listing) {
-
-                                        ?>
-                                        
-                                        <div class="col-md-4">
-                                        <!-- <div class="<?php echo $tile_width; ?>"> -->
-                                            <div class="card animated zoomIn">
-                                            
-                                                <?php
-                                            
-                                                img(ENV . '/food-listings/' . $listing['filename'], $listing['ext'], 'S3', 'card-img-top');
-
-                                                ?>
-
-                                                <div class="card-body d-flex flex-row">
-                                                    <div class="listing-info d-flex flex-column">
-                                                        <h4 class="card-title">
-                                                            <!-- <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $listing['id']; ?>"> -->
-                                                                <?php echo ucfirst((empty($listing['other_subcategory']) ? ($listing['subcategory_title']) : $listing['other_subcategory'])); ?>
-                                                            <!-- </a> -->
-                                                        </h4>
-                                                        
-                                                        <h6 class="card-subtitle">
-                                                            <?php echo '$' . number_format($listing['price'] / 100, 2) . ' • $' . number_format(($listing['price'] / $listing['weight']) / 100, 2) . '/' . $listing['units']; ?> 
-                                                        </h6>
-
-                                                        <p class="card-text">
-                                                            <?php
-                                                                if (!$listing['is_available']) {
-                                                                    $niblet = 'bg-faded text-muted';
-                                                                    $availability = 'text-muted';
-                                                                } else {
-                                                                    $niblet = 'text-white';
-                                                                    $availability = 'text-success';
-
-                                                                    if ($listing['quantity'] == 0) {
-                                                                        $niblet .= ' bg-danger';
-                                                                    } else if ($listing['quantity'] > 0 && $listing['quantity'] < 6) {
-                                                                        $niblet .= ' bg-warning';
-                                                                    } else if ($listing['quantity'] > 5) {
-                                                                        $niblet .= ' bg-success';
-                                                                    }
-                                                                }
-
-                                                                echo '<span class="quantity ' . $niblet . '">' . $listing['quantity'] . '</span> in stock';
-                                                            ?>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <?php
-
-                                    }
-
-                                    ?>
-
-                                </div>
-                            </div>
-                            
-                            <?php
-
-                            if (!empty($reviews)) {
-
-                                ?>
-
-                                <div class="reviews set">
-                                    <div class="title">
-                                        <strong>Reviews</strong>
-                                        <?php echo '(' . count($reviews) . ')'; ?>
-                                    </div>
-
-                                    <div class="subtitle">
-                                        Reviews from customers
-                                    </div>
-
-                                    <?php 
-                                    
-                                    foreach ($reviews as $review) { 
-                                    
-                                        $ReviewUser = new User([
-                                            'DB' => $DB,
-                                            'id' => $review['reviewer_id']
-                                        ]);
-
-                                        ?>           
-                                        
-                                        <div class="review-block">                  
-                                            <div class="reviewer-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
-                                            
-                                            <div class="review-content">
-                                                <div class="quote">
-                                                    <?php echo $review['content']; ?>
-                                                </div>
-
-                                                <div class="reviewer-details">
-                                                    <small><?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?></small>
-                                                </div>
-                                                
-                                                <div class="reviewed-on">
-                                                    <small><?php echo date('F Y', $review['reviewed_on']); ?></small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <?php
-
-                                        }
-
-                                    ?>
-                                </div>
-
-                                <?php
-
+                                }
+                            } else {
+                                echo "<div class=\"callout\">{$ThisUser->first_name} doesn't have a wish list right now</div>";
+                                
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/buying/wish-list\" class=\"btn btn-cta margin-top-1em\">Build your wish list</a>";
+                                }
                             }
 
                             ?>
-                        </div> <!-- end div.right-content -->
+
+                        </div>
+                        
+                        <!-- <div class="reviews set">
+                            <h4 class="margin-btm-50em ">
+                                <bold class="dark-gray">Reviews</bold> 
+                                <?php // echo (!empty($ratings)) ? '<light class="light-gray">(' . count($ratings) . ')</light>' : ''; ?>
+                            </h4>
+                            
+                            <div class="muted margin-btm-1em">
+                                Ratings & reviews by sellers
+                            </div>
+
+                            <?php 
+                            
+                            /* if (!empty($ratings)) {
+                                foreach ($ratings as $rating) { 
+                                
+                                    $ReviewUser = new User([
+                                        'DB' => $DB,
+                                        'id' => $rating['user_id']
+                                    ]);
+
+                                    ?>           
+                                    
+                                    <div class="user-block margin-btm-1em">                  
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                        
+                                        <div class="user-content">
+                                            <p class="muted margin-btm-25em">
+                                                &quot;<?php echo $rating['review']; ?>&quot;
+                                            </p>
+
+                                            <small class="dark-gray bold flexstart">
+                                                <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    
+                                    <?php
+
+                                }
+                            } else {
+                                echo "<div class=\"callout\">{$ThisUser->first_name} doesn't have any reviews yet</div>";
+                            } */
+
+                            ?>
+
+                        </div> -->
                     </div>
                 </div>
             </div>
-        </main> <!-- end main -->
-    </div> <!-- end div.row -->
-</div> <!-- end div.container-fluid -->
+            
+            <?php
+
+        } else {
+            echo 'Oops! This URL does not belong to an active buyer.';
+        }
+
+    ?>
+    </div>
+</main>
 
 <script>
-    // PRIVACY BREACH
-    var lat = <?php echo $ThisUser->latitude; ?>;
-    var lng = <?php echo $ThisUser->longitude; ?>;
+    var lat = <?php echo (isset($ThisUser->latitude)) ? number_format($ThisUser->latitude, 2) : 0; ?>;
+    var lng = <?php echo (isset($ThisUser->longitude)) ? number_format($ThisUser->longitude, 2) : 0; ?>;
+
+    var user = <?php echo (isset($User)) ? $User->id : 0; ?>
 </script>

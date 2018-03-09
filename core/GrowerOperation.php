@@ -58,7 +58,7 @@ class GrowerOperation extends Base {
             
             if (!isset($results[0])) return false;
     
-            foreach ($results[0] as $k => $v) $this->{$k} = $v; 
+            foreach ($results[0] as $k => $v) $this->{$k} = $v;
         }
 
         if (isset($this->id)) {

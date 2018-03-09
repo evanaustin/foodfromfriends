@@ -116,20 +116,15 @@ App.Front.Map = function() {
                             'style="background-image:url(' + e.features[0].properties.photo + ');">' +
                         '</div>' +
                         '<div class="details">' +
-                            '<div class="title">' +
-                                '<div class="name">' +
-                                    '<a href="' + PUBLIC_ROOT + e.features[0].properties.link + '">' +
-                                        e.features[0].properties.name +
-                                    '</a>' +
-                                '</div>' +
-                                '<div class="rating">' +
-                                    e.features[0].properties.rating +
-                                '</div>' +
+                            '<h6 class="bold margin-btm-0">' +
+                                '<a href="' + PUBLIC_ROOT + e.features[0].properties.link + '">' +
+                                    e.features[0].properties.name +
+                                '</a>' +
+                            '</h6>' +
+                            '<div class="muted">' +
+                                '<span class="brand">' + e.features[0].properties.rating + '</span>&nbsp;&bull;&nbsp;' + e.features[0].properties.distance +
                             '</div>' +
-                            '<div class="distance">' +
-                                e.features[0].properties.distance +
-                            '</div>' +
-                            '<div class="listings">' +
+                            '<div class="muted">' +
                                 e.features[0].properties.listings +
                             '</div>' +
                         '</div>';
@@ -137,9 +132,6 @@ App.Front.Map = function() {
             popup.setLngLat(e.features[0].geometry.coordinates)
                 .setHTML(html)
                 .addTo(Mapbox);
-
-            // console.log(active_popup);
-
         });
 
         /* $(document).on('mouseleave', 'div.mapboxgl-popup.mapboxgl-popup-anchor-bottom', function() {

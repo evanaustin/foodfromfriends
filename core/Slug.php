@@ -235,7 +235,7 @@ class Slug {
     * @param string $table The table to check for availability
     * @return string The slugified name
     */
-    public function slugify_name($name, $table, $parent_id, $parent_type) {
+    public function slugify_name($name, $table, $parent_id = null, $parent_type = null) {
         $slug_hyphenated = $this->slugify($name);
         $slug_concatenated = str_replace('-', '', $slug_hyphenated);
         $slug_acronym = preg_replace('~\b(\w)|.~', '$1', str_replace('-', ' ', $slug_hyphenated));
@@ -263,7 +263,11 @@ class Slug {
         }
 
         // If they're all taken, append a counter to the first choice
-        return $this->get_unique($slugs[0], $table, $parent_id, $parent_type);
+        if (isset($parent_id, $parent_type)) {
+            return $this->get_unique($slugs[0], $table, $parent_id, $parent_type);
+        } else {
+            return $this->get_unique($slugs[0], $table);
+        }
     }
 
     /**
@@ -298,12 +302,12 @@ class Slug {
             'slug' => $slug
         ];
 
-        $result = $this->DB->run('
+        $result = $this->DB->run("
             SELECT id 
             FROM {$table} 
             WHERE slug=:slug 
             LIMIT 1
-        ', $bind);
+        ", $bind);
 
         if (isset($result[0]['id'])) {
             return false;

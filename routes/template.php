@@ -131,6 +131,12 @@ foreach ([
             $file = SERVER_ROOT . $extension . '.php';
             if (file_exists($file)) include $file;
         }
+
+        if ($Routing->template == 'dashboard') {
+            echo '<script>';
+            echo 'var user_slug = ' . json_encode($User->slug) . ';';
+            echo '</script>';
+        }
         
         ?>
 

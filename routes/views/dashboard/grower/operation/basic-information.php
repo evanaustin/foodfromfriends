@@ -118,7 +118,7 @@
                                         if (!empty($User->GrowerOperation->filename)) {
                                             img(ENV . '/grower-operation-images/' . $User->GrowerOperation->filename, $User->GrowerOperation->ext . '?' . time(), 'S3', 'file');
                                         } else {
-                                            img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                            img('placeholders/user-thumbnail', 'jpg', 'local', 'file');
                                         }
 
                                         ?>

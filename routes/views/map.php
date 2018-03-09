@@ -15,7 +15,7 @@
                                 
                                 ?>
 
-                                <div class="<?php echo $tile_width; ?>">
+                                <div class="col-6">
                                     <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                         <div class="card animated fadeIn">
                                             <div class="card-img-top">
@@ -33,7 +33,7 @@
                                                     </div>
                                                     
                                                     <div class="distance">
-                                                        <?php echo "<span class=\"brand\">" . stars($Grower->stars) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
                                                     </div>
                                                 </div>
                                             </div>

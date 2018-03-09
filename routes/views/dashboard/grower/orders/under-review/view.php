@@ -174,7 +174,7 @@
                     <div class="col-md-4">
                         <div id="buyer-info" class="block animated zoomIn">
                             <div class="user-block flexjustifycenter">
-                                <div class="user-photo" style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
+                                <div class="user-photo" style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">

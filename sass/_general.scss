@@ -522,6 +522,16 @@ canvas {
     color: #fff;
  }
 
+ .btn-cta {
+     background-color: $muted;
+     color: #fff;
+
+     &:hover {
+         background-color: $primary;
+         color: #fff;
+     }
+ }
+
  .btn-group {
     @include drop-shadow(0, 1px, 3px);
     @include rounded($radius);

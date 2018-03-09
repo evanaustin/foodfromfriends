@@ -24,6 +24,8 @@
 
         <hr>
 
+        <div class="alerts"></div>
+
         <form id="wish-list">
             <div class="row">
                 <?php
@@ -113,7 +115,3 @@
         </form>
     </div>
 </main>
-
-<script>
-    var extant_wishlist = <?php echo json_encode($wishlist); ?>
-</script>

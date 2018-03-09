@@ -10,7 +10,15 @@
                 <div class="col-12 order-2 col-lg-3 order-lg-1">
                     <div class="sidebar-content">
                         <div class="photo box">
-                            <?php img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
+                            <?php
+                            
+                            if (isset($GrowerOperation->details['path'])) {
+                                img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid');
+                            } else {
+                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid');
+                            }
+
+                            ?>
                         </div>
                         
                         <div class="details box">
@@ -210,7 +218,7 @@
                                     ?>           
                                     
                                     <div class="user-block margin-btm-1em">                  
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                         
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
@@ -243,7 +251,7 @@
             <?php
 
         } else {
-            echo 'Oops! This URL does not belong to an active grower.';
+            echo 'Oops! This URL does not belong to an active seller.';
         }
 
     ?>

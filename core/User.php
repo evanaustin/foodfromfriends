@@ -70,14 +70,27 @@ class User extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
-            $this->populate_fully();
+        } else if (isset($parameters['slug'])) {
+            $results = $this->DB->run("
+                SELECT * FROM {$this->table} WHERE slug=:slug LIMIT 1
+            ", [
+                'slug' => $parameters['slug']
+            ]);
+            
+            if (!isset($results[0])) return false;
+    
+            foreach ($results[0] as $k => $v) $this->{$k} = $v;            
+        }
 
+        if (isset($this->id)) {
+            $this->populate_fully();
+    
             if (!isset($parameters['limited']) || $parameters['limited'] == false) {
                 $this->get_operations();
                 $this->get_orders();
             }
-
-            $this->name = $this->first_name . ' ' . $this->last_name;
+    
+            $this->name = "{$this->first_name} {$this->last_name}";
         }
     }
     

@@ -42,6 +42,12 @@ function console_log($data) {
     echo "<script>console.log('PHP log: " . (is_array($data) ? json_encode($data) : $data) . "');</script>";
 }
 
+function pre($print) {
+    echo '<pre>';
+    print_r($print);
+    echo '</pre>';
+}
+
 function validate_image($image) {
     // Make sure the user didn't tamper with the data
     if (!ctype_digit((string)$image['crop']['x']) 
