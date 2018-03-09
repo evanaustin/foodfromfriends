@@ -4,47 +4,36 @@ $settings = [
     'title' => 'User profile | Food From Friends'
 ];
 
-$ThisUser = new User([
-    'DB' => $DB,
-    'id' => $_GET['id']
-]);
-
-if (!empty($User->latitude) && !empty($User->longitude) && !empty($ThisUser->latitude) && !empty($ThisUser->longitude)) {
-    $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
-    $joined_on->setTimezone(new DateTimeZone('America/New_York'));
-    
-    $length = getDistance([
-        'lat' => $User->latitude,
-        'lng' => $User->longitude
-    ],
-    [
-        'lat' => $ThisUser->latitude,
-        'lng' => $ThisUser->longitude
+if (isset($Routing->buyer)) {
+    $ThisUser = new User([
+        'DB'    => $DB,
+        'slug'  => $Routing->buyer
     ]);
 
-    if ($length < 0.1) {
-        $distance['length'] = round($length * 5280);
-        $distance['units'] = 'feet';
-    } else {
-        $distance['length'] = round($length, 1);
-        $distance['units'] = 'miles';
+    if (isset($ThisUser->id)) {
+        $is_owner = $ThisUser->id == $User->id;
+
+        $joined_on = new DateTime($ThisUser->registered_on, new DateTimeZone('UTC'));
+        $joined_on->setTimezone(new DateTimeZone('America/New_York'));
+    
+        $WishList = new WishList([
+            'DB' => $DB
+        ]);
+
+        $wishlist = $WishList->get_wishes($ThisUser->id);
+
+        // $stars = stars($ThisUser->average_rating);
+        
+        /* $ratings = $ThisUser->retrieve([
+            'where' => [
+                'grower_operation_id' => $GrowerOperation->id
+            ],
+            'table' => 'grower_operation_ratings',
+            'recent' => true
+        ]); */
+    
+        $settings['title'] = $ThisUser->name . ' | Food From Friends';
     }
 }
-
-$FoodListing = new FoodListing([
-    'DB' => $DB
-]);
-
-$listings = $FoodListing->get_all_listings($ThisUser->GrowerOperation->id);
-
-$Review = new Review([
-    'DB' => $DB
-]);
-
-$reviews = $Review->retrieve([
-    'where' => [
-        'grower_id' => $ThisUser->id
-    ]
-]);
 
 ?>
