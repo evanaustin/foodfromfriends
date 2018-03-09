@@ -61,14 +61,18 @@ if ($User->email != $email && $User->exists('email', $email)) {
 $date   = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
 $dob    = $date->format('Y-m-d H:i:s');
 
-$Slug = new Slug([
-    'DB' => $DB
-]);
+if (empty($User->slug) || $User->first_name != $first_name || $User->last_name != $last_name) {
+    $Slug = new Slug([
+        'DB' => $DB
+    ]);
 
-$slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
+    $slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
 
-if (empty($slug)) {
-    throw new \Exception('Slug generation failed');
+    if (empty($slug)) {
+        quit('We could\'t update your information');
+    }
+} else {
+    $slug = $User->slug;
 }
 
 $profile_updated = $User->update([
@@ -84,7 +88,7 @@ $profile_updated = $User->update([
 'id', $User->id);
 
 if (!$profile_updated) {
-    quit('We couldn\'t update your basic information');
+    quit('We couldn\'t update your information');
 }
 
 $prepared_data = $Gump->run($validated_data);
@@ -296,6 +300,8 @@ if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
 
     $User->GrowerOperation->check_active($User);
 }
+
+$json['slug'] = $slug;
 
 echo json_encode($json);
 
