@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Grower profile | Food From Friends'
+    'title' => 'Seller profile | Food From Friends'
 ];
 
 if (isset($Routing->seller)) {
