@@ -96,7 +96,7 @@
 
                         <?php
                         
-                        if (!empty($ThisUser->details['bio'])) {
+                        if (!empty($ThisUser->bio)) {
                             echo "<p class=\"muted margin-btm-2em\">{$ThisUser->bio}</p>";
                         } else if ($is_owner) {
                             echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta\">Add a bio</a>";
