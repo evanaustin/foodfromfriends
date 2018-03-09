@@ -242,7 +242,7 @@
                             if (!empty($User->filename)) {
                                 img(ENV . '/profile-photos/' . $User->filename, $User->ext . '?' . time(), 'S3', 'file img-fluid');
                             } else {
-                                img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                img('placeholders/user-thumbnail', 'jpg', 'local', 'file');
                             }
 
                             ?>

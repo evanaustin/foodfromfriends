@@ -76,7 +76,7 @@
                                     </cell>
 
                                     <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>');"></div>
+                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
                                     </cell>
                                 </fable>
                             </div>

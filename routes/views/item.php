@@ -185,7 +185,7 @@
                                             ?>           
                                             
                                             <div class="user-block margin-btm-1em">                  
-                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                                 
                                                 <div class="user-content">
                                                     <p class="muted margin-btm-25em">
@@ -221,7 +221,7 @@
                                     </div>
 
                                     <div class="user-block">
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>    
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                     
                                         <div class="user-content">
                                             <div class="font-18 muted thick">    
@@ -503,7 +503,7 @@
                                         ?>           
                                         
                                         <div class="user-block margin-btm-1em">                  
-                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>
+                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                             
                                             <div class="user-content">
                                                 <p class="muted margin-btm-25em">
@@ -539,7 +539,7 @@
                                 </div>
 
                                 <div class="user-block">
-                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg'); ?>);"></div>    
+                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                 
                                     <div class="user-content">
                                         <div class="font-18 muted thick">    
