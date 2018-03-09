@@ -54,8 +54,22 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+if ($User->email != $email && $User->exists('email', $email)) {
+    quit('An existing account is already using this email');
+}
+
 $date   = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
 $dob    = $date->format('Y-m-d H:i:s');
+
+$Slug = new Slug([
+    'DB' => $DB
+]);
+
+$slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
+
+if (empty($slug)) {
+    throw new \Exception('Slug generation failed');
+}
 
 $profile_updated = $User->update([
     'email'         => $email,
@@ -64,7 +78,8 @@ $profile_updated = $User->update([
     'phone'         => $phone,
     'dob'           => $dob,
     'gender'        => $gender, 
-    'bio'           => $bio
+    'bio'           => $bio,
+    'slug'          => $slug
 ], 
 'id', $User->id);
 
