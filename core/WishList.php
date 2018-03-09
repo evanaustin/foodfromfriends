@@ -24,6 +24,73 @@ class WishList extends Base {
 
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
+
+    public function get_wishes($user_id) {
+        $raw = $this->retrieve_wishes($user_id);
+        return $this->hash_wishes($raw);   
+    }
+
+    public function retrieve_wishes($user_id) {
+        $results = $this->DB->run('
+            SELECT 
+                wl.item_category_id     AS category_id,
+                wl.item_subcategory_id  AS subcategory_id,
+                fc.title                AS category_title,
+                fsc.title               AS subcategory_title
+            
+            FROM wish_lists wl
+            
+            JOIN food_categories fc
+                ON fc.id    = wl.item_category_id
+                
+            JOIN food_subcategories fsc
+                ON fsc.id   = wl.item_subcategory_id
+            
+            WHERE wl.user_id = :user_id
+        ', [
+            'user_id' => $user_id
+        ]);
+
+        return (isset($results[0])) ? $results : false;
+    }
+
+    public function hash_wishes($raw) {
+        $wishlist = [];
+
+        /* foreach ($raw as $record) {
+            if (!isset($wishlist[$record['category_title']])) {
+                $wishlist[$record['category_title']] = [];
+            }
+        
+            if (!isset($wishlist[$record['category_title']][$record['subcategory_title']])) {
+                $wishlist[$record['category_title']][$record['subcategory_title']] = [];
+            }
+        } */
+
+        foreach ($raw as $assn) {
+            if (!isset($wishlist[$assn['category_id']])) {
+                $wishlist[$assn['category_id']] = [
+                    'title' => $assn['category_title'],
+                    'subcategories' => []
+                ];
+            }
+        
+            if (!isset($wishlist[$assn['category_id']]['subcategories'][$assn['subcategory_id']])) {
+                $wishlist[$assn['category_id']]['subcategories'][$assn['subcategory_id']] = [
+                    'title' => $assn['subcategory_title'],
+                    'varieties' => []
+                ];
+            }
+            
+            if (isset($assn['variety_id']) && !isset($wishlist[$assn['category_id']]['subcategories'][$assn['subcategory_id']['varieties'][$assn['variety_id']]])) {
+                $wishlist[$assn['category_id']]['subcategories'][$assn['subcategory_id']]['varieties'][$assn['variety_id']] = [
+                    'title' => $assn['variety_title'],
+                ];
+            }
+        }
+
+        return $wishlist;
+    }
 }
 
 ?>
