@@ -7140,6 +7140,13 @@ canvas:focus {
   background-color: #b2b2b2;
   color: #fff; }
 
+.btn-cta {
+  background-color: #636c72;
+  color: #fff; }
+  .btn-cta:hover {
+    background-color: #00c079;
+    color: #fff; }
+
 .btn-group {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -7757,8 +7764,10 @@ div.alerts {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
-    div.alerts div.alert.alert-success a:hover {
-      color: #fff;
+    div.alerts div.alert.alert-success a:not(.close) {
+      color: #00975f; }
+    div.alerts div.alert.alert-success a:not(.close):hover {
+      color: inherit;
       text-decoration: underline; }
 
 i.loading-icon {
