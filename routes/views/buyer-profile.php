@@ -69,7 +69,7 @@
                             
                             echo $ThisUser->name;
 
-                            if (isset($User->GrowerOperation) && !$is_owner) {
+                            if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active && !$is_owner) {
                                 
                                 ?>
 
@@ -86,9 +86,9 @@
                             ?>
                         </h2>
 
-                        <!-- <div class="muted normal margin-btm-25em">
-                            <?php //echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . "&bull; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}" . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
-                        </div> -->
+                        <div class="muted normal margin-btm-25em">
+                            <?php echo (isset($ThisUser->city, $ThisUser->state)) ? "{$ThisUser->city}, {$ThisUser->state}" : ''; ?>
+                        </div>
 
                         <div class="muted bold margin-btm-1em">
                             <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
@@ -102,73 +102,69 @@
                             echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta\">Add a bio</a>";
                         }
                         
-                        if (!empty($wishlist) || $is_owner) {
                             
-                            ?>
+                        ?>
 
-                            <div class="food-listings set">
-                                <h4 class="margin-btm-50em ">
-                                    <bold class="dark-gray">Wish list</bold> 
-                                </h4>
+                        <div class="wish-list set">
+                            <h4 class="margin-btm-50em ">
+                                <bold class="dark-gray">Wish list</bold> 
+                            </h4>
 
-                                <div class="muted margin-btm-1em">
-                                    <?php echo "{$ThisUser->first_name} is looking to purchase the following items:"; ?>
-                                </div>
-
-                                <?php
-
-                                if (!empty($wishlist)) {
-                                    foreach ($wishlist as $category_id => $category) {
-                                        
-                                        ?>
-                                        
-                                        <div class="callout margin-btm-1em">
-                                            <h4 class="strong">
-                                                <?php echo ucfirst($category['title']); ?>
-                                                <light class="light-gray">(<?php echo count($category['subcategories']); ?>)</light>
-                                            </h4>
-
-                                            <?php
-                                        
-                                            foreach ($category['subcategories'] as $subcategory_id => $subcategory) {
-                                                echo '<div>' . ucfirst($subcategory['title']) . '</div>';
-                                            }
-
-                                            ?>
-                                        
-                                        </div>
-
-                                        <?php
-
-                                    }
-                                } else if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/buying/wish-list\" class=\"btn btn-cta\">Build your wishlist</a>";
-                                }
-
-                                ?>
-
+                            <div class="muted margin-btm-1em">
+                                <?php echo "Items on {$ThisUser->first_name}'s wish list"; ?>
                             </div>
-                            
+
                             <?php
 
-                        }
+                            if (!empty($wishlist)) {
+                                foreach ($wishlist as $category_id => $category) {
+                                    
+                                    ?>
+                                    
+                                    <div class="callout margin-btm-1em">
+                                        <h4 class="strong">
+                                            <?php echo ucfirst($category['title']); ?>
+                                            <light class="light-gray">(<?php echo count($category['subcategories']); ?>)</light>
+                                        </h4>
 
-                        if (!empty($ratings)) {
+                                        <?php
+                                    
+                                        foreach ($category['subcategories'] as $subcategory_id => $subcategory) {
+                                            echo '<div>' . ucfirst($subcategory['title']) . '</div>';
+                                        }
+
+                                        ?>
+                                    
+                                    </div>
+
+                                    <?php
+
+                                }
+                            } else {
+                                echo "<div class=\"callout\">{$ThisUser->first_name} doesn't have a wish list right now</div>";
+                                
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/buying/wish-list\" class=\"btn btn-cta margin-top-1em\">Build your wish list</a>";
+                                }
+                            }
 
                             ?>
 
-                            <div class="reviews set">
-                                <h4 class="margin-btm-50em ">
-                                    <bold class="dark-gray">Reviews</bold> 
-                                    <light class="light-gray">(<?php echo count($ratings); ?>)</light>
-                                </h4>
-                                
-                                <div class="muted margin-btm-1em">
-                                    Ratings & reviews from customers
-                                </div>
+                        </div>
+                        
+                        <!-- <div class="reviews set">
+                            <h4 class="margin-btm-50em ">
+                                <bold class="dark-gray">Reviews</bold> 
+                                <?php // echo (!empty($ratings)) ? '<light class="light-gray">(' . count($ratings) . ')</light>' : ''; ?>
+                            </h4>
+                            
+                            <div class="muted margin-btm-1em">
+                                Ratings & reviews by sellers
+                            </div>
 
-                                <?php 
-                                
+                            <?php 
+                            
+                            /* if (!empty($ratings)) {
                                 foreach ($ratings as $rating) { 
                                 
                                     $ReviewUser = new User([
@@ -179,7 +175,7 @@
                                     ?>           
                                     
                                     <div class="user-block margin-btm-1em">                  
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                         
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
@@ -194,17 +190,14 @@
                                     
                                     <?php
 
-                                    }
+                                }
+                            } else {
+                                echo "<div class=\"callout\">{$ThisUser->first_name} doesn't have any reviews yet</div>";
+                            } */
 
-                                ?>
+                            ?>
 
-                            </div>
-
-                            <?php
-
-                        }
-
-                        ?>
+                        </div> -->
                     </div>
                 </div>
             </div>
