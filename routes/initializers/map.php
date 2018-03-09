@@ -95,7 +95,7 @@ if (!empty($growers)) {
                 'name'      => $ThisGrower->name,
                 'rating'    => $ThisGrower->stars,
                 'distance'  => (!empty($ThisGrower->distance['length']) ? "{$ThisGrower->distance['length']} {$ThisGrower->distance['units']} away" : "{$ThisGrower->details['city']}, {$ThisGrower->details['state']}"),
-                'listings'  => "{$ThisGrower->listing_count}listing" . ($ThisGrower->listing_count > 1 ? 's' : '')
+                'listings'  => "<strong>{$ThisGrower->listing_count}</strong> listing" . ($ThisGrower->listing_count > 1 ? 's' : '')
             ],
             'geometry'      => [
                 'type'          => 'Point',
