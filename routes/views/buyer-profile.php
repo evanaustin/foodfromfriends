@@ -63,7 +63,7 @@
                 </div>
             
                 <div class="col-12 order-1 col-lg-9 order-lg-2">
-                    <div id="main-content">
+                    <div id="main-content" class="margin-btm-1em">
                         <h2 class="dark-gray bold margin-btm-25em">
                             <?php
                             

@@ -37,14 +37,24 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
-                        Your purchases
+                        Order history
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . "user/{$User->slug}"; ?>">
+                        View profile
                     </a>
                 </li>
 
-                <?php if (isset($User->GrowerOperation)) {
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your listings</a></li>";
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">View profile</a></li>";
-                } ?>
+                <?php
+                
+                if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active) {
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your items</a></li>";
+                }
+                
+                ?>
 
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
