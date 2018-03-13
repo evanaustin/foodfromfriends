@@ -1,8 +1,8 @@
-var requirements_progress = $('div.requirements a.disabled').length / $('div.requirements a').length * 100;
+var requirements_progress = $('.requirements .disabled').length / ($('.requirements a').length + $('.requirements p').length) * 100;
 var requirements_bg;
 
 if (requirements_progress < 100) {
-    $('div.requirements .description').text('You still need to complete the tasks below before your profile and listings are public.');
+    $('div.requirements .description').text('Complete the tasks below to activate your seller profile and enable item sales.');
 
     if (requirements_progress < 25) {
         if (requirements_progress == 0) requirements_progress += 1;
@@ -21,7 +21,7 @@ $('div.requirements .progress-bar').css('width', requirements_progress + '%');
 $('div.requirements .progress-bar').addClass(requirements_bg);
 
 
-var goals_progress = $('div.goals a.disabled').length / $('div.goals a').length * 100;
+var goals_progress = $('.goals .disabled').length / ($('.goals a').length + $('.goals p').length) * 100;
 var goals_bg;
 
 if (goals_progress < 100) {
