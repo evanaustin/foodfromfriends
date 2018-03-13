@@ -14,6 +14,8 @@ if (isset($Routing->item_type)) {
     ]);
 
     if (isset($GrowerOperation)) {
+        $is_owner = isset($User) && ((isset($GrowerOperation->Owner) && $GrowerOperation->Owner->id == $User->id) || isset($GrowerOperation->TeamMembers[$User->id]));
+        
         // Find seller's listing that matches this subcategory
         $results = $GrowerOperation->retrieve([
             'where' => [
