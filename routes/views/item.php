@@ -5,7 +5,22 @@
             <div class="main container">
                 <?php
 
-                if ($FoodListing->id) {
+                if ($FoodListing->id && ($GrowerOperation->is_active || $is_owner)) {
+
+                    if ($is_owner) {
+
+                        ?>
+
+                        <div class="alerts" style="display:block;">
+                            <div class="alert alert-warning">
+                                <span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower'; ?>">here</a> to finish activating your seller account.</span>
+                                <a class="close" data-dismiss="alert">×</a>
+                            </div>
+                        </div>
+
+                        <?php
+
+                    }
 
                     ?>
 
@@ -13,11 +28,35 @@
                         <div class="col-lg-3 order-lg-1 d-none d-md-block">
                             <div class="sidebar-content">
                                 <div class="photo box">
-                                    <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
+                                    <?php
+                                    
+                                    if (!empty($FoodListing->filename)) {
+                                        img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
+                                    } else {
+                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+        
+                                        if ($is_owner) {
+                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
+                                        }
+                                    }
+
+                                    ?>
                                 </div>
                                 
-                                <div class="map box">
-                                    <div id="map"></div>
+                                <div class="<?php echo (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng']) ? 'map' : 'photo'); ?> box">
+                                    <?php
+                                            
+                                    if (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng'])) {
+                                        echo "<div id=\"map\"></div>";
+                                    } else {
+                                        img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+
+                                        if ($is_owner) {
+                                            echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/basic-information' : 'grower/operation/location') . "\" class=\"btn btn-cta btn-block\">Set your address</a>";
+                                        }
+                                    }
+
+                                    ?>
                                 </div>
 
                                 <!-- <div class="photo box">
@@ -60,6 +99,8 @@
                                 
                                 if (!empty($FoodListing->description)) {
                                     echo "<p class=\"description muted\">{$FoodListing->description}</p>";
+                                } else if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
                                 }
 
                                 ?>
@@ -67,7 +108,7 @@
                                 <div class="available-exchange-options set d-none d-md-block">
                                     <h4 class="margin-btm-50em">
                                         <bold class="dark-gray">Exchange options</bold>
-                                        <light class="light-gray">(<?php echo count($exchange_options_available); ?>)</light>
+                                        <?php if (!empty($exchange_options_available)) echo "<light class=\"light-gray\">(" .count($exchange_options_available) . ")</light>"; ?>
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
@@ -75,83 +116,99 @@
                                     </div>
                                     
                                     <?php
-                                                
-                                    if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
-
-                                        ?>
-
-                                        <div class="callout">
-                                            <div class="muted font-18 thick">
-                                                Delivery
-                                            </div>
                                             
-                                            <div>
-                                               <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
-                                            </div>
-
-                                            <?php
-                                            
-                                            if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
-                                                
-                                                echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
-
-                                            }
-
+                                    if (!empty($exchange_options_available)) {
+                                        if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
+    
                                             ?>
-
-                                            <div>
-                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
-                                            </div>
-                                        </div>
-
-                                        <?php
-
-                                    } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
-                                        
-                                        ?>
-                                        
-                                        <div class="callout">
-                                            <div class="muted font-18 thick">
-                                                Pickup
-                                            </div>
-
-                                            <div>
-                                                <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
-                                            </div>
-                                            
-                                            <?php
-                                            
-                                            if (isset($distance) && $distance['length'] > 0) {
-                                                echo "<div>{$distance['length']} {$distance['units']} away</div>";
-                                            }
-
-                                            ?>
-                                        </div>
-
-                                        <?php
-                                        
-                                    } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
-                                        
-                                        ?>
-                                        
-                                        <div class="callout">
-                                            <div class="muted font-18 thick">
-                                                Meetup
-                                            </div>
-
-                                            <div>
+    
+                                            <div class="callout">
+                                                <div class="muted font-18 thick">
+                                                    Delivery
+                                                </div>
+                                                
+                                                <div>
+                                                   <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
+                                                </div>
+    
                                                 <?php
                                                 
-                                                echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
-                                                echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
-                                                echo $GrowerOperation->Meetup->time;
+                                                if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
+                                                    
+                                                    echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
+    
+                                                }
+    
+                                                ?>
+    
+                                                <div>
+                                                    <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                                </div>
+                                            </div>
+    
+                                            <?php
+    
+                                        } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
+                                            
+                                            ?>
+                                            
+                                            <div class="callout">
+                                                <div class="muted font-18 thick">
+                                                    Pickup
+                                                </div>
+    
+                                                <div>
+                                                    <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                </div>
                                                 
+                                                <?php
+                                                
+                                                if (isset($distance) && $distance['length'] > 0) {
+                                                    echo "<div>{$distance['length']} {$distance['units']} away</div>";
+                                                }
+    
                                                 ?>
                                             </div>
-                                        </div>
+    
+                                            <?php
+                                            
+                                        } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
+                                            
+                                            ?>
+                                            
+                                            <div class="callout">
+                                                <div class="muted font-18 thick">
+                                                    Meetup
+                                                </div>
+    
+                                                <div>
+                                                    <?php
+                                                    
+                                                    echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
+                                                    echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
+                                                    echo $GrowerOperation->Meetup->time;
+                                                    
+                                                    ?>
+                                                </div>
+                                            </div>
+    
+                                            <?php
+                                            
+                                        }
+                                    } else {
+                                        echo "<div class=\"callout\">{$GrowerOperation->name} hasn't enabled any exchange options yet</div>";
+                                
+                                        if ($is_owner) {
+                                            ?>
 
-                                        <?php
-                                        
+                                            <div class="btn-group">
+                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                            </div>
+
+                                            <?php
+                                        }
                                     }
                                     
                                     ?>
@@ -184,7 +241,7 @@
 
                                             ?>           
                                             
-                                            <div class="user-block margin-btm-1em">                  
+                                            <div class="user-block margin-btm-1em">
                                                 <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                                 
                                                 <div class="user-content">
@@ -230,15 +287,35 @@
                                                 </a>
                                             </div>
                                                 
-                                            <div class="font-85 muted bold margin-btm-50em">
-                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
-                                            </div>
-                                            
-                                            <p class="light-gray">
-                                                <?php echo $GrowerOperation->details['bio']; ?>
-                                            </p>
+                                            <?php
+
+                                            if ($GrowerOperation->is_active) {
+
+                                                ?>
+
+                                                <div class="font-85 muted bold margin-btm-50em">
+                                                    <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                </div>
+
+                                                <p class="light-gray">
+                                                    <?php echo $GrowerOperation->details['bio']; ?>
+                                                </p>
+
+                                                <?php
+
+                                            }
+
+                                            ?>
                                         </div>
                                     </div>
+
+                                    <?php
+
+                                    if (!$GrowerOperation->is_active && $is_owner) {
+                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower" class="btn btn-cta margin-top-1em">Complete your profile</a>';
+                                    }
+                                    
+                                    ?>
                                 </div>
                             </div>    
                         </div>
@@ -294,15 +371,34 @@
                                                             Exchange option
                                                         </label>
 
-                                                        <div class="btn-group">
-                                                            <?php
+                                                        <?php
+                                                        
+                                                        if (!empty($exchange_options_available)) {
+                                                            echo '<div class="btn-group">';
                                                             
                                                             foreach ($exchange_options_available as $option) {
                                                                 echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . (($active_ex_op == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
                                                             }
                                                             
-                                                            ?>
-                                                        </div>
+                                                            echo '</div>';
+                                                        } else {
+                                                            echo "<div class=\"callout\">No exchange options available</div>";
+                            
+                                                            /* if ($is_owner) {
+                                                                ?>
+
+                                                                <div class="btn-group">
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                </div>
+
+                                                                <?php
+                                                            } */
+                                                        }
+                                                        
+                                                        ?>
+                                                        
 
                                                         <div class="form-control-feedback hidden">
                                                             Please select an exchange type
@@ -341,22 +437,43 @@
                                                             Exchange option
                                                         </label>
 
-                                                        <div class="btn-group">
-                                                            <?php
+                                                        
+                                                        <?php
+                                                        
+                                                        if (!empty($exchange_options_available)) {
+                                                            echo '<div class="btn-group">';
                                                             
                                                             foreach ($exchange_options_available as $option) {
                                                                 echo "<button type=\"button\" class=\"exchange-btn btn btn-secondary" . ((isset($_GET['exchange']) && $_GET['exchange'] == $option) ? ' active' : '') . "\" data-option=\"" . $option . "\">" . ucfirst($option) . "</button>";
                                                             }
                                                             
-                                                            ?>
-                                                        </div>
+                                                            echo '</div>';
+                                                        } else {
+                                                            echo "<div class=\"callout\">No exchange options available</div>";
+                            
+                                                            /* if ($is_owner) {
+
+                                                                ?>
+
+                                                                <div class="btn-group">
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                </div>
+
+                                                                <?php
+
+                                                            } */
+                                                        }
+                                                        
+                                                        ?>
 
                                                         <div class="form-control-feedback hidden">
                                                             Please select an exchange type
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary btn-block">
+                                                    <button type="submit" class="btn btn-primary btn-block" <?php if (!$GrowerOperation->is_active) echo 'disabled'; ?>>
                                                         Add to basket
                                                     </button>
                                                 </form>
@@ -393,83 +510,99 @@
                                 </div>
                                 
                                 <?php
-                                            
-                                if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
-
-                                    ?>
-
-                                    <div class="callout">
-                                        <div class="muted font-18 thick">
-                                            Delivery
-                                        </div>
-                                        
-                                        <div>
-                                            <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
-                                        </div>
-
-                                        <?php
-                                        
-                                        if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
-                                            
-                                            echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
-
-                                        }
-
+                                     
+                                if (!empty($exchange_options_available)) {
+                                    if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
+    
                                         ?>
-
-                                        <div>
-                                            <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
-                                        </div>
-                                    </div>
-
-                                    <?php
-
-                                } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
-                                    
-                                    ?>
-                                    
-                                    <div class="callout">
-                                        <div class="muted font-18 thick">
-                                            Pickup
-                                        </div>
-
-                                        <div>
-                                            <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
-                                        </div>
-                                        
-                                        <?php
-                                        
-                                        if (isset($distance) && $distance['length'] > 0) {
-                                            echo "<div>{$distance['length']} {$distance['units']} away</div>";
-                                        }
-
-                                        ?>
-                                    </div>
-
-                                    <?php
-                                    
-                                } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
-                                    
-                                    ?>
-                                    
-                                    <div class="callout">
-                                        <div class="muted font-18 thick">
-                                            Meetup
-                                        </div>
-
-                                        <div>
+    
+                                        <div class="callout">
+                                            <div class="muted font-18 thick">
+                                                Delivery
+                                            </div>
+                                            
+                                            <div>
+                                                <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
+                                            </div>
+    
                                             <?php
                                             
-                                            echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
-                                            echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
-                                            echo $GrowerOperation->Meetup->time;
+                                            if ($GrowerOperation->Delivery->delivery_type == 'conditional') {
+                                                
+                                                echo "<div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
+    
+                                            }
+    
+                                            ?>
+    
+                                            <div>
+                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                            </div>
+                                        </div>
+    
+                                        <?php
+    
+                                    } if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
+                                        
+                                        ?>
+                                        
+                                        <div class="callout">
+                                            <div class="muted font-18 thick">
+                                                Pickup
+                                            </div>
+    
+                                            <div>
+                                                <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                            </div>
                                             
+                                            <?php
+                                            
+                                            if (isset($distance) && $distance['length'] > 0) {
+                                                echo "<div>{$distance['length']} {$distance['units']} away</div>";
+                                            }
+    
                                             ?>
                                         </div>
-                                    </div>
+    
+                                        <?php
+                                        
+                                    } if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
+                                        
+                                        ?>
+                                        
+                                        <div class="callout">
+                                            <div class="muted font-18 thick">
+                                                Meetup
+                                            </div>
+    
+                                            <div>
+                                                <?php
+                                                
+                                                echo $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ', ' . $GrowerOperation->Meetup->address_line_2 : '') . '<br>';
+                                                echo "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}<br>";
+                                                echo $GrowerOperation->Meetup->time;
+                                                
+                                                ?>
+                                            </div>
+                                        </div>
+    
+                                        <?php
+                                        
+                                    }
+                                } else {
+                                    echo "<div class=\"callout\">{$GrowerOperation->name} hasn't enabled any exchange options yet</div>";
+    
+                                    if ($is_owner) {
+                                        ?>
 
-                                    <?php
-                                    
+                                        <div class="btn-group">
+                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                        </div>
+
+                                        <?php
+                                    }
                                 }
                                 
                                 ?>
@@ -547,14 +680,29 @@
                                                 <?php echo $GrowerOperation->name; ?>
                                             </a>
                                         </div>
-                                            
-                                        <div class="font-85 muted bold margin-btm-50em">
-                                            <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
-                                        </div>
+
+                                        <?php
+
+                                        if ($GrowerOperation->is_active) {
+
+                                            ?>
+
+                                            <div class="font-85 muted bold margin-btm-50em">
+                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                            </div>
+
+                                            <p class="light-gray">
+                                                <?php echo $GrowerOperation->details['bio']; ?>
+                                            </p>
+
+                                            <?php
+
+                                        } else {
+                                            echo '<a href="" class="btn btn-cta">Complete your profile</a>';
+                                        }
+
+                                        ?>
                                         
-                                        <p class="light-gray">
-                                            <?php echo $GrowerOperation->details['bio']; ?>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
