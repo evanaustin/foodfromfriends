@@ -59,14 +59,17 @@ if (!$User->GrowerOperation) {
         error_log($e->getMessage());
         quit('Hmm, something went wrong!');
     }
-} else {
-    $grower_operation_id = $User->GrowerOperation->id;
+
+    $User->GrowerOperation = new GrowerOperation([
+        'DB' => $DB,
+        'id' => $grower_operation_id
+    ]);
 }
 
 // ! TODO: make sure category + subcategory + variety are valid
 
 $listing_added = $FoodListing->add([
-    'grower_operation_id'   => $grower_operation_id,
+    'grower_operation_id'   => $User->GrowerOperation->id,
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
@@ -78,11 +81,16 @@ $listing_added = $FoodListing->add([
     'description'           => $description
 ]);
 
-if (!$listing_added) quit('Could not add listing');
+if (!$listing_added) quit('Could not add item');
 
 $id = $listing_added['last_insert_id'];
 
-$other_subcategory = strtolower(preg_replace('/\s+/', '', $other_subcategory));
+$Item = new FoodListing([
+    'DB' => $DB,
+    'id' => $id
+]);
+
+// $other_subcategory = strtolower(preg_replace('/\s+/', '', $other_subcategory));
 
 $Image = new Image();
 
@@ -240,10 +248,11 @@ if ($User->GrowerOperation) {
         $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
     }
 
-    $User->GrowerOperation->check_active($User);
+    $is_active = $User->GrowerOperation->check_active($User);
 }
 
-$json['id'] = $id;
+$json['is_active']  = $is_active;
+$json['link']       = $User->GrowerOperation->link . '/' . $Item->link;
 
 echo json_encode($json);
 
