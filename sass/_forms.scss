@@ -7,14 +7,12 @@ div.alerts {
     div.alert {
         @include drop-shadow(0, 1px, 3px);
 
-        &.alert-success {
-            a:not(.close) {
-                color: lighten(#00643f, 10%);
-            }
-            
-            a:not(.close):hover {
-                color: inherit;
-                text-decoration: underline;
+        a:not(.close) {
+            color: inherit;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
             }
         }
     }

@@ -90,10 +90,10 @@ body.front.buyer-profile {
                     padding: 0;
                     height: 250px;
                     
-                    div#map {
-                        // height: 100%;
-                        // @include border-bottom-radius($radius);
-                    }
+                    /* div#map {
+                        height: 100%;
+                        @include border-bottom-radius($radius);
+                    } */
                 }
             }
         }
@@ -168,6 +168,13 @@ body.front.buyer-profile {
             div.subtitle {
                 margin: 0.5rem 0;
                 color: $muted;
+            }
+
+            &.wish-list {
+                .btn:not(.btn-cta) {
+                    padding: 0.15rem 0.5rem;
+                    margin: 0 0.25rem 0.25rem 0;
+                }
             }
         }
 

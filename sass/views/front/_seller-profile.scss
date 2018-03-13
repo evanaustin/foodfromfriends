@@ -60,7 +60,15 @@ body.front.seller-profile {
                                 @include rounded($radius);
                             }
 
-                            span.inactive {
+                            fable {
+                                cell {
+                                    .btn {
+                                        margin: 0;
+                                    }
+                                }
+                            }
+
+                            .inactive {
                                 text-decoration: line-through;
                                 color: $light-gray;
                             }
