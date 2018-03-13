@@ -31,7 +31,7 @@ body.dashboard-grower {
                     @include drop-shadow(0, 1px, 3px);
                     @include rounded($radius);
                     
-                    a {
+                    a, p {
                         display: block;
                         padding-left: 1em;
                         padding-right: 1em;
@@ -39,6 +39,7 @@ body.dashboard-grower {
 
                         &.list-group-item {
                             border-width: 0px;
+                            border-bottom: 1px solid transparent;
                             
                             &:not(:first-child) {
                                 border-top-width: 1px;
@@ -48,16 +49,36 @@ body.dashboard-grower {
                         &.disabled {
                             cursor: text;
                             color: $light-gray;
+
+                            /* &:hover {
+                                background-color: #fff;
+                            } */
                         }
 
                         &:not(.disabled):not(.active) {
                             color: $muted;
+                        }
+
+                        &:hover {
+                            background-color: #fff;
+                            border-bottom-color: $edge-color;
+
+                            &:not(.disabled) {
+                                color: $primary;
+
+                                i {
+                                    font-weight: bold;
+                                    opacity: 1;
+                                    @include transform(translateX(2px));
+                                }
+                            }
                         }
                         
                         i {
                             float: right;
                             opacity: 0.75;
                             line-height: 1.5;
+                            @include transition(all .2s);
 
                             &.fa-check {
                                 color: $success;

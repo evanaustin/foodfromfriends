@@ -1,6 +1,8 @@
 App.Front.SellerProfile = function() {
     function listener() {
-        Mapbox.setCenter([lng, lat]);
+        if ($('#map').length) {
+            Mapbox.setCenter([lng, lat]);
+        }
 
         $('#message').on('click', function(e) {
             // trigger sign up before directing to messages

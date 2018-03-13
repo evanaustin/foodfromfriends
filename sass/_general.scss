@@ -522,6 +522,11 @@ canvas {
     color: #fff;
  }
 
+ .btn-white {
+     background-color: #fff;
+     color: $muted;
+ }
+
  .btn-cta {
      background-color: $muted;
      color: #fff;
@@ -540,6 +545,10 @@ canvas {
         border-width: 0px;
         border-color: $edge-color;
         @include drop-shadow(0, 0, 0, 0);
+
+        &.btn-cta {
+            font-size: 0.85rem;
+        }
 
         &:not(:first-child) {
             border-left-width: 1px;

@@ -4,28 +4,24 @@
         
         if (isset($ThisUser->id)) {
             
-            ?>
-
-            <div class="row">
-
-                <?php
-                
-                /* if ($is_owner) {
-
-                    ?>
-
-                    <div class="col-12">
-                        <fable class="rounded muted-bg padding-1em">
-                            <cell><a href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>" class="white">Edit profile<i class="fa fa-pencil" data-toggle="tooltip" data-placement="right" data-title="Edit profile"></i></a></cell>
-                        </fable>
-                    </div>
-
-                    <?php
-
-                } */
+            if ($is_owner) {
 
                 ?>
 
+                <div class="alerts" style="display:block;">
+                    <div class="alert alert-info">
+                        <span>This is your public profile. Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">here</a> to go edit your information.</span>
+                        <a class="close" data-dismiss="alert">×</a>
+                    </div>
+                </div>
+
+                <?php
+
+            }
+
+            ?>
+
+            <div class="row">
                 <div class="col-12 order-2 col-lg-3 order-lg-1">
                     <div class="sidebar-content">
                         <div class="photo box">
@@ -130,7 +126,11 @@
                                         <?php
                                     
                                         foreach ($category['subcategories'] as $subcategory_id => $subcategory) {
-                                            echo '<div>' . ucfirst($subcategory['title']) . '</div>';
+                                            if ($is_owner) {
+                                                echo "<a class=\"btn btn-white\" href=\"" . PUBLIC_ROOT . "map\" data-toggle=\"tooltip\" data-title=\"See what's for sale\">" . ucfirst($subcategory['title']) . "</a>";
+                                            } else {
+                                                echo "<a class=\"btn btn-white offer-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/add-new?category={$category_id}&subcategory={$subcategory_id}\" data-toggle=\"tooltip\" data-title=\"Offer {$subcategory['title']} for sale\">" . ucfirst($subcategory['title']) . "</a>";
+                                            }
                                         }
 
                                         ?>

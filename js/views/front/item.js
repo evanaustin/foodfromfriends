@@ -1,7 +1,9 @@
 App.Front.Item = function() {
     function listener() {
-        // Mapbox.setZoom(13);
-        Mapbox.setCenter([seller_lng, seller_lat]);
+        if ($('#map').length) {
+            // Mapbox.setZoom(13);
+            Mapbox.setCenter([seller_lng, seller_lat]);
+        }
         
         var ex = '.exchange.form-group' + ' ';
 
@@ -273,7 +275,7 @@ App.Front.Item = function() {
                             if (!Slidebar.isActiveSlidebar('slidebar-right')) {
                                 App.Util.slidebar(Slidebar, 'open', 'right', e);
                             }
-                            console.log(response.ordergrower.exchange);
+                            
                             $('#ordergrower-' + response.ordergrower.id).find('.ordergrower-exchange option').attr('selected', false);
                             $('#ordergrower-' + response.ordergrower.id).find('.ordergrower-exchange option[value="' + response.ordergrower.exchange + '"]').attr('selected', 'selected');
                             $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);

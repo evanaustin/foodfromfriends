@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    Setting an operation for yourself assigns any food listings you create to that operation rather than to you as an individual. This clarifies your presence as a grower and lets teams work together through Food From Friends.
+                    Sell publicly as some kind of named entity rather than just as an individual. This clarifies your presence to buyers and allows teams to work together.
                 </div>
             </div>
 
@@ -32,23 +32,22 @@
                     <div id="operation-type">
                         <div class="form-group">
                             <label>
-                                Create new operation
+                                Operation type
                             </label>
 
                             <select name="type" class="custom-select" data-parsley-trigger="submit" required>
                                 <?php
                             
                                 foreach ($operation_types as $operation_type) {
-                                    // should just echo here
-                                    ?><option value="<?php echo $operation_type['id']; ?>"><?php echo ucfirst($operation_type['title']); ?></option><?php
+                                    echo "<option value=\"{$operation_type['id']}\">" . ucfirst($operation_type['title']) . "</option>";
                                 }
 
                                 ?>
                             </select>
 
-                            <small id="new-operation-help" class="form-text text-muted">
+                            <!-- <small id="new-operation-help" class="form-text text-muted">
                                 If you happen to be selling food on behalf of some named operation or entity, you can create that operation here.
-                            </small>
+                            </small> -->
                         </div>
                     </div>
                 

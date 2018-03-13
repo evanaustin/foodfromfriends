@@ -44,7 +44,7 @@
                                     <?php
                                         
                                     foreach($item_categories as $category) {
-                                        echo "<option value=\"{$category['id']}\">" . ucfirst($category['title']) . "</option>";
+                                        echo "<option value=\"{$category['id']}\"" . (($category['id'] == $_GET['category']) ? ' selected' : '') . ">" . ucfirst($category['title']) . "</option>";
                                     }
                                     
                                     ?>
@@ -54,8 +54,18 @@
 
                         <div class="col-md-4"> 
                             <div class="form-group">
-                                <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" disabled required>
+                                <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" required <?php if (!isset($_GET['subcategory'])) { echo 'disabled'; } ?>>
                                     <option selected disabled>Select subcategory</option>
+
+                                    <?php
+                                        
+                                    if (isset($_GET['subcategory'])) {
+                                        foreach($item_subcategories as $subcategory) {
+                                            echo "<option value=\"{$subcategory['id']}\"" . (($subcategory['id'] == $_GET['subcategory']) ? ' selected' : '') . ">" . ucfirst($subcategory['title']) . "</option>";
+                                        }
+                                    }
+                                    
+                                    ?>
                                 </select>
                             </div>
                         </div>

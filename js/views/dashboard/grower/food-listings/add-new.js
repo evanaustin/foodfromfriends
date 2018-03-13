@@ -86,7 +86,7 @@ $('#food-subcategories').on('change', function() {
 
 
 // Check if other already exists as a subcategory
-$('#other-subcategory').on('keyup change', function() {
+/* $('#other-subcategory').on('keyup change', function() {
     var other = $(this);
 
     $('#food-subcategories option').each(function(id, el) {
@@ -101,7 +101,7 @@ $('#other-subcategory').on('keyup change', function() {
             el.removeAttribute('selected');
         }
     });
-});
+}); */
 
 
 // Update availability as quantity is changed
@@ -144,7 +144,12 @@ $('#add-listing').on('submit', function(e) {
         
         App.Ajax.postFiles('dashboard/grower/food-listings/add-new', data, 
             function(response) {
-                App.Util.msg('Your listing has been created! Click <strong><a href="' + PUBLIC_ROOT + 'dashboard/grower/food-listings/edit?id=' + response.id + '">here</a></strong> to edit it, or add another new listing below.', 'success');
+                if (response.is_active) {
+                    App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now', 'success');
+                } else {
+                    App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now or <a href="' + PUBLIC_ROOT + 'dashboard/grower">here</a> to finish activating your seller profile', 'success');
+                }
+
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
 

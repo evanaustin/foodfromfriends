@@ -132,12 +132,6 @@ foreach ([
             if (file_exists($file)) include $file;
         }
 
-        if ($Routing->template == 'dashboard') {
-            echo '<script>';
-            echo 'var user_slug = ' . json_encode($User->slug) . ';';
-            echo '</script>';
-        }
-        
         ?>
 
         <script src="https://js.stripe.com/v3/"></script>
@@ -176,8 +170,26 @@ foreach ([
         ?>
 
         <script>
-            var ENV         = <?php echo json_encode(ENV); ?>;
-            var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>;
+            var ENV = <?php echo json_encode(ENV); ?>;
+            var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>
+            
+            <?php
+
+            if ($LOGGED_IN) {
+            
+                ?>
+                
+                var user = { 
+                    'id'    : <?php echo json_encode($User->id); ?>,
+                    'slug'  : <?php echo json_encode($User->slug); ?>
+                }
+                
+                <?php
+    
+            }
+
+            ?>
+
         </script>
     </body>
 </html>

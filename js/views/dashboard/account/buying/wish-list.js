@@ -35,7 +35,7 @@ App.Dashboard.WishList = function() {
             
             App.Ajax.post('dashboard/account/buying/save-wishes', {wishlist:wishlist},
                 function(response) {
-                    App.Util.msg('Your wishes were saved! <a href="' + PUBLIC_ROOT + 'user/' + user_slug + '">Go view your profile  <i class="fa fa-angle-right"></i></a>', 'success');
+                    App.Util.msg('Your wishes were saved! Click <a href="' + PUBLIC_ROOT + 'user/' + user.slug + '">here</a> to go view your profile.', 'success');
                 },
                 function(response) {
                     toastr.error(response.error);

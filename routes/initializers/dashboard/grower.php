@@ -16,7 +16,7 @@ switch($operation_type) {
                 'status'    => (($User->filename) ? 'complete' : 'incomplete'),
             ],
             'set your location' => [
-                'link'      => 'dashboard/account/edit-profile/location',
+                'link'      => 'dashboard/account/edit-profile/basic-information',
                 'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
             ]
         ];
@@ -42,7 +42,7 @@ switch($operation_type) {
                 'status'    => (!empty($User->filename) ? 'complete' : 'incomplete'),
             ],
             'add your location' =>  [
-                'link'      => 'dashboard/account/edit-profile/location',
+                'link'      => 'dashboard/account/edit-profile/basic-information',
                 'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
             ],
             'add team members' =>  [

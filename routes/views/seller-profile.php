@@ -2,7 +2,32 @@
     <div class="main container">
         <?php
         
-        if (isset($GrowerOperation) && $GrowerOperation->is_active) {
+        if ((isset($GrowerOperation) && $GrowerOperation->is_active) || $is_owner) {
+
+            if ($is_owner) {
+
+                ?>
+
+                <div class="alerts" style="display:block;">
+                    <div class="alert alert-<?php echo (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+
+                        <?php
+
+                        if ($GrowerOperation->is_active) {
+                            echo '<span>This is your public profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information">here</a> to go edit your information.</span>';
+                        } else {
+                            echo '<span><i class="fa fa-warning"></i> This is only a preview of your seller profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
+                        }
+
+                        ?>
+
+                        <a class="close" data-dismiss="alert">×</a>
+                    </div>
+                </div>
+
+                <?php
+
+            }
             
             ?>
 
@@ -12,10 +37,14 @@
                         <div class="photo box">
                             <?php
                             
-                            if (isset($GrowerOperation->details['path'])) {
+                            if (!empty($GrowerOperation->details['path'])) {
                                 img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid');
                             } else {
-                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid');
+                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/' : 'grower/operation/') . "basic-information\" class=\"btn btn-cta btn-block\">Add a profile picture</a>";
+                                }
                             }
 
                             ?>
@@ -29,46 +58,76 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item sub">
-                                        <span class="<?php if (!$GrowerOperation->Delivery || !$GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</span>
-                                        
-                                        <div class="float-right">
-                                            <?php if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) { ?>
-                                                <i class="fa fa-check"></i>
-                                            <?php } else { ?>
-                                                <i class="fa fa-times"></i>
-                                            <?php } ?>
-                                        </div>
+                                        <fable>
+                                            <cell class="<?php if (!$GrowerOperation->Delivery || !$GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</cell>
+                                            
+                                            <cell>
+                                                <?php
+                                                
+                                                if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
+                                                    echo '<i class="fa fa-check"></i>';
+                                                } else {
+                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>';
+                                                }
+                                                
+                                                ?>
+                                            </cell>
+                                        </fable>
                                     </li>
 
                                     <li class="list-group-item sub">
-                                        <span class="<?php if (!$GrowerOperation->Pickup || !$GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</span>
+                                        <fable>
+                                            <cell class="<?php if (!$GrowerOperation->Pickup || !$GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</cell>
                                         
-                                        <div class="float-right">
-                                            <?php if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) { ?>
-                                                <i class="fa fa-check"></i>
-                                            <?php } else { ?>
-                                                <i class="fa fa-times"></i>
-                                            <?php } ?>
-                                        </div>
+                                            <cell>
+                                                <?php
+                                                
+                                                if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
+                                                    echo '<i class="fa fa-check"></i>';
+                                                } else {
+                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup" class="btn btn-cta">Enable</a>' : '<i class="fa fa-times"></i>';
+                                                }
+                                                
+                                                ?>
+                                            </cell>
+                                        </fable>
                                     </li>
 
                                     <li class="list-group-item sub">
-                                        <span class="<?php if (!$GrowerOperation->Meetup || !$GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</span>
-                                        
-                                        <div class="float-right">
-                                            <?php if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) { ?>
-                                                <i class="fa fa-check"></i>
-                                            <?php } else { ?>
-                                                <i class="fa fa-times"></i>
-                                            <?php } ?>
-                                        </div>
+                                        <fable>
+                                            <cell class="<?php if (!$GrowerOperation->Meetup || !$GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</cell>
+                                            
+                                            <cell>
+                                                <?php
+                                                
+                                                if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
+                                                    echo '<i class="fa fa-check"></i>';
+                                                } else {
+                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>';
+                                                }
+                                                
+                                                ?>
+                                            </cell>
+                                        </fable>
                                     </li>
                                 </ul>
                             </ul>
                         </div>
 
-                        <div class="map box">
-                            <div id="map"></div>
+                        <div class="<?php echo (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng']) ? 'map' : 'photo'); ?> box">
+                            <?php
+                                    
+                            if (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng'])) {
+                                echo "<div id=\"map\"></div>";
+                            } else {
+                                img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/basic-information' : 'grower/operation/location') . "\" class=\"btn btn-cta btn-block\">Set your address</a>";
+                                }
+                            }
+
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -76,17 +135,29 @@
                 <div class="col-12 order-1 col-lg-9 order-lg-2">
                     <div id="main-content">
                         <h2 class="dark-gray bold margin-btm-25em">
-                            <?php echo $GrowerOperation->name; ?>
+                            <?php
+                            
+                            echo $GrowerOperation->name;
 
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id; ?>">
-                                <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
-                                    <i class="fa fa-envelope"></i>
-                                </div>
-                            </a>
+                            if (!$is_owner) {
+
+                                ?>
+
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id; ?>">
+                                    <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                </a>
+
+                                <?php
+                            
+                            }
+
+                            ?>
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . "&bull; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}" . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
+                            <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($GrowerOperation->details['city'], $GrowerOperation->details['state']) ? "&bull; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}" : '') . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
                         </div>
 
                         <div class="muted bold margin-btm-1em">
@@ -97,6 +168,8 @@
                         
                         if (!empty($GrowerOperation->details['bio'])) {
                             echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->details['bio']}</p>";
+                        } else if ($is_owner) {
+                            echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/' : 'grower/operation/') . "basic-information\" class=\"btn btn-cta\">Add a bio</a>";
                         }
                         
                         ?>
@@ -104,17 +177,18 @@
                         <div class="food-listings set">
                             <h4 class="margin-btm-50em ">
                                 <bold class="dark-gray">Items</bold> 
-                                <light class="light-gray">(<?php echo count($listings); ?>)</light>
+                                <?php echo (!empty($listings)) ? '<light class="light-gray">(' . count($listings) . ')</light>' : ''; ?>
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                Food for sale from <?php echo $GrowerOperation->name; ?>
+                                Items for sale from <?php echo $GrowerOperation->name; ?>
                             </div>
 
-                            <div class='row'>
+                            <?php
 
-                                <?php
-
+                            if (!empty($listings)) {
+                                echo '<div class="row">';
+                                
                                 foreach ($listings as $listing) {
                                     
                                     $Item = new FoodListing([
@@ -124,68 +198,99 @@
 
                                     ?>
                                     
-                                    <div class="col-md-4 <?php /* echo $tile_width; */ ?>">
-                                        <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
-                                            <div class="card animated zoomIn">
+                                    <div class="col-md-4">
+                                        
+                                        <div class="card animated zoomIn">
+                                            <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
                                                 <div class="card-img-top">
-                                                    <?php img(ENV . '/food-listings/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden'); ?>
-                                                
-                                                    <div class="loading">
-                                                        <i class="fa fa-circle-o-notch loading-icon"></i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="card-body d-flex flex-row">
-                                                    <div class="listing-info d-flex flex-column">
-                                                        <h5 class="dark-gray bold margin-btm-50em">
-                                                            <?php echo $Item->title; ?>
-                                                        </h5>
+                                                    
+                                                    <?php
+                                                    
+                                                    if (!empty($Item->filename)) {
+                                                        img(ENV . '/food-listings/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden img-fluid');
                                                         
-                                                        <h6 class="muted normal margin-btm-50em">
-                                                            <span class="brand">
-                                                                <?php echo stars($Item->average_rating); ?>
-                                                            </span>
+                                                        ?>
 
-                                                            &nbsp;&bull;&nbsp;
+                                                        <div class="loading">
+                                                            <i class="fa fa-circle-o-notch loading-icon"></i>
+                                                        </div>
 
-                                                            <?php echo '$' . number_format($Item->price / 100, 2) . ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units; ?> 
-                                                        </h6>
+                                                        <?php
 
-                                                        <p class="card-text">
-                                                            <?php
-                                                                if (!$Item->is_available) {
-                                                                    // $niblet = 'bg-faded text-muted';
-                                                                    // $availability = 'text-muted';
+                                                    } else {
+                                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid rounded');
+                        
+                                                        if ($is_owner) {
+                                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>";
+                                                        }
+                                                    }
 
-                                                                    echo 'Unavailable';
-                                                                } else {
-                                                                    $niblet = 'text-white';
-                                                                    $availability = 'text-success';
+                                                    ?>
+                                                
+                                                </div>
+                                            </a>
 
-                                                                    if ($Item->quantity == 0) {
-                                                                        $niblet .= ' bg-danger';
-                                                                    } else if ($Item->quantity > 0 && $Item->quantity < 6) {
-                                                                        $niblet .= ' bg-warning';
-                                                                    } else if ($Item->quantity > 5) {
-                                                                        $niblet .= ' bg-success';
-                                                                    }
+                                            <div class="card-body d-flex flex-row">
+                                                <div class="listing-info d-flex flex-column">
+                                                    <h5 class="dark-gray bold margin-btm-50em">
+                                                        <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
+                                                            <?php echo $Item->title; ?>
+                                                        </a>
+                                                    </h5>
+                                                    
+                                                    <h6 class="muted normal margin-btm-50em">
+                                                        <span class="brand">
+                                                            <?php echo stars($Item->average_rating); ?>
+                                                        </span>
 
-                                                                    echo "<span class=\"quantity {$niblet}\">{$Item->quantity}</span> in stock";
+                                                        &nbsp;&bull;&nbsp;
+
+                                                        <?php echo '$' . number_format($Item->price / 100, 2) . ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units; ?> 
+                                                    </h6>
+
+                                                    <p class="card-text">
+                                                        <?php
+                                                            if (!$Item->is_available) {
+                                                                // $niblet = 'bg-faded text-muted';
+                                                                // $availability = 'text-muted';
+
+                                                                echo 'Unavailable';
+                                                            } else {
+                                                                $niblet = 'text-white';
+                                                                $availability = 'text-success';
+
+                                                                if ($Item->quantity == 0) {
+                                                                    $niblet .= ' bg-danger';
+                                                                } else if ($Item->quantity > 0 && $Item->quantity < 6) {
+                                                                    $niblet .= ' bg-warning';
+                                                                } else if ($Item->quantity > 5) {
+                                                                    $niblet .= ' bg-success';
                                                                 }
 
-                                                            ?>
-                                                        </p>
-                                                    </div>
+                                                                echo "<span class=\"quantity {$niblet}\">{$Item->quantity}</span> in stock";
+                                                            }
+
+                                                        ?>
+                                                    </p>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
 
                                     <?php
 
                                 }
 
-                                ?>
+                                echo '</div>';
+                            } else {
+                                echo "<div class=\"callout\">{$GrowerOperation->name} doesn't have any items for sale yet</div>";
+                                
+                                if ($is_owner) {
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/add-new\" class=\"btn btn-cta margin-top-1em\">Add your first item</a>";
+                                }
+                            }
+
+                            ?>
 
                             </div>
                         </div>
