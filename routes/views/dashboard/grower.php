@@ -52,19 +52,17 @@
                         
                         <div class="list-ticks">
                             <div class="progress">
-                                <div class="progress-bar" style="height:5px; width: 5px;"></div>
+                                <div class="progress-bar" style="width: 5px;"></div>
                             </div>
 
                             <?php
                             
                             foreach($requirements as $requirement => $data) {
-                                echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($requirement);
-                                
                                 if ($data['status'] == 'complete') {
-                                    echo '<i class="fa fa-check"></i>';
+                                    echo '<p class="list-group-item disabled">' . ucfirst($requirement) . '<i class="fa fa-check"></i></p>';
+                                } else {
+                                    echo '<a href="' . PUBLIC_ROOT . $data['link'] . '" class="list-group-item list-group-item-action ' . (($data['status'] == 'complete') ? 'disabled' : '') . '">' . ucfirst($requirement) . '<i class="fa fa-angle-right"></i></a>';
                                 }
-
-                                echo '</a>';
                             }
                             
                             ?>
@@ -82,19 +80,17 @@
                         
                         <div class="list-ticks">
                             <div class="progress">
-                                <div class="progress-bar" style="height:5px; width:5px;"></div>
+                                <div class="progress-bar" style="width:5px;"></div>
                             </div>
 
                             <?php
                             
                             foreach($goals as $goal => $data) {
-                                echo "<a href=\"" . PUBLIC_ROOT . $data['link'] . "\" class=\"list-group-item list-group-item-action " . (($data['status'] == 'complete') ? 'disabled' : '') . "\">" . ucfirst($goal);
-
                                 if ($data['status'] == 'complete') {
-                                    echo '<i class="fa fa-check"></i>';
+                                    echo '<p class="list-group-item disabled">' . ucfirst($goal) . '<i class="fa fa-check"></i></p>';
+                                } else {
+                                    echo '<a href="' . PUBLIC_ROOT . $data['link'] . '" class="list-group-item list-group-item-action ' . (($data['status'] == 'complete') ? 'disabled' : '') . '">' . ucfirst($goal) . '<i class="fa fa-angle-right"></i></a>';
                                 }
-
-                                echo '</a>';
                             }
                             
                             ?>
