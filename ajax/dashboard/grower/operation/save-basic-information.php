@@ -79,10 +79,26 @@ if (!empty($operation_key) && !empty($personal_key)) {
         quit('Your personal key is invalid');
     }
 } else {
+    // re-slugify operation name if necessary
+    if (empty($User->GrowerOperation->slug) || $User->GrowerOperation->name != $name) {
+        $Slug = new Slug([
+            'DB' => $DB
+        ]);
+    
+        $slug = $Slug->slugify_name($name, 'grower_operations', $type, 'grower_operation_type_id');
+    
+        if (empty($slug)) {
+            quit('We could\'t update your information');
+        }
+    } else {
+        $slug = $User->GrowerOperation->slug;
+    }
+
     $profile_updated = $User->GrowerOperation->update([
         'grower_operation_type_id'  => $type,
         'name'                      => $name,
         'bio'                       => $bio,
+        'slug'                      => $slug,
         'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
     ], 
     'id', $User->GrowerOperation->id);
