@@ -29,6 +29,7 @@ class GrowerOperation extends Base {
         $pending_orders;
 
     public
+        $Owner,
         $TeamMembers,
         $Delivery,
         $Pickup,
@@ -121,23 +122,23 @@ class GrowerOperation extends Base {
         if ($this->type == 'none') {
             $owner_id = $this->get_owner();
             
-            $Owner = new User([
+            $this->Owner = new User([
                 'DB' => $this->DB,
                 'id' => $owner_id
             ]);
     
             $this->details = [
-                'lat'       => $Owner->latitude,
-                'lng'       => $Owner->longitude,
-                'bio'       => $Owner->bio,
-                'address_line_1' => $Owner->address_line_1,
-                'address_line_2' => $Owner->address_line_2,
-                'city'      => $Owner->city,
-                'state'     => $Owner->state,
-                'zipcode'   => $Owner->zipcode,
-                'path'      => '/profile-photos/' . $Owner->filename,
-                'ext'       => $Owner->ext,
-                'joined'    => $Owner->registered_on   
+                'lat'       => $this->Owner->latitude,
+                'lng'       => $this->Owner->longitude,
+                'bio'       => $this->Owner->bio,
+                'address_line_1' => $this->Owner->address_line_1,
+                'address_line_2' => $this->Owner->address_line_2,
+                'city'      => $this->Owner->city,
+                'state'     => $this->Owner->state,
+                'zipcode'   => $this->Owner->zipcode,
+                'path'      => (!empty($this->Owner->filename)) ? '/profile-photos/' . $this->Owner->filename : '',
+                'ext'       => $this->Owner->ext,
+                'joined'    => $this->Owner->registered_on   
             ];
         } else {
             $this->details = [
@@ -149,7 +150,7 @@ class GrowerOperation extends Base {
                 'city'      => $this->city,
                 'state'     => $this->state,
                 'zipcode'   => $this->zipcode,
-                'path'      => '/grower-operation-images/' . $this->filename,
+                'path'      => (!empty($this->filename)) ? '/grower-operation-images/' . $this->filename : '',
                 'ext'       => $this->ext,
                 'joined'    => $this->created_on   
             ];
