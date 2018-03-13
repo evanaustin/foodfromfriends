@@ -6823,27 +6823,45 @@ body.dashboard-grower div.container-fluid {
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
-    body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a {
+    body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p {
       display: block;
       padding-left: 1em;
       padding-right: 1em;
       border-color: #f5f5f5; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item {
-        border-width: 0px; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child) {
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item {
+        border-width: 0px;
+        border-bottom: 1px solid transparent; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item:not(:first-child) {
           border-top-width: 1px; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled {
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.disabled {
         cursor: text;
-        color: #b2b2b2; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active) {
+        color: #b2b2b2;
+        /* &:hover {
+            background-color: #fff;
+        } */ }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:not(.disabled):not(.active) {
         color: #636c72; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i {
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover {
+        background-color: #fff;
+        border-bottom-color: #f5f5f5; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) {
+          color: #00c079; }
+          body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled) i, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) i {
+            font-weight: bold;
+            opacity: 1;
+            -webkit-transform: translateX(2px);
+            -moz-transform: translateX(2px);
+            -ms-transform: translateX(2px);
+            -o-transform: translateX(2px);
+            transform: translateX(2px); }
+      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i {
         float: right;
         opacity: 0.75;
-        line-height: 1.5; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check {
+        line-height: 1.5;
+        transition: all 0.2s; }
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-check {
           color: #00c079; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times {
+        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-times {
           color: #b2b2b2; }
 
 body.dashboard-grower-food-listings-overview div.listings div.col-md-4:nth-child(-n+3) .card {
