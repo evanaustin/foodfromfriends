@@ -61,7 +61,7 @@
                                         <fable>
                                             <cell class="<?php if (!$GrowerOperation->Delivery || !$GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</cell>
                                             
-                                            <cell>
+                                            <cell class="flexend">
                                                 <?php
                                                 
                                                 if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
@@ -79,7 +79,7 @@
                                         <fable>
                                             <cell class="<?php if (!$GrowerOperation->Pickup || !$GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</cell>
                                         
-                                            <cell>
+                                            <cell class="flexend">
                                                 <?php
                                                 
                                                 if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
@@ -97,7 +97,7 @@
                                         <fable>
                                             <cell class="<?php if (!$GrowerOperation->Meetup || !$GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</cell>
                                             
-                                            <cell>
+                                            <cell class="flexend">
                                                 <?php
                                                 
                                                 if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
