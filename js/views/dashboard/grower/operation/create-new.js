@@ -66,8 +66,11 @@ $('select[name="type"]').on('change', function() {
 		$('#new-operation-help').fadeOut();
 		
 		$('#operation-details').fadeIn().find('input, textarea').prop({
-            required: true,
             disabled: false
+        });
+        
+        $('#operation-details').fadeIn().find('input').prop({
+            required: true
         });
 
         $('#operation-image').fadeIn();
