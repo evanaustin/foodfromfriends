@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        Setting an operation for yourself assigns any food listings you create to that operation rather than to you as an individual. This clarifies your presence as a grower and lets teams work together through Food From Friends.
+                        Creating an operation assigns ownership of any items you list to that operation rather than to you as an individual. This clarifies your presence as a seller to buyers and allows teams to work together.
                     </div>
                 </div>
 
