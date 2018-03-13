@@ -80,16 +80,28 @@ if (!empty($operation_key) && !empty($personal_key)) {
     }
 } else {
     if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
-        // legitimize shell operation
+        // name shell operation
+
+        $Slug = new Slug([
+            'DB' => $DB
+        ]);
+
+        // craft the op slug - only needs to be unique within op type
+        $slug = $Slug->slugify_name($name, 'grower_operations', $data['type'], 'grower_operation_type_id');
+
+        if (empty($slug)) {
+            throw new \Exception('Slug generation failed');
+        }
 
         $profile_updated = $User->GrowerOperation->update([
             'grower_operation_type_id'  => $type,
             'name'                      => $name,
             'bio'                       => $bio,
+            'slug'                      => $slug,
             'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
         ]);
     } else {
-        // either no operation yet exists or already on legitimite operation
+        // either no operation yet exists or already named operation
 
         $GrowerOperation = new GrowerOperation([
             'DB' => $DB
@@ -105,6 +117,10 @@ if (!empty($operation_key) && !empty($personal_key)) {
                 'bio'   => $bio
             ],[
                 'is_default' => (isset($User->GrowerOperation) ? 0 : 1)
+            ]);
+
+            $grower_operation_id = $GrowerOperation->create($User, [
+                'type' => $type
             ]);
         } catch (\Exception $e) {
             error_log($e->getMessage());
