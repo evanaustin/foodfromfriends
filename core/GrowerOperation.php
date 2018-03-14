@@ -66,10 +66,6 @@ class GrowerOperation extends Base {
             $this->populate_fully();
             $this->link = ($this->type == 'none' || $this->type == 'other' ? 'grower' : $this->type) . '/' . $this->slug;
 
-            if (isset($configure['details']) && $configure['details'] == true) {
-                $this->configure_details();
-            }
-            
             if (isset($configure['team']) && $configure['team'] == true) {
                 $this->configure_team();
             }
@@ -118,45 +114,6 @@ class GrowerOperation extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v;
     }
     
-    private function configure_details() {
-        if ($this->type == 'none') {
-            $owner_id = $this->get_owner();
-            
-            $this->Owner = new User([
-                'DB' => $this->DB,
-                'id' => $owner_id
-            ]);
-    
-            $this->details = [
-                'lat'       => $this->Owner->latitude,
-                'lng'       => $this->Owner->longitude,
-                'bio'       => $this->Owner->bio,
-                'address_line_1' => $this->Owner->address_line_1,
-                'address_line_2' => $this->Owner->address_line_2,
-                'city'      => $this->Owner->city,
-                'state'     => $this->Owner->state,
-                'zipcode'   => $this->Owner->zipcode,
-                'path'      => (!empty($this->Owner->filename)) ? '/profile-photos/' . $this->Owner->filename : '',
-                'ext'       => $this->Owner->ext,
-                'joined'    => $this->Owner->registered_on   
-            ];
-        } else {
-            $this->details = [
-                'lat'       => $this->latitude,
-                'lng'       => $this->longitude,
-                'bio'       => $this->bio,
-                'address_line_1' => $this->address_line_1,
-                'address_line_2' => $this->address_line_2,
-                'city'      => $this->city,
-                'state'     => $this->state,
-                'zipcode'   => $this->zipcode,
-                'path'      => (!empty($this->filename)) ? '/grower-operation-images/' . $this->filename : '',
-                'ext'       => $this->ext,
-                'joined'    => $this->created_on   
-            ];
-        }
-    }
-
     private function configure_team() {
         $results = $this->DB->run('
             SELECT *
@@ -276,6 +233,31 @@ class GrowerOperation extends Base {
             }
 
             $grower_operation_id = $grower_added['last_insert_id'];
+
+            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state)) {
+                // Configure operation address
+                $full_address       = "{$User->address_line_1}, {$User->city}, {$User->state}";
+                $prepared_address   = str_replace(' ', '+', $full_address);
+    
+                $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+                $output             = json_decode($geocode);
+    
+                $latitude           = $output->results[0]->geometry->location->lat;
+                $longitude          = $output->results[0]->geometry->location->lng;
+    
+                $added = $User->GrowerOperation->add([
+                    'grower_operation_id'   => $grower_operation_id,
+                    'address_line_1'        => $User->address_line_1,
+                    'address_line_2'        => $User->address_line_2,
+                    'city'                  => $User->city,
+                    'state'                 => $User->state,
+                    'zipcode'               => $User->zipcode,
+                    'latitude'              => $latitude,
+                    'longitude'             => $longitude
+                ], 'grower_operation_addresses');
+                
+                if (!$added) quit('We could not add your operation\'s location');
+            }
 
             // assign user ownership of new operation
             $association_added = $this->add([
