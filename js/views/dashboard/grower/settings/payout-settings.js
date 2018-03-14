@@ -1,4 +1,4 @@
-$('#invite-member').on('submit', function(e) {
+$('#edit-payout').on('submit', function(e) {
 	e.preventDefault();
     App.Util.hideMsg();
     
@@ -8,9 +8,9 @@ $('#invite-member').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/grower/operation/invite-member', data, 
+        App.Ajax.post('dashboard/grower/settings/save-payout', data, 
             function(response) {
-                App.Util.msg('Your invitation was sent!', 'success');
+                App.Util.msg('Your payout settings have been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
             },

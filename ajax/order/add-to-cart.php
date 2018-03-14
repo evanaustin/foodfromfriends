@@ -62,7 +62,7 @@ try {
             quit('Please set your address <a href="' . PUBLIC_ROOT . 'dashboard/account/edit-profile/delivery-address">here</a>');
         }
 
-        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->delivery_latitude . ',' . $User->delivery_longitude . '&destinations=' . $Seller->details['lat'] . ',' . $Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
+        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->delivery_latitude . ',' . $User->delivery_longitude . '&destinations=' . $Seller->latitude . ',' . $Seller->longitude . '&key=' . GOOGLE_MAPS_KEY);
         $output = json_decode($geocode);
         $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
         

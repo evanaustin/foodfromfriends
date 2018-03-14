@@ -12,7 +12,7 @@
                         'completed',
                         'failed'
                     ],
-                    'food-listings' => [
+                    'items' => [
                         'overview',
                         'add-new'
                     ],
@@ -20,6 +20,12 @@
                         'delivery',
                         'pickup',
                         'meetup'
+                    ],
+                    'settings' => [
+                        'edit-profile',
+                        'payout-settings',
+                        'team-members',
+                        // 'create-new'
                     ]
                 ],
                 'messages' => [
@@ -46,20 +52,6 @@
                     // 'edit' => 'edit-profile', // link alias format
                 ]
             ];
-
-            if ($User->GrowerOperation->permission == 2) {
-                $sidebar['grower']['operation'] = [
-                    'create-new'
-                ];
-
-                if ($User->GrowerOperation->type != 'none') {
-                    array_unshift($sidebar['grower']['operation'], 'basic-information', 'location', 'team-members');
-                }
-            } else {
-                $sidebar['grower']['operation'] = [
-                    'create-new'
-                ];
-            }
 
             foreach($User->Operations as $Op) {
                 if ($Op->type != 'none') {

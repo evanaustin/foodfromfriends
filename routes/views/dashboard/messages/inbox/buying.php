@@ -35,7 +35,7 @@
                     <cell class="align-center">
                         <div class="user-block">
                             <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
-                                <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
+                                <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
                             </a>
                                             
                             <div class="user-content">
@@ -46,7 +46,7 @@
                                 </h5>
 
                                 <small>
-                                    <?php echo "{$Grower->details['city']}, {$Grower->details['state']}"; ?>
+                                    <?php echo "{$Grower->city}, {$Grower->state}"; ?>
                                 </small>
                             </div>
                         </div>    

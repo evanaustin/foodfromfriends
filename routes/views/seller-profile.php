@@ -37,13 +37,13 @@
                         <div class="photo box">
                             <?php
                             
-                            if (!empty($GrowerOperation->details['path'])) {
-                                img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid');
+                            if (!empty($GrowerOperation->filename)) {
+                                img(ENV . "/grower-operation-images/{$GrowerOperation->filename}", $GrowerOperation->ext, 'S3', 'img-fluid');
                             } else {
                                 img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 
                                 if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/' : 'grower/operation/') . "basic-information\" class=\"btn btn-cta btn-block\">Add a profile picture</a>";
+                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Add a profile picture</a>';
                                 }
                             }
 
@@ -114,16 +114,16 @@
                             </ul>
                         </div>
 
-                        <div class="<?php echo (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng']) ? 'map' : 'photo'); ?> box">
+                        <div class="<?php echo (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
                             <?php
                                     
-                            if (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng'])) {
+                            if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
                                 echo "<div id=\"map\"></div>";
                             } else {
                                 img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 
                                 if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/basic-information' : 'grower/operation/location') . "\" class=\"btn btn-cta btn-block\">Set your address</a>";
+                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
                                 }
                             }
 
@@ -157,7 +157,7 @@
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($GrowerOperation->details['city'], $GrowerOperation->details['state']) ? "&bull; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}" : '') . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
+                            <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($GrowerOperation->city, $GrowerOperation->state) ? "&bull; {$GrowerOperation->city}, {$GrowerOperation->state}" : '') . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
                         </div>
 
                         <div class="muted bold margin-btm-1em">
@@ -166,15 +166,15 @@
 
                         <?php
                         
-                        if (!empty($GrowerOperation->details['bio'])) {
-                            echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->details['bio']}</p>";
+                        if (!empty($GrowerOperation->bio)) {
+                            echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->bio}</p>";
                         } else if ($is_owner) {
-                            echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/' : 'grower/operation/') . "basic-information\" class=\"btn btn-cta\">Add a bio</a>";
+                            echo '<div class="row"><div class="col-md-4"><a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Add a bio</a></div></div>';
                         }
                         
                         ?>
 
-                        <div class="food-listings set">
+                        <div class="items set">
                             <h4 class="margin-btm-50em ">
                                 <bold class="dark-gray">Items</bold> 
                                 <?php echo (!empty($listings)) ? '<light class="light-gray">(' . count($listings) . ')</light>' : ''; ?>
@@ -221,7 +221,7 @@
                                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid rounded');
                         
                                                         if ($is_owner) {
-                                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>";
+                                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>";
                                                         }
                                                     }
 
@@ -286,7 +286,7 @@
                                 echo "<div class=\"callout\">{$GrowerOperation->name} doesn't have any items for sale yet</div>";
                                 
                                 if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/add-new\" class=\"btn btn-cta margin-top-1em\">Add your first item</a>";
+                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/items/add-new" class="btn btn-cta margin-top-1em">Add your first item</a>';
                                 }
                             }
 
@@ -364,8 +364,8 @@
 </main>
 
 <script>
-    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
-    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
+    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
+    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
 
     var user = <?php echo (isset($User)) ? $User->id : 0; ?>
 </script>

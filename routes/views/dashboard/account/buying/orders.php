@@ -203,7 +203,7 @@
                                     <fable>
                                         <cell class="min-third">
                                             <div class="user-block">
-                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $ThisGrowerOperation->details['path'] . '.' . $ThisGrowerOperation->details['ext']; ?>');"></div>
+                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$ThisGrowerOperation->filename}.{$ThisGrowerOperation->ext}"; ?>');"></div>
                                                 
                                                 <div class="user-content">
                                                     <h5 class="bold margin-btm-25em">
@@ -213,7 +213,7 @@
                                                     </h5>
 
                                                     <small>
-                                                        <?php echo "{$ThisGrowerOperation->details['city']}, {$ThisGrowerOperation->details['state']}"; ?>
+                                                        <?php echo "{$ThisGrowerOperation->city}, {$ThisGrowerOperation->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>

@@ -142,7 +142,7 @@ $('#add-listing').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
         
-        App.Ajax.postFiles('dashboard/grower/food-listings/add-new', data, 
+        App.Ajax.postFiles('dashboard/grower/items/add-new', data, 
             function(response) {
                 if (response.is_active) {
                     App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now', 'success');

@@ -102,11 +102,11 @@ class OrderExchange extends Base {
                 break;
             case 'pickup':
                 // use seller address
-                $this->address_line_1 = $this->Seller->details['address_line_1'];
-                $this->address_line_2 = $this->Seller->details['address_line_2'];
-                $this->city           = $this->Seller->details['city'];
-                $this->state          = $this->Seller->details['state'];
-                $this->zipcode        = $this->Seller->details['zipcode'];
+                $this->address_line_1 = $this->Seller->address_line_1;
+                $this->address_line_2 = $this->Seller->address_line_2;
+                $this->city           = $this->Seller->city;
+                $this->state          = $this->Seller->state;
+                $this->zipcode        = $this->Seller->zipcode;
 
                 break;
             case 'meetup':
@@ -133,7 +133,7 @@ class OrderExchange extends Base {
     private function calculate_distance() {
         // Only delivery stores a distance. For everything else, set as 0
         if ($this->type == 'delivery') {
-            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->Buyer->delivery_latitude . ',' . $this->Buyer->delivery_longitude . '&destinations=' . $this->Seller->details['lat'] . ',' . $this->Seller->details['lng'] . '&key=' . GOOGLE_MAPS_KEY);
+            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->Buyer->delivery_latitude . ',' . $this->Buyer->delivery_longitude . '&destinations=' . $this->Seller->latitude . ',' . $this->Seller->longitude . '&key=' . GOOGLE_MAPS_KEY);
             $output = json_decode($geocode);
             $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
             

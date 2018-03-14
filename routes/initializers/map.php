@@ -65,15 +65,15 @@ if (!empty($growers)) {
         // Get distance between user and seller
         if (isset($User) 
         && !empty($User->latitude) && !empty($User->longitude) 
-        && !empty($ThisGrower->details['lat']) && !empty($ThisGrower->details['lng'])) {
+        && !empty($ThisGrower->latitude) && !empty($ThisGrower->longitude)) {
             $distance = [];
     
             $length = getDistance([
                 'lat' => $User->latitude,
                 'lng' => $User->longitude
             ], [
-                'lat' => $ThisGrower->details['lat'],
-                'lng' => $ThisGrower->details['lng']
+                'lat' => $ThisGrower->latitude,
+                'lng' => $ThisGrower->longitude
             ]);
     
             if ($length < 0.1) {
@@ -91,15 +91,15 @@ if (!empty($growers)) {
             'type'          => 'Feature',
             'properties'    => [
                 'link'      => $ThisGrower->link,
-                'photo'     => 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "{$ThisGrower->details['path']}.{$ThisGrower->details['ext']}",
+                'photo'     => 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$ThisGrower->filename}.{$ThisGrower->ext}",
                 'name'      => $ThisGrower->name,
                 'rating'    => $ThisGrower->stars,
-                'distance'  => (!empty($ThisGrower->distance['length']) ? "{$ThisGrower->distance['length']} {$ThisGrower->distance['units']} away" : "{$ThisGrower->details['city']}, {$ThisGrower->details['state']}"),
+                'distance'  => (!empty($ThisGrower->distance['length']) ? "{$ThisGrower->distance['length']} {$ThisGrower->distance['units']} away" : "{$ThisGrower->city}, {$ThisGrower->state}"),
                 'listings'  => "<strong>{$ThisGrower->listing_count}</strong> listing" . ($ThisGrower->listing_count == 1 ? '' : 's')
             ],
             'geometry'      => [
                 'type'          => 'Point',
-                'coordinates'   => [$ThisGrower->details['lng'], $ThisGrower->details['lat']]
+                'coordinates'   => [$ThisGrower->longitude, $ThisGrower->latitude]
             ]
         ];
     

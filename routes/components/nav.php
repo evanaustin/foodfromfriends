@@ -51,7 +51,7 @@
                 
                 if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active) {
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a></li>";
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/overview\">Your items</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/items/overview\">Your items</a></li>";
                 }
                 
                 ?>
@@ -77,7 +77,7 @@
                             'completed',
                             'failed'
                         ],
-                        'food-listings' => [
+                        'items' => [
                             'overview',
                             'add-new'
                         ],
@@ -85,6 +85,12 @@
                             'delivery',
                             'pickup',
                             'meetup'
+                        ],
+                        'settings' => [
+                            'edit-profile',
+                            'payout-settings',
+                            'team-members',
+                            // 'create-new'
                         ]
                     ],
                     'messages' => [
@@ -110,20 +116,6 @@
                         // 'edit' => 'edit-profile', // link alias format
                     ]
                 ];
-
-                if ($User->GrowerOperation->permission == 2) {
-                    $sidebar['grower']['operation'] = [
-                        'create-new'
-                    ];
-
-                    if ($User->GrowerOperation->type != 'none') {
-                        array_unshift($sidebar['grower']['operation'], 'basic-information', 'location', 'team-members');
-                    }
-                } else {
-                    $sidebar['grower']['operation'] = [
-                        'create-new'
-                    ];
-                }
 
                 foreach($User->Operations as $Op) {
                     if ($Op->type != 'none') {

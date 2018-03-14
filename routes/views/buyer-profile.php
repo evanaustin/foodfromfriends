@@ -129,7 +129,7 @@
                                             if ($is_owner) {
                                                 echo "<a class=\"btn btn-white\" href=\"" . PUBLIC_ROOT . "map\" data-toggle=\"tooltip\" data-title=\"See what's for sale\">" . ucfirst($subcategory['title']) . "</a>";
                                             } else {
-                                                echo "<a class=\"btn btn-white offer-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/add-new?category={$category_id}&subcategory={$subcategory_id}\" data-toggle=\"tooltip\" data-title=\"Offer {$subcategory['title']} for sale\">" . ucfirst($subcategory['title']) . "</a>";
+                                                echo "<a class=\"btn btn-white offer-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/items/add-new?category={$category_id}&subcategory={$subcategory_id}\" data-toggle=\"tooltip\" data-title=\"Offer {$subcategory['title']} for sale\">" . ucfirst($subcategory['title']) . "</a>";
                                             }
                                         }
 

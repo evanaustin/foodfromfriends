@@ -125,7 +125,7 @@ App.Front.Item = function() {
                             $cart_item = $(
                                 '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
                                     '<div class="item-image">' +
-                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/food-listings/' + response.listing.filename + '.' + response.listing.ext + '" class="img-fluid"/>' +
+                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.listing.filename + '.' + response.listing.ext + '" class="img-fluid"/>' +
                                     '</div>' +
                                     
                                     '<div class="item-content">' +
