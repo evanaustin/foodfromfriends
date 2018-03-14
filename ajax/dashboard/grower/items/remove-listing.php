@@ -36,7 +36,7 @@ if (count($ordered_listings) > 0) {
         if (!$record_removed) quit('Could not remove listing image information');
         
         $img_removed = $S3->delete_objects([
-            ENV . '/food-listings/' . $FoodListing->filename . '.' . $FoodListing->ext
+            ENV . '/items/' . $FoodListing->filename . '.' . $FoodListing->ext
         ]);
     }
 

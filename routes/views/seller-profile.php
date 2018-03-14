@@ -207,7 +207,7 @@
                                                     <?php
                                                     
                                                     if (!empty($Item->filename)) {
-                                                        img(ENV . '/food-listings/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden img-fluid');
+                                                        img(ENV . '/items/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden img-fluid');
                                                         
                                                         ?>
 

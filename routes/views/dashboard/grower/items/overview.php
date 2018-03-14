@@ -43,7 +43,7 @@
                                 <?php
                                 
                                 if (!empty($FoodListing->filename)) {
-                                    img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'hidden');
+                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'hidden');
                                 } else {
                                     img('placeholders/default-thumbnail', 'jpg', 'local');
                                 }
