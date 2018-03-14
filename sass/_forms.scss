@@ -77,7 +77,7 @@ form {
     
     select.custom-select, 
     input.form-control:only-child, 
-    div.form-group > label + input.form-control, 
+    div.form-group:not(.has-danger):not(.has-success) > label + input.form-control, 
     div.input-group.w-addon, 
     textarea.form-control, 
     div.image-box {
