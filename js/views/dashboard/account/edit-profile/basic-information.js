@@ -81,7 +81,7 @@ $('#edit-basic-information').on('submit', function(e) {
 		App.Ajax.postFiles('dashboard/account/edit-profile/save-basic-information', data, 
 			function(response) {
                 App.Util.finishedLoading();
-                App.Util.msg('Your information has been updated! <a href="' + PUBLIC_ROOT + 'user/' + response.slug + '">Go view your profile <i class="fa fa-angle-right"></i></a>', 'success');
+                App.Util.msg('Your information has been updated! Click <a href="' + PUBLIC_ROOT + 'user/' + response.slug + '">here</a> to go view your profile', 'success');
 			},
 			function(response) {
                 App.Util.finishedLoading();
