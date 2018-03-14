@@ -11,7 +11,7 @@
                 'DB' => $DB,
                 'id' => $OrderGrower->grower_operation_id
             ],[
-                'details' => true
+                'exchange' => true
             ]);
 
             ?>
@@ -87,9 +87,9 @@
 
                         $exchange_options_available = [];
                             
-                        if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered)   $exchange_options_available []= 'delivery';
-                        if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered)       $exchange_options_available []= 'pickup';
-                        if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered)       $exchange_options_available []= 'meetup';
+                        if ($Grower->Delivery && $Grower->Delivery->is_offered)   $exchange_options_available []= 'delivery';
+                        if ($Grower->Pickup && $Grower->Pickup->is_offered)       $exchange_options_available []= 'pickup';
+                        if ($Grower->Meetup && $Grower->Meetup->is_offered)       $exchange_options_available []= 'meetup';
 
                         echo "<select class=\"custom-select ordergrower-exchange\" name=\"exchange\">";
                         
