@@ -46,7 +46,7 @@ $('a.remove-image').on('click', function(e) {
 			if (result === true) {
 				if ($('div.image-box').hasClass('existing-image')) {
 					App.Util.loading();
-					App.Image.destroy('dashboard/grower/operation/remove-image');
+					App.Image.destroy('dashboard/grower/settings/remove-image');
 				} else {
 					App.Image.discard();
 				}
@@ -119,7 +119,7 @@ $('#create-new').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('dashboard/grower/operation/create-new', data, 
+		App.Ajax.postFiles('dashboard/grower/settings/create-new', data, 
 			function(response) {
 				App.Util.finishedLoading();
 				window.location.replace(PUBLIC_ROOT + 'dashboard/grower');

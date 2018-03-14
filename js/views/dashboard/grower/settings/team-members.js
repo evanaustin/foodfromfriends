@@ -1,4 +1,4 @@
-$('#edit-location').on('submit', function(e) {
+$('#invite-member').on('submit', function(e) {
 	e.preventDefault();
     App.Util.hideMsg();
     
@@ -8,9 +8,9 @@ $('#edit-location').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/grower/operation/save-location', data, 
+        App.Ajax.post('dashboard/grower/settings/invite-member', data, 
             function(response) {
-                App.Util.msg('Your location has been saved!', 'success');
+                App.Util.msg('Your invitation was sent!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
             },

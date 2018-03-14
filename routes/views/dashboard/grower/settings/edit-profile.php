@@ -2,18 +2,18 @@
     <div class="container animated fadeIn">
         <?php
 
-        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'none') {
+        if ($User->GrowerOperation->permission == 2) {
 
             ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        <?php echo (($User->GrowerOperation->type == 'none') ? 'Set' : 'Edit') . ' your operation'; ?>
+                        Edit your seller profile
                     </div>
 
                     <div class="page-description text-muted small">
-                        Creating an operation assigns ownership of any items you list to that operation rather than to you as an individual. This clarifies your presence as a seller to buyers and allows teams to work together.
+                        Customize your seller profile as it appears to buyers. <span id="live-link">View your live profile <a href="<?php echo PUBLIC_ROOT . $User->GrowerOperation->link; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
                     </div>
                 </div>
 
@@ -38,32 +38,64 @@
                         <div id="operation-type">
                             <div class="form-group">
                                 <label>
-                                    <?php echo (($User->GrowerOperation->type == 'none') ? 'Create new operation' : 'Operation type'); ?>
+                                    Operation type
                                 </label>
 
                                 <select name="type" class="custom-select" data-parsley-trigger="submit" required>
                                     <?php
                                 
                                     foreach ($operation_types as $operation_type) {
-                                        ?><option value="<?php echo $operation_type['id']; ?>" <?php if ($operation_type['title'] == $User->GrowerOperation->type) { echo 'selected'; } ?>><?php echo ucfirst($operation_type['title']); ?></option><?php
+                                        echo "<option value=\"{$operation_type['id']}\" " . ($operation_type['title'] == $User->GrowerOperation->type ? 'selected' : '') . ">" . ucfirst($operation_type['title']) . "</option>";
                                     }
 
                                     ?>
                                 </select>
 
-                                <small id="new-operation-help" class="form-text text-muted">
-                                    If you happen to be selling food on behalf of some named operation or entity, you can create that operation here.
+                                <small id="type-help" class="form-text text-muted" <?php if ($User->GrowerOperation->type != 'none') echo 'style="display:none"'; ?>>
+                                    If you're selling on behalf of a named entity, set the operation type here.
                                 </small>
                             </div>
                         </div>
                     
-                        <div id="operation-details" <?php if ($User->GrowerOperation->type == 'none') { echo 'style="display:none;"'; } ?>>
-                            <div class="form-group">
+                        <div id="operation-details">
+                            <div id="operation-name" class="form-group" <?php if ($User->GrowerOperation->type == 'none') echo 'style="display:none"'; ?>>
                                 <label>
                                     Name
                                 </label>
 
-                                <input type="text" name="name" class="form-control" placeholder="Operation name" value="<?php echo (!empty($User->GrowerOperation->name) ? $User->GrowerOperation->name : '' );?>"  data-parsley-trigger="submit" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                <input type="text" name="name" class="form-control" placeholder="Operation name" value="<?php echo (!empty($User->GrowerOperation->name) ? $User->GrowerOperation->name : '' );?>"  data-parsley-trigger="submit" required>
+                            </div>
+
+                            <label>
+                                Where is your operation?
+                            </label>
+
+                            <div class="form-group">
+                                <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->GrowerOperation->address_line_1)) echo $User->GrowerOperation->address_line_1; ?>" data-parsley-trigger="change" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->GrowerOperation->address_line_2)) echo $User->GrowerOperation->address_line_2; ?>" data-parsley-trigger="change">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->GrowerOperation->city)) echo $User->GrowerOperation->city; ?>" data-parsley-trigger="change" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->GrowerOperation->state)) echo $User->GrowerOperation->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->GrowerOperation->zipcode)) { echo $User->GrowerOperation->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -71,39 +103,13 @@
                                     Bio
                                 </label>
                                 
-                                <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe your operation! Food From Friends is built on relationships."><?php if (!empty($User->GrowerOperation->bio)) { echo $User->GrowerOperation->bio ; } ?></textarea>
-                            </div>
-                        </div>
-
-                        <div id="existing-operation" <?php if ($User->GrowerOperation->type != 'none') { echo 'style="display:none;"'; } ?>>
-                            <p class="small strong text-muted margin-btm-75em line-after">
-                                OR
-                            </p>
-
-                            <div class="form-group">
-                                <label>
-                                    Join existing operation
-                                </label>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" name="operation-key" class="form-control" placeholder="The operation's referral key" data-parsley-trigger="submit" <?php if ($User->GrowerOperation->type != 'none') { echo 'disabled'; } ?>>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <input type="text" name="personal-key" class="form-control" placeholder="Your personal referral key" data-parsley-trigger="submit" <?php if ($User->GrowerOperation->type != 'none') { echo 'disabled'; } ?>>
-                                    </div>
-                                </div>
-
-                                <small class="form-text text-muted">
-                                    If you were invited to join an operation that's already on Food From Friends, enter the two keys provided via email here.
-                                </small>
+                                <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe your operation! Food From Friends is built on relationships."><?php if (!empty($User->GrowerOperation->bio)) echo $User->GrowerOperation->bio; ?></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div id="operation-image" <?php if ($User->GrowerOperation->type == 'none') { echo 'style="display:none;"'; } ?>>
+                        <div id="operation-image">
                             <div class="form-group">
                                 <label>
                                     Operation photo
@@ -123,7 +129,7 @@
 
                                         ?>
                                         
-                                        <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                        <input type="file" name="profile-image" accept="image/png/jpg">
                                         
                                         <div class="overlay-slide">
                                             <i class="fa fa-camera"></i>

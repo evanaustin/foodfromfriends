@@ -1,6 +1,6 @@
 // Initialize imaging if already visible
 if ($('select[name="type"]').val() > 1) {
-	App.Image.init();
+    App.Image.init();
 }
 
 
@@ -46,7 +46,7 @@ $('a.remove-image').on('click', function(e) {
 			if (result === true) {
 				if ($('div.image-box').hasClass('existing-image')) {
 					App.Util.loading();
-					App.Image.destroy('dashboard/grower/operation/remove-image');
+					App.Image.destroy('dashboard/grower/settings/remove-image');
 				} else {
 					App.Image.discard();
 				}
@@ -59,23 +59,35 @@ $('a.remove-image').on('click', function(e) {
 // Show/hide require/disable operation details as necessary
 $('select[name="type"]').on('change', function() {
     if ($(this).val() > 1) {
-		$('#existing-operation').fadeOut().find('input').prop({
-            disabled: true
-		});
-		
-		$('#new-operation-help').fadeOut();
-		
-		$('#operation-details').fadeIn().find('input').prop({
+        $('#operation-name').fadeIn().find('input').prop({
             required: true,
             disabled: false
         });
 
-        $('#operation-image').fadeIn();
+        $('#type-help').fadeOut();
+
+		/* $('#existing-operation').fadeOut().find('input').prop({
+            disabled: true
+		}); */
+		
+		/* $('#operation-details').fadeIn().find('input').prop({
+            required: true,
+            disabled: false
+        }); */
+
+        // $('#operation-image').fadeIn();
 
 		// Initialize imaging
 		App.Image.init();
     } else {
-        $('#operation-details').fadeOut().find('input').prop({
+        $('#operation-name').fadeOut().find('input').prop({
+            required: false,
+            disabled: true
+        });
+
+        $('#type-help').fadeIn();
+
+        /* $('#operation-details').fadeOut().find('input').prop({
             required: false,
             disabled: true
         });
@@ -84,9 +96,7 @@ $('select[name="type"]').on('change', function() {
 		
 		$('#existing-operation').fadeIn().find('input').prop({
             disabled: false
-		});
-		
-		$('#new-operation-help').fadeIn();
+		}); */
     }
 });
 
@@ -116,15 +126,16 @@ $('#edit-basic-information').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('dashboard/grower/operation/save-basic-information', data, 
+		App.Ajax.postFiles('dashboard/grower/settings/save-profile', data, 
 			function(response) {
 				App.Util.finishedLoading();
 				
 				if (response.switch == true) {
-					window.location.replace(PUBLIC_ROOT + 'dashboard/grower/food-listings/overview');
+					window.location.replace(PUBLIC_ROOT + 'dashboard/grower/items/overview');
 				}
-				
-				toastr.success('Your operation\'s information has been updated!');
+                
+                $('#live-link').addClass('hidden');
+				App.Util.msg('Your changes have been saved! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view your seller profile', 'success');
 			},
 			function(response) {
 				App.Util.msg(response.error, 'danger');

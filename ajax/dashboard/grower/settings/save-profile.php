@@ -10,8 +10,13 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'type'  => 'integer',
-	'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space'
+    'type'              => 'integer',
+    'name'              => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space',
+    'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
+    'address-line-2'    => 'alpha_numeric_space|max_len,25',
+    'city'              => 'required|alpha_space|max_len,35',
+    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'zipcode'           => 'required|regex,/^[0-9]{5}$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -21,66 +26,25 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'type'  => 'trim|sanitize_numbers',
-    'name'  => 'trim|sanitize_string'
+	'type'              => 'trim|sanitize_numbers',
+    'name'              => 'trim|sanitize_string',
+    'address-line-1'    => 'trim|sanitize_string',
+	'address-line-2'    => 'trim|sanitize_string',
+	'city'              => 'trim|sanitize_string',
+	'state'             => 'trim|sanitize_string',
+	'zipcode'           => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-if (!empty($operation_key) && !empty($personal_key)) {
-    $association = $User->retrieve([
-        'where' => [
-            'referral_key' => $personal_key
-        ],
-        'table' => 'grower_operation_members'
-    ]);
+if (empty($operation_key) && empty($personal_key)) {
+    // set name if not already set
+    if (empty($name)) $name = $User->name;
 
-    $association = $association[0];
-
-    // make sure association exists
-    if ($association) {
-
-        // make sure freshly logged in user belongs to association
-        if ($association['user_id'] == $User->id) {
-            
-            $GrowerOperation = new GrowerOperation([
-                'DB' => $DB,
-                'id' => $association['grower_operation_id']
-            ]);
-
-            // make sure operation key is legit
-            if ($GrowerOperation->referral_key == $operation_key) {
-                
-                // make sure personal key is unused
-                if ($association['permission'] == 0) {
-                    
-                    // update user association/permission
-                    $association_added = $GrowerOperation->update([
-                        'permission'    => 1
-                    ], 'referral_key' , $personal_key, 'grower_operation_members');
-
-                    if (!$association_added) quit('Could not join team');
-
-                    $User->switch_operation($GrowerOperation->id);
-
-                    $json['switch'] = true;
-                } else {
-                    quit('You\'re already a member of this team');
-                }
-            } else {
-                quit('Your operation key is invalid');
-            }
-        } else {
-            quit('You were not invited to this team ' . $association['user_id'] . ' / ' . $User->id);
-        }
-    } else {
-        quit('Your personal key is invalid');
-    }
-} else {
     // re-slugify operation name if necessary
-    if (empty($User->GrowerOperation->slug) || $User->GrowerOperation->name != $name) {
+    if (empty($User->GrowerOperation->slug) || (!empty($name) && $User->GrowerOperation->name != $name)) {
         $Slug = new Slug([
             'DB' => $DB
         ]);
@@ -106,7 +70,54 @@ if (!empty($operation_key) && !empty($personal_key)) {
     if (!$profile_updated) {
         quit('We couldn\'t update your operation\'s basic information');
     }
+
+
+
+    // (Re-)configure operation address
+    if ($address_line_1 != $User->GrowerOperation->address_line_1
+    || $city            != $User->GrowerOperation->city 
+    || $state           != $User->GrowerOperation->state 
+    || $zipcode         != $User->GrowerOperation->zipcode) {
+        $full_address = $address_line_1 . ', ' . $city . ', ' . $state;
+        $prepared_address = str_replace(' ', '+', $full_address);
     
+        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+        $output= json_decode($geocode);
+    
+        $lat = $output->results[0]->geometry->location->lat;
+        $lng = $output->results[0]->geometry->location->lng;
+        
+        if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
+            $updated = $User->GrowerOperation->update([
+                'address_line_1'    => $address_line_1,
+                'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
+                'city'              => $city,
+                'state'             => $state,
+                'zipcode'           => $zipcode,
+                'latitude'          => $lat,
+                'longitude'         => $lng
+            ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses');
+            
+            if (!$updated) quit('We could not update your location');
+        } else {
+            $added = $User->GrowerOperation->add([
+                'grower_operation_id'   => $User->GrowerOperation->id,
+                'address_line_1'        => $address_line_1,
+                'address_line_2'        => $address_line_2,
+                'city'                  => $city,
+                'state'                 => $state,
+                'zipcode'               => $zipcode,
+                'latitude'              => $lat,
+                'longitude'             => $lng
+            ], 'grower_operation_addresses');
+            
+            if (!$added) quit('We could not add your operation\'s location');
+        }
+    }
+
+
+    
+    // Configure operation image
     $Image = new Image();
     
     // validate image
@@ -261,6 +272,58 @@ if (!empty($operation_key) && !empty($personal_key)) {
         if (file_exists($tmp2 . $filename . '.cropped.' . $ext)) {
             unlink($tmp2 . $filename . '.cropped.' . $ext);
         }
+    }
+
+    // Re-initialize User->GrowerOperation
+    $User->GrowerOperation = new GrowerOperation([
+        'DB' => $DB,
+        'id' => $User->GrowerOperation->id
+    ]);
+
+    $json['link'] = $User->GrowerOperation->link;
+} else {
+    // check to see if user is associated
+    $association = $User->retrieve([
+        'where' => [
+            'referral_key' => $personal_key
+        ],
+        'table' => 'grower_operation_members',
+        'limit' => 1
+    ]);
+
+    if ($association) {
+        // make sure freshly logged in user belongs to association
+        if ($association['user_id'] == $User->id) {
+            $GrowerOperation = new GrowerOperation([
+                'DB' => $DB,
+                'id' => $association['grower_operation_id']
+            ]);
+
+            // make sure operation key is legit
+            if ($GrowerOperation->referral_key == $operation_key) {
+                // make sure personal key is unused
+                if ($association['permission'] == 0) {
+                    // update user association/permission
+                    $association_added = $GrowerOperation->update([
+                        'permission' => 1
+                    ], 'referral_key' , $personal_key, 'grower_operation_members');
+
+                    if (!$association_added) quit('Could not join team');
+
+                    $User->switch_operation($GrowerOperation->id);
+
+                    $json['switch'] = true;
+                } else {
+                    quit('You\'re already a member of this team');
+                }
+            } else {
+                quit('Your operation key is invalid');
+            }
+        } else {
+            quit("You were not invited to this team {$association['user_id']} / {$User->id}");
+        }
+    } else {
+        quit('Your personal key is invalid');
     }
 }
 

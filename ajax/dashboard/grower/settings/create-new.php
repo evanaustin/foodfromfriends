@@ -11,7 +11,12 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
     'type'  => 'integer',
-	'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space'
+    'name'  => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space',
+    'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
+    'address-line-2'    => 'alpha_numeric_space|max_len,25',
+    'city'              => 'required|alpha_space|max_len,35',
+    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'zipcode'           => 'required|regex,/^[0-9]{5}$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -22,7 +27,12 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'type'  => 'trim|sanitize_numbers',
-    'name'  => 'trim|sanitize_string'
+    'name'  => 'trim|sanitize_string',
+    'address-line-1'    => 'trim|sanitize_string',
+	'address-line-2'    => 'trim|sanitize_string',
+	'city'              => 'trim|sanitize_string',
+	'state'             => 'trim|sanitize_string',
+	'zipcode'           => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -79,7 +89,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
         quit('Your personal key is invalid');
     }
 } else {
-    if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    /* if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
         // name shell operation
 
         $Slug = new Slug([
@@ -100,7 +110,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
             'slug'                      => $slug,
             'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
         ]);
-    } else {
+    } else { */
         // either no operation yet exists or already named operation
 
         $GrowerOperation = new GrowerOperation([
@@ -118,18 +128,42 @@ if (!empty($operation_key) && !empty($personal_key)) {
             ],[
                 'is_default' => (isset($User->GrowerOperation) ? 0 : 1)
             ]);
-
-            $grower_operation_id = $GrowerOperation->create($User, [
-                'type' => $type
-            ]);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             quit('Hmm, something went wrong!');
         }
 
         $User->switch_operation($grower_operation_id);
-    }
+    // }
 
+
+
+    // Configure operation address
+    $full_address       = "{$address_line_1}, {$city}, {$state}";
+    $prepared_address   = str_replace(' ', '+', $full_address);
+
+    $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+    $output             = json_decode($geocode);
+
+    $latitude           = $output->results[0]->geometry->location->lat;
+    $longitude          = $output->results[0]->geometry->location->lng;
+
+    $added = $User->GrowerOperation->add([
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'address_line_1'        => $address_line_1,
+        'address_line_2'        => $address_line_2,
+        'city'                  => $city,
+        'state'                 => $state,
+        'zipcode'               => $zipcode,
+        'latitude'              => $latitude,
+        'longitude'             => $longitude
+    ], 'grower_operation_addresses');
+    
+    if (!$added) quit('We could not add your operation\'s location');
+
+
+
+    // Configure operation image
     $Image = new Image();
     
     // validate image
