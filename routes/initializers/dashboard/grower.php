@@ -1,74 +1,47 @@
 <?php
 
 $settings = [
-    'title' => 'Your grower dashboard | Food From Friends'
+    'title' => 'Seller dashboard | Food From Friends'
 ];
 
 $listing_count      = ($User->GrowerOperation) ? $User->GrowerOperation->count_listings() : 0;
 $team_member_count  = ($User->GrowerOperation) ? count($User->GrowerOperation->get_team_members()) : 0;
-$operation_type     = ($User->GrowerOperation) ? $User->GrowerOperation->type : 'none';
 
-switch($operation_type) {
-    case 'none':
-        $requirements = [
-            'add profile picture' => [
-                'link'      => 'dashboard/account/edit-profile/basic-information',
-                'status'    => (($User->filename) ? 'complete' : 'incomplete'),
-            ],
-            'set your location' => [
-                'link'      => 'dashboard/account/edit-profile/basic-information',
-                'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
-            ]
-        ];
+$payout_settings = $User->GrowerOperation->retrieve([
+    'where' => [
+        'seller_id' => $User->GrowerOperation->id
+    ],
+    'table' => 'seller_payout_settings',
+    'limit' => 1
+]);
 
-        $goals = [];
-
-        break;
-    default:
-        $requirements = [
-            'add operation photo' =>  [
-                'link'      => 'dashboard/grower/operation/basic-information',
-                'status'    => (!empty($User->GrowerOperation->filename) ? 'complete' : 'incomplete'),
-            ],
-            'set operation location' =>  [
-                'link'      => 'dashboard/grower/operation/location',
-                'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
-            ]
-        ];
-
-        $goals = [
-            'add profile picture' =>  [
-                'link'      => 'dashboard/account/edit-profile/basic-information',
-                'status'    => (!empty($User->filename) ? 'complete' : 'incomplete'),
-            ],
-            'add your location' =>  [
-                'link'      => 'dashboard/account/edit-profile/basic-information',
-                'status'    => (!empty($User->zipcode) ? 'complete' : 'incomplete'),
-            ],
-            'add team members' =>  [
-                'link'      => 'dashboard/grower/operation/team-members',
-                'status'    => (($team_member_count > 1) ? 'complete' : 'incomplete'),
-            ]
-        ];
-
-        break;
-}
-
-$requirements += [
+$requirements = [
+    'add a profile photo' =>  [
+        'link'      => 'dashboard/grower/settings/edit-profile',
+        'status'    => (!empty($User->GrowerOperation->filename) ? 'complete' : 'incomplete'),
+    ],
+    'set your location' =>  [
+        'link'      => 'dashboard/grower/settings/edit-profile',
+        'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
+    ],
     'upload your first listing' =>  [
-        'link'      => 'dashboard/grower/food-listings/add-new',
+        'link'      => 'dashboard/grower/items/add-new',
         'status'    => (($listing_count > 0) ? 'complete' : 'incomplete'),
     ],
     'enable at least one exchange option' =>  [
         'link'      => 'dashboard/grower/exchange-options/pickup',
         'status'    => (!empty($User->GrowerOperation->Delivery->is_offered) || !empty($User->GrowerOperation->Pickup->is_offered) || !empty($User->GrowerOperation->Meetup->is_offered) ? 'complete' : 'incomplete'),
+    ],
+    'set your payout details' => [
+        'link'      => 'dashboard/grower/settings/payout-settings',
+        'status'    => (!empty($payout_settings) ? 'complete' : 'incomplete'),
     ]
 ];
 
-$goals += [
-    'add personal bio' =>  [
-        'link'      => 'dashboard/account/edit-profile/basic-information',
-        'status'    => (!empty($User->bio) ? 'complete' : 'incomplete'),
+$goals = [
+    'add team members' =>  [
+        'link'      => 'dashboard/grower/settings/team-members',
+        'status'    => (($team_member_count > 1) ? 'complete' : 'incomplete'),
     ],
     'sell your first listing' =>  [
         'link'      => $User->GrowerOperation->link,
