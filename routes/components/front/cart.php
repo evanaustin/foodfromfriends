@@ -38,7 +38,7 @@
     
                         <div class="cart-item" data-listing-id="<?php echo $FoodListingItem->id; ?>">
                             <div class="item-image">
-                                <?php img(ENV . '/food-listings/fl.' . $FoodListingItem->id, $FoodListingItem->ext, 's3', 'img-fluid'); ?>
+                                <?php img(ENV . '/items/fl.' . $FoodListingItem->id, $FoodListingItem->ext, 's3', 'img-fluid'); ?>
                             </div>
                             
                             <div class="item-content">

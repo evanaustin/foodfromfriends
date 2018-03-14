@@ -219,7 +219,7 @@ if (isset($_POST['images'])) {
     
     if (!$record_added) quit('Could not add image record');
     
-    $img_added = $S3->save_object(ENV . '/food-listings/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+    $img_added = $S3->save_object(ENV . '/items/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
     
     if (!$img_added) quit('Could not add new image');
 

@@ -31,7 +31,7 @@
                                     <?php
                                     
                                     if (!empty($FoodListing->filename)) {
-                                        img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
+                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
                                     } else {
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
         
@@ -489,7 +489,7 @@
                         <div class="col-12 order-3 d-md-none">
                             <div class="sidebar-content">
                                 <div class="photo box">
-                                    <?php img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
+                                    <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
                                 </div>
                             </div>
                         </div>

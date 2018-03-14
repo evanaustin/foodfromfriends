@@ -191,7 +191,7 @@
                                     <?php 
                                     
                                     if (!empty($FoodListing->filename)) {
-                                        img(ENV . '/food-listings/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
+                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
                                     } else {
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
                                     }
