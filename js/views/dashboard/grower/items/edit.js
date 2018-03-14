@@ -104,7 +104,7 @@ App.Dashboard.EditItemListing = function() {
             if ($form.parsley().isValid()) {
                 App.Util.loading('.save');
 
-                App.Ajax.postFiles('dashboard/grower/food-listings/edit', data, 
+                App.Ajax.postFiles('dashboard/grower/items/edit', data, 
                     function(response) {
                         App.Util.finishedLoading('.save');
                         App.Util.msg('Your item has been updated! Click <strong><a href="' + PUBLIC_ROOT + response.link + '">here</a></strong> to view it.', 'success');
@@ -145,7 +145,7 @@ App.Dashboard.EditItemListing = function() {
                     if (result === true) {
                         if ($('div.image-box').hasClass('existing-image')) {
                             App.Util.loading('.save');
-                            App.Image.destroy('dashboard/grower/food-listings/remove-image', data);
+                            App.Image.destroy('dashboard/grower/items/remove-image', data);
                         } else {
                             App.Image.discard(id);
                         }
@@ -180,14 +180,14 @@ App.Dashboard.EditItemListing = function() {
                     if (result === true) {
                         App.Util.loading('.remove');
 
-                        App.Ajax.post('dashboard/grower/food-listings/remove-listing', data, 
+                        App.Ajax.post('dashboard/grower/items/remove-listing', data, 
                             function(response) {
                                 App.Util.finishedLoading('.remove');
                                 toastr.success('Your listing has been removed');
                                 $('main').fadeOut(1000);
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/grower/food-listings/overview';
+                                    window.location = PUBLIC_ROOT + 'dashboard/grower/items/overview';
                                 }, 1500);
                             },
                             function(response) {

@@ -39,7 +39,7 @@
                 <div class="col-md-4">
                     <div class="card animated zoomIn">
                         <div class="card-img-top"> 
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $FoodListing->id; ?>">
+                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
                                 <?php
                                 
                                 if (!empty($FoodListing->filename)) {
@@ -59,7 +59,7 @@
                         <div class="card-body d-flex flex-row">
                             <div class="listing-info d-flex flex-column">
                                 <h4 class="card-title">
-                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $FoodListing->id; ?>">
+                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
                                         <?php echo $FoodListing->title; ?>
                                     </a>
                                 </h4>
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="listing-controls d-flex flex-column">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/edit?id=' . $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             
@@ -122,7 +122,7 @@
 
             ?>
 
-            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/food-listings/add-new'; ?>" class="btn btn-primary">
+            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-primary">
                 Let's go create your first listing!
             </a>
 
