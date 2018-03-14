@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    Woo-hoo! Refine and complete your basic information to get the most out of the Food From Friends community.
+                    Edit and fill in all of your personal information. <span id="live-link">View your live profile <a href="<?php echo PUBLIC_ROOT . 'user/' . $User->slug; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
                 </div>
             </div>
 
