@@ -19,7 +19,7 @@
                                     <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                         <div class="card animated fadeIn">
                                             <div class="card-img-top">
-                                                <?php img(ENV . $Grower->details['path'], $Grower->details['ext'] /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
+                                                <?php img(ENV . "/grower-operation-images/{$Grower->filename}", $Grower->ext /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
 
                                                 <div class="loading">
                                                     <i class="fa fa-circle-o-notch loading-icon"></i>
@@ -33,7 +33,7 @@
                                                     </div>
                                                     
                                                     <div class="distance">
-                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->details['city']}, {$Grower->details['state']}"); ?>
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->city}, {$Grower->state}"); ?>
                                                     </div>
                                                 </div>
                                             </div>

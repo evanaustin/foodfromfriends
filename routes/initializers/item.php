@@ -28,7 +28,7 @@ if (isset($Routing->item_type)) {
     
         $FoodListing = new FoodListing([
             'DB' => $DB,
-            'id' => $results[0]['id']
+            'id' => $results['id']
         ]);
         
         if (isset($FoodListing->id)) {
@@ -42,14 +42,14 @@ if (isset($Routing->item_type)) {
     
             if (isset($User) 
             && !empty($User->latitude) && !empty($User->longitude) 
-            && !empty($GrowerOperation->details['lat']) && !empty($GrowerOperation->details['lng'])) {
+            && !empty($GrowerOperation->latitude) && !empty($GrowerOperation->longitude)) {
                 
                 $length = getDistance([
                     'lat' => $User->latitude,
                     'lng' => $User->longitude
                 ], [
-                    'lat' => $GrowerOperation->details['lat'],
-                    'lng' => $GrowerOperation->details['lng']
+                    'lat' => $GrowerOperation->latitude,
+                    'lng' => $GrowerOperation->longitude
                 ]);
             
                 if ($length < 0.1) {

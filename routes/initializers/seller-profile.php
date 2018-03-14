@@ -18,19 +18,19 @@ if (isset($Routing->seller)) {
         $is_owner = isset($User) && ((isset($GrowerOperation->Owner) && $GrowerOperation->Owner->id == $User->id) || isset($GrowerOperation->TeamMembers[$User->id]));
     
         if ($GrowerOperation->is_active || $is_owner) {
-            $joined_on = new DateTime($GrowerOperation->details['joined'], new DateTimeZone('UTC'));
+            $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
             $joined_on->setTimezone(new DateTimeZone('America/New_York'));
         
             if (isset($User) 
             && !empty($User->latitude) && !empty($User->longitude) 
-            && !empty($GrowerOperation->details['lat']) && !empty($GrowerOperation->details['lng'])) {
+            && !empty($GrowerOperation->latitude) && !empty($GrowerOperation->longitude)) {
                 $length = getDistance([
                     'lat' => $User->latitude,
                     'lng' => $User->longitude
                 ],
                 [
-                    'lat' => $GrowerOperation->details['lat'],
-                    'lng' => $GrowerOperation->details['lng']
+                    'lat' => $GrowerOperation->latitude,
+                    'lng' => $GrowerOperation->longitude
                 ]);
             
                 if ($length < 0.1) {

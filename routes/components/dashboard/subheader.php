@@ -47,7 +47,7 @@
             }
 
             foreach ([
-                // 'grower'    => 'food-listings/overview',
+                // 'grower'    => 'items/overview',
                 'messages'  => 'inbox/buying',
                 'account'   => 'edit-profile/basic-information'
             ] as $section => $subsection) { ?>

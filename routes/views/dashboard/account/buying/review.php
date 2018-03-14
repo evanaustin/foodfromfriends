@@ -32,7 +32,7 @@
             <div class="row margin-btm-2em">
                 <div class="col-md-3 flexbox flexjustifycenter flexcenter">
                     <div class="user-block">
-                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Seller->details['path'] . '.' . $Seller->details['ext']; ?>');"></div>
+                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
                         
                         <div class="user-content">
                             <h5 class="bold margin-btm-25em">
@@ -40,7 +40,7 @@
                             </h5>
 
                             <small>
-                                <?php echo "{$Seller->details['city']}, {$Seller->details['state']}"; ?>
+                                <?php echo "{$Seller->city}, {$Seller->state}"; ?>
                             </small>
                         </div>
                     </div>

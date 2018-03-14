@@ -82,7 +82,7 @@
                                         </cell>
 
                                         <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
+                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
                                         </cell>
                                     </fable>
                                 </div>

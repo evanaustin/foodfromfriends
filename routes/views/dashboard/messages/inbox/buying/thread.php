@@ -91,7 +91,7 @@
                                 <fable class="message left-message">
                                     <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
                                         <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
-                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $Grower->details['path'] . '.' . $Grower->details['ext']; ?>');"></div>
+                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
                                         </a>
                                     </cell>
 

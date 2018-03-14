@@ -36,32 +36,28 @@
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
         
                                         if ($is_owner) {
-                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
+                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
                                         }
                                     }
 
                                     ?>
                                 </div>
                                 
-                                <div class="<?php echo (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng']) ? 'map' : 'photo'); ?> box">
+                                <div class="<?php echo (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
                                     <?php
                                             
-                                    if (isset($GrowerOperation->details['lat'], $GrowerOperation->details['lng'])) {
+                                    if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
                                         echo "<div id=\"map\"></div>";
                                     } else {
                                         img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 
                                         if ($is_owner) {
-                                            echo "<a href=\"" . PUBLIC_ROOT . 'dashboard/' . (($GrowerOperation->type == 'none') ? 'account/edit-profile/basic-information' : 'grower/operation/location') . "\" class=\"btn btn-cta btn-block\">Set your address</a>";
+                                            echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
                                         }
                                     }
 
                                     ?>
                                 </div>
-
-                                <!-- <div class="photo box">
-                                    <?php //img(ENV . $GrowerOperation->details['path'], $GrowerOperation->details['ext'], 'S3', 'img-fluid'); ?>
-                                </div> -->
                             </div>
                         </div>
 
@@ -100,7 +96,7 @@
                                 if (!empty($FoodListing->description)) {
                                     echo "<p class=\"description muted\">{$FoodListing->description}</p>";
                                 } else if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/food-listings/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
                                 }
 
                                 ?>
@@ -158,7 +154,7 @@
                                                 </div>
     
                                                 <div>
-                                                    <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                    <?php echo "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                                 </div>
                                                 
                                                 <?php
@@ -278,7 +274,7 @@
                                     </div>
 
                                     <div class="user-block">
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                     
                                         <div class="user-content">
                                             <div class="font-18 muted thick">    
@@ -294,11 +290,11 @@
                                                 ?>
 
                                                 <div class="font-85 muted bold margin-btm-50em">
-                                                    <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                    <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                                 </div>
 
                                                 <p class="light-gray">
-                                                    <?php echo $GrowerOperation->details['bio']; ?>
+                                                    <?php echo $GrowerOperation->bio; ?>
                                                 </p>
 
                                                 <?php
@@ -552,7 +548,7 @@
                                             </div>
     
                                             <div>
-                                                <?php echo "{$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                <?php echo "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                             </div>
                                             
                                             <?php
@@ -672,7 +668,7 @@
                                 </div>
 
                                 <div class="user-block">
-                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->details['path']) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . $GrowerOperation->details['path'] . '.' . $GrowerOperation->details['ext'] : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                 
                                     <div class="user-content">
                                         <div class="font-18 muted thick">    
@@ -688,11 +684,11 @@
                                             ?>
 
                                             <div class="font-85 muted bold margin-btm-50em">
-                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->details['city']}, {$GrowerOperation->details['state']}"; ?>
+                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                             </div>
 
                                             <p class="light-gray">
-                                                <?php echo $GrowerOperation->details['bio']; ?>
+                                                <?php echo $GrowerOperation->bio; ?>
                                             </p>
 
                                             <?php
@@ -724,6 +720,6 @@
 <script>
     var buyer_lat   = <?php echo (isset($User->delivery_latitude)) ? $User->delivery_latitude : 0; ?>;
     var buyer_lng   = <?php echo (isset($User->delivery_longitude)) ? $User->delivery_longitude : 0; ?>;
-    var seller_lat  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lat'], 2) : 0; ?>;
-    var seller_lng  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->details['lng'], 2) : 0; ?>;
+    var seller_lat  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
+    var seller_lng  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
 </script>
