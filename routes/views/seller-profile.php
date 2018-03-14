@@ -14,7 +14,7 @@
                         <?php
 
                         if ($GrowerOperation->is_active) {
-                            echo '<span>This is your public profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information">here</a> to go edit your information.</span>';
+                            echo '<span>This is your public profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile">here</a> to go edit your information.</span>';
                         } else {
                             echo '<span><i class="fa fa-warning"></i> This is only a preview of your seller profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
                         }
