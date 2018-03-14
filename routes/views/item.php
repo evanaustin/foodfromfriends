@@ -342,7 +342,7 @@
 
                                                 ?>
 
-                                                <form id="update-item">
+                                                <form id="update-item" data-ordergrower="<?php echo $OrderGrower->id; ?>">
                                                     <input type="hidden" name="grower-operation-id" value="<?php echo $GrowerOperation->id; ?>">
                                                     <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
 
@@ -408,7 +408,7 @@
                                             
                                                 ?>
 
-                                                <form id="add-item">
+                                                <form id="add-item" data-ordergrower="<?php echo $OrderGrower->id; ?>">
                                                     <input type="hidden" name="user-id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
                                                     <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
 

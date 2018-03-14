@@ -155,7 +155,7 @@ App.Front = function() {
                 function(response) {
                     $('#ordergrower-' + response.ordergrower.id).find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
 
-                    if ($('.exchange-btn').length > 1) {
+                    if ($('form[data-ordergrower="' + response.ordergrower.id + '"]').find('.exchange-btn').length > 1) {
                         $('.exchange-btn').removeClass('active');
                         $('.exchange-btn[data-option="' + response.ordergrower.exchange + '"]').addClass('active');
                     }
