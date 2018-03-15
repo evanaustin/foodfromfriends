@@ -75,6 +75,22 @@ canvas {
     text-transform: uppercase;
 }
 
+.padding-top-10em {
+    padding-top: 0.1rem;
+}
+
+.padding-top-15em {
+    padding-top: 0.15rem;
+}
+
+.padding-top-25em {
+    padding-top: 0.25rem;
+}
+
+.padding-top-50em {
+    padding-top: 0.50rem;
+}
+
 .padding-1em {
     padding: 1rem;
 }
@@ -198,6 +214,10 @@ canvas {
  
  .margin-btm-0 {
     margin-bottom: 0 !important;
+ }
+
+ .margin-top-btm-50em {
+    margin: 0.5rem 0 !important;
  }
 
  .margin-top-btm-1em {

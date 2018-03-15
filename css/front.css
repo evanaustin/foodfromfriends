@@ -6824,11 +6824,9 @@ body.map div.main {
       border-radius: 5px; }
       body.map div.main .card .card-body div.rating i {
         line-height: 18px; }
-    body.map div.main .card .card-body div.distance {
-      padding-top: 0.5em;
+    body.map div.main .card .card-body .small-gray {
       font-size: 12px;
-      color: #cbcbcb;
-      margin-bottom: 0; }
+      color: #cbcbcb; }
     body.map div.main .card .card-footer {
       background-color: #fff;
       border-color: #f5f5f5;
