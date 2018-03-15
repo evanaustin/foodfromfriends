@@ -97,6 +97,10 @@ form {
                 color: $superlight-green;
             }
         }
+
+        @include phones() {
+            height: auto !important;
+        }
     }
 
     select:not(.input-group-addon) {
