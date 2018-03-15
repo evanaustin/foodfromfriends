@@ -52,11 +52,29 @@
   src: url("../fonts/signika/Signika-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/signika/Signika-Bold-webfont.woff") format("woff"), url("../fonts/signika/Signika-Bold-webfont.ttf") format("truetype"), url("../fonts/signika/Signika-Bold-webfont.svg#signikasemibold") format("svg");
   font-weight: 700;
   font-style: normal; }
+/*
+ * Riya
+ */
+/*
 @font-face {
-  font-family: 'Riya';
-  src: url("../fonts/riya/Riya-Black.woff") format("woff"), url("../fonts/riya/Riya-Black.otf") format("otf");
-  font-weight: 400;
-  font-style: normal; }
+    font-family: 'Riya';
+    src: url('../fonts/riya/Riya-Black.woff') format('woff'),
+         url('../fonts/riya/Riya-Black.otf') format('otf');
+    font-weight: 400;
+    font-style: normal;
+}
+*/
+/*
+ * Museo Slab
+ */
+/*
+@font-face {
+    font-family: 'Museo Slab';
+    src: url('../fonts/museo-slab/MuseoSlab-500.otf') format('otf');
+    font-weight: 500;
+    font-style: normal;
+}
+*/
 /*
  * Proxima Nova Soft
  */
@@ -6784,6 +6802,9 @@ canvas:focus {
 .uppercase, uppercase {
   text-transform: uppercase; }
 
+.no-padding {
+  padding: 0 !important; }
+
 .padding-top-10em {
   padding-top: 0.1rem; }
 
@@ -7061,10 +7082,12 @@ canvas:focus {
 /* FLEXBOX */
 .flexbox {
   display: flex; }
-  .flexbox.flexcolumn {
-    flex-direction: column; }
-  .flexbox.flexrow {
-    flex-direction: row; }
+
+.flexcolumn {
+  flex-direction: column; }
+
+.flexrow {
+  flex-direction: row; }
 
 .flexgrow {
   display: flex;
@@ -7883,6 +7906,14 @@ form div.image-box {
     form div.image-box.focused input,
     form div.image-box.focused span {
       color: #00c079; }
+  @media (max-width: 767px) {
+    form select.custom-select,
+    form input.form-control:only-child,
+    form div.form-group:not(.has-danger):not(.has-success) > label + input.form-control,
+    form div.input-group.w-addon,
+    form textarea.form-control,
+    form div.image-box {
+      height: auto !important; } }
 form select:not(.input-group-addon) {
   width: 100%; }
 form .form-control {
@@ -8269,10 +8300,11 @@ body.splash {
       padding-bottom: 1rem; }
   #sign-up-modal div.modal-body div.select-row, #log-in-modal div.modal-body div.select-row {
     margin-top: 1rem; }
-    #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
-      padding-left: 7.5px; }
-    #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
-      padding-right: 7.5px; }
+    @media (min-width: 768px) {
+      #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
+        padding-left: 7.5px; }
+      #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
+        padding-right: 7.5px; } }
   #sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
     margin: 1rem 0 0; }
   #sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {
