@@ -98,6 +98,38 @@
                         </div>
                     </div>
 
+                    <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label for="quantity">
+                                    Quantity
+                                </label>
+                                
+                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change" required> 
+                            </div>
+                        </div> 
+
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label>
+                                    Availability
+                                </label>
+                                
+                                <div class="radio-box">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" required>
+                                        <label class="custom-control-label" for="available">Available</label>
+                                    </div>
+                                    
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" required>
+                                        <label class="custom-control-label" for="unavailable">Unavailable</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+
                     <div class="form-group">
                         <label for="weight">
                             Average weight per item
@@ -121,38 +153,6 @@
                             </select>
                         </div>
                     </div>
-
-                        <div class="row"> 
-                            <div class="col-md-6"> 
-                            <div class="form-group">
-                                <label for="quantity">
-                                    Quantity
-                                </label>
-                                
-                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change" required> 
-                            </div>
-                            </div> 
-
-                            <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <label>
-                                        Availability
-                                    </label>
-                                    
-                                    <div class="radio-box">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" required>
-                                            <label class="custom-control-label" for="available">Available</label>
-                                        </div>
-                                        
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" required>
-                                            <label class="custom-control-label" for="unavailable">Unavailable</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div> 
                 </div>
 
                 <div class="col-md-4">
@@ -178,7 +178,15 @@
             </div>
 
             <div class="form-group">
-                <label for="description">
+                <label>
+                    Item definition
+                </label>
+
+                <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one unit so that buyers better understand the item" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>
                     Listing description
                 </label>
 

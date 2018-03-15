@@ -17,7 +17,8 @@ $Gump->validation_rules([
 	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
 	'units'             => 'required|alpha_space',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean'
+	'is-available'      => 'required|boolean',
+	'definition'        => 'required'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -58,6 +59,7 @@ $listing_edited = $FoodListing->update([
     'units'                 => $units,
     'quantity'              => $quantity,
     'is_available'          => $is_available,
+    'unit_definition'       => $definition,
     'description'           => $description
 ]);
 

@@ -43,9 +43,18 @@
                                 <?php
                                 
                                 if (!empty($FoodListing->filename)) {
-                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'hidden');
+                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'animated fadeIn hidden img-fluid');
+                                    
+                                    ?>
+
+                                    <!-- <div class="loading">
+                                        <i class="fa fa-circle-o-notch loading-icon"></i>
+                                    </div> -->
+
+                                    <?php
+
                                 } else {
-                                    img('placeholders/default-thumbnail', 'jpg', 'local');
+                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid rounded');
                                 }
 
                                 ?>
