@@ -9,11 +9,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Edit listing: <strong><?php echo $FoodListing->title; ?></strong>
+                        Edit item: <strong><?php echo $FoodListing->title; ?></strong>
                     </div>
 
                     <div class="page-description text-muted small">
-                        Revise the listing details and/or upload a new image. Only foods marked as available can be purchased by buyers.
+                        Revise the item details and/or upload a new image. Only items marked as available can be purchased by buyers.
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
         
                         <a class="remove-listing btn btn-danger">
                             <i class="pre fa fa-trash-o"></i>
-                            Delete listing
+                            Delete item
                             <i class="post fa fa-gear loading-icon remove"></i>
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                 <input type="hidden" name="id" value="<?php echo $FoodListing->id; ?>">
 
                 <div class="row">
-                    <div class="col-md-8 flexbox flexcolumn">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-12"> 
                                 <label for="food-categories">
@@ -112,6 +112,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="price">Item price</label>
+                            
+                            <div class="input-group w-addon">
+                                <div class="input-group-addon">$</div>
+                                <input id="price" type="text" name="price" class="form-control" value="<?php echo number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -139,44 +148,25 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="price">Listing price</label>
-                                    <div class="input-group w-addon">
-                                        <div class="input-group-addon">$</div>
-                                        <input id="price" type="text" name="price" class="form-control" value="<?php echo number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <label for="weight">Average weight per item</label>
+                            <div class="input-group w-addon">
+                                <input id="weight" type="number" name="weight" class="form-control" value="<?php echo $FoodListing->weight; ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" required> 
+                                
+                                <select name="units" class="input-group-addon" data-parsley-excluded="true">
+                                    <?php foreach ([
+                                        'g',
+                                        'oz',
+                                        'lb',
+                                        'kg',
+                                        'fl oz',
+                                        'liter',
+                                        'gallon'
+                                    ] as $unit) { ?>
+                                        <option val="<?php echo $unit; ?>" <?php if ($unit == $FoodListing->units) echo 'selected'; ?>><?php echo $unit; ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="weight">Average weight per item</label>
-                                    <div class="input-group w-addon">
-                                        <input id="weight" type="number" name="weight" class="form-control" value="<?php echo $FoodListing->weight; ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" required> 
-                                        
-                                        <select name="units" class="input-group-addon" data-parsley-excluded="true">
-                                            <?php foreach ([
-                                                'g',
-                                                'oz',
-                                                'lb',
-                                                'kg',
-                                                'fl oz',
-                                                'liter',
-                                                'gallon'
-                                            ] as $unit) { ?>
-                                                <option val="<?php echo $unit; ?>" <?php if ($unit == $FoodListing->units) echo 'selected'; ?>><?php echo $unit; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group flexbox flexcolumn flexgrow">
-                            <label for="description">Edit listing description</label>
-                            <textarea type="text" name="description" class="form-control flexgrow" placeholder="Write a description of your homegrown food"><?php echo $FoodListing->description; ?></textarea>
                         </div>
                     </div>
 
@@ -208,7 +198,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- <div class="col-md-12">
                         <button type="submit" class="btn btn-primary btn-block">
                             Save changes
@@ -218,6 +208,22 @@
                             </span>
                         </button>
                     </div> -->
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Item definition
+                    </label>
+
+                    <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one unit so that buyers better understand the item" required><?php echo $FoodListing->unit_definition; ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Edit listing description
+                    </label>
+
+                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"><?php echo $FoodListing->description; ?></textarea>
                 </div>
             </form>
 

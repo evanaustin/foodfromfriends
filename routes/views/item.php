@@ -101,6 +101,12 @@
 
                                 ?>
 
+                                <h4 class="margin-top-2em">
+                                    Item definition
+                                </h4>
+
+                                <p class="description muted"><?php echo $FoodListing->unit_definition; ?></p>
+
                                 <div class="available-exchange-options set d-none d-md-block">
                                     <h4 class="margin-btm-50em">
                                         <bold class="dark-gray">Exchange options</bold>
