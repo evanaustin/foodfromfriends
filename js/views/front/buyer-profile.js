@@ -16,8 +16,6 @@ App.Front.UserProfile = function() {
     
                 App.Util.msg('Hey! Sign up first &mdash; then you can offer this item!', 'info', $sign_up_form);
     
-                // var getvars = 'quantity=' + $('select[name="quantity"]').val() + '&exchange=' + $(this).data('option');
-    
                 $sign_up_form
                     .find('input[name="redirect"]')
                     .val($(this).attr('href'));

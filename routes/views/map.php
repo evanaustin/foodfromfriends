@@ -32,14 +32,18 @@
                                                         <?php echo "<div class=\"name\">{$Grower->name}</div>"; ?>
                                                     </div>
                                                     
-                                                    <div class="distance">
-                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->city}, {$Grower->state}"); ?>
+                                                    <div class="small-gray padding-top-15em">
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (($Grower->type == 'none' || $Grower->type == 'other') ? 'Grower' : ucfirst($Grower->type)); ?>
+                                                    </div>
+                                                    
+                                                    <div class="small-gray padding-top-10em">
+                                                        <?php echo (!empty($Grower->distance['length']) ? "{$Grower->distance['length']} {$Grower->distance['units']} away" : "{$Grower->city}, {$Grower->state}"); ?>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="card-footer">
-                                                <?php echo "<strong>{$Grower->listing_count}</strong>listing"  . ($Grower->listing_count > 1 ? 's' : '') . '<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                                <?php echo "<strong>{$Grower->listing_count}</strong>item"  . ($Grower->listing_count > 1 ? 's' : '') . ' for sale<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
                                             </div>
                                         </div>
 
@@ -52,6 +56,14 @@
                             }
 
                             ?>
+
+                            <div class="<?php echo (!isset($User->GrowerOperation) ? 'col-' . (empty($wishlist) ? '6' : '12') : 'hidden'); ?>">
+                                <a id="start-selling" href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Start selling</a>
+                            </div>
+
+                            <div class="<?php echo (empty($wishlist) ? 'col-' . (!isset($User->GrowerOperation) ? '6' : '12') : 'hidden'); ?>">
+                                <a id="build-wish-list" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/wish-list'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Build a wish list</a>
+                            </div>
                         </div>
                     </div>
 

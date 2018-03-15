@@ -107,4 +107,14 @@ if (!empty($growers)) {
     }
 }
 
+if (isset($User)) {
+    $wishlist = $User->retrieve([
+        'where' => [
+            'user_id' => $User->id
+        ],
+        'table' => 'wish_lists',
+        'limit' => 1
+    ]);
+}
+
 ?>

@@ -9,12 +9,12 @@ if (isset($Routing->item_type)) {
         'DB' => $DB,
         'slug' => $Routing->seller
     ], [
-        'details'   => true,
+        'team'      => true,
         'exchange'  => true
     ]);
 
     if (isset($GrowerOperation)) {
-        $is_owner = isset($User) && ((isset($GrowerOperation->Owner) && $GrowerOperation->Owner->id == $User->id) || isset($GrowerOperation->TeamMembers[$User->id]));
+        $is_owner = isset($User) && isset($GrowerOperation->TeamMembers[$User->id]);
         
         // Find seller's listing that matches this subcategory
         $results = $GrowerOperation->retrieve([
