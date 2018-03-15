@@ -33,6 +33,34 @@ App.Form = function() {
             this.$element.removeClass('danger').addClass('success');
         });
 
+        $('a').on('click', function(e) {
+            var href = $(this).attr('href');
+
+            if ($('.form-group').hasClass('has-danger')) {
+                e.preventDefault();
+
+                bootbox.confirm({
+                    closeButton: false,
+                    message: 'You have errors and unsaved changes! Are you sure you want to leave this page?',
+                    buttons: {
+                        confirm: {
+                            label: 'Confirm',
+                            className: 'btn-warning'
+                        },
+                        cancel: {
+                            label: 'Cancel',
+                            className: 'btn-muted'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result === true) {
+                            window.location.replace(href);
+                        }
+                    }
+                });
+            }
+        });
+
 
         /*
         * File input
