@@ -75,6 +75,10 @@ canvas {
     text-transform: uppercase;
 }
 
+.no-padding {
+    padding: 0 !important;
+}
+
 .padding-top-10em {
     padding-top: 0.1rem;
 }
@@ -417,14 +421,15 @@ canvas {
  .flexbox {
     display: flex;
 
-    &.flexcolumn {
-        flex-direction: column;
-    }
+}
 
-    &.flexrow {
-        flex-direction: row;
-    }
- }
+.flexcolumn {
+    flex-direction: column;
+}
+
+.flexrow {
+    flex-direction: row;
+}
 
  .flexgrow {
     display: flex;
