@@ -53,7 +53,7 @@
                         <div class="details box">
                             <ul class="list-group">
                                 <li class="list-group-item heading">
-                                    <span>Food exchange options:</span>
+                                    <span>Item exchange options:</span>
                                 </li>
 
                                 <ul class="list-group">
@@ -169,7 +169,7 @@
                         if (!empty($GrowerOperation->bio)) {
                             echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->bio}</p>";
                         } else if ($is_owner) {
-                            echo '<div class="row"><div class="col-md-4"><a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Add a bio</a></div></div>';
+                            echo '<div class="row"><div class="col-md-4"><a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta">Add a bio</a></div></div>';
                         }
                         
                         ?>

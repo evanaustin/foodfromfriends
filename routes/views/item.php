@@ -660,11 +660,11 @@
 
                             <div class="about-grower set">
                                 <h4 class="margin-btm-50em ">
-                                    <bold class="dark-gray">About the grower</bold> 
+                                    <bold class="dark-gray">About the seller</bold> 
                                 </h4>
 
                                 <div class="muted margin-btm-1em">
-                                    Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
+                                    Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> selling these items
                                 </div>
 
                                 <div class="user-block">
