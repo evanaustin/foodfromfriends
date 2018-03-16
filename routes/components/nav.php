@@ -15,7 +15,7 @@
                 </li>
             
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
                 </li>
@@ -267,7 +267,7 @@
 
         } else { ?>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
                     Map
                 </a>
             </li>
