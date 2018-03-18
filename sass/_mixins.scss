@@ -16,6 +16,12 @@
     }
 }
 
+@mixin tablets-sm-desktops() {
+    @media (min-width: 768px) and (max-width: 1199px) {
+        @content;
+    }
+}
+
 @mixin sm-desktops() {
     @media (min-width: 992px) and (max-width: 1199px) {
         @content;

@@ -6,6 +6,20 @@ main {
 .main {
     background-color: #fff;
 
+    h1 {
+        color: $muted;
+        font-weight: 100;
+        text-shadow: 0 0 7px #fff;
+        
+        strong{
+            color: $dark-gray;
+        }
+
+        @include phones() {
+            color: $dark-gray;
+        }
+    }
+
     .hero {
         background: url('../media/homepage/seeds.png') no-repeat;
         
@@ -14,25 +28,20 @@ main {
             background-position: bottom center;
             background-size: 500px 333px;
         }
+
+        @include tablets-sm-desktops() {
+            background: none;
+        }
         
-        @include all-but-phones() {
+        @include lg-desktops() {
             background-size: 1000px 666px;
             background-position: top right;
         }
         
         h1 {
-            color: $muted;
-            font-size: 5rem;
-            font-weight: 100;
-            text-align: left;
-            text-shadow: 0 0 7px #fff;
-            
-            strong{
-                color: $dark-gray;
-            }
+            font-size: 4rem;
 
             @include phones() {
-                color: $dark-gray;
                 padding-left: 1rem;
                 font-size: 2.25rem;
             }
@@ -54,7 +63,81 @@ main {
 
             &.colorbowl {
                 max-height: 500px;
-                // padding: 4rem 0 4rem 6rem;
+            }
+        }
+    }
+
+    .sidekick {
+        &#model-cake {
+            @include transform(translateY(-50px));
+        }
+
+        .shift-up {
+            @include transform(translateY(-50px));
+
+            @include lg-desktops() {
+                @include transform(translateY(-75px));
+            }
+        }
+
+        #thought-for-food {
+            text-align: right;
+
+            @include all-but-phones() {
+                padding-left: 12rem;
+                @include transform(translateX(50px) translateY(-50px));
+            }
+        }
+        
+        #the-big-problems {
+            @include all-but-phones() {
+                padding-left: 3rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        #model-for-the-future {
+            text-align: right;
+
+            @include all-but-phones() {
+                padding-left: 3rem;
+            }
+        }
+
+        img {
+            &.chard {
+                max-width: 650px;
+            }
+
+            &.tomatoes {
+                max-height: 1000px;
+                // margin: 2rem auto;
+
+                /* @include transform(translateY(-50px));
+
+                @include lg-desktops() {
+                    @include transform(translateY(-75px));
+                } */
+            }
+
+            /* &.coffee-cake {
+                // max-width: 700px;
+            } */
+
+            &.lettuce {
+                max-height: 600px;
+            }
+            
+            &.smoothie {
+                max-height: 300px;
+                display: block;
+                margin: 2rem auto;
+                @include transform(rotate(135deg));
+            }
+            
+            &.plate {
+                max-height: 900px;
+                @include transform(translateY(-35px));
             }
         }
     }
