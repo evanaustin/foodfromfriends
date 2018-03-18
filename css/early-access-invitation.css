@@ -6820,6 +6820,10 @@ canvas:focus {
 .padding-1em {
   padding: 1rem; }
 
+.p2w {
+  padding-left: 2rem;
+  padding-right: 2rem; }
+
 .p1w {
   padding-left: 1rem;
   padding-right: 1rem; }
