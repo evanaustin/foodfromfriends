@@ -6761,44 +6761,43 @@ div.box {
 /**
 * Views
 **/
-main {
+.home main {
   background-color: #fff;
   padding-bottom: 0; }
-
-.main {
+.home .main {
   background-color: #fff; }
-  .main .hero {
+  .home .main .hero {
     background: url("../media/homepage/seeds.png") no-repeat; }
     @media (max-width: 767px) {
-      .main .hero {
+      .home .main .hero {
         margin: 4rem 0;
         background-position: bottom center;
         background-size: 500px 333px; } }
     @media (min-width: 768px) {
-      .main .hero {
+      .home .main .hero {
         background-size: 1000px 666px;
         background-position: top right; } }
-    .main .hero h1 {
+    .home .main .hero h1 {
       color: #636c72;
       font-size: 5rem;
       font-weight: 100;
       text-align: left;
       text-shadow: 0 0 7px #fff; }
-      .main .hero h1 strong {
+      .home .main .hero h1 strong {
         color: #4c4c4c; }
       @media (max-width: 767px) {
-        .main .hero h1 {
+        .home .main .hero h1 {
           color: #4c4c4c;
           padding-left: 1rem;
           font-size: 2.25rem; } }
-    .main .hero .btn {
+    .home .main .hero .btn {
       margin-top: 1rem; }
-      .main .hero .btn.btn-dark:hover {
+      .home .main .hero .btn.btn-dark:hover {
         background-color: #4c4c4c;
         border-color: #4c4c4c; }
-    .main .hero img.veggies {
+    .home .main .hero img.veggies {
       max-height: 900px; }
-    .main .hero img.colorbowl {
+    .home .main .hero img.colorbowl {
       max-height: 500px; }
 
 body.map div.main {
