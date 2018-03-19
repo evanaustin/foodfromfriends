@@ -12,7 +12,7 @@
 
             <?php if (!$LOGGED_IN) { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
                         <span>
                             Map
                         </span>

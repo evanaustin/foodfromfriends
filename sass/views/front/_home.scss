@@ -1,0 +1,63 @@
+.home {
+    main {
+        background-color: #fff;
+        padding-bottom: 0;
+    }
+    
+    .main {
+        background-color: #fff;
+    
+        .hero {
+            background: url('../media/homepage/seeds.png') no-repeat;
+            
+            @include phones() {
+                margin: 4rem 0;
+                background-position: bottom center;
+                background-size: 500px 333px;
+            }
+            
+            @include all-but-phones() {
+                background-size: 1000px 666px;
+                background-position: top right;
+            }
+            
+            h1 {
+                color: $muted;
+                font-size: 5rem;
+                font-weight: 100;
+                text-align: left;
+                text-shadow: 0 0 7px #fff;
+                
+                strong{
+                    color: $dark-gray;
+                }
+    
+                @include phones() {
+                    color: $dark-gray;
+                    padding-left: 1rem;
+                    font-size: 2.25rem;
+                }
+            }
+            
+            .btn {
+                margin-top: 1rem;
+    
+                &.btn-dark:hover {
+                    background-color: $dark-gray;
+                    border-color: $dark-gray;
+                }
+            }
+    
+            img {
+                &.veggies {
+                    max-height: 900px;
+                }
+    
+                &.colorbowl {
+                    max-height: 500px;
+                    // padding: 4rem 0 4rem 6rem;
+                }
+            }
+        }
+    }
+}
