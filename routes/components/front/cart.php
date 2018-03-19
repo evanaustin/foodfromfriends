@@ -38,7 +38,15 @@
     
                         <div class="cart-item" data-listing-id="<?php echo $FoodListingItem->id; ?>">
                             <div class="item-image">
-                                <?php img(ENV . '/items/fl.' . $FoodListingItem->id, $FoodListingItem->ext, 's3', 'img-fluid'); ?>
+                                <?php
+                                
+                                if (!empty($FoodListingItem->filename)) {
+                                    img(ENV . '/items/' . $FoodListingItem->filename, $FoodListingItem->ext, 's3', 'img-fluid');
+                                } else {
+                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                }
+                                
+                                ?>
                             </div>
                             
                             <div class="item-content">
