@@ -60,7 +60,7 @@
                                         Bank Account
                                     </label>
 
-                                    <input type="text" name="bank-account" class="form-control" placeholder="Bank account number" value="<?php if (!empty($payout_settings['bank_account_number'])) echo $payout_settings['bank_account_number']; ?>" data-parsley-trigger="submit" required>
+                                    <input type="text" name="bank-account" class="form-control" placeholder="Bank account number" value="<?php if (!empty($payout_settings['account_number'])) echo $payout_settings['account_number']; ?>" data-parsley-trigger="submit" required>
                                 </div>
                             </div>
                         </div>
