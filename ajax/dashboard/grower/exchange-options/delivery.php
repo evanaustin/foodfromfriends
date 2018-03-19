@@ -96,10 +96,11 @@ if (!empty($User->GrowerOperation)) {
     }
 }
 
-$User->GrowerOperation->check_active($User);
+$is_active = $User->GrowerOperation->check_active($User);
+
+$json['is_active']  = $is_active;
+$json['link'] = $User->GrowerOperation->link;
 
 echo json_encode($json);
 
-?>  
-
-
+?>
