@@ -86,6 +86,10 @@ if (empty($operation_key) && empty($personal_key)) {
     
         $lat = $output->results[0]->geometry->location->lat;
         $lng = $output->results[0]->geometry->location->lng;
+
+        if ($lat === 0 || $lng === 0) {
+            quit('Uh oh, we couldn\'t locate your address! Are you sure it\'s entered correctly?');
+        }
         
         if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
             $updated = $User->GrowerOperation->update([
