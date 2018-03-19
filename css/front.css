@@ -7281,8 +7281,10 @@ body.front.seller-profile div.main.container {
         -webkit-border-radius: 0.25rem;
         -moz-border-radius: 0.25rem;
         border-radius: 0.25rem; }
-      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li fable cell .btn {
-        margin: 0; }
+      body.front.seller-profile div.main.container .sidebar-content div.box.details ul li fable {
+        flex-direction: row; }
+        body.front.seller-profile div.main.container .sidebar-content div.box.details ul li fable cell .btn {
+          margin: 0; }
       body.front.seller-profile div.main.container .sidebar-content div.box.details ul li .inactive {
         text-decoration: line-through;
         color: #b2b2b2; }

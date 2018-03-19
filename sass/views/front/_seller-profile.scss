@@ -61,6 +61,8 @@ body.front.seller-profile {
                             }
 
                             fable {
+                                flex-direction: row;
+                                
                                 cell {
                                     .btn {
                                         margin: 0;
