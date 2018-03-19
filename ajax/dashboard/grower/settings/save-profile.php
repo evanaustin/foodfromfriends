@@ -225,8 +225,8 @@ if (empty($operation_key) && empty($personal_key)) {
         }
         
         $final = [
-            'w' => 630,
-            'h' => 540,
+            'w' => 933,
+            'h' => 800,
             'file' => $tmp2 . $filename . '.cropped.' . $ext
         ];
         

@@ -173,8 +173,8 @@ if (isset($_POST['images'])) {
     }
 
     $final = [
-        'w' => 630,
-        'h' => 540,
+        'w' => 933,
+        'h' => 800,
         'file' => $tmp2 . $filename . '.cropped.' . $ext
     ];
 
@@ -226,7 +226,14 @@ if (isset($_POST['images'])) {
     }
 }
 
-$json['link'] = $User->GrowerOperation->link . '/' . $FoodListing->link;
+// re-initialize item
+$Item = new FoodListing([
+    'DB' => $DB,
+    'S3' => $S3,
+    'id' => $id
+]);
+
+$json['link'] = $User->GrowerOperation->link . '/' . $Item->link;
 
 echo json_encode($json);
 

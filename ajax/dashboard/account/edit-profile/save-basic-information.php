@@ -20,12 +20,12 @@ $Gump->validation_rules([
 	'month'             => 'required|alpha',
 	'day'               => 'required|integer',
 	'year'              => 'required|integer',
-    'gender'            => 'required|alpha',
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
     'state'             => 'required|regex,/^[A-Z]{2}$/',
-    'zipcode'           => 'required|regex,/^[0-9]{5}$/'
+    'zipcode'           => 'required|regex,/^[0-9]{5}$/',
+    'gender'            => 'alpha'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -42,12 +42,12 @@ $Gump->filter_rules([
 	'month'             => 'trim|sanitize_string',
 	'day'               => 'trim|whole_number',
 	'year'              => 'trim|whole_number',
-    'gender'            => 'trim|sanitize_string',
     'address-line-1'    => 'trim|sanitize_string',
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
-	'zipcode'           => 'trim|whole_number'
+	'zipcode'           => 'trim|whole_number',
+    'gender'            => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -81,7 +81,7 @@ $profile_updated = $User->update([
     'last_name'     => ucfirst($last_name),
     'phone'         => $phone,
     'dob'           => $dob,
-    'gender'        => $gender, 
+    'gender'        => (isset($gender)) ? $gender : '',
     'bio'           => $bio,
     'slug'          => $slug
 ], 
@@ -234,8 +234,8 @@ if (isset($_POST['images'])) {
     }
     
     $final = [
-        'w' => 630,
-        'h' => 540,
+        'w' => 933,
+        'h' => 800,
         'file' => $tmp2 . $filename . '.cropped.' . $ext
     ];
     

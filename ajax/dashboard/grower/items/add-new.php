@@ -205,8 +205,8 @@ if (isset($_POST['images'])) {
     }
     
     $final = [
-        'w' => 630,
-        'h' => 540,
+        'w' => 933,
+        'h' => 800,
         'file' => $tmp2 . $filename . '.cropped.' . $ext
     ];
     
