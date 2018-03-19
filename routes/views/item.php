@@ -12,8 +12,18 @@
                         ?>
 
                         <div class="alerts" style="display:block;">
-                            <div class="alert alert-warning">
-                                <span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower'; ?>">here</a> to finish activating your seller account.</span>
+                            <div class="alert alert-<?php echo (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+
+                                <?php
+
+                                if ($GrowerOperation->is_active) {
+                                    echo "<span>This is what your item looks like to the public. Click <a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\">here</a> to go edit this item.</span>";
+                                } else {
+                                    echo '<span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
+                                }
+
+                                ?>
+
                                 <a class="close" data-dismiss="alert">×</a>
                             </div>
                         </div>
