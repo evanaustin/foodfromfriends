@@ -40,7 +40,9 @@ App.Dashboard.EditItemListing = function() {
         
         // Re-populate varieties select menu
         $('#item-subcategories').on('change', function() {
-            $('#item-varieties').prop('disabled', false).empty().focus().append('<option selected disabled>Select an item variety</option>');
+            $('#item-varieties').prop('disabled', false).empty().focus()
+                .append('<option selected disabled>Select an item variety</option>')
+                .append('<option value="0">None</option>');
 
             var varieties = false;
 

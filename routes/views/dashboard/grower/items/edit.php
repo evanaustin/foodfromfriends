@@ -92,18 +92,19 @@
                             
                             <div class="col-md-4"> 
                                 <div class="form-group">
-                                    <select id="item-varieties" name="item-variety" class="custom-select form-control <?php if (empty($FoodListing->item_variety_id)) echo 'hidden'; ?>" data-parsley-trigger="change" <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
+                                    <select id="item-varieties" name="item-variety" class="custom-select form-control" data-parsley-trigger="change">
                                         <option selected disabled>Select an item variety</option>
+                                        <option value="0">None</option>
 
                                         <?php
                                         
-                                        if ($FoodListing->item_variety_id) {
-                                            foreach($item_varieties as $variety) {
-                                                $selected   = ($variety['id'] == $FoodListing->item_variety_id) ? 'selected' : '';
-                                                $title      = ucfirst($variety['title']);
-                                                
-                                                echo "<option value=\"{$variety['id']}\" {$selected}>{$title}</option>";
-                                            }
+                                        foreach($item_varieties as $variety) {
+                                            if ($variety['food_subcategory_id'] != $FoodListing->food_subcategory_id) continue;
+                                            
+                                            $selected   = ($variety['id'] == $FoodListing->item_variety_id) ? 'selected' : '';
+                                            $title      = ucfirst($variety['title']);
+                                            
+                                            echo "<option value=\"{$variety['id']}\" {$selected}>{$title}</option>";
                                         }
                                         
                                         ?>

@@ -120,6 +120,10 @@ class Routing extends Base {
                         $subcategory_slug   = $Slug->slugify($assn['subcategory_title']);
                         
                         if (isset($assn['variety_id'])) {
+                            if (!isset($category_assns[$category_slug][$subcategory_slug]['id'])) {
+                                $category_assns[$category_slug][$subcategory_slug]['id'] = $assn['subcategory_id'];
+                            }
+
                             $variety_slug   = $Slug->slugify($assn['variety_title']);
                             $category_assns[$category_slug][$subcategory_slug][$variety_slug] = $assn['variety_id'];
                         } else {
@@ -152,7 +156,12 @@ class Routing extends Base {
                             } else {
                                 // Subcategory page
                                 $this->item_type        = 'subcategory';
-                                $this->item_id          = $category_assns[$exp_path[2]][$exp_path[3]];
+
+                                if (!is_array($category_assns[$exp_path[2]][$exp_path[3]])) {
+                                    $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]];
+                                } else {
+                                    $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]]['id'];
+                                }
                             }
                         } else {
                             // Category:subcategory mis-association
