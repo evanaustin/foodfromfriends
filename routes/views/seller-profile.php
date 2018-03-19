@@ -324,9 +324,11 @@
 
                                     ?>           
                                     
-                                    <div class="user-block margin-btm-1em">                  
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
-                                        
+                                    <div class="user-block margin-btm-1em">
+                                        <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">             
+                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                        </a>
+
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
                                                 &quot;<?php echo $rating['review']; ?>&quot;
