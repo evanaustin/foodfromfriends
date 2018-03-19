@@ -27,15 +27,18 @@
         div.select-row {
             margin-top: 1rem;
 
-            > div.row {
-                > div:not(:first-child) {
-                    padding-left: 7.5px;
-                }
-                
-                > div:not(:last-child) {
-                    padding-right: 7.5px;
+            @include all-but-phones() {
+                > div.row {
+                    > div:not(:first-child) {
+                        padding-left: 7.5px;
+                    }
+                    
+                    > div:not(:last-child) {
+                        padding-right: 7.5px;
+                    }
                 }
             }
+
         }
 
         button[type="submit"] {

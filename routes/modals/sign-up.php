@@ -61,7 +61,7 @@
                         
                     <div class="select-row">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <select name="month" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Month</option>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <select name="day" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Day</option>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <select name="year" class="custom-select" data-parsley-trigger="submit" required>
                                         <option selected disabled>Year</option>

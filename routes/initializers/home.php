@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Home'
+    'title' => 'Food From Friends'
 ];
 
 ?>

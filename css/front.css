@@ -6761,6 +6761,45 @@ div.box {
 /**
 * Views
 **/
+.home main {
+  background-color: #fff;
+  padding-bottom: 0; }
+.home .main {
+  background-color: #fff; }
+  .home .main .hero {
+    background: url("../media/homepage/seeds.png") no-repeat; }
+    @media (max-width: 767px) {
+      .home .main .hero {
+        margin: 4rem 0;
+        background-position: bottom center;
+        background-size: 500px 333px; } }
+    @media (min-width: 768px) {
+      .home .main .hero {
+        background-size: 1000px 666px;
+        background-position: top right; } }
+    .home .main .hero h1 {
+      color: #636c72;
+      font-size: 5rem;
+      font-weight: 100;
+      text-align: left;
+      text-shadow: 0 0 7px #fff; }
+      .home .main .hero h1 strong {
+        color: #4c4c4c; }
+      @media (max-width: 767px) {
+        .home .main .hero h1 {
+          color: #4c4c4c;
+          padding-left: 1rem;
+          font-size: 2.25rem; } }
+    .home .main .hero .btn {
+      margin-top: 1rem; }
+      .home .main .hero .btn.btn-dark:hover {
+        background-color: #4c4c4c;
+        border-color: #4c4c4c; }
+    .home .main .hero img.veggies {
+      max-height: 900px; }
+    .home .main .hero img.colorbowl {
+      max-height: 500px; }
+
 body.map div.main {
   display: flex;
   flex-direction: column;
@@ -7500,10 +7539,11 @@ body.front.item div.main.container {
       padding-bottom: 1rem; }
   #sign-up-modal div.modal-body div.select-row, #log-in-modal div.modal-body div.select-row {
     margin-top: 1rem; }
-    #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
-      padding-left: 7.5px; }
-    #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
-      padding-right: 7.5px; }
+    @media (min-width: 768px) {
+      #sign-up-modal div.modal-body div.select-row > div.row > div:not(:first-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:first-child) {
+        padding-left: 7.5px; }
+      #sign-up-modal div.modal-body div.select-row > div.row > div:not(:last-child), #log-in-modal div.modal-body div.select-row > div.row > div:not(:last-child) {
+        padding-right: 7.5px; } }
   #sign-up-modal div.modal-body button[type="submit"], #log-in-modal div.modal-body button[type="submit"] {
     margin: 1rem 0 0; }
   #sign-up-modal div.modal-body small, #log-in-modal div.modal-body small {
