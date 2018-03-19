@@ -332,8 +332,8 @@
                                                 &quot;<?php echo $rating['review']; ?>&quot;
                                             </p>
 
-                                            <small class="dark-gray bold flexstart">
-                                                <?php echo $ReviewUser->first_name . ' &bull; ' . $ReviewUser->city . ', ' . $ReviewUser->state; ?>
+                                            <small class="flexstart">
+                                                <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">$ReviewUser->name</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                             </small>
                                         </div>
                                     </div>
