@@ -2,7 +2,7 @@
 <div class="container animated fadeIn">
         <?php
 
-        if ($User->GrowerOperation->permission == 2) {
+        // if ($User->GrowerOperation->permission == 2) {
 
             ?>
 
@@ -124,9 +124,9 @@
 
             <?php
 
-        } else {
+        /* } else {
             echo 'Oops! You\'re not allowed access to this page.';
-        }
+        } */
 
         ?>
     </div>
