@@ -87,7 +87,7 @@ if (empty($operation_key) && empty($personal_key)) {
         $lat = $output->results[0]->geometry->location->lat;
         $lng = $output->results[0]->geometry->location->lng;
 
-        if ($lat === 0 || $lng === 0) {
+        if (empty($output->results[0]->geometry->location)) {
             quit('Uh oh, we couldn\'t locate your address! Are you sure it\'s entered correctly?');
         }
         
