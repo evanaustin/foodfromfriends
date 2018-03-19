@@ -73,6 +73,19 @@ if (!$User->GrowerOperation) {
 }
 
 // ! TODO: make sure category + subcategory + variety are valid
+$item_exists = $FoodListing->retrieve([
+    'where' => [
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'food_category_id'      => $item_category,
+        'food_subcategory_id'   => $item_subcategory,
+        'item_variety_id'       => $item_variety,
+    ],
+    'limit' => 1
+]);
+
+if (!empty($item_exists)) {
+    quit('You already have an item with these categories!');
+}
 
 $listing_added = $FoodListing->add([
     'grower_operation_id'   => $User->GrowerOperation->id,

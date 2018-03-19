@@ -55,6 +55,20 @@ $FoodListing = new FoodListing([
 
 // ! TODO: make sure category + subcategory + variety are valid
 
+$item_exists = $FoodListing->retrieve([
+    'where' => [
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'food_category_id'      => $item_category,
+        'food_subcategory_id'   => $item_subcategory,
+        'item_variety_id'       => $item_variety,
+    ],
+    'limit' => 1
+]);
+
+if (!empty($item_exists) && $item_exists['id'] != $FoodListing->id) {
+    quit('You already have another item with these categories!');
+}
+
 $listing_edited = $FoodListing->update([
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
