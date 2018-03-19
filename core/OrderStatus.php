@@ -51,9 +51,9 @@ class OrderStatus extends Base {
             $this->current = 'cancelled by seller';
         } else if (isset($this->buyer_cancelled_on)) {
             $this->current = 'cancelled by buyer';
-        } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on) && !isset($this->reported_on) && !isset($cleared_on)) {
+        } else if (isset($this->fulfilled_on) && !isset($this->reviewed_on) && !isset($this->reported_on) && !isset($this->cleared_on)) {
             $this->current = 'open for review';
-        } else if (isset($this->reported_on) && !isset($cleared_on)) {
+        } else if (isset($this->reported_on) && !isset($this->cleared_on)) {
             $this->current = 'issue reported';
         } else if (isset($this->cleared_on)) {
             $this->current = 'completed';
