@@ -92,7 +92,7 @@
                             
                             <div class="col-md-4"> 
                                 <div class="form-group">
-                                    <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
+                                    <select id="item-varieties" name="item-variety" class="custom-select form-control <?php if (empty($FoodListing->item_variety_id)) echo 'hidden'; ?>" data-parsley-trigger="change" <?php if (!$FoodListing->item_variety_id) { echo 'disabled'; } ?>>
                                         <option selected disabled>Select an item variety</option>
 
                                         <?php
