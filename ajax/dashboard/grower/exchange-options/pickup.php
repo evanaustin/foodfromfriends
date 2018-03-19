@@ -89,7 +89,7 @@ if (!empty($User->GrowerOperation)) {
     }
 }
 
-$is_active = $User->GrowerOperation->check_active($User);
+$is_active = $User->GrowerOperation->check_active();
 
 $json['is_active']  = $is_active;
 $json['link'] = $User->GrowerOperation->link;

@@ -57,7 +57,7 @@ if (!empty($User->GrowerOperation)) {
     }
 }
 
-$User->GrowerOperation->check_active($User);
+$User->GrowerOperation->check_active();
 
 echo json_encode($json);
 

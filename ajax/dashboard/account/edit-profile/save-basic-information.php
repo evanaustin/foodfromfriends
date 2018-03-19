@@ -298,7 +298,7 @@ if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
         $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
     }
 
-    $User->GrowerOperation->check_active($User);
+    $User->GrowerOperation->check_active();
 }
 
 $json['slug'] = $slug;
