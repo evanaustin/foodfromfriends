@@ -260,7 +260,7 @@
                                                     </p>
 
                                                     <small class="dark-gray bold flexstart">
-                                                        <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                        <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
@@ -654,7 +654,7 @@
                                                 </p>
 
                                                 <small class="dark-gray bold flexstart">
-                                                    <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                    <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                 </small>
                                             </div>
                                         </div>
