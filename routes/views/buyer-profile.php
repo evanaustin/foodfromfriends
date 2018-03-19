@@ -107,11 +107,19 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                <?php echo "Items on {$ThisUser->first_name}'s wish list"; ?>
+                                <?php 
+                                
+                                if (isset($wishlist_description)) {
+                                    echo $wishlist_description['description'];
+                                } else {
+                                    echo "Items on {$ThisUser->first_name}'s wish list";
+                                }
+
+                                ?>
                             </div>
 
                             <?php
-
+                            
                             if (!empty($wishlist)) {
                                 foreach ($wishlist as $category_id => $category) {
                                     
