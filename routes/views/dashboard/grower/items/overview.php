@@ -54,15 +54,15 @@
                                     <?php
 
                                 } else {
-                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid rounded');
+                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid');
                                 }
 
                                 ?>
                             </a>
 
-                            <div class="loading">
+                            <!-- <div class="loading">
                                 <i class="fa fa-circle-o-notch loading-icon"></i>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="card-body d-flex flex-row">
@@ -74,28 +74,30 @@
                                 </h4>
                                 
                                 <h6 class="card-subtitle">
-                                    <?php echo '$' . number_format($FoodListing->price / 100, 2) . ' • $' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
+                                    <?php echo '$' . number_format($FoodListing->price / 100, 2) . (!empty($FoodListing->weight) && !empty($FoodListing->units) ? ' • $' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units : ''); ?>
                                 </h6>
 
                                 <p class="card-text">
                                     <?php
-                                        if (!$FoodListing->is_available) {
-                                            $niblet = 'bg-faded text-muted';
-                                            $availability = 'text-muted';
-                                        } else {
-                                            $niblet = 'text-white';
-                                            $availability = 'text-success';
+                                    
+                                    if (!$FoodListing->is_available) {
+                                        $niblet = 'bg-faded text-muted';
+                                        $availability = 'text-muted';
+                                    } else {
+                                        $niblet = 'text-white';
+                                        $availability = 'text-success';
 
-                                            if ($FoodListing->quantity == 0) {
-                                                $niblet .= ' bg-danger';
-                                            } else if ($FoodListing->quantity > 0 && $FoodListing->quantity < 6) {
-                                                $niblet .= ' bg-warning';
-                                            } else if ($FoodListing->quantity > 5) {
-                                                $niblet .= ' bg-success';
-                                            }
+                                        if ($FoodListing->quantity == 0) {
+                                            $niblet .= ' bg-danger';
+                                        } else if ($FoodListing->quantity > 0 && $FoodListing->quantity < 6) {
+                                            $niblet .= ' bg-warning';
+                                        } else if ($FoodListing->quantity > 5) {
+                                            $niblet .= ' bg-success';
                                         }
+                                    }
 
-                                        echo "<span class=\"quantity {$niblet}\">{$FoodListing->quantity}</span> in stock • <span class=\"{$availability}\">" . (($FoodListing->is_available) ? 'Available' : 'Unavailable') . "</span>";
+                                    echo "<span class=\"quantity {$niblet}\">{$FoodListing->quantity}</span> in stock • <span class=\"{$availability}\">" . (($FoodListing->is_available) ? 'Available' : 'Unavailable') . "</span>";
+                                    
                                     ?>
                                 </p>
                             </div>

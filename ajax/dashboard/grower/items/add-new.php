@@ -14,8 +14,8 @@ $Gump->validation_rules([
 	'item-subcategory'  => 'required|integer',
     'item-variety'      => 'integer',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
-	'units'             => 'required|alpha_space',
+	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
+	'units'             => 'alpha_space',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
 	'is-available'      => 'required|boolean',
 	'definition'        => 'required',
@@ -41,6 +41,11 @@ $Gump->filter_rules([
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
+// manual check that if weight is set then units are too
+if (!empty($weight) && empty($units)) {
+    quit('Select measurement units for your item weight');
+}
 
 $FoodListing = new FoodListing([
     'DB' => $DB,
@@ -75,12 +80,12 @@ $listing_added = $FoodListing->add([
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
     'price'                 => $price * 100,
-    'weight'                => $weight,
-    'units'                 => $units,
     'quantity'              => $quantity,
     'is_available'          => $is_available,
     'unit_definition'       => $definition,
-    'description'           => $description
+    'weight'                => (isset($weight)) ? $weight : 0,
+    'units'                 => (isset($weight, $units)) ? $units : '',
+    'description'           => $description,
 ]);
 
 if (!$listing_added) quit('Could not add item');
@@ -250,7 +255,7 @@ if ($User->GrowerOperation) {
         $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
     }
 
-    $is_active = $User->GrowerOperation->check_active($User);
+    $is_active = $User->GrowerOperation->check_active();
 }
 
 $json['is_active']  = $is_active;

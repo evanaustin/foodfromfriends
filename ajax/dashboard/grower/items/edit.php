@@ -14,8 +14,8 @@ $Gump->validation_rules([
 	'item-subcategory'  => 'required|integer',
     'item-variety'      => 'integer',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'weight'            => 'required|regex,/^[0-9]+$/|min_numeric, 1|max_numeric, 10000',
-	'units'             => 'required|alpha_space',
+	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
+	'units'             => 'alpha_space',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
 	'is-available'      => 'required|boolean',
 	'definition'        => 'required'
@@ -42,6 +42,11 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+// manual check that if weight is set then units are too
+if (!empty($weight) && empty($units)) {
+    quit('Select measurement units for your item weight');
+}
+
 $FoodListing = new FoodListing([
     'DB' => $DB,
     'S3' => $S3,
@@ -54,12 +59,12 @@ $listing_edited = $FoodListing->update([
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
-    'price'                 => $price * 100,
-    'weight'                => $weight,
-    'units'                 => $units,
     'quantity'              => $quantity,
     'is_available'          => $is_available,
     'unit_definition'       => $definition,
+    'price'                 => $price * 100,
+    'weight'                => (isset($weight)) ? $weight : 0,
+    'units'                 => (isset($weight, $units)) ? $units : '',
     'description'           => $description
 ]);
 

@@ -149,11 +149,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="weight">Average weight per item</label>
+                            <label>
+                                Item definition
+                            </label>
+
+                            <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one item so that buyers better understand what you're offering" required><?php echo $FoodListing->unit_definition; ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Average weight per item (optional)</label>
                             <div class="input-group w-addon">
-                                <input id="weight" type="number" name="weight" class="form-control" value="<?php echo $FoodListing->weight; ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" required> 
+                                <input id="weight" type="number" name="weight" class="form-control" value="<?php echo (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
                                 
                                 <select name="units" class="input-group-addon" data-parsley-excluded="true">
+                                    <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
                                     <?php foreach ([
                                         'g',
                                         'oz',
@@ -163,7 +172,7 @@
                                         'liter',
                                         'gallon'
                                     ] as $unit) { ?>
-                                        <option val="<?php echo $unit; ?>" <?php if ($unit == $FoodListing->units) echo 'selected'; ?>><?php echo $unit; ?></option>
+                                        <option value="<?php echo $unit; ?>" <?php if ($unit == $FoodListing->units) echo 'selected'; ?>><?php echo $unit; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -174,7 +183,7 @@
                         <div class="form-group">
                             <label>Listing photo</label>
 
-                            <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove listing photo"><i class="fa fa-trash"></i></a>
+                            <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove item photo"><i class="fa fa-trash"></i></a>
 
                             <div class="image-box slide-over <?php if (!empty($FoodListing->filename)) echo 'existing-image'; ?>">
                                 <div class="image-container">
@@ -192,7 +201,7 @@
 
                                     <div class="overlay-slide">
                                         <i class="fa fa-camera"></i>
-                                        Update listing photo
+                                        Update item photo
                                     </div>
                                 </div>
                             </div>
@@ -212,15 +221,7 @@
 
                 <div class="form-group">
                     <label>
-                        Item definition
-                    </label>
-
-                    <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one unit so that buyers better understand the item" required><?php echo $FoodListing->unit_definition; ?></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        Edit listing description
+                        Edit item description (optional)
                     </label>
 
                     <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"><?php echo $FoodListing->description; ?></textarea>
@@ -234,7 +235,7 @@
             ?>
             
             <p class="text-muted">
-                Oops, looks like this listing doesn't belong to you.
+                Oops, looks like this item doesn't belong to you.
             </p>
 
             <?php

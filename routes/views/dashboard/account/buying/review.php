@@ -106,16 +106,15 @@
                                     </a>
                                 </h6>
                                 
-                                <small class="light-gray">
-                                    <span>
-                                        <?php
-
-                                        amount(($OrderFoodListing->unit_price / $OrderFoodListing->unit_weight));
-                                        echo '/' . $OrderFoodListing->weight_units;
-
-                                        ?>
-                                    </span>
-                                </small>
+                                <?php
+                                                        
+                                if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
+                                    echo '<small class="light-gray"><span>';
+                                    amount(($OrderListing->unit_price / $OrderListing->unit_weight));
+                                    echo " / {$OrderListing->weight_units}</span></small>";
+                                }
+                                
+                                ?>
                             </div>
                         </div>
                     </div>

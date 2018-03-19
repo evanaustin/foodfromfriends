@@ -245,7 +245,7 @@
 
                                                         &nbsp;&bull;&nbsp;
 
-                                                        <?php echo '$' . number_format($Item->price / 100, 2) . ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units; ?> 
+                                                        <?php echo '$' . number_format($Item->price / 100, 2) . (!empty($Item->weight) && !empty($Item->units) ? ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units : ''); ?> 
                                                     </h6>
 
                                                     <p class="card-text">

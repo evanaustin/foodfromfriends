@@ -88,17 +88,13 @@
                                         echo '<div class="rounded-circle">' . count($ratings) . '</div>';
                                     }
                                     
-                                    ?>
+                                    if (!empty($FoodListing->weight) && !empty($FoodListing->units)) {
+                                        echo '&bull;&nbsp;$' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units;
+                                    }
 
-                                    <!-- ! dirty -->
-                                    &bull;&nbsp;
-                                    
-                                    $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
-                                    
-                                    <!-- ! dirty -->
-                                    &nbsp;&bull;&nbsp;
-                                    
-                                    <?php echo ($FoodListing->is_available) ? "{$FoodListing->quantity} in stock" : 'Unavailable'; ?>
+                                    echo '&nbsp;&bull;&nbsp;' . ($FoodListing->is_available ? "{$FoodListing->quantity} in stock" : 'Unavailable');
+
+                                    ?>
                                 </h6>
                                 
                                 <?php

@@ -128,17 +128,26 @@
                                 </div>
                             </div>
                         </div> 
-                    </div> 
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Item definition
+                        </label>
+
+                        <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one item so that buyers better understand what you're offering" required></textarea>
+                    </div>
 
                     <div class="form-group">
                         <label for="weight">
-                            Average weight per item
+                            Average weight per item (optional)
                         </label>
 
                         <div class="input-group w-addon">
-                            <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change" required> 
+                            <input id="weight" type="number" name="weight" class="form-control" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
                             
-                            <select name="units" class="input-group-addon" data-parsley-excluded="true">
+                            <select name="units" class="input-group-addon">
+                                <option disabled selected>Units</option>
                                 <?php foreach ([
                                     'g',
                                     'oz',
@@ -148,7 +157,7 @@
                                     'liters',
                                     'gallons'
                                 ] as $unit) { ?>
-                                    <option val="<?php echo $unit; ?>"><?php echo $unit; ?></option>
+                                    <option value="<?php echo $unit; ?>"><?php echo $unit; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -179,15 +188,7 @@
 
             <div class="form-group">
                 <label>
-                    Item definition
-                </label>
-
-                <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one unit so that buyers better understand the item" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    Listing description
+                    Listing description (optional)
                 </label>
 
                 <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"></textarea>
