@@ -41,7 +41,9 @@
                                     <?php
                                     
                                     if (!empty($FoodListing->filename)) {
+                                        echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
                                         img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
+                                        echo '</a>';
                                     } else {
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
         

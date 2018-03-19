@@ -38,7 +38,9 @@
                             <?php
                             
                             if (!empty($GrowerOperation->filename)) {
+                                echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
                                 img(ENV . "/grower-operation-images/{$GrowerOperation->filename}", $GrowerOperation->ext, 'S3', 'img-fluid');
+                                echo '</a>';
                             } else {
                                 img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 

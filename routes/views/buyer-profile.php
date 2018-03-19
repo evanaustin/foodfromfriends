@@ -28,7 +28,9 @@
                             <?php
                                     
                             if (isset($ThisUser->filename)) {
+                                echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
                                 img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext . '?' . time(), 'S3', 'img-fluid');
+                                echo '</a>';
                             } else {
                                 img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 
