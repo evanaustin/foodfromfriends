@@ -122,7 +122,7 @@
                                     </div>
                                     
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" required>
+                                        <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" checked required>
                                         <label class="custom-control-label" for="unavailable">Unavailable</label>
                                     </div>
                                 </div>

@@ -221,7 +221,7 @@
 
                 <div class="form-group">
                     <label>
-                        Edit item description (optional)
+                        Item description (optional)
                     </label>
 
                     <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?php echo $FoodListing->description; ?></textarea>
