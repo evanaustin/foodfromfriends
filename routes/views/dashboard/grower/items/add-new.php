@@ -135,7 +135,7 @@
                             Item definition
                         </label>
 
-                        <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one item so that buyers better understand what you're offering" required></textarea>
+                        <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Describe one item and how it is sold so that buyers better understand what you're offering" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -191,7 +191,7 @@
                     Listing description (optional)
                 </label>
 
-                <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"></textarea>
+                <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"></textarea>
             </div>
         </form>
     </div>

@@ -153,7 +153,7 @@
                                 Item definition
                             </label>
 
-                            <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Define one item so that buyers better understand what you're offering" required><?php echo $FoodListing->unit_definition; ?></textarea>
+                            <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Describe one item and how it is sold so that buyers better understand what you're offering" required><?php echo $FoodListing->unit_definition; ?></textarea>
                         </div>
 
                         <div class="form-group">
@@ -224,7 +224,7 @@
                         Edit item description (optional)
                     </label>
 
-                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Write a description of your homegrown food"><?php echo $FoodListing->description; ?></textarea>
+                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?php echo $FoodListing->description; ?></textarea>
                 </div>
             </form>
 
