@@ -688,8 +688,10 @@ class OrderGrower extends Base {
                 on os.id = og.order_status_id
 
             WHERE og.grower_operation_id=:grower_operation_id 
-                AND os.placed_on IS NOT NULL
-                AND os.voided_on IS NULL
+                AND os.placed_on    IS NOT NULL
+                AND os.confirmed_on IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.expired_on   IS NULL
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
