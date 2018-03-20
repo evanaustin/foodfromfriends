@@ -293,14 +293,16 @@
                                                     </h6>
                                                     
                                                     <small class="light-gray">
-                                                        <span>
-                                                            <?php
-
+                                                        <?php
+                                                        
+                                                        if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
+                                                            echo '<span>';
                                                             amount(($OrderListing->unit_price / $OrderListing->unit_weight));
                                                             echo " / {$OrderListing->weight_units}";
-
-                                                            ?>
-                                                        </span>
+                                                            echo '</span>';
+                                                        }
+                                                        
+                                                        ?>
                                                         
                                                         <span class="float-right">
                                                             <?php amount($OrderListing->total); ?>

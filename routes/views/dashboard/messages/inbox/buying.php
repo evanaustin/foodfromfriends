@@ -20,7 +20,7 @@
                 $sent_on->setTimezone(new DateTimeZone($User->timezone));
                 $date_sent = $sent_on->format('g:i A n/j/y'); 
                 
-                $snippet = truncate($ThisMessage->body, 85);
+                $snippet = truncate($ThisMessage->body, 75);
 
                 $Grower = new GrowerOperation([
                     'DB' => $DB,

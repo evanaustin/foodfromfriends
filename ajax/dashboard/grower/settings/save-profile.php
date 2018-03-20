@@ -86,6 +86,10 @@ if (empty($operation_key) && empty($personal_key)) {
     
         $lat = $output->results[0]->geometry->location->lat;
         $lng = $output->results[0]->geometry->location->lng;
+
+        if (empty($output->results[0]->geometry->location)) {
+            quit('Uh oh, we couldn\'t locate your address! Are you sure it\'s entered correctly?');
+        }
         
         if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
             $updated = $User->GrowerOperation->update([
@@ -221,8 +225,8 @@ if (empty($operation_key) && empty($personal_key)) {
         }
         
         $final = [
-            'w' => 630,
-            'h' => 540,
+            'w' => 933,
+            'h' => 800,
             'file' => $tmp2 . $filename . '.cropped.' . $ext
         ];
         
@@ -339,7 +343,7 @@ if (!empty($User->GrowerOperation)) {
     }
 }
 
-$User->GrowerOperation->check_active($User);
+$User->GrowerOperation->check_active();
 
 echo json_encode($json);
 

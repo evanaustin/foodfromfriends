@@ -139,7 +139,11 @@
                                 <?php echo $Buyer->name; ?>
                             </div>
 
-                            <div>
+                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'none') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                                Message
+                            </a>
+
+                            <!-- <div>
                                 <span class="listing-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -147,7 +151,7 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

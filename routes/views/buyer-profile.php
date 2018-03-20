@@ -28,7 +28,9 @@
                             <?php
                                     
                             if (isset($ThisUser->filename)) {
+                                echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
                                 img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext . '?' . time(), 'S3', 'img-fluid');
+                                echo '</a>';
                             } else {
                                 img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
 
@@ -107,11 +109,19 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                <?php echo "Items on {$ThisUser->first_name}'s wish list"; ?>
+                                <?php 
+                                
+                                if (isset($wishlist_description)) {
+                                    echo $wishlist_description['description'];
+                                } else {
+                                    echo "Items on {$ThisUser->first_name}'s wish list";
+                                }
+
+                                ?>
                             </div>
 
                             <?php
-
+                            
                             if (!empty($wishlist)) {
                                 foreach ($wishlist as $category_id => $category) {
                                     

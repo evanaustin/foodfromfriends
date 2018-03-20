@@ -24,10 +24,10 @@
         
         <hr>
 
+        <div class="alerts"></div>
+
         <div class="row">
             <div class="col-md-6">                       
-                <div class="alerts"></div>
-
                 <form id="save-pickup" data-parsley-excluded="[disabled=disabled]">
                     <div id="pickup-setting">
                         <div class="form-group">

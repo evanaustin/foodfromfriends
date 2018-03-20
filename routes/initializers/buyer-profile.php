@@ -22,6 +22,14 @@ if (isset($Routing->buyer)) {
 
         $wishlist = $WishList->get_wishes($ThisUser->id);
 
+        $wishlist_description = $WishList->retrieve([
+            'where' => [
+                'user_id' => $ThisUser->id
+            ],
+            'table' => 'wish_list_descriptions',
+            'limit' => 1
+        ]);
+
         // $stars = stars($ThisUser->average_rating);
         
         /* $ratings = $ThisUser->retrieve([
@@ -32,7 +40,7 @@ if (isset($Routing->buyer)) {
             'recent' => true
         ]); */
     
-        $settings['title'] = $ThisUser->name . ' | Food From Friends';
+        $settings['title'] = "{$ThisUser->name} | Food From Friends";
     }
 }
 

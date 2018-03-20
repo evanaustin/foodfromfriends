@@ -45,20 +45,37 @@ main {
                 padding-left: 1rem;
                 font-size: 2.25rem;
             }
-        }
-        
-        .btn {
-            margin-top: 1rem;
-
-            &.btn-dark:hover {
-                background-color: $dark-gray;
-                border-color: $dark-gray;
+            
+            @include all-but-phones() {
+                background-size: 1000px 666px;
+                background-position: top right;
             }
-        }
-
-        img {
-            &.veggies {
-                max-height: 900px;
+            
+            h1 {
+                color: $muted;
+                font-size: 5rem;
+                font-weight: 100;
+                text-align: left;
+                text-shadow: 0 0 7px #fff;
+                
+                strong{
+                    color: $dark-gray;
+                }
+    
+                @include phones() {
+                    color: $dark-gray;
+                    padding-left: 1rem;
+                    font-size: 2.25rem;
+                }
+            }
+            
+            .btn {
+                margin-top: 1rem;
+    
+                &.btn-dark:hover {
+                    background-color: $dark-gray;
+                    border-color: $dark-gray;
+                }
             }
 
             &.colorbowl {

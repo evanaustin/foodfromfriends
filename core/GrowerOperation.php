@@ -277,30 +277,29 @@ class GrowerOperation extends Base {
         }
     }
 
-    public function check_active($User) {
-        if (
-            (
-                ($this->type == 'none' && !empty($User->filename))
-                || ($this->type != 'none' && !empty($this->filename))
-            )
-            && (
-                ($this->type == 'none' && !empty($User->zipcode))
-                || ($this->type != 'none' && !empty($this->zipcode))
-            )
+    public function check_active() {
+        $payout_settings = $this->retrieve([
+            'where' => [
+                'seller_id' => $this->id
+            ],
+            'table' => 'seller_payout_settings',
+            'limit' => 1
+        ]);
+        error_log(json_encode($payout_settings));
+
+        if (!empty($payout_settings) && !empty($this->filename) && !empty($this->latitude) && !empty($this->longitude)
             && (($this->Delivery && $this->Delivery->is_offered) || ($this->Pickup && $this->Pickup->is_offered) || ($this->Meetup && $this->Meetup->is_offered))
             && $this->count_listings() > 0
         ) {
             $this->update([
                 'is_active' => 1
-            ],
-            'id', $this->id);
+            ]);
             
             $this->is_active = 1;
         } else {
             $this->update([
                 'is_active' => 0
-            ],
-            'id', $this->id);
+            ]);
             
             $this->is_active = 0;
         }

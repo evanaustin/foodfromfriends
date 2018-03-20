@@ -13,7 +13,8 @@ App.Image = function () {
     };
 
     function init() {
-        $('div.image-container').height(Math.floor($('div.image-container').width() * 540 / 630));
+        // $('div.image-container').height(Math.floor($('div.image-container').width() * 540 / 630));
+        $('div.image-container').height(Math.floor($('div.image-container').width() * 800 / 933));
     }
 
     function selectFile(el) {
@@ -41,7 +42,7 @@ App.Image = function () {
         }
 
         if (file.size > 5 * 1024 * 1024) {
-            App.Util.msg('Please select a file less than 3MB in size', 'danger');
+            App.Util.msg('Please select a file less than 5MB in size', 'danger');
             return;
         }
 

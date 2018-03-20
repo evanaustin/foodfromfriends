@@ -114,7 +114,12 @@ $('#save-delivery').on('submit', function(e) {
 
         App.Ajax.post('dashboard/grower/exchange-options/delivery', data, 
             function(response) {
-                App.Util.msg('Your delivery preferences have been saved!', 'success');
+                if (response.is_active == true) {
+                    App.Util.msg('Your delivery preferences have been saved! Edit your <a href="' + PUBLIC_ROOT + 'dashboard/grower/exchange-options/meetup">meetup</a> or <a href="' + PUBLIC_ROOT + 'dashboard/grower/exchange-options/pickup">pickup</a> preferences or <a href="' + PUBLIC_ROOT + response.link + '">view</a> your profile', 'success');
+                } else {
+                    App.Util.msg('Your delivery preferences have been saved! Click <a href="' + PUBLIC_ROOT + 'dashboard/grower">here</a> to finish activating your seller profile', 'success');
+                }
+
                 App.Util.animation($('button[type="submit"]'), 'bounce');
                 App.Util.finishedLoading();
             },
