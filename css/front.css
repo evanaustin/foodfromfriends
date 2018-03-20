@@ -6790,105 +6790,81 @@ main {
       .main .hero {
         background-size: 1000px 666px;
         background-position: top right; } }
+    .main .hero img.veggies {
+      max-height: 700px; }
     .main .hero h1 {
-      font-size: 4rem; }
+      color: #636c72;
+      font-size: 4rem;
+      font-weight: 100;
+      text-align: left;
+      text-shadow: 0 0 7px #fff; }
+      .main .hero h1 strong {
+        color: #4c4c4c; }
       @media (max-width: 767px) {
         .main .hero h1 {
+          color: #4c4c4c;
           padding-left: 1rem;
           font-size: 2.25rem; } }
-      @media (min-width: 768px) {
-        .main .hero h1 {
-          background-size: 1000px 666px;
-          background-position: top right; } }
-      .main .hero h1 h1 {
-        color: #636c72;
-        font-size: 5rem;
-        font-weight: 100;
-        text-align: left;
-        text-shadow: 0 0 7px #fff; }
-        .main .hero h1 h1 strong {
-          color: #4c4c4c; }
-        @media (max-width: 767px) {
-          .main .hero h1 h1 {
-            color: #4c4c4c;
-            padding-left: 1rem;
-            font-size: 2.25rem; } }
-      .main .hero h1 .btn {
-        margin-top: 1rem; }
-        .main .hero h1 .btn.btn-dark:hover {
-          background-color: #4c4c4c;
-          border-color: #4c4c4c; }
-      .main .hero h1.colorbowl {
-        max-height: 500px; }
-  .main .sidekick#model-cake {
-    -webkit-transform: translateY(-50px);
-    -moz-transform: translateY(-50px);
-    -ms-transform: translateY(-50px);
-    -o-transform: translateY(-50px);
-    transform: translateY(-50px); }
-  .main .sidekick .shift-up {
-    -webkit-transform: translateY(-50px);
-    -moz-transform: translateY(-50px);
-    -ms-transform: translateY(-50px);
-    -o-transform: translateY(-50px);
-    transform: translateY(-50px); }
+    .main .hero .btn {
+      margin-top: 1rem; }
+      .main .hero .btn.btn-dark:hover {
+        background-color: #4c4c4c;
+        border-color: #4c4c4c; }
+    .main .hero img.colorbowl {
+      max-height: 550px; }
+  .main .sidekick #thought img.chard {
+    position: absolute;
+    max-width: 650px; }
     @media (min-width: 1200px) {
-      .main .sidekick .shift-up {
-        -webkit-transform: translateY(-75px);
-        -moz-transform: translateY(-75px);
-        -ms-transform: translateY(-75px);
-        -o-transform: translateY(-75px);
-        transform: translateY(-75px); } }
-  .main .sidekick #thought-for-food {
+      .main .sidekick #thought img.chard {
+        -webkit-transform: translateY(-150px);
+        -moz-transform: translateY(-150px);
+        -ms-transform: translateY(-150px);
+        -o-transform: translateY(-150px);
+        transform: translateY(-150px); } }
+  .main .sidekick #thought #thought-for-food {
     text-align: right; }
-    @media (min-width: 768px) {
-      .main .sidekick #thought-for-food {
-        padding-left: 12rem;
-        -webkit-transform: translateX(50px) translateY(-50px);
-        -moz-transform: translateX(50px) translateY(-50px);
-        -ms-transform: translateX(50px) translateY(-50px);
-        -o-transform: translateX(50px) translateY(-50px);
-        transform: translateX(50px) translateY(-50px); } }
-  @media (min-width: 768px) {
-    .main .sidekick #the-big-problems {
-      padding-left: 3rem;
-      padding-right: 2rem; } }
-  .main .sidekick #model-for-the-future {
-    text-align: right; }
-    @media (min-width: 768px) {
-      .main .sidekick #model-for-the-future {
-        padding-left: 3rem; } }
-  .main .sidekick img {
-    /* &.coffee-cake {
-        // max-width: 700px;
-    } */ }
-    .main .sidekick img.chard {
-      max-width: 650px; }
-    .main .sidekick img.tomatoes {
-      max-height: 1000px;
-                /* @include transform(translateY(-50px));
+    @media (min-width: 1200px) {
+      .main .sidekick #thought #thought-for-food {
+        margin-top: 8rem;
+        margin-left: 13rem;
+        -webkit-transform: translateX(75px);
+        -moz-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        -o-transform: translateX(75px);
+        transform: translateX(75px); } }
+  .main .sidekick #thought img.tomatoes {
+    position: absolute;
+    max-height: 925px;
+            /* @include transform(translateY(-50px));
 
-                @include lg-desktops() {
-                    @include transform(translateY(-75px));
-                } */ }
-    .main .sidekick img.lettuce {
-      max-height: 600px; }
-    .main .sidekick img.smoothie {
-      max-height: 300px;
-      display: block;
-      margin: 2rem auto;
-      -webkit-transform: rotate(135deg);
-      -moz-transform: rotate(135deg);
-      -ms-transform: rotate(135deg);
-      -o-transform: rotate(135deg);
-      transform: rotate(135deg); }
-    .main .sidekick img.plate {
-      max-height: 900px;
-      -webkit-transform: translateY(-35px);
-      -moz-transform: translateY(-35px);
-      -ms-transform: translateY(-35px);
-      -o-transform: translateY(-35px);
-      transform: translateY(-35px); }
+            @include lg-desktops() {
+                @include transform(translateY(-75px));
+            } */ }
+  .main .sidekick #problems .plate {
+    position: absolute;
+    max-height: 925px;
+    -webkit-transform: translateY(-150px);
+    -moz-transform: translateY(-150px);
+    -ms-transform: translateY(-150px);
+    -o-transform: translateY(-150px);
+    transform: translateY(-150px); }
+  .main .sidekick #problems #the-big-problems {
+    margin-top: 3rem;
+    /* @include all-but-phones() {
+        margin-left: 3rem;
+        // @include transform(translateX(1rem));
+    } */ }
+  .main .sidekick #model {
+    /* img.loaf {
+        max-width: 600px;
+    } */ }
+    .main .sidekick #model img.smoothie {
+      max-width: 350px;
+      margin-top: 10rem;
+      margin-left: 5rem; }
+    .main .sidekick #model #model-for-the-future {
+      margin-top: 4rem; }
 
 body.map div.main {
   display: flex;
