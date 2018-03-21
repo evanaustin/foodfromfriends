@@ -6767,22 +6767,28 @@ main {
 
 .main {
   background-color: #fff; }
+  .main h1, .main p, .main .btn {
+    position: relative;
+    z-index: 99; }
   .main h1 {
-    z-index: 99;
     color: #636c72;
     font-weight: 100;
-    text-shadow: 0 0 2px #fff; }
+    text-shadow: 0 0 5px #fff; }
     .main h1 strong {
       color: #4c4c4c;
       text-transform: uppercase; }
-    @media (max-width: 767px) {
+    @media (max-width: 576px) {
       .main h1 {
         margin: 0 1.5rem; } }
+    @media (min-width: 576px) {
+      .main h1 {
+        font-size: 2rem; } }
+    @media (min-width: 768px) {
+      .main h1 {
+        font-size: 2.5rem; } }
   .main p {
-    position: relative;
-    z-index: 99;
     color: #636c72; }
-    @media (max-width: 767px) {
+    @media (max-width: 576px) {
       .main p {
         margin: 1.5rem 1.5rem 0;
         font-size: 1.15rem; } }
@@ -6791,7 +6797,7 @@ main {
   .main .btn-dark:hover {
     background-color: #4c4c4c;
     border-color: #4c4c4c; }
-  @media (max-width: 767px) {
+  @media (max-width: 576px) {
     .main #hero {
       margin: 3rem 0 6rem; } }
   @media (min-width: 1200px) {
@@ -6804,123 +6810,204 @@ main {
     z-index: 98;
     max-height: 700px;
     padding-right: 1rem; }
-  @media (max-width: 767px) {
+  @media (max-width: 576px) {
     .main #hero h1 {
-      margin: 0; } }
+      margin: 0;
+      font-size: 2rem; } }
+  @media (min-width: 576px) {
+    .main #hero h1 {
+      font-size: 3rem; } }
   @media (min-width: 768px) {
+    .main #hero h1 {
+      font-size: 3.5rem; } }
+  @media (min-width: 992px) {
     .main #hero h1 {
       font-size: 4rem; } }
   .main #hero img.colorbowl {
     max-height: 550px; }
-  @media (max-width: 767px) {
+  @media (max-width: 576px) {
     .main #sidekick h1 {
       font-size: 2.25rem; } }
   .main #sidekick #thought img.chard {
     position: absolute;
-    max-width: 550px; }
-    @media (max-width: 767px) {
+    z-index: 0;
+    max-width: 450px; }
+    @media (max-width: 576px) {
       .main #sidekick #thought img.chard {
-        max-width: 450px;
-        left: -66%;
-        -webkit-transform: translateY(-75px);
-        -moz-transform: translateY(-75px);
-        -ms-transform: translateY(-75px);
-        -o-transform: translateY(-75px);
-        transform: translateY(-75px); } }
+        top: -100px;
+        left: -250px; } }
+    @media (min-width: 576px) {
+      .main #sidekick #thought img.chard {
+        top: -75px;
+        left: -150px; } }
+    @media (min-width: 992px) {
+      .main #sidekick #thought img.chard {
+        max-width: 550px;
+        left: -100px; } }
     @media (min-width: 1200px) {
       .main #sidekick #thought img.chard {
-        -webkit-transform: translateY(-135px);
-        -moz-transform: translateY(-135px);
-        -ms-transform: translateY(-135px);
-        -o-transform: translateY(-135px);
-        transform: translateY(-135px); } }
+        top: -135px; } }
   .main #sidekick #thought #thought-for-food {
-    margin-top: 5rem; }
-    @media (max-width: 767px) {
-      .main #sidekick #thought #thought-for-food h1 {
+    position: relative;
+    z-index: 99;
+    margin-top: 6rem;
+    text-align: center; }
+    @media (max-width: 576px) {
+      .main #sidekick #thought #thought-for-food {
+        margin-top: 5rem; }
+        .main #sidekick #thought #thought-for-food h1 {
+          text-align: right; } }
+    @media (min-width: 576px) {
+      .main #sidekick #thought #thought-for-food {
+        margin-top: 5rem;
         text-align: right; } }
     @media (min-width: 768px) {
       .main #sidekick #thought #thought-for-food {
-        position: relative;
-        z-index: 99;
-        margin-top: 6rem;
-        margin-left: 13rem;
+        margin-top: 8rem;
         text-align: center;
+        -webkit-transform: translateX(25px);
+        -moz-transform: translateX(25px);
+        -ms-transform: translateX(25px);
+        -o-transform: translateX(25px);
+        transform: translateX(25px); } }
+    @media (min-width: 992px) {
+      .main #sidekick #thought #thought-for-food {
+        margin-top: 5rem;
+        margin-left: 13rem;
+        -webkit-transform: translateX(75px);
+        -moz-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        -o-transform: translateX(75px);
+        transform: translateX(75px); } }
+    @media (min-width: 1200px) {
+      .main #sidekick #thought #thought-for-food {
         -webkit-transform: translateX(125px);
         -moz-transform: translateX(125px);
         -ms-transform: translateX(125px);
         -o-transform: translateX(125px);
         transform: translateX(125px); } }
-  @media (max-width: 767px) {
-    .main #sidekick #thought img.tomatoes {
-      -webkit-transform: rotate(90deg);
-      -moz-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      -o-transform: rotate(90deg);
-      transform: rotate(90deg); } }
-  @media (min-width: 768px) {
-    .main #sidekick #thought img.tomatoes {
-      position: absolute;
-      top: -15px; } }
-  .main #sidekick #problems .plate {
-    max-height: 925px; }
-    @media (max-width: 767px) {
-      .main #sidekick #problems .plate {
-        -webkit-transform: translateY(-25px);
-        -moz-transform: translateY(-25px);
-        -ms-transform: translateY(-25px);
-        -o-transform: translateY(-25px);
-        transform: translateY(-25px); } }
+  .main #sidekick #thought img.tomatoes {
+    position: absolute;
+    z-index: 0;
+    top: -15px; }
     @media (min-width: 768px) {
+      .main #sidekick #thought img.tomatoes {
+        max-height: 700px; } }
+    @media (min-width: 992px) {
+      .main #sidekick #thought img.tomatoes {
+        max-height: 1500px; } }
+  .main #sidekick #problems {
+            /* img.smoothie {
+
+            } */ }
+    @media (max-width: 576px) {
+      .main #sidekick #problems .plate {
+        top: -25px;
+        left: -200px; } }
+    @media (min-width: 576px) {
       .main #sidekick #problems .plate {
         position: absolute;
+        z-index: 0;
+        max-height: 925px;
         top: -150px;
-        z-index: 1;
-        opacity: .99; } }
-  @media (min-width: 768px) {
-    .main #sidekick #problems #the-big-problems {
-      margin-top: 10rem;
-      text-align: center;
-      margin-right: 1rem; } }
-  .main #sidekick #problems .chard-bunch {
-    max-height: 400px;
-    margin-top: 4rem; }
+        left: -250px; } }
+    @media (min-width: 768px) {
+      .main #sidekick #problems .plate {
+        left: -200px; } }
+    @media (min-width: 1200px) {
+      .main #sidekick #problems .plate {
+        left: -50px; } }
+    @media (min-width: 576px) {
+      .main #sidekick #problems #the-big-problems {
+        margin-top: 10rem;
+        text-align: right; } }
+    @media (min-width: 768px) {
+      .main #sidekick #problems #the-big-problems {
+        margin-top: 14rem; } }
+    @media (min-width: 992px) {
+      .main #sidekick #problems #the-big-problems {
+        margin-top: 10rem;
+        text-align: center;
+        -webkit-transform: translateX(10px);
+        -moz-transform: translateX(10px);
+        -ms-transform: translateX(10px);
+        -o-transform: translateX(10px);
+        transform: translateX(10px); } }
+    @media (min-width: 1200px) {
+      .main #sidekick #problems #the-big-problems {
+        -webkit-transform: translateX(-7.5px);
+        -moz-transform: translateX(-7.5px);
+        -ms-transform: translateX(-7.5px);
+        -o-transform: translateX(-7.5px);
+        transform: translateX(-7.5px); } }
+    .main #sidekick #problems img.chard-bunch {
+      max-height: 400px;
+      margin-top: 4rem;
+      /* @include lg() {
+          position: absolute;
+          z-index: 0;
+          bottom: -125px;
+          // top: -100px;
+          max-height: 375px;
+      } */ }
+      @media (min-width: 768px) {
+        .main #sidekick #problems img.chard-bunch {
+          margin-top: 0; } }
   .main #sidekick #model img.smoothie {
-    position: absolute;
-    top: 12rem;
-    right: 5rem;
     max-width: 325px; }
-  @media (max-width: 767px) {
+    @media (max-width: 576px) {
+      .main #sidekick #model img.smoothie {
+        margin-top: 2rem; } }
+    @media (min-width: 576px) {
+      .main #sidekick #model img.smoothie {
+        position: absolute;
+        top: -100px; } }
+    @media (min-width: 992px) {
+      .main #sidekick #model img.smoothie {
+        top: 200px;
+        right: 1rem; } }
+    @media (min-width: 1200px) {
+      .main #sidekick #model img.smoothie {
+        right: 4rem; } }
+  @media (max-width: 576px) {
     .main #sidekick #model #model-for-the-future {
-      margin-top: 6rem; } }
+      margin-top: 4rem; } }
+  @media (min-width: 576px) {
+    .main #sidekick #model #model-for-the-future {
+      margin-top: 7rem; } }
   @media (min-width: 768px) {
     .main #sidekick #model #model-for-the-future {
       margin-top: 10rem; } }
+  .main #sidekick #model img.chard-bunch {
+    max-height: 400px;
+    margin-top: 4rem; }
   .main #sidekick #action {
     margin-bottom: 2rem; }
-    @media (max-width: 767px) {
+    @media (max-width: 576px) {
       .main #sidekick #action {
         margin-top: 2rem; } }
-    @media (min-width: 768px) {
+    @media (min-width: 576px) {
       .main #sidekick #action {
         margin-top: 5rem; } }
-    @media (max-width: 767px) {
+    @media (max-width: 576px) {
       .main #sidekick #action #practice {
-        margin-top: 5rem; } }
-    @media (min-width: 768px) {
+        margin-top: 2rem; } }
+    @media (min-width: 576px) {
       .main #sidekick #action #practice {
         margin-top: 7rem; } }
     .main #sidekick #action #practice h2 {
       font-weight: 100;
-      color: #636c72; }
-      @media (max-width: 767px) {
+      color: #636c72;
+      text-align: center; }
+      @media (max-width: 576px) {
         .main #sidekick #action #practice h2 {
           margin-bottom: 2rem;
-          font-size: 1.75rem;
-          text-align: left; } }
-      @media (min-width: 768px) {
+          font-size: 1.75rem; } }
+      @media (min-width: 576px) {
         .main #sidekick #action #practice h2 {
-          margin-bottom: 1rem;
+          margin-bottom: 1rem; } }
+      @media (min-width: 1200px) {
+        .main #sidekick #action #practice h2 {
           text-align: right; } }
     .main #sidekick #action img.loaf {
       max-height: 450px; }

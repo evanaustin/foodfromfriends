@@ -6809,6 +6809,10 @@ canvas:focus {
   .md-no-padding {
     padding: 0 !important; } }
 
+@media (min-width: 992px) {
+  .lg-no-padding {
+    padding: 0 !important; } }
+
 .padding-top-10em {
   padding-top: 0.1rem; }
 

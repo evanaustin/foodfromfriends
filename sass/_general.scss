@@ -80,7 +80,13 @@ canvas {
 }
 
 .md-no-padding {
-    @include all-but-phones() {
+    @include md() {
+        padding: 0 !important;
+    }
+}
+
+.lg-no-padding {
+    @include lg() {
         padding: 0 !important;
     }
 }
