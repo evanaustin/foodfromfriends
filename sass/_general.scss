@@ -79,6 +79,12 @@ canvas {
     padding: 0 !important;
 }
 
+.md-no-padding {
+    @include all-but-phones() {
+        padding: 0 !important;
+    }
+}
+
 .padding-top-10em {
     padding-top: 0.1rem;
 }
@@ -425,7 +431,6 @@ canvas {
 
  .flexbox {
     display: flex;
-
 }
 
 .flexcolumn {
@@ -474,6 +479,10 @@ canvas {
  .flexend {
     justify-content: flex-end;
  }
+
+ .flexbottom {
+    align-self: flex-end;
+  }
 
 
 

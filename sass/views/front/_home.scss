@@ -9,144 +9,210 @@ main {
     h1 {
         color: $muted;
         font-weight: 100;
-        text-shadow: 0 0 7px #fff;
+        text-shadow: 0 0 2px #fff;
         
-        strong{
+        strong {
             color: $dark-gray;
+            text-transform: uppercase;
         }
 
         @include phones() {
-            color: $dark-gray;
+            margin: 0 1.5rem;
         }
     }
 
-    .hero {
-        background: url('../media/homepage/seeds.png') no-repeat;
-        
+    p {
+        color: $muted;
+
         @include phones() {
-            margin: 4rem 0;
-            background-position: bottom center;
-            background-size: 500px 333px;
+            margin: 1.5rem 1.5rem 0;
+            font-size: 1.15rem;
+        }
+    }
+
+    .btn {
+        margin-top: 1rem;
+    }
+
+    .btn-dark:hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+
+    #hero {
+        @include phones() {
+            margin: 3rem 0 6rem;
         }
 
-        @include tablets-sm-desktops() {
-            background: none;
-        }
-        
         @include lg-desktops() {
+            background: url('../media/homepage/seeds.png') no-repeat;
             background-size: 1000px 666px;
             background-position: top right;
         }
 
         img.veggies {
             max-height: 700px;
+            padding-right: 1rem;
         }
         
         h1 {
-            color: $muted;
-            font-size: 4rem;
-            font-weight: 100;
-            text-align: left;
-            text-shadow: 0 0 7px #fff;
-            
-            strong{
-                color: $dark-gray;
+            @include phones() {
+                margin: 0;
             }
 
-            @include phones() {
-                color: $dark-gray;
-                padding-left: 1rem;
-                font-size: 2.25rem;
+            @include all-but-phones() {
+                font-size: 4rem;
             }
         }
         
-        .btn {
-            margin-top: 1rem;
-
-            &.btn-dark:hover {
-                background-color: $dark-gray;
-                border-color: $dark-gray;
-            }
-        }
-
         img.colorbowl {
             max-height: 550px;
         }
     }
 
-    .sidekick {
+    #sidekick {
+        h1 {
+            @include phones() {
+                font-size: 2.25rem;
+            }
+        }
+
         #thought {
             img.chard {
                 position: absolute;
-                max-width: 650px;
-    
+                max-width: 550px;
+                
+                @include phones() {
+                    max-width: 450px;
+                    left: -66%;
+
+                    @include transform(translateY(-75px));
+                }
+                
                 @include lg-desktops() {
-                    @include transform(translateY(-150px));
+                    @include transform(translateY(-135px));
                 }
             }
 
             #thought-for-food {
-                text-align: right;
-                
-                @include lg-desktops() {
-                    margin-top: 8rem;
-                    margin-left: 13rem;
+                margin-top: 5rem;
 
-                    @include transform(translateX(75px));
+                @include phones() {
+                    h1 {
+                        text-align: right;
+                    }
+                }
+                
+                @include all-but-phones() {
+                    margin-top: 6rem;
+                    margin-left: 13rem;
+                    // margin-right: 2rem;
+                    text-align: center;
+
+                    @include transform(translateX(125px));
                 }
             }
 
             img.tomatoes {
-                position: absolute;
-                max-height: 925px;
-                // margin: 2rem auto;
-    
-                /* @include transform(translateY(-50px));
-    
-                @include lg-desktops() {
-                    @include transform(translateY(-75px));
-                } */
+                @include phones() {
+                    @include transform(rotate(90deg));
+                }
+
+                @include all-but-phones() {
+                    position: absolute;
+                    top: -15px;
+                }
             }
         }
 
         #problems {
             .plate {
-                position: absolute;
                 max-height: 925px;
                 
-                @include transform(translateY(-150px));
+                @include phones() {
+                    @include transform(translateY(-24px));
+                }
+
+                @include all-but-phones() {
+                    position: absolute;
+                    @include transform(translateY(-150px));
+                }
             }
 
             #the-big-problems {
-                margin-top: 3rem;
+                @include all-but-phones() {
+                    margin-top: 10rem;
+                    text-align: center;
+                    margin-right: 1rem;
+                }
+            }
 
-                /* @include all-but-phones() {
-                    margin-left: 3rem;
-                    // @include transform(translateX(1rem));
-                } */
+            .chard-bunch {
+                max-height: 400px;
+                margin-top: 4rem;
             }
         }
 
         #model {
             img.smoothie {
-                max-width: 350px;
-                margin-top: 10rem;
-                margin-left: 5rem;
-
-                // @include transform(rotate(135deg));
+                position: absolute;
+                top: 12rem;
+                right: 5rem;
+                max-width: 325px;
             }
 
             #model-for-the-future {
-                margin-top: 4rem;
+                @include phones() {
+                    margin-top: 6rem;
+                }
 
                 @include all-but-phones() {
-                    // margin-left: 2rem;
+                    margin-top: 10rem;
+                }
+            }
+        }
+
+        #action {
+            margin-bottom: 2rem;
+
+            @include phones() {
+                margin-top: 2rem;
+            }
+
+            @include all-but-phones() {
+                margin-top: 5rem;
+            }
+            
+            #practice {
+                @include phones() {
+                    margin-top: 5rem;
+                }
+    
+                @include all-but-phones() {
+                    margin-top: 7rem;
+                }
+
+                h2 {
+                    font-weight: 100;
+                    color: $muted;
+
+                    @include phones() {
+                        margin-bottom: 2rem;
+                        font-size: 1.75rem;
+                        text-align: left;
+                    }
+    
+                    @include all-but-phones() {
+                        margin-bottom: 1rem;
+                        text-align: right;
+                    }
                 }
             }
 
-            /* img.loaf {
-                max-width: 600px;
-            } */
+            img.loaf {
+                // max-width: 750px;
+                max-height: 450px;
+            }
         }
     }
 }

@@ -6805,6 +6805,10 @@ canvas:focus {
 .no-padding {
   padding: 0 !important; }
 
+@media (min-width: 768px) {
+  .md-no-padding {
+    padding: 0 !important; } }
+
 .padding-top-10em {
   padding-top: 0.1rem; }
 
@@ -7121,6 +7125,9 @@ canvas:focus {
 
 .flexend {
   justify-content: flex-end; }
+
+.flexbottom {
+  align-self: flex-end; }
 
 /* BTN */
 .btn {
