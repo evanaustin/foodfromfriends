@@ -6768,6 +6768,7 @@ main {
 .main {
   background-color: #fff; }
   .main h1 {
+    z-index: 99;
     color: #636c72;
     font-weight: 100;
     text-shadow: 0 0 2px #fff; }
@@ -6778,6 +6779,8 @@ main {
       .main h1 {
         margin: 0 1.5rem; } }
   .main p {
+    position: relative;
+    z-index: 99;
     color: #636c72; }
     @media (max-width: 767px) {
       .main p {
@@ -6797,6 +6800,8 @@ main {
       background-size: 1000px 666px;
       background-position: top right; } }
   .main #hero img.veggies {
+    position: relative;
+    z-index: 98;
     max-height: 700px;
     padding-right: 1rem; }
   @media (max-width: 767px) {
@@ -6836,6 +6841,8 @@ main {
         text-align: right; } }
     @media (min-width: 768px) {
       .main #sidekick #thought #thought-for-food {
+        position: relative;
+        z-index: 99;
         margin-top: 6rem;
         margin-left: 13rem;
         text-align: center;
@@ -6859,19 +6866,17 @@ main {
     max-height: 925px; }
     @media (max-width: 767px) {
       .main #sidekick #problems .plate {
-        -webkit-transform: translateY(-24px);
-        -moz-transform: translateY(-24px);
-        -ms-transform: translateY(-24px);
-        -o-transform: translateY(-24px);
-        transform: translateY(-24px); } }
+        -webkit-transform: translateY(-25px);
+        -moz-transform: translateY(-25px);
+        -ms-transform: translateY(-25px);
+        -o-transform: translateY(-25px);
+        transform: translateY(-25px); } }
     @media (min-width: 768px) {
       .main #sidekick #problems .plate {
         position: absolute;
-        -webkit-transform: translateY(-150px);
-        -moz-transform: translateY(-150px);
-        -ms-transform: translateY(-150px);
-        -o-transform: translateY(-150px);
-        transform: translateY(-150px); } }
+        top: -150px;
+        z-index: 1;
+        opacity: .99; } }
   @media (min-width: 768px) {
     .main #sidekick #problems #the-big-problems {
       margin-top: 10rem;

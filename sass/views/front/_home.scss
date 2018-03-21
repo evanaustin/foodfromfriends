@@ -7,6 +7,7 @@ main {
     background-color: #fff;
 
     h1 {
+        z-index: 99;
         color: $muted;
         font-weight: 100;
         text-shadow: 0 0 2px #fff;
@@ -22,6 +23,8 @@ main {
     }
 
     p {
+        position: relative;
+        z-index: 99;
         color: $muted;
 
         @include phones() {
@@ -29,6 +32,7 @@ main {
             font-size: 1.15rem;
         }
     }
+
 
     .btn {
         margin-top: 1rem;
@@ -51,6 +55,8 @@ main {
         }
 
         img.veggies {
+            position: relative;
+            z-index: 98;
             max-height: 700px;
             padding-right: 1rem;
         }
@@ -104,9 +110,10 @@ main {
                 }
                 
                 @include all-but-phones() {
+                    position: relative;
+                    z-index: 99;
                     margin-top: 6rem;
                     margin-left: 13rem;
-                    // margin-right: 2rem;
                     text-align: center;
 
                     @include transform(translateX(125px));
@@ -130,12 +137,14 @@ main {
                 max-height: 925px;
                 
                 @include phones() {
-                    @include transform(translateY(-24px));
+                    @include transform(translateY(-25px));
                 }
 
                 @include all-but-phones() {
                     position: absolute;
-                    @include transform(translateY(-150px));
+                    top: -150px;
+                    z-index: 1;
+                    opacity: .99;
                 }
             }
 

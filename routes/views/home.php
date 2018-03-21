@@ -3,7 +3,7 @@
         <div id="hero">
             <div class="row">
                 <div class="d-none col-md-3 d-md-flex flexcenter no-padding">
-                    <?php img('homepage/veggies', 'png', 'local', 'img-fluid veggies'); ?>
+                    <?php img('homepage/veggies', 'jpg', 'local', 'img-fluid veggies'); ?>
                 </div>
 
                 <div class="col-8 col-md-6 d-flex flexjustifycenter flexcolumn md-no-padding">
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-4 col-md-3 d-md-flex flexcenter flexend no-padding text-right">
-                    <?php img('homepage/colorbowl-phone', 'png', 'local', 'colorbowl img-fluid d-block d-md-none'); ?>
+                    <?php img('homepage/colorbowl-phone', 'jpg', 'local', 'colorbowl img-fluid d-block d-md-none'); ?>
                     <?php img('homepage/colorbowl', 'png', 'local', 'colorbowl d-none d-md-block'); ?>
                 </div>
             </div>
@@ -34,7 +34,7 @@
         <div id="sidekick">
             <div id="thought" class="row">
                 <div class="col-12 col-md-1 no-padding">
-                    <?php img('homepage/chard', 'png', 'local', 'chard'); ?>
+                    <?php img('homepage/chard', 'jpg', 'local', 'chard'); ?>
                 </div>
 
                 <div class="col-12 col-md-7 md-no-padding">
@@ -59,14 +59,14 @@
                 </div>
 
                 <div class="col-md-4 d-none d-md-flex flexend no-padding">
-                    <?php img('homepage/tomatoes', 'png', 'local', 'img-fluid tomatoes'); ?>
+                    <?php img('homepage/tomatoes', 'jpg', 'local', 'img-fluid tomatoes'); ?>
                 </div>
             </div>
 
             <div id="problems" class="row">
                 <div class="col-12 col-md-4 no-padding">
-                    <?php img('homepage/square-plate-phone', 'png', 'local', 'plate img-fluid d-block d-md-none'); ?>
-                    <?php img('homepage/square-plate', 'png', 'local', 'plate d-none d-md-block'); ?>
+                    <?php img('homepage/square-plate-phone', 'jpg', 'local', 'plate img-fluid d-block d-md-none'); ?>
+                    <?php img('homepage/square-plate', 'jpg', 'local', 'plate d-none d-md-block'); ?>
                 </div>
     
                 <div class="col-12 col-md-4">
@@ -107,13 +107,13 @@
                 </div>
 
                 <div class="col-12 d-flex d-md-none flexend no-padding">
-                    <?php img('homepage/chard-bunch', 'png', 'local', 'chard-bunch'); ?>
+                    <?php img('homepage/chard-bunch', 'jpg', 'local', 'chard-bunch'); ?>
                 </div>
             </div>
 
             <div id="model" class="row">
                 <div class="col-md-4 d-none d-md-block">
-                    <?php img('homepage/smoothie', 'png', 'local', 'smoothie'); ?>
+                    <?php img('homepage/smoothie', 'jpg', 'local', 'smoothie'); ?>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -159,8 +159,8 @@
                 </div>
 
                 <div class="col-12 col-md-7 order-1 order-md-2 col-md-flex flexend no-padding text-right">
-                    <?php img('homepage/loaf-end', 'png', 'local', 'loaf img-fluid d-block d-md-none'); ?>
-                    <?php img('homepage/loaf', 'png', 'local', 'loaf d-none d-md-inline'); ?>
+                    <?php img('homepage/loaf-phone', 'jpg', 'local', 'loaf img-fluid d-block d-md-none'); ?>
+                    <?php img('homepage/loaf', 'jpg', 'local', 'loaf d-none d-md-inline'); ?>
                 </div>
             </div>
         </div>
