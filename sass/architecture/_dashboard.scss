@@ -30,9 +30,9 @@ body.dashboard {
 
         div.subheader {
             /* computed height: 52px */
-            position: fixed;
-            width: inherit;
-            z-index: $fixed-z;
+            position: relative;
+            width: 100%;
+            // z-index: $fixed-z;
         }
 
         > div.container {
