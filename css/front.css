@@ -7051,189 +7051,191 @@ main {
     .main #sidekick #action img.loaf {
       max-height: 450px; }
 
-body.map div.main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%; }
-  @media (max-width: 767px) {
-    body.map div.main div#mapbox {
-      position: relative;
-      width: 100%;
-      height: 50%; } }
-  @media (min-width: 768px) {
-    body.map div.main div#mapbox {
-      position: absolute;
-      width: 60%;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0; } }
-  body.map div.main div#scrollbox {
-    position: relative;
+body.map {
+  background-color: #fafafb; }
+  body.map div.main {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    width: 40%;
-    height: 100%;
-    margin-left: auto;
-    background: #fafafb; }
+    width: 100%;
+    height: 100%; }
     @media (max-width: 767px) {
-      body.map div.main div#scrollbox {
-        width: 100%; } }
+      body.map div.main div#mapbox {
+        position: relative;
+        width: 100%;
+        height: 50%; } }
     @media (min-width: 768px) {
-      body.map div.main div#scrollbox {
-        overflow-y: auto; } }
-    body.map div.main div#scrollbox div#list {
+      body.map div.main div#mapbox {
+        position: absolute;
+        width: 60%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0; } }
+    body.map div.main div#scrollbox {
+      position: relative;
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
-      padding: 5px; }
-      body.map div.main div#scrollbox div#list div.row {
-        margin: 0; }
-        body.map div.main div#scrollbox div#list div.row > div {
-          padding-left: 5px;
-          padding-right: 5px; }
-  body.map div.main .card {
-    margin: 5px 0 5px 0; }
-    body.map div.main .card .card-body .card-title {
-      font-weight: bold;
-      margin-bottom: 0; }
-    body.map div.main .card .card-body div.name, body.map div.main .card .card-body div.rating {
-      display: inline-block;
-      vertical-align: bottom;
-      line-height: 18px; }
-    body.map div.main .card .card-body div.name {
-      padding-right: 5px; }
-    body.map div.main .card .card-body div.rating {
-      padding: 0 3px;
-      border: 1px solid #f0f0f0;
-      background-color: #fff;
-      font-size: 0.75em;
-      color: #3FC592;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px; }
-      body.map div.main .card .card-body div.rating i {
-        line-height: 18px; }
-    body.map div.main .card .card-body .small-gray {
-      font-size: 12px;
-      color: #cbcbcb; }
-    body.map div.main .card .card-footer {
-      background-color: #fff;
-      border-color: #f5f5f5;
-      border-top-width: 1px;
-      font-size: 14px;
-      color: #636c72;
-      transition: all 0.3s; }
-      body.map div.main .card .card-footer:hover {
-        background-color: #fafafb;
-        color: #00c079; }
-        body.map div.main .card .card-footer:hover strong {
-          background-color: #00c079; }
-        body.map div.main .card .card-footer:hover i {
-          color: #00c079;
-          -webkit-transform: translateX(3px);
-          -moz-transform: translateX(3px);
-          -ms-transform: translateX(3px);
-          -o-transform: translateX(3px);
-          transform: translateX(3px); }
-      body.map div.main .card .card-footer strong {
-        margin-right: 5px;
-        padding: 1px 3px;
-        background-color: #636c72;
-        color: #fff;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        transition: all 0.3s; }
-      body.map div.main .card .card-footer i {
-        line-height: 1.5;
+      width: 40%;
+      height: 100%;
+      margin-left: auto;
+      background: #fafafb; }
+      @media (max-width: 767px) {
+        body.map div.main div#scrollbox {
+          width: 100%; } }
+      @media (min-width: 768px) {
+        body.map div.main div#scrollbox {
+          overflow-y: auto; } }
+      body.map div.main div#scrollbox div#list {
+        flex-grow: 1;
+        padding: 5px; }
+        body.map div.main div#scrollbox div#list div.row {
+          margin: 0; }
+          body.map div.main div#scrollbox div#list div.row > div {
+            padding-left: 5px;
+            padding-right: 5px; }
+    body.map div.main .card {
+      margin: 5px 0 5px 0; }
+      body.map div.main .card .card-body .card-title {
         font-weight: bold;
+        margin-bottom: 0; }
+      body.map div.main .card .card-body div.name, body.map div.main .card .card-body div.rating {
+        display: inline-block;
+        vertical-align: bottom;
+        line-height: 18px; }
+      body.map div.main .card .card-body div.name {
+        padding-right: 5px; }
+      body.map div.main .card .card-body div.rating {
+        padding: 0 3px;
+        border: 1px solid #f0f0f0;
+        background-color: #fff;
+        font-size: 0.75em;
+        color: #3FC592;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px; }
+        body.map div.main .card .card-body div.rating i {
+          line-height: 18px; }
+      body.map div.main .card .card-body .small-gray {
+        font-size: 12px;
+        color: #cbcbcb; }
+      body.map div.main .card .card-footer {
+        background-color: #fff;
+        border-color: #f5f5f5;
+        border-top-width: 1px;
+        font-size: 14px;
         color: #636c72;
         transition: all 0.3s; }
-body.map .mapboxgl-popup {
-  min-width: 200px;
-  height: 100px;
-  font-family: 'Museo Sans Rounded', sans-serif;
-  font-weight: 300;
-  color: #404040; }
-  body.map .mapboxgl-popup .mapboxgl-popup-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: inherit;
-    width: inherit;
-    padding: 0 12px;
-    -webkit-border-radius: 75px;
-    -moz-border-radius: 75px;
-    border-radius: 75px; }
-    body.map .mapboxgl-popup .mapboxgl-popup-content .grower-profile {
-      margin: 0 auto;
-      width: 66px;
-      height: 66px;
-      background-size: cover;
-      background-position: center;
-      -webkit-border-radius: 100px;
-      -moz-border-radius: 100px;
-      border-radius: 100px; }
-    body.map .mapboxgl-popup .mapboxgl-popup-content .details {
-      flex-grow: 2;
-      padding-left: 10px; }
-      body.map .mapboxgl-popup .mapboxgl-popup-content .details h6 {
-        padding-right: 12px; }
-    body.map .mapboxgl-popup .mapboxgl-popup-content .mapboxgl-popup-close-button {
-      display: none; }
-body.map .pulse {
-  background: transparent;
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  margin: 0;
-  -webkit-border-radius: 100px;
-  -moz-border-radius: 100px;
-  border-radius: 100px; }
-  body.map .pulse:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+        body.map div.main .card .card-footer:hover {
+          background-color: #fafafb;
+          color: #00c079; }
+          body.map div.main .card .card-footer:hover strong {
+            background-color: #00c079; }
+          body.map div.main .card .card-footer:hover i {
+            color: #00c079;
+            -webkit-transform: translateX(3px);
+            -moz-transform: translateX(3px);
+            -ms-transform: translateX(3px);
+            -o-transform: translateX(3px);
+            transform: translateX(3px); }
+        body.map div.main .card .card-footer strong {
+          margin-right: 5px;
+          padding: 1px 3px;
+          background-color: #636c72;
+          color: #fff;
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          border-radius: 3px;
+          transition: all 0.3s; }
+        body.map div.main .card .card-footer i {
+          line-height: 1.5;
+          font-weight: bold;
+          color: #636c72;
+          transition: all 0.3s; }
+  body.map .mapboxgl-popup {
+    min-width: 200px;
+    height: 100px;
+    font-family: 'Museo Sans Rounded', sans-serif;
+    font-weight: 300;
+    color: #404040; }
+    body.map .mapboxgl-popup .mapboxgl-popup-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: inherit;
+      width: inherit;
+      padding: 0 12px;
+      -webkit-border-radius: 75px;
+      -moz-border-radius: 75px;
+      border-radius: 75px; }
+      body.map .mapboxgl-popup .mapboxgl-popup-content .grower-profile {
+        margin: 0 auto;
+        width: 66px;
+        height: 66px;
+        background-size: cover;
+        background-position: center;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100px; }
+      body.map .mapboxgl-popup .mapboxgl-popup-content .details {
+        flex-grow: 2;
+        padding-left: 10px; }
+        body.map .mapboxgl-popup .mapboxgl-popup-content .details h6 {
+          padding-right: 12px; }
+      body.map .mapboxgl-popup .mapboxgl-popup-content .mapboxgl-popup-close-button {
+        display: none; }
+  body.map .pulse {
+    background: transparent;
     height: 14px;
     width: 14px;
-    z-index: 1;
-    cursor: pointer; }
-  body.map .pulse:after {
-    content: '';
-    height: 40px;
-    width: 40px;
     position: absolute;
-    margin: -13px 0 0 -13px;
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    -webkit-animation: pulsate 2s ease-out;
-    -moz-animation: pulsate 2s ease-out;
-    -o-animation: pulsate 2s ease-out;
-    animation: pulsate 2s ease-out;
-    -webkit-animation-iteration-count: infinite;
-    -moz-animation-iteration-count: infinite;
-    -ms-animation-iteration-count: infinite;
-    -o-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-delay: 1.1s;
-    -moz-animation-delay: 1.1s;
-    -ms-animation-delay: 1.1s;
-    -o-animation-delay: 1.1s;
-    animation-delay: 1.1s;
+    margin: 0;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px; }
-body.map nav#footer {
-  position: relative !important;
-  padding-left: 10px;
-  padding-right: 10px; }
-  body.map nav#footer .nav-link {
-    text-align: center; }
-    body.map nav#footer .nav-link:first-child {
-      padding-left: 0; }
+    body.map .pulse:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 14px;
+      width: 14px;
+      z-index: 1;
+      cursor: pointer; }
+    body.map .pulse:after {
+      content: '';
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      margin: -13px 0 0 -13px;
+      opacity: 0;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      filter: alpha(opacity=0);
+      -webkit-animation: pulsate 2s ease-out;
+      -moz-animation: pulsate 2s ease-out;
+      -o-animation: pulsate 2s ease-out;
+      animation: pulsate 2s ease-out;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      -ms-animation-iteration-count: infinite;
+      -o-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-delay: 1.1s;
+      -moz-animation-delay: 1.1s;
+      -ms-animation-delay: 1.1s;
+      -o-animation-delay: 1.1s;
+      animation-delay: 1.1s;
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 100px;
+      border-radius: 100px; }
+  body.map nav#footer {
+    position: relative !important;
+    padding-left: 10px;
+    padding-right: 10px; }
+    body.map nav#footer .nav-link {
+      text-align: center; }
+      body.map nav#footer .nav-link:first-child {
+        padding-left: 0; }
 
 @-webkit-keyframes pulsate {
   0% {
