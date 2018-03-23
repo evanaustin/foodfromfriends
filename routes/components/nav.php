@@ -15,6 +15,12 @@
                 </li>
             
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
@@ -66,7 +72,20 @@
                     <a id="log-out" class="nav-link" href="#">Log out</a>
                 </li>
 
-            <?php } if ($Routing->template == 'dashboard') {
+            <?php } if ($Routing->template == 'dashboard') { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                        Map
+                    </a>
+                </li>
+
+                <?php
 
                 $sidebar = [
                     'grower' => [
