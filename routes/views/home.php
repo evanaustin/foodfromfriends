@@ -80,7 +80,7 @@
                         <div class="row">
                             <div class="col-12 col-lg-10 offset-lg-2 col-xl-12 offset-xl-0">
                                 <p>
-                                    Our current food system is rich in problems. We believe the best solution is <strong>neighbor-to-neighbor</strong> commerce.
+                                    We believe the best solution to the problems in our food system is <strong>neighbor-to-neighbor</strong> commerce.
                                 </p>
                                 
                                 <p>
@@ -114,7 +114,7 @@
                         </p>
 
                         <p>
-                            We're here to connect you &mdash; to food, and to people.
+                            We're here to connect you. To food, and to people.
                         </p>
                     </div>
                 </div>
