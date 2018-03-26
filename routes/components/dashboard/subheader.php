@@ -13,7 +13,7 @@
                         class="nav-link dropdown-toggle <?php if ($Routing->section == 'grower') echo 'active'; ?>" 
                         data-toggle="dropdown"
                     >
-                        <?php echo ($User->GrowerOperation->type == 'none' ? 'Grower' : $User->GrowerOperation->name); ?>
+                        <?php echo ($User->GrowerOperation->type == 'individual' ? 'Grower' : $User->GrowerOperation->name); ?>
                     </a>
 
                     <div class="dropdown-menu">
@@ -38,7 +38,7 @@
                         href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
                         class="nav-link <?php if ($Routing->section == 'grower') echo 'active'; ?>"
                     >
-                        <?php echo ($Routing->section == 'grower' && isset($User->GrowerOperation) && $User->GrowerOperation->type != 'none') ? $User->GrowerOperation->name : 'Grower'; ?>
+                        <?php echo ($Routing->section == 'grower' && isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') ? $User->GrowerOperation->name : 'Grower'; ?>
                     </a>
                 </li>
 

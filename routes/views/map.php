@@ -33,7 +33,7 @@
                                                     </div>
                                                     
                                                     <div class="small-gray padding-top-15em">
-                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (($Grower->type == 'none' || $Grower->type == 'other') ? 'Grower' : ucfirst($Grower->type)); ?>
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (($Grower->type == 'individual' || $Grower->type == 'other') ? 'Grower' : ucfirst($Grower->type)); ?>
                                                     </div>
                                                     
                                                     <div class="small-gray padding-top-10em">

@@ -12,7 +12,7 @@ if (isset($_GET['grower'])) {
     }
 } else if (isset($User->Operations)) {
     foreach ($User->Operations as $Op) {
-        if ($Op->type !== 'none') {
+        if ($Op->type !== 'individual') {
             continue;
         } else {
             $User->GrowerOperation = $Op;
@@ -21,7 +21,7 @@ if (isset($_GET['grower'])) {
     }
 }
 
-if (isset($User->GrowerOperation) && ((!isset($grower_operation_id) && $User->GrowerOperation->type == 'none') || $User->GrowerOperation->id == $grower_operation_id)) {
+if (isset($User->GrowerOperation) && ((!isset($grower_operation_id) && $User->GrowerOperation->type == 'individual') || $User->GrowerOperation->id == $grower_operation_id)) {
     $Message = new Message([
         'DB' => $DB
     ]);

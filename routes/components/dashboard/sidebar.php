@@ -54,7 +54,7 @@
             ];
 
             foreach($User->Operations as $Op) {
-                if ($Op->type != 'none') {
+                if ($Op->type != 'individual') {
                     $sidebar['messages']['inbox']['selling?grower=' . $Op->id] = $Op->name;
                 } else {
                     array_splice($sidebar['messages']['inbox'], 1, 0, 'selling');
@@ -149,7 +149,7 @@
                                                 } else if (!$active) {
                                                     if ($alias != 'selling') {
                                                         $seller_id = str_replace('selling?grower=', '', $alias_key);
-                                                    } else if ($User->GrowerOperation->type == 'none') {
+                                                    } else if ($User->GrowerOperation->type == 'individual') {
                                                         $seller_id = $User->GrowerOperation->id;
                                                     }
                                                     

@@ -286,7 +286,7 @@
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
-                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
+                                        Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
                                     </div>
 
                                     <div class="user-block">
@@ -684,7 +684,7 @@
                                 </h4>
 
                                 <div class="muted margin-btm-1em">
-                                    Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> selling these items
+                                    Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> selling these items
                                 </div>
 
                                 <div class="user-block">

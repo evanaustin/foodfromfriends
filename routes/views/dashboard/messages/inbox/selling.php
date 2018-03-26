@@ -70,7 +70,7 @@
                 ?>
 
                 <div class="block strong">
-                    <?php echo ($User->GrowerOperation->type != 'none' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
+                    <?php echo ($User->GrowerOperation->type != 'individual' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
                 </div>
 
                 <?php

@@ -39,7 +39,7 @@
                                 <?php
                             
                                 foreach ($operation_types as $operation_type) {
-                                    if ($operation_type['title'] == 'none') {
+                                    if ($operation_type['title'] == 'individual') {
                                         echo '<option disabled selected>Select an operation type</option>';
                                     } else {
                                         echo "<option value=\"{$operation_type['id']}\">" . ucfirst($operation_type['title']) . "</option>";
@@ -65,29 +65,29 @@
                         </label>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->GrowerOperation->address_line_1)) { echo $User->GrowerOperation->address_line_1; } ?>" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                            <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->GrowerOperation->address_line_1)) { echo $User->GrowerOperation->address_line_1; } ?>" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'individual') ? 'disabled' : 'required'); ?>>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->GrowerOperation->address_line_2)) { echo $User->GrowerOperation->address_line_2; } ?>" data-parsley-trigger="change" <?php if ($User->GrowerOperation->type == 'none') { echo 'disabled'; } ?>>
+                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->GrowerOperation->address_line_2)) { echo $User->GrowerOperation->address_line_2; } ?>" data-parsley-trigger="change" <?php if ($User->GrowerOperation->type == 'individual') { echo 'disabled'; } ?>>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->GrowerOperation->city)) { echo $User->GrowerOperation->city; } ?>" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->GrowerOperation->city)) { echo $User->GrowerOperation->city; } ?>" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'individual') ? 'disabled' : 'required'); ?>>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->GrowerOperation->state)) { echo $User->GrowerOperation->state; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->GrowerOperation->state)) { echo $User->GrowerOperation->state; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'individual') ? 'disabled' : 'required'); ?>>
                                 </div>
                             </div>
                             
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->GrowerOperation->zipcode)) { echo $User->GrowerOperation->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->GrowerOperation->zipcode)) { echo $User->GrowerOperation->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" <?php echo (($User->GrowerOperation->type == 'individual') ? 'disabled' : 'required'); ?>>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
 
                                     ?>
                                     
-                                    <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'none') ? 'disabled' : 'required'); ?>>
+                                    <input type="file" name="profile-image" accept="image/png/jpg" <?php //echo (($User->GrowerOperation->type == 'individual') ? 'disabled' : 'required'); ?>>
                                     
                                     <div class="overlay-slide">
                                         <i class="fa fa-camera"></i>

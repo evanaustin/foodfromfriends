@@ -19,7 +19,7 @@ if (!empty($User->filename)) {
     quit('There was no image to remove');
 }
 
-if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'individual') {
     // reinitialize User & Operation for fresh check
     $User = new User([
         'DB' => $DB,

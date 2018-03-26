@@ -287,7 +287,7 @@ if (isset($_POST['images'])) {
     }
 }
 
-if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'individual') {
     // reinitialize User & Operation for fresh check
     $User = new User([
         'DB' => $DB,

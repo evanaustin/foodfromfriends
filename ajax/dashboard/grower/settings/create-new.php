@@ -89,7 +89,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
         quit('Your personal key is invalid');
     }
 } else {
-    /* if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+    /* if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'individual') {
         // name shell operation
 
         $Slug = new Slug([
