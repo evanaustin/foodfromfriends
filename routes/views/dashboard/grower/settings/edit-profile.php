@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    Customize your seller profile as it appears to buyers. <?php if (isset($User->GrowerOperation)) { echo "<span id=\"live-link\">View your live profile <a href=\"" . PUBLIC_ROOT . "{$User->GrowerOperation->link}\" class=\"bold\">here <i class=\"fa fa-angle-right\"></i></a></span>"; } ?>
+                    Customize your information as a seller. This information will be shown to the public on your seller profile. <?php if (isset($User->GrowerOperation)) { echo "<span id=\"live-link\">View your live profile <a href=\"" . PUBLIC_ROOT . "{$User->GrowerOperation->link}\" class=\"bold\">here <i class=\"fa fa-angle-right\"></i></a></span>"; } ?>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                     <div id="operation-type">
                         <div class="form-group">
                             <label>
-                                Operation type
+                                Seller type
                             </label>
 
                             <select name="type" class="custom-select" data-parsley-trigger="submit" required>
@@ -45,14 +45,14 @@
                                 ?>
                             </select>
 
-                            <small id="type-help" class="form-text text-muted" <?php if ($User->GrowerOperation->type != 'none') echo 'style="display:none"'; ?>>
-                                If you're selling on behalf of a named entity, set the operation type here.
+                            <small id="type-help" class="form-text text-muted margin-top-25em" <?php if (isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') echo 'style="display:none"'; ?>>
+                                Specify an alternative seller type if you want to sell under a name other than "<bold><?php echo $User->name; ?></bold>" 
                             </small>
                         </div>
                     </div>
                 
                     <div id="operation-details">
-                        <div id="operation-name" class="form-group" <?php if (!isset($User->GrowerOperation) || $User->GrowerOperation->type == 'none') echo 'style="display:none"'; ?>>
+                        <div id="operation-name" class="form-group" <?php if (!isset($User->GrowerOperation) || $User->GrowerOperation->type == 'individual') echo 'style="display:none"'; ?>>
                             <label>
                                 Name
                             </label>
@@ -61,7 +61,8 @@
                         </div>
 
                         <label>
-                            Where is your operation?
+                            Where do you produce your food? 
+                            <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Your exact address will not be shown on your seller profile" data-placement="right"></i>
                         </label>
 
                         <div class="form-group">
@@ -97,7 +98,7 @@
                                 Bio
                             </label>
                             
-                            <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe your operation! Food From Friends is built on relationships."><?php if (!empty($User->GrowerOperation->bio)) echo $User->GrowerOperation->bio; ?></textarea>
+                            <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Tell your story. Food From Friends is built on relationships."><?php if (!empty($User->GrowerOperation->bio)) echo $User->GrowerOperation->bio; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -106,7 +107,7 @@
                     <div id="operation-image">
                         <div class="form-group">
                             <label>
-                                Operation photo
+                                Seller photo
                             </label>
                                 
                             <a href="" class="remove-image float-right" <?php if (empty($User->GrowerOperation->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
@@ -133,7 +134,7 @@
                             </div>
 
                             <small id="operation-photo-help" class="form-text text-muted <?php if (!empty($User->GrowerOperation->filename)) echo 'hidden'; ?>">
-                                Buyers like to see you and your operation
+                                Buyers like to see good photos of people with food
                             </small>
                         </div>
                     </div>
