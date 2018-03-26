@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Edit your seller profile
+                    <?php echo (isset($User->GrowerOperation) ? 'Edit' : 'Create') . ' your seller profile'; ?>
                 </div>
 
                 <div class="page-description text-muted small">
-                    Customize your seller profile as it appears to buyers. <span id="live-link">View your live profile <a href="<?php echo PUBLIC_ROOT . $User->GrowerOperation->link; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
+                    Customize your seller profile as it appears to buyers. <?php if (isset($User->GrowerOperation)) { echo "<span id=\"live-link\">View your live profile <a href=\"" . PUBLIC_ROOT . "{$User->GrowerOperation->link}\" class=\"bold\">here <i class=\"fa fa-angle-right\"></i></a></span>"; } ?>
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
                     </div>
                 
                     <div id="operation-details">
-                        <div id="operation-name" class="form-group" <?php if ($User->GrowerOperation->type == 'none') echo 'style="display:none"'; ?>>
+                        <div id="operation-name" class="form-group" <?php if (!isset($User->GrowerOperation) || $User->GrowerOperation->type == 'none') echo 'style="display:none"'; ?>>
                             <label>
                                 Name
                             </label>
@@ -133,7 +133,7 @@
                             </div>
 
                             <small id="operation-photo-help" class="form-text text-muted <?php if (!empty($User->GrowerOperation->filename)) echo 'hidden'; ?>">
-                                Smiling faces on site at your operation are most engaging!
+                                Buyers like to see you and your operation
                             </small>
                         </div>
                     </div>

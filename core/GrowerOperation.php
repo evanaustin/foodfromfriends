@@ -197,7 +197,7 @@ class GrowerOperation extends Base {
      * 
      * @param $User the operation owner
      * @param array $data the data for `grower_operations` - shell ops only require $data['type']; other ops require $data['type'] AND $data['name']
-     *  ['type', 'name', 'bio']
+     *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
      *  ['permission', 'is_default']
      */
@@ -234,28 +234,34 @@ class GrowerOperation extends Base {
 
             $grower_operation_id = $grower_added['last_insert_id'];
 
-            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state)) {
-                // Configure operation address
-                $full_address       = "{$User->address_line_1}, {$User->city}, {$User->state}";
+            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state) && !isset($data['address_line_1']) && !isset($data['city']) && !isset($data['state'])) {
+                $address_line_1 = $User->address_line_1;
+                $address_line_2 = $User->address_line_2;
+                $city           = $User->city;
+                $state          = $User->state;
+            }
+
+            if (isset($address_line_1, $city, $state)) {
+                $full_address       = "{$address_line_1}, {$city}, {$state}";
                 $prepared_address   = str_replace(' ', '+', $full_address);
-    
+
                 $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
                 $output             = json_decode($geocode);
-    
+
                 $latitude           = $output->results[0]->geometry->location->lat;
                 $longitude          = $output->results[0]->geometry->location->lng;
-    
-                $added = $User->GrowerOperation->add([
+
+                $added = $this->add([
                     'grower_operation_id'   => $grower_operation_id,
-                    'address_line_1'        => $User->address_line_1,
-                    'address_line_2'        => $User->address_line_2,
-                    'city'                  => $User->city,
-                    'state'                 => $User->state,
-                    'zipcode'               => $User->zipcode,
+                    'address_line_1'        => $address_line_1,
+                    'address_line_2'        => $address_line_2,
+                    'city'                  => ucfirst($city),
+                    'state'                 => $state,
+                    'zipcode'               => $zipcode,
                     'latitude'              => $latitude,
                     'longitude'             => $longitude
                 ], 'grower_operation_addresses');
-                
+    
                 if (!$added) quit('We could not add your operation\'s location');
             }
 
