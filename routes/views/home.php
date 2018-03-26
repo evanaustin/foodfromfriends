@@ -15,11 +15,11 @@
 
                     <div class="row d-md-flex">
                         <div class="col-12 col-lg-6 col-xl-4">
-                            <a href="<?php echo PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">See what's for sale</a>
+                            <a href="<?php echo PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">See who's selling</a>
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-3">
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
+                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
                         </div>
                     </div>
                 </div>
@@ -34,11 +34,11 @@
 
         <div id="sidekick">
             <div id="thought" class="row">
-                <div class="col-12 col-sm-3 d-md-none col-lg-1 d-lg-inline no-padding">
+                <div class="col-12 col-sm-3 col-md-2 col-lg-1 no-padding">
                     <?php img('homepage/chard', 'jpg', 'local', 'chard'); ?>
                 </div>
 
-                <div class="col-12 col-sm-9 col-md-6 offset-md-2 col-lg-7 offset-lg-0 lg-no-padding">
+                <div class="col-12 col-sm-9 col-md-6 col-lg-7 offset-lg-0 lg-no-padding">
                     <div id="thought-for-food">
                         <h1>
                             Thought<br>
@@ -46,15 +46,11 @@
                         </h1>
                         
                         <p>
-                            Who grows your tomatoes? What kind of conditions were they grown in? How much time has passed since they were picked? What's happened to them since then?
+                            Who grows your tomatoes? How were they grown? When were they picked?
                         </p>
 
                         <p>
-                            If you can answer these questions, you're the exception. Buying food these days is too often a mysterious, detached experience.
-                        </p>
-
-                        <p>
-                            It hasn't always been this way.
+                            If you can answer these questions, you're the exception. Buying food these days is too often a mysterious, detached experience. It hasn't always been this way.
                         </p>
                     </div>
                 </div>
@@ -73,50 +69,27 @@
                 <div class="col-12 col-sm-6 col-lg-5 col-xl-4">
                     <div id="model-for-the-future">
                         <div class="row">
-                            <div class="col-12 lg-no-padding">
-                            <!-- <div class="col-12"> -->
+                            <div class="col-12 col-lg-10 offset-lg-2 col-xl-12 offset-xl-0 lg-no-padding">
                                 <h1>
-                                    A history-proven model<span class="d-inline d-sm-none"> for</span><br>
+                                    A historic model<br>
                                     <strong><span class="d-none d-sm-inline">for</span> the future</strong>
                                 </h1>
                             </div>
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-12 col-lg-11 offset-lg-1"> -->
                             <div class="col-12 col-lg-10 offset-lg-2 col-xl-12 offset-xl-0">
                                 <p>
-                                    During WWII, nearly <strong>50%</strong> of the fresh produce in the United States was grown in home and community gardens. Our homegrown production was so abundant that we were able to ship much of our commercial food overseas to Europe to aid our allies in their food shortages.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- <div class="col-12 col-lg-11 offset-lg-1"> -->
-                            <div class="col-12 col-lg-10 offset-lg-2 col-xl-12  offset-xl-0">
-                                <p>
-                                    Fast forward about 30 years from today and food demand is expected to increase by up to <strong>98%</strong>. How will we feed over <strong>9 billion</strong> people by 2050?
+                                    Our current food system is rich in problems. We believe the best solution is <strong>neighbor-to-neighbor</strong> commerce.
                                 </p>
                                 
                                 <p>
-                                    We believe the best solution has been right under our noses (and in our backyards) the whole time: <strong>local production</strong>. It's a practice nearly as old as humanity itself, but it needs new life &mdash; new energy, perspective, and technology. That's where we come in.
+                                    It's a practice nearly as old as humanity itself, but it needs new life &mdash; fresh perspective, energy, and technology. That's where we come in.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-12 d-md-none">
-                    <?php //img('homepage/loaf', 'jpg', 'local', 'loaf img-fluid d-none d-sm-inline'); ?>
-                </div> -->
-
-                <!-- <div class="col-6 d-lg-none">
-                    <?php //img('homepage/smoothie', 'jpg', 'local', 'smoothie img-fluid'); ?>
-                </div> -->
-
-                <!-- <div class="d-none col-lg-4 d-lg-flex d-xl-none flexbottom flexend no-padding">
-                    <?php //img('homepage/chard-bunch', 'jpg', 'local', 'chard-bunch'); ?>
-                </div> -->
             </div>
 
             <div id="platform" class="row">
@@ -132,11 +105,12 @@
                         </h1>
     
                         <p>
-                            Food From Friends exists to make the local food economy as seamless as possible.
+                            Food From Friends exists to make the local food economy seamless &mdash; easy, convenient, and transparent.
                         </p>
                         
                         <p>
-                            We empower home gardeners, kitchen hustlers, and small farmers with an equal playing field and virtually unlimited market exposure. We empower consumers, chefs, and other purchasers with choice like they've never had before. We empower both sides with the logistical convenience to make every transaction practical.
+                            We empower <strong>consumers</strong>, <strong>chefs</strong>, and <strong>wholesale buyers</strong> with choice and access they've never had before. 
+                            We enable <strong>small farmers</strong>, <strong>home gardeners</strong>, and <strong>growing communities</strong> with unlimited market exposure and a platform to tell their story. 
                         </p>
 
                         <p>
