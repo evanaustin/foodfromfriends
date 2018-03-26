@@ -131,29 +131,28 @@ main {
                 position: relative;
                 z-index: 99;
                 margin-top: 6rem;
-                text-align: center;
 
                 @include xs() {
                     margin-top: 5rem;
+                    text-align: left;
 
                     h1 {
+                        margin-right: 2rem;
                         text-align: right;
                     }
                 }
                 
                 @include sm() {
-                    margin-top: 5rem;
-                    text-align: right;
+                    margin-top: 10rem;
+                    text-align: center;
                 }
 
                 @include md() {
-                    margin-top: 8rem;
-                    text-align: center;
-                    @include transform(translateX(25px));
+                    margin-top: 10rem;
+                    @include transform(translateX(50px));
                 }
 
                 @include lg() {
-                    margin-top: 5rem;
                     margin-left: 13rem;
                     @include transform(translateX(75px));
                 }
@@ -204,65 +203,33 @@ main {
 
             #model-for-the-future {
                 @include sm() {
-                    margin-top: 10rem;
+                    margin-top: 15rem;
                     text-align: right;
                 }
 
                 @include md() {
-                    margin-top: 14rem;
+                    margin-top: 17rem;
+                    text-align: center;
+
+                    @include transform(translateX(-10%));
                 }
 
                 @include lg() {
-                    margin-top: 10rem;
-                    text-align: center;
-                    @include transform(translateX(10px));
-
-                    h1 {
-                        text-align: right;
-                    }
+                    margin-top: 15rem;
+                    margin-right: 2rem;
+                    
+                    @include transform(translateX(8.33%));
                 }
                 
                 @include xl() {
-                    @include transform(translateX(8.3333333333%));
+                    @include transform(translateX(15%));
                     
-                    h1 {
-                        text-align: center;
-                    }
-
                     p {
-                        margin-left: 0.75rem;
-                        margin-right: 0.75rem;
+                        margin-left: 0.5rem;
+                        margin-right: 0.5rem;
                     }
-                    // margin-right: 1rem;
-                    // @include transform(translateX(-7.5px));
                 }
             }
-
-            /* #the-big-problems {
-                @include sm() {
-                    margin-top: 10rem;
-                    text-align: right;
-                }
-
-                @include md() {
-                    margin-top: 14rem;
-                }
-
-                @include lg() {
-                    margin-top: 10rem;
-                    text-align: center;
-                    @include transform(translateX(10px));
-                }
-                
-                @include xl() {
-                    // margin-right: 1rem;
-                    @include transform(translateX(-7.5px));
-                }
-            } */
-
-            /* img.smoothie {
-
-            } */
 
             img.chard-bunch {
                 max-height: 400px;
@@ -271,14 +238,6 @@ main {
                 @include md() {
                     margin-top: 0;
                 }
-                
-                /* @include lg() {
-                    position: absolute;
-                    z-index: 0;
-                    bottom: -125px;
-                    // top: -100px;
-                    max-height: 375px;
-                } */
             }
         }
 
@@ -296,7 +255,7 @@ main {
                 }
 
                 @include lg() {
-                    top: 150px;
+                    top: 200px;
                     right: 1rem;
                 }
                 
@@ -305,31 +264,27 @@ main {
                 }
             }
 
-            /* #model-for-the-future {
-                @include xs() {
-                    margin-top: 4rem;
-                }
-
-                @include sm() {
-                    margin-top: 7rem;
-                }
-
-                @include md() {
-                    margin-top: 10rem;
-                }
-            } */
-            
             #platform-for-everyone {
                 @include xs() {
                     margin-top: 4rem;
                 }
 
                 @include sm() {
-                    margin-top: 7rem;;
+                    margin-top: 15rem;
                 }
 
                 @include md() {
-                    margin-top: 10rem;
+                    text-align: center;
+                    @include transform(translateX(15px));
+                }
+                
+                @include lg() {
+                    text-align: left;
+                    @include transform(translateX(0));
+                }
+                
+                @include xl() {
+                    margin-top: 16rem;
                 }
             }
 
@@ -357,6 +312,10 @@ main {
     
                 @include sm() {
                     margin-top: 7rem;
+                }
+                
+                @include lg() {
+                    margin-top: 10rem;
                 }
 
                 h2 {
