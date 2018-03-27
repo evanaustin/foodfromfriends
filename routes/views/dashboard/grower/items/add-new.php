@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Add a new item listing
+                    List a new item
                 </div>
 
                 <div class="page-description text-muted small">
-                    Select an item type, enter the listing details, and upload an image. Only items marked as available can be purchased by buyers.
+                    Select an item type, enter the listing details, and upload an image. Only items marked as available can be purchased by buyers, and you can always choose to deny any order that comes in at no penalty.
                 </div>
             </div>
 
@@ -29,15 +29,15 @@
         <form id="add-listing">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-12"> 
-                            <label for="food-categories">
-                                What kind of item do you have?
-                            </label>
-                        </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"> 
+                                <label for="food-categories">
+                                    What kind of item do you have?
+                                </label>
+                            </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="col-md-4">
                                 <select id="item-categories" name="item-category" class="custom-select form-control" data-parsley-trigger="change" required>
                                     <option selected disabled>Select category</option>
 
@@ -50,10 +50,8 @@
                                     ?>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="col-md-4"> 
-                            <div class="form-group">
+                            <div class="col-md-4"> 
                                 <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" required <?php if (!isset($_GET['subcategory'])) { echo 'disabled'; } ?>>
                                     <option selected disabled>Select subcategory</option>
 
@@ -68,15 +66,17 @@
                                     ?>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="col-md-4"> 
-                            <div class="form-group">
+                            <div class="col-md-4"> 
                                 <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" disabled>
                                     <option selected disabled>Select variety</option>
                                 </select>
                             </div>
                         </div>
+
+                        <small class="form-text text-muted">
+                            Can't find the item you want to add? Suggest a new item type <a href="#" class="brand" data-toggle="modal" data-target="#suggest-item-modal">here</a>, so we can review and add it for you.
+                        </small>
                     </div>
 
                     <!-- <div id="other-option" class="form-group hidden">

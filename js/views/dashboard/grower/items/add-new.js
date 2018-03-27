@@ -177,4 +177,38 @@ $('#add-listing').on('submit', function(e) {
             }
         );
     }
-});	
+});
+
+
+$('#suggest-item-modal').on('shown.bs.modal', function () {
+    $('#suggest-item-form').siblings('.alerts').find('.alert').remove();
+});
+
+
+// Suggest new item type
+$('#suggest-item-form').on('submit', function(e) {
+    e.preventDefault();
+    App.Util.hideMsg();
+
+    $form = $(this);
+
+    var data = $form.serialize();
+
+    if ($form.parsley().isValid()) {
+        App.Util.loading('.suggest-item-submit');
+        
+        App.Ajax.post('dashboard/grower/items/suggest-item', data, 
+            function(response) {
+                $('input[name="item-type"]').val('');
+                $('textarea[name="comments"]').val('');
+
+                App.Util.msg('Thanks for the suggestion! We\'ll take a look and let you know if we decide to add it', 'success', $('#suggest-item-form'));
+                App.Util.finishedLoading('.suggest-item-submit');
+            },
+            function(response) {
+                App.Util.msg(response.error, 'danger', $('#suggest-item-form'));
+                App.Util.finishedLoading('.suggest-item-submit');
+            }
+        );
+    }
+});

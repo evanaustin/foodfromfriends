@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'individual') {
+        if ($User->GrowerOperation->type != 'individual') {
 
             ?>
 
@@ -93,7 +93,7 @@
             <?php
 
         } else {
-            echo 'Oops! You\'re not supposed to be here.';
+            echo 'To invite team members, first change your seller type <a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="brand">here</a>.';
         }
 
         ?>

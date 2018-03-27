@@ -78,7 +78,7 @@ $item_exists = $FoodListing->retrieve([
         'grower_operation_id'   => $User->GrowerOperation->id,
         'food_category_id'      => $item_category,
         'food_subcategory_id'   => $item_subcategory,
-        'item_variety_id'       => $item_variety,
+        'item_variety_id'       => (isset($item_variety) ? $item_variety : 0)
     ],
     'limit' => 1
 ]);
