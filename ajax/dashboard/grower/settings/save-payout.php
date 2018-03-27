@@ -45,6 +45,35 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+if (!$User->GrowerOperation) {
+    $GrowerOperation = new GrowerOperation([
+        'DB' => $DB
+    ]);
+
+    try {
+        $grower_operation_id = $GrowerOperation->create($User, [
+            'type' => 1
+        ]);
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
+        quit('Hmm, something went wrong!');
+    }
+
+    // reinitialize User & Operation
+    $User = new User([
+        'DB' => $DB,
+        'id' => $USER['id']
+    ]);
+        
+    $id = $User->switch_operation($grower_operation_id);
+
+    if (!empty($User->GrowerOperation)) {
+        if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
+            $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
+        }
+    }
+}
+
 if ($User->GrowerOperation->exists('seller_id', $User->GrowerOperation->id, 'seller_payout_settings')) {
     $updated = $User->GrowerOperation->update([
         'pay_to'                => $pay_to,
