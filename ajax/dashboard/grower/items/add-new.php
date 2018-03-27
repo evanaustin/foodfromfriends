@@ -257,19 +257,17 @@ if (isset($_POST['images'])) {
     }
 }
 
-if ($User->GrowerOperation) {
-    // reinitialize User & Operation for fresh check
-    $User = new User([
-        'DB' => $DB,
-        'id' => $USER['id']
-    ]);
+// reinitialize User & Operation for fresh check
+$User = new User([
+    'DB' => $DB,
+    'id' => $USER['id']
+]);
 
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-
-    $is_active = $User->GrowerOperation->check_active();
+if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
+    $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
 }
+
+$is_active = $User->GrowerOperation->check_active();
 
 $json['is_active']  = $is_active;
 $json['link']       = $User->GrowerOperation->link . '/' . $Item->link;
