@@ -105,12 +105,12 @@
                         </h1>
     
                         <p>
-                            Food From Friends exists to make the local food economy seamless &mdash; easy, convenient, and transparent.
+                            Food From Friends exists to make the local food system seamless. We're making it easy and convenient for anyone to buy and sell local food.
                         </p>
                         
                         <p>
+                            We enable <strong>micro</strong> to <strong>medium-scale farmers</strong> and <strong>home gardeners</strong> with new market exposure and a platform to tell their story. 
                             We empower <strong>consumers</strong>, <strong>chefs</strong>, and <strong>wholesale buyers</strong> with choice and access they've never had before. 
-                            We enable <strong>small farmers</strong>, <strong>home gardeners</strong>, and <strong>growing communities</strong> with unlimited market exposure and a platform to tell their story. 
                         </p>
 
                         <p>
