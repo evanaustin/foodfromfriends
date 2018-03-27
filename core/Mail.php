@@ -53,7 +53,7 @@ class Mail {
     public function thanks_signup() {
         $subject = 'Welcome to Food From Friends!';
     
-        $body = 'You\'re awesome for joining Food From Friends. Our platform is still in its early stages, but you can upload your food listings and build out your presence as a grower in the meantime. Then when we open up to buyers you\'ll be ready to go!';
+        $body = 'Your local food system just got a whole lot more easy and fun, and our platform was just made a whole lot brighter by your presence.';
         $content = new SendGrid\Content('text/html', $body);
     
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
