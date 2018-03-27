@@ -23,10 +23,11 @@
         </div>
         
         <hr>
+        
+        <div class="alerts"></div>
 
         <div class="row">
             <div class="col-md-6">
-                <div class="alerts"></div>
 
                 <form id="save-delivery" data-parsley-excluded="[disabled=disabled]">
                     <div id="delivery-setting">

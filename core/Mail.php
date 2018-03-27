@@ -227,7 +227,7 @@ class Mail {
     public function grower_new_message_notification($Member, $GrowerOperation, $User, $message) {
         $subject = "New message from {$User->name}";
         
-        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'none') ? '&grower=' . $GrowerOperation->id : '');
+        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'individual') ? '&grower=' . $GrowerOperation->id : '');
 
         $token = [
             'user_id' => $Member->id,
@@ -286,7 +286,7 @@ class Mail {
             </p>
             
             <p>
-                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ".
+                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ".
             </p>
 
             <p>
@@ -503,7 +503,7 @@ class Mail {
             </p>
                 
             <p>
-                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". You are no longer responsible for fulfilling this order.
+                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". You are no longer responsible for fulfilling this order.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -599,7 +599,7 @@ class Mail {
             </p>
 
             <p>
-                {$Buyer->name} has left " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . " a new review. This order is now cleared and marked for payout.
+                {$Buyer->name} has left " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . " a new review. This order is now cleared and marked for payout.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -641,7 +641,7 @@ class Mail {
             </p>
 
             <p>
-                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'none') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
+                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">

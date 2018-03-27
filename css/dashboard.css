@@ -6579,9 +6579,8 @@ body.dashboard {
         width: 83.33333%; } }
     body.dashboard main div.subheader {
       /* computed height: 52px */
-      position: fixed;
-      width: inherit;
-      z-index: 99; }
+      position: relative;
+      width: 100%; }
     body.dashboard main > div.container {
       padding: 2em; }
     body.dashboard main > div.container-fluid {

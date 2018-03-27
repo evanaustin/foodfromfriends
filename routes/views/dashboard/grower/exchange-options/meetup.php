@@ -24,10 +24,10 @@
         
         <hr>
 
+        <div class="alerts"></div>
+
         <div class="row">
             <div class="col-md-6">
-                <div class="alerts"></div>
-
                 <form id="save-meetup">
                     <div class="form-group">
                         <label>Do you want to offer meetup?</label>

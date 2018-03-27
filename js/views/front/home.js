@@ -10,7 +10,7 @@ App.Front.Home = function() {
 
                 $sign_up_modal.modal();
 
-                App.Util.msg('Hey! Sign up first &mdash; then we can go add an item to sell!', 'info', $sign_up_form);
+                App.Util.msg('Join as yourself &mdash; we\'ll ask for your seller info next', 'info', $sign_up_form);
 
                 $sign_up_form
                     .find('input[name="redirect"]')

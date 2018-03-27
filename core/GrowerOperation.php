@@ -64,7 +64,7 @@ class GrowerOperation extends Base {
 
         if (isset($this->id)) {
             $this->populate_fully();
-            $this->link = ($this->type == 'none' || $this->type == 'other' ? 'grower' : $this->type) . '/' . $this->slug;
+            $this->link = ($this->type == 'individual' || $this->type == 'other' ? 'grower' : $this->type) . '/' . $this->slug;
 
             if (isset($configure['team']) && $configure['team'] == true) {
                 $this->configure_team();
@@ -197,7 +197,7 @@ class GrowerOperation extends Base {
      * 
      * @param $User the operation owner
      * @param array $data the data for `grower_operations` - shell ops only require $data['type']; other ops require $data['type'] AND $data['name']
-     *  ['type', 'name', 'bio']
+     *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
      *  ['permission', 'is_default']
      */
@@ -234,28 +234,34 @@ class GrowerOperation extends Base {
 
             $grower_operation_id = $grower_added['last_insert_id'];
 
-            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state)) {
-                // Configure operation address
-                $full_address       = "{$User->address_line_1}, {$User->city}, {$User->state}";
+            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state) && !isset($data['address_line_1']) && !isset($data['city']) && !isset($data['state'])) {
+                $address_line_1 = $User->address_line_1;
+                $address_line_2 = $User->address_line_2;
+                $city           = $User->city;
+                $state          = $User->state;
+            }
+
+            if (isset($address_line_1, $city, $state)) {
+                $full_address       = "{$address_line_1}, {$city}, {$state}";
                 $prepared_address   = str_replace(' ', '+', $full_address);
-    
+
                 $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
                 $output             = json_decode($geocode);
-    
+
                 $latitude           = $output->results[0]->geometry->location->lat;
                 $longitude          = $output->results[0]->geometry->location->lng;
-    
-                $added = $User->GrowerOperation->add([
+
+                $added = $this->add([
                     'grower_operation_id'   => $grower_operation_id,
-                    'address_line_1'        => $User->address_line_1,
-                    'address_line_2'        => $User->address_line_2,
-                    'city'                  => $User->city,
-                    'state'                 => $User->state,
-                    'zipcode'               => $User->zipcode,
+                    'address_line_1'        => $address_line_1,
+                    'address_line_2'        => $address_line_2,
+                    'city'                  => ucfirst($city),
+                    'state'                 => $state,
+                    'zipcode'               => $zipcode,
                     'latitude'              => $latitude,
                     'longitude'             => $longitude
                 ], 'grower_operation_addresses');
-                
+    
                 if (!$added) quit('We could not add your operation\'s location');
             }
 
@@ -277,30 +283,29 @@ class GrowerOperation extends Base {
         }
     }
 
-    public function check_active($User) {
-        if (
-            (
-                ($this->type == 'none' && !empty($User->filename))
-                || ($this->type != 'none' && !empty($this->filename))
-            )
-            && (
-                ($this->type == 'none' && !empty($User->zipcode))
-                || ($this->type != 'none' && !empty($this->zipcode))
-            )
+    public function check_active() {
+        $payout_settings = $this->retrieve([
+            'where' => [
+                'seller_id' => $this->id
+            ],
+            'table' => 'seller_payout_settings',
+            'limit' => 1
+        ]);
+        error_log(json_encode($payout_settings));
+
+        if (!empty($payout_settings) && !empty($this->filename) && !empty($this->latitude) && !empty($this->longitude)
             && (($this->Delivery && $this->Delivery->is_offered) || ($this->Pickup && $this->Pickup->is_offered) || ($this->Meetup && $this->Meetup->is_offered))
             && $this->count_listings() > 0
         ) {
             $this->update([
                 'is_active' => 1
-            ],
-            'id', $this->id);
+            ]);
             
             $this->is_active = 1;
         } else {
             $this->update([
                 'is_active' => 0
-            ],
-            'id', $this->id);
+            ]);
             
             $this->is_active = 0;
         }

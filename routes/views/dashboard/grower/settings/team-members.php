@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'none') {
+        if ($User->GrowerOperation->permission == 2 && $User->GrowerOperation->type != 'individual') {
 
             ?>
 

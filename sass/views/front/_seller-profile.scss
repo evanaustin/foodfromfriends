@@ -1,5 +1,5 @@
 body.front.seller-profile {
-    [canvas="container"] {
+    [canvas="container"], main, .main {
         background-color: $superlight-gray;
     }
     
@@ -61,6 +61,8 @@ body.front.seller-profile {
                             }
 
                             fable {
+                                flex-direction: row;
+                                
                                 cell {
                                     .btn {
                                         margin: 0;

@@ -15,6 +15,12 @@
                 </li>
             
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
@@ -66,7 +72,20 @@
                     <a id="log-out" class="nav-link" href="#">Log out</a>
                 </li>
 
-            <?php } if ($Routing->template == 'dashboard') {
+            <?php } if ($Routing->template == 'dashboard') { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                        Map
+                    </a>
+                </li>
+
+                <?php
 
                 $sidebar = [
                     'grower' => [
@@ -118,7 +137,7 @@
                 ];
 
                 foreach($User->Operations as $Op) {
-                    if ($Op->type != 'none') {
+                    if ($Op->type != 'individual') {
                         $sidebar['messages']['inbox']['selling?grower=' . $Op->id] = $Op->name;
                     } else {
                         array_splice($sidebar['messages']['inbox'], 1, 0, 'selling');
@@ -213,7 +232,7 @@
                                                     } else if (!$active) {
                                                         if ($alias != 'selling') {
                                                             $seller_id = str_replace('selling?grower=', '', $alias_key);
-                                                        } else if ($User->GrowerOperation->type == 'none') {
+                                                        } else if ($User->GrowerOperation->type == 'individual') {
                                                             $seller_id = $User->GrowerOperation->id;
                                                         }
                                                         

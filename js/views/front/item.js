@@ -121,11 +121,11 @@ App.Front.Item = function() {
                                 $cart_items = $('#ordergrower-' + response.ordergrower.id).find('div.cart-items');
                                 $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
                             }
-                             
+                            
                             $cart_item = $(
                                 '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
                                     '<div class="item-image">' +
-                                        '<img src="https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.listing.filename + '.' + response.listing.ext + '" class="img-fluid"/>' +
+                                        '<img src="' + (response.listing.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.listing.filename + '.' + response.listing.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '" class="img-fluid"/>' +
                                     '</div>' +
                                     
                                     '<div class="item-content">' +

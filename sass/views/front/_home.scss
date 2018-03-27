@@ -1,62 +1,346 @@
-.home {
-    main {
-        background-color: #fff;
-        padding-bottom: 0;
+main {
+    background-color: #fff;
+    padding-bottom: 0;
+}
+
+.main {
+    background-color: #fff;
+
+    h1, p, .btn {
+        position: relative;
+        z-index: 99;
     }
-    
-    .main {
-        background-color: #fff;
-    
-        .hero {
+
+    h1 {
+        color: $muted;
+        font-weight: 100;
+        text-shadow: 0 0 5px #fff;
+        
+        strong {
+            color: $dark-gray;
+            text-transform: uppercase;
+        }
+
+        @include xs() {
+            margin: 0 1.5rem;
+        }
+
+        @include sm() {
+            font-size: 2rem;
+        }
+        
+        @include md() {
+            font-size: 2.5rem;
+        }
+    }
+
+    p {
+        color: $muted;
+
+        @include xs() {
+            margin: 1.5rem 1.5rem 0;
+            font-size: 1.15rem;
+        }
+    }
+
+    .btn {
+        margin-top: 1rem;
+    }
+
+    .btn-dark:hover {
+        background-color: $dark-gray;
+        border-color: $dark-gray;
+    }
+
+    #hero {
+        @include xs() {
+            margin: 3rem 0 6rem;
+        }
+
+        @include xl() {
             background: url('../media/homepage/seeds.png') no-repeat;
-            
-            @include phones() {
-                margin: 4rem 0;
-                background-position: bottom center;
-                background-size: 500px 333px;
+            background-size: 1000px 666px;
+            background-position: top right;
+        }
+
+        img.veggies {
+            position: relative;
+            z-index: 98;
+            max-height: 700px;
+            padding-right: 1rem;
+        }
+        
+        h1 {
+            @include xs() {
+                margin: 0;
+                font-size: 2rem;
             }
             
-            @include all-but-phones() {
-                background-size: 1000px 666px;
-                background-position: top right;
+            @include sm() {
+                font-size: 3rem;
             }
             
-            h1 {
-                color: $muted;
-                font-size: 5rem;
-                font-weight: 100;
-                text-align: left;
-                text-shadow: 0 0 7px #fff;
+            @include md() {
+                font-size: 3.5rem;
+            }
+            
+            @include lg() {
+                font-size: 4rem;
+            }
+        }
+        
+        img.colorbowl {
+            max-height: 550px;
+        }
+    }
+
+    #sidekick {
+        h1 {
+            @include xs() {
+                font-size: 2.25rem;
+            }
+        }
+
+        #thought {
+            img.chard {
+                position: absolute;
+                z-index: 0;
+                max-width: 450px;
                 
-                strong{
-                    color: $dark-gray;
+                @include xs() {
+                    top: -100px;
+                    left: -250px;
                 }
-    
-                @include phones() {
-                    color: $dark-gray;
-                    padding-left: 1rem;
-                    font-size: 2.25rem;
+
+                @include sm() {
+                    top: -75px;
+                    left: -150px;
                 }
+                
+                @include lg() {
+                    max-width: 550px;
+                    left: -100px;
+                }
+                
+                @include xl() {
+                    top: -105px;
+                }
+            }
+
+            #thought-for-food {
+                position: relative;
+                z-index: 99;
+                margin-top: 6rem;
+
+                @include xs() {
+                    margin-top: 5rem;
+                    text-align: left;
+
+                    h1 {
+                        margin-right: 2rem;
+                        text-align: right;
+                    }
+                }
+                
+                @include sm() {
+                    margin-top: 10rem;
+                    text-align: center;
+                }
+
+                @include md() {
+                    margin-top: 10rem;
+                    @include transform(translateX(50px));
+                }
+
+                @include lg() {
+                    margin-left: 13rem;
+                    @include transform(translateX(75px));
+                }
+
+                @include xl() {
+                    @include transform(translateX(125px));
+                }
+            }
+
+            img.tomatoes {
+                position: absolute;
+                z-index: 0;
+                top: -15px;
+
+                @include md() {
+                    max-height: 700px;
+                }
+                
+                @include lg() {
+                    max-height: 1200px;
+                }
+            }
+        }
+
+        #model {
+            .plate {
+                @include xs() {
+                    top: -25px;
+                    left: -200px;
+                }
+
+                @include sm() {
+                    position: absolute;
+                    z-index: 0;
+                    max-height: 925px;
+                    top: -150px;
+                    left: -250px;
+                }
+
+                @include md() {
+                    left: -200px;
+                }
+
+                @include xl() {
+                    left: -50px;
+                }
+            }
+
+            #model-for-the-future {
+                @include sm() {
+                    margin-top: 15rem;
+                    text-align: right;
+                }
+
+                @include md() {
+                    margin-top: 17rem;
+                    text-align: center;
+
+                    @include transform(translateX(-10%));
+                }
+
+                @include lg() {
+                    margin-top: 15rem;
+                    margin-right: 2rem;
+                    
+                    @include transform(translateX(8.33%));
+                }
+                
+                @include xl() {
+                    @include transform(translateX(15%));
+                    
+                    p {
+                        margin-left: 0.5rem;
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+
+            img.chard-bunch {
+                max-height: 400px;
+                margin-top: 4rem;
+
+                @include md() {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        #platform {
+            img.smoothie {
+                max-width: 325px;
+
+                @include xs() {
+                    margin-top: 2rem;
+                }
+
+                @include sm() {
+                    position: absolute;
+                    top: -100px;
+                }
+
+                @include lg() {
+                    top: 200px;
+                    right: 1rem;
+                }
+                
+                @include xl() {
+                    right: 4rem;
+                }
+            }
+
+            #platform-for-everyone {
+                @include xs() {
+                    margin-top: 4rem;
+                }
+
+                @include sm() {
+                    margin-top: 15rem;
+                }
+
+                @include md() {
+                    text-align: center;
+                    @include transform(translateX(15px));
+                }
+                
+                @include lg() {
+                    text-align: left;
+                    @include transform(translateX(0));
+                }
+                
+                @include xl() {
+                    margin-top: 16rem;
+                }
+            }
+
+            img.chard-bunch {
+                max-height: 400px;
+                margin-top: 4rem;
+            }
+        }
+
+        #action {
+            margin-bottom: 2rem;
+
+            @include xs() {
+                margin-top: 2rem;
+            }
+
+            @include sm() {
+                margin-top: 5rem;
             }
             
-            .btn {
-                margin-top: 1rem;
+            #practice {
+                @include xs() {
+                    margin-top: 2rem;
+                }
     
-                &.btn-dark:hover {
-                    background-color: $dark-gray;
-                    border-color: $dark-gray;
+                @include sm() {
+                    margin-top: 7rem;
+                }
+                
+                @include lg() {
+                    margin-top: 10rem;
+                }
+
+                h2 {
+                    font-weight: 100;
+                    color: $muted;
+                    text-align: center;
+
+                    @include xs() {
+                        margin-bottom: 2rem;
+                        font-size: 1.75rem;
+                    }
+    
+                    @include sm() {
+                        margin-bottom: 1rem;
+                    }
+                    
+                    @include xl() {
+                        // text-align: right;
+                    }
                 }
             }
-    
-            img {
-                &.veggies {
-                    max-height: 900px;
-                }
-    
-                &.colorbowl {
-                    max-height: 500px;
-                    // padding: 4rem 0 4rem 6rem;
-                }
+
+            img.loaf {
+                // max-width: 750px;
+                max-height: 450px;
             }
         }
     }

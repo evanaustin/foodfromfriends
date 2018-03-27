@@ -45,7 +45,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
-                        href="<?php echo PUBLIC_ROOT; ?>"
+                        href="<?php echo PUBLIC_ROOT . 'map'; ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Map"
                     >
                         <i class="fa fa-map"></i>

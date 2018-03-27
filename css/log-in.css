@@ -6805,6 +6805,14 @@ canvas:focus {
 .no-padding {
   padding: 0 !important; }
 
+@media (min-width: 768px) {
+  .md-no-padding {
+    padding: 0 !important; } }
+
+@media (min-width: 992px) {
+  .lg-no-padding {
+    padding: 0 !important; } }
+
 .padding-top-10em {
   padding-top: 0.1rem; }
 
@@ -6819,6 +6827,10 @@ canvas:focus {
 
 .padding-1em {
   padding: 1rem; }
+
+.p2w {
+  padding-left: 2rem;
+  padding-right: 2rem; }
 
 .p1w {
   padding-left: 1rem;
@@ -7117,6 +7129,9 @@ canvas:focus {
 
 .flexend {
   justify-content: flex-end; }
+
+.flexbottom {
+  align-self: flex-end; }
 
 /* BTN */
 .btn {

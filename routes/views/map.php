@@ -33,7 +33,7 @@
                                                     </div>
                                                     
                                                     <div class="small-gray padding-top-15em">
-                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (($Grower->type == 'none' || $Grower->type == 'other') ? 'Grower' : ucfirst($Grower->type)); ?>
+                                                        <?php echo "<span class=\"brand\">" . stars($Grower->average_rating) . "</span>&nbsp;&bull;&nbsp;" . (($Grower->type == 'individual' || $Grower->type == 'other') ? 'Grower' : ucfirst($Grower->type)); ?>
                                                     </div>
                                                     
                                                     <div class="small-gray padding-top-10em">
@@ -57,13 +57,13 @@
 
                             ?>
 
-                            <div class="<?php echo (!isset($User->GrowerOperation) ? 'col-' . (empty($wishlist) ? '6' : '12') : 'hidden'); ?>">
-                                <a id="start-selling" href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Start selling</a>
+                            <div class="<?php echo (!isset($User->GrowerOperation) ? 'col-12' : 'hidden'); ?>">
+                                <a id="start-selling" href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">List your items</a>
                             </div>
 
-                            <div class="<?php echo (empty($wishlist) ? 'col-' . (!isset($User->GrowerOperation) ? '6' : '12') : 'hidden'); ?>">
-                                <a id="build-wish-list" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/wish-list'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Build a wish list</a>
-                            </div>
+                            <!-- <div class="<?php //echo (empty($wishlist) ? 'col-12' : 'hidden'); ?>">
+                                <a id="build-wish-list" href="<?php //echo PUBLIC_ROOT . 'dashboard/account/buying/wish-list'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Build a wish list</a>
+                            </div> -->
                         </div>
                     </div>
 

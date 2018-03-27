@@ -79,6 +79,18 @@ canvas {
     padding: 0 !important;
 }
 
+.md-no-padding {
+    @include md() {
+        padding: 0 !important;
+    }
+}
+
+.lg-no-padding {
+    @include lg() {
+        padding: 0 !important;
+    }
+}
+
 .padding-top-10em {
     padding-top: 0.1rem;
 }
@@ -97,6 +109,11 @@ canvas {
 
 .padding-1em {
     padding: 1rem;
+}
+
+.p2w {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .p1w {
@@ -420,7 +437,6 @@ canvas {
 
  .flexbox {
     display: flex;
-
 }
 
 .flexcolumn {
@@ -469,6 +485,10 @@ canvas {
  .flexend {
     justify-content: flex-end;
  }
+
+ .flexbottom {
+    align-self: flex-end;
+  }
 
 
 

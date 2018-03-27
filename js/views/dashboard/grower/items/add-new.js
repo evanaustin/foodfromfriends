@@ -45,7 +45,9 @@ $('#item-categories').on('change', function() {
 
 // Re-populate varieties select menu
 $('#item-subcategories').on('change', function() {
-    $('#item-varieties').empty().append('<option selected disabled>Select variety</option>');
+    $('#item-varieties').empty()
+        .append('<option selected disabled>Select variety</option>')
+        .append('<option value="0">None</option>');
 
     var varieties = false;
 

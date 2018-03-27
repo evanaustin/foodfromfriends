@@ -49,7 +49,7 @@ if ($User->GrowerOperation->exists('seller_id', $User->GrowerOperation->id, 'sel
     $updated = $User->GrowerOperation->update([
         'pay_to'                => $pay_to,
         'routing_number'        => $routing,
-        'bank_account_number'   => $bank_account,
+        'account_number'        => $bank_account,
         'first_name'            => (isset($first_name) ? $first_name : ''),
         'last_name'             => (isset($last_name) ? $last_name : ''),
         'address_line_1'        => $address_line_1,
@@ -65,7 +65,7 @@ if ($User->GrowerOperation->exists('seller_id', $User->GrowerOperation->id, 'sel
         'seller_id'             => $User->GrowerOperation->id,
         'pay_to'                => $pay_to,
         'routing_number'        => $routing,
-        'bank_account_number'   => $bank_account,
+        'account_number'        => $bank_account,
         'first_name'            => (isset($first_name) ? $first_name : ''),
         'last_name'             => (isset($last_name) ? $last_name : ''),
         'address_line_1'        => $address_line_1,
@@ -90,7 +90,7 @@ if (!empty($User->GrowerOperation)) {
     }
 }
 
-$User->GrowerOperation->check_active($User);
+$User->GrowerOperation->check_active();
 
 echo json_encode($json);
 

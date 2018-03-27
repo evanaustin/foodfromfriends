@@ -165,7 +165,7 @@
                             Gender <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="right" title="Private"></i>
                         </label>
 
-                        <select name="gender" class="custom-select" data-parsley-trigger="submit" required>
+                        <select name="gender" class="custom-select" data-parsley-trigger="submit">
                             <option disabled selected <?php if (!empty($User->gender )) { echo 'hidden'; } ?>>Unknown</option>
 
                             <option value="male" <?php if ($User->gender == 'male') { echo 'selected'; } ?>>

@@ -12,8 +12,18 @@
                         ?>
 
                         <div class="alerts" style="display:block;">
-                            <div class="alert alert-warning">
-                                <span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower'; ?>">here</a> to finish activating your seller account.</span>
+                            <div class="alert alert-<?php echo (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+
+                                <?php
+
+                                if ($GrowerOperation->is_active) {
+                                    echo "<span>This is what your item looks like to the public. Click <a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\">here</a> to go edit this item.</span>";
+                                } else {
+                                    echo '<span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
+                                }
+
+                                ?>
+
                                 <a class="close" data-dismiss="alert">×</a>
                             </div>
                         </div>
@@ -31,7 +41,9 @@
                                     <?php
                                     
                                     if (!empty($FoodListing->filename)) {
+                                        echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
                                         img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
+                                        echo '</a>';
                                     } else {
                                         img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
         
@@ -78,17 +90,13 @@
                                         echo '<div class="rounded-circle">' . count($ratings) . '</div>';
                                     }
                                     
-                                    ?>
+                                    if (!empty($FoodListing->weight) && !empty($FoodListing->units)) {
+                                        echo '&bull;&nbsp;$' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units;
+                                    }
 
-                                    <!-- ! dirty -->
-                                    &bull;&nbsp;
-                                    
-                                    $<?php echo number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units; ?>
-                                    
-                                    <!-- ! dirty -->
-                                    &nbsp;&bull;&nbsp;
-                                    
-                                    <?php echo ($FoodListing->is_available) ? "{$FoodListing->quantity} in stock" : 'Unavailable'; ?>
+                                    echo '&nbsp;&bull;&nbsp;' . ($FoodListing->is_available ? "{$FoodListing->quantity} in stock" : 'Unavailable');
+
+                                    ?>
                                 </h6>
                                 
                                 <?php
@@ -244,15 +252,17 @@
                                             ?>           
                                             
                                             <div class="user-block margin-btm-1em">
-                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
-                                                
+                                                <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">
+                                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                                </a>
+
                                                 <div class="user-content">
                                                     <p class="muted margin-btm-25em">
                                                         &quot;<?php echo $rating['review']; ?>&quot;
                                                     </p>
 
                                                     <small class="dark-gray bold flexstart">
-                                                        <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                        <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
@@ -276,12 +286,14 @@
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
-                                        Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> growing your food
+                                        Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
                                     </div>
 
                                     <div class="user-block">
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
-                                    
+                                        <a href="<?php echo PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
+                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                        </a>
+                                        
                                         <div class="user-content">
                                             <div class="font-18 muted thick">    
                                                 <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link; ?>">
@@ -637,16 +649,18 @@
 
                                         ?>           
                                         
-                                        <div class="user-block margin-btm-1em">                  
-                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
-                                            
+                                        <div class="user-block margin-btm-1em">
+                                            <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">                
+                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                            </a>
+
                                             <div class="user-content">
                                                 <p class="muted margin-btm-25em">
                                                     &quot;<?php echo $rating['review']; ?>&quot;
                                                 </p>
 
                                                 <small class="dark-gray bold flexstart">
-                                                    <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                    <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                 </small>
                                             </div>
                                         </div>
@@ -670,12 +684,14 @@
                                 </h4>
 
                                 <div class="muted margin-btm-1em">
-                                    Get to know the <?php echo (($GrowerOperation->type == 'none') ? 'person' : 'people'); ?> selling these items
+                                    Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> selling these items
                                 </div>
 
                                 <div class="user-block">
-                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
-                                
+                                    <a href="<?php echo PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
+                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                    </a>
+
                                     <div class="user-content">
                                         <div class="font-18 muted thick">    
                                             <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link; ?>">

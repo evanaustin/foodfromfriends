@@ -19,7 +19,7 @@ if (!empty($User->filename)) {
     quit('There was no image to remove');
 }
 
-if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
+if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'individual') {
     // reinitialize User & Operation for fresh check
     $User = new User([
         'DB' => $DB,
@@ -30,7 +30,7 @@ if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'none') {
         $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
     }
 
-    $User->GrowerOperation->check_active($User);
+    $User->GrowerOperation->check_active();
 }
 
 echo json_encode($json);

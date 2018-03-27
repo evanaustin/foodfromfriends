@@ -22,7 +22,7 @@
                     $sent_on->setTimezone(new DateTimeZone($User->timezone));
                     $date_sent = $sent_on->format('g:i A n/j/y'); 
                     
-                    $snippet = truncate($ThisMessage->body, 85);
+                    $snippet = truncate($ThisMessage->body, 75);
 
                     $Customer = new User([
                         'DB' => $DB,
@@ -70,7 +70,7 @@
                 ?>
 
                 <div class="block strong">
-                    <?php echo ($User->GrowerOperation->type != 'none' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
+                    <?php echo ($User->GrowerOperation->type != 'individual' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
                 </div>
 
                 <?php
