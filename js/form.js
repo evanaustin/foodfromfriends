@@ -33,7 +33,7 @@ App.Form = function() {
             this.$element.removeClass('danger').addClass('success');
         });
 
-        $('a').on('click', function(e) {
+        $('a:not([data-toggle="modal"])').on('click', function(e) {
             var href = $(this).attr('href');
 
             if ($('.form-group').hasClass('has-danger')) {
