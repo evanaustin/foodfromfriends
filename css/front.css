@@ -6894,7 +6894,7 @@ main {
         max-height: 700px; } }
     @media (min-width: 992px) {
       .main #sidekick #thought img.tomatoes {
-        max-height: 1500px; } }
+        max-height: 1200px; } }
   @media (max-width: 576px) {
     .main #sidekick #model .plate {
       top: -25px;
