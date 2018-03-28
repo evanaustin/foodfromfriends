@@ -46,13 +46,13 @@
                     <button type="submit" class="btn btn-primary btn-block">Log in</button>
                 </form>
 
-                <!-- <div id="forgot-password">
-                    <a href="">Forgot password?</a>
-                </div> -->
+                <div id="forgot-password" class="margin-top-1em">
+                    <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#reset-password-link-modal">Forgot password?</a>
+                </div>
             </div>
 
-            <div class="modal-footer <?php if ($Routing->landing == 'splash') { echo 'hidden'; } ?>">
-                Don't have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#sign-up-modal">Sign up</a>
+            <div class="modal-footer">
+                Don't have an account? <a href="#" class="strong" data-dismiss="modal" data-toggle="modal" data-target="#sign-up-modal">Sign up</a>
             </div>
         </div>
     </div>
