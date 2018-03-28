@@ -118,8 +118,9 @@ foreach ([
             $extensions['cart']         = 'routes/components/front/cart';
 
             if (!$LOGGED_IN) {
-                $extensions['sign-up']  = 'routes/modals/sign-up';
-                $extensions['log-in']   = 'routes/modals/log-in';
+                $extensions['sign-up']              = 'routes/modals/sign-up';
+                $extensions['log-in']               = 'routes/modals/log-in';
+                $extensions['reset-password-link']  = 'routes/modals/reset-password-link';
             } else {
                 $extensions['checkout'] = 'routes/modals/checkout';
             }
