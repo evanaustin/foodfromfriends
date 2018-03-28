@@ -116,7 +116,7 @@
             </div>
 
             <div class="modal-footer">
-                Already have an account? <a href="" data-dismiss="modal" data-toggle="modal" data-target="#log-in-modal">Log in</a>
+                Already have an account? <a href="#" class="strong" data-dismiss="modal" data-toggle="modal" data-target="#log-in-modal">Log in</a>
             </div>
         </div>
     </div>
