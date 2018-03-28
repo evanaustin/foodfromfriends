@@ -194,13 +194,22 @@ class User extends Base {
             SELECT * 
             FROM users 
             WHERE email=:email 
-                AND password=:password LIMIT 1
+                AND password=:password 
+            LIMIT 1
         ', [
             'email'     => $email,
-            'password'  => hash('sha256', $password) 
+            'password'  => hash('sha256', $password)
         ]);
 
         return (isset($results[0])) ? $results[0]['id'] : false;
+    }
+    
+    public function reset_password($email, $password) {
+        $updated = $this->update([
+            'password' => hash('sha256', $password)
+        ], 'email', $email);
+
+        return $updated;
     }
 
     public function log_in($id) {
