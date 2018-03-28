@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col-md-12"> 
                                 <label for="food-categories">
-                                    What kind of item do you have?
+                                    Item type
                                 </label>
                             </div>
 
@@ -79,22 +79,32 @@
                         </small>
                     </div>
 
-                    <!-- <div id="other-option" class="form-group hidden">
-                        <label for="other-subcategory">
-                            Can't find the food you're trying to list?
-                        </label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="other-subcategory">
+                                    Item name (optional)
+                                </label>
 
-                        <input id="other-subcategory" type="text" name="other-subcategory" class="form-control" placeholder="Add your food type">
-                    </div> -->
+                                <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name">
+                                
+                                <small class="form-text text-muted">
+                                    Leave this blank and the item name will default to the selected item type
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="price">
+                                    Item price
+                                </label>
 
-                    <div class="form-group">
-                        <label for="price">
-                            Listing price
-                        </label>
-
-                        <div class="input-group w-addon">
-                            <div class="input-group-addon">$</div>
-                            <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
+                                <div class="input-group w-addon">
+                                    <div class="input-group-addon">$</div>
+                                    <input id="price" type="text" name="price" class="form-control" placeholder="Enter the full price of one item" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
+                                </div>
+                            </div>
                         </div>
                     </div>
 

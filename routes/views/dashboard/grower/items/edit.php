@@ -113,12 +113,26 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="price">Item price</label>
-                            
-                            <div class="input-group w-addon">
-                                <div class="input-group-addon">$</div>
-                                <input id="price" type="text" name="price" class="form-control" value="<?php echo number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="other-subcategory">
+                                        Item name
+                                    </label>
+
+                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?php echo $FoodListing->title; ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="price">Item price</label>
+                                    
+                                    <div class="input-group w-addon">
+                                        <div class="input-group-addon">$</div>
+                                        <input id="price" type="text" name="price" class="form-control" value="<?php echo number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
