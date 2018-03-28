@@ -89,6 +89,7 @@ if (!empty($item_exists)) {
 
 $listing_added = $FoodListing->add([
     'grower_operation_id'   => $User->GrowerOperation->id,
+    'name'                  => $item_name,
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),

@@ -4,6 +4,7 @@ class FoodListing extends Base {
     
     public
         $id,
+        $name,
         $grower_operation_id,
         $food_category_id,
         $food_subcategory_id,
@@ -45,7 +46,7 @@ class FoodListing extends Base {
             $this->configure_object($parameters['id']);
             $this->populate_fully($this->id);
 
-            $this->title = ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
+            $this->title = (isset($this->name)) ? $this->name : ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
 
             $Slug = new Slug([
                 'DB' => $this->DB

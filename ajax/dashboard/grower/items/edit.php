@@ -70,6 +70,7 @@ if (!empty($item_exists) && $item_exists['id'] != $FoodListing->id) {
 }
 
 $listing_edited = $FoodListing->update([
+    'name'                  => $item_name,
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
