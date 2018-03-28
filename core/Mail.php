@@ -26,30 +26,6 @@ class Mail {
         $this->to           = new SendGrid\Email($send['toName'], $send['toEmail']);
     }
 
-    public function thanks_locavore_signup() {
-        $subject = 'Hey, you rock for signing up!';
-
-        $body = 'When we launch our platform in your area, you&#39;ll be among the first to be able to buy food from local growers in your neighborhood. We&#39;ll send you a note soon inviting you to finish the sign up process so you can go wild and do your thing.';
-        $content = new SendGrid\Content('text/html', $body);
-
-        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
-        $mail->setTemplateId('367345ae-cfd1-4685-a21d-c6cc8b3c97c6');
-
-        return $this->sendgrid->client->mail()->send()->post($mail);
-    }
-    
-    public function thanks_grower_signup() {
-        $subject = 'Hey, you rock for signing up!';
-
-        $body = 'When we launch our platform in your area, you&#39;ll be among the first to be able to sell food to locavores in your neighborhood. We&#39;ll send you a note soon inviting you to finish the sign up process so you can go wild and do your thing.';
-        $content = new SendGrid\Content('text/html', $body);
-
-        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
-        $mail->setTemplateId('84fb9a47-8512-4afc-89ad-cee1d174b5cd');
-
-        return $this->sendgrid->client->mail()->send()->post($mail);
-    }
-    
     public function thanks_signup() {
         $subject = 'Welcome to Food From Friends!';
     
@@ -59,6 +35,55 @@ class Mail {
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
         $mail->setTemplateId('04ad1ecd-1a15-44a1-a329-72632de50d72');
     
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+
+    public function reset_password_link($email) {
+        $subject = "Reset your password";
+        
+        $token = [
+            'email'     => $email,
+            'time'      => 60 * 60 * 24,
+            'iss_on'    => time(),
+        ];
+        
+        $jwt = JWT::encode($token, JWT_KEY);
+        
+        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'reset-password';
+
+        $reset_link = urldecode(urlencode($base_route . '?token=' . $jwt));
+        
+        $body = "
+            <h1>
+                Reset your password
+            </h1>
+
+            <hr>
+
+            <p>
+                Hello!
+            </p>
+
+            <p>
+                You are receiving this email because a password reset was recently requested for your account at Food From Friends. This link is only valid for the next 24 hours.
+            </p>
+
+            <a href=\"" . $reset_link . "\" class=\"button bg-green block\">
+                Reset password
+            </a>
+
+            <p>
+                If you did not request a password reset, no action is required from you.
+            </p>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
@@ -525,7 +550,6 @@ class Mail {
 
     public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
         $subject = "Fulfilled order - {$GrowerOperation->name}";
-        
         
         $token = [
             'user_id' => $Buyer->id

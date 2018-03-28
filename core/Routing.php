@@ -38,10 +38,9 @@ class Routing extends Base {
         $exp_path  = explode('/', $this->path);
 
         $this->unique = [
-            'splash',
-            'early-access-invitation',
-            'team-member-invitation',
-            'log-in'
+            'log-in',
+            'reset-password',
+            'team-member-invitation'
         ];
 
         if (in_array($this->path, $this->unique)) {

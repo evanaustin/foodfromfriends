@@ -60,7 +60,7 @@ App.Account = function() {
                     }
                 );
             }
-        });	
+        });
         
         /*
         * Log out
@@ -76,6 +76,54 @@ App.Account = function() {
             );
         });
         
+        /*
+         * Send reset password link
+         */
+       $('#reset-password-link').on('submit', function(e) {
+            e.preventDefault();
+
+            $form = $(this);
+
+            if ($form.parsley().isValid()) {
+                App.Util.hideMsg();
+
+                var data = $form.serialize();
+                
+                App.Ajax.post('user/reset-password-link', data, 
+                    function(response) {
+                        App.Util.msg('Check your inbox for a link to reset your password', 'success');
+                    },
+                    function(response) {
+                        App.Util.msg(response.error, 'success');
+                    }
+                );
+            }
+        });
+        
+        /*
+         * Reset password
+         */
+       $('#reset-password').on('submit', function(e) {
+            e.preventDefault();
+
+            $form = $(this);
+
+            if ($form.parsley().isValid()) {
+                App.Util.hideMsg();
+
+                var data = $form.serialize();
+                
+                App.Ajax.post('user/reset-password', data, 
+                    function(response) {
+                        App.Util.msg('Your password was successfully reset. Click <a href="' + PUBLIC_ROOT + 'log-in">here</a> to go log in', 'success');
+                    },
+                    function(response) {
+                        App.Util.msg(response.error, 'danger');
+                    }
+                );
+            }
+        });
+
         /*
         * Switch operations
         */
