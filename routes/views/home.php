@@ -105,7 +105,7 @@
                         </h1>
     
                         <p>
-                            Food From Friends exists to make the local food system seamless. We're making it easy and convenient for anyone to buy and sell local food.
+                            Food From Friends exists to make the local food system seamless. We're making it easy and convenient for anyone to exchange local food.
                         </p>
                         
                         <p>
