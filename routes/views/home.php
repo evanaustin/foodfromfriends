@@ -114,7 +114,7 @@
                         </p>
 
                         <p>
-                            We're here to connect you. To food, and to people.
+                            We're here to connect you. To food, and to friends.
                         </p>
                     </div>
                 </div>
