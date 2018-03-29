@@ -142,7 +142,7 @@
                             </div>
 
                             <div class="col-12 col-sm-6 col-md-12 col-lg-5">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
+                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
                             </div>
                         </div>
                     </div>
