@@ -102,18 +102,37 @@
                                 <?php
                                 
                                 if (!empty($FoodListing->description)) {
-                                    echo "<p class=\"description muted\">{$FoodListing->description}</p>";
+                                    echo '<div class="callout description">';
+                                    echo "<div>{$FoodListing->description}</div>";
+                                    echo '</div>';
                                 } else if ($is_owner) {
                                     echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
                                 }
 
+                                if (!empty($FoodListing->unit_definition)) {
+                                    
+                                    ?>
+                                    
+                                    <div class="item-definition set d-none d-md-block">
+                                        <h4 class="margin-btm-50em">
+                                            Packaging
+                                        </h4>
+
+                                        <div class="muted margin-btm-1em">
+                                            This is a description of how this item comes packaged
+                                        </div>
+        
+                                        <div class="callout">
+                                            <div><?php echo $FoodListing->unit_definition; ?></div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                    
+                                }
+
                                 ?>
 
-                                <h4 class="margin-top-2em">
-                                    Item definition
-                                </h4>
-
-                                <p class="description muted"><?php echo $FoodListing->unit_definition; ?></p>
 
                                 <div class="available-exchange-options set d-none d-md-block">
                                     <h4 class="margin-btm-50em">
@@ -289,7 +308,7 @@
                                         Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
                                     </div>
 
-                                    <div class="user-block">
+                                    <div class="user-block margin-btm-50em">
                                         <a href="<?php echo PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
                                             <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                         </a>
@@ -304,19 +323,9 @@
                                             <?php
 
                                             if ($GrowerOperation->is_active) {
-
-                                                ?>
-
-                                                <div class="font-85 muted bold margin-btm-50em">
-                                                    <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
-                                                </div>
-
-                                                <p class="light-gray">
-                                                    <?php echo $GrowerOperation->bio; ?>
-                                                </p>
-
-                                                <?php
-
+                                                echo '<div class="font-85 muted bold margin-btm-50em">';
+                                                echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}";
+                                                echo '</div>';
                                             }
 
                                             ?>
@@ -327,6 +336,10 @@
 
                                     if (!$GrowerOperation->is_active && $is_owner) {
                                         echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower" class="btn btn-cta margin-top-1em">Complete your profile</a>';
+                                    } else if (!empty($GrowerOperation->bio)) {
+                                        echo '<div class="callout">';
+                                        echo "<div>{$GrowerOperation->bio}</div>";
+                                        echo '</div>';
                                     }
                                     
                                     ?>
@@ -513,9 +526,31 @@
                         </div>
 
                         <div class="col-12 order-4 d-md-none">
+                            <?php
+
+                            if (!empty($FoodListing->unit_definition)) {
+
+                                ?>
+
+                                <div class="item-definition set">
+                                    <h4>
+                                        Item definition
+                                    </h4>
+
+                                    <div class="callout">
+                                        <div><?php echo $FoodListing->unit_definition; ?></div>
+                                    </div>
+                                </div>
+
+                                <?php
+
+                            }
+
+                            ?>
+
                             <div class="available-exchange-options set">
                                 <h4 class="margin-btm-50em">
-                                    <bold class="dark-gray">Exchange options</bold>
+                                    Exchange options
                                     <light class="light-gray">(<?php echo count($exchange_options_available); ?>)</light>
                                 </h4>
 
@@ -702,27 +737,26 @@
                                         <?php
 
                                         if ($GrowerOperation->is_active) {
-
-                                            ?>
-
-                                            <div class="font-85 muted bold margin-btm-50em">
-                                                <?php echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
-                                            </div>
-
-                                            <p class="light-gray">
-                                                <?php echo $GrowerOperation->bio; ?>
-                                            </p>
-
-                                            <?php
-
-                                        } else {
-                                            echo '<a href="" class="btn btn-cta">Complete your profile</a>';
+                                            echo '<div class="font-85 muted bold margin-btm-50em">';
+                                            echo "{$grower_stars} &nbsp;&bull;&nbsp; {$GrowerOperation->city}, {$GrowerOperation->state}";
+                                            echo '</div>';
                                         }
 
                                         ?>
-                                        
                                     </div>
                                 </div>
+
+                                <?php
+
+                                if (!$GrowerOperation->is_active && $is_owner) {
+                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower" class="btn btn-cta margin-top-1em">Complete your profile</a>';
+                                } else if (!empty($GrowerOperation->bio)) {
+                                    echo '<div class="callout">';
+                                    echo "<div>{$GrowerOperation->bio}</div>";
+                                    echo '</div>';
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>

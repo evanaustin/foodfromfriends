@@ -7575,9 +7575,9 @@ body.front.item [canvas="container"], body.front.item main, body.front.item .mai
 body.front.item div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
-  @media (min-width: 768px) {
-    body.front.item div.main.container #main-content p.description {
-      margin-bottom: 2rem; } }
+  @media (max-width: 576px) {
+    body.front.item div.main.container #main-content .description.callout {
+      margin-bottom: 1rem; } }
   @media (max-width: 767px) {
     body.front.item div.main.container #basket-form-container {
       margin-bottom: 1rem; } }
@@ -7591,6 +7591,8 @@ body.front.item div.main.container {
     body.front.item div.main.container div.set .user-block + .user-block {
       padding-top: 1rem;
       border-top: 1px solid #f5f5f5; }
+    body.front.item div.main.container div.set .user-block .user-content div:last-child:not(:first-child) {
+      justify-content: flex-start; }
     body.front.item div.main.container div.set div.callout {
       position: relative; }
       body.front.item div.main.container div.set div.callout:not(:last-child) {

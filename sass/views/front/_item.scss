@@ -8,9 +8,9 @@ body.front.item {
         margin-bottom: 30px;
         
         #main-content {
-            p.description {
-                @include all-but-phones() {
-                    margin-bottom: 2rem;
+            @include xs {
+                .description.callout {
+                    margin-bottom: 1rem;
                 }
             }
         }
@@ -37,6 +37,12 @@ body.front.item {
                 + .user-block {
                     padding-top: 1rem;
                     border-top: 1px solid $edge-color;
+                }
+
+                .user-content {
+                    div:last-child:not(:first-child) {
+                        justify-content: flex-start;
+                    }
                 }
             }
 
