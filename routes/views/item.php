@@ -119,7 +119,7 @@
                                         </h4>
 
                                         <div class="muted margin-btm-1em">
-                                            This is a description of how this item comes packaged
+                                            How the item will come packaged
                                         </div>
         
                                         <div class="callout">
