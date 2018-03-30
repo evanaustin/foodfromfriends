@@ -13,6 +13,7 @@ $Gump->validation_rules([
     'item-category'     => 'required|integer',
 	'item-subcategory'  => 'required|integer',
     'item-variety'      => 'integer',
+    'item-name'         => 'alpha_space',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
 	'units'             => 'alpha_space',
@@ -31,6 +32,7 @@ $Gump->filter_rules([
     'item-category'     => 'trim|whole_number',
 	'item-subcategory'  => 'trim|whole_number',
     'item-variety'      => 'trim|whole_number',
+    'item-name'         => 'trim|sanitize_string',
 	'price'             => 'trim|sanitize_floats',
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
@@ -70,7 +72,7 @@ if (!empty($item_exists) && $item_exists['id'] != $FoodListing->id) {
 }
 
 $listing_edited = $FoodListing->update([
-    'name'                  => $item_name,
+    'name'                  => (!empty($item_name) ? $item_name : NULL),
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
