@@ -141,14 +141,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>
-                            Item definition
-                        </label>
-
-                        <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Describe one item and how it is sold so that buyers better understand what you're offering" required></textarea>
-                    </div>
-
-                    <div class="form-group">
                         <label for="weight">
                             Average weight per item (optional)
                         </label>
@@ -158,7 +150,10 @@
                             
                             <select name="units" class="input-group-addon">
                                 <option disabled selected>Units</option>
-                                <?php foreach ([
+                                
+                                <?php
+                                
+                                foreach ([
                                     'g',
                                     'oz',
                                     'lbs',
@@ -166,11 +161,22 @@
                                     'fl oz',
                                     'liters',
                                     'gallons'
-                                ] as $unit) { ?>
-                                    <option value="<?php echo $unit; ?>"><?php echo $unit; ?></option>
-                                <?php } ?>
+                                ] as $unit) {
+                                    echo "<option value=\"{$unit}\">{$unit}</option>";
+                                }
+                                
+                                ?>
+
                             </select>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Item packaging (optional)
+                        </label>
+
+                        <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"></textarea>
                     </div>
                 </div>
 

@@ -18,8 +18,7 @@ $Gump->validation_rules([
 	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
 	'units'             => 'alpha_space',
 	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean',
-	'definition'        => 'required',
+	'is-available'      => 'required|boolean'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -91,14 +90,14 @@ if (!empty($item_exists)) {
 
 $listing_added = $FoodListing->add([
     'grower_operation_id'   => $User->GrowerOperation->id,
-    'name'                  => $item_name,
+    'name'                  => (!empty($item_name) ? $item_name : NULL),
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
     'price'                 => $price * 100,
     'quantity'              => $quantity,
     'is_available'          => $is_available,
-    'unit_definition'       => $definition,
+    'unit_definition'       => $packaging,
     'weight'                => (isset($weight)) ? $weight : 0,
     'units'                 => (isset($weight, $units)) ? $units : '',
     'description'           => $description,

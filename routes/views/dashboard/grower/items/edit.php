@@ -164,20 +164,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label>
-                                Item definition
-                            </label>
-
-                            <textarea type="text" name="definition" class="form-control" rows="2" placeholder="Describe one item and how it is sold so that buyers better understand what you're offering" required><?php echo $FoodListing->unit_definition; ?></textarea>
-                        </div>
-
-                        <div class="form-group">
                             <label for="weight">Average weight per item (optional)</label>
                             <div class="input-group w-addon">
                                 <input id="weight" type="number" name="weight" class="form-control" value="<?php echo (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
                                 
                                 <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                     <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
+
                                     <?php foreach ([
                                         'g',
                                         'oz',
@@ -186,11 +179,19 @@
                                         'fl oz',
                                         'liter',
                                         'gallon'
-                                    ] as $unit) { ?>
-                                        <option value="<?php echo $unit; ?>" <?php if ($unit == $FoodListing->units) echo 'selected'; ?>><?php echo $unit; ?></option>
-                                    <?php } ?>
+                                    ] as $unit) {
+                                        echo "<option value=\"{$unit}\"" . ($unit == $FoodListing->units ? 'selected' : '') . ">{$unit}</option>";
+                                    } ?>
                                 </select>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Item packaging (optional)
+                            </label>
+
+                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?php echo $FoodListing->unit_definition; ?></textarea>
                         </div>
                     </div>
 
