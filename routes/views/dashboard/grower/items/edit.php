@@ -120,7 +120,7 @@
                                         Item name
                                     </label>
 
-                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?php echo $FoodListing->title; ?>">
+                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?php echo $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
                                 </div>
                             </div>
 

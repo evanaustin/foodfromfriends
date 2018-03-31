@@ -86,7 +86,7 @@
                                     Item name (optional)
                                 </label>
 
-                                <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name">
+                                <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" data-parsley-maxlength="40" data-parsley-trigger="change">
                                 
                                 <small class="form-text text-muted">
                                     Leave this blank and the item name will default to the selected item type
