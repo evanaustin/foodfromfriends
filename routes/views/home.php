@@ -3,7 +3,15 @@
         <div id="hero">
             <div class="row">
                 <div class="d-none col-lg-3 d-lg-flex flexcenter no-padding">
-                    <?php img('homepage/veggies', 'jpg', 'local', 'img-fluid veggies'); ?>
+                    <?php
+                    
+                    img('homepage/veggies', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid veggies',
+                        'title'     => 'Veggies | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
 
                 <div class="col-8 col-lg-6 d-flex flexjustifycenter flexcolumn lg-no-padding">
@@ -25,9 +33,27 @@
                 </div>
 
                 <div class="col-4 col-lg-3 d-lg-flex flexcenter flexend no-padding text-right">
-                    <?php img('homepage/colorbowl-phone', 'jpg', 'local', 'colorbowl img-fluid d-inline d-md-none'); ?>
-                    <?php img('homepage/colorbowl', 'png', 'local', 'colorbowl img-fluid d-none d-md-inline d-xl-none'); ?>
-                    <?php img('homepage/colorbowl', 'png', 'local', 'colorbowl d-none d-xl-inline'); ?>
+                    <?php
+                    
+                    img('homepage/colorbowl-phone', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid colorbowl d-inline d-md-none',
+                        'title'     => 'Color bowl | Food From Friends'
+                    ]);
+
+                    img('homepage/colorbowl', 'png', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid colorbowl d-none d-md-inline d-xl-none',
+                        'title'     => 'Color bowl | Food From Friends'
+                    ]);
+                    
+                    img('homepage/colorbowl', 'png', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid colorbowl d-none d-xl-inline',
+                        'title'     => 'Color bowl | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
             </div>
         </div>
@@ -35,7 +61,15 @@
         <div id="sidekick">
             <div id="thought" class="row">
                 <div class="col-12 col-sm-3 col-md-2 col-lg-1 no-padding">
-                    <?php img('homepage/chard', 'jpg', 'local', 'chard'); ?>
+                    <?php
+                    
+                    img('homepage/chard', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'chard',
+                        'title'     => 'Chard | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
 
                 <div class="col-12 col-sm-9 col-md-6 col-lg-7 offset-lg-0 lg-no-padding">
@@ -56,14 +90,35 @@
                 </div>
 
                 <div class="col-md-4 d-none d-md-flex flexend no-padding">
-                    <?php img('homepage/tomatoes', 'jpg', 'local', 'img-fluid tomatoes'); ?>
+                    <?php
+                    
+                    img('homepage/tomatoes', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid tomatoes',
+                        'title'     => 'Tomatoes | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
             </div>
 
             <div id="model" class="row">
                 <div class="col-12 col-sm-6 col-lg-3 col-xl-4 no-padding">
-                    <?php img('homepage/square-plate-phone', 'jpg', 'local', 'plate img-fluid d-inline d-sm-none'); ?>
-                    <?php img('homepage/square-plate', 'jpg', 'local', 'plate d-none d-sm-inline'); ?>
+                    <?php
+                    
+                    img('homepage/square-plate-phone', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid plate d-inline d-sm-none',
+                        'title'     => 'Meal | Food From Friends'
+                    ]);
+                    
+                    img('homepage/square-plate', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid plate d-none d-sm-inline',
+                        'title'     => 'Meal | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
     
                 <div class="col-12 col-sm-6 col-lg-5 col-xl-4">
@@ -94,7 +149,15 @@
 
             <div id="platform" class="row">
                 <div class="col-12 d-inline d-sm-none col-lg-4 d-lg-inline">
-                    <?php img('homepage/smoothie', 'jpg', 'local', 'smoothie'); ?>
+                    <?php
+                    
+                    img('homepage/smoothie', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'smoothie',
+                        'title'     => 'Smoothie | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
 
                 <div class="col-12 col-sm-7 col-md-8 col-lg-7 col-lg-6">
@@ -120,13 +183,29 @@
                 </div>
 
                 <div class="col-12 col-sm-5 col-md-4 d-lg-none d-flex flexend no-padding">
-                    <?php img('homepage/chard-bunch', 'jpg', 'local', 'chard-bunch img-fluid'); ?>
+                    <?php
+                    
+                    img('homepage/chard-bunch', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid chard-bunch',
+                        'title'     => 'Chard bunch | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
             </div>
                     
             <div id="action" class="row">
                 <div class="d-none col-md-6 d-md-inline d-lg-none">
-                    <?php img('homepage/smoothie', 'jpg', 'local', 'smoothie img-fluid'); ?>
+                    <?php
+                    
+                    img('homepage/smoothie', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid smoothie',
+                        'title'     => 'Smoothie | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-6 col-xl-5">
@@ -149,8 +228,21 @@
                 </div>
 
                 <div class="d-none col-lg-6 d-lg-flex col-xl-7 flexend no-padding text-right">
-                    <?php img('homepage/loaf-phone', 'jpg', 'local', 'loaf img-fluid d-inline d-sm-none'); ?>
-                    <?php img('homepage/loaf', 'jpg', 'local', 'loaf img-fluid d-none d-sm-inline'); ?>
+                    <?php
+                    
+                    img('homepage/loaf-phone', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid loaf d-inline d-sm-none',
+                        'title'     => 'Bread | Food From Friends'
+                    ]);
+                    
+                    img('homepage/loaf', 'jpg', [
+                        'server'    => 'local',
+                        'class'     => 'img-fluid loaf d-none d-sm-inline',
+                        'title'     => 'Bread | Food From Friends'
+                    ]);
+                    
+                    ?>
                 </div>
             </div>
         </div>
