@@ -29,10 +29,18 @@
                                     
                             if (isset($ThisUser->filename)) {
                                 echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
-                                img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext . '?' . time(), 'S3', 'img-fluid');
+
+                                img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext . '?' . time(), [
+                                    'server'    => 'S3',
+                                    'class'     => 'img-fluid'
+                                ]);
+                                
                                 echo '</a>';
                             } else {
-                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                img('placeholders/user-thumbnail', 'jpg', [
+                                    'server'    => 'local', 
+                                    'class'     => 'img-fluid rounded'
+                                ]);
 
                                 if ($is_owner) {
                                     echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta btn-block\">Set your profile picture</a>";
@@ -48,7 +56,10 @@
                             if (isset($ThisUser->latitude, $ThisUser->longitude)) {
                                 echo "<div id=\"map\"></div>";
                             } else {
-                                img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                img('placeholders/location-thumbnail', 'jpg', [
+                                    'server'    => 'local', 
+                                    'class'     => 'img-fluid rounded'
+                                ]);
 
                                 if ($is_owner) {
                                     echo "<a href=\"" . PUBLIC_ROOT . "dashboard/account/edit-profile/basic-information\" class=\"btn btn-cta btn-block\">Set your address</a>";

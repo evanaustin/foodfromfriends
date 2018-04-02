@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    List a new item
+                    Add a new item
                 </div>
 
                 <div class="page-description text-muted small">
-                    Select an item type, enter the listing details, and upload an image. Only items marked as available can be purchased by buyers, and you can always choose to deny any order that comes in at no penalty.
+                    Select an item type, enter some details, and upload an image. Only items marked as available can be purchased by buyers, and you can always choose to deny any order that comes in at no penalty.
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
                 <div class="controls">
                     <button type="submit" form="add-listing" class="btn btn-success">
                         <i class="pre fa fa-upload"></i>
-                        Create listing
+                        Create item
                         <i class="post fa fa-gear loading-icon"></i>
                     </button>
                 </div>
@@ -189,7 +189,14 @@
 
                     <div class="image-box slide-over">
                         <div class="image-container">
-                            <?php img('placeholders/default-thumbnail', 'jpg', 'local', 'file'); ?>
+                            <?php
+
+                            img('placeholders/default-thumbnail', 'jpg', [
+                                'server'    => 'local', 
+                                'class'     => 'file'
+                            ]);
+                            
+                            ?>
                             
                             <input type="file" name="listing-image" accept="image/png/jpg">
                             

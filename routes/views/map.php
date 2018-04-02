@@ -19,7 +19,14 @@
                                     <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
                                         <div class="card animated fadeIn">
                                             <div class="card-img-top">
-                                                <?php img(ENV . "/grower-operation-images/{$Grower->filename}", $Grower->ext /* . '?' . time() */, 'S3', 'img-fluid animated fadeIn hidden'); ?>
+                                                <?php
+                                                
+                                                img(ENV . "/grower-operation-images/{$Grower->filename}", $Grower->ext /* . '?' . time() */, [
+                                                    'server'    => 'S3',
+                                                    'class'     => 'img-fluid animated fadeIn hidden'
+                                                ]);
+                                                
+                                                ?>
 
                                                 <div class="loading">
                                                     <i class="fa fa-circle-o-notch loading-icon"></i>

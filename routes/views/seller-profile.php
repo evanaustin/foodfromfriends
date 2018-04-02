@@ -39,10 +39,18 @@
                             
                             if (!empty($GrowerOperation->filename)) {
                                 echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
-                                img(ENV . "/grower-operation-images/{$GrowerOperation->filename}", $GrowerOperation->ext, 'S3', 'img-fluid');
+
+                                img(ENV . "/grower-operation-images/{$GrowerOperation->filename}", $GrowerOperation->ext, [
+                                    'server'    => 'S3',
+                                    'class'     => 'img-fluid'
+                                ]);
+
                                 echo '</a>';
                             } else {
-                                img('placeholders/user-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                img('placeholders/user-thumbnail', 'jpg', [
+                                    'server'    => 'local', 
+                                    'class'     => 'img-fluid rounded'
+                                ]);
 
                                 if ($is_owner) {
                                     echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Add a profile picture</a>';
@@ -122,7 +130,10 @@
                             if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
                                 echo "<div id=\"map\"></div>";
                             } else {
-                                img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                img('placeholders/location-thumbnail', 'jpg', [
+                                    'server'    => 'local', 
+                                    'class'     => 'img-fluid rounded'
+                                ]);
 
                                 if ($is_owner) {
                                     echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
@@ -209,7 +220,10 @@
                                                     <?php
                                                     
                                                     if (!empty($Item->filename)) {
-                                                        img(ENV . '/items/' . $Item->filename, $Item->ext, 'S3', 'animated fadeIn hidden img-fluid');
+                                                        img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                                                            'server'    => 'S3',
+                                                            'class'     => 'img-fluid animated fadeIn hidden'
+                                                        ]);
                                                         
                                                         ?>
 
@@ -220,7 +234,10 @@
                                                         <?php
 
                                                     } else {
-                                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid rounded');
+                                                        img('placeholders/default-thumbnail', 'jpg', [
+                                                            'server'    => 'local', 
+                                                            'class'     => 'animated fadeIn img-fluid rounded'
+                                                        ]);
                         
                                                         if ($is_owner) {
                                                             echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>";

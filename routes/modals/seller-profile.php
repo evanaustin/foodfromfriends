@@ -14,7 +14,14 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/grower-operation-images/' . $GrowerOperation->filename, $GrowerOperation->ext, 'S3', 'img-fluid rounded drop-shadow'); ?>
+                <?php
+                
+                img(ENV . '/grower-operation-images/' . $GrowerOperation->filename, $GrowerOperation->ext, [
+                    'server'    => 'S3',
+                    'class'     => 'img-fluid rounded drop-shadow'
+                ]);
+                
+                ?>
             </div>
         </div>
     </div>

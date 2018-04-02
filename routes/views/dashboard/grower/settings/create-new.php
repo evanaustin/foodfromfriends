@@ -141,7 +141,10 @@
                                 <div class="image-container">
                                     <?php
                                             
-                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                    img('placeholders/default-thumbnail', 'jpg', [
+                                        'server'    => 'local', 
+                                        'class'     => 'file'
+                                    ]);
 
                                     ?>
                                     

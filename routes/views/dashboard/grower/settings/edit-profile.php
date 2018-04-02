@@ -117,9 +117,15 @@
                                     <?php
                                             
                                     if (!empty($User->GrowerOperation->filename)) {
-                                        img(ENV . '/grower-operation-images/' . $User->GrowerOperation->filename, $User->GrowerOperation->ext . '?' . time(), 'S3', 'file');
+                                        img(ENV . '/grower-operation-images/' . $User->GrowerOperation->filename, $User->GrowerOperation->ext . '?' . time(), [
+                                            'server'    => 'S3',
+                                            'class'     => 'img-fluid file'
+                                        ]);
                                     } else {
-                                        img('placeholders/user-thumbnail', 'jpg', 'local', 'file');
+                                        img('placeholders/user-thumbnail', 'jpg', [
+                                            'server'    => 'local', 
+                                            'class'     => 'file'
+                                        ]);
                                     }
 
                                     ?>

@@ -41,9 +41,15 @@
                                 <?php
                                 
                                 if (!empty($FoodListingItem->filename)) {
-                                    img(ENV . '/items/' . $FoodListingItem->filename, $FoodListingItem->ext, 's3', 'img-fluid');
+                                    img(ENV . '/items/' . $FoodListingItem->filename, $FoodListingItem->ext, [
+                                        'server'    => 'S3',
+                                        'class'     => 'img-fluid'
+                                    ]);
                                 } else {
-                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                    img('placeholders/default-thumbnail', 'jpg', [
+                                        'server'    => 'local', 
+                                        'class'     => 'img-fluid rounded'
+                                    ]);
                                 }
                                 
                                 ?>

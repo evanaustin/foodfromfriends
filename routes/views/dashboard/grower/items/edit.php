@@ -206,9 +206,15 @@
                                     <?php 
                                     
                                     if (!empty($FoodListing->filename)) {
-                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), 'S3', 'file');
+                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext . '?' . time(), [
+                                            'server'    => 'S3',
+                                            'class'     => 'img-fluid file'
+                                        ]);
                                     } else {
-                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'file');
+                                        img('placeholders/default-thumbnail', 'jpg', [
+                                            'server'    => 'local', 
+                                            'class'     => 'file'
+                                        ]);
                                     }
 
                                     ?>

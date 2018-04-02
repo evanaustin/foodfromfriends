@@ -14,7 +14,14 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext, 'S3', 'img-fluid rounded drop-shadow'); ?>
+                <?php
+                
+                img(ENV . '/profile-photos/' . $ThisUser->filename, $ThisUser->ext, [
+                    'server'    => 'S3',
+                    'class'     => 'img-fluid rounded drop-shadow'
+                ]);
+                
+                ?>
             </div>
         </div>
     </div>
