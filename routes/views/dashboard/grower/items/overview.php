@@ -43,7 +43,10 @@
                                 <?php
                                 
                                 if (!empty($FoodListing->filename)) {
-                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'animated fadeIn hidden img-fluid');
+                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                                        'server'    => 'S3',
+                                        'class'     => 'img-fluid animated fadeIn hidden'
+                                    ]);
                                     
                                     ?>
 
@@ -54,7 +57,10 @@
                                     <?php
 
                                 } else {
-                                    img('placeholders/default-thumbnail', 'jpg', 'local', 'animated fadeIn img-fluid');
+                                    img('placeholders/default-thumbnail', 'jpg', [
+                                        'server'    => 'local', 
+                                        'class'     => 'animated fadeIn img-fluid'
+                                    ]);
                                 }
 
                                 ?>

@@ -42,10 +42,18 @@
                                     
                                     if (!empty($FoodListing->filename)) {
                                         echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
-                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid');
+
+                                        img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                                            'server'    => 'S3',
+                                            'class'     => 'img-fluid'
+                                        ]);
+                                        
                                         echo '</a>';
                                     } else {
-                                        img('placeholders/default-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                        img('placeholders/default-thumbnail', 'jpg', [
+                                            'server'    => 'local', 
+                                            'class'     => 'img-fluid rounded'
+                                        ]);
         
                                         if ($is_owner) {
                                             echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
@@ -61,7 +69,10 @@
                                     if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
                                         echo "<div id=\"map\"></div>";
                                     } else {
-                                        img('placeholders/location-thumbnail', 'jpg', 'local', 'img-fluid rounded');
+                                        img('placeholders/location-thumbnail', 'jpg', [
+                                            'server'    => 'local', 
+                                            'class'     => 'img-fluid rounded'
+                                        ]);
 
                                         if ($is_owner) {
                                             echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
@@ -520,7 +531,14 @@
                         <div class="col-12 order-3 d-md-none">
                             <div class="sidebar-content">
                                 <div class="photo box">
-                                    <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid'); ?>
+                                    <?php
+                                    
+                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                                        'server'    => 'S3',
+                                        'class'     => 'img-fluid'
+                                    ]);
+                                    
+                                    ?>
                                 </div>
                             </div>
                         </div>

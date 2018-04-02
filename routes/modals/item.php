@@ -14,7 +14,14 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, 'S3', 'img-fluid rounded drop-shadow'); ?>
+                <?php
+                
+                img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                    'server'    => 'S3',
+                    'class'     => 'img-fluid rounded drop-shadow'
+                ]);
+                
+                ?>
             </div>
         </div>
     </div>

@@ -278,7 +278,14 @@
 
                                             <div class="item card-alt animated fadeIn">
                                                 <div class="item-image">
-                                                    <?php img(ENV . '/items/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, 'S3', 'img-fluid'); ?>
+                                                    <?php
+                                                    
+                                                    img(ENV . '/items/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, [
+                                                        'server'    => 'S3',
+                                                        'class'     => 'img-fluid'
+                                                    ]);
+                                                    
+                                                    ?>
                                                 </div>
 
                                                 <div class="card-body">
