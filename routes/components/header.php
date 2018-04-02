@@ -1,5 +1,5 @@
 <nav id="header" class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>">
+    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>" title="Food From Friends">
         <?php svg('logos/thin'); ?>
     </a>
 
