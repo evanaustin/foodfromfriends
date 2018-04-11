@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 $_POST = $Gump->sanitize($_POST);
 
 // sanitize_numbers won't actually strip the special characters from the phone number... so we have to do it manually

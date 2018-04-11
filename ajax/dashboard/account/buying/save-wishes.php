@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 $WishList = new WishList([
     'DB' => $DB,
 ]);

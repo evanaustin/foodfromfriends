@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 if (!empty($User->filename)) {
     $record_removed = $User->delete('filename', $User->filename, 'user_profile_images');
     

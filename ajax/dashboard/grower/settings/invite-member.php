@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 foreach ($_POST as $k => $v) if (isset($v) && !empty($v)) ${$k} = rtrim($v);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
