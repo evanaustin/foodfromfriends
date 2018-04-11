@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 if (!empty($User->GrowerOperation->filename)) {
     $record_removed = $User->GrowerOperation->delete('filename', $User->GrowerOperation->filename, 'grower_operation_images');
     

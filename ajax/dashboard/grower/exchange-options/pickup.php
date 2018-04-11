@@ -7,6 +7,8 @@ require $config;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 $_POST = $Gump->sanitize($_POST);
 
 foreach ($_POST as $k => $v) ${str_replace('-', '_', $k)} = $v;
