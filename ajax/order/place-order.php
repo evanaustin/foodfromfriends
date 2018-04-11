@@ -9,6 +9,8 @@ use Treffynnon\At\Wrapper as At;
 $json['error'] = null;
 $json['success'] = true;
 
+if (!$LOGGED_IN) quit('You are not logged in');
+
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
