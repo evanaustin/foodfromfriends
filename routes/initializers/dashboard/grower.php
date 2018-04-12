@@ -4,6 +4,24 @@ $settings = [
     'title' => 'Seller dashboard | Food From Friends'
 ];
 
+$Payout = new Payout([
+    'DB' => $DB
+]);
+
+$amount_paid = $Payout->get_amount_paid($User->GrowerOperation->id);
+
+$OrderGrower = new OrderGrower([
+    'DB' => $DB
+]);
+
+if ($User->GrowerOperation->new_orders) {
+    $new_orders = $OrderGrower->get_new($User->GrowerOperation->id);
+}
+
+if ($User->GrowerOperation->pending_orders) {
+    $pending_orders = $OrderGrower->get_pending($User->GrowerOperation->id);
+}
+
 $listing_count      = (isset($User->GrowerOperation)) ? $User->GrowerOperation->count_listings() : 0;
 $team_member_count  = (isset($User->GrowerOperation)) ? count($User->GrowerOperation->get_team_members()) : 0;
 
@@ -47,7 +65,7 @@ $goals = [
     ],
     'sell your first listing' =>  [
         'link'      => $User->GrowerOperation->link,
-        'status'    => ((false) ? 'complete' : 'incomplete'),
+        'status'    => (($amount_paid > 0) ? 'complete' : 'incomplete'),
     ]
 ];
 

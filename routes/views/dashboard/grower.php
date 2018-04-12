@@ -5,11 +5,11 @@
                 <div class="col-md-4">
                     <div class="block">
                         <div class="value">
-                            $0.00
+                            <?= amount($amount_paid); ?>
                         </div>
 
                         <div class="descriptor">
-                            Amount sold
+                            Amount earned
                         </div>
                     </div>
                 </div>
@@ -17,11 +17,11 @@
                 <div class="col-md-4">
                     <div class="block">
                         <div class="value">
-                            0
+                            <?= count($new_orders); ?>
                         </div>
 
                         <div class="descriptor">
-                            Unique sales
+                            New orders
                         </div>
                     </div>
                 </div>    
@@ -29,11 +29,11 @@
                 <div class="col-md-4">
                     <div class="block">
                         <div class="value">
-                            0
+                            <?= count($pending_orders); ?>
                         </div>
 
                         <div class="descriptor">
-                            Unique buyers
+                            Pending orders
                         </div>
                     </div>
                 </div>
