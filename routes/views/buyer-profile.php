@@ -10,7 +10,7 @@
 
                 <div class="alerts" style="display:block;">
                     <div class="alert alert-info">
-                        <span>This is your public profile. Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">here</a> to go edit your information.</span>
+                        <span>This is your public profile. Click <a href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">here</a> to go edit your information.</span>
                         <a class="close" data-dismiss="alert">×</a>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                             ?>
                         </div>
                         
-                        <div class="<?php echo (isset($ThisUser->latitude, $ThisUser->longitude) ? 'map' : 'photo'); ?> box">
+                        <div class="<?= (isset($ThisUser->latitude, $ThisUser->longitude) ? 'map' : 'photo'); ?> box">
                             <?php
                                     
                             if (isset($ThisUser->latitude, $ThisUser->longitude)) {
@@ -82,7 +82,7 @@
                                 
                                 ?>
 
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?buyer=' . $ThisUser->id; ?>">
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?buyer=' . $ThisUser->id; ?>">
                                     <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
                                         <i class="fa fa-envelope"></i>
                                     </div>
@@ -96,11 +96,11 @@
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?php echo (isset($ThisUser->city, $ThisUser->state)) ? "{$ThisUser->city}, {$ThisUser->state}" : ''; ?>
+                            <?= (isset($ThisUser->city, $ThisUser->state)) ? "{$ThisUser->city}, {$ThisUser->state}" : ''; ?>
                         </div>
 
                         <div class="muted bold margin-btm-1em">
-                            <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
+                            <?= 'Joined in ' . $joined_on->format('F\, Y'); ?>
                         </div>
 
                         <?php
@@ -140,8 +140,8 @@
                                     
                                     <div class="callout margin-btm-1em">
                                         <h4 class="strong">
-                                            <?php echo ucfirst($category['title']); ?>
-                                            <light class="light-gray">(<?php echo count($category['subcategories']); ?>)</light>
+                                            <?= ucfirst($category['title']); ?>
+                                            <light class="light-gray">(<?= count($category['subcategories']); ?>)</light>
                                         </h4>
 
                                         <?php
@@ -196,15 +196,15 @@
                                     ?>           
                                     
                                     <div class="user-block margin-btm-1em">                  
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                        <div class="user-photo" style="background-image: url(<?= (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                         
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
-                                                &quot;<?php echo $rating['review']; ?>&quot;
+                                                &quot;<?= $rating['review']; ?>&quot;
                                             </p>
 
                                             <small class="dark-gray bold flexstart">
-                                                <?php echo "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                <?= "{$ReviewUser->first_name} &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                             </small>
                                         </div>
                                     </div>
@@ -234,8 +234,8 @@
 </main>
 
 <script>
-    var lat = <?php echo (isset($ThisUser->latitude)) ? number_format($ThisUser->latitude, 2) : 0; ?>;
-    var lng = <?php echo (isset($ThisUser->longitude)) ? number_format($ThisUser->longitude, 2) : 0; ?>;
+    var lat = <?= (isset($ThisUser->latitude)) ? number_format($ThisUser->latitude, 2) : 0; ?>;
+    var lng = <?= (isset($ThisUser->longitude)) ? number_format($ThisUser->longitude, 2) : 0; ?>;
 
-    var user = <?php echo (isset($User)) ? $User->id : 0; ?>
+    var user = <?= (isset($User)) ? $User->id : 0; ?>
 </script>

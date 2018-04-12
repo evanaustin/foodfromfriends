@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h3 class="modal-title">
                     <!-- <span id="zoom-title"></span> -->
-                    <?php echo $FoodListing->title; ?>
+                    <?= $FoodListing->title; ?>
                 </h3>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

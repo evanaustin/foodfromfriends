@@ -8,8 +8,8 @@
             <div class="alerts"></div>
 
             <form id="log-in">
-                <input type="hidden" name="operation-key" value="<?php echo $operation_key; ?>">
-                <input type="hidden" name="personal-key" value="<?php echo $personal_key; ?>">
+                <input type="hidden" name="operation-key" value="<?= $operation_key; ?>">
+                <input type="hidden" name="personal-key" value="<?= $personal_key; ?>">
 
                 <div class="form-group">
                     <div class="input-group w-addon">

@@ -12,7 +12,7 @@
                         ?>
 
                         <div class="alerts" style="display:block;">
-                            <div class="alert alert-<?php echo (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+                            <div class="alert alert-<?= (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
 
                                 <?php
 
@@ -63,7 +63,7 @@
                                     ?>
                                 </div>
                                 
-                                <div class="<?php echo (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
+                                <div class="<?= (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
                                     <?php
                                             
                                     if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
@@ -87,12 +87,12 @@
                         <div class="col-12 order-1 col-lg-5 order-lg-1">
                             <div id="main-content">
                                 <h2 class="dark-gray bold margin-btm-25em">
-                                    <?php echo $FoodListing->title; ?>
+                                    <?= $FoodListing->title; ?>
                                 </h2>
 
                                 <h6 class="muted normal margin-btm-1em">
                                     <span class="brand">
-                                        <?php echo $item_stars; ?>
+                                        <?= $item_stars; ?>
                                     </span>
 
                                     <?php
@@ -134,7 +134,7 @@
                                         </div>
         
                                         <div class="callout">
-                                            <div><?php echo $FoodListing->unit_definition; ?></div>
+                                            <div><?= $FoodListing->unit_definition; ?></div>
                                         </div>
                                     </div>
 
@@ -168,7 +168,7 @@
                                                 </div>
                                                 
                                                 <div>
-                                                   <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
+                                                   <?= "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
                                                 </div>
     
                                                 <?php
@@ -182,7 +182,7 @@
                                                 ?>
     
                                                 <div>
-                                                    <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                                    <?= ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
                                                 </div>
                                             </div>
     
@@ -198,7 +198,7 @@
                                                 </div>
     
                                                 <div>
-                                                    <?php echo "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
+                                                    <?= "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                                 </div>
                                                 
                                                 <?php
@@ -242,9 +242,9 @@
                                             ?>
 
                                             <div class="btn-group">
-                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
-                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
-                                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
                                             </div>
 
                                             <?php
@@ -263,7 +263,7 @@
                                     <div class="reviews set d-none d-md-block">
                                         <h4 class="margin-btm-50em ">
                                             <bold class="dark-gray">Reviews</bold> 
-                                            <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                            <light class="light-gray">(<?= count($ratings); ?>)</light>
                                         </h4>
                                         
                                         <div class="muted margin-btm-1em">
@@ -282,17 +282,17 @@
                                             ?>           
                                             
                                             <div class="user-block margin-btm-1em">
-                                                <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">
-                                                    <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                                <a href="<?= PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">
+                                                    <div class="user-photo" style="background-image: url(<?= (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                                 </a>
 
                                                 <div class="user-content">
                                                     <p class="muted margin-btm-25em">
-                                                        &quot;<?php echo $rating['review']; ?>&quot;
+                                                        &quot;<?= $rating['review']; ?>&quot;
                                                     </p>
 
                                                     <small class="dark-gray bold flexstart">
-                                                        <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                        <?= "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
@@ -316,18 +316,18 @@
                                     </h4>
 
                                     <div class="muted margin-btm-1em">
-                                        Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
+                                        Get to know the <?= (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
                                     </div>
 
                                     <div class="user-block margin-btm-50em">
-                                        <a href="<?php echo PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
-                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                        <a href="<?= PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
+                                            <div class="user-photo" style="background-image: url(<?= (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                         </a>
                                         
                                         <div class="user-content">
                                             <div class="font-18 muted thick">    
-                                                <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link; ?>">
-                                                    <?php echo $GrowerOperation->name; ?>
+                                                <a href="<?= PUBLIC_ROOT . $GrowerOperation->link; ?>">
+                                                    <?= $GrowerOperation->name; ?>
                                                 </a>
                                             </div>
                                                 
@@ -384,9 +384,9 @@
 
                                                 ?>
 
-                                                <form id="update-item" data-ordergrower="<?php echo $OrderGrower->id; ?>">
-                                                    <input type="hidden" name="grower-operation-id" value="<?php echo $GrowerOperation->id; ?>">
-                                                    <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+                                                <form id="update-item" data-ordergrower="<?= $OrderGrower->id; ?>">
+                                                    <input type="hidden" name="grower-operation-id" value="<?= $GrowerOperation->id; ?>">
+                                                    <input type="hidden" name="food-listing-id" value="<?= $FoodListing->id; ?>">
 
                                                     <div class="form-group">
                                                         <label>
@@ -426,9 +426,9 @@
                                                                 ?>
 
                                                                 <div class="btn-group">
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
                                                                 </div>
 
                                                                 <?php
@@ -450,9 +450,9 @@
                                             
                                                 ?>
 
-                                                <form id="add-item" data-ordergrower="<?php echo $OrderGrower->id; ?>">
-                                                    <input type="hidden" name="user-id" value="<?php echo (isset($User)) ? $User->id : ''; ?>">
-                                                    <input type="hidden" name="food-listing-id" value="<?php echo $FoodListing->id; ?>">
+                                                <form id="add-item" data-ordergrower="<?= $OrderGrower->id; ?>">
+                                                    <input type="hidden" name="user-id" value="<?= (isset($User)) ? $User->id : ''; ?>">
+                                                    <input type="hidden" name="food-listing-id" value="<?= $FoodListing->id; ?>">
 
                                                     <div class="form-group">
                                                         <label>
@@ -494,9 +494,9 @@
                                                                 ?>
 
                                                                 <div class="btn-group">
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
-                                                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
                                                                 </div>
 
                                                                 <?php
@@ -556,7 +556,7 @@
                                     </h4>
 
                                     <div class="callout">
-                                        <div><?php echo $FoodListing->unit_definition; ?></div>
+                                        <div><?= $FoodListing->unit_definition; ?></div>
                                     </div>
                                 </div>
 
@@ -569,7 +569,7 @@
                             <div class="available-exchange-options set">
                                 <h4 class="margin-btm-50em">
                                     Exchange options
-                                    <light class="light-gray">(<?php echo count($exchange_options_available); ?>)</light>
+                                    <light class="light-gray">(<?= count($exchange_options_available); ?>)</light>
                                 </h4>
 
                                 <div class="muted margin-btm-1em">
@@ -589,7 +589,7 @@
                                             </div>
                                             
                                             <div>
-                                                <?php echo "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
+                                                <?= "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
                                             </div>
     
                                             <?php
@@ -603,7 +603,7 @@
                                             ?>
     
                                             <div>
-                                                <?php echo ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                                <?= ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
                                             </div>
                                         </div>
     
@@ -619,7 +619,7 @@
                                             </div>
     
                                             <div>
-                                                <?php echo "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
+                                                <?= "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
                                             </div>
                                             
                                             <?php
@@ -663,9 +663,9 @@
                                         ?>
 
                                         <div class="btn-group">
-                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
-                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
-                                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
                                         </div>
 
                                         <?php
@@ -684,7 +684,7 @@
                                 <div class="reviews set">
                                     <h4 class="margin-btm-50em ">
                                         <bold class="dark-gray">Reviews</bold> 
-                                        <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                        <light class="light-gray">(<?= count($ratings); ?>)</light>
                                     </h4>
                                     
                                     <div class="muted margin-btm-1em">
@@ -703,17 +703,17 @@
                                         ?>           
                                         
                                         <div class="user-block margin-btm-1em">
-                                            <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">                
-                                                <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                            <a href="<?= PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">                
+                                                <div class="user-photo" style="background-image: url(<?= (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
                                             </a>
 
                                             <div class="user-content">
                                                 <p class="muted margin-btm-25em">
-                                                    &quot;<?php echo $rating['review']; ?>&quot;
+                                                    &quot;<?= $rating['review']; ?>&quot;
                                                 </p>
 
                                                 <small class="dark-gray bold flexstart">
-                                                    <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                    <?= "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">{$ReviewUser->name}</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
                                                 </small>
                                             </div>
                                         </div>
@@ -737,18 +737,18 @@
                                 </h4>
 
                                 <div class="muted margin-btm-1em">
-                                    Get to know the <?php echo (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> selling these items
+                                    Get to know the <?= (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> selling these items
                                 </div>
 
                                 <div class="user-block">
-                                    <a href="<?php echo PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
-                                        <div class="user-photo" style="background-image: url(<?php echo (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                    <a href="<?= PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
+                                        <div class="user-photo" style="background-image: url(<?= (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                     </a>
 
                                     <div class="user-content">
                                         <div class="font-18 muted thick">    
-                                            <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link; ?>">
-                                                <?php echo $GrowerOperation->name; ?>
+                                            <a href="<?= PUBLIC_ROOT . $GrowerOperation->link; ?>">
+                                                <?= $GrowerOperation->name; ?>
                                             </a>
                                         </div>
 
@@ -792,8 +792,8 @@
 <!-- </div> -->
 
 <script>
-    var buyer_lat   = <?php echo (isset($User->delivery_latitude)) ? $User->delivery_latitude : 0; ?>;
-    var buyer_lng   = <?php echo (isset($User->delivery_longitude)) ? $User->delivery_longitude : 0; ?>;
-    var seller_lat  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
-    var seller_lng  = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
+    var buyer_lat   = <?= (isset($User->delivery_latitude)) ? $User->delivery_latitude : 0; ?>;
+    var buyer_lng   = <?= (isset($User->delivery_longitude)) ? $User->delivery_longitude : 0; ?>;
+    var seller_lat  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
+    var seller_lng  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
 </script>

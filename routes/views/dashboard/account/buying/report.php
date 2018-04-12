@@ -27,20 +27,20 @@
         <div class="alerts"></div>
 
         <form id="report-order">
-            <input type="hidden" name="ordergrower-id" value="<?php echo $OrderGrower->id; ?>">
+            <input type="hidden" name="ordergrower-id" value="<?= $OrderGrower->id; ?>">
 
             <div class="row margin-btm-2em">
                 <div class="col-md-3 flexbox flexjustifycenter flexcenter">
                     <div class="user-block">
-                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
+                        <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
                         
                         <div class="user-content">
                             <h5 class="bold margin-btm-25em">
-                                <a href="<?php echo PUBLIC_ROOT . $Seller->link; ?>"><?php echo $Seller->name; ?></a>
+                                <a href="<?= PUBLIC_ROOT . $Seller->link; ?>"><?= $Seller->name; ?></a>
                             </h5>
 
                             <small>
-                                <?php echo "{$Seller->city}, {$Seller->state}"; ?>
+                                <?= "{$Seller->city}, {$Seller->state}"; ?>
                             </small>
                         </div>
                     </div>

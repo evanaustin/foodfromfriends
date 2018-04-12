@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Edit item: <strong><?php echo $FoodListing->title; ?></strong>
+                        Edit item: <strong><?= $FoodListing->title; ?></strong>
                     </div>
 
                     <div class="page-description text-muted small">
@@ -39,7 +39,7 @@
             <div class="alerts"></div>
 
             <form id="edit-listing">
-                <input type="hidden" name="id" value="<?php echo $FoodListing->id; ?>">
+                <input type="hidden" name="id" value="<?= $FoodListing->id; ?>">
 
                 <div class="row">
                     <div class="col-md-8">
@@ -120,7 +120,7 @@
                                         Item name
                                     </label>
 
-                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?php echo $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
+                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?= $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
                                 </div>
                             </div>
 
@@ -130,7 +130,7 @@
                                     
                                     <div class="input-group w-addon">
                                         <div class="input-group-addon">$</div>
-                                        <input id="price" type="text" name="price" class="form-control" value="<?php echo number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                                        <input id="price" type="text" name="price" class="form-control" value="<?= number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="quantity">Quantity</label>
-                                    <input id="quantity" type="number" name="quantity" class="form-control" value="<?php echo $FoodListing->quantity; ?>" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
+                                    <input id="quantity" type="number" name="quantity" class="form-control" value="<?= $FoodListing->quantity; ?>" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
                                 </div>
                             </div>
                             
@@ -166,7 +166,7 @@
                         <div class="form-group">
                             <label for="weight">Average weight per item (optional)</label>
                             <div class="input-group w-addon">
-                                <input id="weight" type="number" name="weight" class="form-control" value="<?php echo (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
+                                <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
                                 
                                 <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                     <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
@@ -191,7 +191,7 @@
                                 Item packaging (optional)
                             </label>
 
-                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?php echo $FoodListing->unit_definition; ?></textarea>
+                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?= $FoodListing->unit_definition; ?></textarea>
                         </div>
                     </div>
 
@@ -199,7 +199,7 @@
                         <div class="form-group">
                             <label>Listing photo</label>
 
-                            <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove item photo"><i class="fa fa-trash"></i></a>
+                            <a href="" class="remove-image float-right <?php if (empty($FoodListing->filename)) echo 'hidden' ?>" data-listing-id="<?= $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Remove item photo"><i class="fa fa-trash"></i></a>
 
                             <div class="image-box slide-over <?php if (!empty($FoodListing->filename)) echo 'existing-image'; ?>">
                                 <div class="image-container">
@@ -246,7 +246,7 @@
                         Item description (optional)
                     </label>
 
-                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?php echo $FoodListing->description; ?></textarea>
+                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?= $FoodListing->description; ?></textarea>
                 </div>
             </form>
 
@@ -268,6 +268,6 @@
 </main>
 
 <script>
-    var item_subcategories  = <?php echo json_encode($item_subcategories); ?>;
-    var item_varieties      = <?php echo json_encode($item_varieties); ?>;
+    var item_subcategories  = <?= json_encode($item_subcategories); ?>;
+    var item_varieties      = <?= json_encode($item_varieties); ?>;
 </script>

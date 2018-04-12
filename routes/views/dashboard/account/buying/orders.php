@@ -70,24 +70,24 @@
 
                     ?>
                     
-                    <div class="<?php echo ($i == 1) ? 'opened' : 'closed'; ?> record">
-                        <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?php echo $Order->id;?>" aria-controls="order-<?php echo $Order->id ;?>" aria-label="Toggle order" aria-expanded="<?php echo ($i == 1) ? 'true' : 'false'; ?>"></div>
+                    <div class="<?= ($i == 1) ? 'opened' : 'closed'; ?> record">
+                        <div class="tab <?php //echo $tab_highlight; ?>" data-toggle="collapse" data-target="#order-<?= $Order->id;?>" aria-controls="order-<?= $Order->id ;?>" aria-label="Toggle order" aria-expanded="<?= ($i == 1) ? 'true' : 'false'; ?>"></div>
                         
                         <fable>
                             <cell>
-                                <h5>#&nbsp;<strong><?php echo $i; ?></strong></h5>
+                                <h5>#&nbsp;<strong><?= $i; ?></strong></h5>
                             </cell>
                             
                             <cell>
-                                <h6>ID:&nbsp;<strong><?php echo $encrypted_id; ?></strong></h6>
+                                <h6>ID:&nbsp;<strong><?= $encrypted_id; ?></strong></h6>
                             </cell>
                             
                             <cell>
-                                <h6><?php echo "<strong>{$seller_count}</strong>&nbsp;seller" . (($seller_count > 1) ? 's' : ''); ?></h6>
+                                <h6><?= "<strong>{$seller_count}</strong>&nbsp;seller" . (($seller_count > 1) ? 's' : ''); ?></h6>
                             </cell>
                             
                             <cell>
-                                <h6>Placed:&nbsp;<strong><?php echo $placed_on; ?></strong></h6>
+                                <h6>Placed:&nbsp;<strong><?= $placed_on; ?></strong></h6>
                             </cell>
                             
                             <cell class="justify-center">
@@ -95,11 +95,11 @@
                             </cell>
 
                             <cell class="actions flexgrow-0">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/account/buying/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>
                             </cell>
                         </fable>
                     
-                        <ledger class="collapse <?php echo ($i == 1) ? 'show' : ''; ?>" id="order-<?php echo $Order->id;?>">
+                        <ledger class="collapse <?= ($i == 1) ? 'show' : ''; ?>" id="order-<?= $Order->id;?>">
 
                             <?php
 
@@ -198,37 +198,37 @@
                                 ?>
                                 
                                 <div class="closed record animated fadeIn">
-                                    <div class="<?php echo $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?php echo $OrderGrower->id;?>" aria-controls="suborder-<?php echo $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
+                                    <div class="<?= $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?= $OrderGrower->id;?>" aria-controls="suborder-<?= $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
                                     
                                     <fable>
                                         <cell class="min-third">
                                             <div class="user-block">
-                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$ThisGrowerOperation->filename}.{$ThisGrowerOperation->ext}"; ?>');"></div>
+                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$ThisGrowerOperation->filename}.{$ThisGrowerOperation->ext}"; ?>');"></div>
                                                 
                                                 <div class="user-content">
                                                     <h5 class="bold margin-btm-25em">
-                                                        <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link; ?>">
-                                                            <?php echo $ThisGrowerOperation->name; ?>
+                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link; ?>">
+                                                            <?= $ThisGrowerOperation->name; ?>
                                                         </a>
                                                     </h5>
 
                                                     <small>
-                                                        <?php echo "{$ThisGrowerOperation->city}, {$ThisGrowerOperation->state}"; ?>
+                                                        <?= "{$ThisGrowerOperation->city}, {$ThisGrowerOperation->state}"; ?>
                                                     </small>
                                                 </div>
                                             </div>
                                         </cell>
 
                                         <cell class="justify-center d-block d-md-flex align-center d-align-left">
-                                            <h6><?php echo $status; ?></h6>
+                                            <h6><?= $status; ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-none d-md-flex">
-                                            <h6><?php echo "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6>
+                                            <h6><?= "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-none d-md-flex">
-                                            <h6><?php echo ucfirst($OrderGrower->Exchange->type); ?></h6>
+                                            <h6><?= ucfirst($OrderGrower->Exchange->type); ?></h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-block d-md-flex align-center d-align-left">
@@ -264,7 +264,7 @@
                                         </cell>
                                     </fable>
                                     
-                                    <div class="collapse" id="suborder-<?php echo $OrderGrower->id;?>">
+                                    <div class="collapse" id="suborder-<?= $OrderGrower->id;?>">
                                         <?php
 
                                         foreach ($OrderGrower->FoodListings as $OrderListing) {
@@ -290,12 +290,12 @@
 
                                                 <div class="card-body">
                                                     <h6 class="strong">
-                                                        <a href="<?php echo PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
-                                                            <?php echo ucfirst($ThisFoodListing->title); ?>
+                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
+                                                            <?= ucfirst($ThisFoodListing->title); ?>
                                                         </a>
 
                                                         <span class="float-right">
-                                                            <small>x</small> <?php echo $OrderListing->quantity; ?>
+                                                            <small>x</small> <?= $OrderListing->quantity; ?>
                                                         </span>
                                                     </h6>
                                                     
@@ -326,7 +326,7 @@
                                     
                                         <fable>
                                             <cell class="bold">
-                                                <?php echo ucfirst($OrderGrower->Exchange->type); ?> details
+                                                <?= ucfirst($OrderGrower->Exchange->type); ?> details
                                             </cell>
                                             
                                             <cell class="justify-end bold">
@@ -348,7 +348,7 @@
                                             </h6>
                                             
                                             <p>
-                                                <?php echo $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ' ' . $OrderGrower->Exchange->address_line_2 : '') . ', '. $OrderGrower->Exchange->city . ' ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
+                                                <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ' ' . $OrderGrower->Exchange->address_line_2 : '') . ', '. $OrderGrower->Exchange->city . ' ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
                                             </p>
                                         </div>
 
@@ -363,7 +363,7 @@
                                                 </h6>
 
                                                 <p>
-                                                    <?php echo $OrderGrower->Exchange->time; ?>
+                                                    <?= $OrderGrower->Exchange->time; ?>
                                                 </p>
                                             </div>
 
@@ -373,7 +373,7 @@
                                                 </h6>
 
                                                 <p>
-                                                    <?php echo $OrderGrower->Exchange->instructions; ?>
+                                                    <?= $OrderGrower->Exchange->instructions; ?>
                                                 </p>
                                             </div>
 

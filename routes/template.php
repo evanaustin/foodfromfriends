@@ -62,8 +62,8 @@ foreach ([
 
         ?>
         
-        <title><?php echo (!empty($settings['title']) ? $settings['title'] : 'Food From Friends'); ?></title>
-        <link rel="shortcut icon" href="<?php echo PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
+        <title><?= (!empty($settings['title']) ? $settings['title'] : 'Food From Friends'); ?></title>
+        <link rel="shortcut icon" href="<?= PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
 
         <?php if (ENV == 'prod') { ?>
             <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -98,7 +98,7 @@ foreach ([
         <![endif]-->
     </head>
 
-    <body class="<?php echo $Routing->template . ' ' . $Routing->path . ' ' . $Routing->fullpage; ?>">
+    <body class="<?= $Routing->template . ' ' . $Routing->path . ' ' . $Routing->fullpage; ?>">
         <?php
         
         if ($Routing->template == 'front' || $Routing->template == 'dashboard') {
@@ -186,8 +186,8 @@ foreach ([
         ?>
 
         <script>
-            var ENV = <?php echo json_encode(ENV); ?>;
-            var PUBLIC_ROOT = <?php echo json_encode(PUBLIC_ROOT); ?>
+            var ENV = <?= json_encode(ENV); ?>;
+            var PUBLIC_ROOT = <?= json_encode(PUBLIC_ROOT); ?>
             
             <?php
 
@@ -196,8 +196,8 @@ foreach ([
                 ?>
                 
                 var user = { 
-                    'id'    : <?php echo json_encode($User->id); ?>,
-                    'slug'  : <?php echo json_encode($User->slug); ?>
+                    'id'    : <?= json_encode($User->id); ?>,
+                    'slug'  : <?= json_encode($User->slug); ?>
                 }
                 
                 <?php

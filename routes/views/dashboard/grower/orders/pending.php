@@ -55,11 +55,11 @@
                             
                             <tr>
                                 <td scope="row">
-                                    <?php echo $i; ?>
+                                    <?= $i; ?>
                                 </td>
 
                                 <td class="confirmed">
-                                    <?php echo $time_elapsed['full']; ?>
+                                    <?= $time_elapsed['full']; ?>
                                 </td>
 
                                 <td class="amount">
@@ -67,15 +67,15 @@
                                 </td>
                                 
                                 <td class="exchange-type">
-                                    <?php echo ucfirst($OrderGrower->Exchange->type); ?>
+                                    <?= ucfirst($OrderGrower->Exchange->type); ?>
                                 </td>
 
                                 <td class="buyer">
-                                    <?php echo $ThisUser->name; ?>
+                                    <?= $ThisUser->name; ?>
                                 </td>
                                 
                                 <td class="details">
-                                    <a href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower/orders/pending/view?id=' . $order['id']; ?>">
+                                    <a href="<?= PUBLIC_ROOT . $Routing->template . '/grower/orders/pending/view?id=' . $order['id']; ?>">
                                         <i class="fa fa-external-link" data-toggle="tooltip" data-placement="top" data-title="View order details"></i>
                                     </a>
                                 </td>

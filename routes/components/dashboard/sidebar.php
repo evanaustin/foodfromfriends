@@ -66,9 +66,9 @@
             <?php if ($Routing->template == 'dashboard' && $Routing->section == 'grower') { ?>
                 <li class="nav-item">
                     <a 
-                        href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
+                        href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
                         class="nav-link <?php if ($Routing->template == 'dashboard' && !isset($Routing->page)) echo 'active'; ?>">
-                        <?php echo 'Dashboard'; ?>
+                        <?= 'Dashboard'; ?>
                     </a>
                 </li>
             <?php } ?>
@@ -80,15 +80,15 @@
                             href="" 
                             class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
                             data-toggle="collapse" 
-                            data-target="#navbarToggle-<?php echo $k ;?>" 
-                            aria-controls="navbarToggle-<?php echo $k ;?>" 
-                            aria-expanded="<?php echo ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
+                            data-target="#navbarToggle-<?= $k ;?>" 
+                            aria-controls="navbarToggle-<?= $k ;?>" 
+                            aria-expanded="<?= ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
                             aria-label="Toggle navigation"
                         >
-                            <?php echo ucfirst(str_replace('-', ' ', $k)); ?>
+                            <?= ucfirst(str_replace('-', ' ', $k)); ?>
                         </a>
 
-                        <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navbarToggle-<?php echo $k;?>">
+                        <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navbarToggle-<?= $k;?>">
                             <ul class="nav flex-column">
                                 <?php
                                 
@@ -99,7 +99,7 @@
 
                                     <li class="nav-item">
                                         <a 
-                                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
+                                            href="<?= PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
                                             class="nav-link child 
                                             
                                             <?php 
@@ -185,15 +185,15 @@
                         </div>
                     <?php } else if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string') { ?>
                         <a 
-                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k; ?>"
+                            href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k; ?>"
                             class="nav-link <?php if ($Routing->subsection == $k) echo 'active'; ?>">
-                            <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                            <?= ucfirst(str_replace('-', ' ', $v)); ?>
                         </a>
                     <?php } else if (!empty($v)) { ?>
                         <a 
-                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
+                            href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
                             class="nav-link <?php if ($Routing->subsection == $v) echo 'active'; ?>">
-                            <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                            <?= ucfirst(str_replace('-', ' ', $v)); ?>
                         </a>
                     <?php } ?>
                 </li>

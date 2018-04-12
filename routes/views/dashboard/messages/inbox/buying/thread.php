@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Conversation with <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>"><?php echo $Grower->name; ?></a>
+                        Conversation with <a href="<?= PUBLIC_ROOT . $Grower->link; ?>"><?= $Grower->name; ?></a>
                     </div>
 
                     <div class="page-description text-muted small">
-                        <?php echo 'This is ' . ((isset($messages) && count($messages) > 0) ? 'the entire' : 'a new') . ' chain of conversation between you and this grower.'; ?>
+                        <?= 'This is ' . ((isset($messages) && count($messages) > 0) ? 'the entire' : 'a new') . ' chain of conversation between you and this grower.'; ?>
                     </div>
                 </div>
             </div>
@@ -55,8 +55,8 @@
                             
                             ?>
 
-                            <div class="col-md-12 align-center <?php echo $margin; ?>">
-                                <span class="light-gray bold tiny"><?php echo $date_sent; ?></span>
+                            <div class="col-md-12 align-center <?= $margin; ?>">
+                                <span class="light-gray bold tiny"><?= $date_sent; ?></span>
                             </div>
 
                             <?php 
@@ -71,12 +71,12 @@
                                 <fable class="message right-message">
                                     <cell class="flexend">
                                         <div class="bubble inline-block align-left muted">
-                                            <?php echo $ThisMessage->body; ?>
+                                            <?= $ThisMessage->body; ?>
                                         </div>
                                     </cell>
 
                                     <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
+                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
                                     </cell>
                                 </fable>
                             </div>
@@ -90,14 +90,14 @@
                             <div class="col-md-9">
                                 <fable class="message left-message">
                                     <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
-                                        <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
-                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
+                                        <a href="<?= PUBLIC_ROOT . $Grower->link; ?>">
+                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
                                         </a>
                                     </cell>
 
                                     <cell>
                                         <div class="bubble inline-block align-left brand-bg">
-                                            <?php echo $ThisMessage->body; ?>
+                                            <?= $ThisMessage->body; ?>
                                         </div>
                                     </cell>
                                 </fable>
@@ -127,11 +127,11 @@
             
         <section id="new-message">
             <form id="send-message">
-                <input type="hidden" name="filename" value="<?php echo $User->filename;?>">
-                <input type="hidden" name="fileext" value="<?php echo $User->ext;?>">
+                <input type="hidden" name="filename" value="<?= $User->filename;?>">
+                <input type="hidden" name="fileext" value="<?= $User->ext;?>">
 
-                <input type="hidden" name="user-id" value="<?php echo $User->id;?>">
-                <input type="hidden" name="grower-operation-id" value="<?php echo $Grower->id;?>">
+                <input type="hidden" name="user-id" value="<?= $User->id;?>">
+                <input type="hidden" name="grower-operation-id" value="<?= $Grower->id;?>">
                 <input type="hidden" name="sent-by" value="user">
 
                 <div class="input-group w-addon">

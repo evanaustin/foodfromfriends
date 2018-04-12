@@ -1,5 +1,5 @@
 <nav id="header" class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="<?php echo PUBLIC_ROOT; ?>" title="Food From Friends">
+    <a class="navbar-brand" href="<?= PUBLIC_ROOT; ?>" title="Food From Friends">
         <?php svg('logos/thin'); ?>
     </a>
 
@@ -12,7 +12,7 @@
 
             <?php if (!$LOGGED_IN) { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                         <span>
                             Map
                         </span>
@@ -45,7 +45,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
-                        href="<?php echo PUBLIC_ROOT . 'map'; ?>"
+                        href="<?= PUBLIC_ROOT . 'map'; ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Map"
                     >
                         <i class="fa fa-map"></i>
@@ -55,7 +55,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
@@ -86,14 +86,14 @@
                 <li class="nav-item profile dropdown d-none d-md-block">
                     <div 
                         class="nav-link dropdown-toggle" 
-                        style="background-image: url('<?php echo (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');" 
+                        style="background-image: url('<?= (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');" 
                         data-toggle="dropdown" 
                         aria-haspopup="true" 
                         aria-expanded="false"
                     ></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                             Messages
 
                             <?php
@@ -109,11 +109,11 @@
                             ?>
                         </a>
 
-                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
                             Order history
                         </a>
 
-                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . "user/{$User->slug}"; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . "user/{$User->slug}"; ?>">
                             User profile
                         </a>
 
@@ -126,7 +126,7 @@
 
                         ?>
 
-                        <a class="dropdown-item" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                             Edit profile
                         </a>
                         

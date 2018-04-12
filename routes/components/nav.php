@@ -15,13 +15,13 @@
                 </li>
             
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT; ?>">
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
                 </li>
@@ -29,26 +29,26 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link" 
-                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
                     >
                         Dashboard
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
                         Messages
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
                         Order history
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . "user/{$User->slug}"; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . "user/{$User->slug}"; ?>">
                         View profile
                     </a>
                 </li>
@@ -63,7 +63,7 @@
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                         Edit profile
                     </a>
                 </li>
@@ -74,13 +74,13 @@
 
             <?php } if ($Routing->template == 'dashboard') { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT; ?>">
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
                 </li>
@@ -149,9 +149,9 @@
                 <?php if ($Routing->section == 'grower') { ?>
                     <li class="nav-item">
                         <a 
-                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
+                            href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
                             class="nav-link <?php if (!isset($Routing->page)) echo 'active'; ?>">
-                            <?php echo 'Dashboard'; ?>
+                            <?= 'Dashboard'; ?>
                         </a>
                     </li>
                 <?php } ?>
@@ -163,15 +163,15 @@
                                 href="" 
                                 class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
                                 data-toggle="collapse" 
-                                data-target="#navToggle-<?php echo $k ;?>" 
-                                aria-controls="navToggle-<?php echo $k ;?>" 
-                                aria-expanded="<?php echo ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
+                                data-target="#navToggle-<?= $k ;?>" 
+                                aria-controls="navToggle-<?= $k ;?>" 
+                                aria-expanded="<?= ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
                                 aria-label="Toggle navigation"
                             >
-                                <?php echo ucfirst(str_replace('-', ' ', $k)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $k)); ?>
                             </a>
 
-                            <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navToggle-<?php echo $k;?>">
+                            <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navToggle-<?= $k;?>">
                                 <ul class="nav flex-column">
                                     <?php
                                     
@@ -182,7 +182,7 @@
 
                                         <li class="nav-item">
                                             <a 
-                                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
+                                                href="<?= PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
                                                 class="nav-link child 
                                                 
                                                 <?php 
@@ -268,15 +268,15 @@
                             </div>
                         <?php } else if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string') { ?>
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k; ?>"
+                                href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k; ?>"
                                 class="nav-link <?php if ($Routing->subsection == $k) echo 'active'; ?>">
-                                <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $v)); ?>
                             </a>
                         <?php } else if (!empty($v)) { ?>
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
+                                href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
                                 class="nav-link <?php if ($Routing->subsection == $v) echo 'active'; ?>">
-                                <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $v)); ?>
                             </a>
                         <?php } ?>
                     </li>
@@ -286,7 +286,7 @@
 
         } else { ?>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                     Map
                 </a>
             </li>

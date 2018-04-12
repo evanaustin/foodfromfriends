@@ -34,29 +34,29 @@
                     <fable class="bubble">
                         <cell class="align-center">
                             <div class="user-block">
-                                <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext; ?>');"></div>
+                                <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext; ?>');"></div>
                                                 
                                 <div class="user-content">
                                     <h5 class="bold margin-btm-25em">
-                                        <?php echo $Customer->first_name; ?>
+                                        <?= $Customer->first_name; ?>
                                     </h5>
 
                                     <small>
-                                        <?php echo $Customer->city . ', ' . $Customer->state; ?>
+                                        <?= $Customer->city . ', ' . $Customer->state; ?>
                                     </small>
                                 </div>
                             </div>    
                         </cell>
 
                         <cell class="justify-center align-center bold muted">
-                            <?php echo $date_sent; ?>
+                            <?= $date_sent; ?>
                         </cell>
                         
                         <cell class="flexgrow-3 muted d-justify-center">
-                            <?php echo '<i class="fa fa-' . (($ThisMessage->sent_by == 'user') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
+                            <?= '<i class="fa fa-' . (($ThisMessage->sent_by == 'user') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
 
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (isset($grower_operation_id) ? 'grower=' . $grower_operation_id . '&' : '') . 'user=' . $Customer->id; ?>">
-                                <?php echo $snippet; ?>
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (isset($grower_operation_id) ? 'grower=' . $grower_operation_id . '&' : '') . 'user=' . $Customer->id; ?>">
+                                <?= $snippet; ?>
                             </a>
                         </cell>
                     </fable>
@@ -70,7 +70,7 @@
                 ?>
 
                 <div class="block strong">
-                    <?php echo ($User->GrowerOperation->type != 'individual' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
+                    <?= ($User->GrowerOperation->type != 'individual' ? $User->GrowerOperation->name . '\'s' : 'Your'); ?> <thick class="brand">selling</thick> inbox is empty!
                 </div>
 
                 <?php

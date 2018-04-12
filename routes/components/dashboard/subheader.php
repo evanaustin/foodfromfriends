@@ -9,11 +9,11 @@
 
                 <li class="nav-item dropdown">
                     <a 
-                        href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
+                        href="<?= PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
                         class="nav-link dropdown-toggle <?php if ($Routing->section == 'grower') echo 'active'; ?>" 
                         data-toggle="dropdown"
                     >
-                        <?php echo ($User->GrowerOperation->type == 'individual' ? 'Grower' : $User->GrowerOperation->name); ?>
+                        <?= ($User->GrowerOperation->type == 'individual' ? 'Grower' : $User->GrowerOperation->name); ?>
                     </a>
 
                     <div class="dropdown-menu">
@@ -35,10 +35,10 @@
 
                 <li class="nav-item">
                     <a 
-                        href="<?php echo PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
+                        href="<?= PUBLIC_ROOT . $Routing->template . '/grower'; ?>"
                         class="nav-link <?php if ($Routing->section == 'grower') echo 'active'; ?>"
                     >
-                        <?php echo ($Routing->section == 'grower' && isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') ? $User->GrowerOperation->name : 'Grower'; ?>
+                        <?= ($Routing->section == 'grower' && isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') ? $User->GrowerOperation->name : 'Grower'; ?>
                     </a>
                 </li>
 
@@ -53,7 +53,7 @@
             ] as $section => $subsection) { ?>
                 <li class="nav-item">
                     <a 
-                        href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $section . (!empty($subsection) ? '/' . $subsection : ''); ?>" 
+                        href="<?= PUBLIC_ROOT . $Routing->template . '/' . $section . (!empty($subsection) ? '/' . $subsection : ''); ?>" 
                         class="nav-link <?php if ($Routing->section == $section) echo 'active'; ?>"
                     >
                         <?php

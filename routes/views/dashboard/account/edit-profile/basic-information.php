@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    Edit and fill in all of your personal information. <span id="live-link">View your live profile <a href="<?php echo PUBLIC_ROOT . 'user/' . $User->slug; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
+                    Edit and fill in all of your personal information. <span id="live-link">View your live profile <a href="<?= PUBLIC_ROOT . 'user/' . $User->slug; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
                 </div>
             </div>
 
@@ -37,13 +37,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-group"> 
-                                    <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" value="<?php echo (!empty($User->first_name) ? $User->first_name : '' );?>"  data-parsley-trigger="submit" required>
+                                    <input type="text" name="first-name" class="form-control" aria-describedby="first name" placeholder="First name" value="<?= (!empty($User->first_name) ? $User->first_name : '' );?>"  data-parsley-trigger="submit" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" value="<?php echo (!empty($User->last_name) ? $User->last_name : '' );?>" data-parsley-trigger="submit" required>
+                                    <input type="text" name="last-name" class="form-control" aria-describedby="last name" placeholder="Last name" value="<?= (!empty($User->last_name) ? $User->last_name : '' );?>" data-parsley-trigger="submit" required>
                                 </div>
                             </div>
                         </div>

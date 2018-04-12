@@ -27,20 +27,20 @@
         <div class="alerts"></div>
 
         <form id="review-order">
-            <input type="hidden" name="ordergrower-id" value="<?php echo $OrderGrower->id; ?>">
+            <input type="hidden" name="ordergrower-id" value="<?= $OrderGrower->id; ?>">
 
             <div class="row margin-btm-2em">
                 <div class="col-md-3 flexbox flexjustifycenter flexcenter">
                     <div class="user-block">
-                        <div class="user-photo" style="background-image: url('<?php echo 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
+                        <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
                         
                         <div class="user-content">
                             <h5 class="bold margin-btm-25em">
-                                <a href=""><?php echo $Seller->name; ?></a>
+                                <a href=""><?= $Seller->name; ?></a>
                             </h5>
 
                             <small>
-                                <?php echo "{$Seller->city}, {$Seller->state}"; ?>
+                                <?= "{$Seller->city}, {$Seller->state}"; ?>
                             </small>
                         </div>
                     </div>
@@ -108,8 +108,8 @@
 
                             <div class="card-body">
                                 <h6 class="strong">
-                                    <a href="<?php echo PUBLIC_ROOT . $Seller->link . '/' . $FoodListing->link; ?>">
-                                        <?php echo ucfirst($FoodListing->title); ?>
+                                    <a href="<?= PUBLIC_ROOT . $Seller->link . '/' . $FoodListing->link; ?>">
+                                        <?= ucfirst($FoodListing->title); ?>
                                     </a>
                                 </h6>
                                 
@@ -154,8 +154,8 @@
                             </span>
 
                             <div class="form-group no-margin">
-                                <label for="item-<?php echo $OrderFoodListing->food_listing_id; ?>-review">Write a review</label>
-                                <textarea type="text" name="items[<?php echo $OrderFoodListing->food_listing_id; ?>][review]" rows="3" class="form-control" placeholder="Write a description of your thoughts on this item"></textarea>
+                                <label for="item-<?= $OrderFoodListing->food_listing_id; ?>-review">Write a review</label>
+                                <textarea type="text" name="items[<?= $OrderFoodListing->food_listing_id; ?>][review]" rows="3" class="form-control" placeholder="Write a description of your thoughts on this item"></textarea>
                             </div>
                         </fieldset>
                     </div>

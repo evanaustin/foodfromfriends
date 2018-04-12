@@ -9,11 +9,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Failed order <span class="text-muted">(ID: <?php echo $Order->id . '0' . $OrderGrower->id; ?>)</span>
+                        Failed order <span class="text-muted">(ID: <?= $Order->id . '0' . $OrderGrower->id; ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
-                        This order was <?php echo str_replace('cancelled by', 'cancelled by the', $OrderGrower->Status->current); ?>. Nothing further is required from you on this order.
+                        This order was <?= str_replace('cancelled by', 'cancelled by the', $OrderGrower->Status->current); ?>. Nothing further is required from you on this order.
                     </div>
                 </div>
             </div>
@@ -40,17 +40,17 @@
                                 </h6>
                                 
                                 <p>
-                                    <?php echo $date_placed; ?>
+                                    <?= $date_placed; ?>
                                 </p>
                             </div>
                             
                             <div class="callout">
                                 <h6>
-                                    Order <?php echo $OrderGrower->Status->current; ?>
+                                    Order <?= $OrderGrower->Status->current; ?>
                                 </h6>
                                 
                                 <p>
-                                    <?php echo $date_voided; ?>
+                                    <?= $date_voided; ?>
                                 </p>
                             </div>
                             
@@ -60,7 +60,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?php echo ucfirst($OrderGrower->Exchange->type); ?>
+                                    <?= ucfirst($OrderGrower->Exchange->type); ?>
                                 </p>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                     <div class="col-md-4">
                         <div id="items-sold" class="block animated zoomIn">
                             <div class="value">
-                                <?php echo $items_sold; ?>
+                                <?= $items_sold; ?>
                             </div>
 
                             <div class="descriptor">
@@ -89,7 +89,7 @@
                                 
                                 ?>
                                 
-                                <a href="<?php echo PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" class="card animated zoomIn">
+                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" class="card animated zoomIn">
                                     <div class="item-image">
                                         <?php
                                         
@@ -105,17 +105,17 @@
                                         <div class="listing-info">
                                             <h5 class="card-title">
                                                 <span>
-                                                    <?php echo ucfirst($FoodListing->title); ?>
+                                                    <?= ucfirst($FoodListing->title); ?>
                                                 </span>
                                             </h5>
                                             
                                             <fable>
                                                 <cell>
-                                                    <strong class="rounded-circle success no-margin"><span class="white"><?php echo $OrderListing->quantity; ?></span></strong>
+                                                    <strong class="rounded-circle success no-margin"><span class="white"><?= $OrderListing->quantity; ?></span></strong>
                                                 </cell>
                                                 
                                                 <cell>
-                                                    <?php echo bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
+                                                    <?= bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
                                                 </cell>
 
                                                 <cell class="float-right">
@@ -138,15 +138,15 @@
                         <div id="buyer-info" class="block animated zoomIn">
                             <div 
                                 class="buyer-photo"
-                                style="background-image: url('<?php echo (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"
+                                style="background-image: url('<?= (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"
                             >
                             </div>
 
                             <div>
-                                <?php echo $Buyer->name; ?>
+                                <?= $Buyer->name; ?>
                             </div>
 
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'individual') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'individual') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
                                 Message
                             </a>
 

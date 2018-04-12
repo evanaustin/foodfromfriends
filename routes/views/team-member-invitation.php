@@ -6,14 +6,14 @@
             </div>
 
             <p>
-                <?php echo 'Welcome! ' . $invited_by . ' has requested your assistance in managing ' . $operation_name . ' on Food From Friends. Fill out the form below to sign up and join the team.'; ?>
+                <?= 'Welcome! ' . $invited_by . ' has requested your assistance in managing ' . $operation_name . ' on Food From Friends. Fill out the form below to sign up and join the team.'; ?>
             </p>
 
             <div class="alerts"></div>
 
             <form id="sign-up">
-                <input type="hidden" name="operation-key" value="<?php echo $operation_key; ?>">
-                <input type="hidden" name="personal-key" value="<?php echo $personal_key; ?>">
+                <input type="hidden" name="operation-key" value="<?= $operation_key; ?>">
+                <input type="hidden" name="personal-key" value="<?= $personal_key; ?>">
 
                 <div class="form-group">
                     <div class="input-group w-addon"> 
@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <div class="input-group w-addon">
-                        <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
+                        <input type="email" name="email" value="<?= $email; ?>" class="form-control" aria-describedby="email" placeholder="Email address" data-parsley-trigger="submit" required>
 
                         <span class="input-group-addon">
                             <i class="fa fa-envelope"></i>

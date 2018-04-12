@@ -79,8 +79,8 @@
                                                 
                                                 ?>
                                             </td>
-                                            <td><?php echo $team_member['first_name']; ?></td>
-                                            <td><?php echo $team_member['last_name']; ?></td>
+                                            <td><?= $team_member['first_name']; ?></td>
+                                            <td><?= $team_member['last_name']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

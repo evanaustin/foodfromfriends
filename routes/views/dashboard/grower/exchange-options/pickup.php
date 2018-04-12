@@ -52,7 +52,7 @@
                             Instructions
                         </label>
 
-                        <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
+                        <textarea name="instructions" class="form-control" rows="4" placeholder="Where can people find their food?" <?= (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['instructions'])) { echo $details['instructions']; } ?></textarea>
                     </div>
 
                     <div id="time" class="form-group" <?php if (!$details['is_offered']) { echo 'style="display:none;"'; } ?>>
@@ -60,7 +60,7 @@
                             Availability
                         </label>
 
-                        <textarea name="time" class="form-control" rows="4" placeholder="When should people pick up their food?" <?php echo (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
+                        <textarea name="time" class="form-control" rows="4" placeholder="When should people pick up their food?" <?= (!$details['is_offered']) ? 'disabled' : 'required'; ?>><?php if (!empty($details['time'])) { echo $details['time']; } ?></textarea>
                     </div>
                 </form>
             </div>

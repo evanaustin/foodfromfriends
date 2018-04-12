@@ -13,7 +13,8 @@ $GrowerOperation = new GrowerOperation([
 $growers = $GrowerOperation->retrieve([
     'where' => [
         'is_active' => true
-    ]
+    ],
+    'order' => 'position'
 ]);
 
 // Set the tile width for the results pane

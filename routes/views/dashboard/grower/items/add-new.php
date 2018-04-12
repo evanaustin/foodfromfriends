@@ -221,6 +221,6 @@
 </main>
 
 <script>
-    var item_subcategories  = <?php echo json_encode($item_subcategories); ?>;
-    var item_varieties      = <?php echo json_encode($item_varieties); ?>;
+    var item_subcategories  = <?= json_encode($item_subcategories); ?>;
+    var item_varieties      = <?= json_encode($item_varieties); ?>;
 </script>

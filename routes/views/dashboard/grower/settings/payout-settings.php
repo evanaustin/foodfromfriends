@@ -40,7 +40,7 @@
                                 Pay to
                             </label>
 
-                            <input type="text" name="pay-to" class="form-control" placeholder="Business/person name" value="<?php echo (!empty($payout_settings['pay_to'])) ? $payout_settings['pay_to'] : $User->GrowerOperation->name; ?>" data-parsley-trigger="submit" required>
+                            <input type="text" name="pay-to" class="form-control" placeholder="Business/person name" value="<?= (!empty($payout_settings['pay_to'])) ? $payout_settings['pay_to'] : $User->GrowerOperation->name; ?>" data-parsley-trigger="submit" required>
                         </div>
 
                         <div class="row">
@@ -92,29 +92,29 @@
                         </label>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-1" class="form-control" placeholder="Address" value="<?php echo (!empty($payout_settings['address_line_1'])) ? $payout_settings['address_line_1'] : $User->GrowerOperation->address_line_1; ?>" data-parsley-trigger="change" required>
+                            <input type="text" name="address-line-1" class="form-control" placeholder="Address" value="<?= (!empty($payout_settings['address_line_1'])) ? $payout_settings['address_line_1'] : $User->GrowerOperation->address_line_1; ?>" data-parsley-trigger="change" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php echo (!empty($payout_settings['address_line_2'])) ? $payout_settings['address_line_2'] : $User->GrowerOperation->address_line_2; ?>" data-parsley-trigger="change">
+                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?= (!empty($payout_settings['address_line_2'])) ? $payout_settings['address_line_2'] : $User->GrowerOperation->address_line_2; ?>" data-parsley-trigger="change">
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo (!empty($payout_settings['city'])) ? $payout_settings['city'] : $User->GrowerOperation->city; ?>" data-parsley-trigger="change" required>
+                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?= (!empty($payout_settings['city'])) ? $payout_settings['city'] : $User->GrowerOperation->city; ?>" data-parsley-trigger="change" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php echo (!empty($payout_settings['state'])) ? $payout_settings['state'] : $User->GrowerOperation->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?= (!empty($payout_settings['state'])) ? $payout_settings['state'] : $User->GrowerOperation->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                             
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php echo (!empty($payout_settings['zipcode'])) ? $payout_settings['zipcode'] : $User->GrowerOperation->zipcode; ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
+                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?= (!empty($payout_settings['zipcode'])) ? $payout_settings['zipcode'] : $User->GrowerOperation->zipcode; ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                         </div>

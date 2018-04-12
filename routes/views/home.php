@@ -23,11 +23,11 @@
 
                     <div class="row d-md-flex">
                         <div class="col-12 col-lg-6 col-xl-4">
-                            <a href="<?php echo PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">See who's selling</a>
+                            <a href="<?= PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">See who's selling</a>
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-3">
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
                         </div>
                     </div>
                 </div>
@@ -217,11 +217,11 @@
 
                         <div class="row d-sm-flex flexjustifycenter">
                             <div class="col-12 col-sm-6 col-md-12 col-lg-5">
-                                <a href="<?php echo PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">Buy local</a>
+                                <a href="<?= PUBLIC_ROOT . 'map'; ?>" class="btn btn-primary btn-block btn-lg">Buy local</a>
                             </div>
 
                             <div class="col-12 col-sm-6 col-md-12 col-lg-5">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
                             </div>
                         </div>
                     </div>

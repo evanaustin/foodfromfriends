@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    <?php echo $msg; ?>
+                    <?= $msg; ?>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <div class="col-md-4">
                     <div class="card animated zoomIn">
                         <div class="card-img-top"> 
-                            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
                                 <?php
                                 
                                 if (!empty($FoodListing->filename)) {
@@ -74,13 +74,13 @@
                         <div class="card-body d-flex flex-row">
                             <div class="listing-info d-flex flex-column">
                                 <h4 class="card-title">
-                                    <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
-                                        <?php echo $FoodListing->title; ?>
+                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>">
+                                        <?= $FoodListing->title; ?>
                                     </a>
                                 </h4>
                                 
                                 <h6 class="card-subtitle">
-                                    <?php echo '$' . number_format($FoodListing->price / 100, 2) . (!empty($FoodListing->weight) && !empty($FoodListing->units) ? ' • $' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units : ''); ?>
+                                    <?= '$' . number_format($FoodListing->price / 100, 2) . (!empty($FoodListing->weight) && !empty($FoodListing->units) ? ' • $' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units : ''); ?>
                                 </h6>
 
                                 <p class="card-text">
@@ -109,15 +109,15 @@
                             </div>
 
                             <div class="listing-controls d-flex flex-column">
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/items/edit?id=' . $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             
-                                <a href="<?php echo PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" data-toggle="tooltip" data-placement="left" title="View listing">
+                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" data-toggle="tooltip" data-placement="left" title="View listing">
                                     <i class="fa fa-eye"></i>
                                 </a> 
                                 
-                                <a href="" class="remove-listing" data-id="<?php echo $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete listing">
+                                <a href="" class="remove-listing" data-id="<?= $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete listing">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>
@@ -139,7 +139,7 @@
 
             ?>
 
-            <a href="<?php echo PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-primary">
+            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-primary">
                 Let's go create your first listing!
             </a>
 

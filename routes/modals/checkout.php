@@ -80,7 +80,7 @@
                 
                         <p class="message">
                             Thanks! Your order has been submitted.<br>
-                            Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">here</a> to check on its status.
+                            Click <a href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">here</a> to check on its status.
                         </p>
                     </div>
                 </div>
@@ -90,5 +90,5 @@
 </div>
 
 <script>
-    var STRIPE_PK = <?php echo json_encode((ENV == 'prod' ? STRIPE_PK_LIVE : STRIPE_PK_TEST)); ?>;
+    var STRIPE_PK = <?= json_encode((ENV == 'prod' ? STRIPE_PK_LIVE : STRIPE_PK_TEST)); ?>;
 </script>

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    <?php echo (isset($User->GrowerOperation) ? 'Edit' : 'Create') . ' your seller profile'; ?>
+                    <?= (isset($User->GrowerOperation) ? 'Edit' : 'Create') . ' your seller profile'; ?>
                 </div>
 
                 <div class="page-description text-muted small">
@@ -46,7 +46,7 @@
                             </select>
 
                             <small id="type-help" class="form-text text-muted margin-top-25em" <?php if (isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') echo 'style="display:none"'; ?>>
-                                Specify an alternative seller type if you want to sell under a name other than "<bold><?php echo $User->name; ?></bold>" 
+                                Specify an alternative seller type if you want to sell under a name other than "<bold><?= $User->name; ?></bold>" 
                             </small>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 Name
                             </label>
 
-                            <input type="text" name="name" class="form-control" placeholder="Operation name" value="<?php echo (!empty($User->GrowerOperation->name) ? $User->GrowerOperation->name : '' );?>"  data-parsley-trigger="submit" required>
+                            <input type="text" name="name" class="form-control" placeholder="Operation name" value="<?= (!empty($User->GrowerOperation->name) ? $User->GrowerOperation->name : '' );?>"  data-parsley-trigger="submit" required>
                         </div>
 
                         <label>

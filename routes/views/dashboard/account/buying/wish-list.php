@@ -38,10 +38,10 @@
                     
                     ?>
                     
-                    <div class="col-12 category margin-top-btm-1em" data-cat="<?php echo $category_id; ?>">
+                    <div class="col-12 category margin-top-btm-1em" data-cat="<?= $category_id; ?>">
                         <div class="callout">
                             <h5 class="thick margin-btm-1em">
-                                <?php echo ucfirst($category['title']); ?>
+                                <?= ucfirst($category['title']); ?>
                             </h5>
                             
                             <div class="row">
@@ -61,11 +61,11 @@
                                             ?>
     
                                             <div class="dropdown">
-                                                <div id="<?php echo "dropdown-{$subcategory_id}-btn"; ?>" class="btn btn-secondary btn-block dropdown-toggle margin-btm-50em" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-sub="<?php echo $subcategory_id; ?>">
-                                                    <?php echo ucfirst($subcategory['title']); ?>
+                                                <div id="<?= "dropdown-{$subcategory_id}-btn"; ?>" class="btn btn-secondary btn-block dropdown-toggle margin-btm-50em" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-sub="<?= $subcategory_id; ?>">
+                                                    <?= ucfirst($subcategory['title']); ?>
                                                 </div>
     
-                                                <div class="dropdown-menu" aria-labelledby="<?php echo "dropdown-{$subcategory_id}-btn"; ?>">
+                                                <div class="dropdown-menu" aria-labelledby="<?= "dropdown-{$subcategory_id}-btn"; ?>">
                                                     
                                                     <?php
     

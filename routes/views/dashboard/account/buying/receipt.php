@@ -44,9 +44,9 @@
                                 ?>
 
                                 <tr class="w-25">
-                                    <td><?php echo $FoodListing->title; ?></td>
-                                    <td><?php echo $Seller->name; ?></td>
-                                    <td><?php echo $OrderFoodListing->quantity; ?></td>
+                                    <td><?= $FoodListing->title; ?></td>
+                                    <td><?= $Seller->name; ?></td>
+                                    <td><?= $OrderFoodListing->quantity; ?></td>
                                     <td><?php amount($OrderFoodListing->total); ?></td>
                                 </tr>
                                 
@@ -86,9 +86,9 @@
                             ?>
 
                             <tr class="w-25">
-                                <td><?php echo $Seller->name; ?></td>
+                                <td><?= $Seller->name; ?></td>
                                 <td><?php amount($OrderGrower->Exchange->fee); ?></td>
-                                <td><?php echo ucfirst($OrderGrower->Status->current); ?></td>
+                                <td><?= ucfirst($OrderGrower->Status->current); ?></td>
                                 <td><?php amount($OrderGrower->total); ?></td>
                             </tr>
                             
