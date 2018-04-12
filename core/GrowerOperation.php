@@ -191,11 +191,11 @@ class GrowerOperation extends Base {
         }
     }
 
-    /*
+    /**
      * Creates a `grower_operation` record
      * Creates a `grower_operation_members` to tie op record to owner
      * 
-     * @param $User the operation owner
+     * @param object $User the operation owner
      * @param array $data the data for `grower_operations` - shell ops only require $data['type']; other ops require $data['type'] AND $data['name']
      *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
@@ -291,7 +291,6 @@ class GrowerOperation extends Base {
             'table' => 'seller_payout_settings',
             'limit' => 1
         ]);
-        error_log(json_encode($payout_settings));
 
         if (!empty($payout_settings) && !empty($this->filename) && !empty($this->latitude) && !empty($this->longitude)
             && (($this->Delivery && $this->Delivery->is_offered) || ($this->Pickup && $this->Pickup->is_offered) || ($this->Meetup && $this->Meetup->is_offered))
@@ -313,6 +312,11 @@ class GrowerOperation extends Base {
         return $this->is_active;
     }
 
+    /**
+     * Retrieves new & pending orders
+     * 
+     * @return void
+     */
     public function determine_outstanding_orders() {
         $new = $this->DB->run('
             SELECT 
@@ -325,11 +329,9 @@ class GrowerOperation extends Base {
 
             WHERE og.grower_operation_id=:grower_operation_id 
                 AND os.placed_on    IS NOT NULL
-                AND os.expired_on   IS NULL
-                AND os.rejected_on  IS NULL
                 AND os.confirmed_on IS NULL
-                AND os.seller_cancelled_on IS NULL
-                AND os.buyer_cancelled_on IS NULL
+                AND os.rejected_on  IS NULL
+                AND os.expired_on   IS NULL
 
             LIMIT 1
         ', [

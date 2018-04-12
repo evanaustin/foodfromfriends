@@ -35,6 +35,22 @@ class Payout extends Base {
         }
     }
 
+    public function get_amount_paid($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT SUM(amount_grower) AS amount_paid
+            FROM payouts
+            WHERE grower_operation_id=:grower_operation_id
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        if (!isset($results[0])) {
+            return false;
+        }
+
+        return $results[0]['amount_paid'];
+    }
+
     /**
      * Finds this grower operation's current (unpaid) payout and returns it
      * If one doesn't exist, a new one will be created and returned
