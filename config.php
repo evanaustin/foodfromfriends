@@ -26,7 +26,7 @@ switch($_SERVER['SERVER_NAME']) {
     case 'localhost':
         $env = [
             'ENV'           => 'dev',
-            'PUBLIC_ROOT'   => '/Projects/foodfromfriends/'
+            'PUBLIC_ROOT'   => '/'
         ];
         
         break;
