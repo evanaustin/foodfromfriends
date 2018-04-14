@@ -6887,10 +6887,10 @@ body.dashboard-grower-items-overview .card-body {
   body.dashboard-grower-items-overview .card-body h6.card-subtitle {
     padding: 0.25rem 0;
     color: #b2b2b2; }
-  body.dashboard-grower-items-overview .card-body p.card-text {
+  body.dashboard-grower-items-overview .card-body .card-text {
     margin-top: 0.25rem;
     color: #7f7f7f; }
-    body.dashboard-grower-items-overview .card-body p.card-text span.quantity {
+    body.dashboard-grower-items-overview .card-body .card-text span.quantity {
       padding: 0.15rem 0.25rem;
       -webkit-border-radius: 0.15rem;
       -moz-border-radius: 0.15rem;
