@@ -12,7 +12,8 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'food-listing-id'	=> 'required|integer',
+    'food-listing-id'	=> 'required|integer',
+    'suborder-id'       => 'integer',
     'quantity'			=> 'required|integer',
     'exchange-option'	=> 'required|alpha'
 ]);
@@ -25,6 +26,7 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'food-listing-id'	=> 'trim|sanitize_numbers',
+	'suborder-id'	    => 'trim|sanitize_numbers',
     'quantity'			=> 'trim|sanitize_numbers',
     'exchange-option'	=> 'trim|sanitize_string'
 ]);
@@ -33,6 +35,15 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+if (!empty($suborder_id)) {
+    $SubOrder = new OrderGrower([
+        'DB' => $DB,
+        'id' => $suborder_id
+    ]);
+
+    if ($SubOrder->user_id != $User->id) quit('You cannot edit this suborder');
+}
+
 try {
 	$Order = new Order([
 		'DB' => $DB
@@ -40,18 +51,18 @@ try {
 
 	$Order = $Order->get_cart($User->id);
 
-	$FoodListing = new FoodListing([
+	$Item = new FoodListing([
 		'DB' => $DB,
 		'id' => $food_listing_id
 	]);
 
-	if (isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+	if (isset($Order->Growers[$Item->grower_operation_id]->FoodListings[$Item->id])) {
 		quit('This item is already in your basket');
 	}
 
 	$Seller = new GrowerOperation([
 		'DB' => $DB,
-		'id' => $FoodListing->grower_operation_id
+		'id' => $Item->grower_operation_id
 	],[
 		'details' => true,
 		'exchange' => true
@@ -77,7 +88,7 @@ try {
         $distance = 0;
     }
     
-    $Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity);
+    $Order->add_to_cart($Seller, $exchange_option, $Item, $quantity);
 
 	$OrderGrower = $Order->Growers[$Seller->id];
 
@@ -91,15 +102,15 @@ try {
 	];
 
 	$json['listing'] = [
-        'id'		=> $FoodListing->id,
-        'link'      => $Seller->link . '/' . $FoodListing->link,
-		'name'		=> $FoodListing->title,
-		'quantity'	=> $FoodListing->quantity,
-		'filename'	=> $FoodListing->filename,
-		'ext'		=> $FoodListing->ext
+        'id'		=> $Item->id,
+        'link'      => $Seller->link . '/' . $Item->link,
+		'name'		=> $Item->title,
+		'quantity'	=> $Item->quantity,
+		'filename'	=> $Item->filename,
+		'ext'		=> $Item->ext
 	];
 
-	$Item = $OrderGrower->FoodListings[$FoodListing->id];
+	$Item = $OrderGrower->FoodListings[$Item->id];
 
 	$json['item'] = [
 		'id'		=> $Item->id,
