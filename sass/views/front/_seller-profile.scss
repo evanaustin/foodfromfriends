@@ -152,25 +152,79 @@ body.front.seller-profile {
             }
         }
 
-
         .card {
             .card-body {
-                align-items: center;
                 padding: 0.75rem 1rem;
                 min-height: 130px;
+                justify-content: center;
             
-                h6.card-subtitle {
+                .card-title {
+                    cell {
+                        &:first-child {
+                            flex-grow: 2;
+                        }
+                        
+                        /* &:last-child {
+                            flex
+                        } */
+                    }
+                }
+
+                .card-subtitle {
                     color: $light-gray;
                     padding: 0.25rem 0;
                 }
             
-                p.card-text {
+                .card-text {
                     margin-top: 0.25rem;
                     color: $gray;
             
                     span.quantity {
                         padding: 0.15rem 0.25rem;
                         @include rounded(0.15rem);
+                    }
+                }
+
+                #in-stock {
+                    cell {
+                        border: 1px solid $edge-color;
+
+                        &:first-child {
+                            border-right: 0px solid transparent;
+                            @include border-radius($radius 0 0 $radius !important);
+                        }
+
+                        &:last-child {
+                            flex-grow: 0;
+                            @include border-radius(0 $radius $radius 0);
+                        }
+                    }
+
+                    select, button {
+                        @include drop-shadow(0,0,0);
+
+                        &:focus, &:hover {
+                            @include transform(translateY(0px));
+                        }
+                    }
+
+                    button {
+                        @include border-radius(0 $radius $radius 0);
+
+                        &:hover {
+                            background-color: $primary;
+                            @include transform(translateY(0px));
+
+                            i {
+                                color: #fff;
+                                // color: $muted;
+                            }
+                        }
+                        
+                        i {
+                            // color: #fff;
+                            // color: $muted;
+                        }
                     }
                 }
             }

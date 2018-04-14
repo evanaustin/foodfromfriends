@@ -257,6 +257,26 @@ keymap {
         border-radius: 3px;
     }
 
+    &.bubble {
+        @include transition(all .2s);
+        
+        &:not(.disabled) {
+            cursor: pointer;
+
+            &:hover {
+                @include transform(translateY(-1px));
+
+                &:not(.selected) {
+                    border-left-color: #777;
+                }
+            }
+        }
+
+        &.selected {
+            border-left-color: #5cb85c;
+        }
+    }
+
     &.default {
         border-left-color: #777;
         
