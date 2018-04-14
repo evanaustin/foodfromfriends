@@ -34,6 +34,10 @@ function img($path, $ext, $params) {
     echo '<img src="' . (($params['server'] == 'local') ? PUBLIC_ROOT . 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($params['class']) ? 'class="' . $params['class'] . '"' : '') . (!empty($params['title']) ? 'title="' . $params['title'] . '"' : '') .'/>';
 }
 
+function _img($path, $ext, $params) {
+    echo '<img src="' . (($params['server'] == 'local') ? PUBLIC_ROOT . 'media/' : 'https://s3.amazonaws.com/foodfromfriends/') . $path . '.' . $ext . '"' . (!empty($params['class']) ? 'class="' . $params['class'] . '"' : '') . (!empty($params['title']) ? 'title="' . $params['title'] . '"' : '') .'/>';
+}
+
 function svg($path) {
     $src = 'media/' . $path . '.svg';
     echo file_get_contents($src);
