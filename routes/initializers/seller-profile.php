@@ -5,7 +5,7 @@ $settings = [
 ];
 
 if (isset($Routing->seller)) {
-    $GrowerOperation = new GrowerOperation([
+    $Seller = new GrowerOperation([
         'DB'    => $DB,
         'slug'  => $Routing->seller
     ], [
@@ -14,23 +14,23 @@ if (isset($Routing->seller)) {
         'team'      => true
     ]);
     
-    if (isset($GrowerOperation)) {
-        $is_owner = isset($User) && ((isset($GrowerOperation->Owner) && $GrowerOperation->Owner->id == $User->id) || isset($GrowerOperation->TeamMembers[$User->id]));
+    if (isset($Seller)) {
+        $is_owner = isset($User) && ((isset($Seller->Owner) && $Seller->Owner->id == $User->id) || isset($Seller->TeamMembers[$User->id]));
     
-        if ($GrowerOperation->is_active || $is_owner) {
-            $joined_on = new DateTime($GrowerOperation->created_on, new DateTimeZone('UTC'));
+        if ($Seller->is_active || $is_owner) {
+            $joined_on = new DateTime($Seller->created_on, new DateTimeZone('UTC'));
             $joined_on->setTimezone(new DateTimeZone('America/New_York'));
         
             if (isset($User) 
             && !empty($User->latitude) && !empty($User->longitude) 
-            && !empty($GrowerOperation->latitude) && !empty($GrowerOperation->longitude)) {
+            && !empty($Seller->latitude) && !empty($Seller->longitude)) {
                 $length = getDistance([
                     'lat' => $User->latitude,
                     'lng' => $User->longitude
                 ],
                 [
-                    'lat' => $GrowerOperation->latitude,
-                    'lng' => $GrowerOperation->longitude
+                    'lat' => $Seller->latitude,
+                    'lng' => $Seller->longitude
                 ]);
             
                 if ($length < 0.1) {
@@ -41,24 +41,36 @@ if (isset($Routing->seller)) {
                     $distance['units'] = 'miles';
                 }
             }
+
+            if (isset($User, $User->delivery_latitude, $User->delivery_longitude)) {
+                $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $User->delivery_latitude . ',' . $User->delivery_longitude . '&destinations=' . $Seller->latitude . ',' . $Seller->longitude . '&key=' . GOOGLE_MAPS_KEY);
+                $output = json_decode($geocode);
+                $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
+                
+                $delivery_distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
+            }
             
-            $FoodListing = new FoodListing([
+            $Item = new FoodListing([
                 'DB' => $DB
             ]);
         
-            $grower_stars = stars($GrowerOperation->average_rating);
+            $grower_stars = stars($Seller->average_rating);
             
-            $listings = $FoodListing->get_all_listings($GrowerOperation->id);
+            $listings = $Item->get_all_listings($Seller->id);
+
+            if (isset($User, $User->ActiveOrder, $User->ActiveOrder->Growers[$Seller->id])) {
+                $SubOrder = $User->ActiveOrder->Growers[$Seller->id];
+            }
         
-            $ratings = $GrowerOperation->retrieve([
+            $ratings = $Seller->retrieve([
                 'where' => [
-                    'grower_operation_id' => $GrowerOperation->id
+                    'grower_operation_id' => $Seller->id
                 ],
                 'table' => 'grower_operation_ratings',
                 'recent' => true
             ]);
         
-            $settings['title'] = "{$GrowerOperation->name} | Food From Friends";
+            $settings['title'] = "{$Seller->name} | Food From Friends";
         }
     }
 }
