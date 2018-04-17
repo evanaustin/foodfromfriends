@@ -4,7 +4,22 @@
             <?php 
             
             $sidebar = [
-                'grower' => [
+                'buying' => [
+                    'orders' => [
+                        'overview'
+                    ],
+                    'wish-list' => [
+                        'items'
+                    ],
+                    'wholesale' => [
+                        'account-settings',
+                        // 'payment-settings',
+                        // 'team-members',
+                        // 'create-new'
+                    ]
+                    //'saved-items',
+                ],
+                'selling' => [
                     'orders' => [
                         'new',
                         'pending',
@@ -20,6 +35,9 @@
                         'delivery',
                         'pickup',
                         'meetup'
+                    ],
+                    'wholesale' => [
+                        'buyers'
                     ],
                     'settings' => [
                         'edit-profile',
@@ -39,15 +57,8 @@
                         'billing-info',
                         'delivery-address',
                     ],
-                    'buying' => [
-                        'orders',
-                        'wish-list',
-                        //'saved-items'
-                    ],
                     /* 'account-settings' => [
                         'notifications',
-                        'payout',
-                        'payment'
                     ] */
                     // 'edit' => 'edit-profile', // link alias format
                 ]
@@ -63,7 +74,7 @@
 
             ?>
 
-            <?php if ($Routing->template == 'dashboard' && $Routing->section == 'grower') { ?>
+            <?php if ($Routing->template == 'dashboard' && $Routing->section == 'selling'): ?>
                 <li class="nav-item">
                     <a 
                         href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
@@ -71,7 +82,7 @@
                         <?= 'Dashboard'; ?>
                     </a>
                 </li>
-            <?php } ?>
+            <?php endif; ?>
 
             <?php foreach ($sidebar[$Routing->section] as $k => $v) { ?>
                 <li class="nav-item">

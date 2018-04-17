@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling/' : 'dashboard/account/edit-profile/basic-information'); ?>"
                     >
                         Dashboard
                     </a>
@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview'; ?>">
                         Order history
                     </a>
                 </li>
@@ -57,7 +57,7 @@
                 
                 if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active) {
                     echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a></li>";
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/items/overview\">Your items</a></li>";
+                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/selling/items/overview\">Your items</a></li>";
                 }
                 
                 ?>
@@ -88,7 +88,22 @@
                 <?php
 
                 $sidebar = [
-                    'grower' => [
+                    'buying' => [
+                        'orders' => [
+                            'overview'
+                        ],
+                        'wish-list' => [
+                            'items'
+                        ],
+                        'wholesale' => [
+                            'account-settings',
+                            // 'payment-settings',
+                            // 'team-members',
+                            // 'create-new'
+                        ]
+                        //'saved-items',
+                    ],
+                    'selling' => [
                         'orders' => [
                             'new',
                             'pending',
@@ -104,6 +119,9 @@
                             'delivery',
                             'pickup',
                             'meetup'
+                        ],
+                        'wholesale' => [
+                            'buyers'
                         ],
                         'settings' => [
                             'edit-profile',
@@ -121,16 +139,10 @@
                         'edit-profile' => [
                             'basic-information',
                             'billing-info',
-                            'delivery-address'
-                        ],
-                        'buying' => [
-                            'orders',
-                            'wish-list',
+                            'delivery-address',
                         ],
                         /* 'account-settings' => [
                             'notifications',
-                            'payout',
-                            'payment'
                         ] */
                         // 'edit' => 'edit-profile', // link alias format
                     ]
@@ -146,7 +158,7 @@
 
                 ?>
 
-                <?php if ($Routing->section == 'grower') { ?>
+                <?php if ($Routing->section == 'selling') { ?>
                     <li class="nav-item">
                         <a 
                             href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
