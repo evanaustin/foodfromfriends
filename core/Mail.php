@@ -297,11 +297,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-<<<<<<< HEAD
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
-=======
         $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
->>>>>>> master
 
         $body = "
             <h1>
@@ -349,11 +345,7 @@ class Mail {
         $jwt = JWT::encode($token, JWT_KEY);
 
         // @todo scroll to order
-<<<<<<< HEAD
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/overview?token=' . $jwt));
-=======
         $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/orders?token=' . $jwt));
->>>>>>> master
 
         $body = "
             <h1>
@@ -522,11 +514,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-<<<<<<< HEAD
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
-=======
         $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
->>>>>>> master
 
         $body = "
             <h1>
@@ -569,11 +557,7 @@ class Mail {
         
         $jwt = JWT::encode($token, JWT_KEY);
         
-<<<<<<< HEAD
-        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/';
-=======
         $base_route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/';
->>>>>>> master
 
         $review_route = 'review?id=' . $OrderGrower->id;
         $review_link = urldecode(urlencode($review_route . '?token=' . $jwt));
@@ -625,11 +609,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-<<<<<<< HEAD
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
-=======
         $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
->>>>>>> master
 
         $body = "
             <h1>
@@ -671,11 +651,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-<<<<<<< HEAD
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
-=======
         $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
->>>>>>> master
 
         $body = "
             <h1>
