@@ -345,7 +345,7 @@ class Mail {
         $jwt = JWT::encode($token, JWT_KEY);
 
         // @todo scroll to order
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/orders?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/overview?token=' . $jwt));
 
         $body = "
             <h1>

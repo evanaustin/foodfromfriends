@@ -80,7 +80,7 @@
                 
                         <p class="message">
                             Thanks! Your order has been submitted.<br>
-                            Click <a href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">here</a> to check on its status.
+                            Click <a href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview'; ?>">here</a> to check on its status.
                         </p>
                     </div>
                 </div>

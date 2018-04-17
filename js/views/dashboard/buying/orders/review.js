@@ -32,7 +32,7 @@ App.Dashboard.OrderReview = function() {
                                 toastr.success('Reviewed! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/buying/orders/orders';
+                                    window.location = PUBLIC_ROOT + 'dashboard/buying/orders/overview';
                                 }, 1500);
                             },
                             function(response) {

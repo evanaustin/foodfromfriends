@@ -33,7 +33,7 @@ App.Dashboard.OrderIssue = function() {
                                 toastr.success('Reported. Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/buying/orders/orders';
+                                    window.location = PUBLIC_ROOT + 'dashboard/buying/orders/overview';
                                 }, 1500);
                             },
                             function(response) {
