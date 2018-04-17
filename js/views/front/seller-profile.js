@@ -4,6 +4,43 @@ App.Front.SellerProfile = function() {
             Mapbox.setCenter([lng, lat]);
         }
 
+        $('#request-wholesale').on('click', function() {
+            var data = {
+                'seller-id' : $(this).data('seller-id')
+            };
+
+            bootbox.confirm({
+                closeButton: false,
+                title: 'Request wholesale account membership',
+                message: 'Please confirm you want to submit a request for a wholesale membership with ' + seller_name + ' as <strong>' + wholesale_account_name + '</strong>',
+                buttons: {
+                    confirm: {
+                        label: 'Submit',
+                        className: 'btn-warning'
+                    },
+                    cancel: {
+                        label: 'Cancel',
+                        className: 'btn-muted'
+                    }
+                },
+                callback: function(result) {
+                    if (result === true) {
+                        App.Ajax.post('dashboard/buying/wholesale/request-membership', $.param(data), 
+                            function(response) {
+                                toastr.success('Wholesale membership requested');
+                                // App.Util.msg('Wholesale membership requested', 'success');
+                            }, function(response) {
+                                toastr.error(response.error);
+                                // App.Util.msg(response.error, 'danger');
+                            }
+                        );
+
+                        // window.location.replace(href);
+                    }
+                }
+            });
+        });
+
         $('#message').on('click', function(e) {
             // trigger sign up before directing to messages
             if (user == 0) {
