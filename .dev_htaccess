@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_URI} !=index.php
+RewriteCond %{REQUEST_URI} !=syzygyinfo.php
+
+RewriteCond %{REQUEST_URI} !ajax
+RewriteCond %{REQUEST_URI} !scheduled
+RewriteCond %{REQUEST_URI} !syzygy
+# RewriteCond %{REQUEST_URI} !.well-known
+
+RewriteCond %{REQUEST_URI} !.*\.jpg$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.png$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.gif$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.eot$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.svg$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.ttf$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.woff$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.woff2$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.mp4$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.webm$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.ogv$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.css$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.js$ [NC]
+
+RewriteRule ^(.*)$ index.php?path=$1 [L,QSA]
