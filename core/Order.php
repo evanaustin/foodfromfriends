@@ -373,16 +373,18 @@ class Order extends Base {
      * @param int $user_id The buyer ID
      * @param int $start The Order ID each selection of 10 begins from
      */
-    public function get_placed($user_id, $start = null) {
+    public function get_placed($user_id, $is_wholesale, $start = null) {
         $results = $this->DB->run('
             SELECT *
             FROM orders
             WHERE user_id=:user_id 
+                AND buyer_type=:buyer_type
                 AND charge_id > 0
             ORDER BY charge_id desc
             LIMIT 10
         ', [
-            'user_id' => $user_id
+            'user_id'       => $user_id,
+            'buyer_type'    => ($is_wholesale ? 'wholesale' : 'individual') 
         ]);
 
         if (!isset($results[0])) {
