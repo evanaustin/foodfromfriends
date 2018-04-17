@@ -17,9 +17,9 @@
                                 <?php
 
                                 if ($GrowerOperation->is_active) {
-                                    echo "<span>This is what your item looks like to the public. Click <a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\">here</a> to go edit this item.</span>";
+                                    echo "<span>This is what your item looks like to the public. Click <a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$FoodListing->id}\">here</a> to go edit this item.</span>";
                                 } else {
-                                    echo '<span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
+                                    echo '<span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="' . PUBLIC_ROOT . 'dashboard/selling/">here</a> to finish activating your seller account.</span>';
                                 }
 
                                 ?>
@@ -56,7 +56,7 @@
                                         ]);
         
                                         if ($is_owner) {
-                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
+                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta btn-block\">Add an item image</a>";
                                         }
                                     }
 
@@ -75,7 +75,7 @@
                                         ]);
 
                                         if ($is_owner) {
-                                            echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
+                                            echo '<a href="' . PUBLIC_ROOT . 'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
                                         }
                                     }
 
@@ -117,7 +117,7 @@
                                     echo "<div>{$FoodListing->description}</div>";
                                     echo '</div>';
                                 } else if ($is_owner) {
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
+                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$FoodListing->id}\" class=\"btn btn-cta\">Add a description</a>";
                                 }
 
                                 if (!empty($FoodListing->unit_definition)) {
@@ -242,9 +242,9 @@
                                             ?>
 
                                             <div class="btn-group">
-                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
-                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
-                                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
                                             </div>
 
                                             <?php
@@ -346,7 +346,7 @@
                                     <?php
 
                                     if (!$GrowerOperation->is_active && $is_owner) {
-                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower" class="btn btn-cta margin-top-1em">Complete your profile</a>';
+                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/selling/" class="btn btn-cta margin-top-1em">Complete your profile</a>';
                                     } else if (!empty($GrowerOperation->bio)) {
                                         echo '<div class="callout">';
                                         echo "<div>{$GrowerOperation->bio}</div>";
@@ -426,9 +426,9 @@
                                                                 ?>
 
                                                                 <div class="btn-group">
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
                                                                 </div>
 
                                                                 <?php
@@ -494,9 +494,9 @@
                                                                 ?>
 
                                                                 <div class="btn-group">
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
-                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery'; ?>" class="btn">Enable delivery</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup'; ?>" class="btn">Enable pickup</a>
+                                                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup'; ?>" class="btn">Enable meetup</a>
                                                                 </div>
 
                                                                 <?php
@@ -663,9 +663,9 @@
                                         ?>
 
                                         <div class="btn-group">
-                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
-                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
-                                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery'; ?>" class="btn btn-cta">Enable delivery</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup'; ?>" class="btn btn-cta">Enable pickup</a>
+                                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup'; ?>" class="btn btn-cta">Enable meetup</a>
                                         </div>
 
                                         <?php
@@ -767,7 +767,7 @@
                                 <?php
 
                                 if (!$GrowerOperation->is_active && $is_owner) {
-                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower" class="btn btn-cta margin-top-1em">Complete your profile</a>';
+                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/selling/" class="btn btn-cta margin-top-1em">Complete your profile</a>';
                                 } else if (!empty($GrowerOperation->bio)) {
                                     echo '<div class="callout">';
                                     echo "<div>{$GrowerOperation->bio}</div>";

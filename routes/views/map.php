@@ -65,11 +65,11 @@
                             ?>
 
                             <div class="<?= (!isset($User->GrowerOperation) ? 'col-12' : 'hidden'); ?>">
-                                <a id="start-selling" href="<?= PUBLIC_ROOT . 'dashboard/grower/items/add-new'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">List your items</a>
+                                <a id="start-selling" href="<?= PUBLIC_ROOT . 'dashboard/selling/items/add-new'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">List your items</a>
                             </div>
 
                             <!-- <div class="<?php //echo (empty($wishlist) ? 'col-12' : 'hidden'); ?>">
-                                <a id="build-wish-list" href="<?php //echo PUBLIC_ROOT . 'dashboard/account/buying/wish-list'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Build a wish list</a>
+                                <a id="build-wish-list" href="<?php //echo PUBLIC_ROOT . 'dashboard/buying/orders/wish-list'; ?>" class="btn btn-cta btn-block margin-top-btm-50em">Build a wish list</a>
                             </div> -->
                         </div>
                     </div>

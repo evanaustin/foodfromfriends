@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="col-12 col-lg-6 col-xl-3">
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Start selling</a>
                         </div>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                             </div>
 
                             <div class="col-12 col-sm-6 col-md-12 col-lg-5">
-                                <a href="<?= PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/settings/edit-profile'; ?>" class="btn btn-dark btn-block btn-lg start-selling">Sell local</a>
                             </div>
                         </div>
                     </div>
