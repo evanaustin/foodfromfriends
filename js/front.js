@@ -250,7 +250,7 @@ App.Front = function() {
                         App.Util.slidebar(Slidebar, 'toggle', 'right', e);
                         break;
                     case 68: // d
-                        window.location.replace(PUBLIC_ROOT + 'dashboard/grower');
+                        window.location.replace(PUBLIC_ROOT + 'dashboard/selling');
                         break;
                     case 77: // m
                         window.location.replace(PUBLIC_ROOT + 'map');
