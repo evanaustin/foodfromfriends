@@ -12,14 +12,14 @@
 
                             <span>
                                 This is your public profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/grower/settings/edit-profile">here</a> to go edit your information.
+                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile">here</a> to go edit your information.
                             </span>
 
                         <?php else: ?>
 
                             <span>
                                 <i class="fa fa-warning"></i> This is only a preview of your seller profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/grower">here</a> to finish activating your seller account.
+                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/">here</a> to finish activating your seller account.
                             </span>
 
                         <?php endif ?>
@@ -55,7 +55,7 @@
 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">
+                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">
                                         Add a profile picture
                                     </a>';
 
@@ -86,7 +86,7 @@
 
                                                 <?php else: ?>
 
-                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
                                                 <?php endif ?>
 
@@ -108,7 +108,7 @@
 
                                                 <?php else: ?>
 
-                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
                                                 <?php endif ?>
 
@@ -128,7 +128,7 @@
 
                                                 <?php else: ?>
 
-                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
                                                 <?php endif ?>
 
@@ -154,7 +154,7 @@
 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>
+                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>
                                 
                                 <?php endif ?>
                             
@@ -170,14 +170,23 @@
                             <?= $Seller->name ?>
 
                             <?php if (!$is_owner): ?>
-
+                            
                                 <a href="<?= PUBLIC_ROOT . "dashboard/messages/inbox/buying/thread?grower={$Seller->id}" ?>">
                                     <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                 </a>
+                            
+                            <?php endif ?>
+
+                            <?php if (isset($User->WholesaleAccount)): ?>
+
+                                <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
+                                    <i class="fa fa-address-card"></i>
+                                </div>
 
                             <?php endif ?>
+
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
@@ -198,7 +207,7 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/grower/settings/edit-profile" class="btn btn-cta">
+                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta">
                                         Add a bio
                                     </a>
                                 </div>
@@ -252,7 +261,7 @@
                         
                                                         <?php if ($is_owner): ?>
 
-                                                            <?= "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>" ?>
+                                                            <?= "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>" ?>
                                                         
                                                         <?php endif ?>
 
@@ -340,7 +349,7 @@
                                 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/grower/items/add-new" class="btn btn-cta margin-top-1em">
+                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/items/add-new" class="btn btn-cta margin-top-1em">
                                         Add your first item
                                     </a>
                                 
@@ -408,5 +417,7 @@
 <script>
     var lat     = <?= (isset($Seller)) ? number_format($Seller->latitude, 2) : 0 ?>;
     var lng     = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
-    var user    = <?= (isset($User)) ? $User->id : 0 ?>
+    var user    = <?= (isset($User)) ? $User->id : 0 ?>;
+    var seller_name = '<?= $User->GrowerOperation->name ?>';
+    var wholesale_account_name= '<?= $User->WholesaleAccount->name ?>';
 </script>
