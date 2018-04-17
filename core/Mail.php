@@ -49,7 +49,7 @@ class Mail {
         
         $jwt = JWT::encode($token, JWT_KEY);
         
-        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'reset-password';
+        $base_route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'reset-password';
 
         $reset_link = urldecode(urlencode($base_route . '?token=' . $jwt));
         
@@ -107,7 +107,7 @@ class Mail {
         $operationname = $GrowerOperation->name;
 
         // ensure that URL is concatenated correctly
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . "team-member-invitation?invited_by=" . $ownername . "&operation_name=" . $operationname . "&email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . "team-member-invitation?invited_by=" . $ownername . "&operation_name=" . $operationname . "&email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
 
         /*
          * Substitution tag method - preferred but inconsistent for some reason
@@ -164,7 +164,7 @@ class Mail {
         $operationname = $GrowerOperation->name;
         
         // ensure that URL is concatenated correctly
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . "log-in?email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . "log-in?email=" . $this->to_email . "&operation_key=" . $referral_keys['operation'] . "&personal_key=" . $referral_keys['personal']));
 
         /*
          * Substitution tag method - preferred but inconsistent for some reason
@@ -215,7 +215,7 @@ class Mail {
     public function user_new_message_notification($User, $GrowerOperation, $message) {
         $subject = "New message from {$GrowerOperation->name}";
         
-        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
+        $route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
 
         $token = [
             'user_id' => $User->id
@@ -252,7 +252,7 @@ class Mail {
     public function grower_new_message_notification($Member, $GrowerOperation, $User, $message) {
         $subject = "New message from {$User->name}";
         
-        $route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'individual') ? '&grower=' . $GrowerOperation->id : '');
+        $route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'individual') ? '&grower=' . $GrowerOperation->id : '');
 
         $token = [
             'user_id' => $Member->id,
@@ -297,7 +297,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -345,7 +345,7 @@ class Mail {
         $jwt = JWT::encode($token, JWT_KEY);
 
         // @todo scroll to order
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/buying/orders?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/orders?token=' . $jwt));
 
         $body = "
             <h1>
@@ -390,7 +390,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
 
         $body = "
             <h1>
@@ -431,7 +431,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
 
         $body = "
             <h1>
@@ -472,7 +472,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'map?token=' . $jwt));
 
         $body = "
             <h1>
@@ -514,7 +514,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -557,7 +557,7 @@ class Mail {
         
         $jwt = JWT::encode($token, JWT_KEY);
         
-        $base_route = (ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/account/buying/';
+        $base_route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/';
 
         $review_route = 'review?id=' . $OrderGrower->id;
         $review_link = urldecode(urlencode($review_route . '?token=' . $jwt));
@@ -609,7 +609,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -651,7 +651,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'localhost:8888' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
