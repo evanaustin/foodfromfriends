@@ -126,6 +126,14 @@ if ($LOGGED_IN) {
             $_SESSION['user']['active_operation_id'] = $User->GrowerOperation->id;
         }
     }
+    
+    if (!empty($User->WholesaleAccount)) {
+        if (isset($_SESSION['user']['active_wholesale_account_id']) && $_SESSION['user']['active_wholesale_account_id'] != $User->WholesaleAccount->id) {
+            $User->WholesaleAccount = $User->WholesaleAccounts[$_SESSION['user']['active_wholesale_account_id']];
+        } else if (!isset($_SESSION['user']['active_wholesale_account_id'])) {
+            $_SESSION['user']['active_wholesale_account_id'] = $User->WholesaleAccount->id;
+        }
+    }
 }
 
 
