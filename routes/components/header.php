@@ -109,7 +109,7 @@
                             ?>
                         </a>
 
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/orders'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview'; ?>">
                             Order history
                         </a>
 
