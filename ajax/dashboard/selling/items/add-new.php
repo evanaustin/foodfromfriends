@@ -16,11 +16,14 @@ $Gump->validation_rules([
 	'item-subcategory'  => 'required|integer',
     'item-variety'      => 'integer',
     'item-name'         => 'alpha_space',
+	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+	'is-available'      => 'required|boolean',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
 	'units'             => 'alpha_space',
-	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean'
+	'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
+	'wholesale-weight'  => 'regex,/^[0-9]+$/|max_numeric, 10000',
+	'wholesale-units'   => 'alpha_space'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -34,10 +37,14 @@ $Gump->filter_rules([
 	'item-subcategory'  => 'trim|whole_number',
     'item-variety'      => 'trim|whole_number',
 	'item-name'         => 'trim|sanitize_string',
+	'quantity'          => 'trim|whole_number',
 	'price'             => 'trim|sanitize_floats',
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
-	'stock'             => 'trim|whole_number',
+	'wholesale-price'   => 'trim|sanitize_floats',
+	'wholesale-weight'  => 'trim|whole_number',
+	'wholesale-units'   => 'trim|sanitize_string',
+	'packaging'         => 'trim|sanitize_string',
 	'description'       => 'trim|sanitize_string'
 ]);
 
@@ -47,10 +54,14 @@ foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 // manual check that if weight is set then units are too
 if (!empty($weight) && empty($units)) {
-    quit('Select measurement units for your item weight');
+    quit('Select measurement units for your item retail weight');
 }
 
-$FoodListing = new FoodListing([
+if (!empty($wholesale_weight) && empty($wholesale_units)) {
+    quit('Select measurement units for your item wholesale weight');
+}
+
+$Item = new FoodListing([
     'DB' => $DB,
     'S3' => $S3
 ]);
@@ -76,7 +87,7 @@ if (!$User->GrowerOperation) {
 }
 
 // ! TODO: make sure category + subcategory + variety are valid
-$item_exists = $FoodListing->retrieve([
+$item_exists = $Item->retrieve([
     'where' => [
         'grower_operation_id'   => $User->GrowerOperation->id,
         'food_category_id'      => $item_category,
@@ -90,18 +101,21 @@ if (!empty($item_exists)) {
     quit('You already have an item with these categories!');
 }
 
-$listing_added = $FoodListing->add([
+$listing_added = $Item->add([
     'grower_operation_id'   => $User->GrowerOperation->id,
-    'name'                  => (!empty($item_name) ? $item_name : NULL),
     'food_category_id'      => $item_category,
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
-    'price'                 => $price * 100,
+    'name'                  => (!empty($item_name) ? $item_name : NULL),
     'quantity'              => $quantity,
     'is_available'          => $is_available,
-    'unit_definition'       => $packaging,
+    'price'                 => $price * 100,
     'weight'                => (isset($weight)) ? $weight : 0,
     'units'                 => (isset($weight, $units)) ? $units : '',
+    'wholesale_price'       => $wholesale_price * 100,
+    'wholesale_weight'      => (isset($wholesale_weight)) ? $wholesale_weight : 0,
+    'wholesale_units'       => (isset($wholesale_weight, $wholesale_units)) ? $wholesale_units : '',
+    'packaging'             => $packaging,
     'description'           => $description,
 ]);
 
@@ -235,7 +249,7 @@ if (isset($_POST['images'])) {
         $Image->save($final['file']);
     }
     
-    $record_added = $FoodListing->add([
+    $record_added = $Item->add([
         'food_listing_id' => $id,
         'filename' => $filename,
         'ext' => $ext
