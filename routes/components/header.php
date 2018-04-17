@@ -55,7 +55,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling/' : 'dashboard/account/edit-profile/basic-information'); ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
@@ -109,7 +109,7 @@
                             ?>
                         </a>
 
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/orders'; ?>">
                             Order history
                         </a>
 
@@ -121,7 +121,7 @@
 
                         if (isset($User->GrowerOperation)) {
                             echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a>";
-                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/grower/items/overview\">Your items</a>";
+                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/selling/items/overview\">Your items</a>";
                         }
 
                         ?>

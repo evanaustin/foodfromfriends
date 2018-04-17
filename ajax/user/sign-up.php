@@ -114,7 +114,7 @@ if (isset($redirect) && $redirect == 'false') {
 } else if (isset($redirect)) {
     $json['redirect'] = $redirect;
 } else if (isset($GrowerOperation)) {
-    $json['redirect'] = PUBLIC_ROOT . 'dashboard/grower';
+    $json['redirect'] = PUBLIC_ROOT . 'dashboard/selling/';
 } else {
     $json['redirect'] = PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information';
 }
