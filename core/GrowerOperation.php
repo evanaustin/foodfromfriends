@@ -471,13 +471,6 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results[0]['listings'] : false;
     }
 
-    public function gen_referral_key($len, $name = null) {
-        $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
-        $code = substr(md5(microtime()), rand(0,26), $len);
-        
-        return (!empty($slug) ? $slug . '_' . $code : $code);
-    }
-
     /**
      * Returns an array of `Order` objects for all orders that included items from this grower.  Note that
      * data for all growers in the order is present in each Order->Growers array, so on display you'll

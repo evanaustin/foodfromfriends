@@ -145,6 +145,13 @@ abstract class Base {
 
         return (isset($img_saved)) ? $results : false;
     }
+
+    public function gen_referral_key($len, $name = null) {
+        $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
+        $code = substr(md5(microtime()), rand(0,26), $len);
+        
+        return (!empty($slug) ? $slug . '_' . $code : $code);
+    }
 } 
 
 ?>
