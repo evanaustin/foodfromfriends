@@ -8,7 +8,7 @@ $('#edit-payout').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/grower/settings/save-payout', data, 
+        App.Ajax.post('dashboard/selling/settings/save-payout', data, 
             function(response) {
                 App.Util.msg('Your payout settings have been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');

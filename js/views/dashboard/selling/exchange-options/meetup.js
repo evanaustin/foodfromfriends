@@ -25,12 +25,12 @@ $('#save-meetup').on('submit', function(e) {
     data = $form.serialize();
 
     if ($form.parsley().isValid()) {
-        App.Ajax.post('dashboard/grower/exchange-options/meetup', data, 
+        App.Ajax.post('dashboard/selling/exchange-options/meetup', data, 
             function(response) {
                 if (response.is_active) {
-                    App.Util.msg('Your meetup preferences have been saved! Edit your <a href="' + PUBLIC_ROOT + 'dashboard/grower/exchange-options/delivery">delivery</a> or <a href="' + PUBLIC_ROOT + 'dashboard/grower/exchange-options/pickup">pickup</a> preferences or <a href="' + PUBLIC_ROOT + response.link + '">view</a> your profile', 'success');
+                    App.Util.msg('Your meetup preferences have been saved! Edit your <a href="' + PUBLIC_ROOT + 'dashboard/selling/exchange-options/delivery">delivery</a> or <a href="' + PUBLIC_ROOT + 'dashboard/selling/exchange-options/pickup">pickup</a> preferences or <a href="' + PUBLIC_ROOT + response.link + '">view</a> your profile', 'success');
                 } else {
-                    App.Util.msg('Your meetup preferences have been saved! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now or <a href="' + PUBLIC_ROOT + 'dashboard/grower">here</a> to finish activating your seller profile', 'success');
+                    App.Util.msg('Your meetup preferences have been saved! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now or <a href="' + PUBLIC_ROOT + 'dashboard/selling/">here</a> to finish activating your seller profile', 'success');
                 }
 
                 App.Util.animation($('button[type="submit"]'), 'bounce');

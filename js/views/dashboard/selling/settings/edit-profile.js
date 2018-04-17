@@ -46,7 +46,7 @@ $('a.remove-image').on('click', function(e) {
 			if (result === true) {
 				if ($('div.image-box').hasClass('existing-image')) {
 					App.Util.loading();
-					App.Image.destroy('dashboard/grower/settings/remove-image');
+					App.Image.destroy('dashboard/selling/settings/remove-image');
 				} else {
 					App.Image.discard();
 				}
@@ -126,12 +126,12 @@ $('#edit-basic-information').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('dashboard/grower/settings/save-profile', data, 
+		App.Ajax.postFiles('dashboard/selling/settings/save-profile', data, 
 			function(response) {
 				App.Util.finishedLoading();
 				
 				if (response.switch == true) {
-					window.location.replace(PUBLIC_ROOT + 'dashboard/grower/items/overview');
+					window.location.replace(PUBLIC_ROOT + 'dashboard/selling/items/overview');
 				}
                 
                 $('#live-link').addClass('hidden');

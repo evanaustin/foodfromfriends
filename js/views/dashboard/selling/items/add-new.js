@@ -144,12 +144,12 @@ $('#add-listing').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
         
-        App.Ajax.postFiles('dashboard/grower/items/add-new', data, 
+        App.Ajax.postFiles('dashboard/selling/items/add-new', data, 
             function(response) {
                 if (response.is_active) {
                     App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now', 'success');
                 } else {
-                    App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now or <a href="' + PUBLIC_ROOT + 'dashboard/grower">here</a> to finish activating your seller profile', 'success');
+                    App.Util.msg('Your listing has been created! Click <a href="' + PUBLIC_ROOT + response.link + '">here</a> to view it now or <a href="' + PUBLIC_ROOT + 'dashboard/selling/">here</a> to finish activating your seller profile', 'success');
                 }
 
                 App.Util.animation($('button[type="submit"]'), 'bounce');
@@ -197,7 +197,7 @@ $('#suggest-item-form').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading('.suggest-item-submit');
         
-        App.Ajax.post('dashboard/grower/items/suggest-item', data, 
+        App.Ajax.post('dashboard/selling/items/suggest-item', data, 
             function(response) {
                 $('input[name="item-type"]').val('');
                 $('textarea[name="comments"]').val('');

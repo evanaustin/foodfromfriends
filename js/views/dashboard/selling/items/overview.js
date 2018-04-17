@@ -22,7 +22,7 @@ $('a.remove-listing').on('click', function(e) {
         },
         callback: function(result) {
             if (result === true) {
-                App.Ajax.post('dashboard/grower/items/remove-listing', data, 
+                App.Ajax.post('dashboard/selling/items/remove-listing', data, 
                     function(response) {
                         $('a.remove-listing').tooltip('hide');
                         App.Util.animation($card, 'zoomOut', 'out', true, $card.parents('div.col-md-4'));

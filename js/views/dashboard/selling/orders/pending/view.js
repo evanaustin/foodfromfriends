@@ -28,14 +28,14 @@ App.Dashboard.PendingOrderView = function() {
                         App.Util.loading('.save');
                         console.log(data);
         
-                        App.Ajax.post('dashboard/grower/orders/fulfill', data, 
+                        App.Ajax.post('dashboard/selling/orders/fulfill', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
                                 toastr.success('Fulfilled! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/grower/orders/under-review/view?id=' + ordergrower_id;
+                                    window.location = PUBLIC_ROOT + 'dashboard/selling/orders/under-review/view?id=' + ordergrower_id;
                                 }, 1500);
                             },
                             function(response) {

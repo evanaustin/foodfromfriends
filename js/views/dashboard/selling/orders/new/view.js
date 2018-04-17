@@ -28,14 +28,14 @@ App.Dashboard.NewOrderView = function() {
                         App.Util.loading('.save');
                         console.log(data);
         
-                        App.Ajax.post('dashboard/grower/orders/confirm', data, 
+                        App.Ajax.post('dashboard/selling/orders/confirm', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
                                 toastr.success('Confirmed! Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/grower/orders/pending/view?id=' + ordergrower_id;
+                                    window.location = PUBLIC_ROOT + 'dashboard/selling/orders/pending/view?id=' + ordergrower_id;
                                 }, 1500);
                             },
                             function(response) {
@@ -73,14 +73,14 @@ App.Dashboard.NewOrderView = function() {
                     if (result === true) {
                         App.Util.loading('.reject');
         
-                        App.Ajax.post('dashboard/grower/orders/reject', data, 
+                        App.Ajax.post('dashboard/selling/orders/reject', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
                                 toastr.warning('Rejected. Now redirecting back to new orders...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/grower/orders/new';
+                                    window.location = PUBLIC_ROOT + 'dashboard/selling/orders/new';
                                 }, 1500);
                             },
                             function(response) {
