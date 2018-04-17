@@ -54,6 +54,10 @@ class User extends Base {
         $GrowerOperation,
         $Orders,
         $ActiveOrder;
+    
+    public
+        $WholesaleAccounts,
+        $WholesaleAccount;
 
     protected
         $class_dependencies,
@@ -88,6 +92,7 @@ class User extends Base {
             if (!isset($parameters['limited']) || $parameters['limited'] == false) {
                 $this->get_operations();
                 $this->get_orders();
+                $this->get_wholesale_accounts();
             }
     
             $this->name = "{$this->first_name} {$this->last_name}";
@@ -148,7 +153,6 @@ class User extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    // eventually this should be refactored to allow for buyer operations also
     private function get_operations() {
         $results = $this->DB->run('
             SELECT *
@@ -182,11 +186,35 @@ class User extends Base {
         }
     }
 
-    public function switch_operation($id) {
-        $_SESSION['user']['active_operation_id'] = $id;
-        $this->GrowerOperation = $this->Operations[$id];
+    private function get_wholesale_accounts() {
+        $results = $this->DB->run('
+            SELECT *
+            FROM wholesale_account_members wam
+            WHERE wam.user_id = :user_id 
+                AND permission > 0
+        ', [
+            'user_id' => $this->id
+        ]);
 
-        return $this->GrowerOperation->id;
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $id = $result['wholesale_account_id'];
+
+                $this->WholesaleAccounts[$id] = new WholesaleAccount([
+                    'DB' => $this->DB,
+                    'id' => $id
+                ]);
+
+                $this->WholesaleAccounts[$id]->permission = $result['permission'];
+
+                if ($result['is_default']) {
+                    $this->WholesaleAccount = $this->WholesaleAccounts[$id];
+                }
+            }
+        } else {
+            $this->WholesaleAccounts    = false;
+            $this->WholesaleAccount     = false;
+        }
     }
 
     public function authenticate($email, $password) {
@@ -237,6 +265,20 @@ class User extends Base {
         }
 
         return false;
+    }
+
+    public function switch_operation($id) {
+        $_SESSION['user']['active_operation_id'] = $id;
+        $this->GrowerOperation = $this->Operations[$id];
+
+        return $this->GrowerOperation->id;
+    }
+    
+    public function switch_wholesale_account($id) {
+        $_SESSION['user']['active_wholesale_account_id'] = $id;
+        $this->WholesaleAccount = $this->WholesaleAccounts[$id];
+
+        return $this->WholesaleAccount->id;
     }
 
     /**
