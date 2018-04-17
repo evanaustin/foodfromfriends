@@ -1,4 +1,4 @@
-App.Dashboard.Orders = function() {
+App.Dashboard.OrdersOverviews = function() {
     function listener() {
         $('a.cancel-order').on('click', function(e) {
             e.preventDefault();
@@ -25,7 +25,7 @@ App.Dashboard.Orders = function() {
                     if (result === true) {
                         App.Util.loading();
 
-                        App.Ajax.post('dashboard/account/buying/cancel-order', data, 
+                        App.Ajax.post('dashboard/buying/orders/cancel-order', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         

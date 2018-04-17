@@ -26,14 +26,14 @@ App.Dashboard.OrderIssue = function() {
 
                         var data = $form.serialize();
 
-                        App.Ajax.post('dashboard/account/buying/report', data, 
+                        App.Ajax.post('dashboard/buying/orders/report', data, 
                             function(response) {
                                 App.Util.finishedLoading();
         
                                 toastr.success('Reported. Now redirecting...');
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/account/buying/orders';
+                                    window.location = PUBLIC_ROOT + 'dashboard/buying/orders/orders';
                                 }, 1500);
                             },
                             function(response) {
