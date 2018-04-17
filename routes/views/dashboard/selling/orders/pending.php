@@ -3,18 +3,18 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Completed orders
+                    Pending orders
                 </div>
         
                 <div class="page-description text-muted small">
-                    These are orders that have been fulfilled and require no further action. Click into an order to view its details.
+                    These are orders that have been confirmed but still need to be fulfilled. Click into an order to view its details and mark it fulfilled.
                 </div>
             </div>
         </div>
 
         <?php
 
-        if (isset($completed) && ($completed != false) && count($completed) > 0) {
+        if (isset($pending) && ($pending != false) && count($pending) > 0) {
 
             ?>
 
@@ -25,8 +25,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Completed on</th>
+                            <th>Confirmed</th>
                             <th>Amount</th>
+                            <th>Exchange type</th>
                             <th>Buyer</th>
                             <th></th>
                         </tr>
@@ -37,10 +38,14 @@
                         
                         $i = 1;
 
-                        foreach($completed as $order) {
-                            $fulfilled_on = new DateTime($order['fulfilled_on']);
-                            $fulfilled_on->setTimezone(new DateTimeZone($User->timezone));
+                        foreach($pending as $order) {
+                            $time_elapsed = \Time::elapsed($order['confirmed_on']);
 
+                            $OrderGrower = new OrderGrower([
+                                'DB' => $DB,
+                                'id' => $order['id']
+                            ]);
+                            
                             $ThisUser = new User([
                                 'DB' => $DB,
                                 'id' => $order['user_id']
@@ -53,12 +58,16 @@
                                     <?= $i; ?>
                                 </td>
 
-                                <td clas="completed-on">
-                                    <?= $fulfilled_on->format('F j, Y'); ?>
+                                <td class="confirmed">
+                                    <?= $time_elapsed['full']; ?>
                                 </td>
-                                
+
                                 <td class="amount">
                                     <?php amount($order['total']); ?>
+                                </td>
+                                
+                                <td class="exchange-type">
+                                    <?= ucfirst($OrderGrower->Exchange->type); ?>
                                 </td>
 
                                 <td class="buyer">
@@ -66,7 +75,7 @@
                                 </td>
                                 
                                 <td class="details">
-                                    <a href="<?= PUBLIC_ROOT . $Routing->template . '/grower/orders/completed/view?id=' . $order['id']; ?>">
+                                    <a href="<?= PUBLIC_ROOT . $Routing->template . '/selling/orders/pending/view?id=' . $order['id']; ?>">
                                         <i class="fa fa-external-link" data-toggle="tooltip" data-placement="top" data-title="View order details"></i>
                                     </a>
                                 </td>
@@ -81,7 +90,7 @@
                         ?>
 
                         <tr>
-                            <td colspan=5>
+                            <td colspan=6>
                                 <nav aria-label="Table navigation">
                                     <ul class="pagination">
                                         <li class="page-item active">
@@ -100,13 +109,15 @@
             <?php
 
         } else {
+            
             ?>
             
             <div class="block margin-top-1em strong">
-                You don't have any completed orders
+                You don't have any pending orders
             </div>
 
             <?php
+
         }
 
         ?>

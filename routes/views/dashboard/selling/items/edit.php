@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        Revise the item details and/or upload a new image. Only items marked as available can be purchased by buyers.
+                        Update your item details and/or upload a new image. Only items marked as available can be purchased by buyers, and you can always deny any order that comes in.
                     </div>
                 </div>
 
@@ -113,27 +113,12 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="other-subcategory">
-                                        Item name
-                                    </label>
+                        <div class="form-group">
+                            <label for="item-name">
+                                Item name
+                            </label>
 
-                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?= $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="price">Item price</label>
-                                    
-                                    <div class="input-group w-addon">
-                                        <div class="input-group-addon">$</div>
-                                        <input id="price" type="text" name="price" class="form-control" value="<?= number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
-                                    </div>
-                                </div>
-                            </div>
+                            <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?= $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
                         </div>
 
                         <div class="row">
@@ -163,26 +148,85 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="weight">Average weight per item (optional)</label>
-                            <div class="input-group w-addon">
-                                <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
-                                
-                                <select name="units" class="input-group-addon" data-parsley-excluded="true">
-                                    <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="price">Item price</label>
+                                    
+                                    <div class="input-group w-addon">
+                                        <div class="input-group-addon">$</div>
+                                        <input id="price" type="text" name="price" class="form-control" value="<?= number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="weight">Average weight per item (optional)</label>
+                                    <div class="input-group w-addon">
+                                        <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
+                                        
+                                        <select name="units" class="input-group-addon" data-parsley-excluded="true">
+                                            <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
 
-                                    <?php foreach ([
-                                        'g',
-                                        'oz',
-                                        'lb',
-                                        'kg',
-                                        'fl oz',
-                                        'liter',
-                                        'gallon'
-                                    ] as $unit) {
-                                        echo "<option value=\"{$unit}\"" . ($unit == $FoodListing->units ? 'selected' : '') . ">{$unit}</option>";
-                                    } ?>
-                                </select>
+                                            <?php foreach ([
+                                                'g',
+                                                'oz',
+                                                'lb',
+                                                'kg',
+                                                'fl oz',
+                                                'liter',
+                                                'gallon'
+                                            ] as $unit) {
+                                                echo "<option value=\"{$unit}\"" . ($unit == $FoodListing->units ? 'selected' : '') . ">{$unit}</option>";
+                                            } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Wholesale item price (optional) <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
+                                    </label>
+
+                                    <div class="input-group w-addon">
+                                        <div class="input-group-addon">$</div>
+                                        <input type="text" name="wholesale-price" class="form-control" value="<?= number_format(($FoodListing->wholesale_price / 100), 2); ?>" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Wholesale item weight (optional)
+                                    </label>
+
+                                    <div class="input-group w-addon">
+                                        <input type="number" name="wholesale-weight" class="form-control" value="<?= (!empty($FoodListing->wholesale_weight) ? $FoodListing->weight : ''); ?>" placeholder="Wholesale item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
+                                        
+                                        <select name="units" class="input-group-addon">
+                                            <option disabled selected>Units</option>
+                                            
+                                            <?php foreach ([
+                                                'g',
+                                                'oz',
+                                                'lbs',
+                                                'kg',
+                                                'fl oz',
+                                                'liters',
+                                                'gallons'
+                                            ] as $unit) {
+                                                echo "<option value=\"{$unit}\"" . ($unit == $FoodListing->wholesale_units ? 'selected' : '') . ">{$unit}</option>";
+                                            } ?>
+
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -192,6 +236,14 @@
                             </label>
 
                             <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?= $FoodListing->unit_definition; ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Item description (optional)
+                            </label>
+
+                            <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?= $FoodListing->description; ?></textarea>
                         </div>
                     </div>
 
@@ -239,14 +291,6 @@
                             </span>
                         </button>
                     </div> -->
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        Item description (optional)
-                    </label>
-
-                    <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?= $FoodListing->description; ?></textarea>
                 </div>
             </form>
 
