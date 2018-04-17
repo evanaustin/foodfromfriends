@@ -1,4 +1,4 @@
-App.Dashboard.WishList = function() {
+App.Dashboard.Items = function() {
     function listener() {
         var wishlist = {
             'remove': [],
@@ -33,7 +33,7 @@ App.Dashboard.WishList = function() {
         $('#wish-list').on('submit', function(e) {
             e.preventDefault();
             
-            App.Ajax.post('dashboard/account/buying/save-wishes', {wishlist:wishlist},
+            App.Ajax.post('dashboard/buying/orders/save-wishes', {wishlist:wishlist},
                 function(response) {
                     App.Util.msg('Your wishes were saved! Click <a href="' + PUBLIC_ROOT + 'user/' + user.slug + '">here</a> to go view your profile.', 'success');
                 },
