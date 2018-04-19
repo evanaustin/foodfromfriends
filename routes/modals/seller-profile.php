@@ -50,7 +50,7 @@
                             </div>
                             
                             <div>
-                                Will deliver within: <strong><?= $Seller->Delivery->distance ?></strong> miles <?php if (!$in_range) echo "(you are <span class=\"warning strong\">{$delivery_distance}</span> miles away)" ?>
+                                Will deliver within: <strong><?= $Seller->Delivery->distance ?></strong> miles <?php if (!$in_range && isset($delivery_distance)) echo "(you are <span class=\"warning strong\">{$delivery_distance}</span> miles away)" ?>
                             </div>
 
                             <?php if ($Seller->Delivery->delivery_type == 'conditional'): ?>
