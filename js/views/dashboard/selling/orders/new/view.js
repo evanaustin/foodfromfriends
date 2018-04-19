@@ -26,7 +26,6 @@ App.Dashboard.NewOrderView = function() {
                 callback: function(result) {
                     if (result === true) {
                         App.Util.loading('.save');
-                        console.log(data);
         
                         App.Ajax.post('dashboard/selling/orders/confirm', data, 
                             function(response) {

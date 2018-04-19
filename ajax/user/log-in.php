@@ -120,7 +120,7 @@ if ($User->exists('email', $email)) {
     if (isset($redirect) && $redirect == 'false') {
         $json['redirect'] = false;
     } else if ($User->GrowerOperation != false) {
-        $json['redirect'] = PUBLIC_ROOT . 'dashboard/selling/';
+        $json['redirect'] = PUBLIC_ROOT . 'dashboard/selling';
     } else {
         $json['redirect'] = PUBLIC_ROOT;
     }

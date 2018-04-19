@@ -11,7 +11,7 @@ $json['success'] = true;
 
 $User->switch_operation($_POST['grower_operation_id']);
 
-$json['redirect'] = 'dashboard/selling/';
+$json['redirect'] = 'dashboard/selling';
 
 echo json_encode($json);
 
