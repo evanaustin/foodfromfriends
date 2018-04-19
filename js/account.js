@@ -141,6 +141,26 @@ App.Account = function() {
                 }
             );
         });
+        
+        /*
+        * Switch wholesale accounts
+        */
+        $('a.switch-wholesale-account').on('click', function(e) {
+            e.preventDefault();
+
+            var data = {
+                'wholesale_account_id' : $(this).data('wholesale-account-id')
+            };
+
+            App.Ajax.post('user/switch-wholesale-account', data, 
+                function(response) {
+                    window.location.replace(PUBLIC_ROOT + response.redirect);
+                },
+                function(response) {
+                    toastr.error(response.error);
+                }
+            );
+        });
     }
     
     return {
