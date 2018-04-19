@@ -450,7 +450,7 @@
                                             
                                                 ?>
 
-                                                <form id="add-item" data-ordergrower="<?= $OrderGrower->id; ?>">
+                                                <form id="add-item" data-ordergrower="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0; ?>">
                                                     <input type="hidden" name="user-id" value="<?= (isset($User)) ? $User->id : ''; ?>">
                                                     <input type="hidden" name="food-listing-id" value="<?= $FoodListing->id; ?>">
 
