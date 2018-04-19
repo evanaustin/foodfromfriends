@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling/' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/edit-profile/basic-information'); ?>"
                     >
                         Dashboard
                     </a>
@@ -97,6 +97,7 @@
                         ],
                         'wholesale' => [
                             'account-settings',
+                            'sellers',
                             // 'payment-settings',
                             // 'team-members',
                             // 'create-new'

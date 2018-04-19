@@ -13,6 +13,7 @@
                     ],
                     'wholesale' => [
                         'account-settings',
+                        'sellers'
                         // 'payment-settings',
                         // 'team-members',
                         // 'create-new'
