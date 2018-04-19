@@ -14,13 +14,11 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <?php
 
-                        foreach ($User->WholesaleAccounts as $WholesaleAccount) {
-                            echo '<a ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'href="' . PUBLIC_ROOT . 'dashboard/buying"' : '') . ' class="dropdown-item ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'active' : 'switch-operation') . '" data-grower-operation-id="' . $WholesaleAccount->id .'">' . $WholesaleAccount->name . '</a>';
-                        }
+                        <?php foreach ($User->WholesaleAccounts as $WholesaleAccount) {
+                            echo '<a ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'href="' . PUBLIC_ROOT . 'dashboard/buying/orders/overview"' : '') . ' class="dropdown-item ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'active' : 'switch-wholesale-account') . '" data-wholesale-account-id="' . $WholesaleAccount->id .'">' . $WholesaleAccount->name . '</a>';
+                        } ?>
 
-                        ?>
                     </div>
                 </li>
 
