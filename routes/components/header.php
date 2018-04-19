@@ -10,7 +10,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
 
-            <?php if (!$LOGGED_IN) { ?>
+            <?php if (!$LOGGED_IN): ?>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                         <span>
@@ -40,8 +41,11 @@
                         <!-- <i class="fa fa-id-badge"></i> -->
                     </a>
                 </li>
-            <?php } else { ?>
-                <!-- TABLETS + DESKTOPS -->
+
+            <?php else: ?>
+
+                <!-- BEGIN TABLETS + DESKTOPS -->
+
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->section == 'map') { echo 'active'; } ?>" 
@@ -55,18 +59,14 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling/' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/edit-profile/basic-information'); ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
                     </a>
                 </li>
 
-                <?php
-                
-                if ($Routing->template == 'front' || $Routing->template == 'map') {
-                    
-                    ?>
+                <?php if ($Routing->template == 'front' || $Routing->template == 'map'):?>
 
                     <li class="nav-item d-none d-md-block">
                         <a 
@@ -77,11 +77,7 @@
                         </a>
                     </li>
 
-                    <?php
-
-                }
-
-                ?>
+                <?php endif; ?>
 
                 <li class="nav-item profile dropdown d-none d-md-block">
                     <div 
@@ -117,14 +113,12 @@
                             User profile
                         </a>
 
-                        <?php
+                        <?php if (isset($User->GrowerOperation)): ?>
 
-                        if (isset($User->GrowerOperation)) {
-                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a>";
-                            echo "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/selling/items/overview\">Your items</a>";
-                        }
-
-                        ?>
+                            <?= "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a>" ?>
+                            <?= "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/selling/items/overview\">Your items</a>" ?>
+                        
+                        <?php endif; ?>
 
                         <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
                             Edit profile
@@ -133,8 +127,10 @@
                         <a id="log-out" class="dropdown-item" href="#">Log out</a>
                     </div>
                 </li>
+
                 <!-- END TABLETS + DESKTOPS -->
-            <?php } ?>
+
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
