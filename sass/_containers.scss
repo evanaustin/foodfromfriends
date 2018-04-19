@@ -351,6 +351,10 @@ keymap {
         border-color: $edge-color !important;
     }
 
+    td {
+        vertical-align: middle !important;
+    }
+
     ul.pagination {
         margin: 0;
 
