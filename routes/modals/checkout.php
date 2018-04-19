@@ -64,7 +64,7 @@
                         <div id="card-errors" role="alert"></div>
 
                         <button class="btn btn-block btn-primary">
-                            Submit order &mdash; <span id="checkout-total"><?php if (isset($User->ActiveOrder)) { amount($User->ActiveOrder->total); } ?></span>
+                            Submit order &mdash; <span id="checkout-total"><?php if (isset($User, $User->ActiveOrder, $User->ActiveOrder->total)) amount($User->ActiveOrder->total) ?></span>
                         </button>
                     </form>
 
