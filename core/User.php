@@ -295,7 +295,7 @@ class User extends Base {
             'user_id' => $this->id
         ]);
 
-        if (isset($results)) {
+        if (!empty($results[0])) {
             foreach ($results as $result) {
                 $id = $result['id'];
 
