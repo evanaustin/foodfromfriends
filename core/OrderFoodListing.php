@@ -81,8 +81,14 @@ class OrderFoodListing extends Base {
         ]);
         
         if (!$FoodListing->is_available) {
+            $OrderGrower = new OrderGrower([
+                'DB' => $this->DB,
+                'id' => $this->order_grower_id
+            ]);
+
             $this->add([
-                'user_id'           => $this->user_id,
+                'buyer_id'          => $OrderGrower->buyer_id,
+                'buyer_type'        => $OrderGrower->buyer_type,
                 'food_listing_id'   => $this->food_listing_id,
             ], 'saved_items');
 
