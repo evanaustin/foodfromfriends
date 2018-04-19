@@ -302,4 +302,24 @@ class WholesaleAccount extends Base {
         return (isset($results[0])) ? $results[0]['wholesale_account_id'] : false;
     }
 
+    public function approve_membership($membership_id) {
+        $results = $this->update([
+            'status' => 2
+        ], 'id', $membership_id, 'wholesale_account_memberships');
+
+        if (!$results) {
+            throw new \Exception('Could not approve wholesale buyer');
+        }
+    }
+    
+    public function unapprove_membership($membership_id) {
+        $results = $this->update([
+            'status' => 0
+        ], 'id', $membership_id, 'wholesale_account_memberships');
+
+        if (!$results) {
+            throw new \Exception('Could not unapprove wholesale buyer');
+        }
+    }
+
 }
