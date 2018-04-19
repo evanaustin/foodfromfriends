@@ -122,7 +122,7 @@ $('#create-new').on('submit', function(e) {
 		App.Ajax.postFiles('dashboard/selling/settings/create-new', data, 
 			function(response) {
 				App.Util.finishedLoading();
-				window.location.replace(PUBLIC_ROOT + 'dashboard/selling/');
+				window.location.replace(PUBLIC_ROOT + 'dashboard/selling');
 			},
 			function(response) {
 				App.Util.msg(response.error, 'danger');
