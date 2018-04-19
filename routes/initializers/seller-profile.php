@@ -49,6 +49,19 @@ if (isset($Routing->seller)) {
                 
                 $delivery_distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
             }
+
+            if (isset($User->WholesaleAccount)) {
+                $wholesale_relationship = $User->WholesaleAccount->retrieve([
+                    'where' => [
+                        'wholesale_account_id' => $User->WholesaleAccount->id,
+                        'seller_id' => $Seller->id,
+                        'status'    => 2
+                    ],
+                    'table' => 'wholesale_account_memberships'
+                ]);
+            } else {
+                $wholesale_relationship = false;
+            }
             
             $Item = new FoodListing([
                 'DB' => $DB

@@ -182,7 +182,7 @@
                             <?php if (isset($User->WholesaleAccount)): ?>
 
                                 <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
-                                    <i class="fa fa-address-card"></i>
+                                    <i class="fa fa-cutlery"></i>
                                 </div>
 
                             <?php endif ?>
@@ -190,7 +190,7 @@
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?= "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($Seller->city, $Seller->state) ? "&bull; {$Seller->city}, {$Seller->state}" : '') . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : "") ?>
+                            <?= "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($Seller->city, $Seller->state) ? "&bull; {$Seller->city}, {$Seller->state}" : '') . ((isset($distance, $distance['length']) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : "") ?>
                         </div>
 
                         <div class="muted bold margin-btm-1em">
@@ -273,11 +273,34 @@
                                             <div class="card-body d-flex flex-column">
                                                 <fable class="card-title margin-btm-50em">
                                                     <cell>
+                                                        <?php
+                                                        
+                                                        $price  = ($wholesale_relationship && !empty($Item->wholesale_price))   ? $Item->wholesale_price    : $Item->price;
+                                                        $weight = ($wholesale_relationship && !empty($Item->wholesale_weight))  ? $Item->wholesale_weight   : $Item->weight;
+                                                        $units  = ($wholesale_relationship && !empty($Item->wholesale_units))   ? $Item->wholesale_units    : $Item->units;
+                                                        
+                                                        ?>
+
                                                         <h5 class="dark-gray bold">
-                                                            <?= amount($Item->price) ?>
+                                                            <?= _amount($price) ?>
                                                         </h5>
                                                         
-                                                        <?php if (!empty($Item->weight) && !empty($Item->units)) echo '&nbsp;<span class="light-gray small">($' . number_format(($Item->price / $Item->weight) / 100, 2) . "/{$Item->units})</span>" ?>
+                                                        <?php if (!empty($weight) && !empty($units)): ?>
+                                                            
+                                                            &nbsp;
+                                                            <span class="light-gray small">
+                                                                ($<?= number_format(($price / $weight) / 100, 2) . "/{$units}" ?>)
+                                                            </span>
+
+                                                        <?php endif; ?>
+
+                                                        <?php if ($wholesale_relationship && !empty($Item->wholesale_price)): ?>
+                                                            
+                                                            &nbsp;
+                                                            <i class="fa fa-cutlery small muted" data-toggle="tooltip" data-title="Your wholesale price"></i>
+
+                                                        <?php endif; ?>
+
                                                     </cell>
 
                                                     <cell class="justify-content-end">
@@ -418,6 +441,6 @@
     var lat     = <?= (isset($Seller)) ? number_format($Seller->latitude, 2) : 0 ?>;
     var lng     = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
     var user    = <?= (isset($User)) ? $User->id : 0 ?>;
-    var seller_name = '<?= $User->GrowerOperation->name ?>';
-    var wholesale_account_name= '<?= $User->WholesaleAccount->name ?>';
+    var seller_name = '<?= $Seller->name ?>';
+    var wholesale_account_name= '<?= (isset($User, $User->WholesaleAccount)) ? $User->WholesaleAccount->name : '' ?>';
 </script>
