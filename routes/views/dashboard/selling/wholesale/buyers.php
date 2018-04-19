@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="page-description text-muted small">
-                    You can allow others to act on behalf of your operation by inviting them to join your team. 'Owners' have full control over an operation whereas 'Managers' can only manage listings.
+                    All <strong>approved</strong> buyers on this list have access to the wholesale prices you have set on each item. You can change any buyer's access at any time.
                 </div>
             </div>
         </div>
@@ -17,9 +17,9 @@
         <div class="alerts"></div>
 
         <form id="invite-member">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
+            <!-- <div class="row"> -->
+                <!-- <div class="col-md-6"> -->
+                    <!-- <div class="row">
                         <div class="col-md-12">
                             <label>
                                 Invite a new wholesale buyer
@@ -39,7 +39,7 @@
                                 &emsp;
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="table-responsive">
                         <table class="table">
@@ -47,6 +47,7 @@
                                 <tr>
                                     <th>Status</th>
                                     <th>Name</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
@@ -59,28 +60,45 @@
                                         'id' => $wholesale_membership['wholesale_account_id']
                                     ]); ?>
 
-                                    <tr>
-                                        <td>
-                                            <?php
+                                    <?php switch($wholesale_membership['status']) {
+                                        case 0:
+                                            $status = [
+                                                'readable'  => 'not approved',
+                                                'span'      => 'red'
+                                            ];
+                                            break;
+                                        case 1:
+                                            $status = [
+                                                'readable'  => 'requested',
+                                                'span'      => 'yellow'
+                                            ];
+                                            break;
+                                        case 2:
+                                            $status = [
+                                                'readable'  => 'approved',
+                                                'span'      => 'green'
+                                            ];
+                                            break;
+                                    } ?>
 
-                                            switch($wholesale_memberships['status']) {
-                                                case 0:
-                                                    $role = 'denied';
-                                                    break;
-                                                case 1:
-                                                    $role = 'requested';
-                                                    break;
-                                                case 2:
-                                                    $role = 'approved';
-                                                    break;
-                                            }
-
-                                            echo ucfirst($role);
-                                            
-                                            ?>
+                                    <tr data-relationship-id="<?= $wholesale_membership['id'] ?>">
+                                        <td class="status">
+                                            <span class="<?= $status['span'] ?>"><?= ucfirst($status['readable']) ?></span>
                                         </td>
 
-                                        <td><?= $WholesaleAccount->name ?></td>
+                                        <td>
+                                            <?= $WholesaleAccount->name ?>
+                                        </td>
+
+                                        <td class="float-right">
+                                            <div class="btn btn-success approve-buyer <?php if ($status['readable'] == 'approved') echo 'hidden' ?>">
+                                                Approve
+                                            </div>
+                                        
+                                            <div class="btn btn-danger unapprove-buyer <?php if ($status['readable'] == 'not approved') echo 'hidden' ?>">
+                                                Unapprove
+                                            </div>
+                                        </td>
                                     </tr>
 
                                 <?php endforeach; ?>
@@ -88,8 +106,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
+                <!-- </div> -->
+            <!-- </div> -->
         </form>
     </div>
 </main>
