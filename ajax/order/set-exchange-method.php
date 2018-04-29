@@ -38,7 +38,7 @@ try {
 		'DB' => $DB
 	]);
 
-	$Order = $Order->get_cart($User->id);
+	$Order = $Order->get_cart($User->BuyerAccount->id);
 
 	if (!isset($Order->Growers[$grower_operation_id])) {
 		quit('You are not ordering from this grower');

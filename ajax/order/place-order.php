@@ -56,27 +56,27 @@ if (!isset($stripe_token) || empty($stripe_token)) {
 	}
 }
 
-if ($User->exists('user_id', $User->id, 'user_billing_info')) {
-    $updated = $User->update([
+if ($User->BuyerAccount->Billing) {
+    $updated = $User->BuyerAccount->update([
         'card_name'         => $card_name,
         'address_line_1'    => $address_line_1,
         'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
         'city'              => $city,
         'state'             => $state,
         'zipcode'           => $zipcode
-    ], 'user_id', $User->id, 'user_billing_info');
+    ], 'buyer_account_id', $User->BuyerAccount->id, 'buyer_account_billing');
     
-    if (!$updated) quit('We could not use this billing information');
+    if (!$updated) quit('We could not update your billing information');
 } else {
-    $added = $User->add([
+    $added = $User->BuyerAccount->add([
         'card_name'         => $card_name,
-        'user_id'           => $User->id,
+        'buyer_account_id'  => $User->BuyerAccount->id,
         'address_line_1'    => $address_line_1,
         'address_line_2'    => $address_line_2,
         'city'              => $city,
         'state'             => $state,
         'zipcode'           => $zipcode
-    ], 'user_billing_info');
+    ], 'buyer_account_billing');
     
     if (!$added) quit('We could not add your billing information');
 }
@@ -89,7 +89,7 @@ try {
         'DB' => $DB
     ]);
 
-	$Order = $Order->get_cart($User->id);
+	$Order = $Order->get_cart($User->BuyerAccount->id);
     
     // Authorize charge on Stripe
     if (ENV != 'dev') {
@@ -97,7 +97,7 @@ try {
     
         // Create Stripe customer if user doesn't already have one
         if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
-            $customer = $Stripe->create_customer($User->id, $User->first_name .' '. $User->last_name, $User->email);
+            $customer = $Stripe->create_customer($User->BuyerAccount->id, $User->BuyerAccount->name, $User->email);
             
             $User->update([
                 'stripe_customer_id' => $customer->id
