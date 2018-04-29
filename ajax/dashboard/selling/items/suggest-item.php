@@ -12,9 +12,7 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'suggested-by-user'     => 'required|integer',
-	'suggested-by-seller'  => 'required|integer',
-	'item-type'             => 'required|alpha_space'
+	'item-type' => 'required|alpha_space'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -24,9 +22,7 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'sugggested-by-user'    => 'trim|whole_number',
-	'sugggested-by-seller'  => 'trim|whole_number',
-	'item-type'             => 'trim|sanitize_string'
+	'item-type' => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -38,10 +34,9 @@ $FoodListing = new FoodListing([
 ]);
 
 $listing_added = $FoodListing->add([
-    'suggested_by_user'     => $suggested_by_user,
-    'suggested_by_seller'   => $suggested_by_seller,
-    'item_type'             => $item_type,
-    'comments'              => $comments,
+    'buyer_account_id'  => $User->BuyerAccount->id,
+    'item_type'         => $item_type,
+    'comments'          => $comments,
 ], 'item_suggestions');
 
 if (!$listing_added) quit('Could not record suggestion');
