@@ -510,4 +510,24 @@ class GrowerOperation extends Base {
         return $Orders;
     }
 
+    public function approve_wholesale_relationship($membership_id) {
+        $results = $this->update([
+            'status' => 2
+        ], 'id', $membership_id, 'wholesale_relationships');
+
+        if (!$results) {
+            throw new \Exception('Could not approve wholesale buyer');
+        }
+    }
+    
+    public function unapprove_wholesale_relationship($membership_id) {
+        $results = $this->update([
+            'status' => 0
+        ], 'id', $membership_id, 'wholesale_relationships');
+
+        if (!$results) {
+            throw new \Exception('Could not unapprove wholesale buyer');
+        }
+    }
+
 }
