@@ -4,7 +4,7 @@ class WishList extends Base {
     
     public
         $id,
-        $user_id,
+        $buyer_account_id,
         $item_category_id,
         $item_subcategory_id,
         $item_variety_id;
@@ -14,7 +14,7 @@ class WishList extends Base {
         $DB;
         
     function __construct($parameters) {
-        $this->table = 'wish_lists';
+        $this->table = 'wish_list_items';
 
         $this->class_dependencies = [
             'DB',
@@ -25,12 +25,12 @@ class WishList extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 
-    public function get_wishes($user_id) {
-        $raw = $this->retrieve_wishes($user_id);
+    public function get_wishes($buyer_account_id) {
+        $raw = $this->retrieve_wishes($buyer_account_id);
         return $this->hash_wishes($raw);   
     }
 
-    public function retrieve_wishes($user_id) {
+    public function retrieve_wishes($buyer_account_id) {
         $results = $this->DB->run('
             SELECT 
                 wl.item_category_id     AS category_id,
@@ -38,7 +38,7 @@ class WishList extends Base {
                 fc.title                AS category_title,
                 fsc.title               AS subcategory_title
             
-            FROM wish_lists wl
+            FROM wish_list_items wl
             
             JOIN food_categories fc
                 ON fc.id    = wl.item_category_id
@@ -46,9 +46,9 @@ class WishList extends Base {
             JOIN food_subcategories fsc
                 ON fsc.id   = wl.item_subcategory_id
             
-            WHERE wl.user_id = :user_id
+            WHERE wl.buyer_account_id = :buyer_account_id
         ', [
-            'user_id' => $user_id
+            'buyer_account_id' => $buyer_account_id
         ]);
 
         return (isset($results[0])) ? $results : false;
