@@ -16,7 +16,7 @@ $WishList = new WishList([
 foreach($_POST['wishlist']['new'] as $wish) {
     try {
         $WishList->add([
-            'user_id'               => $User->id,
+            'buyer_account_id'      => $User->BuyerAccount->id,
             'item_category_id'      => $wish['item_category_id'],
             'item_subcategory_id'   => $wish['item_subcategory_id']
         ]);
