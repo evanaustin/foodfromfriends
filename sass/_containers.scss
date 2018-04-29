@@ -720,6 +720,7 @@ fable {
 .user-block {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     @include phones() {
         margin-bottom: 0.5rem;
