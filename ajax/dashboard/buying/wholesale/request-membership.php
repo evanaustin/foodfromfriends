@@ -29,11 +29,11 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$invitee = $User->WholesaleAccount->retrieve([
+$invitee = $User->BuyerAccount->retrieve([
     'where' => [
-        'wholesale_account_id' => $User->WholesaleAccount->id
+        'buyer_account_id' => $User->BuyerAccount->id
     ],
-    'table' => 'wholesale_account_memberships'
+    'table' => 'wholesale_relationships'
 ]);
 
 $Seller = new GrowerOperation([
@@ -43,10 +43,10 @@ $Seller = new GrowerOperation([
 
 if (!$invitee) {
     $association_added = $User->GrowerOperation->add([
-        'wholesale_account_id'  => $User->WholesaleAccount->id,
+        'buyer_account_id'  => $User->BuyerAccount->id,
         'seller_id'             => $Seller->id,
         'status'                => 1
-    ], 'wholesale_account_memberships');
+    ], 'wholesale_relationships');
 
     // ! TODO: send trans email to seller team members
 } else {
