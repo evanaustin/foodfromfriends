@@ -60,13 +60,19 @@ class Routing extends Base {
     }
 
     private function is_buyer_profile($exp_path) {
-        // manually set buyer types (just individuals for now)
-        $buyer_profiles = [
-            'user'
-        ];
+        // retrieve & index seller operation types + catch solo ops
+        $buyer_types = $this->retrieve([
+            'table' => 'buyer_account_types'
+        ]);
+
+        foreach($buyer_types as $type) {
+            $buyer_types[$type['id']] = $type['title'];
+        }
+
+        $buyer_types []= 'buyer';
 
         // check profile
-        if (in_array($this->section, $buyer_profiles)) {
+        if (in_array($this->section, $buyer_types)) {
             $this->profile_type = 'buyer';
             $this->buyer_type   = $this->section;
 
