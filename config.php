@@ -119,19 +119,19 @@ if ($LOGGED_IN) {
         'id' => $USER['id']
     ]);
 
+    if (!empty($User->BuyerAccount)) {
+        if (isset($_SESSION['user']['active_buyer_account_id']) && $_SESSION['user']['active_buyer_account_id'] != $User->BuyerAccount->id) {
+            $User->BuyerAccount = $User->BuyerAccounts[$_SESSION['user']['active_buyer_account_id']];
+        } else if (!isset($_SESSION['user']['active_buyer_account_id'])) {
+            $_SESSION['user']['active_buyer_account_id'] = $User->BuyerAccount->id;
+        }
+    }
+
     if (!empty($User->GrowerOperation)) {
         if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
             $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
         } else if (!isset($_SESSION['user']['active_operation_id'])) {
             $_SESSION['user']['active_operation_id'] = $User->GrowerOperation->id;
-        }
-    }
-    
-    if (!empty($User->WholesaleAccount)) {
-        if (isset($_SESSION['user']['active_wholesale_account_id']) && $_SESSION['user']['active_wholesale_account_id'] != $User->WholesaleAccount->id) {
-            $User->WholesaleAccount = $User->WholesaleAccounts[$_SESSION['user']['active_wholesale_account_id']];
-        } else if (!isset($_SESSION['user']['active_wholesale_account_id'])) {
-            $_SESSION['user']['active_wholesale_account_id'] = $User->WholesaleAccount->id;
         }
     }
 }
