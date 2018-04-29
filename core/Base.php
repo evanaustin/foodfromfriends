@@ -43,8 +43,10 @@ abstract class Base {
      *  'table' => string
      *  'limit' => int
      */
-    public function retrieve($params) {
-        foreach ($params as $k => $v) ${$k} = $v;
+    public function retrieve($params = null) {
+        if (isset($params)) {
+            foreach ($params as $k => $v) ${$k} = $v;
+        }
         
         if (!isset($table)) {
             $table = $this->table;
@@ -80,7 +82,9 @@ abstract class Base {
             
             return (isset($results)) ? (isset($limit) && $limit === 1 ? $results[0] : $results) : false;
         } else {
-            return false;
+            $results = $this->DB->run($sql);
+        
+            return (isset($results[0])) ? $results[0] : false;
         }
     }
 
