@@ -12,7 +12,7 @@ $json['success'] = true;
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'wholesale_account_id' => 'required|integer'
+    'buyer_account_id' => 'required|integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -22,12 +22,12 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'wholesale_account_id' => 'trim|sanitize_numbers'
+	'buyer_account_id' => 'trim|sanitize_numbers'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
-$User->switch_wholesale_account($prepared_data['wholesale_account_id']);
+$User->switch_buyer_account($prepared_data['buyer_account_id']);
 
 $json['redirect'] = 'dashboard/buying/orders/overview';
 
