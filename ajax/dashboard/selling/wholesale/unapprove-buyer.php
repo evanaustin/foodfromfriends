@@ -27,12 +27,8 @@ $Gump->filter_rules([
 
 $prepared_data = $Gump->run($validated_data);
 
-$WholesaleAccount = new WholesaleAccount([
-    'DB' => $DB
-]);
-
 try {
-    $WholesaleAccount->unapprove_membership($prepared_data['membership_id']);
+    $User->GrowerOperation->unapprove_wholesale_relationship($prepared_data['membership_id']);
 } catch (\Exception $e) {
     quit($e->getMessage());
 }
