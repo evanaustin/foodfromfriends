@@ -212,13 +212,14 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function user_new_message_notification($User, $GrowerOperation, $message) {
-        $subject = "New message from {$GrowerOperation->name}";
+    public function buyer_new_message_notification($Member, $BuyerAccount, $Seller, $message) {
+        $subject = "New message from {$Seller->name}";
         
-        $route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id;
+        $route = PUBLIC_ROOT . 'dashboard/buying/messages/thread?seller=' . $Seller->id;
 
         $token = [
-            'user_id' => $User->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -249,14 +250,14 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function grower_new_message_notification($Member, $GrowerOperation, $User, $message) {
-        $subject = "New message from {$User->name}";
+    public function seller_new_message_notification($Member, $Seller, $BuyerAccount, $message) {
+        $subject = "New message from {$BuyerAccount->name}";
         
-        $route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?user=' . $User->id . (($GrowerOperation->type != 'individual') ? '&grower=' . $GrowerOperation->id : '');
+        $route = PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $BuyerAccount->id;
 
         $token = [
             'user_id' => $Member->id,
-            'grower_operation_id' => $GrowerOperation->id
+            'grower_operation_id' => $Seller->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -311,7 +312,7 @@ class Mail {
             </p>
             
             <p>
-                {$Buyer->name} has requested to place an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ".
+                {$BuyerAccount->name} has requested to place an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ".
             </p>
 
             <p>
@@ -335,11 +336,12 @@ class Mail {
 
     /* public function order_expiration_warning($Member, $GrowerOperation, $OrderGrower, $Buyer) {} */
     
-    public function confirmed_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+    public function confirmed_order_notification($Member, $BuyerAccount, $OrderGrower, $GrowerOperation) {
         $subject = "Confirmed order - {$GrowerOperation->name}";
         
         $token = [
-            'user_id' => $Buyer->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -355,7 +357,7 @@ class Mail {
             <hr>
 
             <p>
-                Good news, {$Buyer->first_name}!
+                Good news, {$Member->first_name}!
             </p>
             
             <p>
@@ -381,11 +383,12 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function rejected_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+    public function rejected_order_notification($Member, $BuyerAccount, $OrderGrower, $GrowerOperation) {
         $subject = "Rejected order - {$GrowerOperation->name}";
         
         $token = [
-            'user_id' => $Buyer->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -400,7 +403,7 @@ class Mail {
             <hr>
 
             <p>
-                Hi {$Buyer->first_name},
+                Hi {$Member->first_name},
             </p>
             
             <p>
@@ -422,11 +425,12 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function expired_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+    public function expired_order_notification($Member, $BuyerAccount, $OrderGrower, $GrowerOperation) {
         $subject = "Expired order - {$GrowerOperation->name}";
         
         $token = [
-            'user_id' => $Buyer->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -441,7 +445,7 @@ class Mail {
             <hr>
 
             <p>
-                Hi {$Buyer->first_name},
+                Hi {$Member->first_name},
             </p>
                 
             <p>
@@ -463,11 +467,12 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    public function seller_cancelled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+    public function seller_cancelled_order_notification($Member, $BuyerAccount, $OrderGrower, $GrowerOperation) {
         $subject = "Cancelled order - {$GrowerOperation->name}";
         
         $token = [
-            'user_id' => $Buyer->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
 
         $jwt = JWT::encode($token, JWT_KEY);
@@ -482,7 +487,7 @@ class Mail {
             <hr>
 
             <p>
-                Hi {$Buyer->first_name},
+                Hi {$Member->first_name},
             </p>
             
             <p>
@@ -504,7 +509,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+    public function buyer_cancelled_order_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccount) {
         $subject = "Cancelled order - {$GrowerOperation->name}";
         
         $token = [
@@ -528,7 +533,7 @@ class Mail {
             </p>
                 
             <p>
-                Sorry to say {$Buyer->name} has cancelled their order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". You are no longer responsible for fulfilling this order.
+                Sorry to say {$BuyerAccount->name} has cancelled their order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". You are no longer responsible for fulfilling this order.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -548,11 +553,12 @@ class Mail {
     
     /* public function order_fulfillment_reminder() {} */
 
-    public function fulfilled_order_notification($Buyer, $OrderGrower, $GrowerOperation) {
+    public function fulfilled_order_notification($Member, $BuyerAccount, $OrderGrower, $GrowerOperation) {
         $subject = "Fulfilled order - {$GrowerOperation->name}";
         
         $token = [
-            'user_id' => $Buyer->id
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
         ];
         
         $jwt = JWT::encode($token, JWT_KEY);
@@ -573,7 +579,7 @@ class Mail {
             <hr>
 
             <p>
-                Hi {$Buyer->first_name},
+                Hi {$Member->first_name},
             </p>
 
             <p>
@@ -599,7 +605,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+    public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccout) {
         $subject = "New review - {$GrowerOperation->name}";
         
         $token = [
@@ -623,7 +629,7 @@ class Mail {
             </p>
 
             <p>
-                {$Buyer->name} has left " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . " a new review. This order is now cleared and marked for payout.
+                {$BuyerAccount->name} has left " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . " a new review. This order is now cleared and marked for payout.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -641,7 +647,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function reported_order_seller_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+    public function reported_order_seller_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccount) {
         $subject = "New issue reported - {$GrowerOperation->name}";
         
         $token = [
@@ -665,7 +671,7 @@ class Mail {
             </p>
 
             <p>
-                This is an automated notice that {$Buyer->name} has reported an issue with an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
+                This is an automated notice that {$BuyerAccount->name} has reported an issue with an order from " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". A Food From Friends representative will be in touch with you soon to resolve this problem.
             </p>
             
             <a href=\"{$link}\" class=\"button bg-green block\">
@@ -683,12 +689,12 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function reported_order_admin_notification($Buyer, $GrowerOperation, $OrderGrower, $message) {
+    public function reported_order_admin_notification($BuyerAccount, $GrowerOperation, $OrderGrower, $message) {
         $subject = "Issue reported - {$GrowerOperation->name}";
         
         $body = "
             <p>
-                <strong>{$Buyer->name}</strong> reported an issue with <strong>{$GrowerOperation->name}</strong>:
+                <strong>{$BuyerAccount->name}</strong> reported an issue with <strong>{$GrowerOperation->name}</strong>:
             </p>
 
             <blockquote>
@@ -702,7 +708,7 @@ class Mail {
             </pre>
 
             <pre>
-                <strong>Buyer ID</strong>: {$Buyer->id}
+                <strong>Buyer ID</strong>: {$BuyerAccount->id}
             </pre>
             
             <pre>
