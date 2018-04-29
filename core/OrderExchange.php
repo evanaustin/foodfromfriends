@@ -20,7 +20,7 @@ class OrderExchange extends Base {
         $instructions;
 
     public
-        $Buyer,
+        $BuyerAccount,
         $Seller;
         
     function __construct($parameters) {
@@ -35,11 +35,11 @@ class OrderExchange extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
 
-            if (isset($parameters['buyer_id'])) {
-                $this->Buyer = new User([
+            if (isset($parameters['buyer_account_id'])) {
+                $this->BuyerAccount = new BuyerAccount([
                     'DB' => $this->DB,
-                    'id' => $parameters['buyer_id'],
-                    'limited' => true
+                    'id' => $parameters['buyer_account_id'],
+                    // 'limited' => true
                 ]);
             }
 
@@ -79,7 +79,7 @@ class OrderExchange extends Base {
      * Important: requires this OrderExchange to be fully configured (with Buyer and Seller)
      */
     public function sync() {
-        if (isset($this->Buyer) && isset($this->Seller)) {
+        if (isset($this->BuyerAccount) && isset($this->Seller)) {
             $this->set_address();
             $this->calculate_distance();
             $this->calculate_fee();
@@ -93,11 +93,11 @@ class OrderExchange extends Base {
         switch($this->type) {
             case 'delivery':
                 // use buyer address
-                $this->address_line_1 = $this->Buyer->delivery_address_line_1;
-                $this->address_line_2 = $this->Buyer->delivery_address_line_2;
-                $this->city           = $this->Buyer->delivery_city;
-                $this->state          = $this->Buyer->delivery_state;
-                $this->zipcode        = $this->Buyer->delivery_zipcode;
+                $this->address_line_1 = $this->BuyerAccount->Address->address_line_1;
+                $this->address_line_2 = $this->BuyerAccount->Address->address_line_2;
+                $this->city           = $this->BuyerAccount->Address->city;
+                $this->state          = $this->BuyerAccount->Address->state;
+                $this->zipcode        = $this->BuyerAccount->Address->zipcode;
 
                 break;
             case 'pickup':
@@ -133,7 +133,7 @@ class OrderExchange extends Base {
     private function calculate_distance() {
         // Only delivery stores a distance. For everything else, set as 0
         if ($this->type == 'delivery') {
-            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->Buyer->delivery_latitude . ',' . $this->Buyer->delivery_longitude . '&destinations=' . $this->Seller->latitude . ',' . $this->Seller->longitude . '&key=' . GOOGLE_MAPS_KEY);
+            $geocode = file_get_contents('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $this->BuyerAccount->Address->latitude . ',' . $this->BuyerAccount->Address->longitude . '&destinations=' . $this->Seller->latitude . ',' . $this->Seller->longitude . '&key=' . GOOGLE_MAPS_KEY);
             $output = json_decode($geocode);
             $distance = explode(' ', $output->rows[0]->elements[0]->distance->text);
             
@@ -176,13 +176,7 @@ class OrderExchange extends Base {
      * Given the exchange method selected for this grower in this order, set the time and instruction details.
      */
     private function set_details() {
-        if ($this->type == 'delivery') {
-            $this->update([
-                'instructions'  => $this->Buyer->delivery_instructions
-            ]);
-    
-            $this->instructions = $this->Buyer->delivery_instructions;
-        } else if ($this->type == 'pickup') {
+        if ($this->type == 'pickup') {
             $this->update([
                 'time'          => $this->Seller->Pickup->time,
                 'instructions'  => $this->Seller->Pickup->instructions

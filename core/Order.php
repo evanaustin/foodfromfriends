@@ -4,7 +4,7 @@ class Order extends Base {
 
     public
         $id,
-        $user_id,
+        $buyer_account_id,
         $subtotal,
         $fff_fee,
         $exchange_fees,
@@ -28,11 +28,13 @@ class Order extends Base {
 
         parent::__construct($parameters);
     
-        // Instantiating this object with an ID will result in a full loadout of the order(/cart)'s
-        // growers and items. `Order->Growers` is an array of `OrderGrower` classes. Each
-        // `Order->Growers` array element has a `FoodListings` property, which is an array of all food
-        // listings added to this order that are sold by that grower. Both are keyed by their 
-        // base `grower_operation_id` and `food_listing_id` value, respectively.
+        /**
+         * Instantiating this object with an ID will result in a full loadout of the order/cart's
+         * growers and items. `Order->Growers` is an array of `OrderGrower` classes. Each
+         * `Order->Growers` array element has a `FoodListings` property, which is an array of all food
+         * listings added to this order that are sold by that grower. Both are keyed by their 
+         * base `grower_operation_id` and `food_listing_id` value, respectively.
+         */
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
 
@@ -49,25 +51,25 @@ class Order extends Base {
 
     /**
      * Finds this user's cart and returns it (a cart is an `order` record that hasn't been processed).
-     * If the user doesn't have a cart, this method will create an empty one for them.
+     * If the buyer doesn't have a cart, this method will create an empty one for them.
      *
-     * @param int $user_id
+     * @param int $buyer_account_id
      * @return self
      */
-    public function get_cart($user_id) {
+    public function get_cart($buyer_account_id) {
         $results = $this->DB->run('
             SELECT id
             FROM orders
-            WHERE user_id=:user_id 
-                AND charge_id=:charge_id'
+            WHERE buyer_account_id  =:buyer_account_id 
+                AND charge_id       =:charge_id'
         , [
-            'user_id'   => $user_id,
-            'charge_id' => 0
+            'buyer_account_id'  => $buyer_account_id,
+            'charge_id'         => 0
         ]);
 
         if (!isset($results[0]['id'])) {
             $result = $this->add([
-                'user_id' => $user_id,
+                'buyer_account_id' => $buyer_account_id
             ]);
 
             $order_id = $result['last_insert_id'];
@@ -90,7 +92,7 @@ class Order extends Base {
             'DB' => $this->DB
         ]);
 
-        $this->Growers = $OrderGrower->load_for_order($this->id, $this->user_id);
+        $this->Growers = $OrderGrower->load_for_order($this->id);
     }
 
     /**
@@ -159,7 +161,7 @@ class Order extends Base {
         
         $this->add([
             'order_id'              => $this->id,
-            'user_id'               => $this->user_id,
+            'buyer_account_id'      => $this->buyer_account_id,
             'grower_operation_id'   => $GrowerOperation->id,
             'order_exchange_id'     => $exchange['last_insert_id']
         ], 'order_growers');
@@ -370,21 +372,19 @@ class Order extends Base {
     /** 
      * Get all the placed orders in batches of 10
      * 
-     * @param int $user_id The buyer ID
+     * @param int $buyer_account_id The buyer ID
      * @param int $start The Order ID each selection of 10 begins from
      */
-    public function get_placed($user_id, $is_wholesale, $start = null) {
+    public function get_placed($buyer_account_id, $start = null) {
         $results = $this->DB->run('
             SELECT *
             FROM orders
-            WHERE user_id=:user_id 
-                AND buyer_type=:buyer_type
+            WHERE buyer_account_id=:buyer_account_id 
                 AND charge_id > 0
             ORDER BY charge_id desc
             LIMIT 10
         ', [
-            'user_id'       => $user_id,
-            'buyer_type'    => ($is_wholesale ? 'wholesale' : 'individual') 
+            'buyer_account_id' => $buyer_account_id
         ]);
 
         if (!isset($results[0])) {

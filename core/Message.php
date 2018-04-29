@@ -4,7 +4,7 @@ class Message extends Base {
     
     public
         $id,
-        $user_id,
+        $buyer_account_id,
         $grower_operation_id,
         $body,
         $sent_by,
@@ -27,7 +27,7 @@ class Message extends Base {
         if (isset($parameters['id'])) $this->configure_object($parameters['id']);
     }
 
-    public function get_buying_inbox($user_id) {
+    public function get_buying_inbox($buyer_account_id) {
         $results = $this->DB->run("
             SELECT 
                 max(id) as id, 
@@ -35,13 +35,13 @@ class Message extends Base {
 
             FROM {$this->table}
 
-            WHERE user_id=:user_id
+            WHERE buyer_account_id=:buyer_account_id
 
             GROUP BY grower_operation_id
 
             ORDER BY sent_on DESC
         ", [
-            'user_id' => $user_id
+            'buyer_account_id' => $buyer_account_id
         ]);
 
         return (isset($results)) ? $results : false;
@@ -51,13 +51,13 @@ class Message extends Base {
         $results = $this->DB->run("
             SELECT 
                 max(id) as id, 
-                user_id
+                buyer_account_id
 
             FROM {$this->table}
 
             WHERE grower_operation_id=:grower_operation_id
 
-            GROUP BY user_id
+            GROUP BY buyer_account_id
 
             ORDER BY sent_on DESC
         ", [
@@ -68,11 +68,11 @@ class Message extends Base {
     }
     
     public function unread_aggregate($User) {
-        $sql = "SELECT id FROM {$this->table} WHERE (user_id=:user_id AND read_on IS NULL AND sent_by=:buying_sent_by)";
+        $sql = "SELECT id FROM {$this->table} WHERE (buyer_account_id=:buyer_account_id AND read_on IS NULL AND sent_by=:buying_sent_by)";
 
         $bind = [
-            'user_id' => $User->id,
-            'buying_sent_by' => 'grower'
+            'buyer_account_id'  => $User->BuyerAccount->id,
+            'buying_sent_by'    => 'grower'
         ];
         
         if (isset($User->Operations)) {
@@ -80,7 +80,7 @@ class Message extends Base {
                 $sql .= ' OR (grower_operation_id=:op_id_' . $Op->id . ' AND read_on IS NULL AND sent_by=:sent_by_' . $Op->id . ')';
 
                 $bind['op_id_' . $Op->id]    = $Op->id;
-                $bind['sent_by_' . $Op->id]  = 'user';
+                $bind['sent_by_' . $Op->id]  = 'buyer';
             }
         }
 
