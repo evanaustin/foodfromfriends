@@ -39,27 +39,27 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-if ($User->exists('user_id', $User->id, 'user_billing_info')) {
-    $updated = $User->update([
+if ($User->BuyerAccount->Billing) {
+    $updated = $User->BuyerAccount->update([
         'card_name'         => $card_name,
         'address_line_1'    => $address_line_1,
         'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
         'city'              => $city,
         'state'             => $state,
         'zipcode'           => $zipcode
-    ], 'user_id', $User->id, 'user_billing_info');
+    ], 'buyer_account_id', $User->BuyerAccount->id, 'buyer_account_billing');
     
     if (!$updated) quit('We could not update your billing information');
 } else {
-    $added = $User->add([
+    $added = $User->BuyerAccount->add([
         'card_name'         => $card_name,
-        'user_id'           => $User->id,
+        'buyer_account_id'  => $User->BuyerAccount->id,
         'address_line_1'    => $address_line_1,
         'address_line_2'    => $address_line_2,
         'city'              => $city,
         'state'             => $state,
         'zipcode'           => $zipcode
-    ], 'user_billing_info');
+    ], 'buyer_account_billing');
     
     if (!$added) quit('We could not add your billing information');
 }

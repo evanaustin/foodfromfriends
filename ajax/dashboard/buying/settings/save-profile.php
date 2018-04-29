@@ -11,23 +11,13 @@ if (!$LOGGED_IN) quit('You are not logged in');
 
 $_POST = $Gump->sanitize($_POST);
 
-// sanitize_numbers won't actually strip the special characters from the phone number... so we have to do it manually
-$_POST['phone'] = preg_replace('/[^0-9]/', '', str_replace(' ', '-', $_POST['phone']));
-
 $Gump->validation_rules([
-    'first-name'        => 'required|alpha',
-	'last-name'         => 'required|alpha',
-    'email'             => 'required|valid_email',
-	'phone'             => 'required|numeric',
-	'month'             => 'required|alpha',
-	'day'               => 'required|integer',
-	'year'              => 'required|integer',
+    'name'              => 'required|alpha_space',
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
     'state'             => 'required|regex,/^[A-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/',
-    'gender'            => 'alpha'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -37,101 +27,107 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'first-name'        => 'trim|sanitize_string',
-    'last-name'         => 'trim|sanitize_string',
-	'email'             => 'trim|sanitize_email',
-	'phone'             => 'trim|sanitize_numbers',
-	'month'             => 'trim|sanitize_string',
-	'day'               => 'trim|whole_number',
-	'year'              => 'trim|whole_number',
+	'name'              => 'trim|sanitize_string',
     'address-line-1'    => 'trim|sanitize_string',
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
 	'state'             => 'trim|sanitize_string',
 	'zipcode'           => 'trim|whole_number',
-    'gender'            => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-if ($User->email != $email && $User->exists('email', $email)) {
-    quit('An existing account is already using this email');
-}
 
-$date   = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
-$dob    = $date->format('Y-m-d H:i:s');
 
-if (empty($User->slug) || $User->first_name != $first_name || $User->last_name != $last_name) {
+/*
+ * Buyer Account
+ */
+
+if (empty($User->BuyerAccount->slug) || $User->BuyerAccount->name != $name) {
     $Slug = new Slug([
         'DB' => $DB
     ]);
 
-    $slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
+    $slug = $Slug->slugify_name("{$name}", 'buyer_accounts');
 
     if (empty($slug)) {
-        quit('We could\'t update your information');
+        quit('We couldn\'t update your information');
     }
+
+    $referral_key = $User->BuyerAccount->gen_referral_key(4, $name);
 } else {
-    $slug = $User->slug;
+    $slug           = $User->BuyerAccount->slug;
+    $referral_key   = $User->BuyerAccount->referral_key;
 }
 
-$profile_updated = $User->update([
-    'email'         => $email,
-    'first_name'    => ucfirst($first_name),
-    'last_name'     => ucfirst($last_name),
-    'phone'         => $phone,
-    'dob'           => $dob,
-    'gender'        => (isset($gender)) ? $gender : '',
+$profile_updated = $User->BuyerAccount->update([
+    'name'          => $name,
+    'slug'          => $slug,
     'bio'           => $bio,
-    'slug'          => $slug
-], 
-'id', $User->id);
+    'referral_key'  => $referral_key
+]);
 
 if (!$profile_updated) {
     quit('We couldn\'t update your information');
 }
 
-$prepared_data = $Gump->run($validated_data);
 
-foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$full_address = $address_line_1 . ', ' . $city . ', ' . $state;
-$prepared_address = str_replace(' ', '+', $full_address);
+/*
+ * Buyer Account Address
+ */
 
-$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
-$output= json_decode($geocode);
-
-$lat = $output->results[0]->geometry->location->lat;
-$lng = $output->results[0]->geometry->location->lng;
-
-if ($User->exists('user_id', $User->id, 'user_addresses')) {
-    $updated = $User->update([
-        'address_line_1'    => $address_line_1,
-        'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
-        'city'              => $city,
-        'state'             => $state,
-        'zipcode'           => $zipcode,
-        'latitude'          => $lat,
-        'longitude'         => $lng
-    ], 'user_id', $User->id, 'user_addresses');
+if (!$User->BuyerAccount->Address
+    || ($address_line_1 != $User->BuyerAccount->Address->address_line_1)
+    || ($address_line_2 != $User->BuyerAccount->Address->address_line_2)
+    || ($city           != $User->BuyerAccount->Address->city)
+    || ($state          != $User->BuyerAccount->Address->state)
+    || ($zipcode        != $User->BuyerAccount->Address->zipcode)
+) {
+    $full_address = "{$address_line_1}, {$city}, {$state}";
+    $prepared_address = str_replace(' ', '+', $full_address);
     
-    if (!$updated) quit('We could not update your location');
-} else {
-    $added = $User->add([
-        'user_id'           => $User->id,
-        'address_line_1'    => $address_line_1,
-        'address_line_2'    => $address_line_2,
-        'city'              => $city,
-        'state'             => $state,
-        'zipcode'           => $zipcode,
-        'latitude'          => $lat,
-        'longitude'         => $lng
-    ], 'user_addresses');
+    $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+    $output= json_decode($geocode);
     
-    if (!$added) quit('We could not add your location');
+    $lat = $output->results[0]->geometry->location->lat;
+    $lng = $output->results[0]->geometry->location->lng;
+    
+    if ($User->BuyerAccount) {
+        $updated = $User->BuyerAccount->update([
+            'address_line_1'    => $address_line_1,
+            'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
+            'city'              => $city,
+            'state'             => $state,
+            'zipcode'           => $zipcode,
+            'latitude'          => $lat,
+            'longitude'         => $lng
+        ], 'buyer_account_id', $User->BuyerAccount->id, 'buyer_account_addresses');
+        
+        if (!$updated) quit('We could not update your location');
+    } else {
+        $added = $User->BuyerAccount->add([
+            'buyer_account_id'  => $User->BuyerAccount->id,
+            'address_line_1'    => $address_line_1,
+            'address_line_2'    => $address_line_2,
+            'city'              => $city,
+            'state'             => $state,
+            'zipcode'           => $zipcode,
+            'latitude'          => $lat,
+            'longitude'         => $lng
+        ], 'buyer_account_addresses');
+        
+        if (!$added) quit('We could not add your location');
+    }
 }
+
+
+
+/*
+ * Buyer Account Image
+ */
 
 $Image = new Image();
 
@@ -167,8 +163,11 @@ if (isset($_POST['images'])) {
         'size' => $_FILES['img' . $image['key']]['size']
     ];
     
+    // set random image key
+    $rand = substr(md5(microtime()), rand(0,26), 5);
+
     // set filename
-    $filename = 'u.' . $User->id;
+    $filename = "ba.{$rand}.{$User->BuyerAccount->id}";
     
     // determine file type
     $ext = (explode('/', $_FILES['profile-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
@@ -197,7 +196,8 @@ if (isset($_POST['images'])) {
             $Image->load($tmp1_image);
             $jpg_filesize = $Image->convert_png_to_jpg($tmp1 . $filename . '.jpg');
         } catch(ErrorException $e) {
-            quit('We were unable to process your image');
+            // quit('We were unable to process your image');
+            quit($e->getMessage());
         }
         
         restore_error_handler();
@@ -249,31 +249,42 @@ if (isset($_POST['images'])) {
         $Image->save($final['file']);
     }
     
-    if (!empty($User->filename)) {
-        $record_edited = $User->update([
-            'ext' => $ext
-        ], 'id', $User->id, 'user_profile_images');
+    // update or add image record
+    if (!empty($User->BuyerAccount->Image->filename)) {
+        $image_edited = $User->BuyerAccount->update([
+            'filename'  => $filename,
+            'ext'       => $ext
+        ], 'id', $User->BuyerAccount->Image->id, 'images');
 
-        if (!$record_edited) quit('Could not edit image record');
+        if (!$image_edited) quit('Could not edit image record');
         
-        $img_removed = $S3->delete_objects([
-            ENV . '/profile-photos/' . $User->filename . $User->ext
+        $S3->delete_objects([
+            ENV . "/buyer-account-images/{$BuyerAccount->Image->filename}.{$BuyerAccount->Image->ext}"
         ], $file);
     } else {
-        $record_added = $User->add([
-            'user_id' => $User->id,
-            'filename' => $filename,
-            'ext' => $ext
-        ], 'user_profile_images');
+        $image_added = $User->BuyerAccount->add([
+            'path'      => 'buyer-account-images',
+            'filename'  => $filename,
+            'ext'       => $ext
+        ], 'images');
+        
+        if (!$image_added) {
+            quit('Could not add image');
+        }
+
+        $record_added = $User->BuyerAccount->add([
+            'buyer_account_id'  => $User->BuyerAccount->id,
+            'image_id'          => $image_added['last_insert_id'],
+        ], 'buyer_account_images');
 
         if (!$record_added) {
             quit('Could not add image record');
         }
     }
     
-    $img_added = $S3->save_object(ENV . '/profile-photos/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+    $image_uploaded = $S3->save_object(ENV . "/buyer-account-images/{$filename}.{$ext}", fopen($final['file'], 'r'));
     
-    if (!$img_added) quit('Could not add new image');
+    if (!$image_uploaded) quit('Could not add new image');
 
     // unlink tmp imgs
     if (file_exists($tmp1_image)) {
@@ -287,20 +298,6 @@ if (isset($_POST['images'])) {
     if (file_exists($tmp2 . $filename . '.cropped.' . $ext)) {
         unlink($tmp2 . $filename . '.cropped.' . $ext);
     }
-}
-
-if (isset($User->GrowerOperation) && $User->GrowerOperation->type == 'individual') {
-    // reinitialize User & Operation for fresh check
-    $User = new User([
-        'DB' => $DB,
-        'id' => $USER['id']
-    ]);
-
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-
-    $User->GrowerOperation->check_active();
 }
 
 $json['slug'] = $slug;

@@ -8,15 +8,17 @@ $json['error'] = null;
 $json['success'] = true;
 
 if (!$LOGGED_IN) quit('You are not logged in');
-
-if (!empty($User->filename)) {
-    $record_removed = $User->delete('filename', $User->filename, 'user_profile_images');
-    
-    if (!$record_removed) quit('Could not remove image record');
-    
-    $img_removed = $S3->delete_objects([
-        ENV . '/profile-photos/' . $User->filename . '.' . $User->ext
+// quit(ENV . "/{$User->BuyerAccount->Image->path}/{$User->BuyerAccount->Image->filename}.{$User->BuyerAccount->Image->ext}");
+if (!empty($User->BuyerAccount->Image->image_id)) {
+    $image_deleted = $S3->delete_objects([
+        ENV . "/{$User->BuyerAccount->Image->path}/{$User->BuyerAccount->Image->filename}.{$User->BuyerAccount->Image->ext}"
     ]);
+
+    $image_removed  = $User->BuyerAccount->delete('id', $User->BuyerAccount->Image->image_id, 'images');
+    if (!$image_removed) quit('Could not remove image');
+
+    $record_removed = $User->BuyerAccount->delete('buyer_account_id', $User->BuyerAccount->id, 'buyer_account_images');
+    if (!$record_removed) quit('Could not remove record');
 } else {
     quit('There was no image to remove');
 }
