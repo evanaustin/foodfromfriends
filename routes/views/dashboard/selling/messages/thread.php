@@ -114,11 +114,11 @@
             
         <section id="new-message">
             <form id="send-message">
-                <input type="hidden" name="filename" value="<?= $Seller->filename;?>">
-                <input type="hidden" name="fileext" value="<?= $Seller->ext;?>">
+                <input type="hidden" name="filename" value="<?= $User->GrowerOperation->filename;?>">
+                <input type="hidden" name="fileext" value="<?= $User->GrowerOperation->ext;?>">
 
                 <input type="hidden" name="buyer-account-id" value="<?= $BuyerAccount->id;?>">
-                <input type="hidden" name="grower-operation-id" value="<?= $Seller->id;?>">
+                <input type="hidden" name="grower-operation-id" value="<?= $User->GrowerOperation->id;?>">
                 <input type="hidden" name="sent-by" value="seller">
 
                 <div class="input-group w-addon">
