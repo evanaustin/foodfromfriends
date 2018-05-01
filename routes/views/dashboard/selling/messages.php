@@ -24,9 +24,9 @@
                     
                     $snippet = truncate($ThisMessage->body, 75);
 
-                    $Customer = new User([
+                    $BuyerAccount = new BuyerAccount([
                         'DB' => $DB,
-                        'id' => $ThisMessage->user_id
+                        'id' => $ThisMessage->buyer_account_id
                     ]);
                     
                     ?>
@@ -34,15 +34,15 @@
                     <fable class="bubble">
                         <cell class="align-center">
                             <div class="user-block">
-                                <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Customer->filename . '.' . $Customer->ext; ?>');"></div>
+                                <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/{$BuyerAccount->Image->path}/{$BuyerAccount->Image->filename}.{$BuyerAccount->Image->ext}"; ?>');"></div>
                                                 
                                 <div class="user-content">
                                     <h5 class="bold margin-btm-25em">
-                                        <?= $Customer->first_name; ?>
+                                        <?= $BuyerAccount->name; ?>
                                     </h5>
 
                                     <small>
-                                        <?= $Customer->city . ', ' . $Customer->state; ?>
+                                        <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}"; ?>
                                     </small>
                                 </div>
                             </div>    
@@ -53,9 +53,9 @@
                         </cell>
                         
                         <cell class="flexgrow-3 muted d-justify-center">
-                            <?= '<i class="fa fa-' . (($ThisMessage->sent_by == 'user') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
+                            <?= '<i class="fa fa-' . (($ThisMessage->sent_by == 'buyer') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
 
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (isset($grower_operation_id) ? 'grower=' . $grower_operation_id . '&' : '') . 'user=' . $Customer->id; ?>">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?' . (isset($grower_operation_id) ? 'grower=' . $grower_operation_id . '&' : '') . 'buyer=' . $BuyerAccount->id; ?>">
                                 <?= $snippet; ?>
                             </a>
                         </cell>

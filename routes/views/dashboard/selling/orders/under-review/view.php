@@ -201,7 +201,7 @@
                                 </div>
                             </div>
 
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/selling/thread?' . (($User->GrowerOperation->type != 'individual') ? 'grower=' . $User->GrowerOperation->id . '&' : '') . 'user=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
                                 Message
                             </a>
                         </div>

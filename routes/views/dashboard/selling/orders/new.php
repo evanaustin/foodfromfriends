@@ -48,9 +48,9 @@
                             $time_elapsed   = \Time::elapsed($OrderGrower->Status->placed_on);
                             $time_until     = \Time::until($OrderGrower->Status->placed_on, '24 hours');
 
-                            $ThisUser = new User([
+                            $ThisUser = new BuyerAccount([
                                 'DB' => $DB,
-                                'id' => $order['user_id']
+                                'id' => $order['buyer_account_id']
                             ]);
 
                             ?>

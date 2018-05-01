@@ -176,7 +176,7 @@
 
                                 <div class="input-group w-addon">
                                     <div class="input-group-addon">$</div>
-                                    <input type="text" name="wholesale-price" class="form-control" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
+                                    <input type="text" name="wholesale-price" class="form-control" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change"> 
                                 </div>
                             </div>
                         </div>

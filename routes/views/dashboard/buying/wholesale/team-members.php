@@ -93,7 +93,7 @@
             <?php
 
         } else {
-            echo 'To invite team members, first change your seller type <a href="' . PUBLIC_ROOT . 'dashboard/selling/settings/edit-profile" class="brand">here</a>.';
+            echo 'To invite team members, first change your seller type <a href="' . PUBLIC_ROOT . 'dashboard/selling/settings/profile" class="brand">here</a>.';
         }
 
         ?>

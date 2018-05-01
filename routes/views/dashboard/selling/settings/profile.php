@@ -29,6 +29,16 @@
         <form id="edit-basic-information" data-parsley-excluded="[disabled=disabled]">
             <div class="row">
                 <div class="col-md-8">
+                    <div class="form-group">
+                        <label>
+                            Name
+                        </label>
+
+                        <div class="input-group"> 
+                            <input type="text" name="name" class="form-control" placeholder="Buyer name" value="<?php if (!empty($User->BuyerAccount->name)) { echo $User->BuyerAccount->name; } ?>"  data-parsley-trigger="change" required>
+                        </div>
+                    </div>
+
                     <div id="operation-type">
                         <div class="form-group">
                             <label>
@@ -44,10 +54,6 @@
 
                                 ?>
                             </select>
-
-                            <small id="type-help" class="form-text text-muted margin-top-25em" <?php if (isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') echo 'style="display:none"'; ?>>
-                                Specify an alternative seller type if you want to sell under a name other than "<bold><?= $User->name; ?></bold>" 
-                            </small>
                         </div>
                     </div>
                 

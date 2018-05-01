@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    <?= (isset($User->WholesaleAccount) ? 'Edit your' : 'Create a') . ' wholesale buying account'; ?>
+                    <?= (isset($User->BuyerAccount) ? 'Edit your' : 'Create a') . ' wholesale buying account'; ?>
                 </div>
 
                 <div class="page-description text-muted small">
-                    Build out your profile as a wholesale buyer. This information will be available to the public. <?php if (isset($User->WholesaleAccount)) { echo "<span id=\"live-link\">View your live profile <a href=\"" . PUBLIC_ROOT . "{$User->WholesaleAccount->link}\" class=\"bold\">here <i class=\"fa fa-angle-right\"></i></a></span>"; } ?>
+                    Build out your profile as a wholesale buyer. This information will be available to the public. <?php if (isset($User->BuyerAccount)) { echo "<span id=\"live-link\">View your live profile <a href=\"" . PUBLIC_ROOT . "{$User->BuyerAccount->link}\" class=\"bold\">here <i class=\"fa fa-angle-right\"></i></a></span>"; } ?>
                 </div>
             </div>
 
@@ -38,8 +38,9 @@
                             <select name="type" class="custom-select" data-parsley-trigger="submit" required>
                                 <option selected disabled>Select a wholesale account type</option>
 
-                                <?php foreach ($wholesale_account_types as $wholesale_account_type) {
-                                    echo "<option value=\"{$wholesale_account_type['id']}\" " . ($wholesale_account_type['title'] == $User->WholesaleAccount->type ? 'selected' : '') . ">" . ucfirst($wholesale_account_type['title']) . "</option>";
+                                <?php foreach ($buyer_account_types as $buyer_account_type) {
+                                    if ($buyer_account_type['id'] == 1) continue;
+                                    echo "<option value=\"{$buyer_account_type['id']}\" " . ($buyer_account_type['title'] == $User->BuyerAccount->type ? 'selected' : '') . ">" . ucfirst($buyer_account_type['title']) . "</option>";
                                 } ?>
                             </select>
                         </div>
@@ -51,7 +52,7 @@
                                 Name
                             </label>
 
-                            <input type="text" name="name" class="form-control" placeholder="Wholesale account name" value="<?= (!empty($User->WholesaleAccount->name) ? $User->WholesaleAccount->name : '' );?>"  data-parsley-trigger="submit" required>
+                            <input type="text" name="name" class="form-control" placeholder="Wholesale account name" value="<?= (!empty($User->BuyerAccount->name) ? $User->BuyerAccount->name : '' );?>"  data-parsley-trigger="submit" required>
                         </div>
 
                         <label>
@@ -60,29 +61,29 @@
                         </label>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->WholesaleAccount->address_line_1)) echo $User->WholesaleAccount->address_line_1; ?>" data-parsley-trigger="change" required>
+                            <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->BuyerAccount->address_line_1)) echo $User->BuyerAccount->address_line_1; ?>" data-parsley-trigger="change" required>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->WholesaleAccount->address_line_2)) echo $User->WholesaleAccount->address_line_2; ?>" data-parsley-trigger="change">
+                            <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->BuyerAccount->address_line_2)) echo $User->BuyerAccount->address_line_2; ?>" data-parsley-trigger="change">
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->WholesaleAccount->city)) echo $User->WholesaleAccount->city; ?>" data-parsley-trigger="change" required>
+                                    <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->BuyerAccount->city)) echo $User->BuyerAccount->city; ?>" data-parsley-trigger="change" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->WholesaleAccount->state)) echo $User->WholesaleAccount->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->BuyerAccount->state)) echo $User->BuyerAccount->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                             
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->WholesaleAccount->zipcode)) { echo $User->WholesaleAccount->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
+                                    <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->BuyerAccount->zipcode)) { echo $User->BuyerAccount->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,7 @@
                                 Bio
                             </label>
                             
-                            <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Tell your story. Food From Friends is built on relationships."><?php if (!empty($User->WholesaleAccount->bio)) echo $User->WholesaleAccount->bio; ?></textarea>
+                            <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Tell your story. Food From Friends is built on relationships."><?php if (!empty($User->BuyerAccount->bio)) echo $User->BuyerAccount->bio; ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -104,14 +105,14 @@
                                 Wholesale account photo
                             </label>
                                 
-                            <a href="" class="remove-image float-right" <?php if (empty($User->WholesaleAccount->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
+                            <a href="" class="remove-image float-right" <?php if (empty($User->BuyerAccount->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
 
-                            <div class="image-box slide-over <?php if (!empty($User->WholesaleAccount->filename)) echo 'existing-image'; ?>">
+                            <div class="image-box slide-over <?php if (!empty($User->BuyerAccount->filename)) echo 'existing-image'; ?>">
                                 <div class="image-container">
                                     <?php
                                             
-                                    if (!empty($User->WholesaleAccount->filename)) {
-                                        img(ENV . '/wholesale-account-images/' . $User->WholesaleAccount->filename, $User->WholesaleAccount->ext . '?' . time(), [
+                                    if (!empty($User->BuyerAccount->filename)) {
+                                        img(ENV . '/buyer-account-images/' . $User->BuyerAccount->filename, $User->BuyerAccount->ext . '?' . time(), [
                                             'server'    => 'S3',
                                             'class'     => 'img-fluid file'
                                         ]);

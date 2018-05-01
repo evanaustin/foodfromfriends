@@ -75,7 +75,7 @@
                                         ]);
 
                                         if ($is_owner) {
-                                            echo '<a href="' . PUBLIC_ROOT . 'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
+                                            echo '<a href="' . PUBLIC_ROOT . 'dashboard/selling/settings/profile" class="btn btn-cta btn-block">Set your address</a>';
                                         }
                                     }
 
@@ -274,9 +274,9 @@
                                         
                                         foreach ($ratings as $rating) { 
                                         
-                                            $ReviewUser = new User([
+                                            $ReviewUser = new BuyerAccount([
                                                 'DB' => $DB,
-                                                'id' => $rating['user_id']
+                                                'id' => $rating['buyer_account_id']
                                             ]);
 
                                             ?>           
@@ -451,7 +451,7 @@
                                                 ?>
 
                                                 <form id="add-item" data-ordergrower="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0; ?>">
-                                                    <input type="hidden" name="user-id" value="<?= (isset($User)) ? $User->id : ''; ?>">
+                                                    <input type="hidden" name="buyer-account-id" value="<?= (isset($User->BuyerAccount)) ? $User->BuyerAccount->id : ''; ?>">
                                                     <input type="hidden" name="food-listing-id" value="<?= $FoodListing->id; ?>">
 
                                                     <div class="form-group">
@@ -695,9 +695,9 @@
                                     
                                     foreach ($ratings as $rating) { 
                                     
-                                        $ReviewUser = new User([
+                                        $ReviewUser = new BuyerAccount([
                                             'DB' => $DB,
-                                            'id' => $rating['user_id']
+                                            'id' => $rating['buyer_account_id']
                                         ]);
 
                                         ?>           

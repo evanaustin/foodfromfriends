@@ -59,7 +59,7 @@
                     <cell class="flexgrow-3 muted d-justify-center">
                         <?= '<i class="fa fa-' . (($ThisMessage->sent_by == 'grower') ? (!isset($ThisMessage->read_on) ? 'circle info jackInTheBox animated' : 'reply muted') : 'share muted') . '"></i> &nbsp;'; ?>
 
-                        <a href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $Grower->id; ?>">
+                        <a href="<?= PUBLIC_ROOT . 'dashboard/buying/messages/thread?seller=' . $Grower->id; ?>">
                             <?= $snippet; ?>
                         </a>
                     </cell>

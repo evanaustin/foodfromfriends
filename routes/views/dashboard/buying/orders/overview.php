@@ -242,7 +242,7 @@
                                             foreach ($actions as $action) {
                                                 switch($action) {
                                                     case 'message':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
+                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/buying/messages/thread?seller=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
                                                         break;
                                                     // case 'view receipt':
                                                     //     echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';

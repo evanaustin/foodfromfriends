@@ -46,9 +46,9 @@
                                 'id' => $order['id']
                             ]);
                             
-                            $ThisUser = new User([
+                            $ThisUser = new BuyerAccount([
                                 'DB' => $DB,
-                                'id' => $order['user_id']
+                                'id' => $order['buyer_account_id']
                             ]);
 
                             ?>

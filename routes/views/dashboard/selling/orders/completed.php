@@ -41,9 +41,9 @@
                             $fulfilled_on = new DateTime($order['fulfilled_on']);
                             $fulfilled_on->setTimezone(new DateTimeZone($User->timezone));
 
-                            $ThisUser = new User([
+                            $ThisUser = new BuyerAccount([
                                 'DB' => $DB,
-                                'id' => $order['user_id']
+                                'id' => $order['buyer_account_id']
                             ]);
 
                             ?>

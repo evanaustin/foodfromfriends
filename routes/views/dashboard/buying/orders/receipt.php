@@ -2,7 +2,7 @@
     <div class="container animated fadeIn">
         <?php
 
-        if ($Order->user_id == $User->id) {
+        if ($Order->buyer_account_id == $User->BuyerAccount->id) {
 
             echo "ID:&nbsp;<strong>{$encrypted_id}</strong><br>";
 

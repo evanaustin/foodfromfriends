@@ -41,9 +41,9 @@
                             $voided_on = new DateTime($order['voided_on']);
                             $voided_on->setTimezone(new DateTimeZone($User->timezone));
 
-                            $ThisUser = new User([
+                            $ThisUser = new BuyerAccount([
                                 'DB' => $DB,
-                                'id' => $order['user_id']
+                                'id' => $order['buyer_account_id']
                             ]);
 
                             ?>

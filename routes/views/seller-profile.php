@@ -12,14 +12,14 @@
 
                             <span>
                                 This is your public profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile">here</a> to go edit your information.
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile">here</a> to go edit your information.
                             </span>
 
                         <?php else: ?>
 
                             <span>
                                 <i class="fa fa-warning"></i> This is only a preview of your seller profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/">here</a> to finish activating your seller account.
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.
                             </span>
 
                         <?php endif ?>
@@ -55,7 +55,7 @@
 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">
                                         Add a profile picture
                                     </a>';
 
@@ -154,7 +154,7 @@
 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">Set your address</a>
                                 
                                 <?php endif ?>
                             
@@ -169,17 +169,17 @@
                         <h2 class="dark-gray bold margin-btm-25em">
                             <?= $Seller->name ?>
 
-                            <?php if (!$is_owner): ?>
+                            <?php //if (!$is_owner): ?>
                             
-                                <a href="<?= PUBLIC_ROOT . "dashboard/messages/inbox/buying/thread?grower={$Seller->id}" ?>">
+                                <a href="<?= PUBLIC_ROOT . "dashboard/buying/messages/thread?seller={$Seller->id}" ?>">
                                     <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                 </a>
                             
-                            <?php endif ?>
+                            <?php //endif ?>
 
-                            <?php if (isset($User->WholesaleAccount)): ?>
+                            <?php if (isset($User->BuyerAccount)): ?>
 
                                 <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
                                     <i class="fa fa-cutlery"></i>
@@ -207,7 +207,7 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/settings/edit-profile" class="btn btn-cta">
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta">
                                         Add a bio
                                     </a>
                                 </div>
@@ -231,10 +231,14 @@
                                 
                                 <?php foreach ($listings as $listing): ?>
                                     
-                                    <?php $Item = new FoodListing([
+                                    <?php 
+                                    
+                                    if (!$listing['is_available']) continue;
+
+                                    $Item = new FoodListing([
                                         'DB' => $DB,
                                         'id' => $listing['id']
-                                    ]) ?>
+                                    ]); ?>
                                     
                                     <div class="col-md-4">
                                         <div class="item card animated zoomIn">
@@ -372,7 +376,7 @@
                                 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>'dashboard/selling/items/add-new" class="btn btn-cta margin-top-1em">
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/add-new" class="btn btn-cta margin-top-1em">
                                         Add your first item
                                     </a>
                                 
@@ -397,9 +401,9 @@
 
                                 <?php foreach ($ratings as $rating): ?>
 
-                                    <?php $ReviewUser = new User([
+                                    <?php $ReviewUser = new BuyerAccount([
                                         'DB' => $DB,
-                                        'id' => $rating['user_id']
+                                        'id' => $rating['buyer_account_id']
                                     ]) ?>           
                                     
                                     <div class="user-block margin-btm-1em">
@@ -442,5 +446,5 @@
     var lng     = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
     var user    = <?= (isset($User)) ? $User->id : 0 ?>;
     var seller_name = '<?= $Seller->name ?>';
-    var wholesale_account_name= '<?= (isset($User, $User->WholesaleAccount)) ? $User->WholesaleAccount->name : '' ?>';
+    var buyer_name= '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
 </script>

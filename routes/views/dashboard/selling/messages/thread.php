@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Conversation with <a href="<?= PUBLIC_ROOT . $Grower->link; ?>"><?= $Grower->name; ?></a>
+                        Conversation with <?= $BuyerAccount->name; ?>
                     </div>
 
                     <div class="page-description text-muted small">
-                        <?= 'This is ' . ((isset($messages) && count($messages) > 0) ? 'the entire' : 'a new') . ' chain of conversation between you and this grower.'; ?>
+                        <?= 'This is ' . ((isset($messages) && count($messages) > 0) ? 'the entire' : 'a new') . ' chain of conversation between you and this customer.'; ?>
                     </div>
                 </div>
             </div>
@@ -17,11 +17,12 @@
 
             <div class="alerts"></div>
 
-            <?php
+            <?php if (isset($messages) && $messages != false && count($messages) > 0): ?>
 
-            if (isset($messages) && ($messages != false) && count($messages) > 0) {
+                <?php foreach($messages as $message): ?>
 
-                foreach($messages as $message) {
+                    <?php
+
                     $ThisMessage = new Message([
                         'DB' => $DB,
                         'id' => $message['id']
@@ -32,13 +33,13 @@
 
                     if (!isset($prev_sent_on)) {
                         $prev_sent_on = $sent_on;
-                        $date_sent = $sent_on->format('n/j/y\, g:i A');
+                        $date_sent = $sent_on->format('n/j/y\, g:i A'); 
 
                         $margin = '';
                     } else {
                         $interval = $prev_sent_on->diff($sent_on);
                         $h = $interval->format('%H');
-                        $date_sent = ($h <= 1) ? false : $sent_on->format('n/j/y\, g:i A');
+                        $date_sent = ($h <= 1) ? false : $sent_on->format('n/j/y\, g:i A'); 
 
                         $margin = 'margin-top-1em';
 
@@ -49,23 +50,15 @@
 
                     <div class="row">
 
-                        <?php 
-                        
-                        if ($date_sent) {
-                            
-                            ?>
+                        <?php if ($date_sent): ?>
 
                             <div class="col-md-12 align-center <?= $margin; ?>">
                                 <span class="light-gray bold tiny"><?= $date_sent; ?></span>
                             </div>
 
-                            <?php 
-                    
-                        }
+                        <?php endif; ?>
 
-                        if ($ThisMessage->sent_by == 'user') {
-                            
-                            ?>
+                        <?php if ($ThisMessage->sent_by == 'seller'): ?>
 
                             <div class="col-md-9 offset-md-3">
                                 <fable class="message right-message">
@@ -76,22 +69,18 @@
                                     </cell>
 
                                     <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
+                                    <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
                                     </cell>
                                 </fable>
                             </div>
 
-                            <?php
-
-                        } else if ($ThisMessage->sent_by == 'grower') {
+                        <?php elseif ($ThisMessage->sent_by == 'buyer'): ?>
                             
-                            ?>
-
                             <div class="col-md-9">
                                 <fable class="message left-message">
                                     <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
                                         <a href="<?= PUBLIC_ROOT . $Grower->link; ?>">
-                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
+                                            <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= (!empty($BuyerAccount->Image->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/{$BuyerAccount->Image->path}/{$BuyerAccount->Image->filename}.{$BuyerAccount->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
                                         </a>
                                     </cell>
 
@@ -103,36 +92,34 @@
                                 </fable>
                             </div>
 
-                            <?php
-
-                            // mark grower's messages as read by buyer
-                            $ThisMessage->update([
+                            <?php $ThisMessage->update([
                                 'read_on' => \Time::now()
-                            ]);
+                            ]); ?>
 
-                        }
+                        <?php endif; ?>
 
-                        ?>
-            
                     </div>
 
-                    <?php
+                <?php endforeach; ?>
 
-                }
+            <?php else: ?>
 
-            }
+                <div class="block">
+                There are no messages between you and this customer yet. Send the first one using the text box below.
+                </div>
 
-            ?>
+            <?php endif; ?>
+
         </section>
             
         <section id="new-message">
             <form id="send-message">
-                <input type="hidden" name="filename" value="<?= $User->filename;?>">
-                <input type="hidden" name="fileext" value="<?= $User->ext;?>">
+                <input type="hidden" name="filename" value="<?= $Seller->filename;?>">
+                <input type="hidden" name="fileext" value="<?= $Seller->ext;?>">
 
-                <input type="hidden" name="user-id" value="<?= $User->id;?>">
-                <input type="hidden" name="grower-operation-id" value="<?= $Grower->id;?>">
-                <input type="hidden" name="sent-by" value="user">
+                <input type="hidden" name="buyer-account-id" value="<?= $BuyerAccount->id;?>">
+                <input type="hidden" name="grower-operation-id" value="<?= $Seller->id;?>">
+                <input type="hidden" name="sent-by" value="seller">
 
                 <div class="input-group w-addon">
                     <textarea name="message" placeholder="Enter message&hellip;" rows="1" autofocus></textarea>

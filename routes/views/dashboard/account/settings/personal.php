@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="page-title">
-                    Edit your basic information
+                    Your personal information
                 </div>
 
                 <div class="page-description text-muted small">
-                    Edit and fill in all of your personal information. <span id="live-link">View your live profile <a href="<?= PUBLIC_ROOT . 'user/' . $User->slug; ?>" class="bold">here <i class="fa fa-angle-right"></i></a></span>
+                    Edit your personal information.
                 </div>
             </div>
 
@@ -185,86 +185,6 @@
                             We use this data for analysis and never share it with other users.
                         </small>
                     </div>
-
-                    <label>
-                        Where do you live?
-                    </label>
-
-                    <div class="form-group">
-                        <input type="text" name="address-line-1" class="form-control" placeholder="Street address" value="<?php if (!empty($User->address_line_1)) { echo $User->address_line_1; } ?>" data-parsley-trigger="change" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" name="address-line-2" class="form-control" placeholder="Apt, Suite, Bldg. (optional)" value="<?php if (!empty($User->address_line_2)) { echo $User->address_line_2; } ?>" data-parsley-trigger="change">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="city" class="form-control" placeholder="City" value="<?php if (!empty($User->city)) { echo $User->city; } ?>" data-parsley-trigger="change" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-3">
-                            <div class="form-group">
-                                <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->state)) { echo $User->state; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
-                            </div>
-                        </div>
-                        
-                        <div class="col-12 col-md-3">
-                            <div class="form-group">
-                                <input type="text" name="zipcode" class="form-control" placeholder="Zip code" value="<?php if (!empty($User->zipcode)) { echo $User->zipcode; } ?>" data-parsley-type="digits" data-parsley-length="[5,5]" data-parsley-length-message="This value should be exactly 5 digits long" data-parsley-trigger="change" required>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>
-                            Bio
-                        </label>
-                        
-                        <textarea type="text" name="bio" class="form-control" rows="4" placeholder="Describe yourself! Food From Friends is built on relationships."><?php if (!empty($User->bio)) { echo $User->bio ; } ?></textarea>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-4">
-                    <label>
-                        Profile photo
-                    </label>
-                        
-                    <a href="" class="remove-image float-right" <?php if (empty($User->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
-
-                    <div class="image-box slide-over <?php if (!empty($User->filename)) echo 'existing-image'; ?>">
-                        <div class="image-container">
-                            <?php
-                                    
-                            if (!empty($User->filename)) {
-                                img(ENV . '/profile-photos/' . $User->filename, $User->ext . '?' . time(), [
-                                    'server'    => 'S3',
-                                    'class'     => 'img-fluid file'
-                                ]);
-                            } else {
-                                img('placeholders/user-thumbnail', 'jpg', [
-                                    'server'    => 'local', 
-                                    'class'     => 'file'
-                                ]);
-                            }
-
-                            ?>
-                            
-                            <input type="file" name="profile-image" accept="image/png/jpg">
-                            
-                            <div class="overlay-slide">
-                                <i class="fa fa-camera"></i>
-                                Add a new profile photo
-                            </div>
-                        </div>
-                    </div>
-
-                    <small id="profilePhotoHelp" class="form-text text-muted <?php if (!empty($User->filename)) echo 'hidden'; ?>">
-                        Upload a good photo of your face to make more friends!
-                    </small>
                 </div>
             </div>
         </form>
