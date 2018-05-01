@@ -401,14 +401,14 @@
 
                                 <?php foreach ($ratings as $rating): ?>
 
-                                    <?php $ReviewUser = new BuyerAccount([
+                                    <?php $ReviewBuyer = new BuyerAccount([
                                         'DB' => $DB,
                                         'id' => $rating['buyer_account_id']
                                     ]) ?>           
                                     
                                     <div class="user-block margin-btm-1em">
-                                        <a href="<?= PUBLIC_ROOT . "user/{$ReviewUser->slug}" ?>">             
-                                            <div class="user-photo" style="background-image: url(<?= (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/profile-photos/{$ReviewUser->filename}.{$ReviewUser->ext}" /* . '?' . time() */ : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg') ?>);"></div>
+                                        <a href="<?= PUBLIC_ROOT . $ReviewBuyer->link ?>">             
+                                            <div class="user-photo" style="background-image: url(<?= (!empty($ReviewBuyer->Image->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/buyer-account-images/{$ReviewBuyer->Image->filename}.{$ReviewBuyer->Image->ext}" /* . '?' . time() */ : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg') ?>);"></div>
                                         </a>
 
                                         <div class="user-content">
@@ -417,7 +417,7 @@
                                             </p>
 
                                             <small class="flexstart">
-                                                <?= "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">$ReviewUser->name</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}" ?>
+                                                <?= "<a href=\"" . PUBLIC_ROOT . "{$ReviewBuyer->link}\" class=\"strong\">$ReviewBuyer->name</a> &bull; {$ReviewBuyer->Address->city}, {$ReviewBuyer->Address->state}" ?>
                                             </small>
                                         </div>
                                     </div>
