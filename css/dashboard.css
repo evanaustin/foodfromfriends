@@ -6689,49 +6689,79 @@ div.sidebar {
     border-color: #00c079; }
     div.sidebar .navbar button i {
       color: #fff; }
-  div.sidebar a.nav-link {
+  div.sidebar .nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
     font-size: 14px;
     border-left: 2px solid transparent; }
     @media (max-width: 767px) {
-      div.sidebar a.nav-link {
+      div.sidebar .nav-link {
         padding-left: 15px;
         padding-right: 15px; } }
-    div.sidebar a.nav-link:hover {
-      color: #58707b; }
-    div.sidebar a.nav-link[aria-expanded="true"] {
-      background-color: #fafafb;
-      color: #00c079;
-      font-weight: 500; }
-    div.sidebar a.nav-link.parent:after {
+    div.sidebar .nav-link.parent:after {
       float: right; }
-    div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+    div.sidebar .nav-link.parent[aria-expanded="false"]:after {
       content: '\002b'; }
-    div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+    div.sidebar .nav-link.parent[aria-expanded="true"]:after {
       content: '\2013'; }
-    div.sidebar a.nav-link.child {
+    div.sidebar .nav-link.child {
       padding: 10px 30px; }
       @media (max-width: 767px) {
-        div.sidebar a.nav-link.child {
+        div.sidebar .nav-link.child {
           padding-left: 15px;
           padding-right: 15px; } }
-      div.sidebar a.nav-link.child.active {
+      div.sidebar .nav-link.child.active {
         background-color: #00c079;
         color: #fff;
         font-weight: 400; }
         @media (min-width: 768px) {
-          div.sidebar a.nav-link.child.active {
+          div.sidebar .nav-link.child.active {
             border-color: #007349; } }
-      div.sidebar a.nav-link.child i {
+      div.sidebar .nav-link.child i {
         float: right;
         margin-top: 5px;
         font-size: .75rem; }
-    div.sidebar a.nav-link.active:not(.parent):not(.child) {
+    div.sidebar .nav-link.active:not(.parent):not(.child) {
       color: #00c079;
       font-weight: 500; }
-  div.sidebar li.nav-item div.collapse.show {
+  div.sidebar a.nav-link:hover {
+    color: #58707b; }
+  div.sidebar li.nav-item .collapse.show {
     background-color: #fafafb; }
+  div.sidebar li.nav-item.account-link {
+    border-bottom: 1px solid #f5f5f5; }
+    div.sidebar li.nav-item.account-link .nav-link {
+      padding-right: 0.5rem; }
+      div.sidebar li.nav-item.account-link .nav-link i {
+        padding-right: 0.25rem; }
+  div.sidebar li.nav-item:not(.account-link) a.nav-link[aria-expanded="true"] {
+    background-color: #fafafb;
+    color: #00c079;
+    font-weight: 500; }
+  div.sidebar .dropdown-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fafafb;
+    border: 0px;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
+    div.sidebar .dropdown-menu a {
+      cursor: pointer;
+      padding: 0.75rem 0 0.75rem 2rem;
+      border-top: 1px solid #f5f5f5;
+      font-size: 0.85rem;
+      color: #8ca3ad; }
+      div.sidebar .dropdown-menu a:hover {
+        color: #636c72 !important; }
+      div.sidebar .dropdown-menu a:active {
+        background-color: transparent; }
 
 /*
  * artistic styles reside here
@@ -6762,33 +6792,6 @@ div.subheader {
     div.subheader a.nav-link i {
       margin: 5px 0.5rem 0 0;
       font-size: .75rem; }
-  div.subheader div.dropdown-menu {
-    width: 50%;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    margin: 0 auto;
-    padding: 0;
-    border: 0px;
-    text-align: center;
-    border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
-    div.subheader div.dropdown-menu a {
-      cursor: pointer;
-      padding: 0.5em 0;
-      font-size: 0.85em;
-      color: #636c72; }
-      div.subheader div.dropdown-menu a:not(:last-child) {
-        border-bottom: 1px solid #f8f8f8; }
-      div.subheader div.dropdown-menu a.active {
-        background-color: #fff;
-        font-weight: 400; }
-      div.subheader div.dropdown-menu a:not(.active):hover {
-        background-color: #00c079 !important;
-        color: #fff !important; }
 
 /**
 * Views
