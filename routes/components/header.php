@@ -59,7 +59,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/settings/personal'); ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
@@ -120,7 +120,7 @@
                         
                         <?php endif; ?>
 
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/settings/personal'; ?>">
                             Edit profile
                         </a>
                         

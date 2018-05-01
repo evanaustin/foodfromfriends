@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a 
                         class="nav-link" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/edit-profile/basic-information'); ?>"
+                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/settings/personal'); ?>"
                     >
                         Dashboard
                     </a>
@@ -63,7 +63,7 @@
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/settings/personal'; ?>">
                         Edit profile
                     </a>
                 </li>
@@ -232,9 +232,9 @@
                                                     if ($alias == 'buying' && !$active) {
                                                         $unread = $Message->retrieve([
                                                             'where' => [
-                                                                'user_id' => $User->id,
-                                                                'sent_by' => 'grower',
-                                                                'read_on' => null
+                                                                'buyer_account_id'  => $User->BuyerAccount->id,
+                                                                'sent_by'           => 'grower',
+                                                                'read_on'           => null
                                                             ],
                                                             'limit' => 1
                                                         ]);

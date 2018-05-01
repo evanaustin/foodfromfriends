@@ -2,7 +2,7 @@
     <div class="subheader">
         <ul class="nav nav-fill">
             
-            <?php if ($Routing->section == 'buying' && count($User->WholesaleAccounts) > 1): ?>
+            <?php if ($Routing->section == 'buying' && count($User->BuyerAccounts) > 1): ?>
 
                 <li class="nav-item dropdown">
                     <a 
@@ -10,13 +10,13 @@
                         class="nav-link dropdown-toggle <?php if ($Routing->section == 'buying') echo 'active'; ?>" 
                         data-toggle="dropdown"
                     >
-                        <?= $User->WholesaleAccount->name ?>
+                        <?= $User->BuyerAccount->name ?>
                     </a>
 
                     <div class="dropdown-menu">
 
-                        <?php foreach ($User->WholesaleAccounts as $WholesaleAccount) {
-                            echo '<a ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'href="' . PUBLIC_ROOT . 'dashboard/buying/orders/overview"' : '') . ' class="dropdown-item ' . (($User->WholesaleAccount->id == $WholesaleAccount->id) ? 'active' : 'switch-wholesale-account') . '" data-wholesale-account-id="' . $WholesaleAccount->id .'">' . $WholesaleAccount->name . '</a>';
+                        <?php foreach ($User->BuyerAccounts as $BuyerAccount) {
+                            echo '<a ' . (($User->BuyerAccount->id == $BuyerAccount->id) ? 'href="' . PUBLIC_ROOT . 'dashboard/buying/orders/overview"' : '') . ' class="dropdown-item ' . (($User->BuyerAccount->id == $BuyerAccount->id) ? 'active' : 'switch-buyer-account') . '" data-buyer-account-id="' . $BuyerAccount->id .'">' . $BuyerAccount->name . '</a>';
                         } ?>
 
                     </div>
@@ -29,7 +29,7 @@
                         href="<?= PUBLIC_ROOT . $Routing->template . '/buying/orders/overview'; ?>"
                         class="nav-link <?php if ($Routing->section == 'buying') echo 'active'; ?>"
                     >
-                        <?= ($Routing->section == 'buying' && isset($User->WholesaleAccount)) ? $User->WholesaleAccount->name : 'Buying'; ?>
+                        <?= ($Routing->section == 'buying' && isset($User->BuyerAccount)) ? $User->BuyerAccount->name : 'Buying'; ?>
                     </a>
                 </li>
 
@@ -71,8 +71,8 @@
             <?php endif; ?>
             
             <?php foreach ([
-                'messages'  => 'inbox/buying',
-                'account'   => 'edit-profile/basic-information'
+                // 'messages'  => 'inbox/buying',
+                'account'   => 'settings/personal'
             ] as $section => $subsection): ?>
 
                 <li class="nav-item">

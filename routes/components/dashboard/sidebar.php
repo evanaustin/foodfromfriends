@@ -5,6 +5,7 @@
             
             $sidebar = [
                 'buying' => [
+                    'messages',
                     'orders' => [
                         'overview'
                     ],
@@ -12,15 +13,18 @@
                         'items'
                     ],
                     'wholesale' => [
-                        'account-settings',
                         'sellers'
-                        // 'payment-settings',
-                        // 'team-members',
+                    ],
+                    'settings' => [
+                        'profile',
+                        'billing',
+                        // 'team',
                         // 'create-new'
                     ]
                     //'saved-items',
                 ],
                 'selling' => [
+                    'messages',
                     'orders' => [
                         'new',
                         'pending',
@@ -41,37 +45,23 @@
                         'buyers'
                     ],
                     'settings' => [
-                        'edit-profile',
-                        'payout-settings',
-                        'team-members',
+                        'profile',
+                        'payout',
+                        'team',
                         // 'create-new'
                     ]
                 ],
-                'messages' => [
-                    'inbox' => [
-                        'buying'
-                    ]
-                ],
                 'account' => [
-                    'edit-profile' => [
-                        'basic-information',
-                        'billing-info',
-                        'delivery-address',
+                    'settings' => [
+                        'personal',
+                        // 'notifications',
+                        // 'language',
+                        // 'social',
+                        // 'security'
                     ],
-                    /* 'account-settings' => [
-                        'notifications',
-                    ] */
                     // 'edit' => 'edit-profile', // link alias format
                 ]
             ];
-
-            foreach($User->Operations as $Op) {
-                if ($Op->type != 'individual') {
-                    $sidebar['messages']['inbox']['selling?grower=' . $Op->id] = $Op->name;
-                } else {
-                    array_splice($sidebar['messages']['inbox'], 1, 0, 'selling');
-                }
-            }
 
             ?>
 
@@ -79,8 +69,8 @@
                 <li class="nav-item">
                     <a 
                         href="<?= PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
-                        class="nav-link <?php if ($Routing->template == 'dashboard' && !isset($Routing->page)) echo 'active'; ?>">
-                        <?= 'Dashboard'; ?>
+                        class="nav-link <?php if ($Routing->template == 'dashboard' && empty($Routing->subsection)) echo 'active'; ?>">
+                        <?= 'Dashboard' ?>
                     </a>
                 </li>
             <?php endif; ?>
@@ -148,9 +138,9 @@
                                                 if ($alias == 'buying' && !$active) {
                                                     $unread = $Message->retrieve([
                                                         'where' => [
-                                                            'user_id' => $User->id,
-                                                            'sent_by' => 'grower',
-                                                            'read_on' => null
+                                                            'buyer_account_id'  => $User->BuyerAccount->id,
+                                                            'sent_by'           => 'grower',
+                                                            'read_on'           => null
                                                         ],
                                                         'limit' => 1
                                                     ]);
