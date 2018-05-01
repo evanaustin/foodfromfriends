@@ -12,7 +12,7 @@ App.Front.SellerProfile = function() {
             bootbox.confirm({
                 closeButton: false,
                 title: 'Request wholesale account membership',
-                message: 'Please confirm you want to submit a request for a wholesale membership with ' + seller_name + ' as <strong>' + wholesale_account_name + '</strong>',
+                message: 'Please confirm you want to submit a request for a wholesale membership with ' + seller_name + ' as <strong>' + buyer_name + '</strong>',
                 buttons: {
                     confirm: {
                         label: 'Submit',

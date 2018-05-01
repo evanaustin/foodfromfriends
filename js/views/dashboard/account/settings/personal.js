@@ -78,12 +78,12 @@ $('#edit-basic-information').on('submit', function(e) {
 	if ($form.parsley().isValid()) {
 		App.Util.loading();
 	    
-		App.Ajax.postFiles('dashboard/account/edit-profile/save-basic-information', data, 
+		App.Ajax.postFiles('dashboard/account/settings/save-personal', data, 
 			function(response) {
                 App.Util.finishedLoading();
 
                 $('#live-link').addClass('hidden');
-                App.Util.msg('Your information has been updated! Click <a href="' + PUBLIC_ROOT + 'user/' + response.slug + '">here</a> to go view your profile', 'success');
+                App.Util.msg('Your personal information has been updated', 'success');
 			},
 			function(response) {
                 App.Util.finishedLoading();

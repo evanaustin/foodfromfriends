@@ -143,16 +143,16 @@ App.Account = function() {
         });
         
         /*
-        * Switch wholesale accounts
+        * Switch buyer accounts
         */
-        $('a.switch-wholesale-account').on('click', function(e) {
+        $('a.switch-buyer-account').on('click', function(e) {
             e.preventDefault();
 
             var data = {
-                'wholesale_account_id' : $(this).data('wholesale-account-id')
+                'buyer_account_id' : $(this).data('buyer-account-id')
             };
 
-            App.Ajax.post('user/switch-wholesale-account', data, 
+            App.Ajax.post('user/switch-buyer-account', data, 
                 function(response) {
                     window.location.replace(PUBLIC_ROOT + response.redirect);
                 },

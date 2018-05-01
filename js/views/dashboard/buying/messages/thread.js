@@ -1,5 +1,7 @@
 App.Dashboard.Message = function() {
     function listener() {
+        App.Util.scrollToID('new-message');
+
         $('#send-message textarea').keypress(function (e) {
             if (e.which == 13 && !e.shiftKey) {        
                 $(this).closest('form').submit();
@@ -19,8 +21,10 @@ App.Dashboard.Message = function() {
                 formdata[this.name] = this.value;
             });
 
-            App.Ajax.post('dashboard/messages/send-message', data, 
+            App.Ajax.post('dashboard/buying/messages/send', data, 
                 function(response) {
+                    $('#no-messages').addClass('hidden');
+
                     $('#messages').append('<div class="row">' +
                         '<div class="col-md-9 offset-md-3">' +
                             '<fable class="margin-btm-50em">' +
@@ -31,7 +35,7 @@ App.Dashboard.Message = function() {
                                 '</cell>' +
                         
                                 '<cell class="justify-center flexcenter flexgrow-0 margin-left-1em d-none d-md-block">' +
-                                    '<div class="user-photo no-margin" style="background-image: url(\'https://s3.amazonaws.com/foodfromfriends/' + ENV + ((formdata['sent-by'] == 'grower') ? '/grower-operation-images/' : '/profile-photos/') + formdata.filename + '.' + formdata.fileext + '\');"></div>' +
+                                    '<div class="user-photo no-margin" style="background-image: url(\'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/buyer-account-images/' + formdata.filename + '.' + formdata.fileext + '\');"></div>' +
                                 '</cell>' +
                             '</fable>' +
                         '</div>' +
@@ -50,5 +54,5 @@ App.Dashboard.Message = function() {
 
     return {
         listener: listener
-    };
+    }
 }();

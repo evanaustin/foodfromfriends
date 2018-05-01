@@ -8,7 +8,7 @@ $('#edit-billing').on('submit', function(e) {
     if ($form.parsley().isValid()) {
         App.Util.loading();
 
-        App.Ajax.post('dashboard/account/edit-profile/save-billing-info', data, 
+        App.Ajax.post('dashboard/buying/settings/save-billing', data, 
             function(response) {
                 App.Util.msg('Your billing information has been saved!', 'success');
                 App.Util.animation($('button[type="submit"]'), 'bounce');
