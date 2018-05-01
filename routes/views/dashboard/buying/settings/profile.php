@@ -25,7 +25,7 @@
         <hr>
 
         <div class="alerts"></div>
-
+        
         <form id="edit-profile">
             <div class="row">
                 <div class="col-12 col-md-8">
@@ -41,22 +41,18 @@
 
                     <div class="form-group">
                         <label>
-                            Seller type
+                            Buyer type
                         </label>
 
                         <select name="type" class="custom-select" data-parsley-trigger="submit" required>
                             <?php
                         
-                            foreach ($operation_types as $operation_type) {
-                                echo "<option value=\"{$operation_type['id']}\" " . ($operation_type['title'] == $User->GrowerOperation->type ? 'selected' : '') . ">" . ucfirst($operation_type['title']) . "</option>";
+                            foreach ($buyer_account_types as $buyer_account_type) {
+                                echo "<option value=\"{$buyer_account_type['id']}\" " . ($buyer_account_type['title'] == $User->BuyerAccount->type ? 'selected' : '') . ">" . ucfirst($buyer_account_type['title']) . "</option>";
                             }
 
                             ?>
                         </select>
-
-                        <small id="type-help" class="form-text text-muted margin-top-25em" <?php if (isset($User->GrowerOperation) && $User->GrowerOperation->type != 'individual') echo 'style="display:none"'; ?>>
-                            Specify an alternative seller type if you want to sell under a name other than "<bold><?= $User->name; ?></bold>" 
-                        </small>
                     </div>
                     
                     <label>
