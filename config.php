@@ -1,8 +1,8 @@
 <?php
 
-/**
+/*
 * Define constants
-**/
+*/
 
 switch($_SERVER['SERVER_NAME']) {
     case 'www.foodfromfriends.co':
@@ -62,9 +62,9 @@ foreach ($constants as $constant => $value) {
 
 
 
-/**
+/*
  * Autoload
- **/
+ */
 
 require 'vendor/autoload.php';
 
@@ -74,9 +74,9 @@ spl_autoload_register(function($class_name) {
 
 
 
-/**
+/*
  * Database
- **/
+ */
 
 try {
     $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
@@ -86,26 +86,38 @@ try {
 
 
 
-/**
+/*
  * GUMP Validator
- **/
+ */
 
 $Gump   = new GUMP();
 
 
 
-/**
+/*
  * AWS
- **/
+ */
 
 $AWS    = new Aws();
 $S3     = new S3($AWS);
 
 
 
-/**
+/*
+ * Routing
+ */
+
+$Routing = new Routing([
+    'DB'        => $DB,
+    'path'      => $_GET['path'],
+    'landing'   => 'home'
+]);
+
+
+
+/*
  * User session
- **/
+ */
 
 session_start();
 
@@ -116,7 +128,9 @@ if ($LOGGED_IN) {
     
     $User = new User([
         'DB' => $DB,
-        'id' => $USER['id']
+        'id' => $USER['id'],
+        'buyer_account'     => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'buying'))    ? true : false,
+        'seller_account'    => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'selling'))   ? true : false,
     ]);
 
     if (!empty($User->BuyerAccount)) {
@@ -138,9 +152,9 @@ if ($LOGGED_IN) {
 
 
 
-/**
+/*
 * Cron connection
-**/
+*/
 
 if (ENV != 'dev') {
     /*try {
@@ -151,9 +165,9 @@ if (ENV != 'dev') {
 }
 
 
-/**
+/*
 * Error Reporting
-**/
+*/
 
 define('DEBUG', false);
 
