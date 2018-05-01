@@ -80,7 +80,7 @@ abstract class Base {
             
             $results = $this->DB->run($sql, $bind);
             
-            return (isset($results)) ? (isset($limit) && $limit === 1 ? $results[0] : $results) : false;
+            return (!empty($results)) ? (isset($limit) && $limit === 1 ? $results[0] : $results) : false;
         } else {
             $results = $this->DB->run($sql);
         
