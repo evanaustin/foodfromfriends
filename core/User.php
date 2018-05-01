@@ -60,70 +60,20 @@ class User extends Base {
         }
 
         if (isset($this->id)) {
-            $this->populate_fully();
-    
-            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
-                $this->get_operations();
-                $this->get_orders();
+            $this->name = "{$this->first_name} {$this->last_name}";
+
+            if (!isset($parameters['buyer_account']) || $parameters['buyer_account'] == true) {
                 $this->get_buyer_accounts();
             }
+
+            if (!isset($parameters['seller_account']) || $parameters['seller_account'] == true) {
+                $this->get_operations();
+            }
     
-            $this->name = "{$this->first_name} {$this->last_name}";
+            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
+                $this->get_orders();
+            }
         }
-    }
-    
-    private function populate_fully() {
-        $results = $this->DB->run('
-            SELECT 
-                u.*,
-                ua.address_line_1,
-                ua.address_line_2,
-                ua.city,
-                ua.state,
-                ua.zipcode,
-                ua.latitude,
-                ua.longitude,
-                ub.card_name        AS billing_card_name,
-                ub.address_line_1   AS billing_address_line_1,
-                ub.address_line_2   AS billing_address_line_2,
-                ub.city             AS billing_city,
-                ub.state            AS billing_state,
-                ub.zipcode          AS billing_zipcode,
-                ud.address_line_1   AS delivery_address_line_1,
-                ud.address_line_2   AS delivery_address_line_2,
-                ud.city             AS delivery_city,
-                ud.state            AS delivery_state,
-                ud.zipcode          AS delivery_zipcode,
-                ud.latitude         AS delivery_latitude,
-                ud.longitude        AS delivery_longitude,
-                ud.instructions     AS delivery_instructions,
-                upi.filename,
-                upi.ext
-            
-            FROM users u
-            
-            LEFT JOIN user_addresses ua
-                ON u.id = ua.user_id
-            
-            LEFT JOIN user_billing_info ub
-                ON u.id = ub.user_id
-            
-            LEFT JOIN user_delivery_address ud
-                ON u.id = ud.user_id
-            
-            LEFT JOIN user_profile_images upi
-                ON u.id = upi.user_id
-            
-            WHERE u.id = :id
-        
-            LIMIT 1
-        ', [
-            'id' => $this->id
-        ]);
-
-        if (!isset($results[0])) return false;
-
-        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
     private function get_operations() {
