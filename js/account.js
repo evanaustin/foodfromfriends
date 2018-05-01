@@ -127,7 +127,9 @@ App.Account = function() {
         /*
         * Switch operations
         */
-        $('a.switch-operation').on('click', function() {
+        $('a.switch-operation').on('click', function(e) {
+            e.preventDefault();
+            
             var data = {
                 'grower_operation_id' : $(this).data('grower-operation-id')
             };
