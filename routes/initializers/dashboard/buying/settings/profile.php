@@ -4,6 +4,6 @@ $settings = [
     'title' => 'Your profile | Food From Friends'
 ];
 
-$months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+$buyer_account_types = $User->BuyerAccount->get_types();
 
 ?>
