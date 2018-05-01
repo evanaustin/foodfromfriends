@@ -8,9 +8,6 @@ $Order = new Order([
     'DB' => $DB
 ]);
 
-$is_wholesale = (isset($User->WholesaleAccount));
-$buyer_id = ($is_wholesale) ? $User->WholesaleAccount->id : $User->id;
-
-$placed = $Order->get_placed($buyer_id, $is_wholesale);
+$placed = $Order->get_placed($User->BuyerAccount->id);
 
 ?>

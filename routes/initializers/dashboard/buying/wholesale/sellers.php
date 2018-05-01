@@ -4,12 +4,12 @@ $settings = [
     'title' => 'Your wholesale sellers | Food From Friends'
 ];
 
-if ($User->WholesaleAccounts) {
-    $wholesale_memberships = $User->WholesaleAccount->retrieve([
+if ($User->BuyerAccounts) {
+    $wholesale_memberships = $User->BuyerAccount->retrieve([
         'where' => [
-            'wholesale_account_id' => $User->WholesaleAccount->id
+            'buyer_account_id' => $User->BuyerAccount->id
         ],
-        'table' => 'wholesale_account_memberships'
+        'table' => 'wholesale_relationships'
     ]);
 }
 

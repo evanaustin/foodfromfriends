@@ -4,13 +4,13 @@ $settings = [
     'title' => 'Message thread | Food From Friends'
 ];
 
-$grower_operation_id = $_GET['grower'];
+$seller_id = $_GET['seller'];
 
-$grower_operation_id = \Num::clean_int($_GET['grower']);
+$seller_id = \Num::clean_int($_GET['seller']);
 
-$Grower = new GrowerOperation([
+$Seller = new GrowerOperation([
     'DB' => $DB,
-    'id' => $grower_operation_id
+    'id' => $seller_id
 ],[
     'details' => true
 ]);
@@ -21,8 +21,8 @@ $Message = new Message([
 
 $messages = $Message->retrieve([
     'where' => [
-        'user_id' => $User->id,
-        'grower_operation_id' => $Grower->id,
+        'buyer_account_id'      => $User->BuyerAccount->id,
+        'grower_operation_id'   => $Seller->id,
     ],
     'order' => 'sent_on ASC'
 ]);

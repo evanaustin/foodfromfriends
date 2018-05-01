@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Payout settings | Food From Friends'
+    'title' => 'Your payout settings | Food From Friends'
 ];
 
 if ($User->GrowerOperation) {

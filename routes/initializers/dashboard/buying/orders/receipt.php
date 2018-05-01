@@ -12,7 +12,7 @@ $Order = new Order([
     'id' => $id
 ]);
     
-if ($Order->user_id == $User->id) {
+if ($Order->buyer_account_id == $User->BuyerAccount->id) {
     $settings = [
         'title' => "Order ({$encrypted_id}) receipt | Food From Friends"
     ];

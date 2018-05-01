@@ -18,9 +18,9 @@ if (\Num::is_id($order_grower_id)) {
             'id' => $OrderGrower->order_id
         ]);
         
-        $Buyer = new User([
+        $Buyer = new BuyerAccount([
             'DB' => $DB,
-            'id' => $Order->user_id
+            'id' => $Order->buyer_account
         ]);
 
         $time_elapsed   = \Time::elapsed($OrderGrower->Status->confirmed_on);

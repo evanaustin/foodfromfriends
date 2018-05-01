@@ -50,14 +50,14 @@ if (isset($Routing->seller)) {
                 $delivery_distance = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
             }
 
-            if (isset($User->WholesaleAccount)) {
-                $wholesale_relationship = $User->WholesaleAccount->retrieve([
+            if (isset($User->BuyerAccount)) {
+                $wholesale_relationship = $User->BuyerAccount->retrieve([
                     'where' => [
-                        'wholesale_account_id' => $User->WholesaleAccount->id,
+                        'buyer_account_id' => $User->BuyerAccount->id,
                         'seller_id' => $Seller->id,
                         'status'    => 2
                     ],
-                    'table' => 'wholesale_account_memberships'
+                    'table' => 'wholesale_relationships'
                 ]);
             } else {
                 $wholesale_relationship = false;

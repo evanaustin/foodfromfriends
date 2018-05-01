@@ -4,10 +4,10 @@ $settings = [
     'title' => 'Your wholesale account | Food From Friends'
 ];
 
-$WholesaleAccount = new WholesaleAccount([
+$BuyerAccount = new BuyerAccount([
     'DB' => $DB
 ]);
 
-$wholesale_account_types = $WholesaleAccount->get_types();
+$buyer_account_types = $BuyerAccount->get_types();
 
 ?>

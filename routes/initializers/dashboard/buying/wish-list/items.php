@@ -36,9 +36,9 @@ foreach ($raw_assns as $assn) {
 
 $raw_wishlist = $User->retrieve([
     'where' => [
-        'user_id' => $User->id
+        'buyer_account_id' => $User->BuyerAccount->id
     ],
-    'table' => 'wish_lists'
+    'table' => 'wish_list_items'
 ]);
 
 $extant_subcategories = [];

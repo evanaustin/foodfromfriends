@@ -111,9 +111,9 @@ if (!empty($growers)) {
 if (isset($User)) {
     $wishlist = $User->retrieve([
         'where' => [
-            'user_id' => $User->id
+            'buyer_account_id' => $User->BuyerAccount->id
         ],
-        'table' => 'wish_lists',
+        'table' => 'wish_list_items',
         'limit' => 1
     ]);
 }

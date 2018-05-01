@@ -37,11 +37,11 @@ if (isset($User->GrowerOperation)) {
 
 $requirements = [
     'add a profile photo' => [
-        'link'      => 'dashboard/selling/settings/edit-profile',
+        'link'      => 'dashboard/selling/settings/profile',
         'status'    => (!empty($User->GrowerOperation->filename) ? 'complete' : 'incomplete'),
     ],
     'set your location' => [
-        'link'      => 'dashboard/selling/settings/edit-profile',
+        'link'      => 'dashboard/selling/settings/profile',
         'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
     ],
     'upload your first listing' => [

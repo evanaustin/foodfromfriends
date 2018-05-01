@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Edit your seller profile | Food From Friends'
+    'title' => 'Your seller profile | Food From Friends'
 ];
 
 $GrowerOperation = new GrowerOperation([
