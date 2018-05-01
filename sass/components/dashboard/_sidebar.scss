@@ -46,7 +46,7 @@ div.sidebar {
         }
     }
 
-    a.nav-link {
+    .nav-link {
         padding: 15px 30px;
         color: #8ca3ad; // magic color
         font-size: 14px;
@@ -55,18 +55,6 @@ div.sidebar {
         @include phones() {
             padding-left: 15px;
             padding-right: 15px;
-        }
-
-        &:hover {
-            color: #58707b; // magic color
-        }
-
-        &[aria-expanded="true"] {
-            // background-color: #f9f9fe;
-            background-color: $superlight-gray;
-            // color: lighten($light-green, 2.5%);
-            color: $superlight-green;
-            font-weight: 500;
         }
 
         &.parent {
@@ -113,16 +101,69 @@ div.sidebar {
         }
         
         &.active:not(.parent):not(.child) {
-            // color: lighten($dark-green, 5%);
             color: $superlight-green;
             font-weight: 500;
         }
     }
 
+    a.nav-link:hover {
+        color: #58707b; // magic color
+    }
+
     li.nav-item {
-        div.collapse.show {
-            // background-color: #f9f9fe;
+        .collapse.show {
             background-color: $superlight-gray;
+        }
+
+        &.account-link {
+            border-bottom: 1px solid $edge-color;
+
+            .nav-link {
+                padding-right: 0.5rem;
+                
+                i {
+                    padding-right: 0.25rem;
+                }
+            }
+        }
+
+        &:not(.account-link) {
+            a.nav-link {
+                &[aria-expanded="true"] {
+                    background-color: $superlight-gray;
+                    color: $superlight-green;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        left: 0; 
+        right: 0;
+        z-index: $super-z;
+        margin: 0 auto;
+        padding: 0;
+        background-color: $superlight-gray;
+        border: 0px;
+        @include border-bottom-radius($radius);
+        @include drop-shadow(0, 5px, 10px);
+
+        a {
+            cursor: pointer;
+            padding: 0.75rem 0 0.75rem 2rem;
+            border-top: 1px solid $edge-color;
+            font-size: 0.85rem;
+            color: #8ca3ad;
+
+            &:hover {
+                color: $muted !important;
+            }
+            
+            &:active {
+                background-color: transparent;
+            }
         }
     }
 }

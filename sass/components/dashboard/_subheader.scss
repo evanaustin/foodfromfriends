@@ -38,41 +38,4 @@ div.subheader {
             font-size: .75rem;
         }
     }
-
-    div.dropdown-menu {
-        width: 50%;
-        left: 0; 
-        right: 0;
-        z-index: $super-z;
-        margin: 0 auto;
-        padding: 0;
-        // border-color: $edge-color;
-        // border-top: 0px;
-        border: 0px;
-        text-align: center;
-        @include border-bottom-radius($radius);
-        @include drop-shadow(0, 5px, 10px);
-
-        a {
-            cursor: pointer;
-            padding: 0.5em 0;
-            font-size: 0.85em;
-            color: $muted;
-
-            &:not(:last-child) {
-                border-bottom: 1px solid rgba(248,248,248,1);
-            }
-
-            &.active {
-                background-color: #fff;
-                // color: $light-green;
-                font-weight: 400;
-            }
-
-            &:not(.active):hover {
-                background-color: $superlight-green !important; 
-                color: #fff !important;
-            }
-        }
-    }
 }
