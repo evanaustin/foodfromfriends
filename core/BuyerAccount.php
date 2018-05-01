@@ -53,12 +53,30 @@ class BuyerAccount extends Base {
         }
 
         if (isset($this->id)) {
-            $this->populate_fully();
+            $this->set_type_and_link();
 
-            $this->link = ($this->type == 'individual' || $this->type == 'other' ? 'buyer' : $this->type) . '/' . $this->slug;
+            $this->Address = new AccountExtension([
+                'DB'            => $this->DB,
+                'account_type'  => 'buyer',
+                'account_id'    => $this->id,
+                'table'         => 'buyer_account_addresses'
+            ]);
+            
+            $this->Image = new AccountExtension([
+                'DB'            => $this->DB,
+                'account_type'  => 'buyer',
+                'account_id'    => $this->id,
+                'table'         => 'buyer_account_images',
+                'image'         => true
+            ]);
 
             if (isset($configure['billing']) && $configure['billing'] == true || $configure['billing'] !== false) {
-                $this->configure_billing();
+                $this->Billing = new AccountExtension([
+                    'DB'            => $this->DB,
+                    'account_type'  => 'buyer',
+                    'account_id'    => $this->id,
+                    'table'         => 'buyer_account_billing'
+                ]);
             }
 
             if (isset($configure['team']) && $configure['team'] == true) {
@@ -70,30 +88,13 @@ class BuyerAccount extends Base {
     /**
      * Loads BuyerAccount object with Address & Image children
      */
-    private function populate_fully() {
+    private function set_type_and_link() {
         $results = $this->DB->run('
-            SELECT 
-                *,
-                ba.id AS id,
-                bat.title AS type,
-                i.id AS image_id
-            
+            SELECT bat.title AS type
             FROM buyer_accounts ba
-            
             JOIN buyer_account_types bat
                 ON bat.id = ba.buyer_account_type_id
-
-            LEFT JOIN buyer_account_addresses baa
-                ON baa.buyer_account_id = ba.id
-            
-            LEFT JOIN buyer_account_images bai
-                ON bai.buyer_account_id = ba.id
-
-            LEFT JOIN images i
-                ON i.id = bai.image_id
-            
             WHERE ba.id = :id
-            
             LIMIT 1
         ', [
             'id' => $this->id
@@ -102,56 +103,11 @@ class BuyerAccount extends Base {
         if (!isset($results[0])) {
             return false;
         } else {
-            $address = [
-                'address_line_1',
-                'address_line_2',
-                'city',
-                'state',
-                'zipcode',
-                'latitude',
-                'longitude'
-            ];
-
-            $this->Address;
-            
-            $image = [
-                'image_id',
-                'path',
-                'filename',
-                'ext'
-            ];
-
-            $this->Image;
-
-            foreach ($results[0] as $k => $v) {
-                if (in_array($k, $address)) {
-                    $this->Address->{$k} = $v;
-                } else if (in_array($k, $image)) {
-                    $this->Image->{$k} = $v;
-                } else {
-                    $this->{$k} = $v;
-                }
-            }
+            $this->type = $results[0]['type'];
+            $this->link = ($this->type == 'individual' || $this->type == 'other' ? 'buyer' : $this->type) . '/' . $this->slug;
         }
     }
     
-    private function configure_billing() {
-        $results = $this->DB->run('
-            SELECT *
-            FROM buyer_account_billing bab
-            WHERE bab.buyer_account_id=:buyer_account_id
-        ', [
-            'buyer_account_id' => $this->id
-        ]);
-
-        if (isset($results)) {
-            $this->Billing;
-            foreach ($results[0] as $k => $v) $this->Billing->{$k} = $v;
-        } else {
-            $this->Billing = false;
-        }
-    }
-
     private function configure_team() {
         $results = $this->DB->run('
             SELECT *
