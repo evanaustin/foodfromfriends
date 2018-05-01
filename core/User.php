@@ -11,36 +11,9 @@ class User extends Base {
         $phone,
         $dob,
         $gender,
-        $bio,
         $registered_on,
-        $stripe_customer_id,
         $timezone;
 
-    public
-        $address_line_1,
-        $address_line_2,
-        $city,
-        $state,
-        $zipcode,
-        $latitude,
-        $longitude;
-
-    public
-        $delivery_address_line_1,
-        $delivery_address_line_2,
-        $delivery_city,
-        $delivery_state,
-        $delivery_zipcode,
-        $delivery_latitude,
-        $delivery_longitude,
-        $delivery_instructions;
-    
-    public
-        $billing_address_line_1,
-        $billing_address_line_2,
-        $billing_city,
-        $billing_state,
-        $billing_zipcode;
 
     public
         $filename,
@@ -56,8 +29,8 @@ class User extends Base {
         $ActiveOrder;
     
     public
-        $WholesaleAccounts,
-        $WholesaleAccount;
+        $BuyerAccounts,
+        $BuyerAccount;
 
     protected
         $class_dependencies,
@@ -92,7 +65,7 @@ class User extends Base {
             if (!isset($parameters['limited']) || $parameters['limited'] == false) {
                 $this->get_operations();
                 $this->get_orders();
-                $this->get_wholesale_accounts();
+                $this->get_buyer_accounts();
             }
     
             $this->name = "{$this->first_name} {$this->last_name}";
@@ -186,11 +159,11 @@ class User extends Base {
         }
     }
 
-    private function get_wholesale_accounts() {
+    private function get_buyer_accounts() {
         $results = $this->DB->run('
             SELECT *
-            FROM wholesale_account_members wam
-            WHERE wam.user_id = :user_id 
+            FROM buyer_account_members btm
+            WHERE btm.user_id=:user_id 
                 AND permission > 0
         ', [
             'user_id' => $this->id
@@ -198,22 +171,22 @@ class User extends Base {
 
         if (isset($results)) {
             foreach ($results as $result) {
-                $id = $result['wholesale_account_id'];
+                $id = $result['buyer_account_id'];
 
-                $this->WholesaleAccounts[$id] = new WholesaleAccount([
+                $this->BuyerAccounts[$id] = new BuyerAccount([
                     'DB' => $this->DB,
-                    'id' => $id
+                    'id' => $result['id']
                 ]);
 
-                $this->WholesaleAccounts[$id]->permission = $result['permission'];
+                $this->BuyerAccounts[$id]->permission = $result['permission'];
 
                 if ($result['is_default']) {
-                    $this->WholesaleAccount = $this->WholesaleAccounts[$id];
+                    $this->BuyerAccount = $this->BuyerAccounts[$id];
                 }
             }
         } else {
-            $this->WholesaleAccounts    = false;
-            $this->WholesaleAccount     = false;
+            $this->BuyerAccounts    = false;
+            $this->BuyerAccount     = false;
         }
     }
 
@@ -274,11 +247,11 @@ class User extends Base {
         return $this->GrowerOperation->id;
     }
     
-    public function switch_wholesale_account($id) {
-        $_SESSION['user']['active_wholesale_account_id'] = $id;
-        $this->WholesaleAccount = $this->WholesaleAccounts[$id];
+    public function switch_buyer_account($id) {
+        $_SESSION['user']['active_buyer_account_id'] = $id;
+        $this->BuyerAccount = $this->BuyerAccounts[$id];
 
-        return $this->WholesaleAccount->id;
+        return $this->BuyerAccount->id;
     }
 
     /**
