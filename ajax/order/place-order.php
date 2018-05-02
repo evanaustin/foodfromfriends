@@ -18,7 +18,7 @@ $Gump->validation_rules([
     'address_line_1'    => 'required|alpha_numeric_space|max_len,35',
     'address_line_2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
-    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'state'             => 'required|regex,/^[a-zA-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/',
     'stripe_token'      => 'max_len,50',
     'stripe_card_id'    => 'max_len,50'
@@ -81,51 +81,52 @@ if ($User->BuyerAccount->Billing) {
     if (!$added) quit('We could not add your billing information');
 }
 
-// Perform Stripe charge, mark order as paid, initialize payout data
-// ----------------------------------------------------------------------------
+/*
+ * Perform Stripe charge, mark order as paid, initialize payout data
+ */
 try {
-	// Load order
+	// load order
 	$Order = new Order([
         'DB' => $DB
     ]);
 
 	$Order = $Order->get_cart($User->BuyerAccount->id);
     
-    // Authorize charge on Stripe
+    // hit Stripe
     if (ENV != 'dev') {
         $Stripe = new Stripe();
     
-        // Create Stripe customer if user doesn't already have one
-        if (!isset($User->stripe_customer_id) || empty($User->stripe_customer_id)) {
-            $customer = $Stripe->create_customer($User->BuyerAccount->id, $User->BuyerAccount->name, $User->email);
+        // create Stripe customer if User:BuyerAccount doesn't already have one
+        if (empty($User->BuyerAccount->stripe_customer_id)) {
+            $Customer = $Stripe->create_customer($User->BuyerAccount->id, $User->BuyerAccount->name, $User->email);
             
-            $User->update([
-                'stripe_customer_id' => $customer->id
+            $User->BuyerAccount->update([
+                'stripe_customer_id' => $Customer->id
             ]);
         } else {
-            $customer = $Stripe->retrieve_customer($User->stripe_customer_id);
+            $Customer = $Stripe->retrieve_customer($User->BuyerAccount->stripe_customer_id);
         }
     
-        // Create card if it's a new one; otherwise load the card the customer requested
+        // create card if it's a new one; otherwise load the card the customer requested
         if ($new_card === true) {
-            $card = $Stripe->create_card($customer->id, $stripe_token);
+            $card = $Stripe->create_card($Customer->id, $stripe_token);
             $card_id = $card->id;
         } else {
             $card_id = $stripe_card_id;
         }
         
-        // Authorize the charge for the customer
-        $charge = $Stripe->charge($customer->id, $card_id, $Order->total);
+        // authorize the charge for the customer
+        $charge = $Stripe->charge($Customer->id, $card_id, $Order->total);
 
         $charge_id = $charge->id;
     } else {
         $charge_id = 0;
     }
 
-	// Change "cart" to "order"
+	// change "cart" to "order"
     $Order->submit_payment($charge_id);
 
-    // Schedule system job for payment capture
+    // schedule system job for payment capture
     if (ENV != 'dev') {
         $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/attempt-capture.php?order=' . $Order->id;
         $time   = 'now + 6 days';
@@ -134,7 +135,7 @@ try {
     }
     
     foreach ($Order->Growers as $OrderGrower) {
-        // Schedule system job for suborder expiration
+        // schedule system job for suborder expiration
         if (ENV != 'dev') {
             $job    = 'wget -O - ' . PUBLIC_ROOT . 'scheduled/expire.php?suborder=' . $OrderGrower->id;
             $time   = 'now + 1 day';
@@ -142,12 +143,11 @@ try {
             At::cmd($job, $time, $queue);
         }
         
-        // Send new order notification emails to each team member of each seller
+        // send new order notification emails to each team member of each seller
         $Seller = new GrowerOperation([
             'DB' => $DB,
             'id' => $OrderGrower->grower_operation_id
         ],[
-            'details' => true,
             'team' => true
         ]);
 
