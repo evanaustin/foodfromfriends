@@ -1,4 +1,4 @@
-App.Dashboard.Selling = function() {
+App.Dashboard.Buying = function() {
     function listener() {
         var requirements_progress = $('.requirements .disabled').length / ($('.requirements a').length + $('.requirements p').length) * 100;
         var requirements_bg;
