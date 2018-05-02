@@ -80,48 +80,39 @@
                 <?php endif; ?>
 
                 <li class="nav-item profile dropdown d-none d-md-block">
+                    <?php if (!empty($User->BuyerAccount->Image->filename)) {
+                        $path = 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/buyer-account-images/{$User->BuyerAccount->Image->filename}.{$User->BuyerAccount->Image->ext}";
+                    } else if (!empty($User->GrowerOperation->filename)) {
+                        $path = 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$User->GrowerOperation->filename}.{$User->GrowerOperation->ext}";
+                    } else {
+                        $path = PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg';
+                    } ?>
+
                     <div 
                         class="nav-link dropdown-toggle" 
-                        style="background-image: url('<?= (!empty($User->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $User->filename . '.' . $User->ext : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');" 
+                        style="background-image: url('<?= $path ?>');" 
                         data-toggle="dropdown" 
                         aria-haspopup="true" 
                         aria-expanded="false"
                     ></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
-                            Messages
+                        <?php if (isset($User->BuyerAccount)): ?>
 
-                            <?php
-
-                            $Message = new Message([
-                                'DB' => $DB
-                            ]);
-
-                            $unread = $Message->unread_aggregate($User);
-
-                            if ($unread) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
-
-                            ?>
-                        </a>
-
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview'; ?>">
-                            Order history
-                        </a>
-
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . "user/{$User->slug}"; ?>">
-                            User profile
-                        </a>
-
-                        <?php if (isset($User->GrowerOperation)): ?>
-
-                            <?= "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a>" ?>
-                            <?= "<a class=\"dropdown-item\" href=\"" . PUBLIC_ROOT . "dashboard/selling/items/overview\">Your items</a>" ?>
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->BuyerAccount->link ?>">Buyer profile</a>
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview">Order history</a>
                         
                         <?php endif; ?>
 
-                        <a class="dropdown-item" href="<?= PUBLIC_ROOT . 'dashboard/account/settings/personal'; ?>">
-                            Edit profile
+                        <?php if (isset($User->GrowerOperation)): ?>
+
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->GrowerOperation->link ?>">Seller profile</a>
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling/items/overview">Items</a>
+                        
+                        <?php endif; ?>
+
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/account/settings/personal">
+                            Account
                         </a>
                         
                         <a id="log-out" class="dropdown-item" href="#">Log out</a>
