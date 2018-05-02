@@ -21,7 +21,7 @@ if ($is_offered) {
     $rules['address-line-1']    = 'required|alpha_numeric_space|max_len,35';
     $rules['address-line-2']    = 'alpha_numeric_space|max_len,25';
     $rules['city']              = 'required|alpha_space|max_len,35';
-    $rules['state']             = 'required|regex,/^[A-Z]{2}$/';
+    $rules['state']             = 'required|regex,/^[a-zA-Z]{2}$/';
     $rules['zipcode']           = 'required|regex,/^[0-9]{5}$/';
     $rules['time']              = 'required';
 }

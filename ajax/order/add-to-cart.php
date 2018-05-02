@@ -41,7 +41,9 @@ if (!empty($suborder_id)) {
         'id' => $suborder_id
     ]);
 
-    if ($SubOrder->buyer_account_id != $User->BuyerAccount->id) quit('You cannot edit this suborder');
+    if ($SubOrder->buyer_account_id != $User->BuyerAccount->id) {
+        quit('You cannot edit this suborder');
+    }
 }
 
 try {
@@ -64,11 +66,8 @@ try {
 		'DB' => $DB,
 		'id' => $Item->grower_operation_id
 	],[
-		'details' => true,
 		'exchange' => true
 	]);
-
-    $proceed = true;
 
     if ($exchange_option  == 'delivery') {
         if (!isset($User->delivery_latitude) || !isset($User->delivery_longitude)) {

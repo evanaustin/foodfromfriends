@@ -16,7 +16,7 @@ $Gump->validation_rules([
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
-    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'state'             => 'required|regex,/^[a-zA-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/'
 ]);
 

@@ -12,12 +12,12 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'name'              => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space',
+    'name'              => 'required|alpha_space',
     'type'              => 'required|integer',
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
-    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'state'             => 'required|regex,/^[a-zA-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/'
 ]);
 
@@ -41,113 +41,80 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-if (!$User->GrowerOperation) {
-    $GrowerOperation = new GrowerOperation([
+// set name if not already set
+if (empty($name)) $name = $User->name;
+
+// re-slugify operation name if necessary
+if (empty($User->GrowerOperation->slug) || (!empty($name) && $User->GrowerOperation->name != $name)) {
+    $Slug = new Slug([
         'DB' => $DB
     ]);
 
-    try {
-        $grower_operation_id = $GrowerOperation->create($User, [
-            'name'  => $name,
-            'type'  => $type,
-            'bio'   => $bio
-        ],[
-            'is_default' => 1
-        ]);
-    } catch (\Exception $e) {
-        error_log($e->getMessage());
-        quit('Hmm, something went wrong!');
-    }
+    $slug = $Slug->slugify_name($name, 'grower_operations', $type, 'grower_operation_type_id');
 
-    // reinitialize User & Operation
-    $User = new User([
-        'DB' => $DB,
-        'id' => $USER['id']
-    ]);
-        
-    $id = $User->switch_operation($grower_operation_id);
-
-    if (!empty($User->GrowerOperation)) {
-        if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-            $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-        }
+    if (empty($slug)) {
+        quit('We could\'t update your information');
     }
 } else {
-    // set name if not already set
-    if (empty($name)) $name = $User->name;
+    $slug = $User->GrowerOperation->slug;
+}
 
-    // re-slugify operation name if necessary
-    if (empty($User->GrowerOperation->slug) || (!empty($name) && $User->GrowerOperation->name != $name)) {
-        $Slug = new Slug([
-            'DB' => $DB
-        ]);
-    
-        $slug = $Slug->slugify_name($name, 'grower_operations', $type, 'grower_operation_type_id');
-    
-        if (empty($slug)) {
-            quit('We could\'t update your information');
-        }
-    } else {
-        $slug = $User->GrowerOperation->slug;
+$profile_updated = $User->GrowerOperation->update([
+    'grower_operation_type_id'  => $type,
+    'name'                      => $name,
+    'bio'                       => $bio,
+    'slug'                      => $slug,
+    'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
+], 
+'id', $User->GrowerOperation->id);
+
+if (!$profile_updated) {
+    quit('We couldn\'t update your operation\'s basic information');
+}
+
+// (Re-)configure operation address
+if ($address_line_1 != $User->GrowerOperation->address_line_1
+|| $city            != $User->GrowerOperation->city 
+|| $state           != $User->GrowerOperation->state 
+|| $zipcode         != $User->GrowerOperation->zipcode) {
+    $full_address = $address_line_1 . ', ' . $city . ', ' . $state;
+    $prepared_address = str_replace(' ', '+', $full_address);
+
+    $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+    $output= json_decode($geocode);
+
+    $lat = $output->results[0]->geometry->location->lat;
+    $lng = $output->results[0]->geometry->location->lng;
+
+    if (empty($output->results[0]->geometry->location)) {
+        quit('Uh oh, we couldn\'t locate your address! Are you sure it\'s entered correctly?');
     }
-
-    $profile_updated = $User->GrowerOperation->update([
-        'grower_operation_type_id'  => $type,
-        'name'                      => $name,
-        'bio'                       => $bio,
-        'slug'                      => $slug,
-        'referral_key'              => (($name != $User->GrowerOperation->name) ? $User->GrowerOperation->gen_referral_key(4, $name) : $User->GrowerOperation->referral_key),
-    ], 
-    'id', $User->GrowerOperation->id);
     
-    if (!$profile_updated) {
-        quit('We couldn\'t update your operation\'s basic information');
-    }
-
-    // (Re-)configure operation address
-    if ($address_line_1 != $User->GrowerOperation->address_line_1
-    || $city            != $User->GrowerOperation->city 
-    || $state           != $User->GrowerOperation->state 
-    || $zipcode         != $User->GrowerOperation->zipcode) {
-        $full_address = $address_line_1 . ', ' . $city . ', ' . $state;
-        $prepared_address = str_replace(' ', '+', $full_address);
-    
-        $geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
-        $output= json_decode($geocode);
-    
-        $lat = $output->results[0]->geometry->location->lat;
-        $lng = $output->results[0]->geometry->location->lng;
-
-        if (empty($output->results[0]->geometry->location)) {
-            quit('Uh oh, we couldn\'t locate your address! Are you sure it\'s entered correctly?');
-        }
+    if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
+        $updated = $User->GrowerOperation->update([
+            'address_line_1'    => $address_line_1,
+            'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
+            'city'              => ucwords(strtolower($city)),
+            'state'             => strtoupper($state),
+            'zipcode'           => $zipcode,
+            'latitude'          => $lat,
+            'longitude'         => $lng
+        ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses');
         
-        if ($User->GrowerOperation->exists('grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses')) {
-            $updated = $User->GrowerOperation->update([
-                'address_line_1'    => $address_line_1,
-                'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
-                'city'              => $city,
-                'state'             => $state,
-                'zipcode'           => $zipcode,
-                'latitude'          => $lat,
-                'longitude'         => $lng
-            ], 'grower_operation_id', $User->GrowerOperation->id, 'grower_operation_addresses');
-            
-            if (!$updated) quit('We could not update your location');
-        } else {
-            $added = $User->GrowerOperation->add([
-                'grower_operation_id'   => $User->GrowerOperation->id,
-                'address_line_1'        => $address_line_1,
-                'address_line_2'        => $address_line_2,
-                'city'                  => $city,
-                'state'                 => $state,
-                'zipcode'               => $zipcode,
-                'latitude'              => $lat,
-                'longitude'             => $lng
-            ], 'grower_operation_addresses');
-            
-            if (!$added) quit('We could not add your operation\'s location');
-        }
+        if (!$updated) quit('We could not update your location');
+    } else {
+        $added = $User->GrowerOperation->add([
+            'grower_operation_id'   => $User->GrowerOperation->id,
+            'address_line_1'        => $address_line_1,
+            'address_line_2'        => $address_line_2,
+            'city'                  => $city,
+            'state'                 => $state,
+            'zipcode'               => $zipcode,
+            'latitude'              => $lat,
+            'longitude'             => $lng
+        ], 'grower_operation_addresses');
+        
+        if (!$added) quit('We could not add your operation\'s location');
     }
 }
 
