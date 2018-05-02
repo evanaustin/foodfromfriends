@@ -13,6 +13,7 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
     'name'              => 'required|alpha_space',
+    'type'              => 'required|integer',
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
@@ -28,6 +29,7 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'name'              => 'trim|sanitize_string',
+	'type'              => 'trim|sanitize_numbers',
     'address-line-1'    => 'trim|sanitize_string',
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
@@ -64,6 +66,7 @@ if (empty($User->BuyerAccount->slug) || $User->BuyerAccount->name != $name) {
 
 $profile_updated = $User->BuyerAccount->update([
     'name'          => $name,
+    'type'          => $type,
     'slug'          => $slug,
     'bio'           => $bio,
     'referral_key'  => $referral_key
