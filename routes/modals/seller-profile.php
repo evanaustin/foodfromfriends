@@ -149,7 +149,7 @@
 
                         <div class="col-6 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="state" class="form-control" placeholder="State" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                <input type="text" name="state" class="form-control" placeholder="State" data-parsley-pattern="^[a-zA-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
                             </div>
                         </div>
                         

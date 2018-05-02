@@ -67,7 +67,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($details['state'])) { echo $details['state']; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" <?= (!$details['is_offered']) ? 'disabled' : 'required'; ?>>
+                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($details['state'])) { echo $details['state']; } ?>" data-parsley-pattern="^[a-zA-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" <?= (!$details['is_offered']) ? 'disabled' : 'required'; ?>>
                                 </div>
                             </div>
                             

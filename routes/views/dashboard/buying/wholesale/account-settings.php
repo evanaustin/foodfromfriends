@@ -77,7 +77,7 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->BuyerAccount->state)) echo $User->BuyerAccount->state; ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                    <input type="text" name="state" class="form-control" placeholder="State" value="<?php if (!empty($User->BuyerAccount->state)) echo $User->BuyerAccount->state; ?>" data-parsley-pattern="^[a-zA-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                             
