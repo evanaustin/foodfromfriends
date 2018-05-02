@@ -41,51 +41,112 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$dob = strtotime($day . ' ' . $month . ' ' . $year);
-
-if ($dob > strtotime('-18 years')) {
-    quit('You must be 18 or older to sign up');
-}
-
+// initialize empty User object
 $User = new User([
     'DB' => $DB
 ]);
 
+// ensure new User is 18+ yrs old
+if (strtotime("{$day} {$month} {$year}") > strtotime('-18 years')) {
+    quit('You must be 18 or older to sign up');
+}
+
+// ensure User w/ email doesn't exist
 if ($User->exists('email', $email)) {
     quit('An existing account is already using this email');
 }
 
-$date = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
-$dob = $date->format('Y-m-d H:i:s');
+// prepare DOB
+$date   = DateTime::createFromFormat('d-F-Y H:i:s', "{$day}-{$month}-{$year} 12:00:00");
+$dob    = $date->format('Y-m-d H:i:s');
 
-$Slug = new Slug([
-    'DB' => $DB
-]);
 
-$slug = $Slug->slugify_name("{$first_name} {$last_name}", 'users');
-
-if (empty($slug)) {
-    throw new \Exception('Slug generation failed');
-}
-
+/*
+ * Add User
+ */
 $new_user = $User->add([
     'email'         => $email,
     'password'      => hash('sha256', $password),
     'first_name'    => ucfirst($first_name),
     'last_name'     => ucfirst($last_name),
     'dob'           => $dob,
-    'slug'          => $slug,
     'registered_on' => \Time::now(),
     'timezone'      => $timezone
 ]);
 
+
+/*
+ * Log in User
+ */
 if ($new_user != false) {
     $logged_in = $User->log_in($new_user['last_insert_id']);
-    if (!$logged_in) quit('We couldn\'t automatically log you in');
+    
+    if (!$logged_in) {
+        quit('We couldn\'t automatically log you in');
+    }
 } else {
     quit('We couldn\'t create your account');
 }
 
+
+/*
+ * Create User:BuyerAccount
+ */
+$BuyerAccount = new BuyerAccount([
+    'DB' => $DB
+]);
+
+try {
+    $buyer_account_id = $BuyerAccount->create($User, [
+        'type'  => 1,
+        'name'  => $User->name
+    ],[
+        'is_default' => 1
+    ]);
+} catch (\Exception $e) {
+    quit('Hmm, something went wrong!');
+    error_log($e->getMessage());
+}
+
+
+/*
+ * Create User:GrowerOperation
+ */
+$SellerAccount = new GrowerOperation([
+    'DB' => $DB
+]);
+
+try {
+    $seller_account_id = $GrowerOperation->create($User, [
+        'type'  => 1,
+        'name'  => $User->name
+    ],[
+        'is_default' => 1
+    ]);
+} catch (\Exception $e) {
+    quit('Hmm, something went wrong!');
+    error_log($e->getMessage());
+}
+
+
+/* 
+ * Reinitialize User w/ Accounts
+ */
+$User = new User([
+    'DB' => $DB,
+    'id' => $USER['id'],
+    'buyer_account' => true,
+    'seller_account' => true
+]);
+    
+$User->switch_buyer_account($buyer_account_id);
+$User->switch_operation($seller_account_id);
+
+
+/*
+ * Join team
+ * @todo: do this for BuyerAccounts
+ */
 if (!empty($operation_key) && !empty($personal_key)) {
     $GrowerOperation = new GrowerOperation([
         'DB' => $DB
@@ -101,6 +162,10 @@ if (!empty($operation_key) && !empty($personal_key)) {
     if (!$association_added) quit('Could not join team');
 }
 
+
+/*
+ * Send trans email notification
+ */
 $Mail = new Mail([
     'fromName'  => 'Food From Friends',
     'fromEmail' => 'foodfromfriendsco@gmail.com',
@@ -109,15 +174,18 @@ $Mail = new Mail([
 
 $Mail->thanks_signup();
 
+
+/*
+ * Redirect after completion
+ */
 if (isset($redirect) && $redirect == 'false') {
     $json['redirect'] = false;
 } else if (isset($redirect)) {
     $json['redirect'] = $redirect;
-} else if (isset($GrowerOperation)) {
-    $json['redirect'] = PUBLIC_ROOT . 'dashboard/selling';
 } else {
     $json['redirect'] = PUBLIC_ROOT . 'dashboard/account/settings/personal';
 }
+
 
 echo json_encode($json);
 
