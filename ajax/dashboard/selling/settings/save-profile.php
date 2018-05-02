@@ -12,8 +12,8 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'type'              => 'integer',
     'name'              => (($_POST['type'] > 1) ? 'required|' : '' ) . 'alpha_space',
+    'type'              => 'required|integer',
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
@@ -28,8 +28,8 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'type'              => 'trim|sanitize_numbers',
     'name'              => 'trim|sanitize_string',
+	'type'              => 'trim|sanitize_numbers',
     'address-line-1'    => 'trim|sanitize_string',
 	'address-line-2'    => 'trim|sanitize_string',
 	'city'              => 'trim|sanitize_string',
@@ -48,8 +48,8 @@ if (!$User->GrowerOperation) {
 
     try {
         $grower_operation_id = $GrowerOperation->create($User, [
-            'type'  => $type,
             'name'  => $name,
+            'type'  => $type,
             'bio'   => $bio
         ],[
             'is_default' => 1
