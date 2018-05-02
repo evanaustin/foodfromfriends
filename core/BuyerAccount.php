@@ -145,13 +145,15 @@ class BuyerAccount extends Base {
      *  ['permission', 'is_default']
      */
     public function create($User, $data, $options = null) {
-        if (!empty($data['name']) && !empty($data['type'])) {
+        foreach ($data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
+        if (!empty($name) && !empty($type)) {
             $Slug = new Slug([
                 'DB' => $this->DB
             ]);
 
             // craft the op slug - only needs to be unique within account type
-            $slug = $Slug->slugify_name($data['name'], 'buyer_accounts', $data['type'], 'buyer_account_type_id');
+            $slug = $Slug->slugify_name($name, 'buyer_accounts', $type, 'buyer_account_type_id');
 
             if (empty($slug)) {
                 throw new \Exception('Slug generation failed');
@@ -159,12 +161,12 @@ class BuyerAccount extends Base {
 
             // initialize operation
             $added = $this->add([
-                'buyer_account_type_id' => $data['type'],
-                'name'                  => $data['name'],
+                'buyer_account_type_id' => $type,
+                'name'                  => $name,
                 'slug'                  => $slug,
-                'bio'                   => (isset($data['bio'])) ? $data['bio'] : '',
-                'stripe_customer_id'    => (isset($data['stripe_customer_id'])) ? $data['stripe_customer_id'] : '',
-                'referral_key'          => $this->gen_referral_key(4, $data['name']),
+                'bio'                   => (isset($bio)) ? $bio : '',
+                'stripe_customer_id'    => (isset($stripe_customer_id)) ? $stripe_customer_id : '',
+                'referral_key'          => $this->gen_referral_key(4, $name),
                 'created_on'            => \Time::now(),
             ]);
 
@@ -174,11 +176,11 @@ class BuyerAccount extends Base {
 
             $buyer_account_id = $added['last_insert_id'];
 
-            if (isset($address_line_1, $city, $state)) {
+            if (isset($address_line_1, $city, $state, $zipcode)) {
                 $full_address       = "{$address_line_1}, {$city}, {$state}";
                 $prepared_address   = str_replace(' ', '+', $full_address);
 
-                $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+                $geocode            = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address={$prepared_address}&key=" . GOOGLE_MAPS_KEY);
                 $output             = json_decode($geocode);
 
                 $latitude           = $output->results[0]->geometry->location->lat;
@@ -188,14 +190,16 @@ class BuyerAccount extends Base {
                     'buyer_account_id'  => $buyer_account_id,
                     'address_line_1'    => $address_line_1,
                     'address_line_2'    => $address_line_2,
-                    'city'              => ucfirst($city),
-                    'state'             => $state,
+                    'city'              => ucwords(strtolower($city)),
+                    'state'             => strtoupper($state),
                     'zipcode'           => $zipcode,
                     'latitude'          => $latitude,
                     'longitude'         => $longitude
                 ], 'buyer_account_addresses');
     
-                if (!$added) quit('We could not add your account\'s location');
+                if (!$added) {
+                    throw new \Exception('We could not add your account\'s location');
+                }
             }
 
             // assign user ownership of new operation

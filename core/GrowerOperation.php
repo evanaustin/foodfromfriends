@@ -196,22 +196,21 @@ class GrowerOperation extends Base {
      * Creates a `grower_operation_members` to tie op record to owner
      * 
      * @param object $User the operation owner
-     * @param array $data the data for `grower_operations` - shell ops only require $data['type']; other ops require $data['type'] AND $data['name']
+     * @param array $data the data for `grower_operations` - shell ops only require $type; other ops require $type AND $name
      *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
      *  ['permission', 'is_default']
      */
     public function create($User, $data, $options = null) {
-        // shell ops are named after the owner; other ops are explicity created with a given name
-        $name = ($data['type'] == 1) ? $User->name : ((isset($data['name'])) ? $data['name'] : '');
-        
-        if (!empty($name) && !empty($data['type'])) {
+        foreach ($data as $k => $v) ${str_replace('-', '_', $k)} = $v;
+
+        if (!empty($name) && !empty($type)) {
             $Slug = new Slug([
                 'DB' => $this->DB
             ]);
 
-            // craft the op slug - only needs to be unique within op type
-            $slug = $Slug->slugify_name($name, 'grower_operations', $data['type'], 'grower_operation_type_id');
+            // craft the account slug - only needs to be unique within op type
+            $slug = $Slug->slugify_name($name, 'grower_operations', $type, 'grower_operation_type_id');
 
             if (empty($slug)) {
                 throw new \Exception('Slug generation failed');
@@ -219,9 +218,9 @@ class GrowerOperation extends Base {
 
             // initialize operation
             $grower_added = $this->add([
-                'grower_operation_type_id'  => $data['type'],
+                'grower_operation_type_id'  => $type,
                 'name'                      => $name,
-                'bio'                       => (isset($data['bio'])) ? $data['bio'] : '',
+                'bio'                       => (isset($bio)) ? $bio : '',
                 'slug'                      => $slug,
                 'referral_key'              => $this->gen_referral_key(4, $name),
                 'created_on'                => \Time::now(),
@@ -234,18 +233,11 @@ class GrowerOperation extends Base {
 
             $grower_operation_id = $grower_added['last_insert_id'];
 
-            if ($data['type'] == 1 && isset($User->address_line_1, $User->city, $User->state) && !isset($data['address_line_1']) && !isset($data['city']) && !isset($data['state'])) {
-                $address_line_1 = $User->address_line_1;
-                $address_line_2 = $User->address_line_2;
-                $city           = $User->city;
-                $state          = $User->state;
-            }
-
-            if (isset($address_line_1, $city, $state)) {
+            if (isset($address_line_1, $city, $state, $zipcode)) {
                 $full_address       = "{$address_line_1}, {$city}, {$state}";
                 $prepared_address   = str_replace(' ', '+', $full_address);
 
-                $geocode            = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prepared_address . '&key=' . GOOGLE_MAPS_KEY);
+                $geocode            = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address={$prepared_address}&key=" . GOOGLE_MAPS_KEY);
                 $output             = json_decode($geocode);
 
                 $latitude           = $output->results[0]->geometry->location->lat;
@@ -254,15 +246,17 @@ class GrowerOperation extends Base {
                 $added = $this->add([
                     'grower_operation_id'   => $grower_operation_id,
                     'address_line_1'        => $address_line_1,
-                    'address_line_2'        => $address_line_2,
-                    'city'                  => ucfirst($city),
-                    'state'                 => $state,
+                    'address_line_2'        => (isset($address_line_2)) ? $address_line_2 : '',
+                    'city'                  => ucwords(strtolower($city)),
+                    'state'                 => strtoupper($state),
                     'zipcode'               => $zipcode,
                     'latitude'              => $latitude,
                     'longitude'             => $longitude
                 ], 'grower_operation_addresses');
     
-                if (!$added) quit('We could not add your operation\'s location');
+                if (!$added) {
+                    throw new \Exception('We could not add your operation\'s location');
+                }
             }
 
             // assign user ownership of new operation
@@ -274,7 +268,7 @@ class GrowerOperation extends Base {
             ], 'grower_operation_members');
 
             if (!$association_added) {
-                throw new \Exception('Operation + User association failed');
+                throw new \Exception('Seller account association failed');
             }
         
             return $grower_operation_id;
