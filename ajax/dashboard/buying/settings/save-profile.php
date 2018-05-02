@@ -17,7 +17,7 @@ $Gump->validation_rules([
     'address-line-1'    => 'required|alpha_numeric_space|max_len,35',
     'address-line-2'    => 'alpha_numeric_space|max_len,25',
     'city'              => 'required|alpha_space|max_len,35',
-    'state'             => 'required|regex,/^[A-Z]{2}$/',
+    'state'             => 'required|regex,/^[a-zA-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/',
 ]);
 
@@ -42,9 +42,8 @@ $prepared_data = $Gump->run($validated_data);
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
 
-
 /*
- * Buyer Account
+ * Update BuyerAccount
  */
 
 if (empty($User->BuyerAccount->slug) || $User->BuyerAccount->name != $name) {
@@ -66,7 +65,7 @@ if (empty($User->BuyerAccount->slug) || $User->BuyerAccount->name != $name) {
 
 $profile_updated = $User->BuyerAccount->update([
     'name'          => $name,
-    'type'          => $type,
+    'buyer_account_type_id' => $type,
     'slug'          => $slug,
     'bio'           => $bio,
     'referral_key'  => $referral_key
@@ -79,7 +78,7 @@ if (!$profile_updated) {
 
 
 /*
- * Buyer Account Address
+ * Update BuyerAccount:Address
  */
 
 if (!$User->BuyerAccount->Address
@@ -98,12 +97,12 @@ if (!$User->BuyerAccount->Address
     $lat = $output->results[0]->geometry->location->lat;
     $lng = $output->results[0]->geometry->location->lng;
     
-    if ($User->BuyerAccount) {
+    if ($User->BuyerAccount->Address) {
         $updated = $User->BuyerAccount->update([
             'address_line_1'    => $address_line_1,
             'address_line_2'    => (isset($address_line_2) ? $address_line_2 : ''),
-            'city'              => $city,
-            'state'             => $state,
+            'city'              => ucwords(strtolower($city)),
+            'state'             => strtoupper($state),
             'zipcode'           => $zipcode,
             'latitude'          => $lat,
             'longitude'         => $lng
