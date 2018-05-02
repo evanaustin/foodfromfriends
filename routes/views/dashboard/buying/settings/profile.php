@@ -35,7 +35,7 @@
                         </label>
 
                         <div class="input-group"> 
-                            <input type="text" name="name" class="form-control" placeholder="Buyer name" value="<?php if (!empty($User->BuyerAccount->name)) { echo $User->BuyerAccount->name; } ?>"  data-parsley-trigger="change" required>
+                            <input type="text" name="name" class="form-control" placeholder="Buyer name" value="<?php if (!empty($User->BuyerAccount->name)) echo $User->BuyerAccount->name ?>"  data-parsley-trigger="change" required>
                         </div>
                     </div>
 
