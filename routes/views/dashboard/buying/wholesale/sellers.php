@@ -12,11 +12,11 @@
             </div>
         </div>
 
-        <hr>
-
-        <div class="alerts"></div>
-
         <?php if(!empty($wholesale_memberships)): ?>
+
+            <hr>
+
+            <div class="alerts"></div>
 
             <div class="table-responsive">
                 <table class="table">

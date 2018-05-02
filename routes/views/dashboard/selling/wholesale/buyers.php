@@ -12,11 +12,11 @@
             </div>
         </div>
 
-        <hr>
-
-        <div class="alerts"></div>
-
         <?php if (!empty($wholesale_relationships)): ?>
+
+            <hr>
+
+            <div class="alerts"></div>
 
             <form id="invite-member">
                 <!-- <div class="row"> -->
