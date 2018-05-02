@@ -49,32 +49,6 @@ try {
 		'DB' => $DB
 	]);
 
-    if (!isset($User->BuyerAccounts)) {
-        $BuyerAccount = new BuyerAccount([
-            'DB' => $DB
-        ]);
-    
-        try {
-            $buyer_account_id = $BuyerAccount->create($User, [
-                'type'  => 1,
-                'name'  => $User->name
-            ],[
-                'is_default' => 1
-            ]);
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-            quit('Hmm, something went wrong!');
-        }
-    
-        // reinitialize User & Operation
-        $User = new User([
-            'DB' => $DB,
-            'id' => $USER['id']
-        ]);
-            
-        $User->switch_buyer_account($buyer_account_id);
-    }
-
 	$Order = $Order->get_cart($User->BuyerAccount->id);
 
 	$Item = new FoodListing([
