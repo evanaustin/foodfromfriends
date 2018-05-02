@@ -98,14 +98,13 @@ $BuyerAccount = new BuyerAccount([
 
 try {
     $buyer_account_id = $BuyerAccount->create($User, [
-        'type'  => 1,
-        'name'  => $User->name
+        'name'  => $User->name,
+        'type'  => 1
     ],[
         'is_default' => 1
     ]);
 } catch (\Exception $e) {
-    quit('Hmm, something went wrong!');
-    error_log($e->getMessage());
+    quit($e->getMessage());
 }
 
 
@@ -118,14 +117,13 @@ $SellerAccount = new GrowerOperation([
 
 try {
     $seller_account_id = $GrowerOperation->create($User, [
-        'type'  => 1,
-        'name'  => $User->name
+        'name'  => $User->name,
+        'type'  => 1
     ],[
         'is_default' => 1
     ]);
 } catch (\Exception $e) {
-    quit('Hmm, something went wrong!');
-    error_log($e->getMessage());
+    quit($e->getMessage());
 }
 
 
