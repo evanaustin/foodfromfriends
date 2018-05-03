@@ -7,7 +7,7 @@
         <i class="fa fa-bars"></i>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
 
             <?php if (!$LOGGED_IN): ?>
@@ -59,7 +59,7 @@
                 <li class="nav-item d-none d-md-block">
                     <a 
                         class="nav-link <?php if ($Routing->template == 'dashboard') { echo 'active'; } ?>" 
-                        href="<?= PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/selling' : 'dashboard/account/settings/personal'); ?>"
+                        href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview' ?>"
                         data-toggle="tooltip" data-placement="bottom" title="Dashboard"
                     >
                         <i class="fa fa-dashboard"></i>
@@ -88,31 +88,28 @@
                         $path = PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg';
                     } ?>
 
-                    <div 
-                        class="nav-link dropdown-toggle" 
-                        style="background-image: url('<?= $path ?>');" 
-                        data-toggle="dropdown" 
-                        aria-haspopup="true" 
-                        aria-expanded="false"
-                    ></div>
+                    <div class="nav-link dropdown-toggle" style="background-image: url('<?= $path ?>');" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
                 
                     <div class="dropdown-menu dropdown-menu-right">
+                        
                         <?php if (isset($User->BuyerAccount)): ?>
 
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->BuyerAccount->link ?>">Buyer profile</a>
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview">Order history</a>
-                        
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/buying/settings/profile">
+                                <?= $User->BuyerAccount->name ?>
+                            </a>
+                            
                         <?php endif; ?>
 
                         <?php if (isset($User->GrowerOperation)): ?>
 
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->GrowerOperation->link ?>">Seller profile</a>
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling/items/overview">Items</a>
-                        
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile">
+                                <?= $User->GrowerOperation->name ?>
+                            </a>
+                            
                         <?php endif; ?>
 
                         <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/account/settings/personal">
-                            Account
+                            <?= $User->name ?>
                         </a>
                         
                         <a id="log-out" class="dropdown-item" href="#">Log out</a>
