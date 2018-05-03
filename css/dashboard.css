@@ -6656,6 +6656,10 @@ body.dashboard {
       font-size: 1.25rem; }
       #nav[off-canvas*=left] .nav-item ul .nav-item i {
         padding-left: 0.75rem; }
+  #nav[off-canvas*=left] hr {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-color: transparent; }
 
 /*
  * artistic styles reside here
@@ -6729,7 +6733,8 @@ div.sidebar {
   div.sidebar li.nav-item .collapse.show {
     background-color: #fafafb; }
   div.sidebar li.nav-item.account-link {
-    border-bottom: 1px solid #f5f5f5; }
+    border-bottom: 1px solid #f5f5f5;
+    font-weight: 500; }
     div.sidebar li.nav-item.account-link .nav-link {
       padding-right: 0.5rem; }
       div.sidebar li.nav-item.account-link .nav-link i {
@@ -6762,6 +6767,8 @@ div.sidebar {
         color: #636c72 !important; }
       div.sidebar .dropdown-menu a:active {
         background-color: transparent; }
+      div.sidebar .dropdown-menu a i {
+        padding-right: 0.25rem; }
 
 /*
  * artistic styles reside here

@@ -6648,6 +6648,10 @@ div.box {
       font-size: 1.25rem; }
       #nav[off-canvas*=left] .nav-item ul .nav-item i {
         padding-left: 0.75rem; }
+  #nav[off-canvas*=left] hr {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-color: transparent; }
 
 #cart[off-canvas*=right] {
   padding: 1em;
