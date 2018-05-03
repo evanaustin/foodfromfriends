@@ -17,11 +17,11 @@ var App = function() {
             isMobile = true;
         }
 
+        $('#mobile-nav').on('click', function(e) {
+            App.Util.slidebar(Slidebar, 'toggle', 'left', e);
+        });
+        
         if (isMobile) {
-            $('#mobile-nav').on('click', function(e) {
-                App.Util.slidebar(Slidebar, 'toggle', 'left', e);
-            });
-
             var nav = document.getElementById('nav');
             var navswipe = new Hammer(nav);
             
