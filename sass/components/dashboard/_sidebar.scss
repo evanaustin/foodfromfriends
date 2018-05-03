@@ -117,6 +117,7 @@ div.sidebar {
 
         &.account-link {
             border-bottom: 1px solid $edge-color;
+            font-weight: 500;
 
             .nav-link {
                 padding-right: 0.5rem;
@@ -163,6 +164,10 @@ div.sidebar {
             
             &:active {
                 background-color: transparent;
+            }
+
+            i {
+                padding-right: 0.25rem;
             }
         }
     }
