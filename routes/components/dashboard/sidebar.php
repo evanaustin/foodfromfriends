@@ -1,72 +1,73 @@
 <div class="sidebar d-none d-md-block">
     <nav class="navbar navbar-light">
         <ul class="nav flex-column">
-            <?php if (isset($User->BuyerAccount) || isset($User->GrowerOperation)): ?>
+            <?php $buying   = (isset($User->BuyerAccount)) ?>
+            <?php $selling  = (isset($User->GrowerOperation)) ?>
+
+            <?php if ($buying || $selling): ?>
+
+                <?php if ($buying) {
+                    $account_name = $User->BuyerAccount->name;
+                    $account_type = $User->BuyerAccount->type;
+                } else if ($selling) {
+                    $account_name = $User->GrowerOperation->name;
+                    $account_type = $User->GrowerOperation->type;
+                } ?>
 
                 <?php $multiple = (count($User->BuyerAccounts) > 1 || count($User->Operations) > 1) ?>
 
-                <li class="nav-item account-link <?php if ($multiple) echo 'dropdown' ?>">
+                <li class="nav-item account-link dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-<?= ($account_type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i>
+                        <?= truncate($account_name, 20) ?>
+                    </a>
 
-                    <?php if ($multiple): ?>
-                        
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-address-card-o"></i>
+                    <div class="dropdown-menu">
 
-                            <?php
+                        <?php if ($buying): ?>
+
+                            <?php foreach ($User->BuyerAccounts as $BuyerAccount): ?>
                             
-                            if (isset($User->BuyerAccount)) {
-                                $account_name = $User->BuyerAccount->name;
-                            } else if (isset($User->GrowerOperation)) {
-                                $account_name = $User->GrowerOperation->name;
-                            }
+                                <?php if ($User->BuyerAccount->id == $BuyerAccount->id) continue; ?>
 
-                            echo truncate($account_name, 20);
-
-                            ?>
+                                <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="dropdown-item switch-buyer-account" data-buyer-account-id="<?= $BuyerAccount->id ?>">
+                                    <i class="fa fa-<?= ($BuyerAccount->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i><?= $BuyerAccount->name ?>
+                                </a>
                             
-                        </a>
-
-                        <div class="dropdown-menu">
-
-                            <?php
-
-                            if (isset($User->BuyerAccount)) {
-                                foreach ($User->BuyerAccounts as $BuyerAccount) {
-                                    if ($User->BuyerAccount->id == $BuyerAccount->id) continue;
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/buying/orders/overview\" class=\"dropdown-item switch-buyer-account\" data-buyer-account-id=\"{$BuyerAccount->id}\">{$BuyerAccount->name}</a>";
-                                }
-                            } else if (isset($User->GrowerOperation)) {
-                                foreach ($User->Operations as $Operation) {
-                                    if ($User->GrowerOperation->id == $Operation->id) continue;
-                                    echo "<a href=\"" . PUBLIC_ROOT . "dashboard/selling\" class=\"dropdown-item switch-operation\" data-grower-operation-id=\"{$Operation->id}\">{$Operation->name}</a>";
-                                }
-                            }
-
-                            ?>
-
-                        </div>
-
-                    <?php else: ?>
-
-                        <span class="nav-link">
-                            <i class="fa fa-address-card-o"></i>
-
-                            <?php
+                            <?php endforeach; ?>
                             
-                            if (isset($User->BuyerAccount)) {
-                                $account_name = $User->BuyerAccount->name;
-                            } else if (isset($User->GrowerOperation)) {
-                                $account_name = $User->GrowerOperation->name;
-                            }
+                            <a href="<?= PUBLIC_ROOT ?>dashboard/buying/new-account" class="dropdown-item">
+                                <i class="fa fa-external-link"></i>Create another account
+                            </a>
 
-                            echo truncate($account_name, 20);
+                        <?php elseif ($selling): ?>
 
-                            ?>
+                            <?php foreach ($User->Operations as $Operation): ?>
+
+                                <?php if ($User->GrowerOperation->id == $Operation->id) continue ?>
+                                
+                                <a href="<?= PUBLIC_ROOT ?>dashboard/selling" class="dropdown-item switch-operation" data-grower-operation-id="<?= $Operation->id ?>">
+                                    <i class="fa fa-<?= ($Operation->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i><?= $Operation->name ?>
+                                </a>
                             
-                        </span>
+                            <?php endforeach; ?>
 
-                    <?php endif; ?>
+                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling/new-account" class="dropdown-item">
+                                <i class="fa fa-external-link"></i>Create another account
+                            </a>
 
+                        <?php endif; ?>
+
+                    </div>
+                </li>
+
+            <?php else: ?>
+
+                <li class="nav-item account-link">
+                    <span class="nav-link">
+                        <i class="fa fa-user-circle-o"></i>
+                        <?= $User->name ?>
+                    </span>
                 </li>
 
             <?php endif; ?>
@@ -174,15 +175,10 @@
                                             href="<?= PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
                                             class="nav-link child 
                                             
-                                            <?php 
-
-                                            $active = false;
-
-                                            if ($Routing->page == $alias) {
+                                            <?php if ($Routing->page == $alias) {
                                                 echo 'active';
-                                            }
+                                            } ?>
                                             
-                                            ?>
                                         ">
 
                                             <?php
