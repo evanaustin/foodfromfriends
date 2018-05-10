@@ -286,9 +286,14 @@ class GrowerOperation extends Base {
             'limit' => 1
         ]);
 
-        if (!empty($payout_settings) && !empty($this->filename) && !empty($this->latitude) && !empty($this->longitude)
-            && (($this->Delivery && $this->Delivery->is_offered) || ($this->Pickup && $this->Pickup->is_offered) || ($this->Meetup && $this->Meetup->is_offered))
-            && $this->count_listings() > 0
+        if (!empty($payout_settings)
+            && !empty($this->filename)
+            && !empty($this->latitude)
+            && !empty($this->longitude)
+            && ((isset($this->Delivery) && $this->Delivery->is_offered)
+                || (isset($this->Pickup) && $this->Pickup->is_offered)
+                || (isset($this->Meetup) && $this->Meetup->is_offered))
+            && ($this->count_listings() > 0)
         ) {
             $this->update([
                 'is_active' => 1
