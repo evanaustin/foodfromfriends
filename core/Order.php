@@ -38,8 +38,8 @@ class Order extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
 
-            // Ensure we have the latest prices. As a side effect, this loads the growers in this
-            // order to `$this->OrderGrowers`.
+            // Ensure we have the latest prices
+            // As a side effect, this loads the growers in this order to this:OrderGrowers
             if ($this->is_cart() === true) {
                 $this->update_cart();
             } else {
@@ -61,8 +61,8 @@ class Order extends Base {
             SELECT id
             FROM orders
             WHERE buyer_account_id  =:buyer_account_id 
-                AND charge_id       =:charge_id'
-        , [
+                AND charge_id       =:charge_id
+        ', [
             'buyer_account_id'  => $buyer_account_id,
             'charge_id'         => 0
         ]);
@@ -84,8 +84,7 @@ class Order extends Base {
     }
 
     /**
-     * Finds all the growers (and through them, the exchange and food listings) in this order and assigns them to 
-     * `$this->Growers`.
+     * Finds all the growers (and through them, the exchange and food listings) in this order and assigns them to this:Growers
      */
     public function load_growers() {
         $OrderGrower = new OrderGrower([
@@ -142,7 +141,7 @@ class Order extends Base {
             $this->add_grower($Seller, $exchange_option);
         }
 
-        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity);
+        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity, $this->buyer_account_id);
 
         // Refresh the cart
         $this->update_cart();

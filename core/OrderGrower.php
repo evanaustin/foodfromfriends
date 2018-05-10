@@ -87,7 +87,7 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds all the food listings for this grower in the current suborder and stores them in `$this->FoodListings`
+     * Finds all the OrderItems for this OrderGrower and stores them in this:FoodListings
      */
     public function load_food_listings() {
         $OrderFoodListing = new OrderFoodListing([
@@ -112,13 +112,17 @@ class OrderGrower extends Base {
     /**
      * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`
      * Don't worry about `unit_price` and `amount` here; they're handled by `Order->update_cart()`
+     * @param FoodListing $FoodListing the Item being added to the cart
+     * @param int @quantity the amount of the Item being added
+     * @param int $buyer_account_id the ID of the BuyerAccount who's adding the Item ? Why do we need to store this ?
      */
-    public function add_food_listing(FoodListing $FoodListing, $quantity) {
+    public function add_food_listing(FoodListing $FoodListing, $quantity, $buyer_account_id) {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
+            'buyer_account_id'  => $buyer_account_id,
             'food_listing_id'   => $FoodListing->id,
-            'quantity'          => $quantity
+            'quantity'          => $quantity,
         ], 'order_food_listings');
 
         $this->load_food_listings();

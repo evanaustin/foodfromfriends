@@ -39,7 +39,8 @@ class OrderExchange extends Base {
                 $this->BuyerAccount = new BuyerAccount([
                     'DB' => $this->DB,
                     'id' => $parameters['buyer_account_id'],
-                    // 'limited' => true
+                ],[
+                    'orders' => false
                 ]);
             }
 
@@ -48,7 +49,6 @@ class OrderExchange extends Base {
                     'DB' => $this->DB,
                     'id' => $parameters['seller_id']
                 ],[
-                    'details' => true,
                     'exchange' => true
                 ]);
             }

@@ -48,18 +48,18 @@ class OrderFoodListing extends Base {
             'order_grower_id' => $order_grower_id
         ]);
 
-        $listings = [];
+        $OrderItems = [];
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $listings[$result['food_listing_id']] = new OrderFoodListing([
+                $OrderItems[$result['food_listing_id']] = new OrderFoodListing([
                     'DB' => $this->DB,
                     'id' => $result['id']
                 ]);
             }
         }
 
-        return $listings;
+        return $OrderItems;
     }
 
     /**
