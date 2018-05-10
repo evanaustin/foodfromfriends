@@ -64,6 +64,7 @@ $dob    = $date->format('Y-m-d H:i:s');
 /*
  * Add User
  */
+
 $new_user = $User->add([
     'email'         => $email,
     'password'      => hash('sha256', $password),
@@ -78,6 +79,7 @@ $new_user = $User->add([
 /*
  * Log in User
  */
+
 if ($new_user != false) {
     $logged_in = $User->log_in($new_user['last_insert_id']);
     
@@ -92,13 +94,14 @@ if ($new_user != false) {
 /*
  * Create User:BuyerAccount
  */
+
 $BuyerAccount = new BuyerAccount([
     'DB' => $DB
 ]);
 
 try {
     $buyer_account_id = $BuyerAccount->create($User, [
-        'name'  => $User->name,
+        'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
         'is_default' => 1
@@ -111,6 +114,7 @@ try {
 /*
  * Create User:GrowerOperation
  */
+
 $SellerAccount = new GrowerOperation([
     'DB' => $DB
 ]);
@@ -130,6 +134,7 @@ try {
 /* 
  * Reinitialize User w/ Accounts
  */
+
 $User = new User([
     'DB' => $DB,
     'id' => $USER['id'],
@@ -145,6 +150,7 @@ $User->switch_operation($seller_account_id);
  * Join team
  * @todo: do this for BuyerAccounts
  */
+
 if (!empty($operation_key) && !empty($personal_key)) {
     $GrowerOperation = new GrowerOperation([
         'DB' => $DB
@@ -164,6 +170,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
 /*
  * Send trans email notification
  */
+
 $Mail = new Mail([
     'fromName'  => 'Food From Friends',
     'fromEmail' => 'foodfromfriendsco@gmail.com',
@@ -176,6 +183,7 @@ $Mail->thanks_signup();
 /*
  * Redirect after completion
  */
+
 if (isset($redirect) && $redirect == 'false') {
     $json['redirect'] = false;
 } else if (isset($redirect)) {
