@@ -66,26 +66,6 @@ $Item = new FoodListing([
     'S3' => $S3
 ]);
 
-if (!$User->GrowerOperation) {
-    $GrowerOperation = new GrowerOperation([
-        'DB' => $DB
-    ]);
-
-    try {
-        $grower_operation_id = $GrowerOperation->create($User, [
-            'type' => 1
-        ]);
-    } catch (\Exception $e) {
-        error_log($e->getMessage());
-        quit('Hmm, something went wrong!');
-    }
-
-    $User->GrowerOperation = new GrowerOperation([
-        'DB' => $DB,
-        'id' => $grower_operation_id
-    ]);
-}
-
 // ! TODO: make sure category + subcategory + variety are valid
 $item_exists = $Item->retrieve([
     'where' => [

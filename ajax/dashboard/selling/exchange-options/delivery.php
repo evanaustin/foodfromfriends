@@ -40,23 +40,6 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-if (!$User->GrowerOperation) {
-    $GrowerOperation = new GrowerOperation([
-        'DB' => $DB
-    ]);
-
-    try {
-        $grower_operation_id = $GrowerOperation->create($User, [
-            'type' => 1
-        ]);
-    } catch (\Exception $e) {
-        error_log($e->getMessage());
-        quit('Hmm, something went wrong!');
-    }
-} else {
-    $grower_operation_id = $User->GrowerOperation->id;
-}
-
 $Delivery = new Delivery([
     'DB' => $DB
 ]);
