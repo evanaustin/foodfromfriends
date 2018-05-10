@@ -10,7 +10,7 @@ App.Front.Item = function() {
         // Toggle active exchange option
         $('#add-item .exchange-btn').on('click', function() {
             // Trigger sign up first
-            if ($('input[name="buyer-account-id"]').val() == 0) {
+            if (user.id == null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
