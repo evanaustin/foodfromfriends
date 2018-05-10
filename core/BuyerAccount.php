@@ -145,16 +145,16 @@ class BuyerAccount extends Base {
     }
 
     /**
-     * Creates a `buyer` record
+     * Creates a `buyer_account` record
      * Creates a `buyer_account_members` to tie buyer record to owner
      * 
-     * @param object $User the operation owner
+     * @param object $user_id the ID BuyerAccount owner
      * @param array $data the data for `buyer`
      *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `buyer_account_members` - defaults to permission:2 & is_default:true
      *  ['permission', 'is_default']
      */
-    public function create($User, $data, $options = null) {
+    public function create($user_id, $data, $options = null) {
         foreach ($data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
         if (!empty($name) && !empty($type)) {
@@ -215,7 +215,7 @@ class BuyerAccount extends Base {
             // assign user ownership of new operation
             $association_added = $this->add([
                 'buyer_account_id'  => $buyer_account_id,
-                'user_id'           => $User->id,
+                'user_id'           => $user_id,
                 'permission'        => (isset($options, $options['permission'])) ? $options['permission'] : 2,
                 'is_default'        => (isset($options, $options['is_default'])) ? $options['is_default'] : 1
             ], 'buyer_account_members');

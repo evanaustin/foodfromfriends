@@ -123,7 +123,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
         // if ($GrowerOperation->exists('name', $name)) quit('An operation with this name already exists!');
 
         try {
-            $grower_operation_id = $GrowerOperation->create($User, [
+            $grower_operation_id = $GrowerOperation->create($User->id, [
                 'type'  => $type,
                 'name'  => $name,
                 'bio'   => $bio

@@ -195,13 +195,13 @@ class GrowerOperation extends Base {
      * Creates a `grower_operation` record
      * Creates a `grower_operation_members` to tie op record to owner
      * 
-     * @param object $User the operation owner
+     * @param object $user_id the ID of the GrowerOperation owner
      * @param array $data the data for `grower_operations` - shell ops only require $type; other ops require $type AND $name
      *  ['type', 'name', 'bio', 'address_line_1', 'city', 'state']
      * @param array $options optional data for `grower_operation_members` - defaults to permission:2 & is_default:true
      *  ['permission', 'is_default']
      */
-    public function create($User, $data, $options = null) {
+    public function create($user_id, $data, $options = null) {
         foreach ($data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
         if (!empty($name) && !empty($type)) {
@@ -262,7 +262,7 @@ class GrowerOperation extends Base {
             // assign user ownership of new operation
             $association_added = $this->add([
                 'grower_operation_id'   => $grower_operation_id,
-                'user_id'               => $User->id,
+                'user_id'               => $user_id,
                 'permission'            => (isset($options, $options['permission'])) ? $options['permission'] : 2,
                 'is_default'            => (isset($options, $options['is_default'])) ? $options['is_default'] : 1
             ], 'grower_operation_members');

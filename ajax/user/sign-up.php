@@ -100,7 +100,7 @@ $BuyerAccount = new BuyerAccount([
 ]);
 
 try {
-    $buyer_account_id = $BuyerAccount->create($User, [
+    $buyer_account_id = $BuyerAccount->create($USER['id'], [
         'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
@@ -120,8 +120,8 @@ $SellerAccount = new GrowerOperation([
 ]);
 
 try {
-    $seller_account_id = $GrowerOperation->create($User, [
-        'name'  => $User->name,
+    $seller_account_id = $GrowerOperation->create($USER['id'], [
+        'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
         'is_default' => 1
@@ -158,7 +158,7 @@ if (!empty($operation_key) && !empty($personal_key)) {
 
     // update user association as manager
     $association_added = $GrowerOperation->update([
-        'user_id'       => $new_user['last_insert_id'],
+        'user_id'       => $user_id,
         'permission'    => 1,
         'is_default'    => 1
     ], 'referral_key' , $personal_key, 'grower_operation_members');
