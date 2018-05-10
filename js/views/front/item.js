@@ -10,7 +10,7 @@ App.Front.Item = function() {
         // Toggle active exchange option
         $('#add-item .exchange-btn').on('click', function() {
             // Trigger sign up first
-            if (user.id == null) {
+            if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
@@ -47,7 +47,7 @@ App.Front.Item = function() {
             var data = $form.serializeArray();
             
             // Trigger sign up first
-            if (user.id == null) {
+            if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
