@@ -26,7 +26,7 @@ if (\Num::is_id($order_grower_id)) {
             'id' => $OrderGrower->order_id
         ]);
         
-        $Buyer = new BuyerAccount([
+        $BuyerAccount = new BuyerAccount([
             'DB' => $DB,
             'id' => $Order->buyer_account_id
         ]);

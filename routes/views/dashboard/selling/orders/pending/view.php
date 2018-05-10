@@ -89,28 +89,21 @@
                         </div>
                         
                         <div id="buyer-info" class="block animated zoomIn">
-                            <div class="user-block flexjustifycenter">
-                                <div class="user-photo" style="background-image: url('<?= (!empty($Buyer->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $Buyer->filename . '.' . $Buyer->ext . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
+                        <div class="user-block flexjustifycenter">
+                            <div class="user-photo" style="background-image: url('<?= (!empty($BuyerAccount->Image->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/buyer-account-images/{$BuyerAccount->Image->filename}.{$BuyerAccount->Image->ext}" . '?' . time() : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">
-                                        <?= $Buyer->name; ?>
+                                        <?= $BuyerAccount->name; ?>
                                     </h5>
 
                                     <small>
-                                        <?php
-                                        
-                                        $city   = (!empty($Buyer->city)) ? $Buyer->city : $Buyer->billing_city;
-                                        $state  = (!empty($Buyer->state)) ? $Buyer->state : $Buyer->billing_state;
-                                        
-                                        echo "{$city}, {$state}";
-                                        
-                                        ?>
+                                        <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
                                     </small>
                                 </div>
                             </div>
 
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $Buyer->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $BuyerAccount->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
                                 Message
                             </a>
                         </div>

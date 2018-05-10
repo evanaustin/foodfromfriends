@@ -14,7 +14,7 @@
 
         <?php
 
-        if (isset($completed) && ($completed != false) && count($completed) > 0) {
+        if (isset($failed) && ($failed != false) && count($failed) > 0) {
 
             ?>
 
@@ -37,7 +37,7 @@
                         
                         $i = 1;
 
-                        foreach($completed as $order) {
+                        foreach($failed as $order) {
                             $voided_on = new DateTime($order['voided_on']);
                             $voided_on->setTimezone(new DateTimeZone($User->timezone));
 
@@ -103,7 +103,7 @@
             ?>
             
             <div class="block margin-top-1em strong">
-                You don't have any completed orders
+                You don't have any failed orders
             </div>
 
             <?php
