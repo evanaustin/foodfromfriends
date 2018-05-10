@@ -84,7 +84,7 @@ App.Front = function() {
             if ($form.parsley().isValid()) {
                 App.Util.loading();
 
-                App.Ajax.post('dashboard/account/edit-profile/save-delivery-address', data, 
+                App.Ajax.post('dashboard/buying/settings/save-address', data, 
                     function(response) {
                         App.Util.finishedLoading();
                         
