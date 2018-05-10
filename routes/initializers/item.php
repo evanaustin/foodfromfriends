@@ -38,7 +38,7 @@ if (isset($Routing->item_type)) {
             if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered)       $exchange_options_available []= 'pickup';
             if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered)       $exchange_options_available []= 'meetup';
     
-            $active_ex_op = (isset($User, $User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange)) ? $User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange->type : null;
+            $active_ex_op = (isset($User, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Exchange)) ? $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Exchange->type : null;
     
             if (isset($User, $User->BuyerAccount, $User->BuyerAccount->Address, $User->BuyerAccount->Address->latitude, $User->BuyerAccount->Address->longitude)) {
                 $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$GrowerOperation->latitude},{$GrowerOperation->longitude}&key=" . GOOGLE_MAPS_KEY);

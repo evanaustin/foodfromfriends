@@ -476,7 +476,7 @@
                                                     
                                                         <?php foreach ($exchange_options_available as $option): ?>
                                                         
-                                                            <button type="button" class="exchange-btn btn btn-secondary <?php if (isset($_GET['exchange']) && $_GET['exchange'] == $option) echo 'active' ?>" data-option="<?= $option ?>">
+                                                            <button type="button" class="exchange-btn btn btn-secondary <?php if ($active_ex_op == $option) echo 'active' ?>" data-option="<?= $option ?>">
                                                                 <?= ucfirst($option) ?>
                                                             </button>
                                                         
