@@ -69,7 +69,7 @@
                                     </cell>
 
                                     <cell class="justify-center flexcenter flexgrow-0 margin-left-1em">
-                                    <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Grower->filename}.{$Grower->ext}"; ?>');"></div>
+                                        <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$User->GrowerOperation->filename}.{$User->GrowerOperation->ext}" ?>');"></div>
                                     </cell>
                                 </fable>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="col-md-9">
                                 <fable class="message left-message">
                                     <cell class="justify-center flexcenter flexgrow-0 margin-right-1em">
-                                        <a href="<?= PUBLIC_ROOT . $Grower->link; ?>">
+                                        <a href="<?= PUBLIC_ROOT . $BuyerAccount->link; ?>">
                                             <div class="user-photo no-margin d-none d-md-block" style="background-image: url('<?= (!empty($BuyerAccount->Image->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/{$BuyerAccount->Image->path}/{$BuyerAccount->Image->filename}.{$BuyerAccount->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>');"></div>
                                         </a>
                                     </cell>
