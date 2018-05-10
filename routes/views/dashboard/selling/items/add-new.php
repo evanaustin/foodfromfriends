@@ -190,7 +190,7 @@
                                 <div class="input-group w-addon">
                                     <input type="number" name="wholesale-weight" class="form-control" placeholder="Wholesale item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
                                     
-                                    <select name="units" class="input-group-addon">
+                                    <select name="wholesale-units" class="input-group-addon">
                                         <option disabled selected>Units</option>
                                         
                                         <?php foreach ([
