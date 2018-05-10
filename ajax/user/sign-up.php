@@ -75,13 +75,15 @@ $new_user = $User->add([
     'timezone'      => $timezone
 ]);
 
+$user_id = $new_user['last_insert_id'];
+
 
 /*
  * Log in User
  */
 
 if ($new_user != false) {
-    $logged_in = $User->log_in($new_user['last_insert_id']);
+    $logged_in = $User->log_in($user_id);
     
     if (!$logged_in) {
         quit('We couldn\'t automatically log you in');
@@ -100,7 +102,7 @@ $BuyerAccount = new BuyerAccount([
 ]);
 
 try {
-    $buyer_account_id = $BuyerAccount->create($USER['id'], [
+    $buyer_account_id = $BuyerAccount->create($user_id, [
         'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
@@ -120,7 +122,7 @@ $SellerAccount = new GrowerOperation([
 ]);
 
 try {
-    $seller_account_id = $SellerAccount->create($USER['id'], [
+    $seller_account_id = $SellerAccount->create($user_id, [
         'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
@@ -137,7 +139,7 @@ try {
 
 $User = new User([
     'DB' => $DB,
-    'id' => $USER['id'],
+    'id' => $user_id,
     'buyer_account' => true,
     'seller_account' => true
 ]);
