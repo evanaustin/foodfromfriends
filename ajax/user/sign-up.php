@@ -120,7 +120,7 @@ $SellerAccount = new GrowerOperation([
 ]);
 
 try {
-    $seller_account_id = $GrowerOperation->create($USER['id'], [
+    $seller_account_id = $SellerAccount->create($USER['id'], [
         'name'  => "{$first_name} {$last_name}",
         'type'  => 1
     ],[
@@ -152,12 +152,9 @@ $User->switch_operation($seller_account_id);
  */
 
 if (!empty($operation_key) && !empty($personal_key)) {
-    $GrowerOperation = new GrowerOperation([
-        'DB' => $DB
-    ]);
 
     // update user association as manager
-    $association_added = $GrowerOperation->update([
+    $association_added = $SellerAccount->update([
         'user_id'       => $user_id,
         'permission'    => 1,
         'is_default'    => 1
