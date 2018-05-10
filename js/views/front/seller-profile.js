@@ -69,7 +69,7 @@ App.Front.SellerProfile = function() {
             var data = $form.serializeArray();
             
             // Trigger sign up first
-            if ($form.find('input[name="user-id"]').val() == 0) {
+            if (user.id == null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
@@ -111,7 +111,7 @@ App.Front.SellerProfile = function() {
                             $form.find('input[name="suborder-id"]').val(response.ordergrower.id);
 
                             App.Util.slidebar(Slidebar, 'open', 'right', e);
-    
+
                             $(Slidebar.events).on('opened', function () {
                                 // Check if cart is empty
                                 if (!$('#ordergrowers').length) {
@@ -121,7 +121,7 @@ App.Front.SellerProfile = function() {
                                     $ordergrowers = $('<div id="ordergrowers">').prependTo('#cart');
                                 }
     
-                                // Add ordergrower if not already in cart
+                                // Check if OrderGrower is already in cart
                                 if (!$('#ordergrower-' + response.ordergrower.id).length) {
                                     $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set" data-grower-operation="' + response.ordergrower.grower_id + '">').appendTo('#ordergrowers');
                                     
@@ -134,6 +134,7 @@ App.Front.SellerProfile = function() {
                                     $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
                                 }
                                 
+                                // Check if OrderItem is already in cart
                                 $cart_item = $(
                                     '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
                                         '<div class="item-image">' +
@@ -166,6 +167,7 @@ App.Front.SellerProfile = function() {
                                     $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
                                 };
     
+                                // update OrderGrower line amount
                                 if ($breakdown.children().length) {
                                     $breakdown.find('.label.exchange').text(response.ordergrower.exchange);
                                     $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
@@ -183,6 +185,7 @@ App.Front.SellerProfile = function() {
                                     );
                                 }
     
+                                // update totals breakdown
                                 $('#end-breakdown').removeClass('hidden');
                                 $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
                                 $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
@@ -207,7 +210,7 @@ App.Front.SellerProfile = function() {
                         }
                     );
                 } else {
-                    var item_id = $form.find('input[name="food-listing-id"]').val();
+                    var item_id = $form.find('input[name="item-id"]').val();
 
                     App.Ajax.post('order/modify-quantity', $.param(data), 
                         function(response) {
