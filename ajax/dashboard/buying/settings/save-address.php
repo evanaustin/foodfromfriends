@@ -86,6 +86,17 @@ if (!$User->BuyerAccount->Address
     }
 }
 
+
+/*
+ * Reinitialize User:BuyerAccount
+ */
+
+$User = new User([
+    'DB' => $DB,
+    'id' => $User->id,
+    'buyer_account' => true
+]);
+
 $json['slug'] = $slug;
 
 echo json_encode($json);
