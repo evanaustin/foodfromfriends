@@ -186,5 +186,3 @@ if (isset($redirect) && $redirect == 'false') {
 
 
 echo json_encode($json);
-
-?>
