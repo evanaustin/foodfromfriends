@@ -267,8 +267,6 @@
                                         'id' => $listing['id']
                                     ]); ?>
 
-                                    <?= pre($User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->FoodListings[$Item->id]) ?>
-                                    
                                     <div class="col-md-4">
                                         <div class="item card animated zoomIn">
                                             <div class="card-img-top">
