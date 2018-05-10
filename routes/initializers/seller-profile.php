@@ -29,7 +29,7 @@ if (isset($Routing->seller)) {
                 $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$Seller->latitude},{$Seller->longitude}&key=" . GOOGLE_MAPS_KEY);
                 $output     = json_decode($geocode);
                 $distance   = explode(' ', $output->rows[0]->elements[0]->distance->text);
-                $miles_away = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
+                $distance_miles = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
             }
 
             // check if wholesale relationship exists between User:BuyerAccount and Seller

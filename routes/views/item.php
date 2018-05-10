@@ -387,6 +387,7 @@
                                         <form id="update-item" data-ordergrower="<?= $OrderGrower->id; ?>">
                                             <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
                                             <input type="hidden" name="item-id" value="<?= $FoodListing->id; ?>">
+                                            <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
                                             <div class="form-group">
                                                 <label>
@@ -444,6 +445,7 @@
                                         <form id="add-item" data-ordergrower="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0; ?>">
                                             <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
                                             <input type="hidden" name="item-id" value="<?= $FoodListing->id; ?>">
+                                            <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
                                             <div class="form-group">
                                                 <label>
@@ -750,8 +752,8 @@
 </main>
 
 <script>
-    var buyer_lat   = <?= (isset($User->delivery_latitude)) ? $User->delivery_latitude : 0; ?>;
-    var buyer_lng   = <?= (isset($User->delivery_longitude)) ? $User->delivery_longitude : 0; ?>;
+    var buyer_lat   = <?= (isset($User->BuyerAccount->Address->latitude)) ? $User->BuyerAccount->Address->latitude : 0; ?>;
+    var buyer_lng   = <?= (isset($User->BuyerAccount->Address->longitude)) ? $User->BuyerAccount->Address->longitude : 0; ?>;
     var seller_lat  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
     var seller_lng  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
 </script>

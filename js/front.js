@@ -93,6 +93,8 @@ App.Front = function() {
 
                         $('#delivery-address-modal').modal('hide');
 
+                        $('input[name="distance-miles"]').val(response.distance_miles);
+
                         switch($form.data('action')) {
                             case 'add-item':
                                 $('#add-item').submit();
