@@ -14,8 +14,8 @@ switch($_SERVER['SERVER_NAME']) {
         ];
 
         break;
-    case 'www.varaloka.com':
-    case 'varaloka.com':
+    case 'www.foodfromfriends.xyz':
+    case 'foodfromfriends.xyz':
         $env = [
             'ENV'           => 'stage',
             'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
