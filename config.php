@@ -61,7 +61,6 @@ foreach ($constants as $constant => $value) {
 }
 
 
-
 /*
  * Autoload
  */
@@ -71,7 +70,6 @@ require 'vendor/autoload.php';
 spl_autoload_register(function($class_name) {
     include 'core/' . $class_name . '.php';
 });
-
 
 
 /*
@@ -85,13 +83,11 @@ try {
 }
 
 
-
 /*
  * GUMP Validator
  */
 
 $Gump   = new GUMP();
-
 
 
 /*
@@ -102,24 +98,31 @@ $AWS    = new Aws();
 $S3     = new S3($AWS);
 
 
+/*
+ * Maintain session
+ */
+
+session_start();
+
 
 /*
  * Routing
  */
 
+if (isset($_GET['path'])) {
+    $_SESSION['path'] = $_GET['path'];
+}
+
 $Routing = new Routing([
     'DB'        => $DB,
-    'path'      => $_GET['path'],
+    'path'      => $_SESSION['path'],
     'landing'   => 'home'
 ]);
 
 
-
 /*
- * User session
+ * Configure User
  */
-
-session_start();
 
 $LOGGED_IN = isset($_SESSION['user']);
 
@@ -151,18 +154,17 @@ if ($LOGGED_IN) {
 }
 
 
-
 /*
 * Cron connection
 */
 
-if (ENV != 'dev') {
-    /*try {
+/*if (ENV != 'dev') {
+    try {
     	$Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
 	} catch (\Exception $e) {
 		error_log($e->getMessage());
-	}*/
-}
+	}
+}*/
 
 
 /*
