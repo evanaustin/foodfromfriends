@@ -21,10 +21,16 @@ class BuyerAccount extends Base {
         $Image;
 
     public
-        $Billing,
+        $Billing;
+
+    public
+        $Orders,
+        $ActiveOrder;
+        
+    public
         $TeamMembers,
         $Owner;
-    
+
     protected
         $class_dependencies,
         $DB;
@@ -70,7 +76,7 @@ class BuyerAccount extends Base {
                 'image'         => true
             ]);
 
-            if (isset($configure['billing']) && $configure['billing'] == true || $configure['billing'] !== false) {
+            if (isset($configure, $configure['billing']) && ($configure['billing'] == true || $configure['billing'] !== false)) {
                 $this->Billing = new AccountExtension([
                     'DB'            => $this->DB,
                     'account_type'  => 'buyer',
@@ -78,8 +84,12 @@ class BuyerAccount extends Base {
                     'table'         => 'buyer_account_billing'
                 ]);
             }
+                
+            if (isset($configure, $configure['orders']) && $configure['orders'] == true || $configure['orders'] !== false) {
+                $this->get_orders();
+            }
 
-            if (isset($configure['team']) && $configure['team'] == true) {
+            if (isset($configure, $configure['team']) && $configure['team'] == true) {
                 $this->configure_team();
             }
         }
@@ -307,6 +317,37 @@ class BuyerAccount extends Base {
         ]);
 
         return (isset($results[0])) ? $results[0]['buyer_account_id'] : false;
+    }
+
+    /**
+     * Returns an array of `Order` objects for each order this user has placed.
+     *
+     * @return array Array of `Order` objects
+     */
+    public function get_orders() {
+        $results = $this->DB->run('
+            SELECT * FROM orders WHERE buyer_account_id =:buyer_account_id
+        ', [
+            'buyer_account_id' => $this->id
+        ]);
+
+        if (!empty($results[0])) {
+            foreach ($results as $result) {
+                $id = $result['id'];
+
+                $this->Orders[$id] = new Order([
+                    'DB' => $this->DB,
+                    'id' => $id
+                ]);
+
+                if (empty($result['charge_id'])) {
+                    $this->ActiveOrder = $this->Orders[$id];
+                } 
+            }
+        } else {
+            $this->Orders = false;
+            $this->ActiveOrder = false;
+        }
     }
 
 }

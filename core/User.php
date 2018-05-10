@@ -14,24 +14,17 @@ class User extends Base {
         $registered_on,
         $timezone;
 
-
-    public
-        $filename,
-        $ext;
-
     public
         $name;
         
     public
-        $Operations,
-        $GrowerOperation,
-        $Orders,
-        $ActiveOrder;
-    
-    public
         $BuyerAccounts,
         $BuyerAccount;
 
+    public
+        $Operations,
+        $GrowerOperation;
+    
     protected
         $class_dependencies,
         $DB;
@@ -67,16 +60,16 @@ class User extends Base {
             }
 
             if (!isset($parameters['seller_account']) || $parameters['seller_account'] == true) {
-                $this->get_operations();
+                $this->get_seller_accounts();
             }
     
             if (!isset($parameters['limited']) || $parameters['limited'] == false) {
-                $this->get_orders();
+                
             }
         }
     }
 
-    private function get_operations() {
+    private function get_seller_accounts() {
         $results = $this->DB->run('
             SELECT *
             FROM grower_operation_members gom
@@ -202,39 +195,6 @@ class User extends Base {
         $this->BuyerAccount = $this->BuyerAccounts[$id];
 
         return $this->BuyerAccount->id;
-    }
-
-    /**
-     * Returns an array of `Order` objects for each order this user has placed.
-     *
-     * @return array Array of `Order` objects
-     */
-    public function get_orders() {
-        $results = $this->DB->run('
-            SELECT *
-            FROM orders o
-            WHERE user_id = :user_id
-        ', [
-            'user_id' => $this->id
-        ]);
-
-        if (!empty($results[0])) {
-            foreach ($results as $result) {
-                $id = $result['id'];
-
-                $this->Orders[$id] = new Order([
-                    'DB' => $this->DB,
-                    'id' => $id
-                ]);
-
-                if (empty($result['charge_id'])) {
-                    $this->ActiveOrder = $this->Orders[$id];
-                } 
-            }
-        } else {
-            $this->Orders = false;
-            $this->ActiveOrder = false;
-        }
     }
 
 }
