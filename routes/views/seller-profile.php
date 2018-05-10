@@ -22,13 +22,13 @@
                                 Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.
                             </span>
 
-                        <?php endif ?>
+                        <?php endif; ?>
 
                         <a class="close" data-dismiss="alert">×</a>
                     </div>
                 </div>
 
-            <?php endif ?>
+            <?php endif; ?>
 
             <div class="row">   
                 <div class="col-12 order-2 col-lg-3 order-lg-1">
@@ -190,11 +190,34 @@
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?= "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($Seller->city, $Seller->state) ? "&bull; {$Seller->city}, {$Seller->state}" : '') . ((isset($distance, $distance['length']) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : "") ?>
+                            <span class="brand">
+                                <?= $grower_stars ?>
+                            </span>
+                            
+                            <?php if (count($ratings) > 0): ?>
+                                
+                                <div class="rounded-circle">
+                                    <?= count($ratings) ?>
+                                </div>
+
+                            <?php endif; ?>
+                            
+                            <?php if (isset($Seller->city, $Seller->state)): ?>
+                                
+                                <?= "{$Seller->city}, {$Seller->state}" ?>
+                            
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($distance)): ?>
+                                
+                                &bull; <?= "{$distance[0]} {$distance[1]}" ?> away
+
+                            <?php endif; ?>
+
                         </div>
 
                         <div class="muted bold margin-btm-1em">
-                            <?= 'Joined in ' . $joined_on->format('F\, Y') ?>
+                            Joined in <?= $joined_on->format('F\, Y') ?>
                         </div>
 
                         <?php if (!empty($Seller->bio)): ?>
@@ -218,7 +241,15 @@
                         <div class="items set">
                             <h4 class="margin-btm-50em ">
                                 <bold class="dark-gray">Items</bold> 
-                                <?= (!empty($listings)) ? '<light class="light-gray">(' . count($listings) . ')</light>' : '' ?>
+                                
+                                <?php if (!empty($listings)): ?>
+
+                                    <light class="light-gray">
+                                        (<?= count($listings) ?>)
+                                    </light>
+
+                                <?php endif; ?>
+
                             </h4>
 
                             <div class="muted margin-btm-1em">
@@ -231,14 +262,12 @@
                                 
                                 <?php foreach ($listings as $listing): ?>
                                     
-                                    <?php 
-                                    
-                                    if (!$listing['is_available']) continue;
-
-                                    $Item = new FoodListing([
+                                    <?php $Item = new FoodListing([
                                         'DB' => $DB,
                                         'id' => $listing['id']
                                     ]); ?>
+
+                                    <?= pre($User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->FoodListings[$Item->id]) ?>
                                     
                                     <div class="col-md-4">
                                         <div class="item card animated zoomIn">
@@ -250,7 +279,7 @@
                                                         <?= _img(ENV . '/items/' . $Item->filename, $Item->ext, [
                                                             'server'    => 'S3',
                                                             'class'     => 'img-fluid animated fadeIn hidden'
-                                                        ]) ?>
+                                                        ]); ?>
 
                                                         <div class="loading">
                                                             <i class="fa fa-circle-o-notch loading-icon"></i>
@@ -261,7 +290,7 @@
                                                         <?= _img('placeholders/default-thumbnail', 'jpg', [
                                                             'server'    => 'local', 
                                                             'class'     => 'animated fadeIn img-fluid rounded'
-                                                        ]) ?>
+                                                        ]); ?>
                         
                                                         <?php if ($is_owner): ?>
 
@@ -292,6 +321,7 @@
                                                         <?php if (!empty($weight) && !empty($units)): ?>
                                                             
                                                             &nbsp;
+
                                                             <span class="light-gray small">
                                                                 ($<?= number_format(($price / $weight) / 100, 2) . "/{$units}" ?>)
                                                             </span>
@@ -301,6 +331,7 @@
                                                         <?php if ($wholesale_relationship && !empty($Item->wholesale_price)): ?>
                                                             
                                                             &nbsp;
+
                                                             <i class="fa fa-cutlery small muted" data-toggle="tooltip" data-title="Your wholesale price"></i>
 
                                                         <?php endif; ?>
@@ -322,22 +353,27 @@
                                                 
                                                 <?php if ($Item->is_available && $Item->quantity): ?>
 
-                                                    <?php $SubOrderItem = (isset($SubOrder, $SubOrder->FoodListings[$Item->id])) ? $SubOrder->FoodListings[$Item->id] : null; ?>
+                                                    <?php $OrderGrowerItem = (isset($OrderGrower, $OrderGrower->FoodListings[$Item->id])) ? $OrderGrower->FoodListings[$Item->id] : null; ?>
                                         
                                                     <form id="quick-add-<?= $Item->id ?>" class="quick-add">
                                                         <fable id="in-stock">  
                                                             <cell>
-                                                                <input type="hidden" name="user-id"         value="<?= (isset($User)) ? $User->id : 0 ?>">
-                                                                <input type="hidden" name="food-listing-id" value="<?= $Item->id ?>"/>
-                                                                <input type="hidden" name="order-item-id"   value="<?= (isset($SubOrderItem)) ? $SubOrderItem->id : 0 ?>"/>
-                                                                <input type="hidden" name="suborder-id"     value="<?= (isset($SubOrder)) ? $SubOrder->id : 0 ?>"/>
-                                                                <input type="hidden" name="exchange-option" value="<?= (isset($SubOrder)) ? $SubOrder->Exchange->type : '' ?>"/>
+                                                                <input type="hidden" name="suborder-id"     value="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0 ?>"/>
+                                                                <input type="hidden" name="order-item-id"   value="<?= (isset($OrderGrowerItem)) ? $OrderGrowerItem->id : 0 ?>"/>
+                                                                
+                                                                <input type="hidden" name="seller-id"       value="<?= $Seller->id ?>"/>
+                                                                <input type="hidden" name="item-id"         value="<?= $Item->id ?>"/>
+                                                                
+                                                                <input type="hidden" name="exchange-option" value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
+                                                                <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
                                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                                     
                                                                     <?php for ($i = 1; $i <= $Item->quantity; $i++): ?>
                                                                             
-                                                                        <?= "<option value=\"{$i}\"" . ((isset($SubOrderItem) && $SubOrderItem->quantity == $i) ? 'selected' : '') . ">{$i}</option>" ?>
+                                                                        <option value="<?= $i ?>" <?php if (isset($OrderGrowerItem) && $OrderGrowerItem->quantity == $i) echo 'selected' ?>>
+                                                                            <?= $i ?>
+                                                                        </option>
                                                                         
                                                                     <?php endfor ?>
 
@@ -404,7 +440,7 @@
                                     <?php $ReviewBuyer = new BuyerAccount([
                                         'DB' => $DB,
                                         'id' => $rating['buyer_account_id']
-                                    ]) ?>           
+                                    ]); ?>           
                                     
                                     <div class="user-block margin-btm-1em">
                                         <a href="<?= PUBLIC_ROOT . $ReviewBuyer->link ?>">             
@@ -446,5 +482,5 @@
     var lng     = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
     var user    = <?= (isset($User)) ? $User->id : 0 ?>;
     var seller_name = '<?= $Seller->name ?>';
-    var buyer_name= '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
+    var buyer_name  = '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
 </script>
