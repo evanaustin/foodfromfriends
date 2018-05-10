@@ -17,7 +17,7 @@ $Gump->validation_rules([
     'item-id'	        => 'required|integer',
     'quantity'			=> 'required|integer',
     'exchange-option'   => 'required|alpha',
-    'distance-miles'    => 'integer',
+    'distance-miles'    => 'numeric',
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -32,7 +32,7 @@ $Gump->filter_rules([
 	'item-id'	        => 'trim|sanitize_numbers',
     'quantity'			=> 'trim|sanitize_numbers',
     'exchange-option'	=> 'trim|sanitize_string',
-    'distance-miles'    => 'trim|sanitize_numbers',
+    'distance-miles'    => 'trim|sanitize_string',
 ]);
 
 $prepared_data = $Gump->run($validated_data);
