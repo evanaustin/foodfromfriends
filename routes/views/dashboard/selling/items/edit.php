@@ -167,7 +167,7 @@
                                         <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
                                         
                                         <select name="units" class="input-group-addon" data-parsley-excluded="true">
-                                            <option disabled <?php if (empty($FoodListing->units)) echo 'selected'; ?>>Units</option>
+                                            <option disabled <?php if (empty($FoodListing->units)) echo 'selected' ?>>Units</option>
 
                                             <?php foreach ([
                                                 'g',
@@ -209,7 +209,7 @@
                                     <div class="input-group w-addon">
                                         <input type="number" name="wholesale-weight" class="form-control" value="<?= (!empty($FoodListing->wholesale_weight) ? $FoodListing->weight : ''); ?>" placeholder="Wholesale item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
                                         
-                                        <select name="units" class="input-group-addon">
+                                        <select name="wholesale-units" class="input-group-addon">
                                             <option disabled selected>Units</option>
                                             
                                             <?php foreach ([
