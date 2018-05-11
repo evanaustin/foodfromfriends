@@ -42,7 +42,7 @@
                         
                     <?php if ($Seller->Delivery && $Seller->Delivery->is_offered): ?>
 
-                        <?php $in_range = (isset($delivery_distance) && $delivery_distance <= $Seller->Delivery->distance); ?>
+                        <?php $in_range = (isset($distance_miles) && $distance_miles <= $Seller->Delivery->distance); ?>
                         
                         <div class="exchange callout bubble <?php if (!$in_range) echo 'danger disabled' ?>" data-exchange-option="delivery">
                             <div class="muted font-18 thick">
@@ -50,7 +50,14 @@
                             </div>
                             
                             <div>
-                                Will deliver within: <strong><?= $Seller->Delivery->distance ?></strong> miles <?php if (!$in_range && isset($delivery_distance)) echo "(you are <span class=\"warning strong\">{$delivery_distance}</span> miles away)" ?>
+                                Will deliver within: <?= $Seller->Delivery->distance ?> miles 
+
+                                <?php if (!$in_range && isset($distance_miles)): ?>
+
+                                    (you are <span class="warning strong"><?= $distance_miles ?></span> miles away)
+                                
+                                <?php endif;?>
+
                             </div>
 
                             <?php if ($Seller->Delivery->delivery_type == 'conditional'): ?>
@@ -61,9 +68,18 @@
 
                             <?php endif; ?>
 
-                            <div>
-                                <?= ($Seller->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($Seller->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $Seller->Delivery->pricing_rate)); ?>
-                            </div>
+                            <?php if ($in_range): ?>
+
+                                <div>
+                                    Deliver to: <?= "{$User->BuyerAccount->Address->address_line_1}, {$User->BuyerAccount->Address->city}, {$User->BuyerAccount->Address->state} {$User->BuyerAccount->Address->zipcode}" ?> <a href="<?= PUBLIC_ROOT ?>dashboard/buying/settings/profile"><strong>(edit)</strong></a>
+                                </div>
+
+                                <div>
+                                    Cost: <?= ($Seller->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($Seller->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $Seller->Delivery->pricing_rate)); ?>
+                                </div>
+
+                            <?php endif; ?>
+
                         </div>
 
                     <?php endif; ?>
