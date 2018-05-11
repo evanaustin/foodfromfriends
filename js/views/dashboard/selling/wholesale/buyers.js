@@ -9,7 +9,7 @@ App.Dashboard.WholesaleBuyers = function() {
 
             App.Ajax.post('dashboard/selling/wholesale/approve-buyer', $.param(data), 
                 function(response) {
-                    App.Util.msg('Account approved', 'success');
+                    App.Util.msg('Wholesale request approved', 'success');
 
                     $btn.parents('tr').find('.status').html('<span class="green">Approved</span>');
                     $btn.parents('tr').find('.unapprove-buyer.hidden').removeClass('hidden');
@@ -29,9 +29,9 @@ App.Dashboard.WholesaleBuyers = function() {
 
             App.Ajax.post('dashboard/selling/wholesale/unapprove-buyer', $.param(data), 
                 function(response) {
-                    App.Util.msg('Account unapproved', 'warning');
+                    App.Util.msg('Wholesale request denied', 'warning');
 
-                    $btn.parents('tr').find('.status').html('<span class="red">Not approved</span>');
+                    $btn.parents('tr').find('.status').html('<span class="red">Denied</span>');
                     $btn.parents('tr').find('.approve-buyer.hidden').removeClass('hidden');
                     $btn.addClass('hidden');
                 }, function(response) {

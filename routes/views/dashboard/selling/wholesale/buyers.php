@@ -65,7 +65,7 @@
                                         <?php switch($wholesale_relationship['status']) {
                                             case 0:
                                                 $status = [
-                                                    'readable'  => 'not approved',
+                                                    'readable'  => 'denied',
                                                     'span'      => 'red'
                                                 ];
                                                 break;
@@ -85,7 +85,9 @@
 
                                         <tr data-relationship-id="<?= $wholesale_relationship['id'] ?>">
                                             <td class="status">
-                                                <span class="<?= $status['span'] ?>"><?= ucfirst($status['readable']) ?></span>
+                                                <span class="<?= $status['span'] ?>">
+                                                    <?= ucfirst($status['readable']) ?>
+                                                </span>
                                             </td>
 
                                             <td>
@@ -97,8 +99,8 @@
                                                     Approve
                                                 </div>
                                             
-                                                <div class="btn btn-danger unapprove-buyer <?php if ($status['readable'] == 'not approved') echo 'hidden' ?>">
-                                                    Unapprove
+                                                <div class="btn btn-danger unapprove-buyer <?php if ($status['readable'] == 'denied') echo 'hidden' ?>">
+                                                    Deny
                                                 </div>
                                             </td>
                                         </tr>

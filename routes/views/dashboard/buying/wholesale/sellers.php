@@ -18,66 +18,67 @@
 
             <div class="alerts"></div>
 
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
 
-                    <tbody>
-                        
-                        <?php foreach($wholesale_memberships as $wholesale_membership): ?>
+                            <tbody>
+                                
+                                <?php foreach($wholesale_memberships as $wholesale_membership): ?>
 
-                            <?php $Seller = new GrowerOperation([
-                                'DB' => $DB,
-                                'id' => $wholesale_membership['seller_id']
-                            ]); ?>
+                                    <?php $Seller = new GrowerOperation([
+                                        'DB' => $DB,
+                                        'id' => $wholesale_membership['seller_id']
+                                    ]); ?>
 
-                            <?php switch($wholesale_membership['status']) {
-                                case 0:
-                                    $status = [
-                                        'readable'  => 'not approved',
-                                        'span'      => 'red'
-                                    ];
-                                    break;
-                                case 1:
-                                    $status = [
-                                        'readable'  => 'requested',
-                                        'span'      => 'yellow'
-                                    ];
-                                    break;
-                                case 2:
-                                    $status = [
-                                        'readable'  => 'approved',
-                                        'span'      => 'green'
-                                    ];
-                                    break;
-                            } ?>
+                                    <?php switch($wholesale_membership['status']) {
+                                        case 0:
+                                            $status = [
+                                                'readable'  => 'not approved',
+                                                'span'      => 'red'
+                                            ];
+                                            break;
+                                        case 1:
+                                            $status = [
+                                                'readable'  => 'requested',
+                                                'span'      => 'yellow'
+                                            ];
+                                            break;
+                                        case 2:
+                                            $status = [
+                                                'readable'  => 'approved',
+                                                'span'      => 'green'
+                                            ];
+                                            break;
+                                    } ?>
 
-                            <tr data-relationship-id="<?= $wholesale_membership['id'] ?>">
-                                <td class="status">
-                                    <span class="<?= $status['span'] ?>"><?= ucfirst($status['readable']) ?></span>
-                                </td>
+                                    <tr data-relationship-id="<?= $wholesale_membership['id'] ?>">
+                                        <td class="status">
+                                            <span class="<?= $status['span'] ?>">
+                                                <?= ucfirst($status['readable']) ?>
+                                            </span>
+                                        </td>
 
-                                <td>
-                                    <?= $Seller->name ?>
-                                </td>
+                                        <td>
+                                            <a href="<?= PUBLIC_ROOT . $Seller->link ?>">
+                                                <?= $Seller->name ?>
+                                            </a>
+                                        </td>
+                                    </tr>
 
-                                <td>
-                                    <a href="<?= PUBLIC_ROOT . $Seller->link ?>">
-                                        <i class="fa fa-external-link" data-toggle="tooltip" data-title="View seller profile" data-placement="left"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <?php endforeach; ?>
 
-                        <?php endforeach; ?>
-
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
         <?php else: ?>
