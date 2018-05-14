@@ -82,6 +82,7 @@ App.Dashboard.NewSellingAccount = function() {
                 App.Ajax.postFiles('dashboard/selling/create-new-account', data, 
                     function(response) {
                         App.Util.finishedLoading();
+                        toastr.success('Account created. Now redirecting...');
                         window.location.replace(PUBLIC_ROOT + 'dashboard/selling');
                     },
                     function(response) {

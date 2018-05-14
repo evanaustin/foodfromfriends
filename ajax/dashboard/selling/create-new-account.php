@@ -46,8 +46,9 @@ foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 /*
 * Create GrowerOperation
 */
+
 try {
-    $seller_account_id = $User->GrowerOperation->create($User, [
+    $seller_account_id = $User->GrowerOperation->create($User->id, [
         'type'              => $type,
         'name'              => $name,
         'bio'               => $bio,
@@ -67,6 +68,7 @@ try {
 /* 
  * Reinitialize User w/ Accounts
  */
+
 $User = new User([
     'DB' => $DB,
     'id' => $USER['id'],
@@ -80,6 +82,7 @@ $User->switch_operation($seller_account_id);
 /*
  * Create GrowerOperation:Image
  */
+
 $Image = new Image();
 
 if (isset($_POST['images'])) {

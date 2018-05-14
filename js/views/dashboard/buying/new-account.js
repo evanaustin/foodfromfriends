@@ -82,6 +82,7 @@ App.Dashboard.NewBuyingAccount = function() {
                 App.Ajax.postFiles('dashboard/buying/create-new-account', data, 
                     function(response) {
                         App.Util.finishedLoading();
+                        toastr.success('Account created. Now redirecting...');
                         window.location.replace(PUBLIC_ROOT + 'dashboard/buying/orders/overview');
                     },
                     function(response) {

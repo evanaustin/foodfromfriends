@@ -47,7 +47,7 @@ foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 */
 
 try {
-    $buyer_account_id = $User->BuyerAccount->create($User, [
+    $buyer_account_id = $User->BuyerAccount->create($User->id, [
         'type'              => $type,
         'name'              => $name,
         'bio'               => $bio,
