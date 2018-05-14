@@ -180,7 +180,7 @@ App.Front = function() {
             $cart_item = $(this).parents('div.cart-item');
 
             var data = {
-                'food-listing-id': $cart_item.data('listing-id'),
+                'item-id': $cart_item.data('listing-id'),
                 'quantity': $(this).val()
             };
 
