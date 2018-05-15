@@ -1,38 +1,38 @@
 <?php
 
 $settings = [
-    'title' => 'User profile | Food From Friends'
+    'title' => 'Buyer profile | Food From Friends'
 ];
 
 if (isset($Routing->buyer)) {
-    $ThisUser = new User([
+    $BuyerAccount = new BuyerAccount([
         'DB'    => $DB,
         'slug'  => $Routing->buyer
     ]);
 
-    if (isset($ThisUser->id)) {
-        $is_owner = $ThisUser->id == $User->id;
+    if (isset($BuyerAccount->id)) {
+        $is_owner = $BuyerAccount->id == $User->BuyerAccount->id;
 
-        $joined_on = new DateTime($ThisUser->registered_on, new DateTimeZone('UTC'));
+        $joined_on = new DateTime($BuyerAccount->registered_on, new DateTimeZone('UTC'));
         $joined_on->setTimezone(new DateTimeZone('America/New_York'));
     
         $WishList = new WishList([
             'DB' => $DB
         ]);
 
-        $wishlist = $WishList->get_wishes($ThisUser->id);
+        $wishlist = $WishList->get_wishes($BuyerAccount->id);
 
         $wishlist_description = $WishList->retrieve([
             'where' => [
-                'user_id' => $ThisUser->id
+                'buyer_account_id' => $BuyerAccount->id
             ],
             'table' => 'wish_list_descriptions',
             'limit' => 1
         ]);
 
-        // $stars = stars($ThisUser->average_rating);
+        // $stars = stars($BuyerAccount->average_rating);
         
-        /* $ratings = $ThisUser->retrieve([
+        /* $ratings = $BuyerAccount->retrieve([
             'where' => [
                 'grower_operation_id' => $GrowerOperation->id
             ],
@@ -40,7 +40,7 @@ if (isset($Routing->buyer)) {
             'recent' => true
         ]); */
     
-        $settings['title'] = "{$ThisUser->name} | Food From Friends";
+        $settings['title'] = "{$BuyerAccount->name} | Food From Friends";
     }
 }
 

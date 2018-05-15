@@ -1,70 +1,57 @@
 <div id="nav" off-canvas="slidebar-left left push">
     <ul class="navbar-nav ml-auto">
-        <?php if ($LOGGED_IN) {
 
-            if ($Routing->template == 'front') { ?>
+        <?php if ($LOGGED_IN): ?>
+
+            <?php if ($Routing->template == 'front'): ?>
 
                 <li class="nav-item">
-                    <a 
-                        class="nav-link cart-toggle"
-                        data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                    >
+                    <a class="nav-link cart-toggle" data-toggle="collapse">
                         Basket
                     </a>
                 </li>
+
+                <hr>
             
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT; ?>">
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'map'; ?>">
                         Map
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a 
-                        class="nav-link" 
-                        href="<?php echo PUBLIC_ROOT . ((isset($User->GrowerOperation)) ? 'dashboard/grower' : 'dashboard/account/edit-profile/basic-information'); ?>"
-                    >
-                        Dashboard
-                    </a>
-                </li>
+                <hr>
+
+                <?php if (isset($User->BuyerAccount)): ?>
+
+                    <li class="nav-item">
+                        <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="nav-link">
+                            Buying
+                        </a>
+                    </li>
+
+                <?php endif; ?>
+
+                <?php if (isset($User->GrowerOperation)): ?>
+
+                    <li class="nav-item">
+                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling" class="nav-link">
+                            Selling
+                        </a>
+                    </li>
+
+                <?php endif; ?>
+
+                <hr>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying'; ?>">
-                        Messages
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">
-                        Order history
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . "user/{$User->slug}"; ?>">
-                        View profile
-                    </a>
-                </li>
-
-                <?php
-                
-                if (isset($User->GrowerOperation) && $User->GrowerOperation->is_active) {
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . $User->GrowerOperation->link . "\">Seller profile</a></li>";
-                    echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" . PUBLIC_ROOT . "dashboard/grower/items/overview\">Your items</a></li>";
-                }
-                
-                ?>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'dashboard/account/edit-profile/basic-information'; ?>">
-                        Edit profile
+                    <a class="nav-link" href="<?= PUBLIC_ROOT . 'dashboard/account/settings/personal'; ?>">
+                        Account
                     </a>
                 </li>
 
@@ -72,23 +59,119 @@
                     <a id="log-out" class="nav-link" href="#">Log out</a>
                 </li>
 
-            <?php } if ($Routing->template == 'dashboard') { ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT; ?>">
-                        Home
-                    </a>
-                </li>
+            <?php endif; ?>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
-                        Map
-                    </a>
-                </li>
+            <?php if ($Routing->template == 'dashboard'): ?>
 
-                <?php
+                <?php if ($buying || $selling): ?>
 
-                $sidebar = [
-                    'grower' => [
+                    <?php if ($buying) {
+                        $account_name = $User->BuyerAccount->name;
+                        $account_type = $User->BuyerAccount->type;
+                    } else if ($selling) {
+                        $account_name = $User->GrowerOperation->name;
+                        $account_type = $User->GrowerOperation->type;
+                    } ?>
+
+                    <?php $multiple = (count($User->BuyerAccounts) > 1 || count($User->Operations) > 1) ?>
+
+                    <li class="nav-item account-link dropdown">
+                        <a href=""
+                            class="nav-link parent" 
+                            data-toggle="collapse" 
+                            data-target="#navToggle-account" 
+                            aria-controls="navToggle-<?= $k ;?>" 
+                            aria-expanded="<?= ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
+                            aria-label="Toggle navigation"
+                        >
+                            <i class="fa fa-<?= ($account_type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i>
+                            <?= truncate($account_name, 20) ?>
+                        </a>
+
+                        <div class="collapse" id="navToggle-account">
+                            <ul class="nav flex-column">
+                                
+                                <?php if ($buying): ?>
+
+                                    <?php foreach ($User->BuyerAccounts as $BuyerAccount): ?>
+                                    
+                                        <?php if ($User->BuyerAccount->id == $BuyerAccount->id) continue; ?>
+                                        
+                                        <li class="nav-item">
+                                            <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="switch-buyer-account" data-buyer-account-id="<?= $BuyerAccount->id ?>">
+                                                <i class="fa fa-<?= ($BuyerAccount->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?> d-none d-sm-inline"></i><?= $BuyerAccount->name ?>
+                                            </a>
+                                        </li>
+                                    
+                                    <?php endforeach; ?>
+                                    
+                                    <li class="nav-item">
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/buying/new-account">
+                                            <i class="fa fa-external-link d-none d-sm-inline"></i>Create another account
+                                        </a>
+                                    </li>
+
+                                <?php elseif ($selling): ?>
+
+                                    <?php foreach ($User->Operations as $Operation): ?>
+
+                                        <?php if ($User->GrowerOperation->id == $Operation->id) continue ?>
+                                        
+                                        <li class="nav-item">
+                                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling" class="switch-operation" data-grower-operation-id="<?= $Operation->id ?>">
+                                                <i class="fa fa-<?= ($Operation->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?> d-none d-sm-inline"></i><?= $Operation->name ?>
+                                            </a>
+                                        </li>
+                                    
+                                    <?php endforeach; ?>
+
+                                    <li class="nav-item">
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/new-account">
+                                            <i class="fa fa-external-link d-none d-sm-inline"></i>Create another account
+                                        </a>
+                                    </li>
+
+                                <?php endif; ?>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <?php else: ?>
+
+                    <li class="nav-item account-link">
+                        <span class="nav-link">
+                            <i class="fa fa-user-circle-o"></i>
+                            <?= $User->name ?>
+                        </span>
+                    </li>
+
+                <?php endif; ?>
+
+                <hr>
+
+                <?php $sidebar = [
+                    'buying' => [
+                        'messages',
+                        'orders' => [
+                            'overview'
+                        ],
+                        'wish-list' => [
+                            'items'
+                        ],
+                        'wholesale' => [
+                            'sellers'
+                        ],
+                        'settings' => [
+                            'profile',
+                            'billing',
+                            // 'team',
+                            // 'create-new'
+                        ]
+                        //'saved-items',
+                    ],
+                    'selling' => [
+                        'messages',
                         'orders' => [
                             'new',
                             'pending',
@@ -105,101 +188,72 @@
                             'pickup',
                             'meetup'
                         ],
+                        'wholesale' => [
+                            'buyers'
+                        ],
                         'settings' => [
-                            'edit-profile',
-                            'payout-settings',
-                            'team-members',
+                            'profile',
+                            'payout',
+                            'team',
                             // 'create-new'
                         ]
                     ],
-                    'messages' => [
-                        'inbox' => [
-                            'buying'
-                        ]
-                    ],
                     'account' => [
-                        'edit-profile' => [
-                            'basic-information',
-                            'billing-info',
-                            'delivery-address'
+                        'settings' => [
+                            'personal',
+                            // 'notifications',
+                            // 'language',
+                            // 'social',
+                            // 'security'
                         ],
-                        'buying' => [
-                            'orders',
-                            'wish-list',
-                        ],
-                        /* 'account-settings' => [
-                            'notifications',
-                            'payout',
-                            'payment'
-                        ] */
                         // 'edit' => 'edit-profile', // link alias format
                     ]
-                ];
+                ]; ?>
 
-                foreach($User->Operations as $Op) {
-                    if ($Op->type != 'individual') {
-                        $sidebar['messages']['inbox']['selling?grower=' . $Op->id] = $Op->name;
-                    } else {
-                        array_splice($sidebar['messages']['inbox'], 1, 0, 'selling');
-                    }
-                }
-
-                ?>
-
-                <?php if ($Routing->section == 'grower') { ?>
+                <?php if ($Routing->section == 'selling') { ?>
                     <li class="nav-item">
                         <a 
-                            href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section; ?>"
+                            href="<?= PUBLIC_ROOT . "{$Routing->template}/$Routing->section}" ?>"
                             class="nav-link <?php if (!isset($Routing->page)) echo 'active'; ?>">
-                            <?php echo 'Dashboard'; ?>
+                            <?= 'Dashboard'; ?>
                         </a>
                     </li>
                 <?php } ?>
 
-                <?php foreach ($sidebar[$Routing->section] as $k => $v) { ?>
+                <?php foreach ($sidebar[$Routing->section] as $k => $v): ?>
+
                     <li class="nav-item">
-                        <?php if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'array') { ?>
+
+                        <?php if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'array'): ?>
+                           
                             <a 
                                 href="" 
                                 class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
                                 data-toggle="collapse" 
-                                data-target="#navToggle-<?php echo $k ;?>" 
-                                aria-controls="navToggle-<?php echo $k ;?>" 
-                                aria-expanded="<?php echo ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
+                                data-target="#navToggle-<?= $k ;?>" 
+                                aria-controls="navToggle-<?= $k ;?>" 
+                                aria-expanded="<?= ($Routing->subsection == $k) ? 'true' : 'false'; ?>" 
                                 aria-label="Toggle navigation"
                             >
-                                <?php echo ucfirst(str_replace('-', ' ', $k)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $k)); ?>
                             </a>
 
-                            <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navToggle-<?php echo $k;?>">
+                            <div class="collapse <?php if ($Routing->subsection == $k) echo 'show'; ?>" id="navToggle-<?= $k;?>">
                                 <ul class="nav flex-column">
-                                    <?php
                                     
-                                    foreach($v as $alias_key => $alias) {
-                                        if (!empty($alias)) {
-                                        
-                                        ?>
+                                    <?php foreach($v as $alias_key => $alias): ?>
+
+                                        <?php if (!empty($alias)): ?>
 
                                         <li class="nav-item">
                                             <a 
-                                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/'. $Routing->section . '/' . $k . '/' . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
+                                                href="<?= PUBLIC_ROOT . "{$Routing->template}/{$Routing->section}/{$k}/" . ((gettype($alias_key) == 'string') ? $alias_key : $alias); ?>"
                                                 class="nav-link child 
                                                 
-                                                <?php 
+                                                <?php if ($Routing->page == $alias) {
+                                                    echo 'active';
+                                                } ?>
 
-                                                $active = false;
-
-                                                if ($Routing->page == $alias && !($Routing->page == 'selling' && isset($_GET['grower']))) {
-                                                    $active = true;
-                                                } else if ($Routing->subsection == 'inbox' && $Routing->page == 'selling' && isset($_GET['grower'])) {
-                                                    if ($User->Operations[\Num::clean_int($_GET['grower'])]->name == $alias) {
-                                                        $active = true;
-                                                    }
-                                                }
-                                                
-                                                if ($active) echo 'active';
-                                                
-                                                ?>
                                             ">
 
                                                 <?php
@@ -207,8 +261,8 @@
                                                 echo ucfirst(str_replace('-', ' ', $alias));
 
                                                 // insert bubbles for new orders
-                                                if ($alias == 'new' && $Routing->section == 'grower' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
-                                                if ($alias == 'pending' && $Routing->section == 'grower' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
+                                                if ($alias == 'new' && $Routing->section == 'selling' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->new_orders) echo '<i class="fa fa-circle info jackInTheBox animated"></i>';
+                                                if ($alias == 'pending' && $Routing->section == 'selling' && $Routing->page != $alias && isset($User) && $User->GrowerOperation->pending_orders) echo '<i class="fa fa-circle warning jackInTheBox animated"></i>';
                                                 
                                                 // insert bubbles for unread messages
                                                 if ($Routing->section == 'messages' && $Routing->subsection == 'inbox') {
@@ -219,9 +273,9 @@
                                                     if ($alias == 'buying' && !$active) {
                                                         $unread = $Message->retrieve([
                                                             'where' => [
-                                                                'user_id' => $User->id,
-                                                                'sent_by' => 'grower',
-                                                                'read_on' => null
+                                                                'buyer_account_id'  => $User->BuyerAccount->id,
+                                                                'sent_by'           => 'seller',
+                                                                'read_on'           => null
                                                             ],
                                                             'limit' => 1
                                                         ]);
@@ -240,7 +294,7 @@
                                                             $unread = $Message->retrieve([
                                                                 'where' => [
                                                                     'grower_operation_id' => $seller_id,
-                                                                    'sent_by' => 'user',
+                                                                    'sent_by' => 'buyer',
                                                                     'read_on' => null
                                                                 ],
                                                                 'limit' => 1
@@ -258,35 +312,61 @@
 
                                         </li>
                                         
-                                        <?php
+                                        <?php endif; ?>
+
+                                    <?php endforeach; ?>
                                     
-                                        }
-                                    }
-                                    
-                                    ?>
                                 </ul>
                             </div>
-                        <?php } else if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string') { ?>
+
+                        <?php elseif (!empty($k) && gettype($k) == 'string' && gettype($v) == 'string'): ?>
+
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $k; ?>"
+                                href="<?= PUBLIC_ROOT . "{$Routing->template}/{$Routing->section}/{$k}"; ?>"
                                 class="nav-link <?php if ($Routing->subsection == $k) echo 'active'; ?>">
-                                <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $v)); ?>
                             </a>
-                        <?php } else if (!empty($v)) { ?>
+
+                        <?php elseif (!empty($v)): ?>
+
                             <a 
-                                href="<?php echo PUBLIC_ROOT . $Routing->template . '/' . $Routing->section . '/' . $v; ?>"
+                                href="<?= PUBLIC_ROOT . "{$Routing->template}/{$Routing->section}/{$v}" ?>"
                                 class="nav-link <?php if ($Routing->subsection == $v) echo 'active'; ?>">
-                                <?php echo ucfirst(str_replace('-', ' ', $v)); ?>
+                                <?= ucfirst(str_replace('-', ' ', $v)); ?>
                             </a>
-                        <?php } ?>
+
+                        <?php endif; ?>
+
                     </li>
-                <?php }
 
-            }
+                <?php endforeach; ?>
 
-        } else { ?>
+                <hr>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT; ?>">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= PUBLIC_ROOT ?>map">
+                        Map
+                    </a>
+                </li>
+
+            <?php endif; ?>
+
+        <?php else: ?>
+
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo PUBLIC_ROOT . 'map'; ?>">
+                <a class="nav-link" href="<?= PUBLIC_ROOT; ?>">
+                    Home
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="<?= PUBLIC_ROOT ?>map">
                     Map
                 </a>
             </li>
@@ -306,6 +386,8 @@
                     </span>
                 </a>
             </li>
-        <?php } ?>
+
+        <?php endif; ?>
+
     </ul>
 </div>

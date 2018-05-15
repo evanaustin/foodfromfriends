@@ -11,50 +11,20 @@ class User extends Base {
         $phone,
         $dob,
         $gender,
-        $bio,
         $registered_on,
-        $stripe_customer_id,
         $timezone;
-
-    public
-        $address_line_1,
-        $address_line_2,
-        $city,
-        $state,
-        $zipcode,
-        $latitude,
-        $longitude;
-
-    public
-        $delivery_address_line_1,
-        $delivery_address_line_2,
-        $delivery_city,
-        $delivery_state,
-        $delivery_zipcode,
-        $delivery_latitude,
-        $delivery_longitude,
-        $delivery_instructions;
-    
-    public
-        $billing_address_line_1,
-        $billing_address_line_2,
-        $billing_city,
-        $billing_state,
-        $billing_zipcode;
-
-    public
-        $filename,
-        $ext;
 
     public
         $name;
         
     public
-        $Operations,
-        $GrowerOperation,
-        $Orders,
-        $ActiveOrder;
+        $BuyerAccounts,
+        $BuyerAccount;
 
+    public
+        $Operations,
+        $GrowerOperation;
+    
     protected
         $class_dependencies,
         $DB;
@@ -83,73 +53,23 @@ class User extends Base {
         }
 
         if (isset($this->id)) {
-            $this->populate_fully();
-    
-            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
-                $this->get_operations();
-                $this->get_orders();
+            $this->name = "{$this->first_name} {$this->last_name}";
+
+            if (!isset($parameters['buyer_account']) || $parameters['buyer_account'] == true) {
+                $this->get_buyer_accounts();
+            }
+
+            if (!isset($parameters['seller_account']) || $parameters['seller_account'] == true) {
+                $this->get_seller_accounts();
             }
     
-            $this->name = "{$this->first_name} {$this->last_name}";
+            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
+                
+            }
         }
     }
-    
-    private function populate_fully() {
-        $results = $this->DB->run('
-            SELECT 
-                u.*,
-                ua.address_line_1,
-                ua.address_line_2,
-                ua.city,
-                ua.state,
-                ua.zipcode,
-                ua.latitude,
-                ua.longitude,
-                ub.card_name        AS billing_card_name,
-                ub.address_line_1   AS billing_address_line_1,
-                ub.address_line_2   AS billing_address_line_2,
-                ub.city             AS billing_city,
-                ub.state            AS billing_state,
-                ub.zipcode          AS billing_zipcode,
-                ud.address_line_1   AS delivery_address_line_1,
-                ud.address_line_2   AS delivery_address_line_2,
-                ud.city             AS delivery_city,
-                ud.state            AS delivery_state,
-                ud.zipcode          AS delivery_zipcode,
-                ud.latitude         AS delivery_latitude,
-                ud.longitude        AS delivery_longitude,
-                ud.instructions     AS delivery_instructions,
-                upi.filename,
-                upi.ext
-            
-            FROM users u
-            
-            LEFT JOIN user_addresses ua
-                ON u.id = ua.user_id
-            
-            LEFT JOIN user_billing_info ub
-                ON u.id = ub.user_id
-            
-            LEFT JOIN user_delivery_address ud
-                ON u.id = ud.user_id
-            
-            LEFT JOIN user_profile_images upi
-                ON u.id = upi.user_id
-            
-            WHERE u.id = :id
-        
-            LIMIT 1
-        ', [
-            'id' => $this->id
-        ]);
 
-        if (!isset($results[0])) return false;
-
-        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
-    }
-
-    // eventually this should be refactored to allow for buyer operations also
-    private function get_operations() {
+    private function get_seller_accounts() {
         $results = $this->DB->run('
             SELECT *
             FROM grower_operation_members gom
@@ -182,11 +102,35 @@ class User extends Base {
         }
     }
 
-    public function switch_operation($id) {
-        $_SESSION['user']['active_operation_id'] = $id;
-        $this->GrowerOperation = $this->Operations[$id];
+    private function get_buyer_accounts() {
+        $results = $this->DB->run('
+            SELECT *
+            FROM buyer_account_members btm
+            WHERE btm.user_id=:user_id 
+                AND permission > 0
+        ', [
+            'user_id' => $this->id
+        ]);
 
-        return $this->GrowerOperation->id;
+        if (isset($results)) {
+            foreach ($results as $result) {
+                $id = $result['buyer_account_id'];
+
+                $this->BuyerAccounts[$id] = new BuyerAccount([
+                    'DB' => $this->DB,
+                    'id' => $result['id']
+                ]);
+
+                $this->BuyerAccounts[$id]->permission = $result['permission'];
+
+                if ($result['is_default']) {
+                    $this->BuyerAccount = $this->BuyerAccounts[$id];
+                }
+            }
+        } else {
+            $this->BuyerAccounts    = false;
+            $this->BuyerAccount     = false;
+        }
     }
 
     public function authenticate($email, $password) {
@@ -239,37 +183,18 @@ class User extends Base {
         return false;
     }
 
-    /**
-     * Returns an array of `Order` objects for each order this user has placed.
-     *
-     * @return array Array of `Order` objects
-     */
-    public function get_orders() {
-        $results = $this->DB->run('
-            SELECT *
-            FROM orders o
-            WHERE user_id = :user_id
-        ', [
-            'user_id' => $this->id
-        ]);
+    public function switch_operation($id) {
+        $_SESSION['user']['active_operation_id'] = $id;
+        $this->GrowerOperation = $this->Operations[$id];
 
-        if (isset($results)) {
-            foreach ($results as $result) {
-                $id = $result['id'];
+        return $this->GrowerOperation->id;
+    }
+    
+    public function switch_buyer_account($id) {
+        $_SESSION['user']['active_buyer_account_id'] = $id;
+        $this->BuyerAccount = $this->BuyerAccounts[$id];
 
-                $this->Orders[$id] = new Order([
-                    'DB' => $this->DB,
-                    'id' => $id
-                ]);
-
-                if (empty($result['charge_id'])) {
-                    $this->ActiveOrder = $this->Orders[$id];
-                } 
-            }
-        } else {
-            $this->Orders = false;
-            $this->ActiveOrder = false;
-        }
+        return $this->BuyerAccount->id;
     }
 
 }

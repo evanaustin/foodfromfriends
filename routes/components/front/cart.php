@@ -1,12 +1,12 @@
 <div id="cart" off-canvas="slidebar-right right push">
     <?php
     
-    $is_active_cart =  isset($User) && $User->ActiveOrder && !empty($User->ActiveOrder->Growers);
+    $is_active_cart =  isset($User->BuyerAccount) && $User->BuyerAccount->ActiveOrder && !empty($User->BuyerAccount->ActiveOrder->Growers);
     
     if ($is_active_cart) {
         echo '<div id="ordergrowers">';
 
-        foreach($User->ActiveOrder->Growers as $OrderGrower) {
+        foreach($User->BuyerAccount->ActiveOrder->Growers as $OrderGrower) {
             $Grower = new GrowerOperation([
                 'DB' => $DB,
                 'id' => $OrderGrower->grower_operation_id
@@ -16,10 +16,10 @@
 
             ?>
 
-            <div id="ordergrower-<?php echo $OrderGrower->id; ?>" class="set" data-grower-operation-id="<?php echo $Grower->id; ?>">
+            <div id="ordergrower-<?= $OrderGrower->id; ?>" class="set" data-grower-operation-id="<?= $Grower->id; ?>">
                 <h6>
-                    <a href="<?php echo PUBLIC_ROOT . $Grower->link; ?>">
-                        <?php echo $Grower->name; ?>
+                    <a href="<?= PUBLIC_ROOT . $Grower->link; ?>">
+                        <?= $Grower->name; ?>
                     </a>
                 </h6>
 
@@ -36,7 +36,7 @@
     
                         ?>
     
-                        <div class="cart-item" data-listing-id="<?php echo $FoodListingItem->id; ?>">
+                        <div class="cart-item" data-listing-id="<?= $FoodListingItem->id; ?>">
                             <div class="item-image">
                                 <?php
                                 
@@ -57,8 +57,8 @@
                             
                             <div class="item-content">
                                 <div class="item-title">
-                                    <a href="<?php echo PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
-                                        <?php echo $FoodListingItem->title; ?>
+                                    <a href="<?= PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
+                                        <?= $FoodListingItem->title; ?>
                                     </a>
                                 </div>
     
@@ -153,18 +153,18 @@
             </a>
 
             <div class="rate subtotal">
-                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->subtotal : 0) / 100, 2); ?>
+                $<?= number_format(((isset($User) && $User->BuyerAccount->ActiveOrder) ? $User->BuyerAccount->ActiveOrder->subtotal : 0) / 100, 2); ?>
             </div>
         </div>
         
-        <div class="line-amount <?php if (!isset($User) || !$User->ActiveOrder || isset($User) && $User->ActiveOrder->exchange_fees == 0) { echo 'hidden'; } ?>">
+        <div class="line-amount <?php if (!isset($User) || !$User->BuyerAccount->ActiveOrder || isset($User) && $User->BuyerAccount->ActiveOrder->exchange_fees == 0) { echo 'hidden'; } ?>">
             <a class="label" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees">
                 Delivery
                 <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" data-title="This is the sum of all delivery fees"></i> -->
             </a>
 
             <div class="rate exchange-fee">
-                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->exchange_fees : 0) / 100, 2); ?>
+                $<?= number_format(((isset($User) && $User->BuyerAccount->ActiveOrder) ? $User->BuyerAccount->ActiveOrder->exchange_fees : 0) / 100, 2); ?>
             </div>
         </div>
 
@@ -175,7 +175,7 @@
             </a>
 
             <div class="rate service-fee">
-                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->fff_fee : 0) / 100, 2); ?>
+                $<?= number_format(((isset($User) && $User->BuyerAccount->ActiveOrder) ? $User->BuyerAccount->ActiveOrder->fff_fee : 0) / 100, 2); ?>
             </div>
         </div>
 
@@ -185,7 +185,7 @@
             </div>
 
             <div class="rate total">
-                $<?php echo number_format(((isset($User) && $User->ActiveOrder) ? $User->ActiveOrder->total : 0) / 100, 2); ?>
+                $<?= number_format(((isset($User) && $User->BuyerAccount->ActiveOrder) ? $User->BuyerAccount->ActiveOrder->total : 0) / 100, 2); ?>
             </div>
         </div>
 

@@ -1,0 +1,96 @@
+body.dashboard-selling {
+    div.container-fluid {
+        padding: 10px;
+
+        div.list-blocks {
+            div.list-group {
+                div.heading {
+                    background-color: $dark-gray;
+                    border: 0px;
+                    color: #fff;
+                    font-weight: 400;
+                }
+
+                div.description {
+                    padding: 1em;
+                    background: $muted;
+                    border: 1px solid $superlight-gray;
+                    border-top-width: 0;
+                    border-bottom-width: 0;
+                    font-size: 85%;
+                    color: #fff;
+                }
+
+                div.progress {
+                    border-top-width: 0;
+                    border-bottom-width: 0;
+                    @include rounded(0px);
+                }
+
+                div.list-ticks {
+                    @include drop-shadow(0, 1px, 3px);
+                    @include rounded($radius);
+                    
+                    a, p {
+                        display: block;
+                        padding-left: 1em;
+                        padding-right: 1em;
+                        border-color: $edge-color;
+
+                        &.list-group-item {
+                            border-width: 0px;
+                            border-bottom: 1px solid transparent;
+                            
+                            &:not(:first-child) {
+                                border-top-width: 1px;
+                            }
+                        }
+                        
+                        &.disabled {
+                            cursor: text;
+                            color: $light-gray;
+
+                            /* &:hover {
+                                background-color: #fff;
+                            } */
+                        }
+
+                        &:not(.disabled):not(.active) {
+                            color: $muted;
+                        }
+
+                        &:hover {
+                            background-color: #fff;
+                            border-bottom-color: $edge-color;
+
+                            &:not(.disabled) {
+                                color: $primary;
+
+                                i {
+                                    font-weight: bold;
+                                    opacity: 1;
+                                    @include transform(translateX(2px));
+                                }
+                            }
+                        }
+                        
+                        i {
+                            float: right;
+                            opacity: 0.75;
+                            line-height: 1.5;
+                            @include transition(all .2s);
+
+                            &.fa-check {
+                                color: $success;
+                            }
+
+                            &.fa-times {
+                                color: $light-gray;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

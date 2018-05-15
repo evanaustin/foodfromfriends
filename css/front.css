@@ -6648,6 +6648,10 @@ div.box {
       font-size: 1.25rem; }
       #nav[off-canvas*=left] .nav-item ul .nav-item i {
         padding-left: 0.75rem; }
+  #nav[off-canvas*=left] hr {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-color: transparent; }
 
 #cart[off-canvas*=right] {
   padding: 1em;
@@ -7421,10 +7425,10 @@ body.front.buyer-profile div.main.container {
     body.front.buyer-profile div.main.container .card .card-body h6.card-subtitle {
       color: #b2b2b2;
       padding: 0.25rem 0; }
-    body.front.buyer-profile div.main.container .card .card-body p.card-text {
+    body.front.buyer-profile div.main.container .card .card-body .card-text {
       margin-top: 0.25rem;
       color: #7f7f7f; }
-      body.front.buyer-profile div.main.container .card .card-body p.card-text span.quantity {
+      body.front.buyer-profile div.main.container .card .card-body .card-text span.quantity {
         padding: 0.15rem 0.25rem;
         -webkit-border-radius: 0.15rem;
         -moz-border-radius: 0.15rem;
@@ -7555,20 +7559,55 @@ body.front.seller-profile div.main.container {
     body.front.seller-profile div.main.container div.col-md-4 .card {
       margin-bottom: 10px; } }
   body.front.seller-profile div.main.container .card .card-body {
-    align-items: center;
     padding: 0.75rem 1rem;
-    min-height: 130px; }
-    body.front.seller-profile div.main.container .card .card-body h6.card-subtitle {
+    min-height: 130px;
+    justify-content: center; }
+    body.front.seller-profile div.main.container .card .card-body .card-title cell {
+      /* &:last-child {
+          flex
+      } */ }
+      body.front.seller-profile div.main.container .card .card-body .card-title cell:first-child {
+        flex-grow: 2; }
+    body.front.seller-profile div.main.container .card .card-body .card-subtitle {
       color: #b2b2b2;
       padding: 0.25rem 0; }
-    body.front.seller-profile div.main.container .card .card-body p.card-text {
+    body.front.seller-profile div.main.container .card .card-body .card-text {
       margin-top: 0.25rem;
       color: #7f7f7f; }
-      body.front.seller-profile div.main.container .card .card-body p.card-text span.quantity {
+      body.front.seller-profile div.main.container .card .card-body .card-text span.quantity {
         padding: 0.15rem 0.25rem;
         -webkit-border-radius: 0.15rem;
         -moz-border-radius: 0.15rem;
         border-radius: 0.15rem; }
+    body.front.seller-profile div.main.container .card .card-body #in-stock cell {
+      border: 1px solid #f5f5f5; }
+      body.front.seller-profile div.main.container .card .card-body #in-stock cell:first-child {
+        border-right: 0px solid transparent;
+        border-radius: 0.25rem 0 0 0.25rem !important; }
+      body.front.seller-profile div.main.container .card .card-body #in-stock cell:last-child {
+        flex-grow: 0;
+        border-radius: 0 0.25rem 0.25rem 0; }
+    body.front.seller-profile div.main.container .card .card-body #in-stock select, body.front.seller-profile div.main.container .card .card-body #in-stock button {
+      -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.1); }
+      body.front.seller-profile div.main.container .card .card-body #in-stock select:focus, body.front.seller-profile div.main.container .card .card-body #in-stock select:hover, body.front.seller-profile div.main.container .card .card-body #in-stock button:focus, body.front.seller-profile div.main.container .card .card-body #in-stock button:hover {
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px); }
+    body.front.seller-profile div.main.container .card .card-body #in-stock button {
+      border-radius: 0 0.25rem 0.25rem 0; }
+      body.front.seller-profile div.main.container .card .card-body #in-stock button:hover {
+        background-color: #00c079;
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        transform: translateY(0px); }
+        body.front.seller-profile div.main.container .card .card-body #in-stock button:hover i {
+          color: #fff; }
 
 body.front.item [canvas="container"], body.front.item main, body.front.item .main {
   background-color: #fafafb; }

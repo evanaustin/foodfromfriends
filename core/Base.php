@@ -43,8 +43,10 @@ abstract class Base {
      *  'table' => string
      *  'limit' => int
      */
-    public function retrieve($params) {
-        foreach ($params as $k => $v) ${$k} = $v;
+    public function retrieve($params = null) {
+        if (isset($params)) {
+            foreach ($params as $k => $v) ${$k} = $v;
+        }
         
         if (!isset($table)) {
             $table = $this->table;
@@ -78,9 +80,11 @@ abstract class Base {
             
             $results = $this->DB->run($sql, $bind);
             
-            return (isset($results)) ? ($limit === 1 ? $results[0] : $results) : false;
+            return (!empty($results)) ? (isset($limit) && $limit === 1 ? $results[0] : $results) : false;
         } else {
-            return false;
+            $results = $this->DB->run($sql);
+        
+            return (isset($results[0])) ? $results[0] : false;
         }
     }
 
@@ -144,6 +148,13 @@ abstract class Base {
         $img_saved = $this->S3->delete_objects($filepath, $file);
 
         return (isset($img_saved)) ? $results : false;
+    }
+
+    public function gen_referral_key($len, $name = null) {
+        $slug = strtoupper(preg_replace('/[\s\-\_]+/', '', $name));
+        $code = substr(md5(microtime()), rand(0,26), $len);
+        
+        return (!empty($slug) ? $slug . '_' . $code : $code);
     }
 } 
 

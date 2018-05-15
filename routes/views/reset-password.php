@@ -14,7 +14,7 @@
                 ?>
 
                 <form id="reset-password">
-                    <input type="hidden" name="token-email" value="<?php echo $JWT->email; ?>">
+                    <input type="hidden" name="token-email" value="<?= $JWT->email; ?>">
                     
                     <div class="form-group">
                         <label>

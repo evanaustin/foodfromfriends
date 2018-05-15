@@ -24,8 +24,8 @@
 * Views
 * ! these should be loaded elsewhere, individually, as necessary
 **/
-@import 'views/dashboard/grower';
-@import 'views/dashboard/grower/items/overview';
-@import 'views/dashboard/grower/orders/view';
+@import 'views/dashboard/selling';
+@import 'views/dashboard/selling/items/overview';
+@import 'views/dashboard/selling/orders/view';
+@import 'views/dashboard/buying/wish-list';
 @import 'views/dashboard/messages/thread';
-@import 'views/dashboard/account/buying/wish-list';

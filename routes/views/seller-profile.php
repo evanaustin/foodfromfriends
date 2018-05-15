@@ -1,63 +1,68 @@
 <main>
     <div class="main container">
-        <?php
-        
-        if ((isset($GrowerOperation) && $GrowerOperation->is_active) || $is_owner) {
 
-            if ($is_owner) {
+        <?php if ((isset($Seller) && $Seller->is_active) || $is_owner): ?>
 
-                ?>
+            <?php if ($is_owner): ?>
 
                 <div class="alerts" style="display:block;">
-                    <div class="alert alert-<?php echo (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+                    <div class="alert alert-<?= (($Seller->is_active) ? 'info' : 'warning') ?>">
+                        
+                        <?php if ($Seller->is_active): ?>
 
-                        <?php
+                            <span>
+                                This is your public profile. 
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile">here</a> to go edit your information.
+                            </span>
 
-                        if ($GrowerOperation->is_active) {
-                            echo '<span>This is your public profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile">here</a> to go edit your information.</span>';
-                        } else {
-                            echo '<span><i class="fa fa-warning"></i> This is only a preview of your seller profile. Click <a href="' . PUBLIC_ROOT . 'dashboard/grower">here</a> to finish activating your seller account.</span>';
-                        }
+                        <?php else: ?>
 
-                        ?>
+                            <span>
+                                <i class="fa fa-warning"></i> This is only a preview of your seller profile. 
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.
+                            </span>
+
+                        <?php endif; ?>
 
                         <a class="close" data-dismiss="alert">×</a>
                     </div>
                 </div>
 
-                <?php
-
-            }
-            
-            ?>
+            <?php endif; ?>
 
             <div class="row">   
                 <div class="col-12 order-2 col-lg-3 order-lg-1">
                     <div class="sidebar-content">
                         <div class="photo box">
-                            <?php
-                            
-                            if (!empty($GrowerOperation->filename)) {
-                                echo '<a href="#" data-toggle="modal" data-target="#img-zoom-modal">';
 
-                                img(ENV . "/grower-operation-images/{$GrowerOperation->filename}", $GrowerOperation->ext, [
+                            <?php if (!empty($Seller->filename)): ?>
+                                
+                                <a href="#" data-toggle="modal" data-target="#img-zoom-modal">
+
+                                <?= _img(ENV . "/grower-operation-images/{$Seller->filename}", $Seller->ext, [
                                     'server'    => 'S3',
                                     'class'     => 'img-fluid'
-                                ]);
+                                ]) ?>
 
-                                echo '</a>';
-                            } else {
-                                img('placeholders/user-thumbnail', 'jpg', [
+                                </a>
+
+                            <?php else: ?>
+
+                                <?= _img('placeholders/user-thumbnail', 'jpg', [
                                     'server'    => 'local', 
                                     'class'     => 'img-fluid rounded'
-                                ]);
+                                ]) ?>
 
-                                if ($is_owner) {
-                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Add a profile picture</a>';
-                                }
-                            }
+                                <?php if ($is_owner): ?>
 
-                            ?>
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">
+                                        Add a profile picture
+                                    </a>';
+
+                                <?php endif ?>
+
+                            <?php endif ?>
+
                         </div>
                         
                         <div class="details box">
@@ -69,54 +74,64 @@
                                 <ul class="list-group">
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$GrowerOperation->Delivery || !$GrowerOperation->Delivery->is_offered) { echo 'inactive'; } ?>">Delivery</cell>
+                                            <cell class="<?php if (!$Seller->Delivery || !$Seller->Delivery->is_offered) echo 'inactive' ?>">
+                                                Delivery
+                                            </cell>
                                             
                                             <cell class="flexend">
-                                                <?php
                                                 
-                                                if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered) {
-                                                    echo '<i class="fa fa-check"></i>';
-                                                } else {
-                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/delivery" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>';
-                                                }
+                                                <?php if ($Seller->Delivery && $Seller->Delivery->is_offered): ?>
+                                                    
+                                                    <i class="fa fa-check"></i>
+
+                                                <?php else: ?>
+
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/delivery" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
-                                                ?>
+                                                <?php endif ?>
+
                                             </cell>
                                         </fable>
                                     </li>
 
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$GrowerOperation->Pickup || !$GrowerOperation->Pickup->is_offered) { echo 'inactive'; } ?>">Pickup</cell>
+                                            <cell class="<?php if (!$Seller->Pickup || !$Seller->Pickup->is_offered) echo 'inactive' ?>">
+                                                Pickup
+                                            </cell>
                                         
                                             <cell class="flexend">
-                                                <?php
+
+                                                <?php if ($Seller->Pickup && $Seller->Pickup->is_offered): ?>
+                                                    
+                                                    <i class="fa fa-check"></i>
+
+                                                <?php else: ?>
+
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
-                                                if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered) {
-                                                    echo '<i class="fa fa-check"></i>';
-                                                } else {
-                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/pickup" class="btn btn-cta">Enable</a>' : '<i class="fa fa-times"></i>';
-                                                }
-                                                
-                                                ?>
+                                                <?php endif ?>
+
                                             </cell>
                                         </fable>
                                     </li>
 
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$GrowerOperation->Meetup || !$GrowerOperation->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</cell>
+                                            <cell class="<?php if (!$Seller->Meetup || !$Seller->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</cell>
                                             
-                                            <cell class="flexend">
-                                                <?php
+                                            <cell class="justify-content-end">
+
+                                                <?php if ($Seller->Meetup && $Seller->Meetup->is_offered): ?>
+                                                    
+                                                    <i class="fa fa-check"></i>
+
+                                                <?php else: ?>
+
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
-                                                if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered) {
-                                                    echo '<i class="fa fa-check"></i>';
-                                                } else {
-                                                    echo ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/grower/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>';
-                                                }
-                                                
-                                                ?>
+                                                <?php endif ?>
+
                                             </cell>
                                         </fable>
                                     </li>
@@ -124,23 +139,27 @@
                             </ul>
                         </div>
 
-                        <div class="<?php echo (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
-                            <?php
-                                    
-                            if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)) {
-                                echo "<div id=\"map\"></div>";
-                            } else {
-                                img('placeholders/location-thumbnail', 'jpg', [
+                        <div class="<?= (isset($Seller->latitude, $Seller->longitude) ? 'map' : 'photo') ?> box">
+                            
+                            <?php if (isset($Seller->latitude, $Seller->longitude)): ?>
+
+                                <div id="map"></div>
+
+                            <?php else: ?>
+
+                                <?= _img('placeholders/location-thumbnail', 'jpg', [
                                     'server'    => 'local', 
                                     'class'     => 'img-fluid rounded'
-                                ]);
+                                ]) ?>
 
-                                if ($is_owner) {
-                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta btn-block">Set your address</a>';
-                                }
-                            }
+                                <?php if ($is_owner): ?>
 
-                            ?>
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">Set your address</a>
+                                
+                                <?php endif ?>
+                            
+                            <?php endif ?>
+
                         </div>
                     </div>
                 </div>
@@ -148,245 +167,318 @@
                 <div class="col-12 order-1 col-lg-9 order-lg-2">
                     <div id="main-content">
                         <h2 class="dark-gray bold margin-btm-25em">
-                            <?php
+                            <?= $Seller->name ?>
+
+                            <?php //if (!$is_owner): ?>
                             
-                            echo $GrowerOperation->name;
-
-                            if (!$is_owner) {
-
-                                ?>
-
-                                <a href="<?php echo PUBLIC_ROOT . 'dashboard/messages/inbox/buying/thread?grower=' . $GrowerOperation->id; ?>">
+                                <a href="<?= PUBLIC_ROOT . "dashboard/buying/messages/thread?seller={$Seller->id}" ?>">
                                     <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                 </a>
-
-                                <?php
                             
-                            }
+                            <?php //endif ?>
 
-                            ?>
+                            <?php if (isset($User->BuyerAccount)): ?>
+
+                                <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
+                                    <i class="fa fa-cutlery"></i>
+                                </div>
+
+                            <?php endif ?>
+
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
-                            <?php echo "<span class=\"brand\">{$grower_stars}</span>" . (count($ratings) > 0 ? "<div class=\"rounded-circle\">" . count($ratings) . "</div>" : " ") . (isset($GrowerOperation->city, $GrowerOperation->state) ? "&bull; {$GrowerOperation->city}, {$GrowerOperation->state}" : '') . ((isset($distance) && $distance['length'] > 0) ? " &bull; {$distance['length']} {$distance['units']} away" : ""); ?>
+                            <span class="brand">
+                                <?= $grower_stars ?>
+                            </span>
+                            
+                            <?php if (count($ratings) > 0): ?>
+                                
+                                <div class="rounded-circle">
+                                    <?= count($ratings) ?>
+                                </div>
+
+                            <?php endif; ?>
+                            
+                            <?php if (isset($Seller->city, $Seller->state)): ?>
+                                
+                                <?= "{$Seller->city}, {$Seller->state}" ?>
+                            
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($distance)): ?>
+                                
+                                &bull; <?= "{$distance[0]} {$distance[1]}" ?> away
+
+                            <?php endif; ?>
+
                         </div>
 
                         <div class="muted bold margin-btm-1em">
-                            <?php echo 'Joined in ' . $joined_on->format('F\, Y'); ?>
+                            Joined in <?= $joined_on->format('F\, Y') ?>
                         </div>
 
-                        <?php
+                        <?php if (!empty($Seller->bio)): ?>
+                            
+                            <p class="muted margin-btm-2em">
+                                <?= $Seller->bio ?>
+                            </p>
+
+                        <?php elseif ($is_owner): ?>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta">
+                                        Add a bio
+                                    </a>
+                                </div>
+                            </div>
                         
-                        if (!empty($GrowerOperation->bio)) {
-                            echo "<p class=\"muted margin-btm-2em\">{$GrowerOperation->bio}</p>";
-                        } else if ($is_owner) {
-                            echo '<div class="row"><div class="col-md-4"><a href="' . PUBLIC_ROOT . 'dashboard/grower/settings/edit-profile" class="btn btn-cta">Add a bio</a></div></div>';
-                        }
-                        
-                        ?>
+                        <?php endif ?>
 
                         <div class="items set">
                             <h4 class="margin-btm-50em ">
                                 <bold class="dark-gray">Items</bold> 
-                                <?php echo (!empty($listings)) ? '<light class="light-gray">(' . count($listings) . ')</light>' : ''; ?>
+                                
+                                <?php if (!empty($listings)): ?>
+
+                                    <light class="light-gray">
+                                        (<?= count($listings) ?>)
+                                    </light>
+
+                                <?php endif; ?>
+
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                Items for sale from <?php echo $GrowerOperation->name; ?>
+                                Items for sale from <?= $Seller->name ?>
                             </div>
 
-                            <?php
+                            <?php if (!empty($listings)): ?>
 
-                            if (!empty($listings)) {
-                                echo '<div class="row">';
+                                <div class="row">
                                 
-                                foreach ($listings as $listing) {
+                                <?php foreach ($listings as $listing): ?>
                                     
-                                    $Item = new FoodListing([
+                                    <?php $Item = new FoodListing([
                                         'DB' => $DB,
                                         'id' => $listing['id']
-                                    ]);
+                                    ]); ?>
 
-                                    ?>
-                                    
                                     <div class="col-md-4">
-                                        
-                                        <div class="card animated zoomIn">
-                                            <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
-                                                <div class="card-img-top">
-                                                    
-                                                    <?php
-                                                    
-                                                    if (!empty($Item->filename)) {
-                                                        img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                                        <div class="item card animated zoomIn">
+                                            <div class="card-img-top">
+                                                <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$Item->link}" ?>">
+
+                                                    <?php if (!empty($Item->filename)): ?>
+                                                        
+                                                        <?= _img(ENV . '/items/' . $Item->filename, $Item->ext, [
                                                             'server'    => 'S3',
                                                             'class'     => 'img-fluid animated fadeIn hidden'
-                                                        ]);
-                                                        
-                                                        ?>
+                                                        ]); ?>
 
                                                         <div class="loading">
                                                             <i class="fa fa-circle-o-notch loading-icon"></i>
                                                         </div>
 
-                                                        <?php
+                                                    <?php else: ?>
 
-                                                    } else {
-                                                        img('placeholders/default-thumbnail', 'jpg', [
+                                                        <?= _img('placeholders/default-thumbnail', 'jpg', [
                                                             'server'    => 'local', 
                                                             'class'     => 'animated fadeIn img-fluid rounded'
-                                                        ]);
+                                                        ]); ?>
                         
-                                                        if ($is_owner) {
-                                                            echo "<a href=\"" . PUBLIC_ROOT . "dashboard/grower/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>";
-                                                        }
-                                                    }
+                                                        <?php if ($is_owner): ?>
 
-                                                    ?>
-                                                
-                                                </div>
-                                            </a>
+                                                            <?= "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$Item->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>" ?>
+                                                        
+                                                        <?php endif ?>
 
-                                            <div class="card-body d-flex flex-row">
-                                                <div class="listing-info d-flex flex-column">
-                                                    <h5 class="dark-gray bold margin-btm-50em">
-                                                        <a href="<?php echo PUBLIC_ROOT . $GrowerOperation->link . '/' . $Item->link; ?>">
-                                                            <?php echo $Item->title; ?>
-                                                        </a>
-                                                    </h5>
-                                                    
-                                                    <h6 class="muted normal margin-btm-50em">
-                                                        <span class="brand">
-                                                            <?php echo stars($Item->average_rating); ?>
-                                                        </span>
+                                                    <?php endif ?>
 
-                                                        &nbsp;&bull;&nbsp;
+                                                </a>
+                                            </div>
 
-                                                        <?php echo '$' . number_format($Item->price / 100, 2) . (!empty($Item->weight) && !empty($Item->units) ? ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units : ''); ?> 
-                                                    </h6>
-
-                                                    <p class="card-text">
+                                            <div class="card-body d-flex flex-column">
+                                                <fable class="card-title margin-btm-50em">
+                                                    <cell>
                                                         <?php
-                                                            if (!$Item->is_available) {
-                                                                // $niblet = 'bg-faded text-muted';
-                                                                // $availability = 'text-muted';
-
-                                                                echo 'Unavailable';
-                                                            } else {
-                                                                $niblet = 'text-white';
-                                                                $availability = 'text-success';
-
-                                                                if ($Item->quantity == 0) {
-                                                                    $niblet .= ' bg-danger';
-                                                                } else if ($Item->quantity > 0 && $Item->quantity < 6) {
-                                                                    $niblet .= ' bg-warning';
-                                                                } else if ($Item->quantity > 5) {
-                                                                    $niblet .= ' bg-success';
-                                                                }
-
-                                                                echo "<span class=\"quantity {$niblet}\">{$Item->quantity}</span> in stock";
-                                                            }
-
+                                                        
+                                                        $price  = ($wholesale_relationship && !empty($Item->wholesale_price))   ? $Item->wholesale_price    : $Item->price;
+                                                        $weight = ($wholesale_relationship && !empty($Item->wholesale_weight))  ? $Item->wholesale_weight   : $Item->weight;
+                                                        $units  = ($wholesale_relationship && !empty($Item->wholesale_units))   ? $Item->wholesale_units    : $Item->units;
+                                                        
                                                         ?>
-                                                    </p>
+
+                                                        <h5 class="dark-gray bold">
+                                                            <?= _amount($price) ?>
+                                                        </h5>
+                                                        
+                                                        <?php if (!empty($weight) && !empty($units)): ?>
+                                                            
+                                                            &nbsp;
+
+                                                            <span class="light-gray small">
+                                                                ($<?= number_format(($price / $weight) / 100, 2) . "/{$units}" ?>)
+                                                            </span>
+
+                                                        <?php endif; ?>
+
+                                                        <?php if ($wholesale_relationship && !empty($Item->wholesale_price)): ?>
+                                                            
+                                                            &nbsp;
+
+                                                            <i class="fa fa-cutlery small muted" data-toggle="tooltip" data-title="Your wholesale price"></i>
+
+                                                        <?php endif; ?>
+
+                                                    </cell>
+
+                                                    <cell class="justify-content-end">
+                                                        <span class="small brand">
+                                                            <?= stars($Item->average_rating) ?>
+                                                        </span>
+                                                    </cell>
+                                                </fable>
+
+                                                <div class="muted margin-btm-50em">
+                                                    <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$Item->link}" ?>">
+                                                        <?= $Item->title ?>
+                                                    </a>
                                                 </div>
+                                                
+                                                <?php if ($Item->is_available && $Item->quantity): ?>
+
+                                                    <?php $OrderGrowerItem = (isset($OrderGrower, $OrderGrower->FoodListings[$Item->id])) ? $OrderGrower->FoodListings[$Item->id] : null; ?>
+                                        
+                                                    <form id="quick-add-<?= $Item->id ?>" class="quick-add">
+                                                        <fable id="in-stock">  
+                                                            <cell>
+                                                                <input type="hidden" name="suborder-id"     value="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0 ?>"/>
+                                                                <input type="hidden" name="order-item-id"   value="<?= (isset($OrderGrowerItem)) ? $OrderGrowerItem->id : 0 ?>"/>
+                                                                
+                                                                <input type="hidden" name="seller-id"       value="<?= $Seller->id ?>"/>
+                                                                <input type="hidden" name="item-id"         value="<?= $Item->id ?>"/>
+                                                                
+                                                                <input type="hidden" name="exchange-option" value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
+                                                                <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
+
+                                                                <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                                                    
+                                                                    <?php for ($i = 1; $i <= $Item->quantity; $i++): ?>
+                                                                            
+                                                                        <option value="<?= $i ?>" <?php if (isset($OrderGrowerItem) && $OrderGrowerItem->quantity == $i) echo 'selected' ?>>
+                                                                            <?= $i ?>
+                                                                        </option>
+                                                                        
+                                                                    <?php endfor ?>
+
+                                                                </select>
+                                                            </cell>
+                                                            
+                                                            <cell class="justify-content-end">
+                                                                <button type="submit" class="btn no-margin" data-toggle="tooltip" data-title="Save to basket" data-placement="bottom">    
+                                                                    <i class="fa fa-shopping-basket"></i>
+                                                                </button>
+                                                            </cell>
+                                                        </fable>
+                                                    </form>
+
+                                                <?php else: ?>
+
+                                                    <div class="card-text light-gray">
+                                                        Out of stock
+                                                    </div>
+
+                                                <?php endif ?>
+
                                             </div>
                                         </div>
                                     </div>
 
-                                    <?php
+                                <?php endforeach ?>
 
-                                }
+                                </div>
 
-                                echo '</div>';
-                            } else {
-                                echo "<div class=\"callout\">{$GrowerOperation->name} doesn't have any items for sale yet</div>";
+                            <?php else: ?>
+
+                                <div class="callout">
+                                    <?= $Seller->name ?> doesn't have any items for sale yet
+                                </div>
                                 
-                                if ($is_owner) {
-                                    echo '<a href="' . PUBLIC_ROOT . 'dashboard/grower/items/add-new" class="btn btn-cta margin-top-1em">Add your first item</a>';
-                                }
-                            }
+                                <?php if ($is_owner): ?>
 
-                            ?>
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/add-new" class="btn btn-cta margin-top-1em">
+                                        Add your first item
+                                    </a>
+                                
+                                <?php endif ?>
+
+                            <?php endif ?>
 
                             </div>
                         </div>
                         
-                        <?php
-
-                        if (!empty($ratings)) {
-
-                            ?>
+                        <?php if (!empty($ratings)): ?>
 
                             <div class="reviews set">
                                 <h4 class="margin-btm-50em ">
                                     <bold class="dark-gray">Reviews</bold> 
-                                    <light class="light-gray">(<?php echo count($ratings); ?>)</light>
+                                    <light class="light-gray">(<?= count($ratings) ?>)</light>
                                 </h4>
                                 
                                 <div class="muted margin-btm-1em">
                                     Ratings & reviews from customers
                                 </div>
 
-                                <?php 
-                                
-                                foreach ($ratings as $rating) { 
-                                
-                                    $ReviewUser = new User([
-                                        'DB' => $DB,
-                                        'id' => $rating['user_id']
-                                    ]);
+                                <?php foreach ($ratings as $rating): ?>
 
-                                    ?>           
+                                    <?php $ReviewBuyer = new BuyerAccount([
+                                        'DB' => $DB,
+                                        'id' => $rating['buyer_account_id']
+                                    ]); ?>           
                                     
                                     <div class="user-block margin-btm-1em">
-                                        <a href="<?php echo PUBLIC_ROOT . "user/{$ReviewUser->slug}"; ?>">             
-                                            <div class="user-photo" style="background-image: url(<?php echo (!empty($ReviewUser->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . '/profile-photos/' . $ReviewUser->filename . '.' . $ReviewUser->ext /* . '?' . time() */: PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>
+                                        <a href="<?= PUBLIC_ROOT . $ReviewBuyer->link ?>">             
+                                            <div class="user-photo" style="background-image: url(<?= (!empty($ReviewBuyer->Image->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/buyer-account-images/{$ReviewBuyer->Image->filename}.{$ReviewBuyer->Image->ext}" /* . '?' . time() */ : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg') ?>);"></div>
                                         </a>
 
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
-                                                &quot;<?php echo $rating['review']; ?>&quot;
+                                                &quot;<?= $rating['review'] ?>&quot;
                                             </p>
 
                                             <small class="flexstart">
-                                                <?php echo "<a href=\"" . PUBLIC_ROOT . "user/{$ReviewUser->slug}\" class=\"strong\">$ReviewUser->name</a> &bull; {$ReviewUser->city}, {$ReviewUser->state}"; ?>
+                                                <?= "<a href=\"" . PUBLIC_ROOT . "{$ReviewBuyer->link}\" class=\"strong\">$ReviewBuyer->name</a> &bull; {$ReviewBuyer->Address->city}, {$ReviewBuyer->Address->state}" ?>
                                             </small>
                                         </div>
                                     </div>
                                     
-                                    <?php
-
-                                    }
-
-                                ?>
+                                <?php endforeach ?>
 
                             </div>
 
-                            <?php
+                        <?php endif ?>
 
-                        }
-
-                        ?>
                     </div>
                 </div>
             </div>
             
-            <?php
+        <?php else: ?>
 
-        } else {
-            echo 'Oops! This URL does not belong to an active seller.';
-        }
+            Oops! This URL does not belong to an active seller.
 
-    ?>
+        <?php endif ?>
+
     </div>
 </main>
 
 <script>
-    var lat = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
-    var lng = <?php echo (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
-
-    var user = <?php echo (isset($User)) ? $User->id : 0; ?>
+    var lat     = <?= (isset($Seller)) ? number_format($Seller->latitude, 2) : 0 ?>;
+    var lng     = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
+    var user    = <?= (isset($User)) ? $User->id : 0 ?>;
+    var seller_name = '<?= $Seller->name ?>';
+    var buyer_name  = '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
 </script>

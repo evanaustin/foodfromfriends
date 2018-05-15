@@ -13,9 +13,6 @@
                 <div class="alerts"></div>
 
                 <form id="suggest-item-form">
-                    <input type="hidden" name="suggested-by-user" value="<?php echo $User->id; ?>">
-                    <input type="hidden" name="suggested-by-seller" value="<?php echo $User->GrowerOperation->id; ?>">
-
                     <div class="form-group">
                         <label for="item-type">
                             Item type

@@ -156,7 +156,8 @@ App.Image = function () {
         App.Ajax.post(path, data,
             function(response) {
                 self.discard();
-                toastr.success('Your image has been deleted');
+                App.Util.msg('Your image has been deleted', 'success');
+                App.Util.animation($('a.remove-image'), 'bounce');
                 App.Util.finishedLoading();
             },
             function(response) {

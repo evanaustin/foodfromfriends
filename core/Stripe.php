@@ -27,15 +27,15 @@ class Stripe {
     /**
      * Creates a customer in Stripe.
      *
-     * @param int $user_id Customer's user ID
+     * @param int $buyer_account_id Customer's user ID
      * @param string $name Customer's name
      * @param string $email Customer's email address
      * @return \Stripe\Customer
      */
-    public function create_customer($user_id, $name, $email) {
+    public function create_customer($buyer_account_id, $name, $email) {
         try {
             $customer = \Stripe\Customer::create([
-                'description' => "[{$user_id}] {$name}",
+                'description' => "[{$buyer_account_id}] {$name}",
                 'email' => $email
             ]);
         } catch (\Stripe\Error\RateLimit $e) {

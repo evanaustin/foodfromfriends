@@ -10,7 +10,7 @@ class OrderFoodListing extends Base {
         $id,
         $order_id,
         $order_grower_id,
-        $user_id,
+        $buyer_account_id,
         $food_listing_id,
         $unit_price,
         $unit_weight,
@@ -48,18 +48,18 @@ class OrderFoodListing extends Base {
             'order_grower_id' => $order_grower_id
         ]);
 
-        $listings = [];
+        $OrderItems = [];
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $listings[$result['food_listing_id']] = new OrderFoodListing([
+                $OrderItems[$result['food_listing_id']] = new OrderFoodListing([
                     'DB' => $this->DB,
                     'id' => $result['id']
                 ]);
             }
         }
 
-        return $listings;
+        return $OrderItems;
     }
 
     /**
@@ -81,8 +81,13 @@ class OrderFoodListing extends Base {
         ]);
         
         if (!$FoodListing->is_available) {
+            $OrderGrower = new OrderGrower([
+                'DB' => $this->DB,
+                'id' => $this->order_grower_id
+            ]);
+
             $this->add([
-                'user_id'           => $this->user_id,
+                'buyer_account_id'  => $OrderGrower->buyer_account_id,
                 'food_listing_id'   => $this->food_listing_id,
             ], 'saved_items');
 
@@ -106,16 +111,16 @@ class OrderFoodListing extends Base {
      * Record the item's rating
      * Store rating ID in order_food_listing record
      * 
-     * @param int $buyer_id The buyer's user ID
-     * @param int $score The buyer's numerical score for the item
-     * @param text $review The buyer's written review of the item
+     * @param int $buyer_account_id The buyer account's ID
+     * @param int $score The buyer account's numerical score for the item
+     * @param text $review The buyer account's written review of the item
      */
-    public function rate($buyer_id, $score, $review) {
+    public function rate($buyer_account_id, $score, $review) {
         $item_rating = $this->add([
-            'food_listing_id' => $this->food_listing_id,
-            'user_id'   => $buyer_id,
-            'score'     => $score,
-            'review'    => $review
+            'food_listing_id'   => $this->food_listing_id,
+            'buyer_account_id'  => $buyer_account_id,
+            'score'             => $score,
+            'review'            => $review
         ], 'food_listing_ratings');
 
         $this->update([

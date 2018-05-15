@@ -5,7 +5,7 @@ class OrderGrower extends Base {
     public
         $id,
         $order_id,
-        $user_id,
+        $buyer_account_id,
         $grower_operation_id,
         $order_exchange_id,
         $order_status_id,
@@ -79,15 +79,15 @@ class OrderGrower extends Base {
      */
     public function load_exchange() {
         $this->Exchange = new OrderExchange([
-            'DB' => $this->DB,
-            'id' => $this->order_exchange_id,
-            'buyer_id'  => $this->user_id,
-            'seller_id' => $this->grower_operation_id
+            'DB'                => $this->DB,
+            'id'                => $this->order_exchange_id,
+            'buyer_account_id'  => $this->buyer_account_id,
+            'seller_id'         => $this->grower_operation_id
         ]);
     }
 
     /**
-     * Finds all the food listings for this grower in the current suborder and stores them in `$this->FoodListings`
+     * Finds all the OrderItems for this OrderGrower and stores them in this:FoodListings
      */
     public function load_food_listings() {
         $OrderFoodListing = new OrderFoodListing([
@@ -112,14 +112,17 @@ class OrderGrower extends Base {
     /**
      * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`
      * Don't worry about `unit_price` and `amount` here; they're handled by `Order->update_cart()`
+     * @param FoodListing $FoodListing the Item being added to the cart
+     * @param int @quantity the amount of the Item being added
+     * @param int $buyer_account_id the ID of the BuyerAccount who's adding the Item ? Why do we need to store this ?
      */
-    public function add_food_listing(FoodListing $FoodListing, $quantity) {
+    public function add_food_listing(FoodListing $FoodListing, $quantity, $buyer_account_id) {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
-            'user_id'           => $this->user_id,
+            'buyer_account_id'  => $buyer_account_id,
             'food_listing_id'   => $FoodListing->id,
-            'quantity'          => $quantity
+            'quantity'          => $quantity,
         ], 'order_food_listings');
 
         $this->load_food_listings();
@@ -165,26 +168,28 @@ class OrderGrower extends Base {
             $this->Status->confirm();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
+            ], [
+                'team' => true
             ]);
             
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
-            ],[
-                'details' => true
             ]);
         
-            $Mail = new Mail([
-                'fromName'  => 'Food From Friends',
-                'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => $Buyer->name,
-                'toEmail'   => $Buyer->email
-            ]);
-            
-            $Mail->confirmed_order_notification($Buyer, $this, $Seller);
+            foreach ($BuyerAccount->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+
+                $Mail->confirmed_order_notification($Member, $BuyerAccount, $this, $Seller);
+            }
         } else {
             throw new \Exception('Oops! You cannot confirm this order');
         }
@@ -206,26 +211,28 @@ class OrderGrower extends Base {
             $this->void();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
+            ], [
+                'team' => true
             ]);
             
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
-            ],[
-                'details' => true
             ]);
-        
-            $Mail = new Mail([
-                'fromName'  => 'Food From Friends',
-                'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => $Buyer->name,
-                'toEmail'   => $Buyer->email
-            ]);
-            
-            $Mail->rejected_order_notification($Buyer, $OrderGrower, $Seller);
+
+            foreach ($BuyerAccount->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $BuyerAccount->name,
+                    'toEmail'   => $BuyerAccount->email
+                ]);
+                
+                $Mail->rejected_order_notification($Member, $BuyerAccount, $this, $Seller);
+            }
         } else {
             throw new \Exception('Oops! You cannot reject this order');
         }
@@ -251,26 +258,28 @@ class OrderGrower extends Base {
             $this->penalize();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
+            ], [
+                'team' => true
             ]);
             
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
-            ],[
-                'details' => true
             ]);
         
-            $Mail = new Mail([
-                'fromName'  => 'Food From Friends',
-                'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => $Buyer->name,
-                'toEmail'   => $Buyer->email
-            ]);
-            
-            $Mail->expired_order_notification($Buyer, $this, $Seller);
+            foreach ($BuyerAccount->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+                
+                $Mail->expired_order_notification($Member, $BuyerAccount, $this, $Seller);
+            }
         } else {
             throw new \Exception('This order cannot be expired');
         }
@@ -296,26 +305,28 @@ class OrderGrower extends Base {
             $this->penalize();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
+            ], [
+                'team' => true
             ]);
             
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
-            ],[
-                'details' => true
             ]);
         
-            $Mail = new Mail([
-                'fromName'  => 'Food From Friends',
-                'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => $Buyer->name,
-                'toEmail'   => $Buyer->email
-            ]);
-            
-            $Mail->seller_cancelled_order_notification($Buyer, $this, $Seller);
+            foreach ($BuyerAccount->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $BuyerAccount->name,
+                    'toEmail'   => $BuyerAccount->email
+                ]);
+                
+                $Mail->seller_cancelled_order_notification($BuyerAccount, $this, $Seller);
+            }
         } else {
             throw new \Exception('Oops! You cannot cancel this order');
         }
@@ -341,16 +352,15 @@ class OrderGrower extends Base {
             // $this->penalize();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
             ]);
 
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
-                'details' => true,
                 'team' => true
             ]);
     
@@ -362,7 +372,7 @@ class OrderGrower extends Base {
                     'toEmail'   => $Member->email
                 ]);
                 
-                $Mail->buyer_cancelled_order_notification($Member, $Seller, $this, $Buyer);
+                $Mail->buyer_cancelled_order_notification($Member, $Seller, $this, $BuyerAccount);
             }
         } else {
             throw new \Exception('Oops! You cannot cancel this order');
@@ -374,8 +384,6 @@ class OrderGrower extends Base {
      * 
      * Calls `OrderGrower->Status->fulfill()` to mark order as fulfilled
      * Calls `Mail->fulfilled_order_notification()` to send trans email to buyer
-     * 
-     * @todo schedule cron job: clear
      */
     public function fulfill() {
         if ($this->Status->current == 'pending fulfillment') {
@@ -383,26 +391,28 @@ class OrderGrower extends Base {
             $this->Status->fulfill();
 
             // Send email notification
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
+            ],[
+                'team' => true
             ]);
             
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
-            ],[
-                'details' => true
             ]);
         
-            $Mail = new Mail([
-                'fromName'  => 'Food From Friends',
-                'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => $Buyer->name,
-                'toEmail'   => $Buyer->email
-            ]);
-            
-            $Mail->fulfilled_order_notification($Buyer, $this, $Seller);
+            foreach ($BuyerAccount->TeamMembers as $Member) {
+                $Mail = new Mail([
+                    'fromName'  => 'Food From Friends',
+                    'fromEmail' => 'foodfromfriendsco@gmail.com',
+                    'toName'    => $Member->name,
+                    'toEmail'   => $Member->email
+                ]);
+                
+                $Mail->fulfilled_order_notification($Member, $BuyerAccount, $this, $Seller);
+            }
         } else {
             throw new \Exception('Oops! You cannot mark this order as fulfilled');
         }
@@ -426,7 +436,7 @@ class OrderGrower extends Base {
 
             // Rate each item
             foreach ($data['items'] as $food_listing_id => $rating) {
-                $this->FoodListings[$food_listing_id]->rate($this->user_id, $rating['score'], $rating['review']);
+                $this->FoodListings[$food_listing_id]->rate($this->buyer_account_id, $rating['score'], $rating['review']);
             }
 
             // Mark as reviewed
@@ -436,16 +446,15 @@ class OrderGrower extends Base {
             $this->clear();
 
             // Send email notifications
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
             ]);
 
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
-                'details' => true,
                 'team' => true
             ]);
         
@@ -457,7 +466,7 @@ class OrderGrower extends Base {
                     'toEmail'   => $Member->email
                 ]);
                 
-                $Mail->reviewed_order_notification($Member, $Seller, $this, $Buyer);
+                $Mail->reviewed_order_notification($Member, $Seller, $this, $BuyerAccount);
             }
         } else {
             throw new \Exception('Oops! You cannot review this order');
@@ -490,16 +499,15 @@ class OrderGrower extends Base {
             // Mark as reported
             $this->Status->report();
 
-            $Buyer = new User([
+            $BuyerAccount = new BuyerAccount([
                 'DB' => $this->DB,
-                'id' => $this->user_id
+                'id' => $this->buyer_account_id
             ]);
 
             $Seller = new GrowerOperation([
                 'DB' => $this->DB,
                 'id' => $this->grower_operation_id
             ],[
-                'details' => true,
                 'team' => true
             ]);
 
@@ -507,11 +515,11 @@ class OrderGrower extends Base {
             $Mail = new Mail([
                 'fromName'  => 'Food From Friends',
                 'fromEmail' => 'foodfromfriendsco@gmail.com',
-                'toName'    => 'Food From Friends',
-                'toEmail'   => 'foodfromfriendsco@gmail.com'
+                'toName'    => 'Evan Grinde',
+                'toEmail'   => 'evan@foodfromfriends.co'
             ]);
             
-            $Mail->reported_order_admin_notification($Buyer, $Seller, $this, $data['message']);
+            $Mail->reported_order_admin_notification($BuyerAccount, $Seller, $this, $data['message']);
 
             // Send seller email notifications
             foreach ($Seller->TeamMembers as $Member) {
@@ -522,7 +530,7 @@ class OrderGrower extends Base {
                     'toEmail'   => $Member->email
                 ]);
                 
-                $Mail->reported_order_seller_notification($Member, $Seller, $this, $Buyer);
+                $Mail->reported_order_seller_notification($Member, $Seller, $this, $BuyerAccount);
             }
         } else {
             throw new \Exception('Oops! You cannot report this order');
@@ -531,7 +539,6 @@ class OrderGrower extends Base {
 
     /**
      * Suborder is cleared for payout & review period closes
-     * @todo Proceed with payout
      * 
      * Calls `OrderGrower->Status->clear()` to mark order as voided
      */
@@ -605,9 +612,9 @@ class OrderGrower extends Base {
      */
     public function penalize() {
         $grower_rating = $this->add([
-            'grower_operation_id' => $this->grower_operation_id,
-            'user_id'   => 0,
-            'score'     => 1,
+            'grower_operation_id'   => $this->grower_operation_id,
+            'buyer_account_id'      => 0,
+            'score'                 => 1,
         ], 'grower_operation_ratings');
 
         $this->update([
@@ -639,10 +646,10 @@ class OrderGrower extends Base {
      */
     public function rate($score, $review) {
         $grower_rating = $this->add([
-            'grower_operation_id' => $this->grower_operation_id,
-            'user_id'   => $this->user_id,
-            'score'     => $score,
-            'review'    => $review
+            'grower_operation_id'   => $this->grower_operation_id,
+            'buyer_account_id'      => $this->buyer_account_id,
+            'score'                 => $score,
+            'review'                => $review
         ], 'grower_operation_ratings');
 
         $this->update([
@@ -676,7 +683,7 @@ class OrderGrower extends Base {
                 og.id,
                 og.total,
                 og.order_exchange_id,
-                o.user_id,
+                o.buyer_account_id,
                 os.placed_on
 
             FROM order_growers og
@@ -714,7 +721,7 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                o.user_id,
+                o.buyer_account_id,
                 os.confirmed_on
 
             FROM order_growers og
@@ -757,7 +764,7 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                o.user_id,
+                o.buyer_account_id,
                 os.placed_on,
                 os.fulfilled_on
 
@@ -794,7 +801,7 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                o.user_id,
+                o.buyer_account_id,
                 os.placed_on,
                 os.fulfilled_on
 
@@ -830,7 +837,7 @@ class OrderGrower extends Base {
             SELECT 
                 og.id,
                 og.total,
-                o.user_id,
+                o.buyer_account_id,
                 os.placed_on,
                 os.voided_on
 

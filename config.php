@@ -1,8 +1,8 @@
 <?php
 
-/**
+/*
 * Define constants
-**/
+*/
 
 switch($_SERVER['SERVER_NAME']) {
     case 'www.foodfromfriends.co':
@@ -14,8 +14,8 @@ switch($_SERVER['SERVER_NAME']) {
         ];
 
         break;
-    case 'www.varaloka.com':
-    case 'varaloka.com':
+    case 'www.foodfromfriends.xyz':
+    case 'foodfromfriends.xyz':
         $env = [
             'ENV'           => 'stage',
             'PUBLIC_ROOT'   => 'https://' . $_SERVER['SERVER_NAME'] . '/',
@@ -61,10 +61,9 @@ foreach ($constants as $constant => $value) {
 }
 
 
-
-/**
+/*
  * Autoload
- **/
+ */
 
 require 'vendor/autoload.php';
 
@@ -73,10 +72,9 @@ spl_autoload_register(function($class_name) {
 });
 
 
-
-/**
+/*
  * Database
- **/
+ */
 
 try {
     $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
@@ -85,29 +83,46 @@ try {
 }
 
 
-
-/**
+/*
  * GUMP Validator
- **/
+ */
 
 $Gump   = new GUMP();
 
 
-
-/**
+/*
  * AWS
- **/
+ */
 
 $AWS    = new Aws();
 $S3     = new S3($AWS);
 
 
-
-/**
- * User session
- **/
+/*
+ * Maintain session
+ */
 
 session_start();
+
+
+/*
+ * Routing
+ */
+
+if (isset($_GET['path'])) {
+    $_SESSION['path'] = $_GET['path'];
+}
+
+$Routing = new Routing([
+    'DB'        => $DB,
+    'path'      => $_SESSION['path'],
+    'landing'   => 'home'
+]);
+
+
+/*
+ * Configure User
+ */
 
 $LOGGED_IN = isset($_SESSION['user']);
 
@@ -116,8 +131,18 @@ if ($LOGGED_IN) {
     
     $User = new User([
         'DB' => $DB,
-        'id' => $USER['id']
+        'id' => $USER['id'],
+        'buyer_account'     => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'buying'))    ? true : false,
+        'seller_account'    => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'selling'))   ? true : false,
     ]);
+
+    if (!empty($User->BuyerAccount)) {
+        if (isset($_SESSION['user']['active_buyer_account_id']) && $_SESSION['user']['active_buyer_account_id'] != $User->BuyerAccount->id) {
+            $User->BuyerAccount = $User->BuyerAccounts[$_SESSION['user']['active_buyer_account_id']];
+        } else if (!isset($_SESSION['user']['active_buyer_account_id'])) {
+            $_SESSION['user']['active_buyer_account_id'] = $User->BuyerAccount->id;
+        }
+    }
 
     if (!empty($User->GrowerOperation)) {
         if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
@@ -129,23 +154,22 @@ if ($LOGGED_IN) {
 }
 
 
-
-/**
+/*
 * Cron connection
-**/
+*/
 
-if (ENV != 'dev') {
-    /*try {
+/*if (ENV != 'dev') {
+    try {
     	$Cron = new Cron(SERVER_IP, '22', SERVER_USER, SERVER_PW);
 	} catch (\Exception $e) {
 		error_log($e->getMessage());
-	}*/
-}
+	}
+}*/
 
 
-/**
+/*
 * Error Reporting
-**/
+*/
 
 define('DEBUG', false);
 

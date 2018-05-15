@@ -10,7 +10,7 @@ App.Front.Item = function() {
         // Toggle active exchange option
         $('#add-item .exchange-btn').on('click', function() {
             // Trigger sign up first
-            if ($('input[name="user-id"]').val() == 0) {
+            if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
@@ -47,7 +47,7 @@ App.Front.Item = function() {
             var data = $form.serializeArray();
             
             // Trigger sign up first
-            if ($('input[name="user-id"]').val() == 0) {
+            if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
                 var $sign_up_form = $sign_up_modal.find('#sign-up');
 
@@ -303,41 +303,6 @@ App.Front.Item = function() {
             $('#update-item .exchange-btn').removeClass('active');
             $(this).addClass('active');
         });
-
-        $('#edit-delivery-address').on('submit', function(e) {
-            e.preventDefault();
-            App.Util.hideMsg();
-            
-            $form = $(this);
-            data = $form.serialize();
-        
-            if ($form.parsley().isValid()) {
-                App.Util.loading();
-
-                App.Ajax.post('dashboard/account/edit-profile/save-delivery-address', data, 
-                    function(response) {
-                        App.Util.finishedLoading();
-                        
-                        buyer_lat = true;
-                        buyer_lng = true;
-
-                        $('#delivery-address-modal').modal('hide');
-
-                        switch($form.data('action')) {
-                            case 'add-item':
-                                $('#add-item').submit();
-                                break;
-                            case 'update-exchange':
-                                $('#update-item .exchange-btn[data-option="delivery"]').click();
-                        }
-                    },
-                    function(response) {
-                        App.Util.finishedLoading();
-                        App.Util.msg(response.error, 'danger');
-                    }
-                );
-            }
-        });	
     };
 
     return {

@@ -108,7 +108,7 @@
                     </div>
 
                     <small>
-                        By clicking <strong>Sign up</strong>, you agree to the Food From Friends <a href="<?php echo PUBLIC_ROOT . 'info/terms-of-service'; ?>" target="_blank">Terms of Service</a> and <a href="<?php echo PUBLIC_ROOT . 'info/privacy-policy'; ?>" target="_blank">Privacy Policy</a>.
+                        By clicking <strong>Sign up</strong>, you agree to the Food From Friends <a href="<?= PUBLIC_ROOT . 'info/terms-of-service'; ?>" target="_blank">Terms of Service</a> and <a href="<?= PUBLIC_ROOT . 'info/privacy-policy'; ?>" target="_blank">Privacy Policy</a>.
                     </small>
 
                     <button type="submit" class="btn btn-primary btn-block">Sign up</button>

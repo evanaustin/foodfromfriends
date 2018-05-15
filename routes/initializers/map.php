@@ -13,7 +13,8 @@ $GrowerOperation = new GrowerOperation([
 $growers = $GrowerOperation->retrieve([
     'where' => [
         'is_active' => true
-    ]
+    ],
+    'order' => 'position'
 ]);
 
 // Set the tile width for the results pane
@@ -110,9 +111,9 @@ if (!empty($growers)) {
 if (isset($User)) {
     $wishlist = $User->retrieve([
         'where' => [
-            'user_id' => $User->id
+            'buyer_account_id' => $User->BuyerAccount->id
         ],
-        'table' => 'wish_lists',
+        'table' => 'wish_list_items',
         'limit' => 1
     ]);
 }

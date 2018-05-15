@@ -50,6 +50,68 @@ App.Front = function() {
             });
         }
 
+
+        // Select callout bubble
+        $('.callout.bubble:not(.disabled)').on('click', function() {
+            $('.callout.bubble').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+
+        // Direct exchange option form
+        $('#set-exchange-option').on('submit', function(e) {
+            e.preventDefault();
+            App.Util.hideMsg();
+            
+            if ($('.exchange.bubble').hasClass('selected')) {
+                $('input[name="exchange-option"]').val($('.selected.exchange.bubble').data('exchange-option'));
+                $('#exchange-option-modal').modal('hide');
+                $('form#' + $(this).data('action')).submit();
+            } else {
+                App.Util.msg('Select an exchange type before saving', 'danger');
+            }
+        });
+
+
+        // Direct delivery address form
+        $('#edit-delivery-address').on('submit', function(e) {
+            e.preventDefault();
+            App.Util.hideMsg();
+            
+            $form = $(this);
+            data = $form.serialize();
+        
+            if ($form.parsley().isValid()) {
+                App.Util.loading();
+
+                App.Ajax.post('dashboard/buying/settings/save-address', data, 
+                    function(response) {
+                        App.Util.finishedLoading();
+                        
+                        buyer_lat = true;
+                        buyer_lng = true;
+
+                        $('#delivery-address-modal').modal('hide');
+
+                        $('input[name="distance-miles"]').val(response.distance_miles);
+
+                        switch($form.data('action')) {
+                            case 'add-item':
+                                $('#add-item').submit();
+                                break;
+                            case 'update-exchange':
+                                $('#update-item .exchange-btn[data-option="delivery"]').click();
+                        }
+                    },
+                    function(response) {
+                        App.Util.finishedLoading();
+                        App.Util.msg(response.error, 'danger');
+                    }
+                );
+            }
+        });
+
+
         // Remove item
         $(document).on('click', '#cart a.remove-item', function(e) {
             $cart_item = $(this).parents('div.cart-item');
@@ -112,12 +174,13 @@ App.Front = function() {
             });
         });
 
+
         // Update item quantity
         $(document).on('change', '#cart .cart-item select', function(e) {
             $cart_item = $(this).parents('div.cart-item');
 
             var data = {
-                'food-listing-id': $cart_item.data('listing-id'),
+                'item-id': $cart_item.data('listing-id'),
                 'quantity': $(this).val()
             };
 
@@ -144,6 +207,7 @@ App.Front = function() {
             );
         });
         
+
         // Update OrderGrower Exchange type
         $(document).on('change', '#cart .ordergrower-exchange', function(e) {
             var data = {
@@ -179,6 +243,8 @@ App.Front = function() {
             );
         });
 
+
+        // Enable keyboard shortcuts
         $(document).keydown(function(e) {
             if (!($('input, textarea, select').is(':focus'))) {
                 switch(e.keyCode) {
@@ -186,7 +252,7 @@ App.Front = function() {
                         App.Util.slidebar(Slidebar, 'toggle', 'right', e);
                         break;
                     case 68: // d
-                        window.location.replace(PUBLIC_ROOT + 'dashboard/grower');
+                        window.location.replace(PUBLIC_ROOT + 'dashboard/buying/orders/overview');
                         break;
                     case 77: // m
                         window.location.replace(PUBLIC_ROOT + 'map');

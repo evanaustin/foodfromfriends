@@ -12,7 +12,7 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'food-listing-id' => 'required|integer',
+	'item-id' => 'required|integer',
     'quantity' => 'required|integer'
 ]);
 
@@ -23,7 +23,7 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'food-listing-id' => 'trim|sanitize_numbers',
+	'item-id' => 'trim|sanitize_numbers',
     'quantity' => 'trim|sanitize_numbers'
 ]);
 
@@ -38,24 +38,24 @@ try {
 		'DB' => $DB
 	]);
 
-	$Order = $Order->get_cart($User->id);
+	$Order = $Order->get_cart($User->BuyerAccount->id);
 
-	$FoodListing = new FoodListing([
+	$Item = new FoodListing([
 		'DB' => $DB,
-		'id' => $food_listing_id
+		'id' => $item_id
 	]);
 
-	if (!isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+	if (!isset($Order->Growers[$Item->grower_operation_id]->FoodListings[$Item->id])) {
 		quit('This item is not in your basket');
 	}
 
-	$Order->modify_quantity($FoodListing, $quantity);
+	$Order->modify_quantity($Item, $quantity);
 
-	$Item = $Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id];
+	$OrderItem = $Order->Growers[$Item->grower_operation_id]->FoodListings[$Item->id];
 
 	$json['item'] = [
-		'quantity'	=> $Item->quantity,
-		'subtotal'	=> '$' . number_format($Item->total / 100, 2)
+		'quantity'	=> $OrderItem->quantity,
+		'subtotal'	=> '$' . number_format($OrderItem->total / 100, 2)
 	];
 
 	$json['order'] = [

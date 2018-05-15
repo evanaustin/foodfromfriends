@@ -38,27 +38,13 @@ if (isset($Routing->item_type)) {
             if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered)       $exchange_options_available []= 'pickup';
             if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered)       $exchange_options_available []= 'meetup';
     
-            $active_ex_op = (isset($User, $User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange)) ? $User->ActiveOrder->Growers[$GrowerOperation->id]->Exchange->type : null;
+            $active_ex_op = (isset($User, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Exchange)) ? $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Exchange->type : null;
     
-            if (isset($User) 
-            && !empty($User->latitude) && !empty($User->longitude) 
-            && !empty($GrowerOperation->latitude) && !empty($GrowerOperation->longitude)) {
-                
-                $length = getDistance([
-                    'lat' => $User->latitude,
-                    'lng' => $User->longitude
-                ], [
-                    'lat' => $GrowerOperation->latitude,
-                    'lng' => $GrowerOperation->longitude
-                ]);
-            
-                if ($length < 0.1) {
-                    $distance['length'] = round($length * 5280);
-                    $distance['units']  = 'feet';
-                } else {
-                    $distance['length'] = round($length, 1);
-                    $distance['units']  = 'miles';
-                }
+            if (isset($User, $User->BuyerAccount, $User->BuyerAccount->Address, $User->BuyerAccount->Address->latitude, $User->BuyerAccount->Address->longitude)) {
+                $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$GrowerOperation->latitude},{$GrowerOperation->longitude}&key=" . GOOGLE_MAPS_KEY);
+                $output     = json_decode($geocode);
+                $distance   = explode(' ', $output->rows[0]->elements[0]->distance->text);
+                $distance_miles = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
             }
     
             $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);

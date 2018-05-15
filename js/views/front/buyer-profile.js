@@ -6,7 +6,7 @@ App.Front.UserProfile = function() {
 
         $('.offer-item').on('click', function(e) {
             // Trigger sign up first
-            if (user.id == null) {
+            if (typeof user === 'undefined' || user.id === null) {
                 e.preventDefault();
 
                 var $sign_up_modal = $('#sign-up-modal');

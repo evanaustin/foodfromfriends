@@ -127,12 +127,34 @@ App.Account = function() {
         /*
         * Switch operations
         */
-        $('a.switch-operation').on('click', function() {
+        $('a.switch-operation').on('click', function(e) {
+            e.preventDefault();
+            
             var data = {
                 'grower_operation_id' : $(this).data('grower-operation-id')
             };
 
             App.Ajax.post('user/switch-operation', data, 
+                function(response) {
+                    window.location.replace(PUBLIC_ROOT + response.redirect);
+                },
+                function(response) {
+                    toastr.error(response.error);
+                }
+            );
+        });
+        
+        /*
+        * Switch buyer accounts
+        */
+        $('a.switch-buyer-account').on('click', function(e) {
+            e.preventDefault();
+
+            var data = {
+                'buyer_account_id' : $(this).data('buyer-account-id')
+            };
+
+            App.Ajax.post('user/switch-buyer-account', data, 
                 function(response) {
                     window.location.replace(PUBLIC_ROOT + response.redirect);
                 },

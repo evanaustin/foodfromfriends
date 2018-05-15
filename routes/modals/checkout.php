@@ -41,7 +41,7 @@
 
                             <div class="col-6 col-md-3">
                                 <div class="form-group">
-                                    <input type="text" name="billing-state" class="form-control" placeholder="State" value="<?php if (!empty($User->billing_state)) { echo $User->billing_state; } ?>" data-parsley-pattern="^[A-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
+                                    <input type="text" name="billing-state" class="form-control" placeholder="State" value="<?php if (!empty($User->billing_state)) { echo $User->billing_state; } ?>" data-parsley-pattern="^[a-zA-Z]{2}$" data-parsley-length="[2,2]" data-parsley-length-message="This abbreviation should be exactly 2 characters long" data-parsley-trigger="change" required>
                                 </div>
                             </div>
                             
@@ -64,7 +64,7 @@
                         <div id="card-errors" role="alert"></div>
 
                         <button class="btn btn-block btn-primary">
-                            Submit order &mdash; <span id="checkout-total"><?php if (isset($User->ActiveOrder)) { amount($User->ActiveOrder->total); } ?></span>
+                            Submit order &mdash; <span id="checkout-total"><?php if (isset($User, $User->ActiveOrder, $User->ActiveOrder->total)) amount($User->ActiveOrder->total) ?></span>
                         </button>
                     </form>
 
@@ -80,7 +80,7 @@
                 
                         <p class="message">
                             Thanks! Your order has been submitted.<br>
-                            Click <a href="<?php echo PUBLIC_ROOT . 'dashboard/account/buying/orders'; ?>">here</a> to check on its status.
+                            Click <a href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/overview'; ?>">here</a> to check on its status.
                         </p>
                     </div>
                 </div>
@@ -90,5 +90,5 @@
 </div>
 
 <script>
-    var STRIPE_PK = <?php echo json_encode((ENV == 'prod' ? STRIPE_PK_LIVE : STRIPE_PK_TEST)); ?>;
+    var STRIPE_PK = <?= json_encode((ENV == 'prod' ? STRIPE_PK_LIVE : STRIPE_PK_TEST)); ?>;
 </script>

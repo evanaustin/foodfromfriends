@@ -6656,6 +6656,10 @@ body.dashboard {
       font-size: 1.25rem; }
       #nav[off-canvas*=left] .nav-item ul .nav-item i {
         padding-left: 0.75rem; }
+  #nav[off-canvas*=left] hr {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-color: transparent; }
 
 /*
  * artistic styles reside here
@@ -6689,49 +6693,82 @@ div.sidebar {
     border-color: #00c079; }
     div.sidebar .navbar button i {
       color: #fff; }
-  div.sidebar a.nav-link {
+  div.sidebar .nav-link {
     padding: 15px 30px;
     color: #8ca3ad;
     font-size: 14px;
     border-left: 2px solid transparent; }
     @media (max-width: 767px) {
-      div.sidebar a.nav-link {
+      div.sidebar .nav-link {
         padding-left: 15px;
         padding-right: 15px; } }
-    div.sidebar a.nav-link:hover {
-      color: #58707b; }
-    div.sidebar a.nav-link[aria-expanded="true"] {
-      background-color: #fafafb;
-      color: #00c079;
-      font-weight: 500; }
-    div.sidebar a.nav-link.parent:after {
+    div.sidebar .nav-link.parent:after {
       float: right; }
-    div.sidebar a.nav-link.parent[aria-expanded="false"]:after {
+    div.sidebar .nav-link.parent[aria-expanded="false"]:after {
       content: '\002b'; }
-    div.sidebar a.nav-link.parent[aria-expanded="true"]:after {
+    div.sidebar .nav-link.parent[aria-expanded="true"]:after {
       content: '\2013'; }
-    div.sidebar a.nav-link.child {
+    div.sidebar .nav-link.child {
       padding: 10px 30px; }
       @media (max-width: 767px) {
-        div.sidebar a.nav-link.child {
+        div.sidebar .nav-link.child {
           padding-left: 15px;
           padding-right: 15px; } }
-      div.sidebar a.nav-link.child.active {
+      div.sidebar .nav-link.child.active {
         background-color: #00c079;
         color: #fff;
         font-weight: 400; }
         @media (min-width: 768px) {
-          div.sidebar a.nav-link.child.active {
+          div.sidebar .nav-link.child.active {
             border-color: #007349; } }
-      div.sidebar a.nav-link.child i {
+      div.sidebar .nav-link.child i {
         float: right;
         margin-top: 5px;
         font-size: .75rem; }
-    div.sidebar a.nav-link.active:not(.parent):not(.child) {
+    div.sidebar .nav-link.active:not(.parent):not(.child) {
       color: #00c079;
       font-weight: 500; }
-  div.sidebar li.nav-item div.collapse.show {
+  div.sidebar a.nav-link:hover {
+    color: #58707b; }
+  div.sidebar li.nav-item .collapse.show {
     background-color: #fafafb; }
+  div.sidebar li.nav-item.account-link {
+    border-bottom: 1px solid #f5f5f5;
+    font-weight: 500; }
+    div.sidebar li.nav-item.account-link .nav-link {
+      padding-right: 0.5rem; }
+      div.sidebar li.nav-item.account-link .nav-link i {
+        padding-right: 0.25rem; }
+  div.sidebar li.nav-item:not(.account-link) a.nav-link[aria-expanded="true"] {
+    background-color: #fafafb;
+    color: #00c079;
+    font-weight: 500; }
+  div.sidebar .dropdown-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fafafb;
+    border: 0px;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
+    div.sidebar .dropdown-menu a {
+      cursor: pointer;
+      padding: 0.75rem 0 0.75rem 2rem;
+      border-top: 1px solid #f5f5f5;
+      font-size: 0.85rem;
+      color: #8ca3ad; }
+      div.sidebar .dropdown-menu a:hover {
+        color: #636c72 !important; }
+      div.sidebar .dropdown-menu a:active {
+        background-color: transparent; }
+      div.sidebar .dropdown-menu a i {
+        padding-right: 0.25rem; }
 
 /*
  * artistic styles reside here
@@ -6762,46 +6799,19 @@ div.subheader {
     div.subheader a.nav-link i {
       margin: 5px 0.5rem 0 0;
       font-size: .75rem; }
-  div.subheader div.dropdown-menu {
-    width: 50%;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    margin: 0 auto;
-    padding: 0;
-    border: 0px;
-    text-align: center;
-    border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
-    div.subheader div.dropdown-menu a {
-      cursor: pointer;
-      padding: 0.5em 0;
-      font-size: 0.85em;
-      color: #636c72; }
-      div.subheader div.dropdown-menu a:not(:last-child) {
-        border-bottom: 1px solid #f8f8f8; }
-      div.subheader div.dropdown-menu a.active {
-        background-color: #fff;
-        font-weight: 400; }
-      div.subheader div.dropdown-menu a:not(.active):hover {
-        background-color: #00c079 !important;
-        color: #fff !important; }
 
 /**
 * Views
 * ! these should be loaded elsewhere, individually, as necessary
 **/
-body.dashboard-grower div.container-fluid {
+body.dashboard-selling div.container-fluid {
   padding: 10px; }
-  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.heading {
+  body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.heading {
     background-color: #4c4c4c;
     border: 0px;
     color: #fff;
     font-weight: 400; }
-  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.description {
+  body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.description {
     padding: 1em;
     background: #636c72;
     border: 1px solid #fafafb;
@@ -6809,43 +6819,43 @@ body.dashboard-grower div.container-fluid {
     border-bottom-width: 0;
     font-size: 85%;
     color: #fff; }
-  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.progress {
+  body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.progress {
     border-top-width: 0;
     border-bottom-width: 0;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px; }
-  body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks {
+  body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem; }
-    body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p {
+    body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p {
       display: block;
       padding-left: 1em;
       padding-right: 1em;
       border-color: #f5f5f5; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item {
+      body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item {
         border-width: 0px;
         border-bottom: 1px solid transparent; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item:not(:first-child) {
+        body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a.list-group-item:not(:first-child), body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p.list-group-item:not(:first-child) {
           border-top-width: 1px; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p.disabled {
+      body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a.disabled, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p.disabled {
         cursor: text;
         color: #b2b2b2;
         /* &:hover {
             background-color: #fff;
         } */ }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:not(.disabled):not(.active) {
+      body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a:not(.disabled):not(.active), body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p:not(.disabled):not(.active) {
         color: #636c72; }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover {
+      body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover {
         background-color: #fff;
         border-bottom-color: #f5f5f5; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled), body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) {
+        body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled), body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) {
           color: #00c079; }
-          body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled) i, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) i {
+          body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a:hover:not(.disabled) i, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p:hover:not(.disabled) i {
             font-weight: bold;
             opacity: 1;
             -webkit-transform: translateX(2px);
@@ -6853,64 +6863,64 @@ body.dashboard-grower div.container-fluid {
             -ms-transform: translateX(2px);
             -o-transform: translateX(2px);
             transform: translateX(2px); }
-      body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i {
+      body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a i, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p i {
         float: right;
         opacity: 0.75;
         line-height: 1.5;
         transition: all 0.2s; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-check {
+        body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-check, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-check {
           color: #00c079; }
-        body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times, body.dashboard-grower div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-times {
+        body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks a i.fa-times, body.dashboard-selling div.container-fluid div.list-blocks div.list-group div.list-ticks p i.fa-times {
           color: #b2b2b2; }
 
-body.dashboard-grower-items-overview div.listings div.col-md-4:nth-child(-n+3) .card {
+body.dashboard-selling-items-overview div.listings div.col-md-4:nth-child(-n+3) .card {
   margin-top: 0.25em; }
-body.dashboard-grower-items-overview div.listings div.col-md-4:nth-child(n+4) .card {
+body.dashboard-selling-items-overview div.listings div.col-md-4:nth-child(n+4) .card {
   margin-top: 2em; }
 @media (max-width: 767px) {
-  body.dashboard-grower-items-overview div.listings div.col-md-4:not(:last-child) .card {
+  body.dashboard-selling-items-overview div.listings div.col-md-4:not(:last-child) .card {
     margin-bottom: 10px; } }
-body.dashboard-grower-items-overview .card {
+body.dashboard-selling-items-overview .card {
   border: 0px; }
-body.dashboard-grower-items-overview .card-img-top {
+body.dashboard-selling-items-overview .card-img-top {
   padding: 0; }
-  body.dashboard-grower-items-overview .card-img-top img {
+  body.dashboard-selling-items-overview .card-img-top img {
     border: 0px;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0; }
-body.dashboard-grower-items-overview .card-body {
+body.dashboard-selling-items-overview .card-body {
   padding: 0;
   min-height: 155px;
   border: 0px; }
-  body.dashboard-grower-items-overview .card-body h6.card-subtitle {
+  body.dashboard-selling-items-overview .card-body h6.card-subtitle {
     padding: 0.25rem 0;
     color: #b2b2b2; }
-  body.dashboard-grower-items-overview .card-body p.card-text {
+  body.dashboard-selling-items-overview .card-body .card-text {
     margin-top: 0.25rem;
     color: #7f7f7f; }
-    body.dashboard-grower-items-overview .card-body p.card-text span.quantity {
+    body.dashboard-selling-items-overview .card-body .card-text span.quantity {
       padding: 0.15rem 0.25rem;
       -webkit-border-radius: 0.15rem;
       -moz-border-radius: 0.15rem;
       border-radius: 0.15rem; }
-body.dashboard-grower-items-overview div.listing-info {
+body.dashboard-selling-items-overview div.listing-info {
   flex-grow: 1;
   justify-content: center;
   border-right: 1px solid #f5f5f5;
   padding: 0.75rem 1rem; }
-  body.dashboard-grower-items-overview div.listing-info .card-title {
+  body.dashboard-selling-items-overview div.listing-info .card-title {
     line-height: 1.2; }
-body.dashboard-grower-items-overview div.listing-controls {
+body.dashboard-selling-items-overview div.listing-controls {
   min-width: 5em; }
-  body.dashboard-grower-items-overview div.listing-controls a {
+  body.dashboard-selling-items-overview div.listing-controls a {
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
     width: 100%; }
-    body.dashboard-grower-items-overview div.listing-controls a:not(:last-child) {
+    body.dashboard-selling-items-overview div.listing-controls a:not(:last-child) {
       border-bottom: 1px solid #f5f5f5; }
 
 div.seamless .card {
@@ -6965,6 +6975,13 @@ div.seamless .block .callout {
   div.seamless .block .callout p {
     margin-bottom: 0; }
 
+.subcategory .btn {
+  background: #fff; }
+  .subcategory .btn:hover, .subcategory .btn.active {
+    background-color: #636c72 !important;
+    border-color: #636c72 !important;
+    color: white !important; }
+
 #messages {
   min-height: calc(100vh - 65px - 52px - 57px - 5rem); }
   @media (max-width: 767px) {
@@ -7000,12 +7017,5 @@ div.seamless .block .callout {
       border-bottom-left-radius: 0;
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem; } }
-
-.subcategory .btn {
-  background: #fff; }
-  .subcategory .btn:hover, .subcategory .btn.active {
-    background-color: #636c72 !important;
-    border-color: #636c72 !important;
-    color: white !important; }
 
 /*# sourceMappingURL=dashboard.css.map */
