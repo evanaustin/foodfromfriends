@@ -58,18 +58,17 @@ foreach ([
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="google-site-verification" content="UmsixiFqd2YXf2qI8LFn_5Q4R-iDnuwQiPwdlDxTCvI"/>
         
-        <?php
+        <?php if (isset($settings['meta-description'])): ?>
         
-        if (isset($settings['meta-description'])) {
-            echo "<meta name=\"description\" content=\"{$settings['meta-description']}\"/>";
-        }
-
-        ?>
+            <meta name="description" content="<?= $settings['meta-description'] ?>"/>
+        
+        <?php endif; ?>
         
         <title><?= (!empty($settings['title']) ? $settings['title'] : 'Food From Friends'); ?></title>
         <link rel="shortcut icon" href="<?= PUBLIC_ROOT; ?>media/logos/favicon-32.png" type="image/x-icon">
 
-        <?php if (ENV == 'prod') { ?>
+        <?php if (ENV == 'prod'): ?>
+
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114682144-1"></script>
             <script>
@@ -78,7 +77,8 @@ foreach ([
                 gtag('js', new Date());
                 gtag('config', 'UA-114682144-1');
             </script>
-        <?php } ?>
+
+        <?php endif; ?>
 
         <?php layer('css', [
             'css/thirdparty/bootstrap/bootstrap-reboot',
@@ -95,6 +95,7 @@ foreach ([
             (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
             $Template->styles
         ]); ?>
+
          <!--[if lt IE 9]> 
             <script> document.createElement("fable"); </script>
             <script> document.createElement("cell"); </script>
@@ -102,7 +103,7 @@ foreach ([
         <![endif]-->
     </head>
 
-    <body class="<?= $Routing->template . ' ' . $Routing->path . ' ' . $Routing->fullpage; ?>">
+    <body class="<?= "{$Routing->template} {$Routing->path} {$Routing->fullpage}" ?>">
         <?php
         
         if ($Routing->template == 'front' || $Routing->template == 'dashboard') {
@@ -193,22 +194,14 @@ foreach ([
             var ENV = <?= json_encode(ENV); ?>;
             var PUBLIC_ROOT = <?= json_encode(PUBLIC_ROOT); ?>
             
-            <?php
-
-            if ($LOGGED_IN) {
-            
-                ?>
+            <?php if ($LOGGED_IN): ?>
                 
                 var user = { 
                     'id'    : <?= json_encode($User->id); ?>,
                     'slug'  : <?= json_encode($User->slug); ?>
                 }
                 
-                <?php
-    
-            }
-
-            ?>
+            <?php endif; ?>
 
         </script>
     </body>
