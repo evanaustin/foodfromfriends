@@ -7551,6 +7551,42 @@ fable {
       align-items: flex-end; }
     fable > cell.min-third {
       min-width: 33%; }
+    fable > cell.image {
+      flex-basis: 10%;
+      flex-grow: 0; }
+    fable > cell.double {
+      flex-grow: 2; }
+    fable > cell .form-group {
+      margin-bottom: 0;
+      text-align: center; }
+      fable > cell .form-group input:not([type="checkbox"]) {
+        width: calc(100% - 1.25rem);
+        margin: 0 auto;
+        background-color: #fafafb;
+        box-shadow: none !important;
+        text-align: center; }
+        fable > cell .form-group input:not([type="checkbox"]):focus {
+          transform: none !important;
+          background-color: #fafafb;
+          box-shadow: none !important;
+          color: #00c079; }
+      fable > cell .form-group input::-webkit-inner-spin-button {
+        display: none; }
+      fable > cell .form-group div.price {
+        margin: 0 0.5rem;
+        padding: 0 0.5rem;
+        background-color: #fafafb;
+        -webkit-border-radius: 0.25rem;
+        -moz-border-radius: 0.25rem;
+        border-radius: 0.25rem; }
+        fable > cell .form-group div.price:before {
+          content: '$';
+          padding-right: 0.25rem; }
+        fable > cell .form-group div.price input {
+          display: inline-block;
+          text-align: right; }
+      fable > cell .form-group label {
+        margin: 0; }
     fable > cell i {
       color: #00c079; }
     fable > cell.actions {
