@@ -34,7 +34,8 @@ $FoodListing = new FoodListing([
 ]);
 
 $listing_added = $FoodListing->add([
-    'buyer_account_id'  => $User->BuyerAccount->id,
+    'suggested_by_user' => $User->id,
+    'suggested_by_seller' => $User->GrowerOperation->id,
     'item_type'         => $item_type,
     'comments'          => $comments,
 ], 'item_suggestions');
