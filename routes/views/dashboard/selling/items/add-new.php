@@ -41,13 +41,16 @@
                                 <select id="item-categories" name="item-category" class="custom-select form-control" data-parsley-trigger="change" required>
                                     <option selected disabled>Select category</option>
 
-                                    <?php
-                                        
-                                    foreach($item_categories as $category) {
-                                        echo "<option value=\"{$category['id']}\"" . (($category['id'] == $_GET['category']) ? ' selected' : '') . ">" . ucfirst($category['title']) . "</option>";
-                                    }
+                                    <?php foreach($item_categories as $category): ?>
+
+                                        <option value="<?= $category['id'] ?>" <?php if ($category['id'] == $_GET['category']) echo 'selected' ?>>
                                     
-                                    ?>
+                                            <?= ucfirst($category['title']) ?>
+                                    
+                                        </option>
+                                    
+                                    <?php endforeach; ?>
+
                                 </select>
                             </div>
 
@@ -55,27 +58,33 @@
                                 <select id="item-subcategories" name="item-subcategory" class="custom-select form-control" data-parsley-trigger="change" required <?php if (!isset($_GET['subcategory'])) { echo 'disabled'; } ?>>
                                     <option selected disabled>Select subcategory</option>
 
-                                    <?php
+                                    <?php if (isset($_GET['subcategory'])): ?>
                                         
-                                    if (isset($_GET['subcategory'])) {
-                                        foreach($item_subcategories as $subcategory) {
-                                            echo "<option value=\"{$subcategory['id']}\"" . (($subcategory['id'] == $_GET['subcategory']) ? ' selected' : '') . ">" . ucfirst($subcategory['title']) . "</option>";
-                                        }
-                                    }
+                                        <?php foreach($item_subcategories as $subcategory): ?>
+                                            
+                                            <option value="<?= $subcategory['id'] ?>" <?php if ($subcategory['id'] == $_GET['subcategory']) echo 'selected' ?>>
+                                                <?= ucfirst($subcategory['title']) ?>
+                                            </option>
+                                        
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
                                     
-                                    ?>
                                 </select>
                             </div>
 
                             <div class="col-md-4"> 
                                 <select id="item-varieties" name="item-variety" class="custom-select form-control hidden" data-parsley-trigger="change" disabled>
-                                    <option selected disabled>Select variety</option>
+                                    <option selected disabled>
+                                        Select variety
+                                    </option>
                                 </select>
                             </div>
                         </div>
 
                         <small class="form-text text-muted">
-                            Can't find the item you want to add? Suggest a new item type <a href="#" class="brand" data-toggle="modal" data-target="#suggest-item-modal">here</a>, so we can review and add it for you.
+                            Can't find the item you want to add? Suggest a new item type
+                            <a href="#" class="brand" data-toggle="modal" data-target="#suggest-item-modal">here</a>, so we can review and add it for you.
                         </small>
                     </div>
 
@@ -111,12 +120,18 @@
                                 <div class="radio-box">
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="available" name="is-available" class="custom-control-input" value="1" data-parsley-trigger="change" required>
-                                        <label class="custom-control-label" for="available">Available</label>
+                                        
+                                        <label class="custom-control-label" for="available">
+                                            Available
+                                        </label>
                                     </div>
                                     
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="unavailable" name="is-available" class="custom-control-input" value="0" data-parsley-trigger="change" checked required>
-                                        <label class="custom-control-label" for="unavailable">Unavailable</label>
+                                        
+                                        <label class="custom-control-label" for="unavailable">
+                                            Unavailable
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +146,10 @@
                                 </label>
 
                                 <div class="input-group w-addon">
-                                    <div class="input-group-addon">$</div>
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
+                                    
                                     <input id="price" type="text" name="price" class="form-control" placeholder="Retail item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
                                 </div>
                             </div>
@@ -147,7 +165,9 @@
                                     <input id="weight" type="number" name="weight" class="form-control" placeholder="Retail item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
                                     
                                     <select name="units" class="input-group-addon">
-                                        <option disabled selected>Units</option>
+                                        <option disabled selected>
+                                            Units
+                                        </option>
                                         
                                         <?php foreach ([
                                             'g',
@@ -157,9 +177,13 @@
                                             'fl oz',
                                             'liters',
                                             'gallons'
-                                        ] as $unit) {
-                                            echo "<option value=\"{$unit}\">{$unit}</option>";
-                                        } ?>
+                                        ] as $unit): ?>
+
+                                            <option value="<?= $unit ?>">
+                                                <?= $unit ?>
+                                            </option>
+                                        
+                                        <?php endforeach; ?>
 
                                     </select>
                                 </div>
@@ -171,11 +195,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    Wholesale item price (optional) <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
+                                    Wholesale item price (optional)
+                                    <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
                                 </label>
 
                                 <div class="input-group w-addon">
-                                    <div class="input-group-addon">$</div>
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
+                                    
                                     <input type="text" name="wholesale-price" class="form-control" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change"> 
                                 </div>
                             </div>
@@ -191,7 +219,9 @@
                                     <input type="number" name="wholesale-weight" class="form-control" placeholder="Wholesale item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number" data-parsley-trigger="change"> 
                                     
                                     <select name="wholesale-units" class="input-group-addon">
-                                        <option disabled selected>Units</option>
+                                        <option disabled selected>
+                                            Units
+                                        </option>
                                         
                                         <?php foreach ([
                                             'g',
@@ -201,9 +231,13 @@
                                             'fl oz',
                                             'liters',
                                             'gallons'
-                                        ] as $unit) {
-                                            echo "<option value=\"{$unit}\">{$unit}</option>";
-                                        } ?>
+                                        ] as $unit): ?>
+
+                                            <option value="<?= $unit ?>">
+                                                <?= $unit ?>
+                                            </option>
+                                        
+                                        <?php endforeach; ?>
 
                                     </select>
                                 </div>
@@ -237,14 +271,11 @@
 
                     <div class="image-box slide-over">
                         <div class="image-container">
-                            <?php
-
-                            img('placeholders/default-thumbnail', 'jpg', [
+                            
+                            <?php img('placeholders/default-thumbnail', 'jpg', [
                                 'server'    => 'local', 
                                 'class'     => 'file'
-                            ]);
-                            
-                            ?>
+                            ]); ?>
                             
                             <input type="file" name="listing-image" accept="image/png/jpg">
                             
