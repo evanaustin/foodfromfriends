@@ -55,16 +55,14 @@ class User extends Base {
         if (isset($this->id)) {
             $this->name = "{$this->first_name} {$this->last_name}";
 
-            if (!isset($parameters['buyer_account']) || $parameters['buyer_account'] == true) {
+            if (!(isset($parameters['buyer_account']) && $parameters['buyer_account'] == false)) {
+                error_log('getting buyer accounts');
                 $this->get_buyer_accounts();
             }
 
-            if (!isset($parameters['seller_account']) || $parameters['seller_account'] == true) {
+            if (!(isset($parameters['seller_account']) && $parameters['seller_account'] == false)) {
+                error_log('getting seller accounts');
                 $this->get_seller_accounts();
-            }
-    
-            if (!isset($parameters['limited']) || $parameters['limited'] == false) {
-                
             }
         }
     }
