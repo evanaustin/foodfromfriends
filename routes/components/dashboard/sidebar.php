@@ -1,8 +1,8 @@
 <div class="sidebar d-none d-md-block">
     <nav class="navbar navbar-light">
         <ul class="nav flex-column">
-            <?php $buying   = (isset($User->BuyerAccount)) ?>
-            <?php $selling  = (isset($User->GrowerOperation)) ?>
+            <?php $buying   = isset($User->BuyerAccount) ?>
+            <?php $selling  = isset($User->GrowerOperation) ?>
 
             <?php if ($buying || $selling): ?>
 
@@ -31,13 +31,15 @@
                                 <?php if ($User->BuyerAccount->id == $BuyerAccount->id) continue; ?>
 
                                 <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="dropdown-item switch-buyer-account" data-buyer-account-id="<?= $BuyerAccount->id ?>">
-                                    <i class="fa fa-<?= ($BuyerAccount->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i><?= $BuyerAccount->name ?>
+                                    <i class="fa fa-<?= ($BuyerAccount->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i>
+                                    <?= $BuyerAccount->name ?>
                                 </a>
                             
                             <?php endforeach; ?>
                             
                             <a href="<?= PUBLIC_ROOT ?>dashboard/buying/new-account" class="dropdown-item">
-                                <i class="fa fa-external-link"></i>Create another account
+                                <i class="fa fa-external-link"></i>
+                                Create another account
                             </a>
 
                         <?php elseif ($selling): ?>
@@ -47,13 +49,15 @@
                                 <?php if ($User->GrowerOperation->id == $Operation->id) continue ?>
                                 
                                 <a href="<?= PUBLIC_ROOT ?>dashboard/selling" class="dropdown-item switch-operation" data-grower-operation-id="<?= $Operation->id ?>">
-                                    <i class="fa fa-<?= ($Operation->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i><?= $Operation->name ?>
+                                    <i class="fa fa-<?= ($Operation->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i>
+                                    <?= $Operation->name ?>
                                 </a>
                             
                             <?php endforeach; ?>
 
                             <a href="<?= PUBLIC_ROOT ?>dashboard/selling/new-account" class="dropdown-item">
-                                <i class="fa fa-external-link"></i>Create another account
+                                <i class="fa fa-external-link"></i>
+                                Create another account
                             </a>
 
                         <?php endif; ?>
@@ -72,9 +76,7 @@
 
             <?php endif; ?>
 
-            <?php 
-            
-            $sidebar = [
+            <?php $sidebar = [
                 'buying' => [
                     'messages',
                     'orders' => [
@@ -132,9 +134,7 @@
                     ],
                     // 'edit' => 'edit-profile', // link alias format
                 ]
-            ];
-
-            ?>
+            ]; ?>
 
             <?php if ($Routing->section == 'selling'): ?>
                 <li class="nav-item">
