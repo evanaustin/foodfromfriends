@@ -336,7 +336,6 @@
                                                             <?php if ($wholesale_relationship && !empty($Item->wholesale_price)): ?>
                                                                 
                                                                 &nbsp;
-
                                                                 <i class="fa fa-cutlery small muted" data-toggle="tooltip" data-title="Your wholesale price"></i>
 
                                                             <?php endif; ?>
@@ -454,9 +453,7 @@
 
                                         <div class="user-content">
                                             <p class="muted margin-btm-25em">
-                                                &quot;
-                                                <?= $rating['review'] ?>
-                                                &quot;
+                                                &quot;<?= $rating['review'] ?>&quot;
                                             </p>
 
                                             <small class="flexstart">
