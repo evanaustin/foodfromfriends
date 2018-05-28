@@ -95,11 +95,11 @@
                                             </td>
 
                                             <td class="float-right">
-                                                <div class="btn btn-success approve-buyer <?php if ($status['readable'] == 'approved') echo 'hidden' ?>">
+                                                <div class="btn btn-success approve-request <?php if ($status['readable'] == 'approved') echo 'hidden' ?>">
                                                     Approve
                                                 </div>
                                             
-                                                <div class="btn btn-danger unapprove-buyer <?php if ($status['readable'] == 'denied') echo 'hidden' ?>">
+                                                <div class="btn btn-danger deny-request <?php if ($status['readable'] == 'denied') echo 'hidden' ?>">
                                                     Deny
                                                 </div>
                                             </td>
