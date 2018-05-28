@@ -183,13 +183,13 @@
                             
                             <?php //endif ?>
 
-                            <?php if (isset($User->BuyerAccount)): ?>
+                            <?php // if (isset($User->BuyerAccount)): ?>
 
                                 <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
                                     <i class="fa fa-cutlery"></i>
                                 </div>
 
-                            <?php endif ?>
+                            <?php // endif ?>
 
                         </h2>
 
