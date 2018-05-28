@@ -235,7 +235,7 @@
                                 Item packaging (optional)
                             </label>
 
-                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?= $FoodListing->unit_definition; ?></textarea>
+                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?= $FoodListing->packaging; ?></textarea>
                         </div>
 
                         <div class="form-group">

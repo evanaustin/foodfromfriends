@@ -130,7 +130,7 @@
                         
                         <?php endif; ?>
 
-                        <?php if (!empty($FoodListing->unit_definition)): ?>
+                        <?php if (!empty($FoodListing->packaging)): ?>
                             
                             <div class="item-definition set d-none d-md-block">
                                 <h4 class="margin-btm-50em">
@@ -142,7 +142,7 @@
                                 </div>
 
                                 <div class="callout">
-                                    <div><?= $FoodListing->unit_definition; ?></div>
+                                    <div><?= $FoodListing->packaging; ?></div>
                                 </div>
                             </div>
 
@@ -526,7 +526,7 @@
 
                 <div class="col-12 order-4 d-md-none">
                     
-                    <?php if (!empty($FoodListing->unit_definition)): ?>
+                    <?php if (!empty($FoodListing->packaging)): ?>
 
                         <div class="item-definition set">
                             <h4>
@@ -534,7 +534,7 @@
                             </h4>
 
                             <div class="callout">
-                                <div><?= $FoodListing->unit_definition; ?></div>
+                                <div><?= $FoodListing->packaging; ?></div>
                             </div>
                         </div>
 
