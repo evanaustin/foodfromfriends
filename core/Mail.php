@@ -298,7 +298,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -347,7 +347,7 @@ class Mail {
         $jwt = JWT::encode($token, JWT_KEY);
 
         // @todo scroll to order
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/orders?token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/overview?token=' . $jwt));
 
         $body = "
             <h1>
@@ -519,7 +519,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/failed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -563,7 +563,7 @@ class Mail {
         
         $jwt = JWT::encode($token, JWT_KEY);
         
-        $base_route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/account/buying/';
+        $base_route = (ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/buying/orders/';
 
         $review_route = 'review?id=' . $OrderGrower->id;
         $review_link = urldecode(urlencode($review_route . '?token=' . $jwt));
@@ -590,7 +590,7 @@ class Mail {
                 Otherwise, you have three days to review {$GrowerOperation->name}. Be kind and be honest!
             </p>
             
-            <a href=\"" . $review_link . "\" class=\"button bg-green block\">
+            <a href=\"{$review_link}\" class=\"button bg-green block\">
                 Review {$GrowerOperation->name}
             </a>
         ";
@@ -615,7 +615,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/completed/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -657,7 +657,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/grower/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/under-review/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>
@@ -728,6 +728,142 @@ class Mail {
     
     /* public function payout_notification() {} */
 
+    public function new_wholesale_request($Member, $GrowerOperation, $BuyerAccount) {
+        $subject = "New wholesale membership request from {$BuyerAccount->name}";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'grower_operation_id' => $GrowerOperation->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $links = [
+            'view'  => urldecode(urlencode(PUBLIC_ROOT . "{$BuyerAccount->link}&token={$jwt}")),
+            'act'   => urldecode(urlencode(PUBLIC_ROOT . "dashboard/selling/wholesale/buyers&token={$jwt}"))
+        ];
+
+        $body = "
+            <h1>
+                You've received a request for wholesale membership!
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Member->first_name}!
+            </p>
+            
+            <p>
+                <a href=\"{$links['view']}\">{$BuyerAccount->name}</a> has requested a wholesale membership with " . (($GrowerOperation->type == 'individual') ? "you" : "<strong>{$GrowerOperation->name}</strong>") . ". 
+                Approving this request gives {$BuyerAccount->name} access to wholesale prices on your available items.
+            </p>
+
+            <a href=\"{$links['act']}\" class=\"button bg-green block\">
+                View request
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function wholesale_request_approval($Member, $BuyerAccount, $GrowerOperation) {
+        $subject = "Wholesale membership with {$GrowerOperation->name} approved";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $links = [
+            'view'  => urldecode(urlencode(PUBLIC_ROOT . "{$GrowerOperation->link}&token={$jwt}")),
+        ];
+
+        $body = "
+            <h1>
+                Your request for wholesale membership with {$GrowerOperation->name} was approved 
+            </h1>
+
+            <hr>
+
+            <p>
+                Good news, {$Member->first_name}!
+            </p>
+            
+            <p>
+                <a href=\"{$links['view']}\">{$GrowerOperation->name}</a> has approved your request for wholesale membership. 
+                This gives " . (($BuyerAccount->type == 'individual') ? "you" : "{$BuyerAccount->name}") . " access to wholesale prices on {$GrowerOperation->name}'s available items.
+            </p>
+
+            <a href=\"{$links['view']}\" class=\"button bg-green block\">
+                View items
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
+    public function wholesale_request_denial($Member, $BuyerAccount, $GrowerOperation) {
+        $subject = "Wholesale membership with {$GrowerOperation->name} denied";
+        
+        $token = [
+            'user_id' => $Member->id,
+            'buyer_account_id' => $BuyerAccount->id
+        ];
+
+        $jwt = JWT::encode($token, JWT_KEY);
+
+        $links = [
+            'view'  => urldecode(urlencode(PUBLIC_ROOT . "{$GrowerOperation->link}&token={$jwt}")),
+            'map'   => urldecode(urlencode(PUBLIC_ROOT . "map&token={$jwt}")),
+        ];
+
+        $body = "
+            <h1>
+                Your request for wholesale membership with {$GrowerOperation->name} was denied 
+            </h1>
+
+            <hr>
+
+            <p>
+                Hi, {$Member->first_name}.
+            </p>
+            
+            <p>
+                <a href=\"{$links['view']}\">{$GrowerOperation->name}</a> has denied your request for wholesale membership. 
+                You may message {$GrowerOperation->name} to plead your case. Otherwise, feel free to request wholesale membership with other sellers.
+            </p>
+
+            <a href=\"{$links['map']}\" class=\"button bg-green block\">
+                Search for other sellers
+            </a>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
 }
 
 ?>

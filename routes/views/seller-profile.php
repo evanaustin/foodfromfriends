@@ -57,7 +57,7 @@
 
                                     <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">
                                         Add a profile picture
-                                    </a>';
+                                    </a>
 
                                 <?php endif ?>
 
@@ -118,7 +118,9 @@
 
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$Seller->Meetup || !$Seller->Meetup->is_offered) { echo 'inactive'; } ?>">Meetup</cell>
+                                            <cell class="<?php if (!$Seller->Meetup || !$Seller->Meetup->is_offered) echo 'inactive' ?>">
+                                                Meetup
+                                            </cell>
                                             
                                             <cell class="justify-content-end">
 
@@ -154,7 +156,9 @@
 
                                 <?php if ($is_owner): ?>
 
-                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">Set your address</a>
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile" class="btn btn-cta btn-block">
+                                        Set your address
+                                    </a>
                                 
                                 <?php endif ?>
                             
@@ -451,7 +455,11 @@
                                             </p>
 
                                             <small class="flexstart">
-                                                <?= "<a href=\"" . PUBLIC_ROOT . "{$ReviewBuyer->link}\" class=\"strong\">$ReviewBuyer->name</a> &bull; {$ReviewBuyer->Address->city}, {$ReviewBuyer->Address->state}" ?>
+                                                <a href="<?= PUBLIC_ROOT ?>$ReviewBuyer->link" class="strong">
+                                                    $ReviewBuyer->name
+                                                </a>
+                                                &bull;
+                                                <?= "{$ReviewBuyer->Address->city}, {$ReviewBuyer->Address->state}" ?>
                                             </small>
                                         </div>
                                     </div>

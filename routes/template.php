@@ -1,37 +1,8 @@
 <?php
 
-use \Firebase\JWT\JWT;
-
 if ($Routing->template == 'dashboard') {
-    if (isset($_GET['token'])) {
-        $JWT = JWT::decode($_GET['token'], JWT_KEY, array('HS256'));
-
-        if (isset($JWT->user_id) && (!isset($JWT->time) || (time() - $JWT->iss_on <= $JWT->time))) {
-            if ($LOGGED_IN) {
-                $User->soft_log_out();
-            }
-            
-            $User = new User([
-                'DB' => $DB,
-                'id' => $JWT->user_id
-            ]);
-
-            $User->log_in($JWT->user_id);
-
-            $LOGGED_IN = true;
-
-            if (isset($JWT->buyer_account_id)) {
-                $User->switch_buyer_account($JWT->buyer_account_id);
-            }
-
-            if (isset($JWT->grower_operation_id)) {
-                $User->switch_operation($JWT->grower_operation_id);
-            }
-        }
-    }
-
     if (!$LOGGED_IN) {
-        header('Location: ' . PUBLIC_ROOT);
+        header('Location:' . PUBLIC_ROOT);
         die();
     } else if (!empty($User->GrowerOperation)) {
         $User->GrowerOperation->determine_outstanding_orders();

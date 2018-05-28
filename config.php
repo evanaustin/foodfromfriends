@@ -128,7 +128,9 @@ $LOGGED_IN = isset($_SESSION['user']);
 
 if ($LOGGED_IN) {
     $USER = $_SESSION['user'];
-    
+}
+
+if ($LOGGED_IN && !isset($_GET['token'])) {
     $User = new User([
         'DB' => $DB,
         'id' => $USER['id'],
@@ -142,13 +144,53 @@ if ($LOGGED_IN) {
         } else if (!isset($_SESSION['user']['active_buyer_account_id'])) {
             $_SESSION['user']['active_buyer_account_id'] = $User->BuyerAccount->id;
         }
+    } else {
+        $_SESSION['user']['active_buyer_account_id'] = null;
     }
-
+    
     if (!empty($User->GrowerOperation)) {
         if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
             $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
         } else if (!isset($_SESSION['user']['active_operation_id'])) {
             $_SESSION['user']['active_operation_id'] = $User->GrowerOperation->id;
+        }
+    } else {
+        $_SESSION['user']['active_operation_id'] = null;
+    }
+}
+
+use \Firebase\JWT\JWT;
+
+if (isset($_GET['token'])) {
+    $JWT = JWT::decode($_GET['token'], JWT_KEY, array('HS256'));
+
+    if (isset($JWT->user_id) && (!isset($JWT->time) || (time() - $JWT->iss_on <= $JWT->time))) {
+        if ($LOGGED_IN && ($USER['id'] != $JWT->user_id)) {
+            $_SESSION['user']['id'] = null;
+        } else if (($LOGGED_IN && ($USER['id'] == $JWT->user_id)) || !isset($_SESSION['user']['id'])) {
+            $User = new User([
+                'DB' => $DB,
+                'id' => $JWT->user_id,
+                'buyer_account'     => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'buying'))    ? true : false,
+                'seller_account'    => ($Routing->template == 'front' || ($Routing->template == 'dashboard' && $Routing->section == 'selling'))   ? true : false,
+            ]);
+
+            $User->log_in($JWT->user_id);
+            $LOGGED_IN = true;
+        }
+        
+        if (!empty($JWT->buyer_account_id)) {
+            $User->switch_buyer_account($JWT->buyer_account_id);
+        } else {
+            // $User->BuyerAccount = false;
+            $_SESSION['user']['active_buyer_account_id'] = null;
+        }
+        
+        if (!empty($JWT->grower_operation_id)) {
+            $User->switch_operation($JWT->grower_operation_id);
+        } else {
+            // $User->GrowerOperation = false;
+            $_SESSION['user']['active_operation_id'] = null;
         }
     }
 }

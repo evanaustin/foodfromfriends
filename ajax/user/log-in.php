@@ -111,7 +111,9 @@ if ($logged_in < 1) {
 
 $User = new User([
     'DB' => $DB,
-    'id' => $user_id
+    'id' => $user_id,
+    'buyer_account' => false,
+    'seller_account' => false
 ]);
 
 if ($timezone != $User->timezone) {
