@@ -4,7 +4,25 @@ App.Front.SellerProfile = function() {
             Mapbox.setCenter([lng, lat]);
         }
 
-        $('#request-wholesale').on('click', function() {
+        $('#request-wholesale').on('click', function(e) {
+            // trigger sign up before requesting wholesale membership
+            if (user == 0) {
+                e.preventDefault();
+                
+                var $sign_up_modal = $('#sign-up-modal');
+                var $sign_up_form = $sign_up_modal.find('#sign-up');
+
+                $sign_up_modal.modal();
+
+                App.Util.msg('Sign up first &mdash; then you can request a wholesale membership!', 'info', $sign_up_form);
+
+                $sign_up_form
+                    .find('input[name="redirect"]')
+                    .val(false);
+
+                return;
+            }
+
             var data = {
                 'seller-id' : $(this).data('seller-id')
             };
@@ -51,7 +69,7 @@ App.Front.SellerProfile = function() {
 
                 $sign_up_modal.modal();
 
-                App.Util.msg('Hey! Sign up first &mdash; then you can send a message!', 'info', $sign_up_form);
+                App.Util.msg('Sign up first &mdash; then you can send a message!', 'info', $sign_up_form);
 
                 $sign_up_form
                     .find('input[name="redirect"]')
