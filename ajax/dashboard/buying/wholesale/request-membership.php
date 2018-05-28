@@ -29,6 +29,13 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
+$Seller = new GrowerOperation([
+    'DB' => $DB,
+    'id' => $seller_id
+], [
+    'team' => true
+]);
+
 $invitee = $User->BuyerAccount->retrieve([
     'where' => [
         'buyer_account_id' => $User->BuyerAccount->id
@@ -36,19 +43,23 @@ $invitee = $User->BuyerAccount->retrieve([
     'table' => 'wholesale_relationships'
 ]);
 
-$Seller = new GrowerOperation([
-    'DB' => $DB,
-    'id' => $seller_id
-]);
-
-if (!$invitee) {
+if ($invitee) {
     $association_added = $User->GrowerOperation->add([
         'buyer_account_id'  => $User->BuyerAccount->id,
-        'seller_id'             => $Seller->id,
-        'status'                => 1
+        'seller_id'         => $Seller->id,
+        'status'            => 1
     ], 'wholesale_relationships');
 
-    // ! TODO: send trans email to seller team members
+    foreach ($Seller->TeamMembers as $Member) {
+        $Mail = new Mail([
+            'fromName'  => 'Food From Friends',
+            'fromEmail' => 'foodfromfriendsco@gmail.com',
+            'toName'    => $Member->name,
+            'toEmail'   => $Member->email
+        ]);
+        
+        $Mail->new_wholesale_request($Member, $Seller, $User->BuyerAccount);
+    }
 } else {
     quit("You have already requested membership with {$Seller->name}");
 }
