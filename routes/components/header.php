@@ -84,7 +84,7 @@
                         
                         <?php if (isset($User->BuyerAccount)): ?>
 
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/buying/settings/profile">
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->BuyerAccount->link ?>">
                                 Buying profile
                             </a>
                             
@@ -92,7 +92,7 @@
 
                         <?php if (isset($User->GrowerOperation)): ?>
 
-                            <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling/settings/profile">
+                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->GrowerOperation->link ?>">
                                 Selling profile
                             </a>
                             
