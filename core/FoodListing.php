@@ -119,6 +119,8 @@ class FoodListing extends Base {
             
             WHERE fl.grower_operation_id = :grower_operation_id
                 AND fl.archived_on IS NULL
+
+            ORDER BY fl.position
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
