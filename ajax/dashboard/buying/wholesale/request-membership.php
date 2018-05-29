@@ -43,7 +43,7 @@ $invitee = $User->BuyerAccount->retrieve([
     'table' => 'wholesale_relationships'
 ]);
 
-if ($invitee) {
+if (!$invitee) {
     $association_added = $User->GrowerOperation->add([
         'buyer_account_id'  => $User->BuyerAccount->id,
         'seller_id'         => $Seller->id,
