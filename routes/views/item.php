@@ -364,7 +364,7 @@
                     <div id="basket-form-container" class="sticky-top">
                         <div class="box">
                             <div class="header">    
-                                <?= _amount(($wholesale_relationship ? $FoodListing->wholesale_price : $FoodListing->price)) ?>
+                                <?= _amount(($wholesale_relationship && !empty($FoodListing->wholesale_price) ? $FoodListing->wholesale_price : $FoodListing->price)) ?>
                                 
                                 <small>
                                     each
@@ -397,7 +397,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if ($OrderItem->quantity == $i) echo 'selected' ?>>
                                                             <?= $i ?>
@@ -456,7 +456,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if (isset($_GET['quantity']) && $_GET['quantity'] == $i) echo 'selected' ?>>
                                                             <?= $i ?>
