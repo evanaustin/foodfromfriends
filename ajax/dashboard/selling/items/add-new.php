@@ -16,14 +16,15 @@ $Gump->validation_rules([
 	'item-subcategory'  => 'required|integer',
     'item-variety'      => 'integer',
     'item-name'         => 'alpha_space',
-	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean',
 	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
 	'units'             => 'alpha_space',
+	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
 	'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'wholesale-weight'  => 'regex,/^[0-9]+$/|max_numeric, 10000',
-	'wholesale-units'   => 'alpha_space'
+    'wholesale-units'   => 'alpha_space',
+    'wholesale-quantity' => 'regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+	'is-available'      => 'required|boolean'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -37,14 +38,16 @@ $Gump->filter_rules([
 	'item-subcategory'  => 'trim|whole_number',
     'item-variety'      => 'trim|whole_number',
 	'item-name'         => 'trim|sanitize_string',
-	'quantity'          => 'trim|whole_number',
 	'price'             => 'trim|sanitize_floats',
 	'weight'            => 'trim|whole_number',
 	'units'             => 'trim|sanitize_string',
+	'quantity'          => 'trim|whole_number',
 	'wholesale-price'   => 'trim|sanitize_floats',
 	'wholesale-weight'  => 'trim|whole_number',
-	'wholesale-units'   => 'trim|sanitize_string',
+    'wholesale-units'   => 'trim|sanitize_string',
+    'wholesale-quantity' => 'trim|whole_number',
 	'packaging'         => 'trim|sanitize_string',
+	'wholesale-packaging' => 'trim|sanitize_string',
 	'description'       => 'trim|sanitize_string'
 ]);
 
@@ -87,15 +90,17 @@ $listing_added = $Item->add([
     'food_subcategory_id'   => $item_subcategory,
     'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
     'name'                  => (!empty($item_name) ? $item_name : NULL),
-    'quantity'              => $quantity,
-    'is_available'          => $is_available,
     'price'                 => $price * 100,
     'weight'                => (isset($weight)) ? $weight : 0,
     'units'                 => (isset($weight, $units)) ? $units : '',
+    'quantity'              => $quantity,
     'wholesale_price'       => $wholesale_price * 100,
     'wholesale_weight'      => (isset($wholesale_weight)) ? $wholesale_weight : 0,
     'wholesale_units'       => (isset($wholesale_weight, $wholesale_units)) ? $wholesale_units : '',
+    'wholesale_quantity'    => (isset($wholesale_quantity)) ? $wholesale_quantity : 0,
+    'is_available'          => $is_available,
     'packaging'             => $packaging,
+    'wholesale_packaging'   => $wholesale_packaging,
     'description'           => $description,
 ]);
 

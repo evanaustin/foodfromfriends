@@ -23,7 +23,8 @@ $Gump->validation_rules([
     'units'             => 'alpha_space',
     'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
 	'wholesale-weight'  => 'regex,/^[0-9]+$/|max_numeric, 10000',
-	'wholesale-units'   => 'alpha_space'
+    'wholesale-units'   => 'alpha_space',
+    'wholesale-quantity' => 'regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -44,7 +45,9 @@ $Gump->filter_rules([
     'wholesale-price'   => 'trim|sanitize_floats',
 	'wholesale-weight'  => 'trim|whole_number',
 	'wholesale-units'   => 'trim|sanitize_string',
+	'wholesale-quantity' => 'trim|whole_number',
 	'packaging'         => 'trim|sanitize_string',
+	'wholesale-packaging' => 'trim|sanitize_string',
 	'description'       => 'trim|sanitize_string'
 ]);
 
@@ -92,7 +95,9 @@ $listing_edited = $FoodListing->update([
     'wholesale_price'       => $wholesale_price * 100,
     'wholesale_weight'      => (isset($wholesale_weight)) ? $wholesale_weight : 0,
     'wholesale_units'       => (isset($wholesale_weight, $wholesale_units)) ? $wholesale_units : '',
+    'wholesale_quantity'    => (isset($wholesale_quantity)) ? $wholesale_quantity : 0,
     'packaging'             => $packaging,
+    'wholesale_packaging'   => $wholesale_packaging,
     'description'           => $description
 ]);
 
