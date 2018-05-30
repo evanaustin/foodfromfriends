@@ -269,7 +269,7 @@
 
                                         foreach ($OrderGrower->FoodListings as $OrderListing) {
 
-                                            $ThisFoodListing = new FoodListing([
+                                            $ThisFoodListing = new Item([
                                                 'DB' => $DB,
                                                 'id' => $OrderListing->food_listing_id
                                             ]);
