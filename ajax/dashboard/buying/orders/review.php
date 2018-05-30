@@ -13,8 +13,7 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
 	'ordergrower-id'    => 'required|integer',
-	'seller-score'      => 'required|integer',
-	'seller-review'     => 'required'
+	'seller-score'      => 'integer',
 ]);
 
 $validated_data = $Gump->run($_POST);

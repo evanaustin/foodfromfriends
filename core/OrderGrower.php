@@ -433,8 +433,10 @@ class OrderGrower extends Base {
     public function review($data) {
         if ($this->Status->current == 'open for review') {
             // Rate the seller
-            $this->rate($data['seller-score'], $data['seller-review']);
-
+            if (isset($data['seller-score'], $data['seller-review'])) {
+                $this->rate($data['seller-score'], $data['seller-review']);
+            }
+            
             // Rate each item
             foreach ($data['items'] as $food_listing_id => $rating) {
                 $this->FoodListings[$food_listing_id]->rate($this->buyer_account_id, $rating['score'], $rating['review']);
