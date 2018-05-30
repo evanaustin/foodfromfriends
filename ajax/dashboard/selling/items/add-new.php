@@ -61,7 +61,7 @@ if (!empty($wholesale_weight) && empty($wholesale_units)) {
     quit('Select measurement units for your item wholesale weight');
 }
 
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3
 ]);
@@ -103,7 +103,7 @@ if (!$listing_added) quit('Could not add item');
 
 $id = $listing_added['last_insert_id'];
 
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'id' => $id
 ]);

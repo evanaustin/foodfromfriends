@@ -9,7 +9,7 @@ $json['success'] = true;
 
 if (!$LOGGED_IN) quit('You are not logged in');
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $_POST['listing_id']

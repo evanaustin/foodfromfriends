@@ -591,7 +591,7 @@ class OrderGrower extends Base {
 
         // Add back item stock
         foreach($this->FoodListings as $key => $OrderFoodListing) {
-            $FoodListing = new FoodListing([
+            $FoodListing = new Item([
                 'DB' => $this->DB,
                 'id' => $key
             ]);

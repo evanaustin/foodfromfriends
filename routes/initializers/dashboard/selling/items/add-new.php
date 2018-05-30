@@ -4,7 +4,7 @@ $settings = [
     'title' => 'Add a new item listing | Food From Friends'
 ];
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB
 ]);
 

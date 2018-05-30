@@ -328,7 +328,7 @@ class Order extends Base {
         foreach ($this->Growers as $OrderGrower) {
             // Update item stocks
             foreach($OrderGrower->FoodListings as $key => $OrderFoodListing) {
-                $FoodListing = new FoodListing([
+                $FoodListing = new Item([
                     'DB' => $this->DB,
                     'id' => $key
                 ]);

@@ -57,7 +57,7 @@ if (!empty($weight) && empty($units)) {
     quit('Select measurement units for your item weight');
 }
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $id
@@ -255,7 +255,7 @@ if (isset($_POST['images'])) {
 }
 
 // re-initialize item
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $id

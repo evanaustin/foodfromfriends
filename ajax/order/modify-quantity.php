@@ -40,7 +40,7 @@ try {
 
 	$Order = $Order->get_cart($User->BuyerAccount->id);
 
-	$Item = new FoodListing([
+	$Item = new Item([
 		'DB' => $DB,
 		'id' => $item_id
 	]);

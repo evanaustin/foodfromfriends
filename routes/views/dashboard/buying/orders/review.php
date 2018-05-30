@@ -85,7 +85,7 @@
 
             foreach ($OrderGrower->FoodListings as $OrderFoodListing) {
 
-                $FoodListing = new FoodListing([
+                $FoodListing = new Item([
                     'DB' => $DB,
                     'id' => $OrderFoodListing->food_listing_id
                 ]);

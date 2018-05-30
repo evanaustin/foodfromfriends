@@ -108,7 +108,7 @@ class Routing extends Base {
                 
                 // Check if item category slug is set
                 if (isset($exp_path[2])) {
-                    $Item = new FoodListing([
+                    $Item = new Item([
                         'DB' => $this->DB
                     ]);
                     

@@ -51,7 +51,7 @@ $Seller = new GrowerOperation([
     'exchange' => true
 ]);
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB,
     'id' => $item_id
 ]);

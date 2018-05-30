@@ -29,7 +29,7 @@
                     echo '<div class="cart-items">';
 
                     foreach ($OrderGrower->FoodListings as $CartItem) {
-                        $FoodListingItem = new FoodListing([
+                        $FoodListingItem = new Item([
                             'DB' => $DB,
                             'id' => $CartItem->food_listing_id
                         ]);

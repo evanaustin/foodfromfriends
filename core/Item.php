@@ -1,6 +1,6 @@
 <?php
  
-class FoodListing extends Base {
+class Item extends Base {
     
     public
         $id,
@@ -20,12 +20,19 @@ class FoodListing extends Base {
         $packaging,
         $description,
         $average_rating,
-        $archived_on,
+        $archived_on;
+
+    public
         $category_title,
         $subcategory_title,
-        $variety_title,
+        $variety_title;
+
+    public
         $filename,
         $ext;
+
+    public
+        $Image;
 
     public
         $title,
@@ -37,7 +44,7 @@ class FoodListing extends Base {
         $S3;
         
     function __construct($parameters) {
-        $this->table = 'food_listings';
+        $this->table = 'items';
 
         $this->class_dependencies = [
             'DB',
@@ -49,6 +56,14 @@ class FoodListing extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->populate_fully($this->id);
+
+            $this->Image = new AccountExtension([
+                'DB'    => $this->DB,
+                'table' => 'item_images',
+                'field' => 'item_id',
+                'id'    => $this->id,
+                'image' => true
+            ]);
 
             $this->title = (isset($this->name)) ? $this->name : ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
 
@@ -70,7 +85,7 @@ class FoodListing extends Base {
                 fli.filename,
                 fli.ext
             
-            FROM food_listings fl
+            FROM items fl
             
             LEFT JOIN food_categories fc
                 ON fc.id    = fl.food_category_id
@@ -81,8 +96,8 @@ class FoodListing extends Base {
             LEFT JOIN item_varieties iv
                 ON iv.id    = fl.item_variety_id
                 
-            LEFT JOIN food_listing_images fli
-                ON fli.food_listing_id = fl.id
+            LEFT JOIN item_images fli
+                ON fli.item_id = fl.id
             
             WHERE fl.id = :id
         
@@ -106,7 +121,7 @@ class FoodListing extends Base {
                 fli.filename,
                 fli.ext
             
-            FROM food_listings fl
+            FROM items fl
             
             LEFT JOIN food_subcategories fsc
                 ON fl.food_subcategory_id = fsc.id
@@ -114,13 +129,31 @@ class FoodListing extends Base {
             LEFT JOIN food_categories fc
                 ON fsc.food_category_id = fc.id
             
-            LEFT JOIN food_listing_images fli
-                ON fl.id = fli.food_listing_id
+            LEFT JOIN item_images fli
+                ON fl.id = fli.item_id
             
             WHERE fl.grower_operation_id = :grower_operation_id
                 AND fl.archived_on IS NULL
 
+            GROUP BY fl.food_category_id
+
             ORDER BY fl.position
+        ', [
+            'grower_operation_id' => $grower_operation_id
+        ]);
+
+        return (isset($results[0])) ? $results : false;
+    }
+
+    public function get_raw_items($grower_operation_id) {
+        $results = $this->DB->run('
+            SELECT 
+                i.id,
+                i.food_category_id
+            FROM items i
+            WHERE i.grower_operation_id = :grower_operation_id
+                AND i.archived_on IS NULL
+            GROUP BY i.food_category_id
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
@@ -138,7 +171,7 @@ class FoodListing extends Base {
                 fli.filename,
                 fli.ext
             
-            FROM food_listings fl
+            FROM items fl
             
             LEFT JOIN food_subcategories fsc
                 ON fl.food_subcategory_id = fsc.id
@@ -146,8 +179,8 @@ class FoodListing extends Base {
             LEFT JOIN food_categories fc
                 ON fsc.food_category_id = fc.id
             
-            LEFT JOIN food_listing_images fli
-                ON fl.id = fli.food_listing_id
+            LEFT JOIN item_images fli
+                ON fl.id = fli.item_id
             
             WHERE fl.grower_operation_id = :grower_operation_id
                 AND fl.is_available = :is_available

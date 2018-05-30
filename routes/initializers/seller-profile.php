@@ -46,7 +46,7 @@ if (isset($Routing->seller)) {
                 $wholesale_relationship = false;
             }
             
-            $Item = new FoodListing([
+            $Item = new Item([
                 'DB' => $DB
             ]);
         

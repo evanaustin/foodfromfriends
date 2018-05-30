@@ -4,7 +4,7 @@ $settings = [
     'title' => 'Wish list | Food From Friends'
 ];
 
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB
 ]);
         

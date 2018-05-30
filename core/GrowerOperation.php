@@ -458,11 +458,11 @@ class GrowerOperation extends Base {
 
         $results = $this->DB->run('
             SELECT 
-                COUNT(DISTINCT fl.id) AS listings
+                COUNT(DISTINCT i.id) AS listings
             
-            FROM food_listings fl
+            FROM items i
             
-            WHERE fl.grower_operation_id = :grower_operation_id
+            WHERE i.grower_operation_id = :grower_operation_id
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);

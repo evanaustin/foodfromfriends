@@ -29,7 +29,7 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB
 ]);
 

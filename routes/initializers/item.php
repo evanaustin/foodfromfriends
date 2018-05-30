@@ -22,11 +22,11 @@ if (isset($Routing->item_type)) {
                 'grower_operation_id' => $GrowerOperation->id,
                 (($Routing->item_type == 'subcategory') ? 'food_subcategory_id' : 'item_variety_id') => $Routing->item_id
             ],
-            'table' => 'food_listings',
+            'table' => 'items',
             'limit' => 1
         ]);
     
-        $FoodListing = new FoodListing([
+        $FoodListing = new Item([
             'DB' => $DB,
             'id' => $results['id']
         ]);

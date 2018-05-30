@@ -268,7 +268,7 @@
                                 
                                     <?php foreach ($listings as $listing): ?>
                                         
-                                        <?php $Item = new FoodListing([
+                                        <?php $Item = new Item([
                                             'DB' => $DB,
                                             'id' => $listing['id']
                                         ]); ?>

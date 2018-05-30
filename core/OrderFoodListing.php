@@ -75,7 +75,7 @@ class OrderFoodListing extends Base {
      * Called when the cart is loaded or modified to make sure we have the seller's latest prices and weights.
      */
     public function sync() {
-        $FoodListing = new FoodListing([
+        $FoodListing = new Item([
             'DB' => $this->DB,
             'id' => $this->food_listing_id
         ]);
@@ -139,6 +139,6 @@ class OrderFoodListing extends Base {
 
         $this->update([
             'average_rating' => $results[0]['average']
-        ], 'id', $this->food_listing_id, 'food_listings');
+        ], 'id', $this->food_listing_id, 'items');
     }
 }

@@ -33,7 +33,7 @@
             <?php
 
             foreach($listings as $listing) {
-                $FoodListing = new FoodListing([
+                $FoodListing = new Item([
                     'DB' => $DB,
                     'id' => $listing['id']
                 ]);

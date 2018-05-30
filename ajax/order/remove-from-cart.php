@@ -38,7 +38,7 @@ try {
 
 	$Order = $Order->get_cart($User->BuyerAccount->id);
 
-	$FoodListing = new FoodListing([
+	$FoodListing = new Item([
 		'DB' => $DB,
 		'id' => $food_listing_id
 	]);

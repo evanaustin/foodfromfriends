@@ -4,7 +4,7 @@ $settings = [
     'title' => 'Edit listing | Food From Friends'
 ];
 
-$FoodListing = new FoodListing([
+$FoodListing = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $_GET['id']

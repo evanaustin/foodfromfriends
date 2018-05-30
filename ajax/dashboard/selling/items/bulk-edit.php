@@ -36,7 +36,7 @@ foreach($_POST['items'] as $id => $item) {
 
     foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
     
-    $Item = new FoodListing([
+    $Item = new Item([
         'DB' => $DB,
         'id' => $id
     ]);
