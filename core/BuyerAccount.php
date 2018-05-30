@@ -62,26 +62,26 @@ class BuyerAccount extends Base {
             $this->set_type_and_link();
 
             $this->Address = new AccountExtension([
-                'DB'            => $this->DB,
-                'account_type'  => 'buyer',
-                'account_id'    => $this->id,
-                'table'         => 'buyer_account_addresses'
+                'DB'    => $this->DB,
+                'table' => 'buyer_account_addresses',
+                'field' => 'buyer_account_id',
+                'id'    => $this->id
             ]);
             
             $this->Image = new AccountExtension([
-                'DB'            => $this->DB,
-                'account_type'  => 'buyer',
-                'account_id'    => $this->id,
-                'table'         => 'buyer_account_images',
-                'image'         => true
+                'DB'    => $this->DB,
+                'table' => 'buyer_account_images',
+                'field' => 'buyer_account_id',
+                'id'    => $this->id,
+                'image' => true
             ]);
 
             if (isset($configure, $configure['billing']) && ($configure['billing'] == true || $configure['billing'] !== false)) {
                 $this->Billing = new AccountExtension([
-                    'DB'            => $this->DB,
-                    'account_type'  => 'buyer',
-                    'account_id'    => $this->id,
-                    'table'         => 'buyer_account_billing'
+                    'DB'    => $this->DB,
+                    'table' => 'buyer_account_billing',
+                    'field' => 'buyer_account_id',
+                    'id'    => $this->id
                 ]);
             }
                 
