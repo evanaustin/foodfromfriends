@@ -69,7 +69,7 @@
 
                                     </cell>
 
-                                    <cell class="double justify-center strong">
+                                    <cell class="double justify-center text-center strong p1w">
                                         <a href="<?= PUBLIC_ROOT . "{$User->GrowerOperation->link}/{$Item->link}" ?>" data-toggle="tooltip" data-title="Preview item" data-placement="bottom">
                                             <?= $Item->title ?>
                                         </a>
@@ -97,6 +97,17 @@
                                     
                                     <cell class="justify-center d-flex flexcolumn">
                                         <div class="form-group">
+
+                                            <input type="number" name="items[<?= $Item->id ?>][retail-quantity]" class="form-control" value="<?= $Item->quantity ?>"/>
+                                            
+                                            <label>
+                                                Retail qty.
+                                            </label>
+                                        </div>
+                                    </cell>
+
+                                    <cell class="justify-center d-flex flexcolumn">
+                                        <div class="form-group">
                                             <div class="price">
                                                 <input type="text" name="items[<?= $Item->id ?>][wholesale-price]" class="form-control" value="<?php if ($Item->wholesale_price) echo number_format($Item->wholesale_price / 100, 2) ?>" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$">
                                             </div>
@@ -117,11 +128,10 @@
 
                                     <cell class="justify-center d-flex flexcolumn">
                                         <div class="form-group">
-
-                                            <input type="number" name="items[<?= $Item->id ?>][quantity]" class="form-control" value="<?= $Item->quantity ?>"/>
+                                            <input type="number" name="items[<?= $Item->id ?>][wholesale-quantity]" class="form-control" value="<?= $Item->wholesale_quantity ?>"/>
                                             
                                             <label>
-                                                Quantity
+                                                Wholesale qty.
                                             </label>
                                         </div>
                                     </cell>
@@ -136,7 +146,7 @@
                                         </div>
                                     </cell>
 
-                                    <cell class="actions">
+                                    <cell class="actions flexgrow-0">
                                         <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" title="Edit item">
                                             <i class="fa fa-pencil"></i>
                                         </a>

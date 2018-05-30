@@ -113,22 +113,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="item-name">
-                                Item name
-                            </label>
-
-                            <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?= $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
-                        </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="quantity">Quantity</label>
-                                    <input id="quantity" type="number" name="quantity" class="form-control" value="<?= $FoodListing->quantity; ?>" placeholder="Enter how many you have in stock" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
+                                    <label for="item-name">
+                                        Item name
+                                    </label>
+
+                                    <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Give your item a name" value="<?= $FoodListing->title; ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Availability</label>
@@ -151,20 +146,51 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="price">Item price</label>
-                                    
-                                    <div class="input-group w-addon">
-                                        <div class="input-group-addon">$</div>
-                                        <input id="price" type="text" name="price" class="form-control" value="<?= number_format(($FoodListing->price / 100), 2); ?>" placeholder="Enter the full price for your food" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
-                                    </div>
+                                    <label for="quantity">Retail quantity</label>
+                                    <input id="quantity" type="number" name="quantity" class="form-control" value="<?= $FoodListing->quantity; ?>" placeholder="Retail item quantity" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" required> 
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="weight">Average weight per item (optional)</label>
+                                    <label for="quantity">Wholesale quantity (optional)</label>
+                                    <input id="quantity" type="number" name="wholesale-quantity" class="form-control" value="<?= $FoodListing->quantity; ?>" placeholder="Wholesale item quantity" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number"> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="price">Item price</label>
+                                    
                                     <div class="input-group w-addon">
-                                        <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Enter how much an item typically weighs" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
+                                        <div class="input-group-addon">$</div>
+                                        <input id="price" type="text" name="price" class="form-control" value="<?= number_format(($FoodListing->price / 100), 2); ?>" placeholder="Retail item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" required> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Wholesale item price (optional) <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
+                                    </label>
+
+                                    <div class="input-group w-addon">
+                                        <div class="input-group-addon">$</div>
+                                        <input type="text" name="wholesale-price" class="form-control" value="<?= number_format(($FoodListing->wholesale_price / 100), 2); ?>" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="weight">Retail item weight (optional)</label>
+                                    <div class="input-group w-addon">
+                                        <input id="weight" type="number" name="weight" class="form-control" value="<?= (!empty($FoodListing->weight) ? $FoodListing->weight : ''); ?>" placeholder="Retail item weight" min="1" max="10000" data-parsley-type="number" data-parsley-min="1" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="Please round this value to a whole number"> 
                                         
                                         <select name="units" class="input-group-addon" data-parsley-excluded="true">
                                             <option disabled <?php if (empty($FoodListing->units)) echo 'selected' ?>>Units</option>
@@ -181,21 +207,6 @@
                                                 echo "<option value=\"{$unit}\"" . ($unit == $FoodListing->units ? 'selected' : '') . ">{$unit}</option>";
                                             } ?>
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        Wholesale item price (optional) <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
-                                    </label>
-
-                                    <div class="input-group w-addon">
-                                        <div class="input-group-addon">$</div>
-                                        <input type="text" name="wholesale-price" class="form-control" value="<?= number_format(($FoodListing->wholesale_price / 100), 2); ?>" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change" required> 
                                     </div>
                                 </div>
                             </div>
@@ -230,12 +241,26 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>
-                                Item packaging (optional)
-                            </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Retail item packaging (optional)
+                                    </label>
 
-                            <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold so that buyers better understand what you're offering"><?= $FoodListing->packaging; ?></textarea>
+                                    <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold for retail buyers"><?= $FoodListing->packaging; ?></textarea>
+                                </div>
+                            </div>
+                                
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Wholesale item packaging (optional)
+                                    </label>
+
+                                    <textarea type="text" name="wholesale-packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared for wholesale buyers"><?= $FoodListing->wholesale_packaging; ?></textarea>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -243,7 +268,7 @@
                                 Item description (optional)
                             </label>
 
-                            <textarea type="text" name="description" class="form-control" rows="4" placeholder="Tell customers what makes your food special"><?= $FoodListing->description; ?></textarea>
+                            <textarea type="text" name="description" class="form-control" rows="3" placeholder="Tell customers what makes your food special"><?= $FoodListing->description; ?></textarea>
                         </div>
                     </div>
 

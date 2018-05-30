@@ -88,30 +88,22 @@
                         </small>
                     </div>
 
-                    <div class="form-group">
-                        <label for="other-subcategory">
-                            Item name (optional)
-                        </label>
-
-                        <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Item name" data-parsley-maxlength="40" data-parsley-trigger="change">
-                        
-                        <small class="form-text text-muted">
-                            Leave this field blank and the item name will default to the selected item type
-                        </small>
-                    </div>
-
-                    <div class="row"> 
-                        <div class="col-md-6"> 
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="quantity">
-                                    Quantity
+                                <label for="other-subcategory">
+                                    Item name (optional)
                                 </label>
-                                
-                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Item quantity" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change" required>
-                            </div>
-                        </div> 
 
-                        <div class="col-md-6"> 
+                                <input id="item-name" type="text" name="item-name" class="form-control" placeholder="Item name" data-parsley-maxlength="40" data-parsley-trigger="change">
+                                
+                                <small class="form-text text-muted">
+                                    Item name will default to the item type if left blank
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>
                                     Item availability
@@ -135,6 +127,28 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label for="quantity">
+                                    Retail quantity
+                                </label>
+                                
+                                <input id="quantity" type="number" name="quantity" class="form-control" placeholder="Retail item quantity" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change" required>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label for="quantity">
+                                    Wholesale quantity (optional)
+                                </label>
+                                
+                                <input id="quantity" type="number" name="wholesale-quantity" class="form-control" placeholder="Wholesale item quantity" min="0" max="10000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="999" data-parsley-pattern="^[0-9]+$" data-parsley-type-message="This value should be a whole number" data-parsley-trigger="change">
+                            </div>
                         </div> 
                     </div>
 
@@ -155,6 +169,25 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Wholesale item price (optional)
+                                    <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
+                                </label>
+
+                                <div class="input-group w-addon">
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
+                                    
+                                    <input type="text" name="wholesale-price" class="form-control" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="weight">
@@ -186,25 +219,6 @@
                                         <?php endforeach; ?>
 
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    Wholesale item price (optional)
-                                    <i class="fa fa-question-circle" data-toggle="tooltip" data-title="Only your approved wholesale customers will see this item's wholesale price" data-placement="right"></i>
-                                </label>
-
-                                <div class="input-group w-addon">
-                                    <div class="input-group-addon">
-                                        $
-                                    </div>
-                                    
-                                    <input type="text" name="wholesale-price" class="form-control" placeholder="Wholesale item price" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-max="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" data-parsley-pattern-message="Your price should include both dollars and cents (ex: $2.50)" data-parsley-trigger="change"> 
                                 </div>
                             </div>
                         </div>
@@ -245,12 +259,26 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>
-                            Item packaging (optional)
-                        </label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Retail item packaging (optional)
+                                </label>
 
-                        <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged or prepared when sold"></textarea>
+                                <textarea type="text" name="packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged for retail buyers"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    Wholesale item packaging (optional)
+                                </label>
+
+                                <textarea type="text" name="wholesale-packaging" class="form-control" rows="2" placeholder="Describe how this item is packaged for wholesale buyers"></textarea>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -258,7 +286,7 @@
                             Item description (optional)
                         </label>
 
-                        <textarea type="text" name="description" class="form-control" rows="2" placeholder="Tell customers what makes your food special"></textarea>
+                        <textarea type="text" name="description" class="form-control" rows="3" placeholder="Tell customers what makes your food special"></textarea>
                     </div>
                 </div>
 
