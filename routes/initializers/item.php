@@ -26,6 +26,20 @@ if (isset($Routing->item_type)) {
             'limit' => 1
         ]);
     
+        // check if wholesale relationship exists between User:BuyerAccount and Seller
+        if (isset($User->BuyerAccount)) {
+            $wholesale_relationship = $User->BuyerAccount->retrieve([
+                'where' => [
+                    'buyer_account_id' => $User->BuyerAccount->id,
+                    'seller_id' => $GrowerOperation->id,
+                    'status'    => 2
+                ],
+                'table' => 'wholesale_relationships'
+            ]);
+        } else {
+            $wholesale_relationship = false;
+        }
+
         $FoodListing = new FoodListing([
             'DB' => $DB,
             'id' => $results['id']
