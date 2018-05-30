@@ -131,7 +131,7 @@ class Order extends Base {
      * @param \FoodListing $FoodListing
      * @param int $quantity
      */
-    public function add_to_cart(GrowerOperation $Seller, $exchange_option, FoodListing $FoodListing, $quantity) {
+    public function add_to_cart(GrowerOperation $Seller, $exchange_option, FoodListing $FoodListing, $quantity, $is_wholesale) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
@@ -141,7 +141,7 @@ class Order extends Base {
             $this->add_grower($Seller, $exchange_option);
         }
 
-        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity, $this->buyer_account_id);
+        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity, $this->buyer_account_id, $is_wholesale);
 
         // Refresh the cart
         $this->update_cart();
@@ -333,15 +333,23 @@ class Order extends Base {
                     'id' => $key
                 ]);
 
-                $remaining = $FoodListing->quantity - $OrderFoodListing->quantity;
+                if ($OrderFoodListing->is_wholesale) {
+                    $quantity = $FoodListing->wholesale_quantity;
+                    $qty_type = 'wholesale_quantity';
+                } else {
+                    $quantity = $FoodListing->quantity;
+                    $qty_type = 'quantity';
+                }
+
+                $remaining = $quantity - $OrderFoodListing->quantity;
                 
                 if ($remaining > 0) {
                     $FoodListing->update([
-                        'quantity'      => $remaining
+                        $qty_type       => $remaining
                     ]);
                 } else {
                     $FoodListing->update([
-                        'quantity'      => 0,
+                        $qty_type       => 0,
                         'is_available'  => 0
                     ]);
                 }

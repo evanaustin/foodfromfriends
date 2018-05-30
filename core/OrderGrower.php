@@ -116,13 +116,14 @@ class OrderGrower extends Base {
      * @param int @quantity the amount of the Item being added
      * @param int $buyer_account_id the ID of the BuyerAccount who's adding the Item ? Why do we need to store this ?
      */
-    public function add_food_listing(FoodListing $FoodListing, $quantity, $buyer_account_id) {
+    public function add_food_listing(FoodListing $FoodListing, $quantity, $buyer_account_id, $is_wholesale) {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
             'buyer_account_id'  => $buyer_account_id,
             'food_listing_id'   => $FoodListing->id,
             'quantity'          => $quantity,
+            'is_wholesale'      => $is_wholesale,
         ], 'order_food_listings');
 
         $this->load_food_listings();
