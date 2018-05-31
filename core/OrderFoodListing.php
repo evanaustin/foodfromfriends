@@ -93,10 +93,10 @@ class OrderFoodListing extends Base {
 
             $this->delete();
         } else {
-            $this->unit_price   = $FoodListing->price;
-            $this->unit_weight  = $FoodListing->weight;
-            $this->weight_units = $FoodListing->units;
-            $this->total        = $this->quantity * $FoodListing->price;
+            $this->unit_price   = ($this->is_wholesale) ? $FoodListing->wholesale_price : $FoodListing->price;
+            $this->unit_weight  = ($this->is_wholesale) ? $FoodListing->wholesale_weight : $FoodListing->weight;
+            $this->weight_units = ($this->is_wholesale) ? $FoodListing->wholesale_units : $FoodListing->units;
+            $this->total        = $this->quantity * ($this->is_wholesale ? $FoodListing->wholesale_price : $FoodListing->price);
     
             $this->update([
                 'unit_price'    => $this->unit_price,

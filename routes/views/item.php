@@ -1,5 +1,6 @@
 <main>
     <div class="main container">
+        
         <?php if ($FoodListing->id && ($GrowerOperation->is_active || $is_owner)): ?>
 
             <?php if ($is_owner): ?>
@@ -106,12 +107,12 @@
                             
                             <?php if (!empty($FoodListing->weight) && !empty($FoodListing->units)): ?>
                                 
-                                &bull;&nbsp;
+                                &bull;
                                 $<?= number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units ?>
                             
                             <?php endif; ?>
 
-                            &nbsp;&bull;&nbsp;
+                            &bull;
 
                             <?= ($FoodListing->is_available ? "{$FoodListing->quantity} in stock" : 'Unavailable') ?>
                         </h6>
@@ -130,7 +131,7 @@
                         
                         <?php endif; ?>
 
-                        <?php if (!empty($FoodListing->packaging)): ?>
+                        <?php if (!empty($FoodListing->packaging) || ($wholesale_relationship && !empty($FoodListing->wholesale_packaging))): ?>
                             
                             <div class="item-definition set d-none d-md-block">
                                 <h4 class="margin-btm-50em">
@@ -142,7 +143,7 @@
                                 </div>
 
                                 <div class="callout">
-                                    <div><?= $FoodListing->packaging; ?></div>
+                                    <div><?= ($wholesale_relationship) ? $FoodListing->wholesale_packaging : $FoodListing->packaging; ?></div>
                                 </div>
                             </div>
 
@@ -363,7 +364,7 @@
                     <div id="basket-form-container" class="sticky-top">
                         <div class="box">
                             <div class="header">    
-                                <?php amount($FoodListing->price); ?>
+                                <?= _amount(($wholesale_relationship && !empty($FoodListing->wholesale_price) ? $FoodListing->wholesale_price : $FoodListing->price)) ?>
                                 
                                 <small>
                                     each
@@ -379,9 +380,9 @@
 
                                 <?php else: ?>
 
-                                    <?php if (isset($User, $User->ActiveOrder, $User->ActiveOrder->Growers[$GrowerOperation->id], $User->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])): ?>
+                                    <?php if (isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id], $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])): ?>
                                 
-                                        <?php $OrderGrower = $User->ActiveOrder->Growers[$GrowerOperation->id] ?>
+                                        <?php $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id] ?>
                                         <?php $OrderItem = $OrderGrower->FoodListings[$FoodListing->id] ?>
 
                                         <form id="update-item" data-ordergrower="<?= $OrderGrower->id; ?>">
@@ -396,7 +397,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= $FoodListing->quantity; $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if ($OrderItem->quantity == $i) echo 'selected' ?>>
                                                             <?= $i ?>
@@ -446,6 +447,7 @@
                                             <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
                                             <input type="hidden" name="item-id" value="<?= $FoodListing->id; ?>">
                                             <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
+                                            <input type="hidden" name="is-wholesale" value="<?= ($wholesale_relationship) ? 1 : 0 ?>"/>
 
                                             <div class="form-group">
                                                 <label>
@@ -454,7 +456,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= $FoodListing->quantity; $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if (isset($_GET['quantity']) && $_GET['quantity'] == $i) echo 'selected' ?>>
                                                             <?= $i ?>

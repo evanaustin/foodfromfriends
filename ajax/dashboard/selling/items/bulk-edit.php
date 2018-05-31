@@ -14,8 +14,9 @@ foreach($_POST['items'] as $id => $item) {
     
     $Gump->validation_rules([
         'retail-price'      => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
+        'retail-quantity'   => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
         'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-        'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+        'wholesale-quantity' => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000'
     ]);
     
     $validated_data = $Gump->run($item);
@@ -26,8 +27,9 @@ foreach($_POST['items'] as $id => $item) {
     
     $Gump->filter_rules([
         'retail-price'      => 'trim|sanitize_floats',
+        'retail-quantity'   => 'trim|whole_number',
         'wholesale-price'   => 'trim|sanitize_floats',
-        'quantity'          => 'trim|whole_number'
+        'wholesale-quantity' => 'trim|whole_number'
     ]);
     
     $prepared_data = $Gump->run($validated_data);
@@ -42,10 +44,11 @@ foreach($_POST['items'] as $id => $item) {
     ]);
     
     $updated = $Item->update([
-        'quantity'          => $quantity,
-        'is_available'      => (isset($available) && $available == 'on') ? 1 : 0,
         'price'             => $retail_price * 100,
+        'quantity'          => $retail_quantity,
         'wholesale_price'   => $wholesale_price * 100,
+        'wholesale_quantity' => $wholesale_quantity,
+        'is_available'      => (isset($available) && $available == 'on') ? 1 : 0,
     ]);
     
     if (!$updated) {

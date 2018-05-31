@@ -427,6 +427,10 @@ fable {
 
         &.double {
             flex-grow: 2;
+
+            &.p1w {
+                box-sizing: content-box;
+            }
         }
 
         .form-group {
@@ -473,6 +477,12 @@ fable {
 
             label {
                 margin: 0;
+            }
+            
+            input:not([type="checkbox"]), div.price {
+                + label {
+                    font-size: 10px !important;
+                }
             }
         }
         

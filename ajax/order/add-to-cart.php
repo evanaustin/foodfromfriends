@@ -18,6 +18,7 @@ $Gump->validation_rules([
     'quantity'			=> 'required|integer',
     'exchange-option'   => 'required|alpha',
     'distance-miles'    => 'numeric',
+    'is-wholesale'      => 'integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -33,6 +34,7 @@ $Gump->filter_rules([
     'quantity'			=> 'trim|sanitize_numbers',
     'exchange-option'	=> 'trim|sanitize_string',
     'distance-miles'    => 'trim|sanitize_string',
+    'is-wholesale'      => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -125,7 +127,7 @@ if ($exchange_option  == 'delivery') {
  * Add Item to Order
  */
 
-$Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity);
+$Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity, $is_wholesale);
 
 
 /*

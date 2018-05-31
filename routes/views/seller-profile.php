@@ -355,7 +355,7 @@
                                                         </a>
                                                     </div>
                                                     
-                                                    <?php if ($Item->is_available && $Item->quantity): ?>
+                                                    <?php if ($Item->is_available && ($Item->quantity || ($wholesale_relationship && !empty($Item->wholesale_quantity)))): ?>
 
                                                         <?php $OrderGrowerItem = (isset($OrderGrower, $OrderGrower->FoodListings[$Item->id])) ? $OrderGrower->FoodListings[$Item->id] : null; ?>
                                             
@@ -373,7 +373,7 @@
 
                                                                     <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                                         
-                                                                        <?php for ($i = 1; $i <= $Item->quantity; $i++): ?>
+                                                                        <?php for ($i = 1; $i <= ($wholesale_relationship  && !empty($Item->wholesale_quantity) ? $Item->wholesale_quantity : $Item->quantity); $i++): ?>
                                                                                 
                                                                             <option value="<?= $i ?>" <?php if (isset($OrderGrowerItem) && $OrderGrowerItem->quantity == $i) echo 'selected' ?>>
                                                                                 <?= $i ?>

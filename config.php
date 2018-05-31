@@ -164,10 +164,15 @@ use \Firebase\JWT\JWT;
 if (isset($_GET['token'])) {
     $JWT = JWT::decode($_GET['token'], JWT_KEY, array('HS256'));
 
+    // token logs in User
     if (isset($JWT->user_id) && (!isset($JWT->time) || (time() - $JWT->iss_on <= $JWT->time))) {
+        // User is already logged in under a different ID; reset Session:User:ID
         if ($LOGGED_IN && ($USER['id'] != $JWT->user_id)) {
             $_SESSION['user']['id'] = null;
-        } else if (($LOGGED_IN && ($USER['id'] == $JWT->user_id)) || !isset($_SESSION['user']['id'])) {
+        } 
+
+        // User is already logged in under same ID -OR- Session:User:ID is not set
+        if (($LOGGED_IN && ($USER['id'] == $JWT->user_id)) || !isset($_SESSION['user']['id'])) {
             $User = new User([
                 'DB' => $DB,
                 'id' => $JWT->user_id,

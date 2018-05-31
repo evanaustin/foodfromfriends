@@ -7556,6 +7556,8 @@ fable {
       flex-grow: 0; }
     fable > cell.double {
       flex-grow: 2; }
+      fable > cell.double.p1w {
+        box-sizing: content-box; }
     fable > cell .form-group {
       margin-bottom: 0;
       text-align: center; }
@@ -7587,6 +7589,8 @@ fable {
           text-align: right; }
       fable > cell .form-group label {
         margin: 0; }
+      fable > cell .form-group input:not([type="checkbox"]) + label, fable > cell .form-group div.price + label {
+        font-size: 10px !important; }
     fable > cell i {
       color: #00c079; }
     fable > cell.actions {
