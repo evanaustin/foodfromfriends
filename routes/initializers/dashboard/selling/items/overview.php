@@ -9,7 +9,7 @@ $Item = new Item([
 ]);
 
 $raw_categories = $Item->retrieve([
-    'table' => 'food_categories'
+    'table' => 'item_categories'
 ]);
 
 $hashed_categories = [];
@@ -20,20 +20,48 @@ foreach($raw_categories as $raw_category) {
     }
 }
 
+$raw_subcategories = $Item->retrieve([
+    'table' => 'item_subcategories'
+]);
+
+$hashed_subcategories = [];
+
+foreach($raw_subcategories as $raw_subcategory) {
+    if (!isset($hashed_subcategories[$raw_subcategory['id']])) {
+        $hashed_subcategories[$raw_subcategory['id']] = $raw_subcategory['title'];
+    }
+}
+
+$raw_varieties = $Item->retrieve([
+    'table' => 'item_varieties'
+]);
+
 $raw_items = $Item->get_raw_items($User->GrowerOperation->id);
 
 $hashed_items = [];
 
 foreach($raw_items as $raw_item) {
-    if (!isset($hashed_items[$raw_item['food_category_id']])) {
-        $hashed_items[$raw_item['food_category_id']] = [
-            $raw_item['id'] => new Item([
-                'DB' => $DB,
-                'id' => $raw_item['id']
-            ])
-        ];
+    if (!isset($hashed_items[$raw_item['item_category_id']])) {
+        $hashed_items[$raw_item['item_category_id']] = [];
     }
+    
+    if (!isset($hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']])) {
+        $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']] = [];
+    }
+
+    $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['id']] = new Item([
+        'DB' => $DB,
+        'id' => $raw_item['id']
+    ]);
 }
+
+$package_types = $Item->retrieve([
+    'table' => 'item_package_types'
+]);
+
+$metrics = $Item->retrieve([
+    'table' => 'item_metrics'
+]);
 
 // $item_count = count(array_filter($raw_items));
 

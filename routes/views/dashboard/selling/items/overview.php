@@ -1,7 +1,7 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6">
                 <div class="page-title">
                     Your items
                     &nbsp;
@@ -31,328 +31,229 @@
         <div class="alerts"></div>
         
         <?php if (!empty($hashed_items)): ?>
-        
-            <ledger class="orders">
+            
+            <form id="edit-items">
+                <ledger class="items">
 
-                <?php foreach ($hashed_items as $category_id => $items): ?>
+                    <?php foreach ($hashed_items as $category_id => $subcategory): ?>
 
-                    <div class="opened record">
-                        <div class="tab" data-toggle="collapse" data-target="#order-<?= $Order->id;?>" aria-controls="order-<?= $Order->id ;?>" aria-label="Toggle order" aria-expanded="<?= ($i == 1) ? 'true' : 'false'; ?>"></div>
+                        <div class="opened record">
+                            <div class="tab" data-toggle="collapse" data-target="#category-<?= $category_id ?>" aria-controls="category-<?= $category_id ?>" aria-label="Toggle category" aria-expanded="true"></div>
+                            
+                            <fable>
+                                <cell>
+                                    <h5>
+                                        <strong><?= ucfirst($hashed_categories[$category_id]) ?></strong>
+                                    </h5>
+                                </cell>
+                            </fable>
+
+                            <ledger class="collapse show" id="category-<?= $category_id ?>">
+                                
+                                <?php foreach ($subcategory as $subcategory_id => $items): ?>
                         
-                        <fable>
-                            <cell>
-                                <h5><strong><?= ucfirst($hashed_categories[$category_id]) ?></strong></h5>
-                            </cell>
-                            
-                            <cell>
-                                <!-- <h6>ID:&nbsp;<strong><?= $encrypted_id; ?></strong></h6> -->
-                            </cell>
-                            
-                            <cell>
-                                <!-- <h6><?= "<strong>{$seller_count}</strong>&nbsp;seller" . (($seller_count > 1) ? 's' : ''); ?></h6> -->
-                            </cell>
-                            
-                            <cell>
-                                <!-- <h6>Placed:&nbsp;<strong><?= $placed_on; ?></strong></h6> -->
-                            </cell>
-                            
-                            <cell class="justify-center">
-                                <!-- <h5 class="strong"><?php amount($Order->total); ?></h5> -->
-                            </cell>
-
-                            <cell class="actions flexgrow-0">
-                                <!-- <a href="<?= PUBLIC_ROOT . 'dashboard/buying/orders/receipt?id=' . $encrypted_id; ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a> -->
-                            </cell>
-                        </fable>
-                    
-                        <ledger class="collapse show" id="order-<?= $category_id ?>">
-
-                            <?php
-
-                            foreach ($items as $item_id => $Item) {
-
-                                // $item_count = count($OrderGrower->FoodListings);
-
-                                // $tab_highlight = 'tab-';
-
-                                // Determine status settings
-                                /* if ($OrderGrower->Status->current == 'not yet confirmed') {
-                                    $tab_highlight .= 'waiting';
-
-                                    $time_until = \Time::until($OrderGrower->Status->placed_on, '24 hours');
-
-                                    $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
-
-                                    $actions = [
-                                        'message',
-                                        'cancel order'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'expired') {
-                                    $tab_highlight .= 'danger';
-                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
-                                    
-                                    $actions = [
-                                        'message'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'rejected') {
-                                    $tab_highlight .= 'danger';
-                                    $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
-                                    
-                                    $actions    = [
-                                        'message'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'pending fulfillment') {
-                                    $tab_highlight .= 'warning';
-                                    $status = 'Pending fulfillment';
-                                
-                                    $actions = [
-                                        'message',
-                                        'cancel order'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'cancelled by buyer') {
-                                    $tab_highlight .= 'danger';
-                                    $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                    
-                                    $actions = [
-                                        'message',
-                                        'view receipt'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'cancelled by seller') {
-                                    $tab_highlight .= 'danger';
-                                    $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
-                                
-                                    $actions = [
-                                        'message',
-                                        'view receipt'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'open for review') {
-                                    $tab_highlight .= 'info';
-
-                                    $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
-
-                                    $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
-                                
-                                    $actions = [
-                                        'leave a review',
-                                        'report an issue'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'issue reported') {
-                                    $tab_highlight .= 'info';
-
-                                    $status = 'Issue reported <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-title="Customer service is working to resolve this issue"></i>';
-                                
-                                    $actions = [
-                                        'leave a review',
-                                        'message'
-                                    ];
-                                } else if ($OrderGrower->Status->current == 'completed') {
-                                    $tab_highlight .= 'success';
-                                    $status = 'Completed';
-                                    
-                                    $actions = [
-                                        'message',
-                                        'view receipt'
-                                    ];
-                                } */
-
-                                ?>
-                                
-                                <div class="closed record animated fadeIn">
-                                    <div class="tab" data-toggle="collapse" data-target="#item-<?= $Item->id ?>" aria-controls="suborder-<?= $Item->id ?>" aria-label="Toggle suborder"></div>
-                                    
-                                    <fable>
-                                        <cell class="min-third">
-                                            <div class="user-block">
-                                                <div class="user-photo d-none d-md-block" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/{$Item->Image->path}/{$Item->Image->filename}.{$Item->Image->ext}" ?>');"></div>
-                                                
-                                                <div class="user-content">
-                                                    <h5 class="bold margin-btm-25em">
-                                                        <a href="<?= PUBLIC_ROOT . $Item->link ?>">
-                                                            <?= $Item->title ?>
-                                                        </a>
-                                                    </h5>
-
-                                                    <small>
-                                                        <!-- <?= "{$ThisGrowerOperation->city}, {$ThisGrowerOperation->state}"; ?> -->
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </cell>
-
-                                        <cell class="justify-center d-block d-md-flex align-center d-align-left">
-                                            <!-- <h6><?= $status; ?></h6> -->
-                                        </cell>
+                                    <div class="opened record animated fadeIn">
+                                        <div class="tab" data-toggle="collapse" data-target="#subcategory-<?= $subcategory_id ?>" aria-controls="subcategory-<?= $subcategory_id ?>" aria-label="Toggle subcategory"></div>
                                         
-                                        <cell class="justify-center d-none d-md-flex">
-                                            <!-- <h6><?= "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6> -->
-                                        </cell>
-                                        
-                                        <cell class="justify-center d-none d-md-flex">
-                                            <!-- <h6><?= ucfirst($OrderGrower->Exchange->type); ?></h6> -->
-                                        </cell>
-                                        
-                                        <cell class="justify-center d-block d-md-flex align-center d-align-left">
-                                            <!-- <h6 class="bold"><?php amount($OrderGrower->total); ?></h6> -->
-                                        </cell>
-
-                                        <cell class="actions flexgrow-0">
-
-                                            <?php
-                                            
-                                            /* foreach ($actions as $action) {
-                                                switch($action) {
-                                                    case 'message':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/buying/messages/thread?seller=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
-                                                        break;
-                                                    // case 'view receipt':
-                                                    //     echo '<a href="" class="btn btn-light" data-toggle="tooltip" data-placement="left" data-title="View receipt"><i class="fa fa-file"></i></a>';
-                                                    //     break;
-                                                    case 'leave a review':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/buying/orders/review?id=' . $OrderGrower->id . '" class="btn btn-success" data-toggle="tooltip" data-placement="left" data-title="Leave a review"><i class="fa fa-commenting"></i></a>';
-                                                        break;
-                                                    case 'report an issue':
-                                                        echo '<a href="' . PUBLIC_ROOT . 'dashboard/buying/orders/report?id=' . $OrderGrower->id . '" class="report-issue btn btn-warning" data-toggle="tooltip" data-placement="left" data-title="Report an issue" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-flag"></i></a>';
-                                                        break;
-                                                    case 'cancel order':
-                                                        echo '<a class="cancel-order btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-times"></i></a>';
-                                                        break;
-                                                }
-                                            } */
-                                            
-                                            ?>
-
-                                        </cell>
-                                    </fable>
-                                    
-                                    <!-- <div class="collapse" id="suborder-<?= $OrderGrower->id;?>">
-                                        <?php
-
-                                        foreach ($OrderGrower->FoodListings as $OrderListing) {
-
-                                            $ThisFoodListing = new Item([
-                                                'DB' => $DB,
-                                                'id' => $OrderListing->food_listing_id
-                                            ]);
-
-                                            ?>
-
-                                            <div class="item card-alt animated fadeIn">
-                                                <div class="item-image">
-                                                    <?php
-                                                    
-                                                    img(ENV . '/items/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, [
-                                                        'server'    => 'S3',
-                                                        'class'     => 'img-fluid'
-                                                    ]);
-                                                    
-                                                    ?>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <h6 class="strong">
-                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
-                                                            <?= ucfirst($ThisFoodListing->title); ?>
-                                                        </a>
-
-                                                        <span class="float-right">
-                                                            <small>x</small> <?= $OrderListing->quantity; ?>
-                                                        </span>
-                                                    </h6>
-                                                    
-                                                    <small class="light-gray">
-                                                        <?php
-                                                        
-                                                        if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
-                                                            echo '<span>';
-                                                            amount(($OrderListing->unit_price / $OrderListing->unit_weight));
-                                                            echo " / {$OrderListing->weight_units}";
-                                                            echo '</span>';
-                                                        }
-                                                        
-                                                        ?>
-                                                        
-                                                        <span class="float-right">
-                                                            <?php amount($OrderListing->total); ?>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                            
-                                            <?php
-
-                                        }
-
-                                        ?>
-                                    
                                         <fable>
-                                            <cell class="bold">
-                                                <?= ucfirst($OrderGrower->Exchange->type); ?> details
-                                            </cell>
-                                            
-                                            <cell class="justify-end bold">
-                                                
-                                                <?php
-                            
-                                                if ($OrderGrower->Exchange->type == 'delivery') {
-                                                    amount($OrderGrower->Exchange->fee);
-                                                } else {
-                                                    echo 'Free';
-                                                }
-                                                
-                                                ?>
-
+                                            <cell>
+                                                <strong><?= ucfirst($hashed_subcategories[$subcategory_id]) ?></strong>
                                             </cell>
                                         </fable>
+                                    
+                                        <div class="collapse show" id="subcategory-<?= $subcategory_id ?>">
+                                        
+                                            <div class="subcategory-list">
+                                                
+                                                <?php $i = 0 ?>
+                                                
+                                                <?php foreach ($items as $item_id => $Item): ?>
+                                                    
+                                                    <div class="bubble animated fadeIn">
+                                                        <input type="hidden" class="position" name="items[<?= $Item->id ?>][position]" value="<?= (!empty($Item->position)) ? $Item->position : $i ?>">
 
-                                        <div class="callout">
-                                            <h6>
-                                                Location
-                                            </h6>
+                                                        <fable>
+                                                            <cell class="image align-center margin-right-50em">
+                                                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $Item->id ?>" data-toggle="tooltip" data-title="Edit item" data-placement="bottom">
+                                                                
+                                                                    <?php if (!empty($Item->Image->filename)): ?>
+
+                                                                        <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
+                                                                            'server'    => 'S3',
+                                                                            'class'     => 'img-fluid rounded animated fadeIn'
+                                                                        ]); ?>
+
+                                                                    <?php else: ?>
+
+                                                                        <?php img('placeholders/default-thumbnail', 'jpg', [
+                                                                            'server'    => 'local', 
+                                                                            'class'     => 'img-fluid rounded animated fadeIn'
+                                                                        ]); ?>
+
+                                                                    <?php endif; ?>
+                                                                    
+                                                                </a>
+                                                            </cell>
+
+                                                            <?php if (!empty($Item->name)): ?>
+                                                                
+                                                                <cell class="justify-center align-center flexgrow-2 form-field">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" name="items[<?= $Item->id ?>][variety-id]" value="<?= $Item->item_variety_id ?>"/>
+                                                                        <input type="text" name="items[<?= $Item->id ?>][name]" class="form-control" value="<?= $Item->title ?>"/>
+                                                                        
+                                                                        <label>
+                                                                            Name
+                                                                        </label>
+                                                                    </div>
+                                                                </cell>
+
+                                                            <?php else: ?>
+                                                                
+                                                                <cell class="justify-center align-center form-field">
+                                                                    <div class="form-group">
+                                                                        <select name="items[<?= $Item->id ?>][variety-id]" class="custom-select form-control">
+                                                                            <option value="0">None</option>
+
+                                                                            <?php foreach ($raw_varieties as $variety) {
+                                                                                if ($variety['item_subcategory_id'] != $subcategory_id) continue;
+                                                                                echo "<option value=\"{$variety['id']}\"" . ($variety['id'] == $Item->item_variety_id ? 'selected' : '') . '>' . ucfirst($variety['title']) . '</option>';
+                                                                            } ?>
+                                                                        </select>
+
+                                                                        <label>
+                                                                            Variety
+                                                                        </label>
+                                                                    </div>
+                                                                </cell>
+
+                                                            <?php endif; ?>
+
+                                                            <cell class="justify-center align-center form-field">
+                                                                <div class="form-group">
+                                                                    <div class="input-group w-addon">
+                                                                        <input type="text" name="items[<?= $Item->id ?>][measurement]" class="form-control" value="<?php if (!empty($Item->measurement)) echo $Item->measurement ?>" placeholder="-" data-parsley-pattern="^([0-9]*[.x\s])*[0-9]+$" data-parsley-maxlength="10"> 
+                                                                        
+                                                                        <select name="items[<?= $Item->id ?>][metric]" class="input-group-addon" data-parsley-excluded="true">
+                                                                            <option value="0" <?php if (empty($Item->metric_id)) echo 'selected' ?>>
+                                                                                None
+                                                                            </option>
+                                                                            
+                                                                            <?php foreach ($metrics as $metric) {
+                                                                                echo "<option value=\"{$metric['id']}\"" . ($metric['id'] == $Item->metric_id ? 'selected' : '') . ">{$metric['title']}</option>";
+                                                                            } ?>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <label>
+                                                                        Metrics
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+
+                                                            <cell class="justify-center flexgrow-0 basis-6em align-center form-field">
+                                                                <div class="form-group">
+                                                                    <select name="items[<?= $Item->id ?>][package-type]" class="custom-select form-control" data-parsley-trigger="change" required>
+                                                                        <option selected disabled>Package</option>
+                                                                            
+                                                                        <?php foreach($package_types as $package_type): ?>
+                                                                            
+                                                                            <option value="<?= $package_type['id'] ?>" <?php if ($Item->package_type_id == $package_type['id']) echo 'selected' ?>>
+                                                                                <?= ucfirst($package_type['title']) ?>
+                                                                            </option>
+                                                                        
+                                                                        <?php endforeach; ?>
+
+                                                                    </select>
+                                                                
+                                                                    <label>
+                                                                        Package
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+
+                                                            <cell class="justify-center flexgrow-0 basis-6em align-center form-field">
+                                                                <div class="form-group">
+                                                                    <div class="price">
+                                                                        <input type="text" name="items[<?= $Item->id ?>][price]" class="form-control" value="<?php if ($Item->price) echo number_format($Item->price / 100, 2) ?>" min="0" max="1000000" data-parsley-type="number" data-parlsey-min="0" data-parlsey-min="999999" data-parsley-pattern="^[0-9]+.[0-9]{2}$" required>
+                                                                    </div>
+                                                                
+                                                                    <label>
+                                                                        Price
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+                                                            
+                                                            <cell class="justify-center flexgrow-0 align-center form-field">
+                                                                <div class="form-group">
+                                                                    <input type="number" name="items[<?= $Item->id ?>][quantity]" class="form-control" value="<?= $Item->quantity ?>"/>
+                                                                    
+                                                                    <label>
+                                                                        Quantity
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+                                                            
+                                                            <cell class="justify-center flexgrow-0 align-center form-field">
+                                                                <div class="form-group">
+                                                                    <div class="toggle-box">
+                                                                        <input id="is-available-<?= $Item->id ?>" type="checkbox" name="items[<?= $Item->id ?>][is-available]" <?php if ($Item->is_available) echo 'checked' ?>>
+                                                                        <label for="is-available-<?= $Item->id ?>">Toggle</label>
+                                                                    </div>
+                                                                    
+                                                                    <label>
+                                                                        Available
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+                                                            
+                                                            <cell class="justify-center flexgrow-0 basis-6em align-center form-field">
+                                                                <div class="form-group">
+                                                                    <div class="toggle-box">
+                                                                        <input id="is-wholesale-<?= $Item->id ?>" type="checkbox" name="items[<?= $Item->id ?>][is-wholesale]" <?php if ($Item->is_wholesale) echo 'checked' ?>>
+                                                                        <label for="is-wholesale-<?= $Item->id ?>">Toggle</label>
+                                                                    </div>
+                                                                    
+                                                                    <label>
+                                                                        Wholesale only
+                                                                    </label>
+                                                                </div>
+                                                            </cell>
+
+                                                            <!-- <cell class="actions flexgrow-0 margin-left-50em">
+                                                                <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="right" title="Edit item">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+
+                                                                <a class="remove-item btn btn-danger" data-id="<?= $Item->id ?>" data-toggle="tooltip" data-placement="right" title="Delete item">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </cell> -->
+                                                        </fable>
+                                                    </div>
+
+                                                <?php $i++ ?>
+
+                                                <?php endforeach; ?>
                                             
-                                            <p>
-                                                <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ' ' . $OrderGrower->Exchange->address_line_2 : '') . ', '. $OrderGrower->Exchange->city . ' ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
-                                            </p>
+                                            </div>
+
+                                            <!-- <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/add-new?category=<?= $category_id ?>&subcategory=<?= $subcategory_id ?>" class="padding-top-1em"> -->
+                                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/add-new?category=<?= $category_id ?>&subcategory=<?= $subcategory_id ?>" class="btn btn-white btn-sm btn-block margin-top-1em">
+                                                Add more <?= $hashed_subcategories[$subcategory_id] ?>
+                                            </a>
                                         </div>
+                                    </div>
+                                    
+                                <?php endforeach; ?>
 
-                                        <?php if ($OrderGrower->Exchange->type != 'delivery'): ?>
+                            </ledger>
+                        </div>
 
-                                            <div class="callout">
-                                                <h6>
-                                                    Time
-                                                </h6>
+                    <?php endforeach; ?>
 
-                                                <p>
-                                                    <?= $OrderGrower->Exchange->time; ?>
-                                                </p>
-                                            </div>
-
-                                            <div class="callout">
-                                                <h6>
-                                                    Instructions
-                                                </h6>
-
-                                                <p>
-                                                    <?= $OrderGrower->Exchange->instructions; ?>
-                                                </p>
-                                            </div>
-
-                                        <?php endif; ?>
-
-                                    </div> -->
-                                </div>
-
-                                <?php
-
-                            }
-
-                            ?>
-
-                        </ledger>
-                    </div>
-
-                <?php endforeach; ?>
-
-            </ledger>
+                </ledger>
+            </form>
 
         <?php else: ?>
 

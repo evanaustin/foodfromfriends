@@ -1,23 +1,55 @@
 <?php
 
 $settings = [
-    'title' => 'Add a new item listing | Food From Friends'
+    'title' => 'Add a new item | Food From Friends'
 ];
 
-$FoodListing = new Item([
+$category_id    = \Num::clean_int($_GET['category']);
+$subcategory_id = \Num::clean_int($_GET['subcategory']);
+
+$Item = new Item([
     'DB' => $DB
 ]);
 
-$item_categories    = $FoodListing->retrieve([
-    'table' => 'food_categories'
+$categories    = $Item->retrieve([
+    'table' => 'item_categories'
 ]);
 
-$item_subcategories = $FoodListing->retrieve([
-    'table' => 'food_subcategories'
+$subcategories = $Item->retrieve([
+    'table' => 'item_subcategories'
 ]);
 
-$item_varieties     = $FoodListing->retrieve([
+$varieties     = $Item->retrieve([
     'table' => 'item_varieties'
 ]);
+
+$varieties     = $Item->retrieve([
+    'table' => 'item_varieties'
+]);
+    
+if (!empty($subcategory_id)) {
+    $lim_varieties = $Item->retrieve([
+        'table' => 'item_varieties',
+        'where' => [
+            'item_subcategory_id' => $subcategory_id
+        ]
+    ]);
+}
+$package_types  = $Item->retrieve([
+    'table' => 'item_package_types'
+]);
+
+$metrics        = $Item->retrieve([
+    'table' => 'item_metrics'
+]);
+
+$similar_items  = $Item->retrieve([
+    'where' => [
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'item_subcategory_id'   => $subcategory_id
+    ]
+]);
+
+$item_images    = [];
 
 ?>

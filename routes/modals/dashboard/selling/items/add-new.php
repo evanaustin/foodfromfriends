@@ -14,19 +14,19 @@
 
                 <form id="suggest-item-form">
                     <div class="form-group">
-                        <label for="item-type">
-                            Item type
+                        <label>
+                            Type
                         </label>
 
-                        <input id="item-type" type="text" name="item-type" class="form-control" placeholder="What kind of item you would like us to add?" data-parsley-trigger="change" required>
+                        <input type="text" name="type" class="form-control" placeholder="What kind of item you would like us to add?" data-parsley-trigger="change" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="notes">
+                        <label>
                             Comments (optional)
                         </label>
 
-                        <textarea id="comments" name="comments" class="form-control" placeholder="Anything else we should know about this item type?"></textarea>
+                        <textarea name="comments" class="form-control" placeholder="Anything else we should know about this item type?"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-block btn-primary">
