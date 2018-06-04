@@ -380,14 +380,12 @@ keymap {
  * Used: alone, in <ledgers>
  */
 fable {
-    display: flex;
     margin-bottom: 0;
-
-    @include phones() {
-        flex-direction: column;
-    }
-
-    @include all-but-phones() {
+    display: block;
+    flex-direction: column;
+    
+    @include lg() {
+        display: flex;
         flex-direction: row;
     }
 
@@ -419,38 +417,55 @@ fable {
         &.min-third {
             min-width: 33%;
         }
+        
+        &.min-quarter {
+            min-width: 25%;
+        }
+        
+        &.min-fifth {
+            min-width: 20%;
+        }
 
+        &.basis-6em {
+            flex-basis: 6rem;
+        }
+        
         &.image {
             flex-basis: 10%;
             flex-grow: 0;
         }
 
-        &.double {
-            flex-grow: 2;
-
-            &.p1w {
-                box-sizing: content-box;
-            }
+        &.form-field {
+            margin: 1rem 0.5rem 0;
         }
 
         .form-group {
             margin-bottom: 0;
+            width: 100%;
             text-align: center;
 
-            input {
-                &:not([type="checkbox"]) {
-                    width: calc(100% - 1.25rem);
-                    margin: 0 auto;
+            input, select {
+                text-align: center;
+            }
+
+            .input-group {
+                min-width: 120px;
+                
+                input {
+                    padding-right: 0;
+                    text-align: left;
+                }
+            }
+
+            input, select, .input-group {
+                background-color: $superlight-gray;
+                box-shadow: none !important;
+                
+                &:focus {
+                    transform: none !important;
                     background-color: $superlight-gray;
                     box-shadow: none !important;
-                    text-align: center;
-                    
-                    &:focus {
-                        transform: none !important;
-                        background-color: $superlight-gray;
-                        box-shadow: none !important;
-                        color: $superlight-green;
-                    }
+                    color: $superlight-green;
                 }
                 
                 &::-webkit-inner-spin-button {
@@ -458,30 +473,31 @@ fable {
                 }
             }
 
-            div.price {
-                margin: 0 0.5rem;
-                padding: 0 0.5rem;
+            .price {
                 background-color: $superlight-gray;
                 @include rounded($radius);
                 
                 &:before {
                     content: '$';
-                    padding-right: 0.25rem;
+                    padding: 0 0.25rem;
                 }
                 
                 input {
                     display: inline-block;
+                    width: calc(100% - 1.5rem);
+                    padding-left: 0;
                     text-align: right;
                 }
             }
 
             label {
                 margin: 0;
+                font-size: 10px !important;
             }
-            
-            input:not([type="checkbox"]), div.price {
-                + label {
-                    font-size: 10px !important;
+
+            .toggle-box {
+                label {
+                    margin: 0 auto;
                 }
             }
         }
@@ -669,7 +685,7 @@ fable {
                 }
 
                 @include all-but-phones() {
-                    > cell:first-child {
+                    > cell:not(.image):first-child {
                         padding-left: 1.25rem;
                     }
                 }
@@ -696,7 +712,7 @@ fable {
             }
 
             > fable {
-                > cell:first-child {
+                > cell:not(.image):first-child {
                     padding-left: 0rem;
                 }
 
@@ -712,7 +728,7 @@ fable {
             }
 
             // top level fabel
-            .tab + fable {
+            > .tab + fable {
                 margin-bottom: 1rem;
                 color: $light-gray;
 
@@ -734,7 +750,7 @@ fable {
         }
 
         fable {
-            > cell:first-child {
+            > cell:not(.image):first-child {
                 @include phones () {
                     padding-left: 1.25rem;
                 }
