@@ -4,41 +4,35 @@ class Item extends Base {
     
     public
         $id,
-        $name,
         $grower_operation_id,
-        $food_category_id,
-        $food_subcategory_id,
+        $item_subcategory_id,
         $item_variety_id,
+        $name,
         $price,
-        $weight,
-        $units,
         $quantity,
-        $wholesale_price,
-        $wholesale_weight,
-        $wholesale_units,
-        $wholesale_quantity,
-        $is_available,
-        $packaging,
-        $wholesale_packaging,
+        $package_type_id,
+        $measurement,
+        $metric_id,
         $description,
+        $is_available,
+        $is_wholesale,
         $average_rating,
         $archived_on;
-
-    public
-        $category_title,
-        $subcategory_title,
-        $variety_title;
-
-    public
-        $filename,
-        $ext;
-
-    public
-        $Image;
-
+    
     public
         $title,
         $link;
+
+    public
+        $category_id,
+        $category_title,
+        $subcategory_title,
+        $variety_title,
+        $package_type,
+        $metric;
+
+    public
+        $Image;
 
     protected
         $class_dependencies,
@@ -67,7 +61,7 @@ class Item extends Base {
                 'image' => true
             ]);
 
-            $this->title = (isset($this->name)) ? $this->name : ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
+            $this->title = (!empty($this->name)) ? $this->name : ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
 
             $Slug = new Slug([
                 'DB' => $this->DB
@@ -80,28 +74,32 @@ class Item extends Base {
     private function populate_fully($id) {
         $results = $this->DB->run('
             SELECT 
-                fl.*,
-                fc.title    AS category_title,
-                fsc.title   AS subcategory_title,
+                i.*,
+                ic.id       AS item_category_id,
+                ic.title    AS category_title,
+                isc.title   AS subcategory_title,
                 iv.title    AS variety_title,
-                fli.filename,
-                fli.ext
+                pt.title    AS package_type,
+                im.title    AS metric
             
-            FROM items fl
+            FROM items i
             
-            LEFT JOIN food_categories fc
-                ON fc.id    = fl.food_category_id
-                
-            LEFT JOIN food_subcategories fsc
-                ON fsc.id   = fl.food_subcategory_id
+            JOIN item_subcategories isc
+                ON isc.id   = i.item_subcategory_id
+            
+            JOIN item_categories ic
+                ON ic.id    = isc.item_category_id
                 
             LEFT JOIN item_varieties iv
-                ON iv.id    = fl.item_variety_id
-                
-            LEFT JOIN item_images fli
-                ON fli.item_id = fl.id
+                ON iv.id    = i.item_variety_id
             
-            WHERE fl.id = :id
+            LEFT JOIN item_package_types pt
+                ON pt.id    = i.package_type_id
+            
+            LEFT JOIN item_metrics im
+                ON im.id    = i.metric_id
+                
+            WHERE i.id = :id
         
             LIMIT 1
         ', [
@@ -116,30 +114,25 @@ class Item extends Base {
     public function get_all_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
-                fl.*,
-                fsc.title AS subcategory_title,
-                fsc.food_category_id,
-                fc.title AS category_title,
-                fli.filename,
-                fli.ext
+                i.*,
+                isc.title AS subcategory_title,
+                isc.item_category_id,
+                ic.title AS category_title
             
-            FROM items fl
+            FROM items i
             
-            LEFT JOIN food_subcategories fsc
-                ON fl.food_subcategory_id = fsc.id
+            JOIN item_subcategories isc
+                ON isc.item_subcategory_id = isc.id
             
-            LEFT JOIN food_categories fc
-                ON fsc.food_category_id = fc.id
+            JOIN item_categories ic
+                ON isc.item_category_id = ic.id
             
-            LEFT JOIN item_images fli
-                ON fl.id = fli.item_id
-            
-            WHERE fl.grower_operation_id = :grower_operation_id
-                AND fl.archived_on IS NULL
+            WHERE i.grower_operation_id = :grower_operation_id
+                AND i.archived_on IS NULL
 
-            GROUP BY fl.food_category_id
+            GROUP BY ic.id
 
-            ORDER BY fl.position
+            ORDER BY i.position
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
@@ -151,11 +144,21 @@ class Item extends Base {
         $results = $this->DB->run('
             SELECT 
                 i.id,
-                i.food_category_id
+                isc.id  AS item_subcategory_id,
+                ic.id   AS item_category_id
+            
             FROM items i
+            
+            JOIN item_subcategories isc
+                ON isc.id = i.item_subcategory_id
+            
+            JOIN item_categories ic
+                ON ic.id = isc.item_category_id
+            
             WHERE i.grower_operation_id = :grower_operation_id
                 AND i.archived_on IS NULL
-            GROUP BY i.food_category_id
+
+            ORDER BY isc.id, i.position
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
@@ -166,26 +169,21 @@ class Item extends Base {
     public function get_available_listings($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
-                fl.*,
-                fsc.title AS subcategory_title,
-                fsc.food_category_id,
-                fc.title AS category_title,
-                fli.filename,
-                fli.ext
+                i.*,
+                isc.title AS subcategory_title,
+                isc.item_category_id,
+                i.title AS category_title
             
-            FROM items fl
+            FROM items i
             
-            LEFT JOIN food_subcategories fsc
-                ON fl.food_subcategory_id = fsc.id
+            LEFT JOIN item_subcategories isc
+                ON i.item_subcategory_id = isc.id
             
-            LEFT JOIN food_categories fc
-                ON fsc.food_category_id = fc.id
+            LEFT JOIN item_categories ic
+                ON isc.item_category_id = ic.id
             
-            LEFT JOIN item_images fli
-                ON fl.id = fli.item_id
-            
-            WHERE fl.grower_operation_id = :grower_operation_id
-                AND fl.is_available = :is_available
+            WHERE i.grower_operation_id = :grower_operation_id
+                AND i.is_available = :is_available
         ', [
             'grower_operation_id' => $grower_operation_id,
             'is_available' => 1
@@ -197,61 +195,25 @@ class Item extends Base {
     public function get_category_associations() {
         $results = $this->DB->run('
             SELECT 
-                fc.id       AS category_id,
-                fc.title    AS category_title,
-                fsc.id      AS subcategory_id,
-                fsc.title   AS subcategory_title,
+                i.id        AS category_id,
+                ic.title    AS category_title,
+                isc.id      AS subcategory_id,
+                isc.title   AS subcategory_title,
                 iv.id       AS variety_id,
                 iv.title    AS variety_title
             
-            FROM food_categories fc
+            FROM item_categories ic
             
-            LEFT JOIN food_subcategories fsc
-                ON fsc.food_category_id = fc.id
+            LEFT JOIN item_subcategories isc
+                ON isc.item_category_id = ic.id
 
             LEFT JOIN item_varieties iv
-                ON iv.food_subcategory_id = fsc.id
+                ON iv.item_subcategory_id = isc.id
         ');
 
         return $results;
     }
 
-    public function get_categories() {
-        $results = $this->DB->run('
-            SELECT * FROM food_categories
-        ');
-        
-        return (isset($results)) ? $results : false;
-    }
-
-    public function get_subcategories() {
-        $results = $this->DB->run('
-            SELECT * FROM food_subcategories
-        ');
-
-        return (isset($results)) ? $results : false;
-    }
-
-    public function other_exists($other) {
-        $results = $this->DB->run('
-            SELECT fc.title 
-            
-            FROM food_categories fc
-            
-            JOIN food_subcategories fsc
-                ON fsc.food_category_id = fc.id
-            
-            WHERE fsc.title = :other
-            
-            LIMIT 1
-        ', [
-            'other' => $other
-        ]);
-        
-        return (isset($results[0])) ? $results[0]['title'] : false;
-    }
 }
-
-
 
 ?>
