@@ -35,16 +35,16 @@ class WishList extends Base {
             SELECT 
                 wl.item_category_id     AS category_id,
                 wl.item_subcategory_id  AS subcategory_id,
-                fc.title                AS category_title,
-                fsc.title               AS subcategory_title
+                ic.title                AS category_title,
+                isc.title               AS subcategory_title
             
             FROM wish_list_items wl
             
-            JOIN food_categories fc
-                ON fc.id    = wl.item_category_id
+            JOIN item_categories ic
+                ON ic.id    = wl.item_category_id
                 
-            JOIN food_subcategories fsc
-                ON fsc.id   = wl.item_subcategory_id
+            JOIN item_subcategories isc
+                ON isc.id   = wl.item_subcategory_id
             
             WHERE wl.buyer_account_id = :buyer_account_id
         ', [

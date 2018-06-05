@@ -1,5 +1,5 @@
 body.dashboard-selling-items-overview-grid{
-    div.listings {
+    div.items {
         div.col-md-4 {
             &:nth-child(-n+3) {
                 .card {
@@ -59,7 +59,7 @@ body.dashboard-selling-items-overview-grid{
         }
     }
     
-    div.listing-info {
+    div.item-info {
         flex-grow: 1;
         justify-content: center;
         border-right: 1px solid $edge-color;
@@ -70,7 +70,7 @@ body.dashboard-selling-items-overview-grid{
         }
     }
     
-    div.listing-controls {
+    div.item-controls {
         min-width: 5em;
     
         a {

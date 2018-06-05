@@ -25,23 +25,23 @@
 
                 <?php
 
-                if (!empty($OrderGrower->FoodListings)) {
+                if (!empty($OrderGrower->Items)) {
                     echo '<div class="cart-items">';
 
-                    foreach ($OrderGrower->FoodListings as $CartItem) {
-                        $FoodListingItem = new Item([
+                    foreach ($OrderGrower->Items as $CartItem) {
+                        $ItemItem = new Item([
                             'DB' => $DB,
-                            'id' => $CartItem->food_listing_id
+                            'id' => $CartItem->item_id
                         ]);
     
                         ?>
     
-                        <div class="cart-item" data-listing-id="<?= $FoodListingItem->id; ?>">
+                        <div class="cart-item" data-item-id="<?= $ItemItem->id; ?>">
                             <div class="item-image">
                                 <?php
                                 
-                                if (!empty($FoodListingItem->filename)) {
-                                    img(ENV . '/items/' . $FoodListingItem->filename, $FoodListingItem->ext, [
+                                if (!empty($ItemItem->filename)) {
+                                    img(ENV . '/items/' . $ItemItem->filename, $ItemItem->ext, [
                                         'server'    => 'S3',
                                         'class'     => 'img-fluid'
                                     ]);
@@ -57,8 +57,8 @@
                             
                             <div class="item-content">
                                 <div class="item-title">
-                                    <a href="<?= PUBLIC_ROOT . $Grower->link . '/' . $FoodListingItem->link; ?>">
-                                        <?= $FoodListingItem->title; ?>
+                                    <a href="<?= PUBLIC_ROOT . $Grower->link . '/' . $ItemItem->link; ?>">
+                                        <?= $ItemItem->title; ?>
                                     </a>
                                 </div>
     
@@ -67,7 +67,7 @@
                                     
                                     <?php
                                                             
-                                    for ($i = 1; $i <= $FoodListingItem->quantity; $i++) {
+                                    for ($i = 1; $i <= $ItemItem->quantity; $i++) {
                                         echo "<option value=\"{$i}\"" . (($i == $CartItem->quantity) ? 'selected' : '') . ">{$i}</option>";
                                     }
                                         

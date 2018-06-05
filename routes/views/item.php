@@ -1,7 +1,7 @@
 <main>
     <div class="main container">
         
-        <?php if ($FoodListing->id && ($GrowerOperation->is_active || $is_owner)): ?>
+        <?php if ($Item->id && ($GrowerOperation->is_active || $is_owner)): ?>
 
             <?php if ($is_owner): ?>
 
@@ -10,7 +10,7 @@
 
                         <?php if ($GrowerOperation->is_active): ?>
                         
-                            <span>This is what your item looks like to the public. Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $FoodListing->id ?>">here</a> to go edit this item.</span>
+                            <span>This is what your item looks like to the public. Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>">here</a> to go edit this item.</span>
                         
                         <?php else: ?>
 
@@ -29,11 +29,11 @@
                     <div class="sidebar-content">
                         <div class="photo box">
                             
-                            <?php if (!empty($FoodListing->filename)): ?>
+                            <?php if (!empty($Item->filename)): ?>
 
                                 <a href="#" data-toggle="modal" data-target="#img-zoom-modal">
 
-                                <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                                <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
                                     'server'    => 'S3',
                                     'class'     => 'img-fluid'
                                 ]); ?>
@@ -49,7 +49,7 @@
 
                                 <?php if ($is_owner): ?>
                                     
-                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $FoodListing->id ?>" class="btn btn-cta btn-block">
+                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta btn-block">
                                         Add an item image
                                     </a>
                                 
@@ -89,7 +89,7 @@
                 <div class="col-12 order-1 col-lg-5 order-lg-1">
                     <div id="main-content">
                         <h2 class="dark-gray bold margin-btm-25em">
-                            <?= $FoodListing->title; ?>
+                            <?= $Item->title; ?>
                         </h2>
 
                         <h6 class="muted normal margin-btm-1em">
@@ -105,33 +105,33 @@
 
                             <?php endif; ?>
                             
-                            <?php if (!empty($FoodListing->weight) && !empty($FoodListing->units)): ?>
+                            <?php if (!empty($Item->weight) && !empty($Item->units)): ?>
                                 
                                 &bull;
-                                $<?= number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units ?>
+                                $<?= number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units ?>
                             
                             <?php endif; ?>
 
                             &bull;
 
-                            <?= ($FoodListing->is_available ? "{$FoodListing->quantity} in stock" : 'Unavailable') ?>
+                            <?= ($Item->is_available ? "{$Item->quantity} in stock" : 'Unavailable') ?>
                         </h6>
                         
-                        <?php if (!empty($FoodListing->description)): ?>
+                        <?php if (!empty($Item->description)): ?>
 
                             <div class="callout description">
-                                <div><?= $FoodListing->description ?></div>
+                                <div><?= $Item->description ?></div>
                             </div>
 
                         <?php elseif ($is_owner): ?>
 
-                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $FoodListing->id ?>" class="btn btn-cta">
+                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta">
                                 Add a description
                             </a>
                         
                         <?php endif; ?>
 
-                        <?php if (!empty($FoodListing->packaging) || ($wholesale_relationship && !empty($FoodListing->wholesale_packaging))): ?>
+                        <?php if (!empty($Item->packaging) || ($wholesale_relationship && !empty($Item->wholesale_packaging))): ?>
                             
                             <div class="item-definition set d-none d-md-block">
                                 <h4 class="margin-btm-50em">
@@ -143,7 +143,7 @@
                                 </div>
 
                                 <div class="callout">
-                                    <div><?= ($wholesale_relationship) ? $FoodListing->wholesale_packaging : $FoodListing->packaging; ?></div>
+                                    <div><?= ($wholesale_relationship) ? $Item->wholesale_packaging : $Item->packaging; ?></div>
                                 </div>
                             </div>
 
@@ -364,7 +364,7 @@
                     <div id="basket-form-container" class="sticky-top">
                         <div class="box">
                             <div class="header">    
-                                <?= _amount(($wholesale_relationship && !empty($FoodListing->wholesale_price) ? $FoodListing->wholesale_price : $FoodListing->price)) ?>
+                                <?= _amount(($wholesale_relationship && !empty($Item->wholesale_price) ? $Item->wholesale_price : $Item->price)) ?>
                                 
                                 <small>
                                     each
@@ -374,20 +374,20 @@
                             <div class="content">
                                 <div class="alerts"></div>
 
-                                <?php if (!$FoodListing->is_available): ?>
+                                <?php if (!$Item->is_available): ?>
 
                                     <span class="muted">This item is currently unavailable</span>
 
                                 <?php else: ?>
 
-                                    <?php if (isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id], $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->FoodListings[$FoodListing->id])): ?>
+                                    <?php if (isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id], $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Items[$Item->id])): ?>
                                 
                                         <?php $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id] ?>
-                                        <?php $OrderItem = $OrderGrower->FoodListings[$FoodListing->id] ?>
+                                        <?php $OrderItem = $OrderGrower->Items[$Item->id] ?>
 
                                         <form id="update-item" data-ordergrower="<?= $OrderGrower->id; ?>">
                                             <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
-                                            <input type="hidden" name="item-id" value="<?= $FoodListing->id; ?>">
+                                            <input type="hidden" name="item-id" value="<?= $Item->id; ?>">
                                             <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
                                             <div class="form-group">
@@ -397,7 +397,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($Item->wholesale_quantity) ? $Item->wholesale_quantity : $Item->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if ($OrderItem->quantity == $i) echo 'selected' ?>>
                                                             <?= $i ?>
@@ -445,7 +445,7 @@
                                     
                                         <form id="add-item" data-ordergrower="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0; ?>">
                                             <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
-                                            <input type="hidden" name="item-id" value="<?= $FoodListing->id; ?>">
+                                            <input type="hidden" name="item-id" value="<?= $Item->id; ?>">
                                             <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
                                             <input type="hidden" name="is-wholesale" value="<?= ($wholesale_relationship) ? 1 : 0 ?>"/>
 
@@ -456,7 +456,7 @@
                                                 
                                                 <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
                                                     
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($FoodListing->wholesale_quantity) ? $FoodListing->wholesale_quantity : $FoodListing->quantity); $i++): ?>
+                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($Item->wholesale_quantity) ? $Item->wholesale_quantity : $Item->quantity); $i++): ?>
                                                         
                                                         <option value="<?= $i ?>" <?php if (isset($_GET['quantity']) && $_GET['quantity'] == $i) echo 'selected' ?>>
                                                             <?= $i ?>
@@ -517,7 +517,7 @@
                     <div class="sidebar-content">
                         <div class="photo box">
                             
-                            <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                            <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
                                 'server'    => 'S3',
                                 'class'     => 'img-fluid'
                             ]); ?>
@@ -528,7 +528,7 @@
 
                 <div class="col-12 order-4 d-md-none">
                     
-                    <?php if (!empty($FoodListing->packaging)): ?>
+                    <?php if (!empty($Item->packaging)): ?>
 
                         <div class="item-definition set">
                             <h4>
@@ -536,7 +536,7 @@
                             </h4>
 
                             <div class="callout">
-                                <div><?= $FoodListing->packaging; ?></div>
+                                <div><?= $Item->packaging; ?></div>
                             </div>
                         </div>
 

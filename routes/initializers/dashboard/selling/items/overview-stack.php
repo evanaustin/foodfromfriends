@@ -1,15 +1,15 @@
 <?php
 
 $settings = [
-    'title' => 'Your item listings | Food From Friends'
+    'title' => 'Your item items | Food From Friends'
 ];
 
-$FoodListing = new Item([
+$Item = new Item([
     'DB' => $DB
 ]);
 
-$listings = $FoodListing->get_all_listings($User->GrowerOperation->id);
+$items = $Item->get_all_items($User->GrowerOperation->id);
 
-$listing_count = count(array_filter($listings));
+$item_count = count(array_filter($items));
 
 ?>

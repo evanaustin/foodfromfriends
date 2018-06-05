@@ -83,11 +83,11 @@
 
             <?php
 
-            foreach ($OrderGrower->FoodListings as $OrderFoodListing) {
+            foreach ($OrderGrower->Items as $OrderItem) {
 
-                $FoodListing = new Item([
+                $Item = new Item([
                     'DB' => $DB,
-                    'id' => $OrderFoodListing->food_listing_id
+                    'id' => $OrderItem->item_id
                 ]);
                 
                 ?>
@@ -98,7 +98,7 @@
                             <div class="item-image">
                                 <?php
                                 
-                                img(ENV . '/items/fl.' . $FoodListing->id, $FoodListing->ext, [
+                                img(ENV . '/items/fl.' . $Item->id, $Item->ext, [
                                     'server'    => 'S3',
                                     'class'     => 'img-fluid'
                                 ]);
@@ -108,17 +108,17 @@
 
                             <div class="card-body">
                                 <h6 class="strong">
-                                    <a href="<?= PUBLIC_ROOT . $Seller->link . '/' . $FoodListing->link; ?>">
-                                        <?= ucfirst($FoodListing->title); ?>
+                                    <a href="<?= PUBLIC_ROOT . $Seller->link . '/' . $Item->link; ?>">
+                                        <?= ucfirst($Item->title); ?>
                                     </a>
                                 </h6>
                                 
                                 <?php
                                                         
-                                if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
+                                if (!empty($OrderItem->weight) && !empty($OrderItem->units)) {
                                     echo '<small class="light-gray"><span>';
-                                    amount(($OrderListing->unit_price / $OrderListing->unit_weight));
-                                    echo " / {$OrderListing->weight_units}</span></small>";
+                                    amount(($OrderItem->unit_price / $OrderItem->unit_weight));
+                                    echo " / {$OrderItem->weight_units}</span></small>";
                                 }
                                 
                                 ?>
@@ -136,14 +136,14 @@
                                 <?php
 
                                 foreach ($scores as $score => $title) {
-                                    $item_id = "item-{$OrderFoodListing->food_listing_id}-rating-{$score}";
+                                    $item_id = "item-{$OrderItem->item_id}-rating-{$score}";
 
-                                    // echo "<input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderFoodListing->food_listing_id}][score]\" value=\"{$score}\"/>";
+                                    // echo "<input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderItem->item_id}][score]\" value=\"{$score}\"/>";
                                     // echo "<label for=\"{$item_id}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>";
 
                                     echo "
                                         <div class=\"custom-control custom-radio custom-control-inline\">
-                                            <input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderFoodListing->food_listing_id}][score]\" class=\"custom-control-input\" value=\"{$score}\">
+                                            <input type=\"radio\" id=\"{$item_id}\" name=\"items[{$OrderItem->item_id}][score]\" class=\"custom-control-input\" value=\"{$score}\">
                                             <label class=\"custom-control-label\" for=\"{$item_id}\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-title=\"{$title}\">{$score}</label>
                                         </div>
                                     ";
@@ -154,8 +154,8 @@
                             </span>
 
                             <div class="form-group no-margin">
-                                <label for="item-<?= $OrderFoodListing->food_listing_id; ?>-review">Write a review</label>
-                                <textarea type="text" name="items[<?= $OrderFoodListing->food_listing_id; ?>][review]" rows="3" class="form-control" placeholder="Write a description of your thoughts on this item"></textarea>
+                                <label for="item-<?= $OrderItem->item_id; ?>-review">Write a review</label>
+                                <textarea type="text" name="items[<?= $OrderItem->item_id; ?>][review]" rows="3" class="form-control" placeholder="Write a description of your thoughts on this item"></textarea>
                             </div>
                         </fieldset>
                     </div>

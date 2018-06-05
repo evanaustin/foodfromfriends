@@ -60,7 +60,7 @@ if (!empty($growers)) {
 
         $ThisGrower = $Growers[$grower['id']];
     
-        $ThisGrower->listing_count  = $ThisGrower->count_listings();
+        $ThisGrower->item_count  = $ThisGrower->count_items();
         $ThisGrower->stars          = stars($ThisGrower->average_rating);
     
         // Get distance between user and seller
@@ -96,7 +96,7 @@ if (!empty($growers)) {
                 'name'      => $ThisGrower->name,
                 'rating'    => $ThisGrower->stars,
                 'distance'  => (!empty($ThisGrower->distance['length']) ? "{$ThisGrower->distance['length']} {$ThisGrower->distance['units']} away" : "{$ThisGrower->city}, {$ThisGrower->state}"),
-                'listings'  => "<strong>{$ThisGrower->listing_count}</strong> listing" . ($ThisGrower->listing_count == 1 ? '' : 's')
+                'items'  => "<strong>{$ThisGrower->item_count}</strong> item" . ($ThisGrower->item_count == 1 ? '' : 's')
             ],
             'geometry'      => [
                 'type'          => 'Point',

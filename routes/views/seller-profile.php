@@ -248,10 +248,10 @@
                                     Items
                                 </bold> 
                                 
-                                <?php if (!empty($listings)): ?>
+                                <?php if (!empty($items)): ?>
 
                                     <light class="light-gray">
-                                        (<?= count($listings) ?>)
+                                        (<?= count($items) ?>)
                                     </light>
 
                                 <?php endif; ?>
@@ -262,15 +262,15 @@
                                 Items for sale from <?= $Seller->name ?>
                             </div>
 
-                            <?php if (!empty($listings)): ?>
+                            <?php if (!empty($items)): ?>
 
                                 <div class="row">
                                 
-                                    <?php foreach ($listings as $listing): ?>
+                                    <?php foreach ($items as $item): ?>
                                         
                                         <?php $Item = new Item([
                                             'DB' => $DB,
-                                            'id' => $listing['id']
+                                            'id' => $item['id']
                                         ]); ?>
 
                                         <div class="col-md-4">
@@ -278,9 +278,9 @@
                                                 <div class="card-img-top">
                                                     <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$Item->link}" ?>">
 
-                                                        <?php if (!empty($Item->filename)): ?>
+                                                        <?php if (!empty($Item->Image->filename)): ?>
                                                             
-                                                            <?= _img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                                                            <?= _img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
                                                                 'server'    => 'S3',
                                                                 'class'     => 'img-fluid animated fadeIn hidden'
                                                             ]); ?>
@@ -357,7 +357,7 @@
                                                     
                                                     <?php if ($Item->is_available && ($Item->quantity || ($wholesale_relationship && !empty($Item->wholesale_quantity)))): ?>
 
-                                                        <?php $OrderGrowerItem = (isset($OrderGrower, $OrderGrower->FoodListings[$Item->id])) ? $OrderGrower->FoodListings[$Item->id] : null; ?>
+                                                        <?php $OrderGrowerItem = (isset($OrderGrower, $OrderGrower->Items[$Item->id])) ? $OrderGrower->Items[$Item->id] : null; ?>
                                             
                                                         <form id="quick-add-<?= $Item->id ?>" class="quick-add">
                                                             <fable id="in-stock">  

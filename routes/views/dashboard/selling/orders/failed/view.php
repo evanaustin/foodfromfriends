@@ -80,20 +80,20 @@
                         <div id="items">
                             <?php
 
-                            foreach($OrderGrower->FoodListings as $OrderListing) {
+                            foreach($OrderGrower->Items as $OrderItem) {
 
-                                $FoodListing = new Item([
+                                $Item = new Item([
                                     'DB' => $DB,
-                                    'id' => $OrderListing->food_listing_id
+                                    'id' => $OrderItem->item_id
                                 ]);
                                 
                                 ?>
                                 
-                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" class="card animated zoomIn">
+                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>" class="card animated zoomIn">
                                     <div class="item-image">
                                         <?php
                                         
-                                        img(ENV . '/items/fl.' . $FoodListing->id, $FoodListing->ext, [
+                                        img(ENV . '/items/fl.' . $Item->id, $Item->ext, [
                                             'server'    => 'S3',
                                             'class'     => 'img-fluid'
                                         ]);
@@ -102,24 +102,24 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="listing-info">
+                                        <div class="item-info">
                                             <h5 class="card-title">
                                                 <span>
-                                                    <?= ucfirst($FoodListing->title); ?>
+                                                    <?= ucfirst($Item->title); ?>
                                                 </span>
                                             </h5>
                                             
                                             <fable>
                                                 <cell>
-                                                    <strong class="rounded-circle success no-margin"><span class="white"><?= $OrderListing->quantity; ?></span></strong>
+                                                    <strong class="rounded-circle success no-margin"><span class="white"><?= $OrderItem->quantity; ?></span></strong>
                                                 </cell>
                                                 
                                                 <cell>
-                                                    <?= bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
+                                                    <?= bcmul($OrderItem->quantity, $OrderItem->unit_weight) . ' ' . $OrderItem->weight_units; ?>
                                                 </cell>
 
                                                 <cell class="float-right">
-                                                    <?php amount($OrderListing->total); ?>
+                                                    <?php amount($OrderItem->total); ?>
                                                 </cell>
                                             </fable>
                                         </div>

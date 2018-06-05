@@ -111,7 +111,7 @@
                                     'details' => true
                                 ]);
 
-                                $item_count = count($OrderGrower->FoodListings);
+                                $item_count = count($OrderGrower->Items);
 
                                 $tab_highlight = 'tab-';
 
@@ -267,11 +267,11 @@
                                     <div class="collapse" id="suborder-<?= $OrderGrower->id;?>">
                                         <?php
 
-                                        foreach ($OrderGrower->FoodListings as $OrderListing) {
+                                        foreach ($OrderGrower->Items as $OrderItem) {
 
-                                            $ThisFoodListing = new Item([
+                                            $ThisItem = new Item([
                                                 'DB' => $DB,
-                                                'id' => $OrderListing->food_listing_id
+                                                'id' => $OrderItem->item_id
                                             ]);
 
                                             ?>
@@ -280,7 +280,7 @@
                                                 <div class="item-image">
                                                     <?php
                                                     
-                                                    img(ENV . '/items/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, [
+                                                    img(ENV . '/items/fl.' . $ThisItem->id, $ThisItem->ext, [
                                                         'server'    => 'S3',
                                                         'class'     => 'img-fluid'
                                                     ]);
@@ -290,29 +290,29 @@
 
                                                 <div class="card-body">
                                                     <h6 class="strong">
-                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
-                                                            <?= ucfirst($ThisFoodListing->title); ?>
+                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisItem->link; ?>">
+                                                            <?= ucfirst($ThisItem->title); ?>
                                                         </a>
 
                                                         <span class="float-right">
-                                                            <small>x</small> <?= $OrderListing->quantity; ?>
+                                                            <small>x</small> <?= $OrderItem->quantity; ?>
                                                         </span>
                                                     </h6>
                                                     
                                                     <small class="light-gray">
                                                         <?php
                                                         
-                                                        if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
+                                                        if (!empty($OrderItem->weight) && !empty($OrderItem->units)) {
                                                             echo '<span>';
-                                                            amount(($OrderListing->unit_price / $OrderListing->unit_weight));
-                                                            echo " / {$OrderListing->weight_units}";
+                                                            amount(($OrderItem->unit_price / $OrderItem->unit_weight));
+                                                            echo " / {$OrderItem->weight_units}";
                                                             echo '</span>';
                                                         }
                                                         
                                                         ?>
                                                         
                                                         <span class="float-right">
-                                                            <?php amount($OrderListing->total); ?>
+                                                            <?php amount($OrderItem->total); ?>
                                                         </span>
                                                     </small>
                                                 </div>

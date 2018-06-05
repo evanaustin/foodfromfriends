@@ -111,28 +111,25 @@ class Item extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_all_listings($grower_operation_id) {
+    public function get_all_items($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
-                i.*,
-                isc.title AS subcategory_title,
-                isc.item_category_id,
-                ic.title AS category_title
+                i.id,
+                isc.id  AS item_subcategory_id,
+                ic.id   AS item_category_id
             
             FROM items i
             
             JOIN item_subcategories isc
-                ON isc.item_subcategory_id = isc.id
+                ON isc.id = i.item_subcategory_id
             
             JOIN item_categories ic
-                ON isc.item_category_id = ic.id
+                ON ic.id = isc.item_category_id
             
             WHERE i.grower_operation_id = :grower_operation_id
                 AND i.archived_on IS NULL
 
-            GROUP BY ic.id
-
-            ORDER BY i.position
+            ORDER BY isc.id, i.position
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
@@ -166,7 +163,7 @@ class Item extends Base {
         return (isset($results[0])) ? $results : false;
     }
 
-    public function get_available_listings($grower_operation_id) {
+    public function get_available_items($grower_operation_id) {
         $results = $this->DB->run('
             SELECT 
                 i.*,

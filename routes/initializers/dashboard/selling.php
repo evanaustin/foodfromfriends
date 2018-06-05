@@ -22,7 +22,7 @@ if ($User->GrowerOperation->pending_orders) {
     $pending_orders = $OrderGrower->get_pending($User->GrowerOperation->id);
 }
 
-$listing_count      = (isset($User->GrowerOperation)) ? $User->GrowerOperation->count_listings() : 0;
+$item_count      = (isset($User->GrowerOperation)) ? $User->GrowerOperation->count_items() : 0;
 $team_member_count  = (isset($User->GrowerOperation)) ? count($User->GrowerOperation->get_team_members()) : 0;
 
 if (isset($User->GrowerOperation)) {
@@ -44,9 +44,9 @@ $requirements = [
         'link'      => 'dashboard/selling/settings/profile',
         'status'    => (!empty($User->GrowerOperation->zipcode) ? 'complete' : 'incomplete'),
     ],
-    'upload your first listing' => [
+    'upload your first item' => [
         'link'      => 'dashboard/selling/items/add-new',
-        'status'    => (($listing_count > 0) ? 'complete' : 'incomplete'),
+        'status'    => (($item_count > 0) ? 'complete' : 'incomplete'),
     ],
     'enable at least one exchange option' => [
         'link'      => 'dashboard/selling/exchange-options/pickup',
@@ -63,7 +63,7 @@ $goals = [
         'link'      => 'dashboard/selling/settings/team-members',
         'status'    => (($team_member_count > 1) ? 'complete' : 'incomplete'),
     ],
-    'sell your first listing' =>  [
+    'sell your first item' =>  [
         'link'      => $User->GrowerOperation->link,
         'status'    => (($amount_paid > 0) ? 'complete' : 'incomplete'),
     ]

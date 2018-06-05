@@ -30,16 +30,16 @@
 
         <div class="alerts"></div>
         
-        <?php if ($listing_count > 0): ?>
+        <?php if ($item_count > 0): ?>
         
             <form id="edit-items">
                 <div class="row">
 
-                    <?php foreach($listings as $listing): ?>
+                    <?php foreach($items as $item): ?>
 
                         <?php $Item = new Item([
                             'DB' => $DB,
-                            'id' => $listing['id']
+                            'id' => $item['id']
                         ]); ?>
 
                         <div class="col-md-12">
@@ -141,11 +141,11 @@
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     
-                                    <!-- <a href="<?= PUBLIC_ROOT . "{$User->GrowerOperation->link}/{$Item->link}" ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" title="View listing">
+                                    <!-- <a href="<?= PUBLIC_ROOT . "{$User->GrowerOperation->link}/{$Item->link}" ?>" class="btn btn-muted" data-toggle="tooltip" data-placement="left" title="View item">
                                         <i class="fa fa-eye"></i>
                                     </a> -->
 
-                                    <a class="remove-listing btn btn-danger" data-id="<?= $Item->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete listing">
+                                    <a class="remove-item btn btn-danger" data-id="<?= $Item->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete item">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </cell>

@@ -34,7 +34,7 @@
                                             </div>
 
                                             <div class="card-body d-flex flex-row">
-                                                <div class="listing-info d-flex flex-column">
+                                                <div class="item-info d-flex flex-column">
                                                     <div class="card-title">
                                                         <?= "<div class=\"name\">{$Grower->name}</div>"; ?>
                                                     </div>
@@ -50,7 +50,7 @@
                                             </div>
 
                                             <div class="card-footer">
-                                                <?= "<strong>{$Grower->listing_count}</strong>item"  . ($Grower->listing_count > 1 ? 's' : '') . ' for sale<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
+                                                <?= "<strong>{$Grower->item_count}</strong>item"  . ($Grower->item_count > 1 ? 's' : '') . ' for sale<span class="float-right"><i class="fa fa-angle-right"></i></span>'; ?>
                                             </div>
                                         </div>
 

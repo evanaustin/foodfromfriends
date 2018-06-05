@@ -42,8 +42,8 @@ if (\Num::is_id($order_grower_id)) {
         $items_sold     = 0;
         $unique_items   = 0;
 
-        foreach($OrderGrower->FoodListings as $OrderListing) {
-            $items_sold += $OrderListing->quantity;
+        foreach($OrderGrower->Items as $OrderItem) {
+            $items_sold += $OrderItem->quantity;
             $unique_items++;
         }
     }

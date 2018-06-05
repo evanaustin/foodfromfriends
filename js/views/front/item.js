@@ -123,15 +123,15 @@ App.Front.Item = function() {
                             }
                             
                             $cart_item = $(
-                                '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
+                                '<div class="cart-item animated bounceIn" data-item-id="' + response.item.id + '">' +
                                     '<div class="item-image">' +
-                                        '<img src="' + (response.listing.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.listing.filename + '.' + response.listing.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '" class="img-fluid"/>' +
+                                        '<img src="' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '" class="img-fluid"/>' +
                                     '</div>' +
                                     
                                     '<div class="item-content">' +
                                         '<div class="item-title">' +
-                                            '<a href="' + PUBLIC_ROOT + response.listing.link + '">' +
-                                                response.listing.name +
+                                            '<a href="' + PUBLIC_ROOT + response.item.link + '">' +
+                                                response.item.name +
                                             '</a>' +
                                         '</div>' +
                     
@@ -149,7 +149,7 @@ App.Front.Item = function() {
                             
                             $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
                             
-                            for (var i = 1; i <= response.listing.quantity; i++) {
+                            for (var i = 1; i <= response.item.quantity; i++) {
                                 // $option = $('<option>').attr('value', i).text(i);
                                 $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
                             };
@@ -218,11 +218,11 @@ App.Front.Item = function() {
 
                         $(Slidebar.events).on('opened', function () {
                             // Update quantity for cart item
-                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option').attr('selected', false);
-                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('select option[value=' + response.item.quantity + ']').attr('selected', 'selected');
+                            $('.cart-item[data-item-id="' + formdata['item-id'] + '"]').find('select option').attr('selected', false);
+                            $('.cart-item[data-item-id="' + formdata['item-id'] + '"]').find('select option[value=' + response.item.quantity + ']').attr('selected', 'selected');
 
                             // Update item subtotal
-                            $('.cart-item[data-listing-id="' + formdata['food-listing-id'] + '"]').find('.item-price').text(response.item.subtotal);
+                            $('.cart-item[data-item-id="' + formdata['item-id'] + '"]').find('.item-price').text(response.item.subtotal);
 
                             $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
                             $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);

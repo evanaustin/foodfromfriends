@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h3 class="modal-title">
                     <!-- <span id="zoom-title"></span> -->
-                    <?= $FoodListing->title; ?>
+                    <?= $Item->title; ?>
                 </h3>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,7 +14,7 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
                     'server'    => 'S3',
                     'class'     => 'img-fluid rounded drop-shadow'
                 ]); ?>

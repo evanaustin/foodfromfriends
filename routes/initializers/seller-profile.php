@@ -53,8 +53,8 @@ if (isset($Routing->seller)) {
             // retrieve Seller overall rating
             $grower_stars = stars($Seller->average_rating);
             
-            // retrieve listings
-            $listings = $Item->get_all_listings($Seller->id);
+            // retrieve items
+            $items = $Item->get_all_items($Seller->id);
 
             // initialize OrderGrower if it exists
             if (isset($User, $User->BuyerAccount, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id])) {

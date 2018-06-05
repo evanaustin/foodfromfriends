@@ -15,7 +15,7 @@ App.Dashboard.Selling = function() {
                 requirements_bg = 'bg-info';
             }
         } else {
-            $('div.requirements .description').text('Looks great! Your profile is active and your available listings are viewable by the public.');
+            $('div.requirements .description').text('Looks great! Your profile is active and your available items are viewable by the public.');
             requirements_bg = 'bg-success';
         }
 

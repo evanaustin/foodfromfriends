@@ -91,7 +91,7 @@ class Mail {
         $subject = 'Welcome to Food From Friends!';
 
         $body = 'Hey!';
-        //  You\'re awesome for joing Food From Friends. As you probably already know, we invited you to sign up early because we know you grow good food and we want it on our platform. You can log in any time from the bottom of our <a href="http://foodfromfriends.co#log-in">splash page</a>, flesh out your profile, and add food listings till your heart\'s content!
+        //  You\'re awesome for joing Food From Friends. As you probably already know, we invited you to sign up early because we know you grow good food and we want it on our platform. You can log in any time from the bottom of our <a href="http://foodfromfriends.co#log-in">splash page</a>, flesh out your profile, and add items till your heart\'s content!
         $content = new SendGrid\Content('text/html', $body);
 
         $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);

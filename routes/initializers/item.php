@@ -1,7 +1,7 @@
 <?php
 
 $settings = [
-    'title' => 'Item listing | Food From Friends'
+    'title' => 'Item | Food From Friends'
 ];
 
 if (isset($Routing->item_type)) {
@@ -16,11 +16,11 @@ if (isset($Routing->item_type)) {
     if (isset($GrowerOperation)) {
         $is_owner = isset($User) && isset($GrowerOperation->TeamMembers[$User->id]);
         
-        // Find seller's listing that matches this subcategory
+        // Find seller's item that matches this subcategory
         $results = $GrowerOperation->retrieve([
             'where' => [
                 'grower_operation_id' => $GrowerOperation->id,
-                (($Routing->item_type == 'subcategory') ? 'food_subcategory_id' : 'item_variety_id') => $Routing->item_id
+                (($Routing->item_type == 'subcategory') ? 'item_subcategory_id' : 'item_variety_id') => $Routing->item_id
             ],
             'table' => 'items',
             'limit' => 1
@@ -40,12 +40,12 @@ if (isset($Routing->item_type)) {
             $wholesale_relationship = false;
         }
 
-        $FoodListing = new FoodListing([
+        $Item = new Item([
             'DB' => $DB,
             'id' => $results['id']
         ]);
         
-        if (isset($FoodListing->id)) {
+        if (isset($Item->id)) {
             $exchange_options_available = [];
     
             if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered)   $exchange_options_available []= 'delivery';
@@ -62,17 +62,17 @@ if (isset($Routing->item_type)) {
             }
     
             $grower_stars   = ($GrowerOperation->average_rating == 0) ? 'New' : stars($GrowerOperation->average_rating);
-            $item_stars     = ($FoodListing->average_rating == 0) ? 'New' : stars($FoodListing->average_rating);
+            $item_stars     = ($Item->average_rating == 0) ? 'New' : stars($Item->average_rating);
     
-            $ratings = $FoodListing->retrieve([
+            $ratings = $Item->retrieve([
                 'where' => [
-                    'food_listing_id' => $FoodListing->id
+                    'item_id' => $Item->id
                 ],
-                'table' => 'food_listing_ratings',
+                'table' => 'item_ratings',
                 'recent' => true
             ]);
     
-            $settings['title'] = "{$FoodListing->title} from {$GrowerOperation->name} | Food From Friends";
+            $settings['title'] = "{$Item->title} from {$GrowerOperation->name} | Food From Friends";
         }
     }
 }

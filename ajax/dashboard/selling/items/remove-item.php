@@ -35,17 +35,17 @@ $Item = new Item([
     'id' => $item_id
 ]);
 
-$OrderItem = new OrderFoodListing([
+$OrderItem = new OrderItem([
     'DB' => $DB
 ]);
 
 $order_items = $OrderItem->retrieve([
     'where' => [
-        'food_listing_id' => $Item->id
+        'item_id' => $Item->id
     ]
 ]);
 // quit('oi: ' . json_encode($order_items));
-// check whether any orders reference this listing
+// check whether any orders reference this item
 if ($order_items && count($order_items) > 0) {
     $item_deleted = $Item->update([
         'archived_on' => \Time::now()

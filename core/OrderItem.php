@@ -1,6 +1,6 @@
 <?php
  
-class OrderFoodListing extends Base {
+class OrderItem extends Base {
     
     protected
         $class_dependencies,
@@ -11,16 +11,16 @@ class OrderFoodListing extends Base {
         $order_id,
         $order_grower_id,
         $buyer_account_id,
-        $food_listing_id,
+        $item_id,
         $unit_price,
         $unit_weight,
         $weight_units,
         $quantity,
         $total,
-        $food_listing_rating_id;
+        $item_rating_id;
         
     function __construct($parameters) {
-        $this->table = 'order_food_listings';
+        $this->table = 'order_items';
 
         $this->class_dependencies = [
             'DB'
@@ -34,15 +34,15 @@ class OrderFoodListing extends Base {
     }
 
     /**
-     * Creates an array of every `order_food_listings` record for a given `order_grower`.
+     * Creates an array of every `order_items` record for a given `order_grower`.
      *
      * @param int $order_grower_id
-     * @return array Food listings keyed by `food_listing_id`
+     * @return array Items keyed by `item_id`
      */
     public function load_for_grower($order_grower_id) {
         $results = $this->DB->run('
-            SELECT id, food_listing_id
-            FROM order_food_listings 
+            SELECT id, item_id
+            FROM order_items 
             WHERE order_grower_id = :order_grower_id
         ', [
             'order_grower_id' => $order_grower_id
@@ -52,7 +52,7 @@ class OrderFoodListing extends Base {
 
         if (isset($results[0]['id'])) {
             foreach ($results as $result) {
-                $OrderItems[$result['food_listing_id']] = new OrderFoodListing([
+                $OrderItems[$result['item_id']] = new OrderItem([
                     'DB' => $this->DB,
                     'id' => $result['id']
                 ]);
@@ -75,12 +75,12 @@ class OrderFoodListing extends Base {
      * Called when the cart is loaded or modified to make sure we have the seller's latest prices and weights.
      */
     public function sync() {
-        $FoodListing = new Item([
+        $Item = new Item([
             'DB' => $this->DB,
-            'id' => $this->food_listing_id
+            'id' => $this->item_id
         ]);
         
-        if (!$FoodListing->is_available) {
+        if (!$Item->is_available) {
             $OrderGrower = new OrderGrower([
                 'DB' => $this->DB,
                 'id' => $this->order_grower_id
@@ -88,15 +88,15 @@ class OrderFoodListing extends Base {
 
             $this->add([
                 'buyer_account_id'  => $OrderGrower->buyer_account_id,
-                'food_listing_id'   => $this->food_listing_id,
+                'item_id'   => $this->item_id,
             ], 'saved_items');
 
             $this->delete();
         } else {
-            $this->unit_price   = ($this->is_wholesale) ? $FoodListing->wholesale_price : $FoodListing->price;
-            $this->unit_weight  = ($this->is_wholesale) ? $FoodListing->wholesale_weight : $FoodListing->weight;
-            $this->weight_units = ($this->is_wholesale) ? $FoodListing->wholesale_units : $FoodListing->units;
-            $this->total        = $this->quantity * ($this->is_wholesale ? $FoodListing->wholesale_price : $FoodListing->price);
+            $this->unit_price   = ($this->is_wholesale) ? $Item->wholesale_price : $Item->price;
+            $this->unit_weight  = ($this->is_wholesale) ? $Item->wholesale_weight : $Item->weight;
+            $this->weight_units = ($this->is_wholesale) ? $Item->wholesale_units : $Item->units;
+            $this->total        = $this->quantity * ($this->is_wholesale ? $Item->wholesale_price : $Item->price);
     
             $this->update([
                 'unit_price'    => $this->unit_price,
@@ -109,7 +109,7 @@ class OrderFoodListing extends Base {
 
     /**
      * Record the item's rating
-     * Store rating ID in order_food_listing record
+     * Store rating ID in order_item record
      * 
      * @param int $buyer_account_id The buyer account's ID
      * @param int $score The buyer account's numerical score for the item
@@ -117,28 +117,28 @@ class OrderFoodListing extends Base {
      */
     public function rate($buyer_account_id, $score, $review) {
         $item_rating = $this->add([
-            'food_listing_id'   => $this->food_listing_id,
+            'item_id'   => $this->item_id,
             'buyer_account_id'  => $buyer_account_id,
             'score'             => $score,
             'review'            => $review
-        ], 'food_listing_ratings');
+        ], 'item_ratings');
 
         $this->update([
-            'food_listing_rating_id' => $item_rating['last_insert_id']
+            'item_rating_id' => $item_rating['last_insert_id']
         ]);
 
-        $this->food_listing_rating_id = $item_rating['last_insert_id'];
+        $this->item_rating_id = $item_rating['last_insert_id'];
 
         $results = $this->DB->run('
             SELECT AVG(score) AS average
-            FROM food_listing_ratings
-            WHERE food_listing_id=:food_listing_id
+            FROM item_ratings
+            WHERE item_id=:item_id
         ',[
-            'food_listing_id' => $this->food_listing_id
+            'item_id' => $this->item_id
         ]);
 
         $this->update([
             'average_rating' => $results[0]['average']
-        ], 'id', $this->food_listing_id, 'items');
+        ], 'id', $this->item_id, 'items');
     }
 }

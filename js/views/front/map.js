@@ -125,7 +125,7 @@ App.Front.Map = function() {
                                 '<span class="brand">' + e.features[0].properties.rating + '</span>&nbsp;&bull;&nbsp;' + e.features[0].properties.distance +
                             '</div>' +
                             '<div class="muted">' +
-                                e.features[0].properties.listings +
+                                e.features[0].properties.items +
                             '</div>' +
                         '</div>';
 

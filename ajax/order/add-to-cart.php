@@ -53,7 +53,7 @@ $Seller = new GrowerOperation([
     'exchange' => true
 ]);
 
-$FoodListing = new Item([
+$Item = new Item([
     'DB' => $DB,
     'id' => $item_id
 ]);
@@ -67,7 +67,7 @@ $Order = new Order([
  * Ensure item being added to cart belongs to Seller
  */
 
-if ($FoodListing->grower_operation_id != $Seller->id) {
+if ($Item->grower_operation_id != $Seller->id) {
     quit('You cannot add this item to your cart');
 }
 
@@ -98,7 +98,7 @@ $Order = $Order->get_cart($User->BuyerAccount->id);
  * Ensure item is not already in cart
  */
 
-if (isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+if (isset($Order->Growers[$Item->grower_operation_id]->Items[$Item->id])) {
     quit('This item is already in your basket');
 }
 
@@ -127,7 +127,7 @@ if ($exchange_option  == 'delivery') {
  * Add Item to Order
  */
 
-$Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity, $is_wholesale);
+$Order->add_to_cart($Seller, $exchange_option, $Item, $quantity, $is_wholesale);
 
 
 /*
@@ -135,7 +135,7 @@ $Order->add_to_cart($Seller, $exchange_option, $FoodListing, $quantity, $is_whol
  */
 
 $OrderGrower = $Order->Growers[$Seller->id];
-$Item = $OrderGrower->FoodListings[$FoodListing->id];
+$Item = $OrderGrower->Items[$Item->id];
 
 $json['ordergrower'] = [
     'id'		=> $OrderGrower->id,
@@ -146,13 +146,13 @@ $json['ordergrower'] = [
     'ex_fee'	=> (($OrderGrower->Exchange->fee > 0) ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free')
 ];
 
-$json['listing'] = [
-    'id'		=> $FoodListing->id,
-    'link'      => $Seller->link . '/' . $FoodListing->link,
-    'name'		=> $FoodListing->title,
-    'quantity'	=> $FoodListing->quantity,
-    'filename'	=> $FoodListing->filename,
-    'ext'		=> $FoodListing->ext
+$json['item'] = [
+    'id'		=> $Item->id,
+    'link'      => $Seller->link . '/' . $Item->link,
+    'name'		=> $Item->title,
+    'quantity'	=> $Item->quantity,
+    'filename'	=> $Item->filename,
+    'ext'		=> $Item->ext
 ];
 
 $json['item'] = [

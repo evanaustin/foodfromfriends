@@ -31,9 +31,9 @@ class Order extends Base {
         /**
          * Instantiating this object with an ID will result in a full loadout of the order/cart's
          * growers and items. `Order->Growers` is an array of `OrderGrower` classes. Each
-         * `Order->Growers` array element has a `FoodListings` property, which is an array of all food
-         * listings added to this order that are sold by that grower. Both are keyed by their 
-         * base `grower_operation_id` and `food_listing_id` value, respectively.
+         * `Order->Growers` array element has a `Items` property, which is an array of all food
+         * items added to this order that are sold by that grower. Both are keyed by their 
+         * base `grower_operation_id` and `item_id` value, respectively.
          */
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
@@ -84,7 +84,7 @@ class Order extends Base {
     }
 
     /**
-     * Finds all the growers (and through them, the exchange and food listings) in this order and assigns them to this:Growers
+     * Finds all the growers (and through them, the exchange and items) in this order and assigns them to this:Growers
      */
     public function load_growers() {
         $OrderGrower = new OrderGrower([
@@ -128,10 +128,10 @@ class Order extends Base {
      * 
      * @param \GrowerOperation $Seller
      * @param string $exchange_option
-     * @param \FoodListing $FoodListing
+     * @param \Item $Item
      * @param int $quantity
      */
-    public function add_to_cart(GrowerOperation $Seller, $exchange_option, FoodListing $FoodListing, $quantity, $is_wholesale) {
+    public function add_to_cart(GrowerOperation $Seller, $exchange_option, Item $Item, $quantity, $is_wholesale) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
@@ -141,7 +141,7 @@ class Order extends Base {
             $this->add_grower($Seller, $exchange_option);
         }
 
-        $this->Growers[$Seller->id]->add_food_listing($FoodListing, $quantity, $this->buyer_account_id, $is_wholesale);
+        $this->Growers[$Seller->id]->add_item($Item, $quantity, $this->buyer_account_id, $is_wholesale);
 
         // Refresh the cart
         $this->update_cart();
@@ -172,17 +172,17 @@ class Order extends Base {
      * Removes an item from the cart entirely, including the grower if this was the grower's only item
      * in this cart.
      */
-    public function remove_from_cart(FoodListing $FoodListing) {
+    public function remove_from_cart(Item $Item) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
         
-        $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->delete();
+        $this->Growers[$Item->grower_operation_id]->Items[$Item->id]->delete();
         
-        // If this was the only listing for this grower, remove the OrderGrower & OrderGrower->Exchange entirely
-        if (count($this->Growers[$FoodListing->grower_operation_id]->FoodListings) == 1) {
-            $this->Growers[$FoodListing->grower_operation_id]->Exchange->delete();
-            $this->Growers[$FoodListing->grower_operation_id]->delete();
+        // If this was the only item for this grower, remove the OrderGrower & OrderGrower->Exchange entirely
+        if (count($this->Growers[$Item->grower_operation_id]->Items) == 1) {
+            $this->Growers[$Item->grower_operation_id]->Exchange->delete();
+            $this->Growers[$Item->grower_operation_id]->delete();
         }
 
         // Refresh the cart
@@ -192,16 +192,16 @@ class Order extends Base {
     /**
      * Updates the quantity of the provided item.
      */
-    public function modify_quantity(FoodListing $FoodListing, $quantity) {
+    public function modify_quantity(Item $Item, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
         if ($quantity == 0) {
-            return $this->remove_from_cart($FoodListing);
+            return $this->remove_from_cart($Item);
         }
 
-        $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->modify_quantity($quantity);
+        $this->Growers[$Item->grower_operation_id]->Items[$Item->id]->modify_quantity($quantity);
 
         // Refresh the cart
         $this->update_cart();
@@ -210,16 +210,16 @@ class Order extends Base {
     /**
      * Updates the quantity of the provided item.
      */
-    public function modify_exchange(FoodListing $FoodListing, $quantity) {
+    public function modify_exchange(Item $Item, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
 
         if ($quantity == 0) {
-            return $this->remove_from_cart($FoodListing);
+            return $this->remove_from_cart($Item);
         }
 
-        $this->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id]->modify_quantity($quantity);
+        $this->Growers[$Item->grower_operation_id]->Items[$Item->id]->modify_quantity($quantity);
 
         // Refresh the cart
         $this->update_cart();
@@ -239,10 +239,10 @@ class Order extends Base {
         // Make sure we have the latest grower info in this object
         $this->load_growers();
 
-        // Set food listing prices, weights, and totals
+        // Set item prices, weights, and totals
         foreach ($this->Growers as $OrderGrower) {
             $OrderGrower->Exchange->sync();
-            $OrderGrower->sync_food_listing();
+            $OrderGrower->sync_item();
             $OrderGrower->calculate_total();
         }
 
@@ -327,28 +327,28 @@ class Order extends Base {
         // Run through suborders
         foreach ($this->Growers as $OrderGrower) {
             // Update item stocks
-            foreach($OrderGrower->FoodListings as $key => $OrderFoodListing) {
-                $FoodListing = new Item([
+            foreach($OrderGrower->Items as $key => $OrderItem) {
+                $Item = new Item([
                     'DB' => $this->DB,
                     'id' => $key
                 ]);
 
-                if ($OrderFoodListing->is_wholesale) {
-                    $quantity = $FoodListing->wholesale_quantity;
+                if ($OrderItem->is_wholesale) {
+                    $quantity = $Item->wholesale_quantity;
                     $qty_type = 'wholesale_quantity';
                 } else {
-                    $quantity = $FoodListing->quantity;
+                    $quantity = $Item->quantity;
                     $qty_type = 'quantity';
                 }
 
-                $remaining = $quantity - $OrderFoodListing->quantity;
+                $remaining = $quantity - $OrderItem->quantity;
                 
                 if ($remaining > 0) {
-                    $FoodListing->update([
+                    $Item->update([
                         $qty_type       => $remaining
                     ]);
                 } else {
-                    $FoodListing->update([
+                    $Item->update([
                         $qty_type       => 0,
                         'is_available'  => 0
                     ]);
