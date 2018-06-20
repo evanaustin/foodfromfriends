@@ -111,15 +111,36 @@ class Item extends Base {
         foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
-    public function get_all_items($grower_operation_id) {
-        $results = $this->DB->run('
+    /*
+     *  $options = [
+     *      is_available  : boolean
+     *      is_wholesale  : boolean
+     *      is_archived   : boolean
+     *  ];
+    */
+    public function get_items($grower_operation_id, $options = null) {
+        $bind = [
+            'grower_operation_id' => $grower_operation_id
+        ];
+
+        if (isset($options)) {
+            if (isset($options['is_wholesale'])) {
+                $bind['is_wholesale'] = $options['is_wholesale'];
+            }
+        }
+
+        $sql = "
             SELECT 
                 i.id,
+                iv.id   AS item_variety_id,
                 isc.id  AS item_subcategory_id,
                 ic.id   AS item_category_id
             
             FROM items i
             
+            LEFT JOIN item_varieties iv
+                ON iv.id = i.item_variety_id
+
             JOIN item_subcategories isc
                 ON isc.id = i.item_subcategory_id
             
@@ -127,38 +148,29 @@ class Item extends Base {
                 ON ic.id = isc.item_category_id
             
             WHERE i.grower_operation_id = :grower_operation_id
+        ";
+
+        if (isset($options['is_available']) && $options['is_available']) {
+            $sql .= "
+                AND i.quantity > 0
+            ";
+        }
+
+        if (isset($options['is_wholesale'])) {
+            $sql .= "
+                AND i.is_wholesale = :is_wholesale
+            ";
+        }
+
+        if (!isset($options['is_archived'])) {
+            $sql .= "
                 AND i.archived_on IS NULL
+            ";
+        }
 
-            ORDER BY isc.id, i.position
-        ', [
-            'grower_operation_id' => $grower_operation_id
-        ]);
+        $sql .= "ORDER BY isc.id, iv.id, i.price";
 
-        return (isset($results[0])) ? $results : false;
-    }
-
-    public function get_raw_items($grower_operation_id) {
-        $results = $this->DB->run('
-            SELECT 
-                i.id,
-                isc.id  AS item_subcategory_id,
-                ic.id   AS item_category_id
-            
-            FROM items i
-            
-            JOIN item_subcategories isc
-                ON isc.id = i.item_subcategory_id
-            
-            JOIN item_categories ic
-                ON ic.id = isc.item_category_id
-            
-            WHERE i.grower_operation_id = :grower_operation_id
-                AND i.archived_on IS NULL
-
-            ORDER BY isc.id, i.position
-        ', [
-            'grower_operation_id' => $grower_operation_id
-        ]);
+        $results = $this->DB->run($sql, $bind);
 
         return (isset($results[0])) ? $results : false;
     }
@@ -192,7 +204,7 @@ class Item extends Base {
     public function get_category_associations() {
         $results = $this->DB->run('
             SELECT 
-                i.id        AS category_id,
+                ic.id       AS category_id,
                 ic.title    AS category_title,
                 isc.id      AS subcategory_id,
                 isc.title   AS subcategory_title,
