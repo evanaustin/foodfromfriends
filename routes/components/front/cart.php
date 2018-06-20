@@ -29,37 +29,27 @@
                     echo '<div class="cart-items">';
 
                     foreach ($OrderGrower->Items as $CartItem) {
-                        $ItemItem = new Item([
+                        $Item = new Item([
                             'DB' => $DB,
                             'id' => $CartItem->item_id
                         ]);
     
                         ?>
     
-                        <div class="cart-item" data-item-id="<?= $ItemItem->id; ?>">
+                        <div class="cart-item" data-item-id="<?= $Item->id; ?>">
                             <div class="item-image">
-                                <?php
-                                
-                                if (!empty($ItemItem->filename)) {
-                                    img(ENV . '/items/' . $ItemItem->filename, $ItemItem->ext, [
-                                        'server'    => 'S3',
-                                        'class'     => 'img-fluid'
-                                    ]);
-                                } else {
-                                    img('placeholders/default-thumbnail', 'jpg', [
-                                        'server'    => 'local', 
-                                        'class'     => 'img-fluid rounded'
-                                    ]);
-                                }
-                                
-                                ?>
+                                <div class="user-photo no-margin" style="background-image: url('<?= (isset($Item->Image->id) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/{$Item->Image->filename}.{$Item->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg') ?>'); height: 60px; width: 60px;"></div>
                             </div>
                             
                             <div class="item-content">
                                 <div class="item-title">
-                                    <a href="<?= PUBLIC_ROOT . $Grower->link . '/' . $ItemItem->link; ?>">
-                                        <?= $ItemItem->title; ?>
+                                    <a href="<?= PUBLIC_ROOT . $Grower->link . '/' . $Item->link; ?>">
+                                        <?= $Item->title; ?>
                                     </a>
+                                </div>
+
+                                <div class="small light-gray">
+                                    <?= ucfirst(((!empty($Item->measurement) && !empty($Item->metric)) ? "{$Item->measurement} {$Item->metric} {$Item->package_type}" : $Item->package_type)) ?>
                                 </div>
     
                                 <div class="item-details">
@@ -67,7 +57,7 @@
                                     
                                     <?php
                                                             
-                                    for ($i = 1; $i <= $ItemItem->quantity; $i++) {
+                                    for ($i = 1; $i <= $Item->quantity; $i++) {
                                         echo "<option value=\"{$i}\"" . (($i == $CartItem->quantity) ? 'selected' : '') . ">{$i}</option>";
                                     }
                                         
