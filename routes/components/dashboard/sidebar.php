@@ -106,7 +106,8 @@
                         'failed'
                     ],
                     'items' => [
-                        'overview',
+                        'retail',
+                        'wholesale',
                         'add-new'
                     ],
                     'exchange-options' => [
@@ -151,6 +152,7 @@
                     <?php if (!empty($k) && gettype($k) == 'string' && gettype($v) == 'array') { ?>
                         <a 
                             href="" 
+                            id="sidebar-<?= $k ?>"
                             class="nav-link parent <?php if ($Routing->subsection == $k) echo 'active'; ?>" 
                             data-toggle="collapse" 
                             data-target="#navbarToggle-<?= $k ;?>" 
