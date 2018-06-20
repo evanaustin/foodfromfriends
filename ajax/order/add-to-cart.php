@@ -14,7 +14,7 @@ $_POST = $Gump->sanitize($_POST);
 $Gump->validation_rules([
     'seller-id'         => 'required|integer',
     'suborder-id'       => 'integer',
-    'item-id'	        => 'required|integer',
+    'item-id'           => 'required|integer',
     'quantity'			=> 'required|integer',
     'exchange-option'   => 'required|alpha',
     'distance-miles'    => 'numeric',
@@ -127,7 +127,7 @@ if ($exchange_option  == 'delivery') {
  * Add Item to Order
  */
 
-$Order->add_to_cart($Seller, $exchange_option, $Item, $quantity, $is_wholesale);
+$Order->add_to_cart($Seller, $exchange_option, $Item->id, $quantity);
 
 
 /*
@@ -135,7 +135,7 @@ $Order->add_to_cart($Seller, $exchange_option, $Item, $quantity, $is_wholesale);
  */
 
 $OrderGrower = $Order->Growers[$Seller->id];
-$Item = $OrderGrower->Items[$Item->id];
+$OrderItem = $OrderGrower->Items[$Item->id];
 
 $json['ordergrower'] = [
     'id'		=> $OrderGrower->id,
@@ -147,25 +147,28 @@ $json['ordergrower'] = [
 ];
 
 $json['item'] = [
-    'id'		=> $Item->id,
-    'link'      => $Seller->link . '/' . $Item->link,
-    'name'		=> $Item->title,
-    'quantity'	=> $Item->quantity,
-    'filename'	=> $Item->filename,
-    'ext'		=> $Item->ext
+    'id'		    => $Item->id,
+    'link'          => $Seller->link . '/' . $Item->link,
+    'name'		    => $Item->title,
+    'package_type'  => $Item->package_type,
+    'quantity'	    => $Item->quantity,
+    'measurement'   => (!empty($Item->measurement)) ? $Item->measurement : '',
+    'metric'	    => (!empty($Item->metric)) ? $Item->metric : '',
+    'filename'	    => $Item->Image->filename,
+    'ext'		    => $Item->Image->ext
 ];
 
-$json['item'] = [
-    'id'		=> $Item->id,
-    'quantity'	=> $Item->quantity,
-    'subtotal'	=> '$' . number_format($Item->total / 100, 2)
+$json['order_item'] = [
+    'id'		=> $OrderItem->id,
+    'quantity'	=> $OrderItem->quantity,
+    'subtotal'	=> _amount($OrderItem->total)
 ];
 
 $json['order'] = [
-    'subtotal'	=> '$' . number_format($Order->subtotal / 100, 2),
-    'ex_fee'    => '$' . number_format($Order->exchange_fees / 100, 2),
-    'fff_fee'   => '$' . number_format($Order->fff_fee / 100, 2),
-    'total'		=> '$' . number_format($Order->total / 100, 2)
+    'subtotal'	=> _amount($Order->subtotal),
+    'ex_fee'    => _amount($Order->exchange_fees),
+    'fff_fee'   => _amount($Order->fff_fee),
+    'total'		=> _amount($Order->total)
 ];
 
 
