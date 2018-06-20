@@ -52,10 +52,19 @@
                     </a>
                 </li>
 
-                <li class="nav-item d-none d-md-block">
-                    <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="nav-link <?php if ($Routing->template == 'dashboard') echo 'active' ?>" data-toggle="tooltip" data-placement="bottom" title="Dashboard">
-                        <i class="fa fa-dashboard"></i>
+                <li class="nav-item dropdown d-none d-md-block">
+                    <a id="dashboard-link" class="nav-link dropdown-toggle no-after-border <?php if ($Routing->template == 'dashboard') echo 'active' ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-dashboard" data-toggle="tooltip" data-title="Dashboard" data-placement="bottom" title="Dashboard"></i>
                     </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview">
+                            Buying
+                        </a>
+                        <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling">
+                            Selling
+                        </a>
+                    </div>
                 </li>
 
                 <?php if ($Routing->template == 'front' || $Routing->template == 'map'): ?>
