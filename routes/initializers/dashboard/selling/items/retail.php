@@ -36,7 +36,17 @@ $raw_varieties = $Item->retrieve([
     'table' => 'item_varieties'
 ]);
 
-$raw_items = $Item->get_raw_items($User->GrowerOperation->id);
+$hashed_varieties = [];
+
+foreach($raw_varieties as $raw_variety) {
+    if (!isset($hashed_varieties[$raw_variety['id']])) {
+        $hashed_varieties[$raw_variety['id']] = $raw_variety['title'];
+    }
+}
+
+$raw_items = $Item->get_items($User->GrowerOperation->id, [
+    'is_wholesale' => false
+]);
 
 $hashed_items = [];
 
@@ -48,11 +58,17 @@ foreach($raw_items as $raw_item) {
     if (!isset($hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']])) {
         $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']] = [];
     }
+    
+    if (!isset($hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']])) {
+        $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']] = [];
+    }
 
-    $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['id']] = new Item([
+    $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']][$raw_item['id']] = new Item([
         'DB' => $DB,
         'id' => $raw_item['id']
     ]);
+    
+    // $hashed_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']][$raw_item['id']] = $raw_item['id'];
 }
 
 $package_types = $Item->retrieve([
