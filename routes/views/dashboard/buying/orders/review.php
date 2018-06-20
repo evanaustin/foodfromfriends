@@ -29,7 +29,7 @@
         <form id="review-order">
             <input type="hidden" name="ordergrower-id" value="<?= $OrderGrower->id; ?>">
 
-            <div class="row margin-btm-2em">
+            <div class="row">
                 <div class="col-md-3 flexbox flexjustifycenter flexcenter">
                     <div class="user-block">
                         <div class="user-photo" style="background-image: url('<?= 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$Seller->filename}.{$Seller->ext}"; ?>');"></div>
@@ -92,18 +92,11 @@
                 
                 ?>
 
-                <div class="row">
-                    <div class="col-md-3 flexbox flexjustifycenter flexcenter">
+                <div class="row margin-top-1em">
+                    <div class="col-md-3 flexbox flexcenter">
                         <div class="card-alt no-bg">
                             <div class="item-image">
-                                <?php
-                                
-                                img(ENV . '/items/fl.' . $Item->id, $Item->ext, [
-                                    'server'    => 'S3',
-                                    'class'     => 'img-fluid'
-                                ]);
-                                
-                                ?>
+                                <div class="user-photo no-margin" style="background-image: url('<?= (isset($Item->Image->id) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/{$Item->Image->filename}.{$Item->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg') ?>');"></div>
                             </div>
 
                             <div class="card-body">
@@ -112,6 +105,10 @@
                                         <?= ucfirst($Item->title); ?>
                                     </a>
                                 </h6>
+                                
+                                <div class="small light-gray">
+                                <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
+                                </div>
                                 
                                 <?php
                                                         
