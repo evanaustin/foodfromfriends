@@ -67,7 +67,7 @@
                                         Select item subcategory
                                     </option>
 
-                                    <?php if (isset($subcategory_id)): ?>
+                                    <?php if (!empty($subcategory_id)): ?>
                                         
                                         <?php foreach($subcategories as $subcategory): ?>
                                             
@@ -96,10 +96,15 @@
 
                                     <?php if (isset($lim_varieties)): ?>
                                         
-                                        <?php foreach($lim_varieties as $variety) {
-                                            if ($variety['item_subcategory_id'] != $subcategory_id) continue;
-                                            echo "<option value=\"{$variety['id']}\">" . ucfirst($variety['title']) . "</option>";
-                                        } ?>
+                                        <?php foreach($lim_varieties as $variety): ?>
+
+                                            <?php if ($variety['item_subcategory_id'] != $subcategory_id) continue ?>
+
+                                            <option value="<?php $variety['id'] ?>" <?php if (isset($variety_id) && $variety['id'] == $variety_id) echo 'selected' ?>>
+                                                <?= ucfirst($variety['title']) ?>
+                                            </option>
+
+                                        <?php endforeach; ?>
 
                                     <?php endif; ?>
 
@@ -115,7 +120,7 @@
                                     Name (optional)
                                 </label>
 
-                                <input id="name" type="text" name="name" class="form-control" placeholder="<?= (!empty($subcategory_id) ? ucfirst($subcategories[$subcategory_id - 1]['title']) : 'Item name') ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
+                                <input id="name" type="text" name="name" class="form-control" placeholder="<?= (!empty($subcategory_id) ? ucfirst((!empty($variety_id) ? $lim_varieties[$variety_id - 2]['title'] . ' ' : '') . $subcategories[$subcategory_id - 1]['title']) : 'Item name') ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
                                 
                                 <small class="form-text text-muted">
                                     Customize this item name or let it default to the type
@@ -266,7 +271,7 @@
                         Photo
                     </label>
                         
-                    <a href="" class="remove-image float-right hidden" data-toggle="tooltip" data-placement="left" title="Remove item photo"><i class="fa fa-trash"></i></a>
+                    <a href="" class="remove-image action float-right hidden" data-toggle="tooltip" data-placement="left" title="Remove item photo"><i class="fa fa-trash"></i></a>
 
                     <div class="image-box slide-over">
                         <div class="image-container">

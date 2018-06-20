@@ -22,7 +22,7 @@
                             <i class="post fa fa-gear loading-icon save"></i>
                         </button>
         
-                        <a class="remove-item btn btn-danger">
+                        <a class="remove-item action btn btn-danger">
                             <i class="pre fa fa-trash-o"></i>
                             Delete item
                             <i class="post fa fa-gear loading-icon remove"></i>
@@ -120,10 +120,10 @@
                                         Name
                                     </label>
 
-                                    <input type="text" name="name" class="form-control" placeholder="<?= $Item->title ?>" value="<?= $Item->name ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
+                                    <input type="text" name="name" class="form-control" placeholder="<?= (!empty($Item->subcategory_title) ? ucfirst((!empty($Item->variety_title) ? $Item->variety_title . ' ' : '') . $Item->subcategory_title) : 'Item name') ?>" value="<?= $Item->name ?>" data-parsley-maxlength="40" data-parsley-trigger="change">
 
                                     <small class="form-text text-muted">
-                                        Item name will default to the item type if left blank
+                                        Item name defaults to the item type
                                     </small>
                                 </div>
                             </div>
@@ -265,7 +265,7 @@
                                 Photo
                             </label>
 
-                            <a href="" class="remove-image float-right <?php if (empty($Item->Image->filename)) echo 'hidden' ?>" data-item-id="<?= $Item->id ?>" data-toggle="tooltip" data-placement="left" title="Remove item photo">
+                            <a href="" class="remove-image action float-right <?php if (empty($Item->Image->filename)) echo 'hidden' ?>" data-item-id="<?= $Item->id ?>" data-toggle="tooltip" data-placement="left" title="Remove item photo">
                                 <i class="fa fa-trash"></i>
                             </a>
 
