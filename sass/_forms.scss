@@ -196,6 +196,27 @@ form {
     }
     
     .input-group {
+        &.double-select {
+            background-color: $superlight-gray;
+            
+            select {
+                background-color: transparent;
+                box-shadow: none;
+
+                &:focus {
+                    @include transform(translateY(0px));
+                }
+
+                &:first-child {
+                    min-width: 66.667%;
+                }
+
+                &:last-child {
+                    width: 33.333%;
+                }
+            }
+        }
+
         textarea {
             resize: none;
             width: 100%;
@@ -272,12 +293,62 @@ form {
         input:checked {
             + label {
                 background: $superlight-green;
+                
+                &:after {
+                    left: calc(100% - 0.25rem);
+                    transform: translateX(-100%);
+                }
+            }
+        }
+    }
+    
+    .toggle-box-alt {
+        input[type=checkbox]{
+            height: 0;
+            width: 0;
+            visibility: hidden;
+            display: none;
+        }
+        
+        label {
+            cursor: pointer;
+            text-indent: -9999px;
+            width: 2.25rem;
+            height: 2.25rem;
+            margin-bottom: 0;
+            background: $muted;
+            display: block;
+            border-radius: 100px;
+            position: relative;
+            @include transition(all .1s);
+            
+            // bubble
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0.5rem;
+                left: 0.5rem;
+                width: 1.25rem;
+                height: 1.25rem;
+                background: $superlight-gray;
+                border-radius: 90px;
+                transition: 0.3s;
+                @include transition(all .1s);
             }
         }
         
-        input:checked + label:after {
-            left: calc(100% - 0.25rem);
-            transform: translateX(-100%);
+        input:checked {
+            + label {
+                background: $superlight-green;
+
+                &:after {
+                    top: 0.25rem;
+                    left: 0.25rem;
+                    width: calc(2.25rem - 0.5rem);
+                    height: calc(2.25rem - 0.5rem);
+                    background-color: $superlight-gray;
+                }
+            }
         }
     }
     
