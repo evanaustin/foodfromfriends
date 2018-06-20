@@ -18,6 +18,10 @@ class OrderItem extends Base {
         $quantity,
         $total,
         $item_rating_id;
+
+    public
+        $package_type,
+        $metric;
         
     function __construct($parameters) {
         $this->table = 'order_items';
@@ -30,7 +34,35 @@ class OrderItem extends Base {
     
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
+            $this->populate_fully($this->id);
         }
+    }
+
+    private function populate_fully($id) {
+        $results = $this->DB->run('
+            SELECT 
+                oi.*,
+                pt.title    AS package_type,
+                im.title    AS metric
+            
+            FROM order_items oi
+            
+            LEFT JOIN item_package_types pt
+                ON pt.id    = oi.package_type_id
+            
+            LEFT JOIN item_metrics im
+                ON im.id    = oi.metric_id
+                
+            WHERE oi.id = :id
+        
+            LIMIT 1
+        ', [
+            'id' => $id
+        ]);
+
+        if (!isset($results[0])) return false;
+
+        foreach ($results[0] as $k => $v) $this->{$k} = $v; 
     }
 
     /**
@@ -80,7 +112,7 @@ class OrderItem extends Base {
             'id' => $this->item_id
         ]);
         
-        if (!$Item->is_available) {
+        if (!$Item->quantity) {
             $OrderGrower = new OrderGrower([
                 'DB' => $this->DB,
                 'id' => $this->order_grower_id
@@ -88,20 +120,20 @@ class OrderItem extends Base {
 
             $this->add([
                 'buyer_account_id'  => $OrderGrower->buyer_account_id,
-                'item_id'   => $this->item_id,
+                'item_id'           => $this->item_id,
             ], 'saved_items');
 
             $this->delete();
         } else {
-            $this->unit_price   = ($this->is_wholesale) ? $Item->wholesale_price : $Item->price;
-            $this->unit_weight  = ($this->is_wholesale) ? $Item->wholesale_weight : $Item->weight;
-            $this->weight_units = ($this->is_wholesale) ? $Item->wholesale_units : $Item->units;
-            $this->total        = $this->quantity * ($this->is_wholesale ? $Item->wholesale_price : $Item->price);
+            $this->unit_price   = $Item->price;
+            $this->measurement  = $Item->measurement;
+            $this->metric_id    = $Item->metric_id;
+            $this->total        = $this->quantity * $Item->price;
     
             $this->update([
                 'unit_price'    => $this->unit_price,
-                'unit_weight'   => $this->unit_weight,
-                'weight_units'  => $this->weight_units,
+                'measurement'   => $this->measurement,
+                'metric_id'     => $this->metric_id,
                 'total'         => $this->total,
             ]);
         }

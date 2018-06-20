@@ -1,6 +1,7 @@
 <?php
  
 class Routing extends Base {
+
     protected
         $DB;
 
@@ -189,6 +190,7 @@ class Routing extends Base {
             return false;
         }
     }
+    
 }
 
 ?>
