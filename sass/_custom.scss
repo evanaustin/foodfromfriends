@@ -17,7 +17,8 @@ $dark-gray:             darken($gray, 20%);
 $muted:                 #636c72;
 
 $primary:               $superlight-green;
-$secondary:             #fff;
+// $secondary:             #fff;
+$secondary:             $muted;
 $inverse:               $dark-green;
 $success:               $primary;
 // $success:               darken($primary, 20%);
@@ -56,6 +57,7 @@ $list-group-active-border:  #4c4c4c;
 $card-border-width:     0px;
 
 $badge-primary-bg:      $primary;
+$badge-secondary-bg:    $muted;
 
 $alert-success-bg:      $success;
 $alert-success-border:  $success;

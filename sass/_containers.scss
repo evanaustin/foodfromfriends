@@ -57,7 +57,7 @@ keymap {
     @include drop-shadow(0, 1px, 3px);
     @include transition(all .2s);
 
-    &:hover {
+    &:not(.no-hover):hover {
         @include transform(translateY(-1px));
         @include drop-shadow(0, 5px, 20px);
     }
@@ -502,9 +502,9 @@ fable {
             }
         }
         
-        i {
+        /* i {
             color: $superlight-green;
-        }
+        } */
 
         &.actions {
             display: flex;
