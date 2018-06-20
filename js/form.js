@@ -47,7 +47,7 @@ App.Form = function() {
             $('form').data('changed', false);
         });
 
-        $('a:not([data-toggle="modal"])').on('click', function(e) {
+        $('a:not([data-toggle="modal"]):not([data-toggle="collapse"]):not([data-toggle="dropdown"]):not(.action)').on('click', function(e) {
             var href = $(this).attr('href');
 
             if ($('form').data('changed') || $('.form-group').hasClass('has-danger')) {
