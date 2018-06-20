@@ -216,7 +216,7 @@ if (isset($_POST['images'])) {
     // remove old image if one exists
     if ($image_exists) {
         $S3->delete_objects([
-            ENV . '/item-images/' . $Item->Image->filename . $Item->Image->ext
+            ENV . "/item-images/{$Item->Image->filename}.{$Item->Image->ext}"
         ], $file);
     }
 
@@ -239,8 +239,6 @@ if (isset($_POST['images'])) {
         $record_updated = $Item->update([
             'ext'       => $ext
         ], 'item_id', $Item->id, 'images');
-
-        if (!$record_updated) quit('Could not associate image');
     } else {
         $record_added = $Item->add([
             'path'      => 'item-images',
@@ -248,12 +246,14 @@ if (isset($_POST['images'])) {
             'ext'       => $ext
         ], 'images');
 
-        if (!$record_added) quit('Could not associate image');
+        if (!$record_added) quit('Could not store image record');
 
-        $Item->add([
+        $association_added = $Item->add([
             'item_id'   => $Item->id,
-            'image_id'  => $image['last_insert_id'],
+            'image_id'  => $record_added['last_insert_id'],
         ], 'item_images');
+
+        if (!$association_added) quit('Could not associate image');
     }
 
     // unlink tmp imgs
@@ -274,7 +274,7 @@ if (isset($_POST['images'])) {
             'image_id'  => $similar_photo
         ], 'item_id', $Item->id, 'item_images');
 
-        if (!$record_updated) quit('Could not associate image');
+        if (!$record_updated) quit('Could not update image association');
     } else {
         $record_added = $Item->add([
             'item_id'   => $Item->id,

@@ -42,7 +42,7 @@ if (!empty($Item->Image->filename)) {
         ],
         'table' => 'item_images'
     ]);
-    quit('i: ' . json_encode($similar_items));
+    
     // only delete the image file if only this item references it
     if (count($similar_items) == 1) {
         $S3->delete_objects([
