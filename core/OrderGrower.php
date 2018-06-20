@@ -112,18 +112,17 @@ class OrderGrower extends Base {
     /**
      * Adds a item to this OrderGrower and refreshes `$this->Items`
      * Don't worry about `unit_price` and `amount` here; they're handled by `Order->update_cart()`
-     * @param Item $Item the Item being added to the cart
-     * @param int @quantity the amount of the Item being added
      * @param int $buyer_account_id the ID of the BuyerAccount who's adding the Item ? Why do we need to store this ?
+     * @param int $item_id the ID of the Item being added to the cart
+     * @param int $quantity the amount of the Item being added
      */
-    public function add_item(Item $Item, $quantity, $buyer_account_id, $is_wholesale) {
+    public function add_item($buyer_account_id, $item_id, $quantity) {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
             'buyer_account_id'  => $buyer_account_id,
-            'item_id'   => $Item->id,
+            'item_id'           => $item_id,
             'quantity'          => $quantity,
-            'is_wholesale'      => $is_wholesale,
         ], 'order_items');
 
         $this->load_items();

@@ -128,10 +128,10 @@ class Order extends Base {
      * 
      * @param \GrowerOperation $Seller
      * @param string $exchange_option
-     * @param \Item $Item
+     * @param int $item_id
      * @param int $quantity
      */
-    public function add_to_cart(GrowerOperation $Seller, $exchange_option, Item $Item, $quantity, $is_wholesale) {
+    public function add_to_cart(GrowerOperation $Seller, $exchange_option, $item_id, $quantity) {
         if ($this->is_cart() !== true) {
             throw new \Exception('Cannot add items to this order.');
         }
@@ -141,7 +141,7 @@ class Order extends Base {
             $this->add_grower($Seller, $exchange_option);
         }
 
-        $this->Growers[$Seller->id]->add_item($Item, $quantity, $this->buyer_account_id, $is_wholesale);
+        $this->Growers[$Seller->id]->add_item($this->buyer_account_id, $item_id, $quantity);
 
         // Refresh the cart
         $this->update_cart();
