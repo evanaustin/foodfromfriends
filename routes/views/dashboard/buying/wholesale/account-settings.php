@@ -105,7 +105,7 @@
                                 Wholesale account photo
                             </label>
                                 
-                            <a href="" class="remove-image float-right" <?php if (empty($User->BuyerAccount->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
+                            <a href="" class="remove-image action float-right" <?php if (empty($User->BuyerAccount->filename)) echo 'style="display: none;"' ?> data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
 
                             <div class="image-box slide-over <?php if (!empty($User->BuyerAccount->filename)) echo 'existing-image'; ?>">
                                 <div class="image-container">
