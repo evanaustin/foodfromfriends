@@ -14,7 +14,6 @@ foreach($_POST['items'] as $id => $item) {
     
     $Gump->validation_rules([
         'position'      => 'integer',
-        'variety-id'    => 'integer',
         'name'          => 'regex,/^[a-zA-z\s:]+$/',
         'measurement'   => 'regex,/^([0-9]*[.x\s])*[0-9]+$/|max_len, 10',
         'metric'        => 'integer',
@@ -33,7 +32,6 @@ foreach($_POST['items'] as $id => $item) {
     
     $Gump->filter_rules([
         'position'      => 'trim|whole_number',
-        'variety-id'    => 'trim|whole_number',
         'name'          => 'trim|sanitize_string',
         'package-type'  => 'trim|whole_number',
         'measurement'   => 'trim|sanitize_string',
@@ -58,10 +56,7 @@ foreach($_POST['items'] as $id => $item) {
     
     $updated = $Item->update([
         'position'          => (!empty($position) ? $position : 0),
-        'item_variety_id'   => (!empty($variety_id) ? $variety_id : 0),
         'name'              => (!empty($name) ? $name : NULL),
-        'is_available'      => (isset($is_available) && $is_available == 'on') ? 1 : 0,
-        'is_wholesale'      => (isset($is_wholesale) && $is_wholesale == 'on') ? 1 : 0,
         'price'             => $price * 100,
         'quantity'          => (isset($quantity)) ? $quantity : 0,
         'package_type_id'   => $package_type,
