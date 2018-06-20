@@ -79,6 +79,48 @@ App.Front.SellerProfile = function() {
             }
         });
 
+        
+        //
+        $('.quick-add select.item-option').on('change', function() {
+            var id = $(this).val();
+            $card_body = $(this).parents('.card-body');
+
+            $card_body.find('.price').text(items[id].price);
+            $card_body.find('.rating').html(items[id].rating);
+            $card_body.find('.title').text(items[id].title);
+
+            if (items[id].quantity > 0) {
+                $card_body.find('input[type="submit"]')
+                .removeClass('btn-danger')
+                .addClass('btn-cta')
+                .val('Add to cart')
+                .attr('disabled', false);
+
+                $card_body.find('.item-quantity')
+                    .removeClass('hidden')
+                    .empty();
+
+                for (var i = 1; i <= items[id].quantity; i++) {
+                    $card_body.find('.item-quantity').append($('<option>', {
+                        value: i, 
+                        text: i
+                    }));
+                }
+            } else {
+                $card_body.find('.item-quantity')
+                    .addClass('hidden')
+                    .empty();
+
+                $card_body.find('input[type="submit"].btn-cta')
+                    .removeClass('btn-cta')
+                    .addClass('btn-danger')
+                    .val('Out of stock')
+                    .attr('disabled', true);
+            }
+        });
+
+
+        // 
         $('form.quick-add').on('submit', function(e) {
             e.preventDefault();
             App.Util.hideMsg();
@@ -152,23 +194,29 @@ App.Front.SellerProfile = function() {
                                     $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
                                 }
                                 
+                                var package = (response.item.measurement != '' && response.item.metric != '') ? response.item.measurement + ' ' + response.item.metric + ' ' + response.item.package_type : response.item.package_type;
+                                
                                 // Check if OrderItem is already in cart
                                 $cart_item = $(
                                     '<div class="cart-item animated bounceIn" data-item-id="' + response.item.id + '">' +
                                         '<div class="item-image">' +
-                                            '<img src="' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '" class="img-fluid"/>' +
+                                            '<div class="user-photo no-margin" style="background-image: url(' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/item-images/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '); height: 50px; width: 50px;"></div>' +
                                         '</div>' +
-                                        
+
                                         '<div class="item-content">' +
                                             '<div class="item-title">' +
                                                 '<a href="' + PUBLIC_ROOT + response.item.link + '">' +
                                                     response.item.name +
                                                 '</a>' +
                                             '</div>' +
+
+                                            '<div class="small light-gray">' +
+                                                package.charAt(0).toUpperCase() + package.slice(1) +
+                                            '</div>' +
                         
                                             '<div class="item-details">' +
                                                 '<div class="item-price">' +
-                                                response.item.subtotal +
+                                                response.order_item.subtotal +
                                                 '</div>' +
                                                 '<a class="remove-item">' +
                                                     '<i class="fa fa-times"></i>' +
@@ -182,7 +230,7 @@ App.Front.SellerProfile = function() {
                                 
                                 for (var i = 1; i <= response.item.quantity; i++) {
                                     // $option = $('<option>').attr('value', i).text(i);
-                                    $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
+                                    $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.order_item.quantity) ).text(i));
                                 };
     
                                 // update OrderGrower line amount
