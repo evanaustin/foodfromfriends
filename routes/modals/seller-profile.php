@@ -97,7 +97,7 @@
                             
                             <?php
                             
-                            if (isset($distance) && $distance['length'] > 0) {
+                            if (isset($distance, $distance['length']) && $distance['length'] > 0) {
                                 echo "<div>{$distance['length']} {$distance['units']} away</div>";
                             }
 
