@@ -1,6 +1,6 @@
-App.Dashboard.Overview = function() {
+App.Dashboard.WholesaleItems = function() {
     function listener() {
-        $('.subcategory-list').sortable({
+        $('.variety-list').sortable({
             cursor: 'move',
             stop: function(event, ui) {
                 $(this).find('.bubble').each(function(index) {
@@ -17,6 +17,19 @@ App.Dashboard.Overview = function() {
             App.Ajax.post('dashboard/selling/items/bulk-edit', $(this).serialize(),
                 function(response) {
                     App.Util.msg('Your item changes have been saved', 'success');
+                },
+                function(response) {
+                    App.Util.msg(response.error, 'danger');
+                }
+            );
+        });
+
+        $('#copy-to-retail').on('click', function(e) {
+            e.preventDefault();
+            
+            App.Ajax.post('dashboard/selling/items/copy-to-retail', $('#edit-items').serialize(),
+                function(response) {
+                    App.Util.msg('Your items have been been copied to retail. Click <a href="' + PUBLIC_ROOT + 'dashboard/selling/items/retail">here</a> to view them.', 'success');
                 },
                 function(response) {
                     App.Util.msg(response.error, 'danger');
