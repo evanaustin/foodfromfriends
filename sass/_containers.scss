@@ -903,7 +903,7 @@ fable {
         opacity: 1;
         -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
         filter: alpha(opacity=100);
-        color: $muted;
+        color: $dark-gray;
         @include drop-shadow(0, 1px, 3px);
         
         &:hover {
