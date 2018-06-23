@@ -198,6 +198,7 @@ form {
     .input-group {
         &.double-select {
             background-color: $superlight-gray;
+            @include rounded($radius);
             
             select {
                 background-color: transparent;

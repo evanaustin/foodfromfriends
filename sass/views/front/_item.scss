@@ -9,7 +9,7 @@ body.front.item {
         
         #main-content {
             @include xs {
-                .description.callout {
+                #description {
                     margin-bottom: 1rem;
                 }
             }
@@ -91,13 +91,23 @@ body.front.item {
                 }
             }
 
+            /* select.custom-select {
+                background-color: $superlight-gray;
+
+                @include drop-shadow(0, 0, 0, 0);
+            } */
+
             select.custom-select, div.btn-group {
-                border: 1px solid $edge-color;
+                // border: 1px solid $edge-color;
                 @include drop-shadow(0, 0, 0, 0);
 
                 &:focus {
                     @include transform(none);
                 }
+            }
+
+            select.custom-select {
+                background-color: $superlight-gray;
             }
         }
     }
