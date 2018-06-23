@@ -85,7 +85,7 @@
                                                         
                                                         <div class="user-content">
                                                             <h5 class="bold margin-btm-25em">
-                                                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link; ?>">
+                                                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . "/" . $items[$key]->link ?>">
                                                                     <strong><?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?></strong>
                                                                 </a>
                                                             </h5>
