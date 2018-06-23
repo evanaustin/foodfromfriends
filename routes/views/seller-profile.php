@@ -276,17 +276,28 @@
                                         
                                             <?php foreach ($varieties as $variety_id => $options): ?>
                                             
-                                                <?php $rev = array_reverse($options) ?>
-                                                <?php $key = array_pop($rev)->id ?>
+                                                <?php
+                                                
+                                                $rev = array_reverse($options);
+                                                $key = array_pop($rev)->id;
+                                                $FirstOption = $options[$key];
+
+                                                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id], $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$FirstOption->id]);
+
+                                                if ($in_cart) {
+                                                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$FirstOption->id];
+                                                }
+                                                
+                                                ?>
 
                                                 <div class="col-md-4">
                                                     <div class="item card no-hover animated zoomIn">
                                                         <div class="card-img-top">
-                                                            <!-- <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$Item->link}" ?>"> -->
+                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
 
-                                                                <?php if (!empty($options[$key]->Image->filename)): ?>
+                                                                <?php if (!empty($FirstOption->Image->filename)): ?>
                                                                     
-                                                                    <?= _img(ENV . '/item-images/' . $options[$key]->Image->filename, $options[$key]->Image->ext, [
+                                                                    <?= _img(ENV . '/item-images/' . $FirstOption->Image->filename, $FirstOption->Image->ext, [
                                                                         'server'    => 'S3',
                                                                         'class'     => 'img-fluid animated fadeIn hidden'
                                                                     ]); ?>
@@ -304,19 +315,16 @@
 
                                                                     <?php if ($is_owner): ?>
 
-                                                                        <?= "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$options[$key]->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>" ?>
+                                                                        <?= "<a href=\"" . PUBLIC_ROOT . "dashboard/selling/items/edit?id={$FirstOption->id}\" class=\"btn btn-cta btn-block margin-top-50em\">Add an item image</a>" ?>
                                                                     
                                                                     <?php endif; ?>
 
                                                                 <?php endif; ?>
 
-                                                            <!-- </a> -->
+                                                            </a>
                                                         </div>
 
                                                         <div class="card-body d-flex flex-column">
-
-                                                            <?php $FirstOption = $options[$key] ?>
-
                                                             <fable class="card-title margin-btm-50em">
                                                                 <cell>
                                                                     <h5 class="price dark-gray heavy">
@@ -332,17 +340,14 @@
                                                             </fable>
 
                                                             <div class="title muted margin-btm-50em">
-                                                                <!-- <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$Item->link}" ?>"> -->
-                                                                    <!-- <?= $Item->title ?> -->
-                                                                    <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?>
-                                                                <!-- </a> -->
+                                                                <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
+                                                                    <?= $FirstOption->title ?>
+                                                                    <!-- <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?> -->
+                                                                </a>
                                                             </div>
 
                                                             <form id="quick-add-<?= $FirstOption->id ?>" class="quick-add">
-                                                                <input type="hidden" name="suborder-id"     value="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0 ?>"/>
-                                                                <input type="hidden" name="order-item-id"   value="<?= (isset($OrderGrowerItem)) ? $OrderGrowerItem->id : 0 ?>"/>
                                                                 <input type="hidden" name="seller-id"       value="<?= $Seller->id ?>"/>
-                                                                
                                                                 <input type="hidden" name="exchange-option" value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
                                                                 <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
@@ -353,7 +358,7 @@
                                                                             <?php foreach ($options as $k => $ItemOption): ?>
 
                                                                                 <option value="<?= $ItemOption->id ?>">
-                                                                                    <?= ucfirst(((!empty($ItemOption->measurement) && !empty($ItemOption->metric)) ? "{$ItemOption->measurement} {$ItemOption->metric} {$ItemOption->package_type}" : $ItemOption->package_type)) ?>
+                                                                                    <?= $ItemOption->package_metric_title ?>
                                                                                 </option>
 
                                                                             <?php endforeach ?>
@@ -364,7 +369,7 @@
                                                                         
                                                                             <?php for ($i = 1; $i <= $FirstOption->quantity; $i++): ?>
                                                                                     
-                                                                                <option value="<?= $i ?>" <?php if (isset($OrderGrowerItem) && $OrderGrowerItem->quantity == $i) echo 'selected' ?>>
+                                                                                <option value="<?= $i ?>" <?php if ($in_cart && $OrderItem->quantity == $i) echo 'selected' ?>>
                                                                                     <?= $i ?>
                                                                                 </option>
                                                                                 
@@ -374,7 +379,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <input type="submit" class="btn btn-sm btn-block btn-<?= ($FirstOption->quantity) ? 'cta' : 'danger' ?>" value="<?= ($FirstOption->quantity) ? 'Add to cart' : 'Out of stock' ?>" <?php if (!$FirstOption->quantity) echo 'disabled' ?>>
+                                                                <input type="submit" class="btn btn-sm btn-block btn-<?= ($FirstOption->quantity) ? 'cta' : 'danger' ?>" value="<?= ($FirstOption->quantity) ? (($in_cart) ? 'Update item in basket' : 'Add to basket') : 'Out of stock' ?>" <?php if (!$FirstOption->quantity) echo 'disabled' ?>>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -470,6 +475,7 @@
     var lng         = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
     var user        = <?= (isset($User)) ? $User->id : 0 ?>;
     var seller_name = '<?= $Seller->name ?>';
+    var seller_link = '<?= $Seller->link ?>';
     var buyer_name  = '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
     var items       = <?= json_encode($hashed_items) ?>
 </script>

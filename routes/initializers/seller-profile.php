@@ -127,13 +127,22 @@ if (isset($Routing->seller)) {
 
                 $categorized_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']][$raw_item['id']] = $ThisItem;
 
+                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id], $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$ThisItem->id]);
+
+                if ($in_cart) {
+                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$ThisItem->id];
+                }
+
                 $hashed_items[$raw_item['id']] = [
                     'price'     => _amount($ThisItem->price),
                     'name'      => $ThisItem->title,
                     'quantity'  => $ThisItem->quantity,
                     'rating'    => stars($ThisItem->rating),
+                    'link'      => $ThisItem->link, 
                     'filename'  => $ThisItem->Image->filename, 
-                    'ext'       => $ThisItem->Image->ext
+                    'ext'       => $ThisItem->Image->ext,
+                    'in_cart'   => $in_cart,
+                    'cart_qty'  => (isset($OrderItem) ? $OrderItem->quantity : 0)
                 ];
             }
 
