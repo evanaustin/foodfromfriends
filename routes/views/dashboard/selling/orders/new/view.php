@@ -140,7 +140,7 @@
                                         </h6>
                                         
                                         <small class="light-gray">
-                                            <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
+                                            <?= $OrderItem->package_metric_title ?>
                                             
                                             <span class="float-right">
                                                 <?php amount($OrderItem->total); ?>
