@@ -44,7 +44,7 @@ $Delivery = new Delivery([
     'DB' => $DB
 ]);
 
-if ($Delivery->exists('grower_operation_id', $grower_operation_id)) {
+if ($Delivery->exists('grower_operation_id', $User->GrowerOperation->id)) {
     $updated = $Delivery->update([
         'is_offered'            => $is_offered,
         'distance'              => $distance,
@@ -52,12 +52,12 @@ if ($Delivery->exists('grower_operation_id', $grower_operation_id)) {
         'free_distance'         => (isset($free_distance) ? $free_distance : 0),
         'fee'                   => $fee * 100,
         'pricing_rate'          => $pricing_rate
-    ], 'grower_operation_id', $grower_operation_id);
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your delivery preferences');
 } else {
     $added = $Delivery->add([
-        'grower_operation_id'   => $grower_operation_id,
+        'grower_operation_id'   => $User->GrowerOperation->id,
         'is_offered'            => $is_offered,
         'distance'              => (isset($distance) ? $distance : ''),
         'delivery_type'         => (isset($delivery_type) ? $delivery_type : ''),
@@ -69,21 +69,6 @@ if ($Delivery->exists('grower_operation_id', $grower_operation_id)) {
     if (!$added) quit('We could not add your delivery preferences');
 }
 
-// reinitialize User & Operation for fresh check
-$User = new User([
-    'DB' => $DB,
-    'id' => $USER['id']
-]);
-
-if (!empty($User->GrowerOperation)) {
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-}
-
-$is_active = $User->GrowerOperation->check_active();
-
-$json['is_active']  = $is_active;
 $json['link'] = $User->GrowerOperation->link;
 
 echo json_encode($json);

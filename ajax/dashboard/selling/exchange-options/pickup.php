@@ -43,17 +43,17 @@ $Pickup = new Pickup([
     'DB' => $DB
 ]);
 
-if ($Pickup->exists('grower_operation_id', $grower_operation_id)){
+if ($Pickup->exists('grower_operation_id', $User->GrowerOperation->id)){
     $updated = $Pickup->update([
         'is_offered'            => $is_offered,
         'instructions'          => ($is_offered ? $instructions : ''),
         'time'                  => ($is_offered ? $time : '')
-    ], 'grower_operation_id', $grower_operation_id);
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your pickup preferences');
 } else {
     $added = $Pickup->add([
-        'grower_operation_id'   => $grower_operation_id,
+        'grower_operation_id'   => $User->GrowerOperation->id,
         'is_offered'            => $is_offered,
         'instructions'          => $instructions,
         'time'                  => $time
@@ -62,21 +62,6 @@ if ($Pickup->exists('grower_operation_id', $grower_operation_id)){
     if (!$added) quit('We could not save your pickup preferences');
 }
 
-// reinitialize User & Operation for fresh check
-$User = new User([
-    'DB' => $DB,
-    'id' => $USER['id']
-]);
-
-if (!empty($User->GrowerOperation)) {
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-}
-
-$is_active = $User->GrowerOperation->check_active();
-
-$json['is_active']  = $is_active;
 $json['link'] = $User->GrowerOperation->link;
 
 echo json_encode($json);
