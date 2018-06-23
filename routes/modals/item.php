@@ -14,7 +14,7 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
                     'server'    => 'S3',
                     'class'     => 'img-fluid rounded drop-shadow'
                 ]); ?>
@@ -36,7 +36,7 @@
             
             <div class="modal-body">
                 <form id="edit-delivery-address">
-                    <input type="hidden" name="seller-account-id" value="<?= $GrowerOperation->id ?>"/>
+                    <input type="hidden" name="seller-account-id" value="<?= $SellerAccount->id ?>"/>
 
                     <label>
                         Enter the address you want your items delivered to

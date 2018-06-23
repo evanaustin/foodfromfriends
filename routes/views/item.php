@@ -1,14 +1,14 @@
 <main>
     <div class="main container">
         
-        <?php if ($Item->id && ($GrowerOperation->is_active || $is_owner)): ?>
+        <?php if ($Item->id && ($SellerAccount->is_active || $is_owner)): ?>
 
             <?php if ($is_owner): ?>
 
                 <div class="alerts" style="display:block;">
-                    <div class="alert alert-<?= (($GrowerOperation->is_active) ? 'info' : 'warning'); ?>">
+                    <div class="alert alert-<?= (($SellerAccount->is_active) ? 'info' : 'warning'); ?>">
 
-                        <?php if ($GrowerOperation->is_active): ?>
+                        <?php if ($SellerAccount->is_active): ?>
                         
                             <span>This is what your item looks like to the public. Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>">here</a> to go edit this item.</span>
                         
@@ -28,12 +28,11 @@
                 <div class="col-lg-3 order-lg-1 d-none d-md-block">
                     <div class="sidebar-content">
                         <div class="photo box">
+                            <a href="#" class="<?php if (empty($Item->Image->filename)) echo 'hidden' ?>" data-toggle="modal" data-target="#img-zoom-modal">
                             
-                            <?php if (!empty($Item->filename)): ?>
+                            <?php if (!empty($Item->Image->filename)): ?>
 
-                                <a href="#" data-toggle="modal" data-target="#img-zoom-modal">
-
-                                <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                                <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
                                     'server'    => 'S3',
                                     'class'     => 'img-fluid'
                                 ]); ?>
@@ -59,9 +58,9 @@
 
                         </div>
                         
-                        <div class="<?= (isset($GrowerOperation->latitude, $GrowerOperation->longitude) ? 'map' : 'photo'); ?> box">
+                        <div class="<?= (isset($SellerAccount->latitude, $SellerAccount->longitude) ? 'map' : 'photo'); ?> box">
                             
-                            <?php if (isset($GrowerOperation->latitude, $GrowerOperation->longitude)): ?>
+                            <?php if (isset($SellerAccount->latitude, $SellerAccount->longitude)): ?>
 
                                 <div id="map"></div>
 
@@ -89,12 +88,12 @@
                 <div class="col-12 order-1 col-lg-5 order-lg-1">
                     <div id="main-content">
                         <h2 class="dark-gray bold margin-btm-25em">
-                            <?= $Item->title; ?>
+                            <?= $Item->title ?>
                         </h2>
 
                         <h6 class="muted normal margin-btm-1em">
                             <span class="brand">
-                                <?= $item_stars; ?>
+                                <?= $item_stars ?>
                             </span>
 
                             <?php if (!empty($ratings) && count($ratings) > 0): ?>
@@ -105,49 +104,25 @@
 
                             <?php endif; ?>
                             
-                            <?php if (!empty($Item->weight) && !empty($Item->units)): ?>
-                                
-                                &bull;
-                                $<?= number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units ?>
-                            
-                            <?php endif; ?>
-
-                            &bull;
-
-                            <?= ($Item->is_available ? "{$Item->quantity} in stock" : 'Unavailable') ?>
                         </h6>
                         
-                        <?php if (!empty($Item->description)): ?>
+                        <div id="description" class="callout <?php if (empty($Item->description)) echo 'hidden' ?>">
+                            <div>
 
-                            <div class="callout description">
-                                <div><?= $Item->description ?></div>
-                            </div>
-
-                        <?php elseif ($is_owner): ?>
-
-                            <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta">
-                                Add a description
-                            </a>
-                        
-                        <?php endif; ?>
-
-                        <?php if (!empty($Item->packaging) || ($wholesale_relationship && !empty($Item->wholesale_packaging))): ?>
+                            <?php if (!empty($Item->description)): ?>    
                             
-                            <div class="item-definition set d-none d-md-block">
-                                <h4 class="margin-btm-50em">
-                                    Packaging
-                                </h4>
+                                <?= $Item->description ?>
+                            
+                            <?php elseif ($is_owner): ?>
 
-                                <div class="muted margin-btm-1em">
-                                    How the item will come packaged
-                                </div>
+                                <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta">
+                                    Add a description
+                                </a>
+                            
+                            <?php endif ?>
 
-                                <div class="callout">
-                                    <div><?= ($wholesale_relationship) ? $Item->wholesale_packaging : $Item->packaging; ?></div>
-                                </div>
                             </div>
-
-                        <?php endif; ?>
+                        </div>
 
                         <div class="available-exchange-options set d-none d-md-block">
                             <h4 class="margin-btm-50em">
@@ -169,7 +144,7 @@
                             
                             <?php if (!empty($exchange_options_available)): ?>
 
-                                <?php if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered): ?>
+                                <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
 
                                     <div class="callout">
                                         <div class="muted font-18 thick">
@@ -177,23 +152,23 @@
                                         </div>
                                         
                                         <div>
-                                            Will deliver within: <?= $GrowerOperation->Delivery->distance ?> miles
+                                            Will deliver within: <?= $SellerAccount->Delivery->distance ?> miles
                                         </div>
 
-                                        <?php if ($GrowerOperation->Delivery->delivery_type == 'conditional'): ?>
+                                        <?php if ($SellerAccount->Delivery->delivery_type == 'conditional'): ?>
                                             
-                                            <div>Free delivery within: {$GrowerOperation->Delivery->free_distance} miles</div>";
+                                            <div>Free delivery within: {$SellerAccount->Delivery->free_distance} miles</div>";
 
                                         <?php endif; ?>
 
                                         <div>
-                                            <?= ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                            <?= ($SellerAccount->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($SellerAccount->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $SellerAccount->Delivery->pricing_rate)); ?>
                                         </div>
                                     </div>
 
                                 <?php endif; ?>
 
-                                <?php if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered): ?>
+                                <?php if ($SellerAccount->Pickup && $SellerAccount->Pickup->is_offered): ?>
                                     
                                     <div class="callout">
                                         <div class="muted font-18 thick">
@@ -201,12 +176,12 @@
                                         </div>
 
                                         <div>
-                                            <?= "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
+                                            <?= "{$SellerAccount->city}, {$SellerAccount->state}"; ?>
                                         </div>
                                         
                                         <?php
                                         
-                                        if (isset($distance) && $distance['length'] > 0) {
+                                        if (isset($distance, $distance['length']) && $distance['length'] > 0) {
                                             echo "<div>{$distance['length']} {$distance['units']} away</div>";
                                         }
 
@@ -215,7 +190,7 @@
 
                                 <?php endif; ?>
                                     
-                                <?php if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered): ?>
+                                <?php if ($SellerAccount->Meetup && $SellerAccount->Meetup->is_offered): ?>
                                     
                                     <div class="callout">
                                         <div class="muted font-18 thick">
@@ -223,9 +198,9 @@
                                         </div>
 
                                         <div>
-                                            <?= $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ", {$GrowerOperation->Meetup->address_line_2}" : '') ?><br>
-                                            <?= "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}" ?><br>
-                                            <?= $GrowerOperation->Meetup->time ?>
+                                            <?= $SellerAccount->Meetup->address_line_1 . (($SellerAccount->Meetup->address_line_2) ? ", {$SellerAccount->Meetup->address_line_2}" : '') ?><br>
+                                            <?= "{$SellerAccount->Meetup->city}, {$SellerAccount->Meetup->state} {$SellerAccount->Meetup->zipcode}" ?><br>
+                                            <?= $SellerAccount->Meetup->time ?>
                                         </div>
                                     </div>
 
@@ -234,7 +209,7 @@
                             <?php else: ?>
 
                                 <div class="callout">
-                                    <?= $GrowerOperation->name ?> hasn't enabled any exchange options yet
+                                    <?= $SellerAccount->name ?> hasn't enabled any exchange options yet
                                 </div>
                         
                                 <?php if ($is_owner): ?>
@@ -312,29 +287,29 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                Get to know the <?= (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> growing your food
+                                Get to know the <?= (($SellerAccount->type == 'individual') ? 'person' : 'people'); ?> growing your food
                             </div>
 
                             <div class="user-block margin-btm-50em">
-                                <a href="<?= PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
-                                    <div class="user-photo" style="background-image: url(<?= (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                                <a href="<?= PUBLIC_ROOT . "{$SellerAccount->link}"; ?>">
+                                    <div class="user-photo" style="background-image: url(<?= (!empty($SellerAccount->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$SellerAccount->filename}.{$SellerAccount->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                                 </a>
                                 
                                 <div class="user-content">
                                     <div class="font-18 muted thick">    
-                                        <a href="<?= PUBLIC_ROOT . $GrowerOperation->link; ?>">
-                                            <?= $GrowerOperation->name; ?>
+                                        <a href="<?= PUBLIC_ROOT . $SellerAccount->link; ?>">
+                                            <?= $SellerAccount->name; ?>
                                         </a>
                                     </div>
                                         
-                                    <?php if ($GrowerOperation->is_active): ?>
+                                    <?php if ($SellerAccount->is_active): ?>
 
                                         <div class="font-85 muted bold margin-btm-50em">
                                             <?= $grower_stars?>
 
                                             &nbsp;&bull;&nbsp;
 
-                                            <?= "{$GrowerOperation->city}, {$GrowerOperation->state}" ?>
+                                            <?= "{$SellerAccount->city}, {$SellerAccount->state}" ?>
                                         </div>
                                     
                                     <?php endif; ?>
@@ -342,19 +317,19 @@
                                 </div>
                             </div>
 
-                            <?php if (!$GrowerOperation->is_active && $is_owner): ?>
+                            <?php if (!$SellerAccount->is_active && $is_owner): ?>
 
-                                <a href="<?= PUBLIC_ROOT ?>dashboard/selling/" class="btn btn-cta margin-top-1em">
+                                <a href="<?= PUBLIC_ROOT ?>dashboard/selling" class="btn btn-cta margin-top-1em">
                                     Complete your profile
                                 </a>
 
-                                <?php elseif (!empty($GrowerOperation->bio)): ?>
+                                <?php elseif (!empty($SellerAccount->bio)): ?>
 
                                 <div class="callout">
-                                    <div><?= $GrowerOperation->bio ?></div>
+                                    <div><?= $SellerAccount->bio ?></div>
                                 </div>
 
-                            <?php endif; ?>
+                            <?php endif ?>
 
                         </div>
                     </div>    
@@ -364,150 +339,91 @@
                     <div id="basket-form-container" class="sticky-top">
                         <div class="box">
                             <div class="header">    
-                                <?= _amount(($wholesale_relationship && !empty($Item->wholesale_price) ? $Item->wholesale_price : $Item->price)) ?>
-                                
-                                <small>
-                                    each
-                                </small>
+                                <?= _amount($Item->price) ?>
                             </div>
 
                             <div class="content">
                                 <div class="alerts"></div>
 
-                                <?php if (!$Item->is_available): ?>
+                                <form id="update-cart">
+                                    <input type="hidden" name="seller-id" value="<?= $SellerAccount->id; ?>">
+                                    <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
-                                    <span class="muted">This item is currently unavailable</span>
+                                    <div class="form-group">
+                                        <label>
+                                            Package option
+                                        </label>
+                                        
+                                        <select name="item-id" class="custom-select" data-parsley-trigger="change" required>
+                                            
+                                            <?php foreach($items as $item): ?>
 
-                                <?php else: ?>
-
-                                    <?php if (isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id], $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id]->Items[$Item->id])): ?>
-                                
-                                        <?php $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$GrowerOperation->id] ?>
-                                        <?php $OrderItem = $OrderGrower->Items[$Item->id] ?>
-
-                                        <form id="update-item" data-ordergrower="<?= $OrderGrower->id; ?>">
-                                            <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
-                                            <input type="hidden" name="item-id" value="<?= $Item->id; ?>">
-                                            <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
-
-                                            <div class="form-group">
-                                                <label>
-                                                    Quantity
-                                                </label>
+                                                <?php $ItemOption = new Item([
+                                                    'DB' => $DB,
+                                                    'id' => $item['id']
+                                                ]); ?>
                                                 
-                                                <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
-                                                    
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($Item->wholesale_quantity) ? $Item->wholesale_quantity : $Item->quantity); $i++): ?>
-                                                        
-                                                        <option value="<?= $i ?>" <?php if ($OrderItem->quantity == $i) echo 'selected' ?>>
-                                                            <?= $i ?>
-                                                        </option>
-                                                    
-                                                    <?php endfor; ?>
+                                                <option value="<?= $ItemOption->id ?>" <?php if ($ItemOption->id == $Item->id) echo 'selected' ?>>
+                                                    <?= $ItemOption->package_metric_title ?>
+                                                </option>
+                                            
+                                            <?php endforeach ?>
 
-                                                </select>
-                                            </div>
+                                        </select>
+                                    </div>
 
-                                            <div class="exchange form-group">
-                                                <label>
-                                                    Exchange option
-                                                </label>
-
-                                                <?php if (!empty($exchange_options_available)): ?>
-
-                                                    <div class="btn-group">
-
-                                                        <?php foreach ($exchange_options_available as $option): ?>
-
-                                                            <button type="button" class="exchange-btn btn btn-secondary <?php if (isset($_GET['exchange']) && $_GET['exchange'] == $option) echo 'active' ?>" data-option="<?= $option ?>">
-                                                                <?= ucfirst($option) ?>
-                                                            </button>
-
-                                                        <?php endforeach; ?>
-
-                                                    </div>
-
-                                                <?php else: ?>
-
-                                                    <div class="callout">
-                                                        No exchange options available
-                                                    </div>
-
-                                                <?php endif; ?>
-
-                                                <div class="form-control-feedback hidden">
-                                                    Please select an exchange type
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    <?php else: ?>
-                                    
-                                        <form id="add-item" data-ordergrower="<?= (isset($OrderGrower)) ? $OrderGrower->id : 0; ?>">
-                                            <input type="hidden" name="seller-id" value="<?= $GrowerOperation->id; ?>">
-                                            <input type="hidden" name="item-id" value="<?= $Item->id; ?>">
-                                            <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
-                                            <input type="hidden" name="is-wholesale" value="<?= ($wholesale_relationship) ? 1 : 0 ?>"/>
-
-                                            <div class="form-group">
-                                                <label>
-                                                    Quantity
-                                                </label>
+                                    <div class="form-group <?php if (!$Item->quantity) echo 'hidden' ?>">
+                                        <label>
+                                            Quantity
+                                        </label>
+                                        
+                                        <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
+                                            
+                                            <?php for ($i = 1; $i <= $Item->quantity; $i++): ?>
                                                 
-                                                <select name="quantity" class="custom-select" data-parsley-trigger="change" required>
-                                                    
-                                                    <?php for ($i = 1; $i <= ($wholesale_relationship && !empty($Item->wholesale_quantity) ? $Item->wholesale_quantity : $Item->quantity); $i++): ?>
-                                                        
-                                                        <option value="<?= $i ?>" <?php if (isset($_GET['quantity']) && $_GET['quantity'] == $i) echo 'selected' ?>>
-                                                            <?= $i ?>
-                                                        </option>
-                                                    
-                                                    <?php endfor; ?>
+                                                <option value="<?= $i ?>" <?php if ((isset($_GET['quantity']) && $_GET['quantity'] == $i) || ($in_cart && $OrderItem->quantity == $i)) echo 'selected' ?>>
+                                                    <?= $i ?>
+                                                </option>
+                                            
+                                            <?php endfor; ?>
 
-                                                </select>
-                                            </div>
+                                        </select>
+                                    </div>
 
-                                            <div class="exchange form-group">
-                                                <label>
-                                                    Exchange option
-                                                </label>
+                                    <div class="exchange form-group">
+                                        <label>
+                                            Exchange option
+                                        </label>
+                                        
+                                        <?php if (!empty($exchange_options_available)): ?>
+
+                                            <div class="btn-group">
+                                            
+                                                <?php foreach ($exchange_options_available as $option): ?>
                                                 
-                                                <?php if (!empty($exchange_options_available)): ?>
-
-                                                    <div class="btn-group">
-                                                    
-                                                        <?php foreach ($exchange_options_available as $option): ?>
-                                                        
-                                                            <button type="button" class="exchange-btn btn btn-secondary <?php if ($active_ex_op == $option) echo 'active' ?>" data-option="<?= $option ?>">
-                                                                <?= ucfirst($option) ?>
-                                                            </button>
-                                                        
-                                                        <?php endforeach; ?>
-                                                    
-                                                    </div>
-
-                                                <?php else: ?>
-
-                                                    <div class="callout">
-                                                        No exchange options available
-                                                    </div>
-                    
-                                                <?php endif; ?>
-
-                                                <div class="form-control-feedback hidden">
-                                                    Please select an exchange type
-                                                </div>
+                                                    <button type="button" class="exchange-btn btn btn-light <?php if ($active_ex_op == $option) echo 'active' ?>" data-option="<?= $option ?>">
+                                                        <?= ucfirst($option) ?>
+                                                    </button>
+                                                
+                                                <?php endforeach; ?>
+                                            
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary btn-block" <?php if (!$GrowerOperation->is_active) echo 'disabled' ?>>
-                                                Add to basket
-                                            </button>
-                                        </form>
+                                        <?php else: ?>
 
-                                    <?php endif; ?>
+                                            <div class="callout">
+                                                No exchange options available
+                                            </div>
+            
+                                        <?php endif; ?>
 
-                                <?php endif; ?>
+                                        <div class="form-control-feedback hidden">
+                                            Please select an exchange type
+                                        </div>
+                                    </div>
 
+                                    <input type="submit" class="btn btn-block btn-<?= ($Item->quantity) ? 'cta' : 'danger' ?>" value="<?= (!$Item->quantity) ? 'Out of stock' : ($in_cart ? 'Update basket' : 'Add to basket') ?>" <?php if (!$SellerAccount->is_active || !$Item->quantity) echo 'disabled' ?>/>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -517,7 +433,7 @@
                     <div class="sidebar-content">
                         <div class="photo box">
                             
-                            <?php img(ENV . '/items/' . $Item->filename, $Item->ext, [
+                            <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
                                 'server'    => 'S3',
                                 'class'     => 'img-fluid'
                             ]); ?>
@@ -528,20 +444,6 @@
 
                 <div class="col-12 order-4 d-md-none">
                     
-                    <?php if (!empty($Item->packaging)): ?>
-
-                        <div class="item-definition set">
-                            <h4>
-                                Item definition
-                            </h4>
-
-                            <div class="callout">
-                                <div><?= $Item->packaging; ?></div>
-                            </div>
-                        </div>
-
-                    <?php endif; ?>
-
                     <div class="available-exchange-options set">
                         <h4 class="margin-btm-50em">
                             Exchange options
@@ -554,7 +456,7 @@
                         
                         <?php if (!empty($exchange_options_available)): ?>
 
-                            <?php if ($GrowerOperation->Delivery && $GrowerOperation->Delivery->is_offered): ?>
+                            <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
 
                                 <div class="callout">
                                     <div class="muted font-18 thick">
@@ -562,23 +464,23 @@
                                     </div>
                                     
                                     <div>
-                                        <?= "Will deliver within: {$GrowerOperation->Delivery->distance} miles"; ?>
+                                        <?= "Will deliver within: {$SellerAccount->Delivery->distance} miles"; ?>
                                     </div>
 
-                                    <?php if ($GrowerOperation->Delivery->delivery_type == 'conditional'): ?>
+                                    <?php if ($SellerAccount->Delivery->delivery_type == 'conditional'): ?>
                                         
-                                        <div>Free delivery within: <?= $GrowerOperation->Delivery->free_distance ?> miles</div>
+                                        <div>Free delivery within: <?= $SellerAccount->Delivery->free_distance ?> miles</div>
 
                                     <?php endif; ?>
 
                                     <div>
-                                        <?= ($GrowerOperation->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($GrowerOperation->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $GrowerOperation->Delivery->pricing_rate)); ?>
+                                        <?= ($SellerAccount->Delivery->delivery_type == 'free' ? 'Free' : 'Rate: $' . number_format($SellerAccount->Delivery->fee / 100, 2) . ' ' . str_replace('-', ' ', $SellerAccount->Delivery->pricing_rate)); ?>
                                     </div>
                                 </div>
 
                             <?php endif; ?>
 
-                            <?php if ($GrowerOperation->Pickup && $GrowerOperation->Pickup->is_offered): ?>
+                            <?php if ($SellerAccount->Pickup && $SellerAccount->Pickup->is_offered): ?>
                                 
                                 <div class="callout">
                                     <div class="muted font-18 thick">
@@ -586,10 +488,10 @@
                                     </div>
 
                                     <div>
-                                        <?= "{$GrowerOperation->city}, {$GrowerOperation->state}"; ?>
+                                        <?= "{$SellerAccount->city}, {$SellerAccount->state}"; ?>
                                     </div>
                                     
-                                    <?php if (isset($distance) && $distance['length'] > 0): ?>
+                                    <?php if (isset($distance, $distance['length']) && $distance['length'] > 0): ?>
 
                                         <div><?= "{$distance['length']} {$distance['units']}" ?> away</div>
 
@@ -599,7 +501,7 @@
 
                             <?php endif; ?>
                                 
-                            <?php if ($GrowerOperation->Meetup && $GrowerOperation->Meetup->is_offered): ?>
+                            <?php if ($SellerAccount->Meetup && $SellerAccount->Meetup->is_offered): ?>
                                 
                                 <div class="callout">
                                     <div class="muted font-18 thick">
@@ -607,9 +509,9 @@
                                     </div>
 
                                     <div>
-                                        <?= $GrowerOperation->Meetup->address_line_1 . (($GrowerOperation->Meetup->address_line_2) ? ", {$GrowerOperation->Meetup->address_line_2}" : '') ?><br>
-                                        <?= "{$GrowerOperation->Meetup->city}, {$GrowerOperation->Meetup->state} {$GrowerOperation->Meetup->zipcode}" ?><br>
-                                        <?= $GrowerOperation->Meetup->time ?>
+                                        <?= $SellerAccount->Meetup->address_line_1 . (($SellerAccount->Meetup->address_line_2) ? ", {$SellerAccount->Meetup->address_line_2}" : '') ?><br>
+                                        <?= "{$SellerAccount->Meetup->city}, {$SellerAccount->Meetup->state} {$SellerAccount->Meetup->zipcode}" ?><br>
+                                        <?= $SellerAccount->Meetup->time ?>
                                     </div>
                                 </div>
 
@@ -618,7 +520,7 @@
                         <?php else: ?>
 
                             <div class="callout">
-                                <?= $GrowerOperation->name ?> hasn't enabled any exchange options yet
+                                <?= $SellerAccount->name ?> hasn't enabled any exchange options yet
                             </div>
 
                             <?php if ($is_owner): ?>
@@ -696,29 +598,29 @@
                         </h4>
 
                         <div class="muted margin-btm-1em">
-                            Get to know the <?= (($GrowerOperation->type == 'individual') ? 'person' : 'people'); ?> selling these items
+                            Get to know the <?= (($SellerAccount->type == 'individual') ? 'person' : 'people'); ?> selling these items
                         </div>
 
                         <div class="user-block">
-                            <a href="<?= PUBLIC_ROOT . "{$GrowerOperation->link}"; ?>">
-                                <div class="user-photo" style="background-image: url(<?= (!empty($GrowerOperation->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$GrowerOperation->filename}.{$GrowerOperation->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
+                            <a href="<?= PUBLIC_ROOT . "{$SellerAccount->link}"; ?>">
+                                <div class="user-photo" style="background-image: url(<?= (!empty($SellerAccount->filename) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/grower-operation-images/{$SellerAccount->filename}.{$SellerAccount->ext}" : PUBLIC_ROOT . 'media/placeholders/user-thumbnail.jpg'); ?>);"></div>    
                             </a>
 
                             <div class="user-content">
                                 <div class="font-18 muted thick">    
-                                    <a href="<?= PUBLIC_ROOT . $GrowerOperation->link; ?>">
-                                        <?= $GrowerOperation->name; ?>
+                                    <a href="<?= PUBLIC_ROOT . $SellerAccount->link; ?>">
+                                        <?= $SellerAccount->name; ?>
                                     </a>
                                 </div>
 
-                                <?php if ($GrowerOperation->is_active): ?>
+                                <?php if ($SellerAccount->is_active): ?>
 
                                     <div class="font-85 muted bold margin-btm-50em">
                                         <?= $grower_stars?>
 
                                         &nbsp;&bull;&nbsp;
                                         
-                                        <?= "{$GrowerOperation->city}, {$GrowerOperation->state}" ?>
+                                        <?= "{$SellerAccount->city}, {$SellerAccount->state}" ?>
                                     </div>
 
                                 <?php endif; ?>
@@ -726,16 +628,16 @@
                             </div>
                         </div>
 
-                        <?php if (!$GrowerOperation->is_active && $is_owner): ?>
+                        <?php if (!$SellerAccount->is_active && $is_owner): ?>
 
                             <a href="<?= PUBLIC_ROOT ?>dashboard/selling/" class="btn btn-cta margin-top-1em">
                                 Complete your profile
                             </a>
                         
-                        <?php elseif (!empty($GrowerOperation->bio)): ?>
+                        <?php elseif (!empty($SellerAccount->bio)): ?>
 
                             <div class="callout">
-                                <div><?= $GrowerOperation->bio ?></div>
+                                <div><?= $SellerAccount->bio ?></div>
                             </div>
                         
                         <?php endif; ?>
@@ -756,6 +658,7 @@
 <script>
     var buyer_lat   = <?= (isset($User->BuyerAccount->Address->latitude)) ? $User->BuyerAccount->Address->latitude : 0; ?>;
     var buyer_lng   = <?= (isset($User->BuyerAccount->Address->longitude)) ? $User->BuyerAccount->Address->longitude : 0; ?>;
-    var seller_lat  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->latitude, 2) : 0; ?>;
-    var seller_lng  = <?= (isset($GrowerOperation)) ? number_format($GrowerOperation->longitude, 2) : 0; ?>;
+    var seller_lat  = <?= (isset($SellerAccount)) ? number_format($SellerAccount->latitude, 2) : 0; ?>;
+    var seller_lng  = <?= (isset($SellerAccount)) ? number_format($SellerAccount->longitude, 2) : 0; ?>;
+    var items       = <?= json_encode($hashed_items) ?>
 </script>
