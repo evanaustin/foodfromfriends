@@ -6641,22 +6641,16 @@ div.box {
     width: 100%;
     margin-top: 0.5rem; }
   div.box div.btn-group {
-    width: 100%;
-    margin: 0 auto 10px auto; }
+    width: 100%; }
     div.box div.btn-group .btn {
       flex-grow: 1;
       margin-top: 0;
       font-size: 0.85em;
-      text-align: center;
-      color: #636c72; }
-      div.box div.btn-group .btn:hover {
-        background-color: #7b868d !important;
-        border-color: #7b868d !important;
-        color: #fff !important; }
+      text-align: center; }
       div.box div.btn-group .btn.active {
-        background: #636c72 !important;
-        border-color: #636c72 !important;
-        color: #fff !important; }
+        background: #00c079;
+        border-color: transparent;
+        color: #fff; }
 
 /**
 * Components
@@ -7642,7 +7636,7 @@ body.front.item div.main.container {
   margin-top: 30px;
   margin-bottom: 30px; }
   @media (max-width: 576px) {
-    body.front.item div.main.container #main-content .description.callout {
+    body.front.item div.main.container #main-content #description {
       margin-bottom: 1rem; } }
   @media (max-width: 767px) {
     body.front.item div.main.container #basket-form-container {
@@ -7685,13 +7679,17 @@ body.front.item div.main.container {
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem; }
+    border-bottom-left-radius: 0.25rem;
+            /* select.custom-select {
+                background-color: $superlight-gray;
+
+                @include drop-shadow(0, 0, 0, 0);
+            } */ }
     @media (max-width: 767px) {
       body.front.item div.main.container #basket-form-container .box .header {
         border-top-left-radius: 0.25rem;
         border-top-right-radius: 0.25rem; } }
     body.front.item div.main.container #basket-form-container select.custom-select, body.front.item div.main.container #basket-form-container div.btn-group {
-      border: 1px solid #f5f5f5;
       -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
       -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
       box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
@@ -7701,6 +7699,8 @@ body.front.item div.main.container {
         -ms-transform: none;
         -o-transform: none;
         transform: none; }
+    body.front.item div.main.container #basket-form-container select.custom-select {
+      background-color: #fafafb; }
 
 #stripe-elements .StripeElement {
   background-color: white;
