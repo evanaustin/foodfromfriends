@@ -21,6 +21,7 @@ class Item extends Base {
     
     public
         $title,
+        $package_metric_title,
         $link;
 
     public
@@ -62,6 +63,7 @@ class Item extends Base {
             ]);
 
             $this->title = (!empty($this->name)) ? $this->name : ucfirst((!empty($this->variety_title) ? $this->variety_title . ' ' : '') . $this->subcategory_title);
+            $this->package_metric_title = ucfirst(((!empty($this->measurement) && !empty($this->metric)) ? "{$this->measurement} {$this->metric} {$this->package_type}" : $this->package_type));
 
             $Slug = new Slug([
                 'DB' => $this->DB
@@ -168,7 +170,7 @@ class Item extends Base {
             ";
         }
 
-        $sql .= "ORDER BY isc.id, iv.id, i.price";
+        $sql .= "ORDER BY ic.id asc, isc.title desc, iv.title asc, i.quantity desc";
 
         $results = $this->DB->run($sql, $bind);
 
