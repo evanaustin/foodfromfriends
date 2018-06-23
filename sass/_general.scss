@@ -582,13 +582,12 @@ canvas {
 }
     
 .btn-light {
-    background-color: $light-gray !important;
-    border-color: $light-gray !important;
-    color: #fff !important;
+    background-color: $superlight-gray;
+    border-color: transparent;
+    color: $muted;
 
     &:not([disabled]):hover {
-        background-color: $muted !important;
-        border-color: $muted !important;
+        background-color: darken($superlight-gray, 5%);
     }
 }
 
@@ -617,21 +616,21 @@ canvas {
     @include rounded($radius);
 
     .btn {
-        border-width: 0px;
-        border-color: $edge-color;
+        // border-width: 0px;
+        border-color: transparent;
         @include drop-shadow(0, 0, 0, 0);
 
         &.btn-cta {
             font-size: 0.85rem;
         }
 
-        &:not(:first-child) {
+        /* &:not(:first-child) {
             border-left-width: 1px;
         }
 
         &:last-child {
             border-right-width: 1px;
-        }
+        } */
 
         &:hover {
             border-color: transparent;
