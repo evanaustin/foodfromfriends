@@ -170,7 +170,7 @@ class Item extends Base {
             ";
         }
 
-        $sql .= "ORDER BY ic.id asc, i.quantity desc, isc.title asc, iv.title asc";
+        $sql .= "ORDER BY ic.id asc, isc.title asc, iv.title asc, i.quantity desc";
 
         $results = $this->DB->run($sql, $bind);
 
