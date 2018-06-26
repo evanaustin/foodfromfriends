@@ -104,6 +104,14 @@ if (isset($Routing->seller)) {
                 // 'is_available' => true
             ]);
 
+            if ($wholesale_relationship && empty($raw_items)) {
+                $wholesale_relationship = false;
+
+                $raw_items = $Item->get_items($Seller->id, [
+                    'is_wholesale' => $wholesale_relationship ? 1 : 0,
+                ]);
+            }
+
             $categorized_items  = [];
             $hashed_items       = [];
 

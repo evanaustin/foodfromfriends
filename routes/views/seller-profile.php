@@ -259,7 +259,7 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                            <?= ($wholesale_relationship && (!isset($_GET['retail']) || (isset($_GET['retail']) && $_GET['retail'] == 'false'))) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
+                                <?= ($wholesale_relationship && (!isset($_GET['retail']) || (isset($_GET['retail']) && $_GET['retail'] == 'false'))) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
 
                                 <?php if ($wholesale_relationship): ?>
                                     
