@@ -259,7 +259,25 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                Items for sale from <?= $Seller->name ?>
+                            <?= ($wholesale_relationship && (!isset($_GET['retail']) || (isset($_GET['retail']) && $_GET['retail'] == 'false'))) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
+
+                                <?php if ($wholesale_relationship): ?>
+                                    
+                                    <?php if (!isset($_GET['retail']) || isset($_GET['retail']) && $_GET['retail'] == 'false'): ?>
+                                        &nbsp;    
+                                        <a href="<?= PUBLIC_ROOT . $Seller->link . '?retail=true' ?>" class="badge badge-secondary">
+                                            Switch to retail
+                                            <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    <?php elseif (isset($_GET['retail']) && $_GET['retail'] == true): ?>
+                                        &nbsp;    
+                                        <a href="<?= PUBLIC_ROOT . $Seller->link ?>" class="badge badge-secondary">
+                                            Switch to wholesale
+                                            <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    <?php endif ?>
+
+                                <?php endif ?>
                             </div>
 
                             <?php if (!empty($categorized_items)): ?>
