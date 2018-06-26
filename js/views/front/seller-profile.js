@@ -196,41 +196,50 @@ App.Front.SellerProfile = function() {
                             var package = (response.item.measurement != '' && response.item.metric != '') ? response.item.measurement + ' ' + response.item.metric + ' ' + response.item.package_type : response.item.package_type;
                             
                             // Check if OrderItem is already in cart
-                            $cart_item = $(
-                                '<div class="cart-item animated bounceIn" data-item-id="' + response.item.id + '">' +
-                                    '<div class="item-image">' +
-                                        '<div class="user-photo no-margin" style="background-image: url(' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/item-images/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '); height: 50px; width: 50px;"></div>' +
-                                    '</div>' +
-
-                                    '<div class="item-content">' +
-                                        '<div class="item-title">' +
-                                            '<a href="' + PUBLIC_ROOT + response.item.link + '">' +
-                                                response.item.name +
-                                            '</a>' +
+                            if (response.action == 'add-item') {
+                                $cart_item = $(
+                                    '<div class="cart-item animated bounceIn" data-item-id="' + response.item.id + '">' +
+                                        '<div class="item-image">' +
+                                            '<div class="user-photo no-margin" style="background-image: url(' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/item-images/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '); height: 50px; width: 50px;"></div>' +
                                         '</div>' +
 
-                                        '<div class="small light-gray">' +
-                                            package.charAt(0).toUpperCase() + package.slice(1) +
-                                        '</div>' +
-                    
-                                        '<div class="item-details">' +
-                                            '<div class="item-price">' +
-                                            response.orderitem.subtotal +
+                                        '<div class="item-content">' +
+                                            '<div class="item-title">' +
+                                                '<a href="' + PUBLIC_ROOT + response.item.link + '">' +
+                                                    response.item.name +
+                                                '</a>' +
                                             '</div>' +
-                                            '<a class="remove-item">' +
-                                                '<i class="fa fa-times"></i>' +
-                                            '</a>' +
+
+                                            '<div class="small light-gray">' +
+                                                package.charAt(0).toUpperCase() + package.slice(1) +
+                                            '</div>' +
+                        
+                                            '<div class="item-details">' +
+                                                '<div class="item-price">' +
+                                                response.orderitem.subtotal +
+                                                '</div>' +
+                                                '<a class="remove-item">' +
+                                                    '<i class="fa fa-times"></i>' +
+                                                '</a>' +
+                                            '</div>' +
                                         '</div>' +
-                                    '</div>' +
-                                '</div>'
-                            ).appendTo($cart_items);
-                            
-                            $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
-                            
-                            for (var i = 1; i <= response.item.quantity; i++) {
-                                // $option = $('<option>').attr('value', i).text(i);
-                                $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.orderitem.quantity) ).text(i));
-                            };
+                                    '</div>'
+                                ).appendTo($cart_items);
+                                
+                                $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
+                                
+                                for (var i = 1; i <= response.item.quantity; i++) {
+                                    // $option = $('<option>').attr('value', i).text(i);
+                                    $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.orderitem.quantity) ).text(i));
+                                };
+                            } else if (response.action == 'modify-quantity') {
+                                // Update quantity for cart item
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('select option').attr('selected', false);
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('select option[value=' + response.orderitem.quantity + ']').attr('selected', 'selected');
+
+                                // Update item subtotal
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('.item-price').text(response.orderitem.subtotal);
+                            }
 
                             // update OrderGrower line amount
                             var exchange_title = response.ordergrower.exchange.charAt(0).toUpperCase() + response.ordergrower.exchange.slice(1)
