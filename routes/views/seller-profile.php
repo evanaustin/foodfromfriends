@@ -397,7 +397,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <input type="submit" class="btn btn-sm btn-block btn-<?= ($FirstOption->quantity) ? 'cta' : 'danger' ?>" value="<?= ($FirstOption->quantity) ? (($in_cart) ? 'Update item in basket' : 'Add to basket') : 'Out of stock' ?>" <?php if (!$FirstOption->quantity) echo 'disabled' ?>>
+                                                                <input type="submit" class="btn btn-sm btn-block btn-<?= ($FirstOption->quantity) ? 'cta' : 'light' ?>" value="<?= ($FirstOption->quantity) ? (($in_cart) ? 'Update item in basket' : 'Add to basket') : 'Out of stock' ?>" <?php if (!$FirstOption->quantity) echo 'disabled' ?>>
                                                             </form>
                                                         </div>
                                                     </div>

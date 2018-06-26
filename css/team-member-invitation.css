@@ -8119,9 +8119,9 @@ form .input-group.double-select {
       -o-transform: translateY(0px);
       transform: translateY(0px); }
     form .input-group.double-select select:first-child {
-      min-width: 66.667%; }
+      min-width: 70%; }
     form .input-group.double-select select:last-child {
-      width: 33.333%; }
+      width: 30%; }
 form .input-group textarea {
   resize: none;
   width: 100%;

@@ -93,7 +93,7 @@ App.Front.SellerProfile = function() {
 
             if (items[id].quantity > 0) {
                 $card_body.find('input[type="submit"]')
-                .removeClass('btn-danger')
+                .removeClass('btn-light')
                 .addClass('btn-cta')
                 .val((items[id].in_cart ? 'Update item in basket' : 'Add to basket'))
                 .attr('disabled', false);
@@ -116,7 +116,7 @@ App.Front.SellerProfile = function() {
 
                 $card_body.find('input[type="submit"].btn-cta')
                     .removeClass('btn-cta')
-                    .addClass('btn-danger')
+                    .addClass('btn-light')
                     .val('Out of stock')
                     .attr('disabled', true);
             }
