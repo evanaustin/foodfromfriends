@@ -100,15 +100,14 @@ if (isset($Routing->seller)) {
 
             // retrieve & hash items
             $raw_items = $Item->get_items($Seller->id, [
-                'is_wholesale' => $wholesale_relationship ? 1 : 0,
-                // 'is_available' => true
+                'is_wholesale' => $wholesale_relationship ? 1 : 0
             ]);
 
             if ($wholesale_relationship && empty($raw_items)) {
                 $wholesale_relationship = false;
 
                 $raw_items = $Item->get_items($Seller->id, [
-                    'is_wholesale' => $wholesale_relationship ? 1 : 0,
+                    'is_wholesale' => $wholesale_relationship ? 1 : 0
                 ]);
             }
 
