@@ -199,18 +199,20 @@ App.Front.Item = function() {
                                     $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.orderitem.quantity) ).text(i));
                                 };
 
+                                var exchange_title = response.ordergrower.exchange.charAt(0).toUpperCase() + response.ordergrower.exchange.slice(1);
+
                                 if ($breakdown.children().length) {
-                                    $breakdown.find('.label.exchange').text(response.ordergrower.exchange);
+                                    $breakdown.find('.label.exchange').text(exchange_title);
                                     $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
                                 } else {
                                     $breakdown.append(
                                         '<div class="line-amount">' +
                                             '<div class="label exchange">' +
-                                                response.ordergrower.exchange +
+                                                exchange_title +
                                             '</div>' +
                                             
                                             '<div class="rate exchange-fee">' +
-                                                ((response.ordergrower.exchange == 'Delivery') ? response.ordergrower.ex_fee : 'Free') +
+                                                ((response.ordergrower.exchange == 'delivery') ? response.ordergrower.ex_fee : 'Free') +
                                             '</div>' +
                                         '</div>'
                                     );
