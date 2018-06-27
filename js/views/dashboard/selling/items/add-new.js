@@ -41,12 +41,12 @@ App.Dashboard.AddItem = function() {
 
 
         // Re-populate subcategory select menu
-        $('#categories').on('change', function() {
-            $('#subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select subcategory</option>');
+        $('#item-categories').on('change', function() {
+            $('#item-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select subcategory</option>');
 
             subcategories.forEach(function(sub) {
                 if ($(this).val() == sub.item_category_id) {
-                    $('#subcategories').append($('<option>', {
+                    $('#item-subcategories').append($('<option>', {
                         value: sub.id, 
                         text: sub.title.charAt(0).toUpperCase() + sub.title.slice(1)
                     }));
@@ -56,10 +56,10 @@ App.Dashboard.AddItem = function() {
 
 
         // Re-populate varieties select menu
-        $('#subcategories').on('change', function() {
-            $('#name').attr('placeholder', subcategories[$('#subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
+        $('#item-subcategories').on('change', function() {
+            $('#name').attr('placeholder', subcategories[$('#item-subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
 
-            $('#varieties').empty()
+            $('#item-varieties').empty()
                 .append('<option selected disabled>Select variety</option>')
                 .append('<option value="0">None</option>');
 
@@ -69,7 +69,7 @@ App.Dashboard.AddItem = function() {
                     if ($(this).val() == vari.item_subcategory_id) {
                         varieties_exist = true;
 
-                        $('#varieties').append($('<option>', {
+                        $('#item-varieties').append($('<option>', {
                             value:  vari.id, 
                             text:   vari.title.charAt(0).toUpperCase() + vari.title.slice(1)
                         }));
@@ -77,17 +77,17 @@ App.Dashboard.AddItem = function() {
                 }, this);
 
                 if (varieties_exist == true) {
-                $('#varieties').prop('disabled', false).focus().removeClass('hidden');
+                $('#item-varieties').prop('disabled', false).focus().removeClass('hidden');
             } else {
-                $('#varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
+                $('#item-varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
             }
         });
 
-        $('#varieties').on('change', function() {
+        $('#item-varieties').on('change', function() {
             if ($(this).val() > 0) {
-                $('#name').attr('placeholder', varieties[$(this).val() - 1]['title'] + ' ' + subcategories[$('#subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
+                $('#name').attr('placeholder', varieties[$(this).val() - 1]['title'] + ' ' + subcategories[$('#item-subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
             } else {
-                $('#name').attr('placeholder', subcategories[$('#subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
+                $('#name').attr('placeholder', subcategories[$('#item-subcategories').val() - 1]['title']).css('textTransform', 'capitalize');;
             }
         });
 

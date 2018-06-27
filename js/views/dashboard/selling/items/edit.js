@@ -35,12 +35,12 @@ App.Dashboard.EditItem = function() {
 
 
         // Re-populate subcategory select menu
-        $('#categories').on('change', function() {
-            $('#subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select item subcategory</option>');
+        $('#item-categories').on('change', function() {
+            $('#item-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select item subcategory</option>');
 
             subcategories.forEach(function(sub) {
                 if ($(this).val() == sub.item_category_id) {
-                    $('#subcategories').append($('<option>', {
+                    $('#item-subcategories').append($('<option>', {
                         value: sub.id, 
                         text: sub.title.charAt(0).toUpperCase() + sub.title.slice(1)
                     }));
@@ -50,8 +50,8 @@ App.Dashboard.EditItem = function() {
         
         
         // Re-populate varieties select menu
-        $('#subcategories').on('change', function() {
-            $('#varieties').prop('disabled', false).empty().focus()
+        $('#item-subcategories').on('change', function() {
+            $('#item-varieties').prop('disabled', false).empty().focus()
                 .append('<option selected disabled>Select item variety</option>')
                 .append('<option value="0">None</option>');
 
@@ -61,7 +61,7 @@ App.Dashboard.EditItem = function() {
                 if ($(this).val() == vari.item_subcategory_id) {
                     varieties_exist = true;
 
-                    $('#varieties').append($('<option>', {
+                    $('#item-varieties').append($('<option>', {
                         value:  vari.id, 
                         text:   vari.title.charAt(0).toUpperCase() + vari.title.slice(1)
                     }));
@@ -69,9 +69,9 @@ App.Dashboard.EditItem = function() {
             }, this);
 
             if (varieties_exist == true) {
-                $('#varieties').prop('disabled', false).focus().removeClass('hidden');
+                $('#item-varieties').prop('disabled', false).focus().removeClass('hidden');
             } else {
-                $('#varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
+                $('#item-varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
             }
         });
 

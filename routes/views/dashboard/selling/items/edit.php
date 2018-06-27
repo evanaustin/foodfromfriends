@@ -52,7 +52,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select id="categories" name="category" class="custom-select form-control" data-parsley-trigger="change" required>
+                                    <select id="item-categories" name="category" class="custom-select form-control" data-parsley-trigger="change" required>
                                         <option selected disabled>
                                             Select item category
                                         </option>
@@ -70,7 +70,7 @@
 
                             <div class="col-md-4"> 
                                 <div class="form-group">
-                                    <select id="subcategories" name="subcategory" class="custom-select form-control" data-parsley-trigger="change" required>
+                                    <select id="item-subcategories" name="subcategory" class="custom-select form-control" data-parsley-trigger="change" required>
                                         <option selected disabled>
                                             Select item subcategory
                                         </option>
@@ -90,7 +90,7 @@
                             
                             <div class="col-md-4"> 
                                 <div class="form-group">
-                                    <select id="varieties" name="variety" class="custom-select form-control" data-parsley-trigger="change">
+                                    <select id="item-varieties" name="variety" class="custom-select form-control" data-parsley-trigger="change">
                                         <option selected disabled>
                                             Select item variety
                                         </option>

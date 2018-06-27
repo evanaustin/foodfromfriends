@@ -41,7 +41,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select id="categories" name="category" class="custom-select form-control" data-parsley-trigger="change" required>
+                                <select id="item-categories" name="category" class="custom-select form-control" data-parsley-trigger="change" required>
                                     <option selected disabled>
                                         Select item category
                                     </option>
@@ -62,7 +62,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select id="subcategories" name="subcategory" class="custom-select form-control" data-parsley-trigger="change" required <?php if (!isset($_GET['subcategory'])) { echo 'disabled'; } ?>>
+                                <select id="item-subcategories" name="subcategory" class="custom-select form-control" data-parsley-trigger="change" required <?php if (!isset($_GET['subcategory'])) { echo 'disabled'; } ?>>
                                     <option selected disabled>
                                         Select item subcategory
                                     </option>
@@ -85,7 +85,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select id="varieties" name="variety" class="custom-select form-control <?php if (!isset($lim_varieties)) echo 'hidden' ?>" data-parsley-trigger="change" <?php if (!isset($lim_varieties)) echo 'disabled' ?>>
+                                <select id="item-varieties" name="variety" class="custom-select form-control <?php if (!isset($lim_varieties)) echo 'hidden' ?>" data-parsley-trigger="change" <?php if (!isset($lim_varieties)) echo 'disabled' ?>>
                                     <option selected disabled>
                                         Select item variety
                                     </option>
