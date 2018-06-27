@@ -1,6 +1,6 @@
 App.Dashboard.RetailItems = function() {
     function listener() {
-        $('.variety-list').sortable({
+        /* $('.variety-list').sortable({
             cursor: 'move',
             stop: function(event, ui) {
                 $(this).find('.bubble').each(function(index) {
@@ -9,7 +9,7 @@ App.Dashboard.RetailItems = function() {
 
                 $('form').data('changed', true);
             }
-        });
+        }); */
 
         $('#edit-items').on('submit', function(e) {
             e.preventDefault();
