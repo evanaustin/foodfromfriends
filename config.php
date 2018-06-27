@@ -77,7 +77,7 @@ spl_autoload_register(function($class_name) {
  */
 
 try {
-    $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
+    $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PW);
 } catch(PDOException $e) {
     error_log($e->getMessage());
 }
