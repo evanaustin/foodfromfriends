@@ -180,7 +180,8 @@
                             'failed'
                         ],
                         'items' => [
-                            'overview',
+                            'retail',
+                            'wholesale',
                             'add-new'
                         ],
                         'exchange-options' => [
