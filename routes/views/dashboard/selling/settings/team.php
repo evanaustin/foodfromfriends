@@ -59,6 +59,7 @@
 
                                 <tbody>
                                     <?php foreach($team_members as $team_member) { ?>
+                                        <?php if ($team_member['id'] == 1) continue; ?>
                                         <tr>
                                             <td>
                                                 <?php
