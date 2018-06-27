@@ -76,7 +76,6 @@ $item_updated = $Item->update([
     'item_subcategory_id'   => $subcategory,
     'item_variety_id'       => (isset($variety) ? $variety : 0),
     'name'                  => (!empty($name) ? $name : NULL),
-    'is_available'          => (isset($is_available) && $is_available == 'on') ? 1 : 0,
     'is_wholesale'          => (isset($is_wholesale) && $is_wholesale == 'on') ? 1 : 0,
     'price'                 => $price * 100,
     'quantity'              => $quantity,

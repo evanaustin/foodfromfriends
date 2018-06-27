@@ -14,7 +14,6 @@ class Item extends Base {
         $measurement,
         $metric_id,
         $description,
-        $is_available,
         $is_wholesale,
         $average_rating,
         $archived_on;
@@ -194,10 +193,8 @@ class Item extends Base {
                 ON isc.item_category_id = ic.id
             
             WHERE i.grower_operation_id = :grower_operation_id
-                AND i.is_available = :is_available
         ', [
             'grower_operation_id' => $grower_operation_id,
-            'is_available' => 1
         ]);
 
         return (isset($results[0])) ? $results : false;

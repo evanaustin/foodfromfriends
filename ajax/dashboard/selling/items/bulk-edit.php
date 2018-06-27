@@ -20,7 +20,6 @@ foreach($_POST['items'] as $id => $item) {
         'package-type'  => 'required|integer',
         'price'         => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
         'quantity'      => 'regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-        'is_available'  => 'alpha',
         'is_wholesale'  => 'alpha'
     ]);
     
@@ -38,14 +37,13 @@ foreach($_POST['items'] as $id => $item) {
         'metric'        => 'trim|whole_number',
         'price'         => 'trim|sanitize_floats',
         'quantity'      => 'trim|whole_number',
-        'is_available'  => 'trim|sanitize_string',
         'is_wholesale'  => 'trim|sanitize_string'
     ]);
     
     $prepared_data = $Gump->run($validated_data);
     
     // reset non-required fields
-    unset($position, $variety_id, $name, $measurement, $metric, $quantity, $is_available, $is_wholesale);
+    unset($position, $variety_id, $name, $measurement, $metric, $quantity, $is_wholesale);
 
     foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
     

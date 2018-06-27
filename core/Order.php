@@ -350,7 +350,6 @@ class Order extends Base {
                 } else {
                     $Item->update([
                         $qty_type       => 0,
-                        'is_available'  => 0
                     ]);
                 }
             }

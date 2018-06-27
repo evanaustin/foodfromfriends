@@ -23,7 +23,7 @@ $subcategories = $Item->retrieve([
 $varieties     = $Item->retrieve([
     'table' => 'item_varieties'
 ]);
-    
+
 if (!empty($subcategory_id)) {
     $lim_varieties = $Item->retrieve([
         'table' => 'item_varieties',

@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        Update your item details. Only items marked as available can be purchased by buyers, and remember you can always deny any order that comes in.
+                        Update your item details.
                     </div>
                 </div>
 
@@ -128,24 +128,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>
-                                        Availability    
-                                    </label>
-
-                                    <div class="toggle-box">
-                                        <input id="is-available" type="checkbox" name="is-available" <?php if ($Item->is_available) echo 'checked' ?>>
-                                        <label for="is-available">Toggle</label>
-                                    </div>
-
-                                    <small class="form-text text-muted">
-                                        Is this item available?
-                                    </small>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>
                                         Wholesale
@@ -354,6 +337,6 @@
 </main>
 
 <script>
-    var subcategories  = <?= json_encode($subcategories); ?>;
-    var varieties      = <?= json_encode($varieties); ?>;
+    var subcategories  = <?= json_encode($subcategories) ?>;
+    var varieties      = <?= json_encode($varieties) ?>;
 </script>
