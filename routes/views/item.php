@@ -30,31 +30,31 @@
                         <div class="photo box">
                             <a href="#" class="<?php if (empty($Item->Image->filename)) echo 'hidden' ?>" data-toggle="modal" data-target="#img-zoom-modal">
                             
-                            <?php if (!empty($Item->Image->filename)): ?>
+                                <?php if (!empty($Item->Image->filename)): ?>
 
-                                <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
-                                    'server'    => 'S3',
-                                    'class'     => 'img-fluid'
-                                ]); ?>
-                                
-                                </a>
-
-                            <?php else: ?>
-
-                                <?php img('placeholders/default-thumbnail', 'jpg', [
-                                    'server'    => 'local', 
-                                    'class'     => 'img-fluid rounded'
-                                ]); ?>
-
-                                <?php if ($is_owner): ?>
+                                    <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
+                                        'server'    => 'S3',
+                                        'class'     => 'img-fluid'
+                                    ]); ?>
                                     
-                                    <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta btn-block">
-                                        Add an item image
-                                    </a>
-                                
-                                <?php endif; ?>
+                                <?php else: ?>
 
-                            <?php endif; ?>
+                                    <?php img('placeholders/default-thumbnail', 'jpg', [
+                                        'server'    => 'local', 
+                                        'class'     => 'img-fluid rounded'
+                                    ]); ?>
+
+                                    <?php if ($is_owner): ?>
+                                        
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta btn-block">
+                                            Add an item image
+                                        </a>
+                                    
+                                    <?php endif; ?>
+
+                                <?php endif; ?>
+                            
+                            </a>
 
                         </div>
                         
