@@ -28,7 +28,7 @@
                 <div class="col-lg-3 order-lg-1 d-none d-md-block">
                     <div class="sidebar-content">
                         <div class="photo box">
-                            <a href="#" class="<?php if (empty($Item->Image->filename)) echo 'hidden' ?>" data-toggle="modal" data-target="#img-zoom-modal">
+                            <a href="#" class="<?php /* if (empty($Item->Image->filename)) echo 'hidden' */ ?>" data-toggle="modal" data-target="#img-zoom-modal">
                             
                                 <?php if (!empty($Item->Image->filename)): ?>
 
