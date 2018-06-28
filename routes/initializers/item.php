@@ -62,7 +62,7 @@ if (isset($Routing->item_type)) {
                 'name'      => $ThisItem->title,
                 'quantity'  => $ThisItem->quantity,
                 'description' => $ThisItem->description,
-                'rating'    => stars($ThisItem->rating),
+                'rating'    => stars(!empty($ThisItem->rating) ? $ThisItem->rating : 0),
                 'filename'  => $ThisItem->Image->filename, 
                 'ext'       => $ThisItem->Image->ext,
                 'in_cart'   => $in_cart
