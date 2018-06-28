@@ -317,6 +317,6 @@
 </main>
 
 <script>
-    var subcategories  = "<?= json_encode($subcategories) ?>";
-    var varieties      = "<?= json_encode($varieties) ?>";
+    var subcategories  = <?= json_encode($subcategories) ?>;
+    var varieties      = <?= json_encode($varieties) ?>;
 </script>
