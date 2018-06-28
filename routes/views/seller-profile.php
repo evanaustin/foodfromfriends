@@ -183,14 +183,6 @@
                             
                             <?php //endif ?>
 
-                            <?php // if (isset($User->BuyerAccount)): ?>
-
-                                <div id="request-wholesale" class="float-right btn btn-muted margin-right-1em" data-seller-id="<?= $Seller->id ?>" data-toggle="tooltip" data-placement="bottom" data-title="Request wholesale account">
-                                    <i class="fa fa-cutlery"></i>
-                                </div>
-
-                            <?php // endif ?>
-
                         </h2>
 
                         <div class="muted normal margin-btm-25em">
@@ -261,23 +253,30 @@
                             <div class="muted margin-btm-1em">
                                 <?= ($wholesale_relationship && (!isset($_GET['retail']) || (isset($_GET['retail']) && $_GET['retail'] == 'false'))) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
 
+                                &nbsp;
+
                                 <?php if ($wholesale_relationship): ?>
                                     
                                     <?php if (!isset($_GET['retail']) || isset($_GET['retail']) && $_GET['retail'] == 'false'): ?>
-                                        &nbsp;    
                                         <a href="<?= PUBLIC_ROOT . $Seller->link . '?retail=true' ?>" class="badge badge-secondary">
                                             Switch to retail
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
                                     <?php elseif (isset($_GET['retail']) && $_GET['retail'] == 'true'): ?>
-                                        &nbsp;    
                                         <a href="<?= PUBLIC_ROOT . $Seller->link ?>" class="badge badge-secondary">
                                             Switch to wholesale
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
                                     <?php endif ?>
+                                        
+                                <?php else: ?>
+
+                                    <a href="#" id="request-wholesale" class="badge badge-secondary" data-seller-id="<?= $Seller->id ?>">
+                                        <i class="fa fa-cutlery"></i> Request wholesale pricing
+                                    </a>
 
                                 <?php endif ?>
+
                             </div>
 
                             <?php if (!empty($categorized_items)): ?>
@@ -311,7 +310,7 @@
                                                 <div class="col-md-4">
                                                     <div class="item card no-hover animated zoomIn">
                                                         <div class="card-img-top">
-                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" . ((isset($_GET['type']) && $_GET['type'] == 'wholesale') ? '?type="wholesale"' : '') ?>">
+                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
 
                                                                 <?php if (!empty($FirstOption->Image->filename)): ?>
                                                                     
