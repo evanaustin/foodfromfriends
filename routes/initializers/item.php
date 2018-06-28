@@ -16,16 +16,20 @@ if (isset($Routing->item_type)) {
     if (isset($SellerAccount)) {
         $is_owner = isset($User) && isset($SellerAccount->TeamMembers[$User->id]);
         
-        // check if wholesale relationship exists between User:BuyerAccount and Seller
-        if (isset($User->BuyerAccount)) {
-            $wholesale_relationship = $User->BuyerAccount->retrieve([
-                'where' => [
-                    'buyer_account_id' => $User->BuyerAccount->id,
-                    'seller_id' => $SellerAccount->id,
-                    'status'    => 2
-                ],
-                'table' => 'wholesale_relationships'
-            ]);
+        if ($Routing->item_account_type == 'wholesale') {
+            // check if wholesale relationship exists between User:BuyerAccount and Seller
+            if (isset($User->BuyerAccount)) {
+                $wholesale_relationship = $User->BuyerAccount->retrieve([
+                    'where' => [
+                        'buyer_account_id' => $User->BuyerAccount->id,
+                        'seller_id' => $SellerAccount->id,
+                        'status'    => 2
+                    ],
+                    'table' => 'wholesale_relationships'
+                ]);
+            } else {
+                $wholesale_relationship = false;
+            }
         } else {
             $wholesale_relationship = false;
         }
@@ -79,7 +83,7 @@ if (isset($Routing->item_type)) {
             ]);
         }
         
-        if (isset($Item->id)) {
+        if (isset($Item->id) && !isset($Item->archived_on)) {
             $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id], $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$Item->id]);
 
             if ($in_cart) {

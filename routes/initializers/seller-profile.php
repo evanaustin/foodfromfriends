@@ -103,12 +103,12 @@ if (isset($Routing->seller)) {
                 'is_wholesale' => $wholesale_relationship ? 1 : 0
             ]);
 
-            if ($wholesale_relationship && empty($raw_items)) {
-                $wholesale_relationship = false;
-
+            if ($wholesale_relationship && (empty($raw_items) || (isset($_GET['retail']) && $_GET['retail'] == 'true'))) {
                 $raw_items = $Item->get_items($Seller->id, [
-                    'is_wholesale' => $wholesale_relationship ? 1 : 0
+                    'is_wholesale' => 0
                 ]);
+
+                $wholesale_active = false;
             }
 
             $categorized_items  = [];
@@ -144,7 +144,7 @@ if (isset($Routing->seller)) {
                     'price'     => _amount($ThisItem->price),
                     'name'      => $ThisItem->title,
                     'quantity'  => $ThisItem->quantity,
-                    'rating'    => stars($ThisItem->rating),
+                    'rating'    => stars(!empty($ThisItem->rating) ? $ThisItem->rating : 0),
                     'link'      => $ThisItem->link, 
                     'filename'  => $ThisItem->Image->filename, 
                     'ext'       => $ThisItem->Image->ext,

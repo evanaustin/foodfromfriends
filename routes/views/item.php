@@ -1,7 +1,7 @@
 <main>
     <div class="main container">
         
-        <?php if ($Item->id && ($SellerAccount->is_active || $is_owner)): ?>
+        <?php if (isset($Item->id) && !isset($Item->archived_on) && ($SellerAccount->is_active || $is_owner)): ?>
 
             <?php if ($is_owner): ?>
 
@@ -104,6 +104,10 @@
 
                             <?php endif; ?>
                             
+                            <span>
+                                &bull;
+                                <?= ($wholesale_relationship && (isset($_GET['type']) && $_GET['type'] == 'wholesale')) ? 'Wholesale' : 'Retail' ?>
+                            </span>
                         </h6>
                         
                         <div id="description" class="callout <?php if (empty($Item->description)) echo 'hidden' ?>">

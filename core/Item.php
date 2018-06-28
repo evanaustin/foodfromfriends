@@ -68,7 +68,7 @@ class Item extends Base {
                 'DB' => $this->DB
             ]);
 
-            $this->link = $Slug->slugify($this->category_title) . '/' . $Slug->slugify($this->subcategory_title) . (isset($this->variety_title) ? '/' . $Slug->slugify($this->variety_title) : '');
+            $this->link = (($this->is_wholesale) ? 'wholesale' : 'retail') . '/' . $Slug->slugify($this->category_title) . '/' . $Slug->slugify($this->subcategory_title) . (isset($this->variety_title) ? '/' . $Slug->slugify($this->variety_title) : '');
         }
     }
 

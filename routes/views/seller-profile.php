@@ -269,7 +269,7 @@
                                             Switch to retail
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
-                                    <?php elseif (isset($_GET['retail']) && $_GET['retail'] == true): ?>
+                                    <?php elseif (isset($_GET['retail']) && $_GET['retail'] == 'true'): ?>
                                         &nbsp;    
                                         <a href="<?= PUBLIC_ROOT . $Seller->link ?>" class="badge badge-secondary">
                                             Switch to wholesale
@@ -311,7 +311,7 @@
                                                 <div class="col-md-4">
                                                     <div class="item card no-hover animated zoomIn">
                                                         <div class="card-img-top">
-                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
+                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" . ((isset($_GET['type']) && $_GET['type'] == 'wholesale') ? '?type="wholesale"' : '') ?>">
 
                                                                 <?php if (!empty($FirstOption->Image->filename)): ?>
                                                                     
