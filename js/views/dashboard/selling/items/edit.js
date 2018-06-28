@@ -182,7 +182,7 @@ App.Dashboard.EditItem = function() {
                 callback: function(result) {
                     if (result === true) {
                         App.Util.loading('.remove');
-
+                        
                         App.Ajax.post('dashboard/selling/items/remove-item', data, 
                             function(response) {
                                 App.Util.finishedLoading('.remove');
@@ -190,7 +190,11 @@ App.Dashboard.EditItem = function() {
                                 $('main').fadeOut(1000);
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/selling/items/overview';
+                                    if ($('input[name="is-wholesale"]').val() == 'on') {
+                                        window.location = PUBLIC_ROOT + 'dashboard/selling/items/wholesale';
+                                    } else {
+                                        window.location = PUBLIC_ROOT + 'dashboard/selling/items/retail';
+                                    }
                                 }, 1500);
                             },
                             function(response) {
