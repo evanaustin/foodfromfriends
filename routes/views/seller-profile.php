@@ -251,18 +251,18 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                <?= ($wholesale_relationship && (!isset($_GET['retail']) || (isset($_GET['retail']) && $_GET['retail'] == 'false'))) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
+                                <?= ($wholesale_active) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
 
                                 &nbsp;
 
                                 <?php if ($wholesale_relationship): ?>
                                     
-                                    <?php if (!isset($_GET['retail']) || isset($_GET['retail']) && $_GET['retail'] == 'false'): ?>
+                                    <?php if ($wholesale_active): ?>
                                         <a href="<?= PUBLIC_ROOT . $Seller->link . '?retail=true' ?>" class="badge badge-secondary">
                                             Switch to retail
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
-                                    <?php elseif (isset($_GET['retail']) && $_GET['retail'] == 'true'): ?>
+                                    <?php else: ?>
                                         <a href="<?= PUBLIC_ROOT . $Seller->link ?>" class="badge badge-secondary">
                                             Switch to wholesale
                                             <i class="fa fa-arrow-right"></i>
@@ -346,6 +346,15 @@
                                                                 <cell>
                                                                     <h5 class="price dark-gray heavy">
                                                                         <?= _amount($FirstOption->price) ?>
+                                                                        
+                                                                        <?php if (!empty($FirstOption->measurement) && \Num::is_int($FirstOption->measurement)): ?>
+                                                                        
+                                                                            <small class="light-gray">
+                                                                                (<?= _amount($FirstOption->price/$FirstOption->measurement) . "/{$FirstOption->metric}" ?>)
+                                                                            </small>
+                                                                        
+                                                                        <?php endif ?>
+
                                                                     </h5>
                                                                 </cell>
 
@@ -361,6 +370,13 @@
                                                                     <?= $FirstOption->title ?>
                                                                     <!-- <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?> -->
                                                                 </a>
+
+                                                                <?php if ($wholesale_active): ?>
+                                                                
+                                                                    <i class="fa fa-cutlery float-right" data-toggle="tooltip" data-title="Wholesale item"></i>
+
+                                                                <?php endif ?>
+                                                            
                                                             </div>
 
                                                             <form id="quick-add-<?= $FirstOption->id ?>" class="quick-add">
@@ -413,7 +429,7 @@
                             <?php else: ?>
 
                                 <div class="callout">
-                                    <?= $Seller->name ?> doesn't have any items for sale yet
+                                    <?= $Seller->name ?> doesn't have any <?= ($wholesale_active) ? 'wholesale' : 'retail' ?> items for sale yet
                                 </div>
                                 
                                 <?php if ($is_owner): ?>

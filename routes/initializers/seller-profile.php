@@ -99,16 +99,20 @@ if (isset($Routing->seller)) {
 
 
             // retrieve & hash items
-            $raw_items = $Item->get_items($Seller->id, [
-                'is_wholesale' => $wholesale_relationship ? 1 : 0
-            ]);
+            if ($wholesale_relationship) {
+                if ((isset($_GET['retail']) && $_GET['retail'] == 'true')) {
+                    $raw_items = $Item->get_items($Seller->id, [
+                        'is_wholesale' => 0
+                    ]);
+    
+                    $wholesale_active = false;
+                } else {
+                    $raw_items = $Item->get_items($Seller->id, [
+                        'is_wholesale' => 1
+                    ]);
 
-            if ($wholesale_relationship && (empty($raw_items) || (isset($_GET['retail']) && $_GET['retail'] == 'true'))) {
-                $raw_items = $Item->get_items($Seller->id, [
-                    'is_wholesale' => 0
-                ]);
-
-                $wholesale_active = false;
+                    $wholesale_active = true;
+                }
             }
 
             $categorized_items  = [];
