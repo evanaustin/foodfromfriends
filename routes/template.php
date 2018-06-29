@@ -61,6 +61,7 @@ foreach ([
             'css/thirdparty/slidebars/slidebars',
             'node_modules/tether/dist/css/tether.min',
             'node_modules/toastr/build/toastr',
+            'js/thirdparty/jquery.ui.sortable/jquery.ui.sortable.min',
             (($Routing->template == 'dashboard') ? 'css/thirdparty/cropbox/cropbox' : ''),
             (($Routing->template == 'front') ? 'node_modules/mapbox-gl/dist/mapbox-gl' : ''),
             (!in_array($Routing->template, $Routing->unique) || $Routing->template == 'map' ? 'css/app' : ''),
@@ -134,6 +135,7 @@ foreach ([
             'node_modules/autosize/dist/autosize.min',          // not universal
             'node_modules/jstimezonedetect/dist/jstz.min',
             'node_modules/popper.js/dist/umd/popper.min',
+            'js/thirdparty/jquery.ui.sortable/jquery.ui.sortable.min',
             'js/thirdparty/bootstrap/bootstrap.min',
             'js/thirdparty/bootstrap-form-helper/bootstrap-formhelpers.min',
             'js/thirdparty/cropbox/cropbox',                    // not universal

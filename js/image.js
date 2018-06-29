@@ -8,13 +8,13 @@ App.Image = function () {
     var files = [];
 
     var frame = {
-        w: Math.floor($('div.image-container').outerWidth()),
-        h: Math.floor($('div.image-container').outerHeight())
+        w: Math.floor($('.image-container').outerWidth()),
+        h: Math.floor($('.image-container').outerHeight())
     };
 
     function init() {
         // $('div.image-container').height(Math.floor($('div.image-container').width() * 540 / 630));
-        $('div.image-container').height(Math.floor($('div.image-container').width() * 800 / 933));
+        $('.image-container').height(Math.floor($('.image-container').width() * 800 / 933));
     }
 
     function selectFile(el) {
@@ -23,10 +23,10 @@ App.Image = function () {
 
     function onceSelected(el, e) {
         // reset frame height
-        this.frame.h = Math.floor($('div.image-container').outerHeight());
+        this.frame.h = Math.floor($('.image-container').outerHeight());
         
         // clear slide-over image class
-        $('div.image-box').removeClass('slide-over').unbind('mouseover').unbind('mouseout');
+        $('.image-box').removeClass('slide-over').unbind('mouseover').unbind('mouseout');
 
         // only one image so key is always 0
         var key = 0;
@@ -46,53 +46,54 @@ App.Image = function () {
             return;
         }
 
-        var $img = $('div.image-box').find('img.file');
+        var $img = $('.image-box').find('img.file');
 
         // Load the file into the cropping window
         var reader = new FileReader();
-        reader.onload = (function (f) {
+
+        reader.onload = (function(f) {
             return function(e) {
-            var img = new Image;
-            img.src = e.target.result;
+                var img = new Image;
+                img.src = e.target.result;
 
-            img.onload = function() {
-                var $img = $('div.image-box').find('img.file');
+                img.onload = function() {
+                    var $img = $('.image-box').find('img.file');
 
-                // Show & animate preview
-                $img.removeAttr('height').attr('src', img.src);
-                App.Util.animation($('div.image-box img.file'), 'pulse');
+                    // Show & animate preview
+                    $img.removeAttr('height').attr('src', img.src);
+                    App.Util.animation($('.image-box img.file'), 'pulse');
 
-                // Launch crop script
-                $img.cropbox({
-                    width: self.frame.w,
-                    height: self.frame.h,
-                    maxZoom: 10.0,
-                    zoom: 20
-                }).on('cropbox', function(e, data) {
-                    self.crop[key] = {
-                    x: Math.abs(data.cropX),
-                    y: Math.abs(data.cropY),
-                    w: Math.abs(data.cropW),
-                    h: Math.abs(data.cropH)
+                    // Launch crop script
+                    $img.cropbox({
+                        width: self.frame.w,
+                        height: self.frame.h,
+                        maxZoom: 10.0,
+                        zoom: 20
+                    }).on('cropbox', function(e, data) {
+                        self.crop[key] = {
+                        x: Math.abs(data.cropX),
+                        y: Math.abs(data.cropY),
+                        w: Math.abs(data.cropW),
+                        h: Math.abs(data.cropH)
+                        };
+                    });
+
+                    // show delete button
+                    App.Util.animation($('a.remove-image'), 'bounceIn', 'in');
+                    
+                    // hide help text
+                    App.Util.animation($('small#profilePhotoHelp'), 'zoomOut', 'out');
+
+                    self.source[key] = {
+                        w: img.width,
+                        h: img.height
                     };
-                });
 
-                // show delete button
-                App.Util.animation($('a.remove-image'), 'bounceIn', 'in');
-                
-                // hide help text
-                App.Util.animation($('small#profilePhotoHelp'), 'zoomOut', 'out');
+                    // Disable click-to-upload
+                    self.uploadDisabled[key] = true;
 
-                self.source[key] = {
-                    w: img.width,
-                    h: img.height
-                };
-
-                // Disable click-to-upload
-                self.uploadDisabled[key] = true;
-
-                self.files[key] = file;
-            }
+                    self.files[key] = file;
+                }
             };
         })(file);
 
@@ -106,7 +107,7 @@ App.Image = function () {
         // only one image so key is always 0
         var key = 0;
 
-        $('div.image-box').find('img.file').each(function() {
+        $('.image-box').find('img.file').each(function() {
             if (self.uploadDisabled[key] === false) {
                 return true;    // continue
             }
@@ -133,7 +134,7 @@ App.Image = function () {
         this.crop.splice(key, 1);
         this.files.splice(key, 1);
 
-        var $img = $('div.image-box').find('img.file');
+        var $img = $('.image-box').find('img.file');
 
         if (typeof $img.data('cropbox') != 'undefined') {
             $img.data('cropbox').remove();

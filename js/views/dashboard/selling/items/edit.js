@@ -1,8 +1,18 @@
-App.Dashboard.EditItemListing = function() {
+App.Dashboard.EditItem = function() {
     function listener() {
+        var img_added = false;
+
         // Initialize imaging
         App.Image.init();
 
+        // Re-initialize imaging on window resize
+        $(window).resize(function(e) {
+            App.Image.init();
+        
+            if (img_added) {
+                $('.image-box input[type=file]').trigger('change');
+            }
+        });
 
         // Upload image
         $('div.image-box').on('click', function(e) {
@@ -19,16 +29,17 @@ App.Dashboard.EditItemListing = function() {
         });
 
         $('div.image-box input[type=file]').on('change', function(e) {
-            var success = App.Image.onceSelected($(this), e);
+            App.Image.onceSelected($(this), e);
+            img_added = true;
         });
 
 
         // Re-populate subcategory select menu
         $('#item-categories').on('change', function() {
-            $('#item-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select an item subcategory</option>');
+            $('#item-subcategories').prop('disabled', false).empty().focus().append('<option selected disabled>Select item subcategory</option>');
 
-            item_subcategories.forEach(function(sub) {
-                if ($(this).val() == sub.food_category_id) {
+            subcategories.forEach(function(sub) {
+                if ($(this).val() == sub.item_category_id) {
                     $('#item-subcategories').append($('<option>', {
                         value: sub.id, 
                         text: sub.title.charAt(0).toUpperCase() + sub.title.slice(1)
@@ -41,14 +52,14 @@ App.Dashboard.EditItemListing = function() {
         // Re-populate varieties select menu
         $('#item-subcategories').on('change', function() {
             $('#item-varieties').prop('disabled', false).empty().focus()
-                .append('<option selected disabled>Select an item variety</option>')
+                .append('<option selected disabled>Select item variety</option>')
                 .append('<option value="0">None</option>');
 
-            var varieties = false;
+            var varieties_exist = false;
 
-            item_varieties.forEach(function(vari) {
-                if ($(this).val() == vari.food_subcategory_id) {
-                    varieties = true;
+            varieties.forEach(function(vari) {
+                if ($(this).val() == vari.item_subcategory_id) {
+                    varieties_exist = true;
 
                     $('#item-varieties').append($('<option>', {
                         value:  vari.id, 
@@ -57,30 +68,16 @@ App.Dashboard.EditItemListing = function() {
                 } 
             }, this);
 
-            if (varieties == true) {
-                // are varieties
+            if (varieties_exist == true) {
                 $('#item-varieties').prop('disabled', false).focus().removeClass('hidden');
             } else {
-                // are varieties
                 $('#item-varieties').prop('disabled', true).empty().append('<option selected disabled>(no varieties)</option>').addClass('hidden');
             }
         });
 
 
-        // Update availability as quantity is changed
-        $('#quantity').on('keyup change', function() {
-            if ($(this).val() == 0) {
-                $('#available').prop('checked', false);
-                $('#unavailable').prop('checked', true);
-            } else {
-                $('#available').prop('checked', true);
-                $('#unavailable').prop('checked', false);
-            } 
-        });
-
-
-        // Edit listing
-        $('#edit-listing').on('submit', function(e) {
+        // Edit item
+        $('#edit-item').on('submit', function(e) {
             e.preventDefault();
 
             App.Util.hideMsg();
@@ -96,6 +93,10 @@ App.Dashboard.EditItemListing = function() {
                     });
             
                     formdata.append('images', JSON.stringify(App.Image.getCropData()));
+                }
+
+                if ($('.suggested-photo').hasClass('active')) {
+                    formdata.append('similar-photo', $('.suggested-photo.active').data('image-id'));
                 }
 
                 data = formdata;
@@ -120,19 +121,19 @@ App.Dashboard.EditItemListing = function() {
         });
 
 
-        // Remove listing image
+        // Remove item image
         $('a.remove-image').on('click', function(e) {
             e.preventDefault();
 
-            var id = $(this).data('listing-id');
+            var id = $(this).data('item-id');
 
             bootbox.confirm({
                 closeButton: false,
                 message: '<div class="text-center">Please confirm you want to remove the current image</div>',
                 buttons: {
                     confirm: {
-                        label: 'Confirm',
-                        className: 'btn-warning'
+                        label: 'Remove image',
+                        className: 'btn-danger'
                     },
                     cancel: {
                         label: 'Cancel',
@@ -141,7 +142,7 @@ App.Dashboard.EditItemListing = function() {
                 },
                 callback: function(result) {
                     var data = {
-                        listing_id : $('a.remove-image').data('listing-id')
+                        item_id : $('a.remove-image').data('item-id')
                     };
 
                     if (result === true) {
@@ -157,21 +158,21 @@ App.Dashboard.EditItemListing = function() {
         });
 
 
-        // Remove listing
-        $('a.remove-listing').on('click', function(e) {
+        // Remove item
+        $('a.remove-item').on('click', function(e) {
             e.preventDefault();
 
             var data = {
-                'listing_id': $('input[name="id"]').val()
+                'item_id': $('input[name="id"]').val()
             };
 
             bootbox.confirm({
                 closeButton: false,
-                message: '<div class="text-center">Please confirm you want to remove this listing</div>',
+                message: '<div class="text-center">Please confirm you want to remove this item</div>',
                 buttons: {
                     confirm: {
-                        label: 'Confirm',
-                        className: 'btn-warning'
+                        label: 'Remove item',
+                        className: 'btn-danger'
                     },
                     cancel: {
                         label: 'Cancel',
@@ -181,15 +182,19 @@ App.Dashboard.EditItemListing = function() {
                 callback: function(result) {
                     if (result === true) {
                         App.Util.loading('.remove');
-
-                        App.Ajax.post('dashboard/selling/items/remove-listing', data, 
+                        
+                        App.Ajax.post('dashboard/selling/items/remove-item', data, 
                             function(response) {
                                 App.Util.finishedLoading('.remove');
-                                toastr.success('Your listing has been removed');
+                                toastr.success('This item has been removed');
                                 $('main').fadeOut(1000);
 
                                 setTimeout(function() {
-                                    window.location = PUBLIC_ROOT + 'dashboard/selling/items/overview';
+                                    if ($('input[name="is-wholesale"]').val() == 'on') {
+                                        window.location = PUBLIC_ROOT + 'dashboard/selling/items/wholesale';
+                                    } else {
+                                        window.location = PUBLIC_ROOT + 'dashboard/selling/items/retail';
+                                    }
                                 }, 1500);
                             },
                             function(response) {

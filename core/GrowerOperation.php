@@ -293,7 +293,7 @@ class GrowerOperation extends Base {
             && ((isset($this->Delivery) && $this->Delivery->is_offered)
                 || (isset($this->Pickup) && $this->Pickup->is_offered)
                 || (isset($this->Meetup) && $this->Meetup->is_offered))
-            && ($this->count_listings() > 0)
+            && ($this->count_items() > 0)
         ) {
             $this->update([
                 'is_active' => 1
@@ -451,23 +451,23 @@ class GrowerOperation extends Base {
         return (isset($results[0])) ? $results[0]['grower_operation_id'] : false;
     }
 
-    public function count_listings($grower_operation_id = null) {
+    public function count_items($grower_operation_id = null) {
         if (!isset($grower_operation_id)) {
             $grower_operation_id = $this->id;
         }
 
         $results = $this->DB->run('
             SELECT 
-                COUNT(DISTINCT fl.id) AS listings
+                COUNT(DISTINCT i.id) AS items
             
-            FROM food_listings fl
+            FROM items i
             
-            WHERE fl.grower_operation_id = :grower_operation_id
+            WHERE i.grower_operation_id = :grower_operation_id
         ', [
             'grower_operation_id' => $grower_operation_id
         ]);
 
-        return (isset($results[0])) ? $results[0]['listings'] : false;
+        return (isset($results[0])) ? $results[0]['items'] : false;
     }
 
     /**

@@ -26,11 +26,14 @@ class AccountExtension extends Base {
 
         parent::__construct($parameters);
 
-        if (isset($parameters['account_id'])) {
+        /*
+         * Either account or item ID
+         */
+        if (isset($parameters['field'])) {
             $image = (isset($parameters['image']) && $parameters['image'] == true) ? true : false;
-
+            
             $sql = 'SELECT *';
-
+            
             if ($image) {
                 $sql.= ', i.id AS image_id';
             }
@@ -40,13 +43,13 @@ class AccountExtension extends Base {
             if ($image) {
                 $sql.= ' LEFT JOIN images i ON i.id = t.image_id';
             }
-
-            $sql.= " WHERE {$parameters['account_type']}_account_id=:{$parameters['account_type']}_account_id";
             
+            $sql.= " WHERE {$parameters['field']}=:{$parameters['field']}";
+
             $sql.= " LIMIT 1";
 
             $results = $this->DB->run($sql, [
-                "{$parameters['account_type']}_account_id" => $parameters['account_id']
+                $parameters['field'] => $parameters['id']
             ]);
             
             if (!isset($results[0])) return false;

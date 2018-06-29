@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h3 class="modal-title">
                     <!-- <span id="zoom-title"></span> -->
-                    <?= $FoodListing->title; ?>
+                    <?= $Item->title; ?>
                 </h3>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,10 +14,31 @@
             
             <div class="modal-body">
                 <!-- <div id="zoom-src"></span> -->
-                <?php img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
-                    'server'    => 'S3',
-                    'class'     => 'img-fluid rounded drop-shadow'
-                ]); ?>
+                
+                <?php if (!empty($Item->Image->filename)): ?>
+
+                    <?php img(ENV . '/item-images/' . $Item->Image->filename, $Item->Image->ext, [
+                        'server'    => 'S3',
+                        'class'     => 'img-fluid'
+                    ]); ?>
+                    
+                <?php else: ?>
+
+                    <?php img('placeholders/default-thumbnail', 'jpg', [
+                        'server'    => 'local', 
+                        'class'     => 'img-fluid rounded'
+                    ]); ?>
+
+                    <?php if ($is_owner): ?>
+                        
+                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>" class="btn btn-cta btn-block">
+                            Add an item image
+                        </a>
+                    
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
@@ -36,7 +57,7 @@
             
             <div class="modal-body">
                 <form id="edit-delivery-address">
-                    <input type="hidden" name="seller-account-id" value="<?= $GrowerOperation->id ?>"/>
+                    <input type="hidden" name="seller-account-id" value="<?= $SellerAccount->id ?>"/>
 
                     <label>
                         Enter the address you want your items delivered to

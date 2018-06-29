@@ -1,25 +1,41 @@
 <?php
 
 $settings = [
-    'title' => 'Edit listing | Food From Friends'
+    'title' => 'Edit item | Food From Friends'
 ];
 
-$FoodListing = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $_GET['id']
 ]);
 
-$item_categories    = $FoodListing->retrieve([
-    'table' => 'food_categories'
+$categories     = $Item->retrieve([
+    'table' => 'item_categories'
 ]);
 
-$item_subcategories = $FoodListing->retrieve([
-    'table' => 'food_subcategories'
+$subcategories  = $Item->retrieve([
+    'table' => 'item_subcategories'
 ]);
 
-$item_varieties     = $FoodListing->retrieve([
+$varieties      = $Item->retrieve([
     'table' => 'item_varieties'
+]);
+
+$package_types  = $Item->retrieve([
+    'table' => 'item_package_types'
+]);
+
+$metrics        = $Item->retrieve([
+    'table' => 'item_metrics'
+]);
+
+$similar_items  = $Item->retrieve([
+    'where' => [
+        'grower_operation_id'   => $User->GrowerOperation->id,
+        'item_subcategory_id'   => $Item->item_subcategory_id,
+        'item_variety_id'       => $Item->item_variety_id
+    ]
 ]);
 
 ?>

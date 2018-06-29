@@ -79,6 +79,51 @@ App.Front.SellerProfile = function() {
             }
         });
 
+        
+        // Change package option
+        $('.quick-add select.item-option').on('change', function() {
+            var id = $(this).val();
+            $card_body = $(this).parents('.card-body');
+
+            $card_body.find('.price').html(items[id].price + (items[id].rate ? '&nbsp;<small class="light-gray">(' + items[id].rate + ')</small>' : ''));
+            $card_body.find('.rating').html(items[id].rating);
+            $card_body.find('.title').text(items[id].title);
+            
+            $(this).parents('.quick-add').siblings('.title').find('a').attr('href', PUBLIC_ROOT + seller_link + '/' + items[id].link + '&package=' + id);
+
+            if (items[id].quantity > 0) {
+                $card_body.find('input[type="submit"]')
+                .removeClass('btn-light')
+                .addClass('btn-cta')
+                .val((items[id].in_cart ? 'Update item in basket' : 'Add to basket'))
+                .attr('disabled', false);
+
+                $card_body.find('.item-quantity')
+                    .removeClass('hidden')
+                    .empty();
+
+                for (var i = 1; i <= items[id].quantity; i++) {
+                    $card_body.find('.item-quantity').append($('<option>', {
+                        value: i, 
+                        text: i,
+                        selected: (items[id].in_cart && items[id].cart_qty == i ? true : false)
+                    }));
+                }
+            } else {
+                $card_body.find('.item-quantity')
+                    .addClass('hidden')
+                    .empty();
+
+                $card_body.find('input[type="submit"].btn-cta')
+                    .removeClass('btn-cta')
+                    .addClass('btn-light')
+                    .val('Out of stock')
+                    .attr('disabled', true);
+            }
+        });
+
+
+        // Add to cart
         $('form.quick-add').on('submit', function(e) {
             e.preventDefault();
             App.Util.hideMsg();
@@ -122,53 +167,56 @@ App.Front.SellerProfile = function() {
             if ($form.parsley().isValid()) {
                 App.Util.loading();
                 
-                if ($form.find('input[name="order-item-id"]').val() == 0) {
-                    App.Ajax.post('order/add-to-cart', $.param(data), 
-                        function(response) {
-                            $form.find('input[name="order-item-id"]').val(response.item.id);
-                            $form.find('input[name="suborder-id"]').val(response.ordergrower.id);
+                App.Ajax.post('order/add-to-cart', $.param(data), 
+                    function(response) {
+                        App.Util.slidebar(Slidebar, 'open', 'right', e);
 
-                            App.Util.slidebar(Slidebar, 'open', 'right', e);
+                        $(Slidebar.events).on('opened', function () {
+                            // Check if cart is empty
+                            if (!$('#ordergrowers').length) {
+                                $('#empty-basket').addClass('hidden');
+                                $('hr').removeClass('hidden');
 
-                            $(Slidebar.events).on('opened', function () {
-                                // Check if cart is empty
-                                if (!$('#ordergrowers').length) {
-                                    $('#empty-basket').addClass('hidden');
-                                    $('hr').removeClass('hidden');
-    
-                                    $ordergrowers = $('<div id="ordergrowers">').prependTo('#cart');
-                                }
-    
-                                // Check if OrderGrower is already in cart
-                                if (!$('#ordergrower-' + response.ordergrower.id).length) {
-                                    $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set" data-grower-operation="' + response.ordergrower.grower_id + '">').appendTo('#ordergrowers');
-                                    
-                                    $set.append('<h6>' + response.ordergrower.name + '</h6>');
-    
-                                    $cart_items = $('<div class="cart-items">').appendTo($set);
-                                    $breakdown  = $('<div class="breakdown">').appendTo($set);
-                                } else {
-                                    $cart_items = $('#ordergrower-' + response.ordergrower.id).find('div.cart-items');
-                                    $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
-                                }
+                                $ordergrowers = $('<div id="ordergrowers">').prependTo('#cart');
+                            }
+
+                            // Check if OrderGrower is already in cart
+                            if (!$('#ordergrower-' + response.ordergrower.id).length) {
+                                $set = $('<div id="ordergrower-' + response.ordergrower.id + '" class="set" data-grower-operation="' + response.ordergrower.grower_id + '">').appendTo('#ordergrowers');
                                 
-                                // Check if OrderItem is already in cart
+                                $set.append('<h6>' + response.ordergrower.name + '</h6>');
+
+                                $cart_items = $('<div class="cart-items">').appendTo($set);
+                                $breakdown  = $('<div class="breakdown">').appendTo($set);
+                            } else {
+                                $cart_items = $('#ordergrower-' + response.ordergrower.id).find('div.cart-items');
+                                $breakdown  = $('#ordergrower-' + response.ordergrower.id).find('div.breakdown');
+                            }
+                            
+                            var package = (response.item.measurement != '' && response.item.metric != '') ? response.item.measurement + ' ' + response.item.metric + ' ' + response.item.package_type : response.item.package_type;
+                            
+                            // Check if OrderItem is already in cart
+                            if (response.action == 'add-item') {
                                 $cart_item = $(
-                                    '<div class="cart-item animated bounceIn" data-listing-id="' + response.listing.id + '">' +
+                                    '<div class="cart-item animated bounceIn" data-item-id="' + response.item.id + '">' +
                                         '<div class="item-image">' +
-                                            '<img src="' + (response.listing.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/items/' + response.listing.filename + '.' + response.listing.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '" class="img-fluid"/>' +
+                                            '<div class="user-photo no-margin" style="background-image: url(' + (response.item.filename ? 'https://s3.amazonaws.com/foodfromfriends/' + ENV + '/item-images/' + response.item.filename + '.' + response.item.ext : PUBLIC_ROOT + 'media/placeholders/default-thumbnail.jpg') + '); height: 50px; width: 50px;"></div>' +
                                         '</div>' +
-                                        
+
                                         '<div class="item-content">' +
                                             '<div class="item-title">' +
-                                                '<a href="' + PUBLIC_ROOT + response.listing.link + '">' +
-                                                    response.listing.name +
+                                                '<a href="' + PUBLIC_ROOT + response.item.link + '">' +
+                                                    response.item.name +
                                                 '</a>' +
+                                            '</div>' +
+
+                                            '<div class="small light-gray">' +
+                                                package.charAt(0).toUpperCase() + package.slice(1) +
                                             '</div>' +
                         
                                             '<div class="item-details">' +
                                                 '<div class="item-price">' +
-                                                response.item.subtotal +
+                                                response.orderitem.subtotal +
                                                 '</div>' +
                                                 '<a class="remove-item">' +
                                                     '<i class="fa fa-times"></i>' +
@@ -180,89 +228,63 @@ App.Front.SellerProfile = function() {
                                 
                                 $('<select class="custom-select">').prependTo($cart_item.find('div.item-details'));
                                 
-                                for (var i = 1; i <= response.listing.quantity; i++) {
+                                for (var i = 1; i <= response.item.quantity; i++) {
                                     // $option = $('<option>').attr('value', i).text(i);
-                                    $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.item.quantity) ).text(i));
+                                    $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.orderitem.quantity) ).text(i));
                                 };
-    
-                                // update OrderGrower line amount
-                                if ($breakdown.children().length) {
-                                    $breakdown.find('.label.exchange').text(response.ordergrower.exchange);
-                                    $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
-                                } else {
-                                    $breakdown.append(
-                                        '<div class="line-amount">' +
-                                            '<div class="label exchange">' +
-                                                response.ordergrower.exchange +
-                                            '</div>' +
-                                            
-                                            '<div class="rate exchange-fee">' +
-                                                ((response.ordergrower.exchange == 'Delivery') ? response.ordergrower.ex_fee : 'Free') +
-                                            '</div>' +
-                                        '</div>'
-                                    );
-                                }
-    
-                                // update totals breakdown
-                                $('#end-breakdown').removeClass('hidden');
-                                $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
-                                $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
-                                $('#end-breakdown').find('.rate.total').text(response.order.total);
-                                
-                                if (response.order.ex_fee != '$0.00') {
-                                    $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
-                                    $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
-                                } else {
-                                    $('#end-breakdown').find('.rate.exchange-fee').text(0);
-                                    $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
-                                }
-    
-                                $('#checkout-total').text(response.order.total);
-                                
-                                $(Slidebar.events).unbind('opened');
-                            });
-    
-                            $('#add-item button[type="submit"]').attr('disabled', 'disabled');
-                        }, function(response) {
-                            App.Util.msg(response.error, 'danger');
-                        }
-                    );
-                } else {
-                    var item_id = $form.find('input[name="item-id"]').val();
-
-                    App.Ajax.post('order/modify-quantity', $.param(data), 
-                        function(response) {
-                            App.Util.slidebar(Slidebar, 'open', 'right', e);
-
-                            $(Slidebar.events).on('opened', function () {
+                            } else if (response.action == 'modify-quantity') {
                                 // Update quantity for cart item
-                                $(document).find('.cart-item[data-listing-id="' + item_id + '"]').find('select option').attr('selected', false);
-                                $(document).find('.cart-item[data-listing-id="' + item_id + '"]').find('select option[value=' + response.item.quantity + ']').attr('selected', 'selected');
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('select option').attr('selected', false);
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('select option[value=' + response.orderitem.quantity + ']').attr('selected', 'selected');
 
                                 // Update item subtotal
-                                $(document).find('.cart-item[data-listing-id="' + item_id + '"]').find('.item-price').text(response.item.subtotal);
+                                $('.cart-item[data-item-id="' + response.item.id + '"]').find('.item-price').text(response.orderitem.subtotal);
+                            }
 
-                                $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
-                                $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
-                                $('#end-breakdown').find('.rate.total').text(response.order.total);
+                            // update OrderGrower line amount
+                            var exchange_title = response.ordergrower.exchange.charAt(0).toUpperCase() + response.ordergrower.exchange.slice(1)
 
-                                if (response.order.ex_fee != '$0.00') {
-                                    $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
-                                    $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
-                                } else {
-                                    $('#end-breakdown').find('.rate.exchange-fee').text(0);
-                                    $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
-                                }
+                            if ($breakdown.children().length) {
+                                $breakdown.find('.label.exchange').text(exchange_title);
+                                $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
+                            } else {
+                                $breakdown.append(
+                                    '<div class="line-amount">' +
+                                        '<div class="label exchange">' +
+                                            exchange_title +
+                                        '</div>' +
+                                        
+                                        '<div class="rate exchange-fee">' +
+                                            ((response.ordergrower.exchange == 'delivery') ? response.ordergrower.ex_fee : 'Free') +
+                                        '</div>' +
+                                    '</div>'
+                                );
+                            }
 
-                                $('#checkout-total').text(response.order.total);
+                            // update totals breakdown
+                            $('#end-breakdown').removeClass('hidden');
+                            $('#end-breakdown').find('.rate.subtotal').text(response.order.subtotal);
+                            $('#end-breakdown').find('.rate.service-fee').text(response.order.fff_fee);
+                            $('#end-breakdown').find('.rate.total').text(response.order.total);
+                            
+                            if (response.order.ex_fee != '$0.00') {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(response.order.ex_fee);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').removeClass('hidden');
+                            } else {
+                                $('#end-breakdown').find('.rate.exchange-fee').text(0);
+                                $('#end-breakdown').find('.rate.exchange-fee').parent('.line-amount').addClass('hidden');
+                            }
 
-                                $(Slidebar.events).unbind('opened');
-                            });
-                        }, function(response) {
-                            App.Util.msg(response.error, 'danger');
-                        }
-                    );
-                }
+                            $('#checkout-total').text(response.order.total);
+                            
+                            $(Slidebar.events).unbind('opened');
+                        });
+
+                        $('#add-item button[type="submit"]').attr('disabled', 'disabled');
+                    }, function(response) {
+                        toastr.error(response.error);
+                    }
+                );
             }
         });
     };

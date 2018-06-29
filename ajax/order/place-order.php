@@ -123,7 +123,7 @@ try {
         $charge_id = 0;
     }
 
-	// change "cart" to "order"
+    // change "cart" to "order"
     $Order->submit_payment($charge_id);
 
     // schedule system job for payment capture

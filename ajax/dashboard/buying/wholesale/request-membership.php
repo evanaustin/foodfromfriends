@@ -38,7 +38,8 @@ $Seller = new GrowerOperation([
 
 $invitee = $User->BuyerAccount->retrieve([
     'where' => [
-        'buyer_account_id' => $User->BuyerAccount->id
+        'buyer_account_id' => $User->BuyerAccount->id,
+        'seller_id' => $seller_id
     ],
     'table' => 'wholesale_relationships'
 ]);

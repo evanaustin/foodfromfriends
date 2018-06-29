@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="page-description text-muted small">
-                        You can allow others to act on behalf of your operation by inviting them to join your team. 'Owners' have full control over an operation whereas 'Managers' can only manage listings.
+                        You can allow others to act on behalf of your operation by inviting them to join your team. 'Owners' have full control over an operation whereas 'Managers' can only manage items.
                     </div>
                 </div>
             </div>

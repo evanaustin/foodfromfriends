@@ -12,7 +12,7 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'food-listing-id' => 'required|integer'
+	'item-id' => 'required|integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -22,7 +22,7 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'food-listing-id' => 'trim|sanitize_numbers'
+	'item-id' => 'trim|sanitize_numbers'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -38,24 +38,24 @@ try {
 
 	$Order = $Order->get_cart($User->BuyerAccount->id);
 
-	$FoodListing = new FoodListing([
+	$Item = new Item([
 		'DB' => $DB,
-		'id' => $food_listing_id
+		'id' => $item_id
 	]);
 
-	if (!isset($Order->Growers[$FoodListing->grower_operation_id]->FoodListings[$FoodListing->id])) {
+	if (!isset($Order->Growers[$Item->grower_operation_id]->Items[$Item->id])) {
 		quit('This item is not in your basket');
 	}
 
 	// store this before removing item from cart
-	$ordergrower_id = $Order->Growers[$FoodListing->grower_operation_id]->id;
+	$ordergrower_id = $Order->Growers[$Item->grower_operation_id]->id;
 
-	$Order->remove_from_cart($FoodListing);
+	$Order->remove_from_cart($Item);
 
 	$json['ordergrower'] = [
 		'id'	=> $ordergrower_id,
 		'count'	=> ((isset($Order->Growers)) ? count($Order->Growers) : 0),
-		'items' => ((isset($Order->Growers[$FoodListing->grower_operation_id])) ? count($Order->Growers[$FoodListing->grower_operation_id]->FoodListings) : 0)
+		'items' => ((isset($Order->Growers[$Item->grower_operation_id])) ? count($Order->Growers[$Item->grower_operation_id]->Items) : 0)
 	];
 
 	$json['order'] = [

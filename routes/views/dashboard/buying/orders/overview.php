@@ -111,7 +111,7 @@
                                     'details' => true
                                 ]);
 
-                                $item_count = count($OrderGrower->FoodListings);
+                                $item_count = count($OrderGrower->Items);
 
                                 $tab_highlight = 'tab-';
 
@@ -121,7 +121,7 @@
 
                                     $time_until = \Time::until($OrderGrower->Status->placed_on, '24 hours');
 
-                                    $status = 'Not confirmed <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
+                                    $status = 'Not confirmed <i class="fa fa-clock-o brand" data-toggle="tooltip" data-placement="top" data-title="The seller has ' . $time_until['full'] . ' to confirm this order"></i>';
 
                                     $actions = [
                                         'message',
@@ -129,14 +129,14 @@
                                     ];
                                 } else if ($OrderGrower->Status->current == 'expired') {
                                     $tab_highlight .= 'danger';
-                                    $status = 'Expired <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
+                                    $status = 'Expired <i class="fa fa-exclamation-circle danger" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
                                     $actions = [
                                         'message'
                                     ];
                                 } else if ($OrderGrower->Status->current == 'rejected') {
                                     $tab_highlight .= 'danger';
-                                    $status = 'Rejected <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
+                                    $status = 'Rejected <i class="fa fa-exclamation-circle danger" data-toggle="tooltip" data-placement="top" data-title="You have not been charged for this order"></i>';
                                     
                                     $actions    = [
                                         'message'
@@ -151,7 +151,7 @@
                                     ];
                                 } else if ($OrderGrower->Status->current == 'cancelled by buyer') {
                                     $tab_highlight .= 'danger';
-                                    $status = 'You cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $status = 'You cancelled <i class="fa fa-exclamation-circle danger" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                     
                                     $actions = [
                                         'message',
@@ -159,7 +159,7 @@
                                     ];
                                 } else if ($OrderGrower->Status->current == 'cancelled by seller') {
                                     $tab_highlight .= 'danger';
-                                    $status = 'Seller cancelled <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
+                                    $status = 'Seller cancelled <i class="fa fa-exclamation-circle danger" data-toggle="tooltip" data-placement="top" data-title="You have been refunded the amount for this order"></i>';
                                 
                                     $actions = [
                                         'message',
@@ -170,7 +170,7 @@
 
                                     $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
 
-                                    $status = 'Open for review <i class="fa fa-clock-o" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
+                                    $status = 'Open for review <i class="fa fa-clock-o brand" data-toggle="tooltip" data-placement="top" data-title="You have ' . $time_until['full'] . ' to leave a review or report an issue"></i>';
                                 
                                     $actions = [
                                         'leave a review',
@@ -179,7 +179,7 @@
                                 } else if ($OrderGrower->Status->current == 'issue reported') {
                                     $tab_highlight .= 'info';
 
-                                    $status = 'Issue reported <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-title="Customer service is working to resolve this issue"></i>';
+                                    $status = 'Issue reported <i class="fa fa-question-circle info" data-toggle="tooltip" data-placement="top" data-title="Customer service is working to resolve this issue"></i>';
                                 
                                     $actions = [
                                         'leave a review',
@@ -267,52 +267,36 @@
                                     <div class="collapse" id="suborder-<?= $OrderGrower->id;?>">
                                         <?php
 
-                                        foreach ($OrderGrower->FoodListings as $OrderListing) {
+                                        foreach ($OrderGrower->Items as $OrderItem) {
 
-                                            $ThisFoodListing = new FoodListing([
+                                            $ThisItem = new Item([
                                                 'DB' => $DB,
-                                                'id' => $OrderListing->food_listing_id
+                                                'id' => $OrderItem->item_id
                                             ]);
 
                                             ?>
 
                                             <div class="item card-alt animated fadeIn">
                                                 <div class="item-image">
-                                                    <?php
-                                                    
-                                                    img(ENV . '/items/fl.' . $ThisFoodListing->id, $ThisFoodListing->ext, [
-                                                        'server'    => 'S3',
-                                                        'class'     => 'img-fluid'
-                                                    ]);
-                                                    
-                                                    ?>
+                                                    <div class="user-photo no-margin" style="background-image: url('<?= (isset($ThisItem->Image->id) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/{$ThisItem->Image->filename}.{$ThisItem->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg') ?>');"></div>
                                                 </div>
 
                                                 <div class="card-body">
                                                     <h6 class="strong">
-                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisFoodListing->link; ?>">
-                                                            <?= ucfirst($ThisFoodListing->title); ?>
+                                                        <a href="<?= PUBLIC_ROOT . $ThisGrowerOperation->link . '/' . $ThisItem->link; ?>">
+                                                            <?= ucfirst($ThisItem->title); ?>
                                                         </a>
 
                                                         <span class="float-right">
-                                                            <small>x</small> <?= $OrderListing->quantity; ?>
+                                                            <small>x</small> <?= $OrderItem->quantity; ?>
                                                         </span>
                                                     </h6>
                                                     
                                                     <small class="light-gray">
-                                                        <?php
-                                                        
-                                                        if (!empty($OrderListing->weight) && !empty($OrderListing->units)) {
-                                                            echo '<span>';
-                                                            amount(($OrderListing->unit_price / $OrderListing->unit_weight));
-                                                            echo " / {$OrderListing->weight_units}";
-                                                            echo '</span>';
-                                                        }
-                                                        
-                                                        ?>
+                                                        <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                                         
                                                         <span class="float-right">
-                                                            <?php amount($OrderListing->total); ?>
+                                                            <?php amount($OrderItem->total); ?>
                                                         </span>
                                                     </small>
                                                 </div>

@@ -17,7 +17,8 @@ $dark-gray:             darken($gray, 20%);
 $muted:                 #636c72;
 
 $primary:               $superlight-green;
-$secondary:             #fff;
+// $secondary:             #fff;
+$secondary:             $muted;
 $inverse:               $dark-green;
 $success:               $primary;
 // $success:               darken($primary, 20%);
@@ -31,6 +32,7 @@ $link-hover-decoration: none;
 $btn-primary-bg:        $primary;
 $btn-primary-border:    $primary;
 
+$input-height-border:                   0px;
 $input-border-focus:                    lighten($primary, 5%);
 $custom-control-active-indicator-bg:    lighten($primary, 5%);
 $custom-select-bg:                      #fff;
@@ -54,7 +56,10 @@ $list-group-active-border:  #4c4c4c;
 
 $card-border-width:     0px;
 
+$btn-secondary-text:    #fff;
+
 $badge-primary-bg:      $primary;
+$badge-secondary-bg:    $muted;
 
 $alert-success-bg:      $success;
 $alert-success-border:  $success;

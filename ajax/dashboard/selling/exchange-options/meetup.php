@@ -49,48 +49,33 @@ $Meetup = new Meetup([
     'DB' => $DB
 ]);
 
-if ($Meetup->exists('grower_operation_id', $grower_operation_id)) { 
+if ($Meetup->exists('grower_operation_id', $User->GrowerOperation->id)) { 
     $updated = $Meetup->update([
         'is_offered'            => $is_offered,
         'address_line_1'        => ($is_offered ? $address_line_1 : ''),
         'address_line_2'        => ($is_offered ? $address_line_2 : ''),
         'city'                  => ($is_offered ? $city : ''),
         'state'                 => ($is_offered ? $state : ''),
-        'zipcode'                   => ($is_offered ? $zipcode : ''),
+        'zipcode'               => ($is_offered ? $zipcode : ''),
         'time'                  => ($is_offered ? $time : ''),
-    ], 'grower_operation_id', $grower_operation_id);
+    ], 'grower_operation_id', $User->GrowerOperation->id);
 
     if (!$updated) quit('We could not update your meetup preferences');
 } else {
     $added = $Meetup->add([
-        'grower_operation_id'   => $grower_operation_id,
+        'grower_operation_id'   => $User->GrowerOperation->id,
         'is_offered'            => $is_offered,
         'address_line_1'        => $address_line_1,
         'address_line_2'        => $address_line_2,
         'city'                  => $city,
         'state'                 => $state,
-        'zipcode'                   => $zipcode,
+        'zipcode'               => $zipcode,
         'time'                  => $time
     ]);
 
     if (!$added) quit('We could not save your meetup preferences');
 }
 
-// reinitialize User & Operation for fresh check
-$User = new User([
-    'DB' => $DB,
-    'id' => $USER['id']
-]);
-
-if (!empty($User->GrowerOperation)) {
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-}
-
-$is_active = $User->GrowerOperation->check_active();
-
-$json['is_active']  = $is_active;
 $json['link'] = $User->GrowerOperation->link;
 
 echo json_encode($json);

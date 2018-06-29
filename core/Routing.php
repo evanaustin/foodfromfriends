@@ -1,6 +1,7 @@
 <?php
  
 class Routing extends Base {
+
     protected
         $DB;
 
@@ -22,6 +23,7 @@ class Routing extends Base {
         $seller;
 
     public
+        $item_account_type,
         $item_category,
         $item_subcategory,
         $item_variety,
@@ -108,7 +110,7 @@ class Routing extends Base {
                 
                 // Check if item category slug is set
                 if (isset($exp_path[2])) {
-                    $Item = new FoodListing([
+                    $Item = new Item([
                         'DB' => $this->DB
                     ]);
                     
@@ -136,42 +138,47 @@ class Routing extends Base {
                         }
                     }
 
-                    // Check if item subcategory slug is set
-                    if (isset($category_assns[$exp_path[2]])) {
-                        $this->item_category = $exp_path[2];
-                        
-                        // Check if given subcategory actually belongs to given category
-                        if (isset($exp_path[3], $category_assns[$exp_path[2]][$exp_path[3]])) {
-                            // Item page
-                            $this->path                 = 'item';
-                            $this->item_subcategory     = $exp_path[3];
+                    // Check if retail or wholesale item
+                    if (isset($exp_path[2]) && ($exp_path[2] == 'retail' || $exp_path[2] == 'wholesale')) {
+                        $this->item_account_type = $exp_path[2];
 
-                            if (isset($exp_path[4])) {
-                                if (is_array($category_assns[$exp_path[2]][$exp_path[3]]) && isset($category_assns[$exp_path[2]][$exp_path[3]][$exp_path[4]])) {
-                                    // Variety page
-                                    $this->item_variety = $exp_path[4];
-                                    $this->item_type    = 'variety';
-                                    $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]][$exp_path[4]];
+                        // Check if item subcategory slug is set
+                        if (isset($category_assns[$exp_path[3]])) {
+                            $this->item_category = $exp_path[3];
+                            
+                            // Check if given subcategory actually belongs to given category
+                            if (isset($exp_path[4], $category_assns[$exp_path[3]][$exp_path[4]])) {
+                                // Item page
+                                $this->path                 = 'item';
+                                $this->item_subcategory     = $exp_path[4];
+
+                                if (isset($exp_path[5])) {
+                                    if (is_array($category_assns[$exp_path[3]][$exp_path[4]]) && isset($category_assns[$exp_path[3]][$exp_path[4]][$exp_path[5]])) {
+                                        // Variety page
+                                        $this->item_variety = $exp_path[5];
+                                        $this->item_type    = 'variety';
+                                        $this->item_id      = $category_assns[$exp_path[3]][$exp_path[4]][$exp_path[5]];
+                                    } else {
+                                        // Subcategory:variety mis-association
+                                        // (direct to seller profile for now)
+                                        $this->path = 'seller-profile';
+                                        error_log('Subcategory:variety mis-association');
+                                    }
                                 } else {
-                                    // Subcategory:variety mis-association
-                                    // (direct to seller profile for now)
-                                    $this->path = 'seller-profile';
-                                    error_log('Subcategory:variety mis-association');
+                                    // Subcategory page
+                                    $this->item_type        = 'subcategory';
+
+                                    if (!is_array($category_assns[$exp_path[3]][$exp_path[4]])) {
+                                        $this->item_id      = $category_assns[$exp_path[3]][$exp_path[4]];
+                                    } else {
+                                        $this->item_id      = $category_assns[$exp_path[3]][$exp_path[4]]['id'];
+                                    }
                                 }
                             } else {
-                                // Subcategory page
-                                $this->item_type        = 'subcategory';
-
-                                if (!is_array($category_assns[$exp_path[2]][$exp_path[3]])) {
-                                    $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]];
-                                } else {
-                                    $this->item_id      = $category_assns[$exp_path[2]][$exp_path[3]]['id'];
-                                }
+                                // Category:subcategory mis-association
+                                // (direct to seller profile for now)
+                                $this->path = 'seller-profile';
                             }
-                        } else {
-                            // Category:subcategory mis-association
-                            // (direct to seller profile for now)
-                            $this->path = 'seller-profile';
                         }
                     } else {
                         // Seller category page
@@ -189,6 +196,7 @@ class Routing extends Base {
             return false;
         }
     }
+    
 }
 
 ?>

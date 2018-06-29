@@ -110,6 +110,7 @@ nav#header.navbar {
                 }
 
                 &:after {
+                    display: none;
                     border: 0;
                 }
             }
@@ -118,33 +119,6 @@ nav#header.navbar {
         @include phones() {
             font-size: 1.5rem;
             // text-align: center;
-        }
-    }
-
-    div.dropdown-menu {
-        z-index: $super-z;
-        margin-top: 0.75rem;
-        border-color: $edge-color;
-        @include drop-shadow(0, 1px, 3px);
-
-        a.dropdown-item {
-            @include transition(all .2s);
-
-            &:hover {
-                background-color: $superlight-green;
-                color: #fff;
-
-                i {
-                    color: #fff !important;
-                }
-            }
-
-            i {
-                float: right;
-                margin-top: 7px;
-                font-size: .75rem;
-                @include transition(all .2s);
-            }
         }
     }
 }

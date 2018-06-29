@@ -151,8 +151,8 @@ class Slug {
      *
      * @param string $title       The title to be slugified
      * @param string $table       The table to search for existing records with this slug
-     * @param string $parent_id   The listing/whatever ID for which this slug must be unique - leave it null and the slug must be truly unique across the whole table
-     * @param string $parent_type The kind of parent you're supplying an ID for - some possible values: "food_listing_id", etc.
+     * @param string $parent_id   The item/whatever ID for which this slug must be unique - leave it null and the slug must be truly unique across the whole table
+     * @param string $parent_type The kind of parent you're supplying an ID for - some possible values: "item_id", etc.
      * @return string A unique slug, ready to be saved to the DB
      * @throws \Exception
      */

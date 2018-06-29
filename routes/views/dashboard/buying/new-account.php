@@ -109,7 +109,7 @@
                         Profile photo
                     </label>
                         
-                    <a href="" class="remove-image float-right" style="display: none;" data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
+                    <a href="" class="remove-image action float-right" style="display: none;" data-toggle="tooltip" data-placement="left" title="Remove profile photo"><i class="fa fa-trash"></i></a>
 
                     <div class="image-box slide-over">
                         <div class="image-container">

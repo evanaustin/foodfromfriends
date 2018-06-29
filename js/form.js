@@ -16,13 +16,14 @@ App.Form = function() {
             errorClass: 'has-danger',
             successClass: 'has-success',
             classHandler: function(ParsleyField) {
-                return ParsleyField.$element.parents('.form-group');
+                return ParsleyField.$element.closest('.form-group');
             },
             errorsContainer: function(ParsleyField) {
-                return ParsleyField.$element.parents('.form-group');
+                return ParsleyField.$element.closest('.form-group');
             },
             errorsWrapper: '<div class="form-control-feedback"></div>',
-            errorTemplate: '<span></span>'
+            errorTemplate: '<span></span>',
+            requiredMessage: 'Please fill out this field.'
         });
 
         window.Parsley.on('field:error', function() {
@@ -30,25 +31,38 @@ App.Form = function() {
         });
         
         window.Parsley.on('field:success', function() {
-            this.$element.removeClass('danger').addClass('success');
+            this.$element.removeClass('danger')/* .addClass('success') */;
         });
 
-        $('a:not([data-toggle="modal"])').on('click', function(e) {
+        // prevent autofocus of invalid field(s)
+        window.Parsley.on('form:validated', function() {
+            this.$element.find('input, select').blur()
+        });
+
+        $('form :input').change(function() {
+            $('form').data('changed', true);
+        });
+        
+        $('form').on('submit', function() {
+            $('form').data('changed', false);
+        });
+
+        $('body.dashboard a:not([data-toggle="modal"]):not([data-toggle="collapse"]):not([data-toggle="dropdown"]):not(.action)').on('click', function(e) {
             var href = $(this).attr('href');
 
-            if ($('.form-group').hasClass('has-danger')) {
+            if ($('form').data('changed') || $('.form-group').hasClass('has-danger')) {
                 e.preventDefault();
 
                 bootbox.confirm({
                     closeButton: false,
-                    message: 'You have errors and unsaved changes! Are you sure you want to leave this page?',
+                    message: 'You have unsaved changes. Are you sure you want to leave this page?',
                     buttons: {
                         confirm: {
-                            label: 'Confirm',
-                            className: 'btn-warning'
+                            label: 'Leave anyway',
+                            className: 'btn-danger'
                         },
                         cancel: {
-                            label: 'Cancel',
+                            label: 'Stay here',
                             className: 'btn-muted'
                         }
                     },
@@ -96,6 +110,14 @@ App.Form = function() {
             $target.attr('data-content', name);
         });
 
+        // toggle .active on suggested photos
+        $('.suggested-photo').on('click', function() {
+            $('.suggested-photo.active').not($(this)).removeClass('active');
+            $(this).toggleClass('active');
+        });
+
+
+        // autosize textarea
         autosize($('.input-group > textarea'));
     }
 

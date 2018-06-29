@@ -17,7 +17,7 @@ class OrderGrower extends Base {
 
     public
         $Exchange,
-        $FoodListings,
+        $Items,
         $Status;
     
     protected
@@ -36,7 +36,7 @@ class OrderGrower extends Base {
         if (isset($parameters['id'])) {
             $this->configure_object($parameters['id']);
             $this->load_exchange();
-            $this->load_food_listings();
+            $this->load_items();
             
             // only placed orders get their status loaded
             if (isset($this->order_status_id)) {
@@ -87,14 +87,14 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Finds all the OrderItems for this OrderGrower and stores them in this:FoodListings
+     * Finds all the OrderItems for this OrderGrower and stores them in this:Items
      */
-    public function load_food_listings() {
-        $OrderFoodListing = new OrderFoodListing([
+    public function load_items() {
+        $OrderItem = new OrderItem([
             'DB' => $this->DB
         ]);
 
-        $this->FoodListings = $OrderFoodListing->load_for_grower($this->id);
+        $this->Items = $OrderItem->load_for_grower($this->id);
     }
 
     /**
@@ -110,42 +110,42 @@ class OrderGrower extends Base {
     }
 
     /**
-     * Adds a food listing to this OrderGrower and refreshes `$this->FoodListings`
+     * Adds a item to this OrderGrower and refreshes `$this->Items`
      * Don't worry about `unit_price` and `amount` here; they're handled by `Order->update_cart()`
-     * @param FoodListing $FoodListing the Item being added to the cart
-     * @param int @quantity the amount of the Item being added
      * @param int $buyer_account_id the ID of the BuyerAccount who's adding the Item ? Why do we need to store this ?
+     * @param int $item_id the ID of the Item being added to the cart
+     * @param int $quantity the amount of the Item being added
      */
-    public function add_food_listing(FoodListing $FoodListing, $quantity, $buyer_account_id) {
+    public function add_item($buyer_account_id, $item_id, $quantity) {
         $this->add([
             'order_id'          => $this->order_id,
             'order_grower_id'   => $this->id,
             'buyer_account_id'  => $buyer_account_id,
-            'food_listing_id'   => $FoodListing->id,
+            'item_id'           => $item_id,
             'quantity'          => $quantity,
-        ], 'order_food_listings');
+        ], 'order_items');
 
-        $this->load_food_listings();
+        $this->load_items();
     }
 
     /**
      * Called when the cart is loaded or modified to make sure we have the seller's latest prices and weights
      */
-    public function sync_food_listing() {
-        foreach ($this->FoodListings as $FoodListing) {
-            $FoodListing->sync();
+    public function sync_item() {
+        foreach ($this->Items as $Item) {
+            $Item->sync();
         }
     }
 
     /**
      * Calculates the total price of all items in this suborder sold by this grower
-     * Call after calling `sync_exchange_order()` and `sync_food_listing()`
+     * Call after calling `sync_exchange_order()` and `sync_item()`
      */
     public function calculate_total() {
         $this->subtotal = 0;
 
-        foreach ($this->FoodListings as $FoodListing) {
-            $this->subtotal += $FoodListing->total;
+        foreach ($this->Items as $Item) {
+            $this->subtotal += $Item->total;
         }
 
         $this->total = $this->subtotal + $this->Exchange->fee;
@@ -422,7 +422,7 @@ class OrderGrower extends Base {
      * Buyer reviews seller & items
      * 
      * Calls `OrderGrower->rate()` to rate the seller
-     * Calls `OrderGrower->FoodListings->rate()` to rate each item
+     * Calls `OrderGrower->Items->rate()` to rate each item
      * Calls `OrderGrower->Status->review()` to mark the order as reviewed
      * Calls `OrderGrower->clear()` to clear order
      * Calls `Mail->reviewed_order_notification()` to send trans email to seller
@@ -432,11 +432,13 @@ class OrderGrower extends Base {
     public function review($data) {
         if ($this->Status->current == 'open for review') {
             // Rate the seller
-            $this->rate($data['seller-score'], $data['seller-review']);
-
+            if (isset($data['seller-score'], $data['seller-review'])) {
+                $this->rate($data['seller-score'], $data['seller-review']);
+            }
+            
             // Rate each item
-            foreach ($data['items'] as $food_listing_id => $rating) {
-                $this->FoodListings[$food_listing_id]->rate($this->buyer_account_id, $rating['score'], $rating['review']);
+            foreach ($data['items'] as $item_id => $rating) {
+                $this->Items[$item_id]->rate($this->buyer_account_id, $rating['score'], $rating['review']);
             }
 
             // Mark as reviewed
@@ -558,7 +560,7 @@ class OrderGrower extends Base {
      * Void suborder
      * 
      * Update `$Order->Charge` with re-calculated amounts
-     * Update `$this->FoodListings->quantity` to add back listing stock
+     * Update `$this->Items->quantity` to add back item stock
      * Calls `OrderGrower->Status->void()` to mark order as voided
      */
     public function void() {
@@ -590,14 +592,14 @@ class OrderGrower extends Base {
         ]);
 
         // Add back item stock
-        foreach($this->FoodListings as $key => $OrderFoodListing) {
-            $FoodListing = new FoodListing([
+        foreach($this->Items as $key => $OrderItem) {
+            $Item = new Item([
                 'DB' => $this->DB,
                 'id' => $key
             ]);
 
-            $FoodListing->update([
-                'quantity' => $FoodListing->quantity + $OrderFoodListing->quantity
+            $Item->update([
+                'quantity' => $Item->quantity + $OrderItem->quantity
             ]);
         }
 

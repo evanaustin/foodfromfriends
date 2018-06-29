@@ -77,7 +77,7 @@ spl_autoload_register(function($class_name) {
  */
 
 try {
-    $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
+    $DB = new DB('mysql:host='. DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PW);
 } catch(PDOException $e) {
     error_log($e->getMessage());
 }
@@ -164,10 +164,15 @@ use \Firebase\JWT\JWT;
 if (isset($_GET['token'])) {
     $JWT = JWT::decode($_GET['token'], JWT_KEY, array('HS256'));
 
+    // token logs in User
     if (isset($JWT->user_id) && (!isset($JWT->time) || (time() - $JWT->iss_on <= $JWT->time))) {
+        // User is already logged in under a different ID; reset Session:User:ID
         if ($LOGGED_IN && ($USER['id'] != $JWT->user_id)) {
             $_SESSION['user']['id'] = null;
-        } else if (($LOGGED_IN && ($USER['id'] == $JWT->user_id)) || !isset($_SESSION['user']['id'])) {
+        } 
+
+        // User is already logged in under same ID -OR- Session:User:ID is not set
+        if (($LOGGED_IN && ($USER['id'] == $JWT->user_id)) || !isset($_SESSION['user']['id'])) {
             $User = new User([
                 'DB' => $DB,
                 'id' => $JWT->user_id,

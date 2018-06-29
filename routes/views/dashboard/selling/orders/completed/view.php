@@ -90,51 +90,40 @@
                         <div id="items">
                             <?php
 
-                            foreach($OrderGrower->FoodListings as $OrderListing) {
+                            foreach($OrderGrower->Items as $OrderItem) {
 
-                                $FoodListing = new FoodListing([
+                                $Item = new Item([
                                     'DB' => $DB,
-                                    'id' => $OrderListing->food_listing_id
+                                    'id' => $OrderItem->item_id
                                 ]);
                                 
                                 ?>
                                 
-                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" class="card animated zoomIn">
+                                <div class="item card-alt margin-top-1em animated zoomIn">
                                     <div class="item-image">
-                                        <?php
-                                        
-                                        img(ENV . '/items/fl.' . $FoodListing->id, $FoodListing->ext, [
-                                            'server'    => 'S3',
-                                            'class'     => 'img-fluid'
-                                        ]);
-                                        
-                                        ?>
+                                        <div class="user-photo no-margin" style="background-image: url('<?= (isset($Item->Image->id) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/{$Item->Image->filename}.{$Item->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg') ?>');"></div>
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="listing-info">
-                                            <h5 class="card-title">
-                                                <span>
-                                                    <?= ucfirst($FoodListing->title); ?>
-                                                </span>
-                                            </h5>
-                                            
-                                            <fable>
-                                                <cell>
-                                                    <strong class="rounded-circle success no-margin"><span class="white"><?= $OrderListing->quantity; ?></span></strong>
-                                                </cell>
-                                                
-                                                <cell>
-                                                    <?= bcmul($OrderListing->quantity, $OrderListing->unit_weight) . ' ' . $OrderListing->weight_units; ?>
-                                                </cell>
+                                        <h6 class="strong">
+                                            <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>">
+                                                <?= ucfirst($Item->title); ?>
+                                            </a>
 
-                                                <cell class="float-right">
-                                                    <?php amount($OrderListing->total); ?>
-                                                </cell>
-                                            </fable>
-                                        </div>
+                                            <span class="float-right">
+                                                <small>x</small> <?= $OrderItem->quantity; ?>
+                                            </span>
+                                        </h6>
+                                        
+                                        <small class="light-gray">
+                                            <?= $OrderItem->package_metric_title ?>
+                                            
+                                            <span class="float-right">
+                                                <?php amount($OrderItem->total); ?>
+                                            </span>
+                                        </small>
                                     </div>
-                                </a>
+                                </div>
                                 
                                 <?php
 

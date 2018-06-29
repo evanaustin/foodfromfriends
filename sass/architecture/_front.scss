@@ -87,25 +87,24 @@ div.box {
 
     div.btn-group {
         width: 100%;
-        margin: 0 auto 10px auto;
+        // margin: 0 auto 10px auto;
 
         .btn {
             flex-grow: 1;
             margin-top: 0;
             font-size: 0.85em;
             text-align: center;
-            color: $muted;
             
             &:hover {
-                background-color: lighten($muted, 10%) !important;
-                border-color: lighten($muted, 10%) !important;
-                color: #fff !important;
+                // background-color: lighten($muted, 10%) !important;
+                // border-color: lighten($muted, 10%) !important;
+                // color: #fff !important;
             }
 
             &.active {
-                background: $muted !important;
-                border-color: $muted !important;
-                color: #fff !important;
+                background: $primary;
+                border-color: transparent;
+                color: #fff;
             }
         }
     }

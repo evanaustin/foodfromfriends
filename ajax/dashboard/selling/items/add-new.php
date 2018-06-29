@@ -12,18 +12,15 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-	'item-category'     => 'required|integer',
-	'item-subcategory'  => 'required|integer',
-    'item-variety'      => 'integer',
-    'item-name'         => 'alpha_space',
-	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean',
-	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
-	'units'             => 'alpha_space',
-	'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'wholesale-weight'  => 'regex,/^[0-9]+$/|max_numeric, 10000',
-	'wholesale-units'   => 'alpha_space'
+	'subcategory'   => 'required|integer',
+    'variety'       => 'integer',
+    'name'          => 'regex,/^[a-zA-z\s:]+$/',
+	'price'         => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
+	'quantity'      => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+    'package-type'  => 'required|integer',
+	'measurement'   => 'regex,/^([0-9]*[.x\s])*[0-9]+$/|max_len, 10',
+	'metric'        => 'integer',
+	'similar-photo' => 'integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -33,82 +30,72 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-	'item-category'     => 'trim|whole_number',
-	'item-subcategory'  => 'trim|whole_number',
-    'item-variety'      => 'trim|whole_number',
-	'item-name'         => 'trim|sanitize_string',
-	'quantity'          => 'trim|whole_number',
-	'price'             => 'trim|sanitize_floats',
-	'weight'            => 'trim|whole_number',
-	'units'             => 'trim|sanitize_string',
-	'wholesale-price'   => 'trim|sanitize_floats',
-	'wholesale-weight'  => 'trim|whole_number',
-	'wholesale-units'   => 'trim|sanitize_string',
-	'packaging'         => 'trim|sanitize_string',
-	'description'       => 'trim|sanitize_string'
+	'subcategory'   => 'trim|whole_number',
+    'variety'       => 'trim|whole_number',
+	'name'          => 'trim|sanitize_string',
+	'price'         => 'trim|sanitize_floats',
+	'quantity'      => 'trim|whole_number',
+	'package-type'  => 'trim|whole_number',
+	'measurement'   => 'trim|sanitize_string',
+	'metric'        => 'trim|whole_number',
+	'description'   => 'trim|sanitize_string',
+	'similar-photo' => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-// manual check that if weight is set then units are too
-if (!empty($weight) && empty($units)) {
-    quit('Select measurement units for your item retail weight');
+// check that if measurement is set then metric is too
+if (!empty($measurement) && empty($metric)) {
+    quit('Select a metric of measurement');
 }
 
-if (!empty($wholesale_weight) && empty($wholesale_units)) {
-    quit('Select measurement units for your item wholesale weight');
-}
-
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3
 ]);
 
 // ! TODO: make sure category + subcategory + variety are valid
-$item_exists = $Item->retrieve([
+
+// check that category + subcategory + variety + package combination is unique
+// ! NOTE: disabled for now
+/* $item_exists = $Item->retrieve([
     'where' => [
         'grower_operation_id'   => $User->GrowerOperation->id,
-        'food_category_id'      => $item_category,
-        'food_subcategory_id'   => $item_subcategory,
-        'item_variety_id'       => (isset($item_variety) ? $item_variety : 0)
+        'item_subcategory_id'   => $subcategory,
+        'item_variety_id'       => (isset($variety) ? $variety : 0),
+        'package_type_id'       => $package_type
     ],
     'limit' => 1
 ]);
 
 if (!empty($item_exists)) {
-    quit('You already have an item with these categories!');
-}
+    quit('You already have an item like this');
+} */
 
-$listing_added = $Item->add([
+$item_added = $Item->add([
     'grower_operation_id'   => $User->GrowerOperation->id,
-    'food_category_id'      => $item_category,
-    'food_subcategory_id'   => $item_subcategory,
-    'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
-    'name'                  => (!empty($item_name) ? $item_name : NULL),
-    'quantity'              => $quantity,
-    'is_available'          => $is_available,
+    'item_subcategory_id'   => $subcategory,
+    'item_variety_id'       => (isset($variety) ? $variety : 0),
+    'name'                  => (!empty($name) ? $name : NULL),
+    'is_wholesale'          => (isset($is_wholesale) && $is_wholesale == 'on') ? 1 : 0,
     'price'                 => $price * 100,
-    'weight'                => (isset($weight)) ? $weight : 0,
-    'units'                 => (isset($weight, $units)) ? $units : '',
-    'wholesale_price'       => $wholesale_price * 100,
-    'wholesale_weight'      => (isset($wholesale_weight)) ? $wholesale_weight : 0,
-    'wholesale_units'       => (isset($wholesale_weight, $wholesale_units)) ? $wholesale_units : '',
-    'packaging'             => $packaging,
-    'description'           => $description,
+    'quantity'              => $quantity,
+    'package_type_id'       => $package_type,
+    'measurement'           => (isset($measurement)) ? $measurement : 0,
+    'metric_id'             => (isset($measurement, $metric)) ? $metric : 0,
+    'description'           => $description
 ]);
 
-if (!$listing_added) quit('Could not add item');
+if (!$item_added) quit('Could not add item');
 
-$id = $listing_added['last_insert_id'];
+$id = $item_added['last_insert_id'];
 
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'id' => $id
 ]);
-
-// $other_subcategory = strtolower(preg_replace('/\s+/', '', $other_subcategory));
 
 $Image = new Image();
 
@@ -145,13 +132,11 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id;
+    $rand = substr(md5(microtime()), rand(0,26), 5);
+    $filename = "i.{$rand}.{$id}";
 
-    // quit(json_encode(explode('/', $_FILES['listing-image'])));
-    // quit(json_encode(explode('/', $file['type'])));
     // determine file type
     $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';
-    // $ext = (explode('/', $_FILES['listing-image']['type'])[1] == 'jpeg') ? 'jpg' : 'png';
     
     // set temporary storage paths
     $tmp1 = SERVER_ROOT . 'media/tmp/start/';
@@ -229,17 +214,30 @@ if (isset($_POST['images'])) {
         $Image->save($final['file']);
     }
     
-    $record_added = $Item->add([
-        'food_listing_id' => $id,
-        'filename' => $filename,
-        'ext' => $ext
-    ], 'food_listing_images');
+    $img_added = $S3->save_object(ENV . "/item-images/{$filename}.{$ext}", fopen($final['file'], 'r'));
     
-    if (!$record_added) quit('Could not add image record');
-    
-    $img_added = $S3->save_object(ENV . '/items/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
-    
-    if (!$img_added) quit('Could not add new image');
+    $handle = curl_init('https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/i.{$filename}.{$ext}");
+    curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+
+    $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+    if ($httpCode == 403 || $httpCode == 404) {
+        quit('Item added, but image could not be uploaded');
+        die();
+    }
+
+    $image = $Item->add([
+        'path'      => 'item-images',
+        'filename'  => $filename,
+        'ext'       => $ext
+    ], 'images');
+
+    if (!$image) quit('Could not add new image');
+
+    $Item->add([
+        'item_id'   => $Item->id,
+        'image_id'  => $image['last_insert_id'],
+    ], 'item_images');
 
     // unlink tmp imgs
     if (file_exists($tmp1_image)) {
@@ -253,22 +251,20 @@ if (isset($_POST['images'])) {
     if (file_exists($tmp2 . $filename . '.cropped.' . $ext)) {
         unlink($tmp2 . $filename . '.cropped.' . $ext);
     }
+
+    $json['new_image'] = [
+        'id'        => $image['last_insert_id'],
+        'filename'  => $filename,
+        'ext'       => $ext,
+    ];
+} else if (isset($similar_photo)) {
+    $Item->add([
+        'item_id'   => $Item->id,
+        'image_id'  => $similar_photo
+    ], 'item_images');
 }
 
-// reinitialize User & Operation for fresh check
-$User = new User([
-    'DB' => $DB,
-    'id' => $USER['id']
-]);
-
-if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-    $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-}
-
-$is_active = $User->GrowerOperation->check_active();
-
-$json['is_active']  = $is_active;
-$json['link']       = $User->GrowerOperation->link . '/' . $Item->link;
+$json['link'] = $User->GrowerOperation->link . $Item->link;
 
 echo json_encode($json);
 

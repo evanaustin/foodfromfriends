@@ -34,20 +34,20 @@
                                 'id' => $OrderGrower->grower_operation_id
                             ]);
 
-                            foreach ($OrderGrower->FoodListings as $key => $OrderFoodListing) {
+                            foreach ($OrderGrower->Items as $key => $OrderItem) {
 
-                                $FoodListing = new FoodListing([
+                                $Item = new Item([
                                     'DB' => $DB,
-                                    'id' => $OrderFoodListing->food_listing_id
+                                    'id' => $OrderItem->item_id
                                 ]);
 
                                 ?>
 
                                 <tr class="w-25">
-                                    <td><?= $FoodListing->title; ?></td>
+                                    <td><?= $Item->title; ?></td>
                                     <td><?= $Seller->name; ?></td>
-                                    <td><?= $OrderFoodListing->quantity; ?></td>
-                                    <td><?php amount($OrderFoodListing->total); ?></td>
+                                    <td><?= $OrderItem->quantity; ?></td>
+                                    <td><?php amount($OrderItem->total); ?></td>
                                 </tr>
                                 
                                 <?php

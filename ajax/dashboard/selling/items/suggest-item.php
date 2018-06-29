@@ -29,18 +29,18 @@ $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-$FoodListing = new FoodListing([
+$Item = new Item([
     'DB' => $DB
 ]);
 
-$listing_added = $FoodListing->add([
+$item_added = $Item->add([
     'suggested_by_user' => $User->id,
     'suggested_by_seller' => $User->GrowerOperation->id,
     'item_type'         => $item_type,
     'comments'          => $comments,
 ], 'item_suggestions');
 
-if (!$listing_added) quit('Could not record suggestion');
+if (!$item_added) quit('Could not record suggestion');
 
 echo json_encode($json);
 

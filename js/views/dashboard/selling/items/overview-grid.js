@@ -1,15 +1,15 @@
-$('a.remove-listing').on('click', function(e) {
+$('a.remove-item').on('click', function(e) {
     e.preventDefault();
 
     $card = $(this).parents('.card');
 
     var data = {
-        'listing_id': $(this).data('id')
+        'item_id': $(this).data('id')
     };
 
     bootbox.confirm({
         closeButton: false,
-        message: '<div class="text-center">Please confirm you want to remove this listing</div>',
+        message: '<div class="text-center">Please confirm you want to remove this item</div>',
         buttons: {
             confirm: {
                 label: 'Confirm',
@@ -22,9 +22,9 @@ $('a.remove-listing').on('click', function(e) {
         },
         callback: function(result) {
             if (result === true) {
-                App.Ajax.post('dashboard/selling/items/remove-listing', data, 
+                App.Ajax.post('dashboard/selling/items/remove-item', data, 
                     function(response) {
-                        $('a.remove-listing').tooltip('hide');
+                        $('a.remove-item').tooltip('hide');
                         App.Util.animation($card, 'zoomOut', 'out', true, $card.parents('div.col-md-4'));
                     },
                     function(response) {

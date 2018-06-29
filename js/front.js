@@ -115,7 +115,7 @@ App.Front = function() {
         // Remove item
         $(document).on('click', '#cart a.remove-item', function(e) {
             $cart_item = $(this).parents('div.cart-item');
-            var listing_id = $cart_item.data('listing-id');
+            var item_id = $cart_item.data('item-id');
 
             bootbox.confirm({
                 closeButton: false,
@@ -133,7 +133,7 @@ App.Front = function() {
                 callback: function(result) {
                     if (result === true) {
                         var data = {
-                            'food-listing-id': listing_id
+                            'item-id': item_id
                         };
                         
                         App.Ajax.post('order/remove-from-cart', $.param(data), 
@@ -180,7 +180,7 @@ App.Front = function() {
             $cart_item = $(this).parents('div.cart-item');
 
             var data = {
-                'item-id': $cart_item.data('listing-id'),
+                'item-id': $cart_item.data('item-id'),
                 'quantity': $(this).val()
             };
 
@@ -252,7 +252,7 @@ App.Front = function() {
                         App.Util.slidebar(Slidebar, 'toggle', 'right', e);
                         break;
                     case 68: // d
-                        window.location.replace(PUBLIC_ROOT + 'dashboard/buying/orders/overview');
+                        $('#dashboard-link').trigger('click');
                         break;
                     case 77: // m
                         window.location.replace(PUBLIC_ROOT + 'map');

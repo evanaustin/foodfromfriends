@@ -40,18 +40,18 @@ try {
 
 	$Order = $Order->get_cart($User->BuyerAccount->id);
 
-	$Item = new FoodListing([
+	$Item = new Item([
 		'DB' => $DB,
 		'id' => $item_id
 	]);
 
-	if (!isset($Order->Growers[$Item->grower_operation_id]->FoodListings[$Item->id])) {
+	if (!isset($Order->Growers[$Item->grower_operation_id]->Items[$Item->id])) {
 		quit('This item is not in your basket');
 	}
 
 	$Order->modify_quantity($Item, $quantity);
 
-	$OrderItem = $Order->Growers[$Item->grower_operation_id]->FoodListings[$Item->id];
+	$OrderItem = $Order->Growers[$Item->grower_operation_id]->Items[$Item->id];
 
 	$json['item'] = [
 		'quantity'	=> $OrderItem->quantity,

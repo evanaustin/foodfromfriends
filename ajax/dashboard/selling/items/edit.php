@@ -12,18 +12,15 @@ if (!$LOGGED_IN) quit('You are not logged in');
 $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
-    'item-category'     => 'required|integer',
-	'item-subcategory'  => 'required|integer',
-    'item-variety'      => 'integer',
-    'item-name'         => 'alpha_space',
-	'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
-	'is-available'      => 'required|boolean',
-	'price'             => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'weight'            => 'regex,/^[0-9]+$/|max_numeric, 10000',
-    'units'             => 'alpha_space',
-    'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-	'wholesale-weight'  => 'regex,/^[0-9]+$/|max_numeric, 10000',
-	'wholesale-units'   => 'alpha_space'
+	'subcategory'   => 'required|integer',
+    'variety'       => 'integer',
+    'name'          => 'regex,/^[a-zA-z\s:]+$/',
+	'price'         => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
+    'quantity'      => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+    'package-type'  => 'required|integer',
+	'measurement'   => 'regex,/^([0-9]*[.x\s])*[0-9]+$/|max_len, 10',
+    'metric'        => 'integer',
+    'similar-photo' => 'integer'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -33,31 +30,27 @@ if ($validated_data === false) {
 }
 
 $Gump->filter_rules([
-    'item-category'     => 'trim|whole_number',
-	'item-subcategory'  => 'trim|whole_number',
-    'item-variety'      => 'trim|whole_number',
-    'item-name'         => 'trim|sanitize_string',
-	'quantity'          => 'trim|whole_number',
-	'price'             => 'trim|sanitize_floats',
-	'weight'            => 'trim|whole_number',
-    'units'             => 'trim|sanitize_string',
-    'wholesale-price'   => 'trim|sanitize_floats',
-	'wholesale-weight'  => 'trim|whole_number',
-	'wholesale-units'   => 'trim|sanitize_string',
-	'packaging'         => 'trim|sanitize_string',
-	'description'       => 'trim|sanitize_string'
+	'subcategory'   => 'trim|whole_number',
+    'variety'       => 'trim|whole_number',
+    'name'          => 'trim|sanitize_string',
+	'price'         => 'trim|sanitize_floats',
+    'quantity'      => 'trim|whole_number',
+    'package-type'  => 'trim|whole_number',
+	'measurement'   => 'trim|sanitize_string',
+    'metric'        => 'trim|whole_number',
+    'description'   => 'trim|sanitize_string',
+    'similar-photo' => 'trim|whole_number'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
 
 foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
 
-// manual check that if weight is set then units are too
-if (!empty($weight) && empty($units)) {
-    quit('Select measurement units for your item weight');
+if (!empty($measurement) && empty($metric)) {
+    quit('Select a metric of measurement');
 }
 
-$FoodListing = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $id
@@ -65,42 +58,41 @@ $FoodListing = new FoodListing([
 
 // ! TODO: make sure category + subcategory + variety are valid
 
-$item_exists = $FoodListing->retrieve([
+/* $item_exists = $Item->retrieve([
     'where' => [
         'grower_operation_id'   => $User->GrowerOperation->id,
-        'food_category_id'      => $item_category,
-        'food_subcategory_id'   => $item_subcategory,
-        'item_variety_id'       => $item_variety,
+        'item_subcategory_id'   => $subcategory,
+        'item_variety_id'       => $variety,
+        'package_type_id'       => $package_type_id,
     ],
     'limit' => 1
 ]);
 
-if (!empty($item_exists) && $item_exists['id'] != $FoodListing->id) {
+if (!empty($item_exists) && $item_exists['id'] != $Item->id) {
     quit('You already have another item with these categories!');
-}
+} */
 
-$listing_edited = $FoodListing->update([
-    'food_category_id'      => $item_category,
-    'food_subcategory_id'   => $item_subcategory,
-    'item_variety_id'       => (isset($item_variety) ? $item_variety : 0),
-    'name'                  => (!empty($item_name) ? $item_name : NULL),
-    'quantity'              => $quantity,
-    'is_available'          => $is_available,
+$item_updated = $Item->update([
+    'item_subcategory_id'   => $subcategory,
+    'item_variety_id'       => (isset($variety) ? $variety : 0),
+    'name'                  => (!empty($name) ? $name : NULL),
+    'is_wholesale'          => (isset($is_wholesale) && $is_wholesale == 'on') ? 1 : 0,
     'price'                 => $price * 100,
-    'weight'                => (isset($weight)) ? $weight : 0,
-    'units'                 => (isset($weight, $units)) ? $units : '',
-    'wholesale_price'       => $wholesale_price * 100,
-    'wholesale_weight'      => (isset($wholesale_weight)) ? $wholesale_weight : 0,
-    'wholesale_units'       => (isset($wholesale_weight, $wholesale_units)) ? $wholesale_units : '',
-    'packaging'             => $packaging,
+    'quantity'              => $quantity,
+    'package_type_id'       => $package_type,
+    'measurement'           => (isset($measurement)) ? $measurement : 0,
+    'metric_id'             => (isset($measurement, $metric)) ? $metric : 0,
     'description'           => $description
 ]);
 
-if (!$listing_edited) {
-    quit('Could not edit listing');
+if (!$item_updated) {
+    quit('Could not edit item');
 }
 
 $Image = new Image();
+
+// determine if image for item already exists
+$image_exists = !empty($Item->Image->filename);
 
 if (isset($_POST['images'])) {
     // decode stringified JSON
@@ -113,6 +105,7 @@ if (isset($_POST['images'])) {
     }
 
     // only one image so key is always 0
+    // ! TODO: eventually we will allow multiple images
     $key = 0;
 
     // get image
@@ -134,7 +127,12 @@ if (isset($_POST['images'])) {
     ];
     
     // set filename
-    $filename = 'fl.' . $id;
+    if ($image_exists) {
+        $filename = $Item->Image->filename;
+    } else {
+        $rand = substr(md5(microtime()), rand(0,26), 5);
+        $filename = "i.{$rand}.{$id}";
+    }
     
     // determine file type
     $ext = (explode('/', $file['type'])[1] == 'jpeg') ? 'jpg' : 'png';
@@ -214,31 +212,48 @@ if (isset($_POST['images'])) {
         $Image->save($final['file']);
     }
 
-    if (!empty($FoodListing->filename)) {
-        $record_edited = $FoodListing->update([
-            'ext' => $ext
-        ], 'id', $id, 'food_listing_images');
-
-        if (!$record_edited) quit('Could not edit image record');
-        
-        $img_removed = $S3->delete_objects([
-            ENV . '/items/' . $FoodListing->filename . $FoodListing->ext
+    // remove old image if one exists
+    if ($image_exists) {
+        $S3->delete_objects([
+            ENV . "/item-images/{$Item->Image->filename}.{$Item->Image->ext}"
         ], $file);
-    } else {
-        $record_added = $FoodListing->add([
-            'food_listing_id' => $id,
-            'filename' => $filename,
-            'ext' => $ext
-        ], 'food_listing_images');
-
-        if (!$record_added) {
-            quit('Could not add image record');
-        }
     }
 
-    $img_added = $S3->save_object(ENV . '/items/' . $filename . '.' . $ext, fopen($final['file'], 'r'));
+    // upload new image
+    $S3->save_object(ENV . "/item-images/{$filename}.{$ext}", fopen($final['file'], 'r'));
+    
+    // make sure it uploaded
+    $handle = curl_init('https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/i.{$filename}.{$Item->ext}");
+    curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
 
-    if (!$img_added) quit('Could not add new image');
+    $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+    if ($httpCode == 403 || $httpCode == 404) {
+        quit('Item updated, but image could not be uploaded');
+        die();
+    }
+
+    // update records
+    if ($image_exists) {
+        $record_updated = $Item->update([
+            'ext'       => $ext
+        ], 'item_id', $Item->id, 'images');
+    } else {
+        $record_added = $Item->add([
+            'path'      => 'item-images',
+            'filename'  => $filename,
+            'ext'       => $ext
+        ], 'images');
+
+        if (!$record_added) quit('Could not store image record');
+
+        $association_added = $Item->add([
+            'item_id'   => $Item->id,
+            'image_id'  => $record_added['last_insert_id'],
+        ], 'item_images');
+
+        if (!$association_added) quit('Could not associate image');
+    }
 
     // unlink tmp imgs
     if (file_exists($tmp1_image)) {
@@ -252,10 +267,25 @@ if (isset($_POST['images'])) {
     if (file_exists($tmp2 . $filename . '.cropped.' . $ext)) {
         unlink($tmp2 . $filename . '.cropped.' . $ext);
     }
+} else if (isset($similar_photo)) {
+    if ($image_exists) {
+        $record_updated = $Item->update([
+            'image_id'  => $similar_photo
+        ], 'item_id', $Item->id, 'item_images');
+
+        if (!$record_updated) quit('Could not update image association');
+    } else {
+        $record_added = $Item->add([
+            'item_id'   => $Item->id,
+            'image_id'  => $similar_photo,
+        ], 'item_images');
+
+        if (!$record_added) quit('Could not associate image');
+    }
 }
 
 // re-initialize item
-$Item = new FoodListing([
+$Item = new Item([
     'DB' => $DB,
     'S3' => $S3,
     'id' => $id

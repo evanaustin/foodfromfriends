@@ -13,9 +13,14 @@ foreach($_POST['items'] as $id => $item) {
     $item = $Gump->sanitize($item);
     
     $Gump->validation_rules([
-        'retail-price'      => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-        'wholesale-price'   => 'regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
-        'quantity'          => 'required|regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+        'position'      => 'integer',
+        'name'          => 'regex,/^[a-zA-z\s:]+$/',
+        'measurement'   => 'regex,/^([0-9]*[.x\s])*[0-9]+$/|max_len, 10',
+        'metric'        => 'integer',
+        'package-type'  => 'required|integer',
+        'price'         => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000',
+        'quantity'      => 'regex,/^[0-9]+$/|min_numeric, 0|max_numeric, 10000',
+        'is_wholesale'  => 'alpha'
     ]);
     
     $validated_data = $Gump->run($item);
@@ -25,27 +30,36 @@ foreach($_POST['items'] as $id => $item) {
     }
     
     $Gump->filter_rules([
-        'retail-price'      => 'trim|sanitize_floats',
-        'wholesale-price'   => 'trim|sanitize_floats',
-        'quantity'          => 'trim|whole_number'
+        'position'      => 'trim|whole_number',
+        'name'          => 'trim|sanitize_string',
+        'package-type'  => 'trim|whole_number',
+        'measurement'   => 'trim|sanitize_string',
+        'metric'        => 'trim|whole_number',
+        'price'         => 'trim|sanitize_floats',
+        'quantity'      => 'trim|whole_number',
+        'is_wholesale'  => 'trim|sanitize_string'
     ]);
     
     $prepared_data = $Gump->run($validated_data);
     
-    unset($available);
+    // reset non-required fields
+    unset($position, $variety_id, $name, $measurement, $metric, $quantity, $is_wholesale);
 
     foreach ($prepared_data as $k => $v) ${str_replace('-', '_', $k)} = $v;
     
-    $Item = new FoodListing([
+    $Item = new Item([
         'DB' => $DB,
         'id' => $id
     ]);
     
     $updated = $Item->update([
-        'quantity'          => $quantity,
-        'is_available'      => (isset($available) && $available == 'on') ? 1 : 0,
-        'price'             => $retail_price * 100,
-        'wholesale_price'   => $wholesale_price * 100,
+        'position'          => (!empty($position) ? $position : 0),
+        'name'              => (!empty($name) ? $name : NULL),
+        'price'             => $price * 100,
+        'quantity'          => (isset($quantity)) ? $quantity : 0,
+        'package_type_id'   => $package_type,
+        'measurement'       => (!empty($measurement) && !empty($metric)) ? $measurement : 0,
+        'metric_id'         => (!empty($measurement) && !empty($metric)) ? $metric : 0,
     ]);
     
     if (!$updated) {

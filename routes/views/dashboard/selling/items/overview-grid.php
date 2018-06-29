@@ -20,11 +20,11 @@
 
         <div class="alerts"></div>
 
-        <div class="listings">
+        <div class="items">
         
         <?php
         
-        if ($listing_count > 0) {
+        if ($item_count > 0) {
         
             ?>
 
@@ -32,10 +32,10 @@
 
             <?php
 
-            foreach($listings as $listing) {
-                $FoodListing = new FoodListing([
+            foreach($items as $item) {
+                $Item = new Item([
                     'DB' => $DB,
-                    'id' => $listing['id']
+                    'id' => $item['id']
                 ]);
 
                 ?>
@@ -43,11 +43,11 @@
                 <div class="col-md-4">
                     <div class="card animated zoomIn">
                         <div class="card-img-top"> 
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $FoodListing->id; ?>">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $Item->id; ?>">
                                 <?php
                                 
-                                if (!empty($FoodListing->filename)) {
-                                    img(ENV . '/items/' . $FoodListing->filename, $FoodListing->ext, [
+                                if (!empty($Item->filename)) {
+                                    img(ENV . '/items/' . $Item->filename, $Item->ext, [
                                         'server'    => 'S3',
                                         'class'     => 'img-fluid animated fadeIn hidden'
                                     ]);
@@ -72,52 +72,52 @@
                         </div>
 
                         <div class="card-body d-flex flex-row">
-                            <div class="listing-info d-flex flex-column">
+                            <div class="item-info d-flex flex-column">
                                 <h4 class="card-title">
-                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $FoodListing->id; ?>">
-                                        <?= $FoodListing->title; ?>
+                                    <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $Item->id; ?>">
+                                        <?= $Item->title; ?>
                                     </a>
                                 </h4>
                                 
                                 <h6 class="card-subtitle">
-                                    <?= '$' . number_format($FoodListing->price / 100, 2) . (!empty($FoodListing->weight) && !empty($FoodListing->units) ? ' • $' . number_format(($FoodListing->price / $FoodListing->weight) / 100, 2) . '/' . $FoodListing->units : ''); ?>
+                                    <?= '$' . number_format($Item->price / 100, 2) . (!empty($Item->weight) && !empty($Item->units) ? ' • $' . number_format(($Item->price / $Item->weight) / 100, 2) . '/' . $Item->units : ''); ?>
                                 </h6>
 
                                 <p class="card-text">
                                     <?php
                                     
-                                    if (!$FoodListing->is_available) {
+                                    if (!$Item->is_available) {
                                         $niblet = 'bg-faded text-muted';
                                         $availability = 'text-muted';
                                     } else {
                                         $niblet = 'text-white';
                                         $availability = 'text-success';
 
-                                        if ($FoodListing->quantity == 0) {
+                                        if ($Item->quantity == 0) {
                                             $niblet .= ' bg-danger';
-                                        } else if ($FoodListing->quantity > 0 && $FoodListing->quantity < 6) {
+                                        } else if ($Item->quantity > 0 && $Item->quantity < 6) {
                                             $niblet .= ' bg-warning';
-                                        } else if ($FoodListing->quantity > 5) {
+                                        } else if ($Item->quantity > 5) {
                                             $niblet .= ' bg-success';
                                         }
                                     }
 
-                                    echo "<span class=\"quantity {$niblet}\">{$FoodListing->quantity}</span> in stock • <span class=\"{$availability}\">" . (($FoodListing->is_available) ? 'Available' : 'Unavailable') . "</span>";
+                                    echo "<span class=\"quantity {$niblet}\">{$Item->quantity}</span> in stock • <span class=\"{$availability}\">" . (($Item->is_available) ? 'Available' : 'Unavailable') . "</span>";
                                     
                                     ?>
                                 </p>
                             </div>
 
-                            <div class="listing-controls d-flex flex-column">
-                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit listing">
+                            <div class="item-controls d-flex flex-column">
+                                <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/edit?id=' . $Item->id; ?>" data-toggle="tooltip" data-placement="left" title="Edit item">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             
-                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $FoodListing->link; ?>" data-toggle="tooltip" data-placement="left" title="View listing">
+                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>" data-toggle="tooltip" data-placement="left" title="View item">
                                     <i class="fa fa-eye"></i>
                                 </a> 
                                 
-                                <a href="" class="remove-listing" data-id="<?= $FoodListing->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete listing">
+                                <a href="" class="remove-item" data-id="<?= $Item->id; ?>" data-toggle="tooltip" data-placement="left" title="Delete item">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>
@@ -140,7 +140,7 @@
             ?>
 
             <a href="<?= PUBLIC_ROOT . 'dashboard/selling/items/add-new'; ?>" class="btn btn-primary">
-                Let's go create your first listing!
+                Let's go create your first item!
             </a>
 
             <?php
