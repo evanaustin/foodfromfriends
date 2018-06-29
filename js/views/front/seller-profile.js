@@ -85,7 +85,7 @@ App.Front.SellerProfile = function() {
             var id = $(this).val();
             $card_body = $(this).parents('.card-body');
 
-            $card_body.find('.price').text(items[id].price);
+            $card_body.find('.price').html(items[id].price + (items[id].rate ? '&nbsp;<small class="light-gray">(' + items[id].rate + ')</small>' : ''));
             $card_body.find('.rating').html(items[id].rating);
             $card_body.find('.title').text(items[id].title);
             

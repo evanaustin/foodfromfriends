@@ -347,7 +347,7 @@
                                                                     <h5 class="price dark-gray heavy">
                                                                         <?= _amount($FirstOption->price) ?>
                                                                         
-                                                                        <?php if (!empty($FirstOption->measurement) && \Num::is_int($FirstOption->measurement)): ?>
+                                                                        <?php if (!empty($FirstOption->measurement) && is_numeric($FirstOption->measurement)): ?>
                                                                         
                                                                             <small class="light-gray">
                                                                                 (<?= _amount($FirstOption->price/$FirstOption->measurement) . "/{$FirstOption->metric}" ?>)

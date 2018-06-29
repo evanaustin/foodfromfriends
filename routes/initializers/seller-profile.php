@@ -142,11 +142,14 @@ if (isset($Routing->seller)) {
                     $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$ThisItem->id];
                 }
 
+                $rate = (!empty($ThisItem->measurement) && is_numeric($ThisItem->measurement)) ? _amount(($ThisItem->measurement >= 1) ? $ThisItem->price/$ThisItem->measurement : bcmul($ThisItem->price, $ThisItem->measurement)) . "/{$ThisItem->metric}" : 0;
+
                 $hashed_items[$raw_item['id']] = [
                     'price'     => _amount($ThisItem->price),
-                    'name'      => $ThisItem->title,
+                    'rate'      => $rate,
+                    'title'      => $ThisItem->title,
                     'quantity'  => $ThisItem->quantity,
-                    'rating'    => stars(!empty($ThisItem->rating) ? $ThisItem->rating : 0),
+                    'rating'    => stars(!empty($ThisItem->average_rating) ? $ThisItem->average_rating : 0),
                     'link'      => $ThisItem->link, 
                     'filename'  => $ThisItem->Image->filename, 
                     'ext'       => $ThisItem->Image->ext,
