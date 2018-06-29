@@ -112,18 +112,26 @@ class OrderItem extends Base {
             'id' => $this->item_id
         ]);
         
-        if (!$Item->quantity) {
-            $OrderGrower = new OrderGrower([
-                'DB' => $this->DB,
-                'id' => $this->order_grower_id
-            ]);
+        $OrderGrower = new OrderGrower([
+            'DB' => $this->DB,
+            'id' => $this->order_grower_id
+        ]);
 
-            $this->add([
-                'buyer_account_id'  => $OrderGrower->buyer_account_id,
-                'item_id'           => $this->item_id,
-            ], 'saved_items');
+        if (!$Item->quantity || isset($Item->archived_on)) {
+            if (!isset($Item->archived_on)) {
+                $this->add([
+                    'buyer_account_id'  => $OrderGrower->buyer_account_id,
+                    'item_id'           => $this->item_id,
+                ], 'saved_items');
+            }
+
+            $order_items = count($OrderGrower->Items);
 
             $this->delete();
+
+            if ($order_items == 1) {
+                $OrderGrower->delete();
+            }
         } else {
             $this->unit_price   = $Item->price;
             $this->measurement  = $Item->measurement;
