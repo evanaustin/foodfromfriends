@@ -180,7 +180,9 @@
                                         </div>
 
                                         <div>
-                                            <?= "{$SellerAccount->city}, {$SellerAccount->state}"; ?>
+                                            <?= $SellerAccount->address_line_1 . (($SellerAccount->address_line_2) ? ", {$SellerAccount->address_line_2}" : '') ?><br>
+                                            <?= "{$SellerAccount->city}, {$SellerAccount->state} {$SellerAccount->zipcode}" ?><br>
+                                            <?= $SellerAccount->Pickup->time ?>
                                         </div>
                                         
                                         <?php
