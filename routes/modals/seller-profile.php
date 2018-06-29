@@ -92,16 +92,22 @@
                             </div>
 
                             <div>
-                                <?= "{$Seller->city}, {$Seller->state}"; ?>
+                                <?= $Seller->address_line_1 . (($Seller->address_line_2) ? ", {$Seller->address_line_2}" : '') ?><br>
+                                <?= "{$Seller->city}, {$Seller->state} {$Seller->zipcode}" ?><br>
                             </div>
-                            
-                            <?php
-                            
-                            if (isset($distance, $distance['length']) && $distance['length'] > 0) {
-                                echo "<div>{$distance['length']} {$distance['units']} away</div>";
-                            }
 
-                            ?>
+                            <?php if (isset($Seller->Pickup->time)): ?>
+                            
+                                <div>
+                                    -
+                                </div>
+                                
+                                <div class="small">
+                                    <?= $Seller->Pickup->time ?>
+                                </div>
+
+                            <?php endif ?>
+
                         </div>
 
                     <?php endif; ?>
