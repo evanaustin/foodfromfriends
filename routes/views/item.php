@@ -182,16 +182,20 @@
                                         <div>
                                             <?= $SellerAccount->address_line_1 . (($SellerAccount->address_line_2) ? ", {$SellerAccount->address_line_2}" : '') ?><br>
                                             <?= "{$SellerAccount->city}, {$SellerAccount->state} {$SellerAccount->zipcode}" ?><br>
-                                            <?= $SellerAccount->Pickup->time ?>
                                         </div>
-                                        
-                                        <?php
-                                        
-                                        if (isset($distance, $distance['length']) && $distance['length'] > 0) {
-                                            echo "<div>{$distance['length']} {$distance['units']} away</div>";
-                                        }
 
-                                        ?>
+                                        <?php if (isset($SellerAccount->Pickup->time)): ?>
+                                        
+                                            <div>
+                                                -
+                                            </div>
+                                            
+                                            <div class="small">
+                                                <?= $SellerAccount->Pickup->time ?>
+                                            </div>
+
+                                        <?php endif ?>
+                                        
                                     </div>
 
                                 <?php endif; ?>
@@ -206,8 +210,19 @@
                                         <div>
                                             <?= $SellerAccount->Meetup->address_line_1 . (($SellerAccount->Meetup->address_line_2) ? ", {$SellerAccount->Meetup->address_line_2}" : '') ?><br>
                                             <?= "{$SellerAccount->Meetup->city}, {$SellerAccount->Meetup->state} {$SellerAccount->Meetup->zipcode}" ?><br>
-                                            <?= $SellerAccount->Meetup->time ?>
                                         </div>
+                                        
+                                        <?php if (isset($SellerAccount->Meetup->time)): ?>
+                                        
+                                            <div>
+                                                -
+                                            </div>
+                                            
+                                            <div class="small">
+                                                <?= $SellerAccount->Meetup->time ?>
+                                            </div>
+
+                                        <?php endif ?>
                                     </div>
 
                                 <?php endif; ?>
