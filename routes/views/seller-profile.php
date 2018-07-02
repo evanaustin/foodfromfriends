@@ -1,7 +1,7 @@
 <main>
     <div class="main container">
 
-        <?php if ((isset($Seller) && $Seller->is_active) || $is_owner): ?>
+        <?php if ((isset($Seller) && $Seller->is_active) || ($is_owner || (isset($User) && $User->id == 1))): ?>
 
             <?php if ($is_owner): ?>
 
