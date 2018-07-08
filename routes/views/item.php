@@ -435,11 +435,10 @@
                     <div class="available-exchange-options set">
                         <h4 class="margin-btm-50em">
                             Exchange options
-                            <light class="light-gray">(<?= count($exchange_options_available); ?>)</light>
                         </h4>
 
                         <div class="muted margin-btm-1em">
-                            Available options for getting your food
+                            Meetup locations or delivery options to get your food
                         </div>
                         
                         <?php if (!empty($exchange_options_available)): ?>
@@ -468,42 +467,32 @@
 
                             <?php endif; ?>
 
-                            <?php if ($SellerAccount->Pickup && $SellerAccount->Pickup->is_offered): ?>
+                            <?php if (!empty($meetups)): ?>
+                            
+                                <?php foreach ($meetups as $meetup): ?>
                                 
-                                <div class="callout">
-                                    <div class="muted font-18 thick">
-                                        Pickup
+                                    <div class="callout">
+                                        <div class="muted font-18 thick">
+                                            <i class="fa fa-map-signs" data-toggle="tooltip" data-title="Meet here at the time specified to pick up your order"></i>
+                                            <?= (!empty($meetup['title'])) ? $meetup['title'] : "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
+                                        </div>
+                                        
+                                        <div class="<?php if (empty($meetup['title'])) echo 'hidden' ?>">
+                                            <?= "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
+                                        </div>
+                                        
+                                        <div>
+                                            <?= "{$meetup['city']}, {$meetup['state']}" ?>
+                                        </div>
+                                        
+                                        <div>
+                                            <?= "{$meetup['day']} &bull; {$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
+                                        </div>
                                     </div>
+                            
+                                <?php endforeach ?>
 
-                                    <div>
-                                        <?= "{$SellerAccount->city}, {$SellerAccount->state}"; ?>
-                                    </div>
-                                    
-                                    <?php if (isset($distance, $distance['length']) && $distance['length'] > 0): ?>
-
-                                        <div><?= "{$distance['length']} {$distance['units']}" ?> away</div>
-
-                                    <?php endif; ?>
-
-                                </div>
-
-                            <?php endif; ?>
-                                
-                            <?php if ($SellerAccount->Meetup && $SellerAccount->Meetup->is_offered): ?>
-                                
-                                <div class="callout">
-                                    <div class="muted font-18 thick">
-                                        Meetup
-                                    </div>
-
-                                    <div>
-                                        <?= $SellerAccount->Meetup->address_line_1 . (($SellerAccount->Meetup->address_line_2) ? ", {$SellerAccount->Meetup->address_line_2}" : '') ?><br>
-                                        <?= "{$SellerAccount->Meetup->city}, {$SellerAccount->Meetup->state} {$SellerAccount->Meetup->zipcode}" ?><br>
-                                        <?= $SellerAccount->Meetup->time ?>
-                                    </div>
-                                </div>
-
-                            <?php endif; ?>
+                            <?php endif ?>
 
                         <?php else: ?>
 
