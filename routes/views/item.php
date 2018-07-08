@@ -1,6 +1,6 @@
 <main>
     <div class="main container">
-        
+
         <?php if (isset($Item->id) && !isset($Item->archived_on) && ($SellerAccount->is_active || ($is_owner || (isset($User) && $User->id == 1)))): ?>
 
             <?php if ($is_owner): ?>
@@ -230,7 +230,7 @@
 
                         <?php if (!empty($ratings) && count($ratings) > 0): ?>
 
-                            <div class="reviews set">
+                            <div class="reviews set d-none d-md-block">
                                 <h4 class="margin-btm-50em ">
                                     <bold class="dark-gray">Reviews</bold> 
                                     <light class="light-gray">(<?= count($ratings); ?>)</light>
@@ -299,7 +299,9 @@
                                     <?php if ($SellerAccount->is_active): ?>
 
                                         <div class="font-85 muted bold margin-btm-50em">
-                                            <?= $grower_stars?>
+                                            <span class="brand">
+                                                <?= $grower_stars?>
+                                            </span>
 
                                             &nbsp;&bull;&nbsp;
 
@@ -431,7 +433,6 @@
                 </div>
 
                 <div class="col-12 order-4 d-md-none">
-                    
                     <div class="available-exchange-options set">
                         <h4 class="margin-btm-50em">
                             Exchange options
@@ -593,7 +594,9 @@
                                 <?php if ($SellerAccount->is_active): ?>
 
                                     <div class="font-85 muted bold margin-btm-50em">
-                                        <?= $grower_stars?>
+                                        <span class="brand">
+                                            <?= $grower_stars?>
+                                        </span>
 
                                         &nbsp;&bull;&nbsp;
                                         
