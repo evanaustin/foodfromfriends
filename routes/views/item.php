@@ -132,26 +132,27 @@
                             <h4 class="margin-btm-50em">
                                 <bold class="dark-gray">Exchange options</bold>
 
-                                <?php if (!empty($exchange_options_available)): ?>
+                                <?php /* if (!empty($exchange_options_available)): ?>
                                 
                                     <light class="light-gray">
                                         (<?= count($exchange_options_available) ?>)
                                     </light>
                                 
-                                <?php endif; ?>
+                                <?php endif; */ ?>
 
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                Available options for getting your food
+                                Meetup locations or delivery options to get your food
                             </div>
-                            
+
                             <?php if (!empty($exchange_options_available)): ?>
 
                                 <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
 
                                     <div class="callout">
                                         <div class="muted font-18 thick">
+                                            <i class="fa fa-truck" data-toggle="tooltip" data-title="Request that your order be delivered right to you"></i>
                                             Delivery
                                         </div>
                                         
@@ -172,60 +173,32 @@
 
                                 <?php endif; ?>
 
-                                <?php if ($SellerAccount->Pickup && $SellerAccount->Pickup->is_offered): ?>
+                                <?php if (!empty($meetups)): ?>
+                            
+                                    <?php foreach ($meetups as $meetup): ?>
                                     
-                                    <div class="callout">
-                                        <div class="muted font-18 thick">
-                                            Pickup
-                                        </div>
-
-                                        <div>
-                                            <?= $SellerAccount->address_line_1 . (($SellerAccount->address_line_2) ? ", {$SellerAccount->address_line_2}" : '') ?><br>
-                                            <?= "{$SellerAccount->city}, {$SellerAccount->state} {$SellerAccount->zipcode}" ?><br>
-                                        </div>
-
-                                        <?php if (isset($SellerAccount->Pickup->time)): ?>
-                                        
-                                            <div>
-                                                -
+                                        <div class="callout">
+                                            <div class="muted font-18 thick">
+                                                <i class="fa fa-map-signs" data-toggle="tooltip" data-title="Meet here at the time specified to pick up your order"></i>
+                                                <?= (!empty($meetup['title'])) ? $meetup['title'] : "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
                                             </div>
                                             
-                                            <div class="small">
-                                                <?= $SellerAccount->Pickup->time ?>
-                                            </div>
-
-                                        <?php endif ?>
-                                        
-                                    </div>
-
-                                <?php endif; ?>
-                                    
-                                <?php if ($SellerAccount->Meetup && $SellerAccount->Meetup->is_offered): ?>
-                                    
-                                    <div class="callout">
-                                        <div class="muted font-18 thick">
-                                            Meetup
-                                        </div>
-
-                                        <div>
-                                            <?= $SellerAccount->Meetup->address_line_1 . (($SellerAccount->Meetup->address_line_2) ? ", {$SellerAccount->Meetup->address_line_2}" : '') ?><br>
-                                            <?= "{$SellerAccount->Meetup->city}, {$SellerAccount->Meetup->state} {$SellerAccount->Meetup->zipcode}" ?><br>
-                                        </div>
-                                        
-                                        <?php if (isset($SellerAccount->Meetup->time)): ?>
-                                        
-                                            <div>
-                                                -
+                                            <div class="<?php if (empty($meetup['title'])) echo 'hidden' ?>">
+                                                <?= "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
                                             </div>
                                             
-                                            <div class="small">
-                                                <?= $SellerAccount->Meetup->time ?>
+                                            <div>
+                                                <?= "{$meetup['city']}, {$meetup['state']}" ?>
                                             </div>
+                                            
+                                            <div>
+                                                <?= "{$meetup['day']} &bull; {$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
+                                            </div>
+                                        </div>
+                                
+                                    <?php endforeach ?>
 
-                                        <?php endif ?>
-                                    </div>
-
-                                <?php endif; ?>
+                                <?php endif ?>
 
                             <?php else: ?>
 
@@ -416,31 +389,25 @@
                                             Exchange option
                                         </label>
                                         
-                                        <?php if (!empty($exchange_options_available)): ?>
-
-                                            <div class="btn-group">
+                                        <select name="exchange" class="custom-select" data-parsley-trigger="change" required>
                                             
-                                                <?php foreach ($exchange_options_available as $option): ?>
+                                            <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
+
+                                                <option value="delivery" <?php if ($in_cart && $OrderGrower->Exchange->type == 'delivery') echo 'selected' ?>>
+                                                    Delivery
+                                                </option>
+
+                                            <?php endif ?>
+
+                                            <?php foreach ($meetups as $meetup): ?>
                                                 
-                                                    <button type="button" class="exchange-btn btn btn-light <?php if ($active_ex_op == $option) echo 'active' ?>" data-option="<?= $option ?>">
-                                                        <?= ucfirst($option) ?>
-                                                    </button>
-                                                
-                                                <?php endforeach; ?>
+                                                <option value="<?= $meetup['id'] ?>" <?php if ($in_cart && $OrderGrower->Exchange->type == $meetup['id']) echo 'selected' ?>>
+                                                    <?= 'Meetup: ' . ((!empty($meetup['title'])) ? $meetup['title'] : $meetup['address_line_1']) ?>
+                                                </option>
                                             
-                                            </div>
+                                            <?php endforeach ?>
 
-                                        <?php else: ?>
-
-                                            <div class="callout">
-                                                No exchange options available
-                                            </div>
-            
-                                        <?php endif; ?>
-
-                                        <div class="form-control-feedback hidden">
-                                            Please select an exchange type
-                                        </div>
+                                        </select>
                                     </div>
 
                                     <input type="submit" class="btn btn-block btn-<?= ($Item->quantity) ? 'cta' : 'danger' ?>" value="<?= (!$Item->quantity) ? 'Out of stock' : ($in_cart ? 'Update basket' : 'Add to basket') ?>" <?php if (!$SellerAccount->is_active || !$Item->quantity) echo 'disabled' ?>/>

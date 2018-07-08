@@ -8,7 +8,7 @@ App.Front.Item = function() {
         var ex = '.exchange.form-group' + ' ';
 
         // Toggle active exchange option
-        $('#update-cart .exchange-btn').on('click', function() {
+        /* $('#update-cart .exchange-btn').on('click', function() {
             // Trigger sign up first
             if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
@@ -36,7 +36,7 @@ App.Front.Item = function() {
             $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
             
             $(this).addClass('active');
-        });
+        }); */
 
 
         // Change package option
@@ -109,7 +109,7 @@ App.Front.Item = function() {
             }
 
             // Make sure exchange option is selected
-            $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
+            /* $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
             var exchange_option;
 
             if (!$active_ex_op) {
@@ -127,10 +127,10 @@ App.Front.Item = function() {
                     name: 'exchange-option', 
                     value: $active_ex_op.data('option')
                 });
-            }
+            } */
 
             // Make sure delivery address is set
-            if (exchange_option == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
+            if ($('input[name="exchange"]') == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
                 $('#edit-delivery-address').attr('data-action', 'update-cart');
                 $('#delivery-address-modal').modal('show');
                 return;

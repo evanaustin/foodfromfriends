@@ -87,14 +87,21 @@ if (isset($Routing->item_type)) {
             $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id], $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$Item->id]);
 
             if ($in_cart) {
+                $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id];
                 $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$Item->id];
             }
+
+            $meetups = $SellerAccount->retrieve([
+                'where' => [
+                    'grower_operation_id' => $SellerAccount->id
+                ],
+                'table' => 'meetups'
+            ]);
 
             $exchange_options_available = [];
     
             if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered)   $exchange_options_available []= 'delivery';
-            if ($SellerAccount->Pickup && $SellerAccount->Pickup->is_offered)       $exchange_options_available []= 'pickup';
-            if ($SellerAccount->Meetup && $SellerAccount->Meetup->is_offered)       $exchange_options_available []= 'meetup';
+            if ($meetups) $exchange_options_available []= 'meetup';
     
             $active_ex_op = (isset($User, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Exchange)) ? $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Exchange->type : null;
     
