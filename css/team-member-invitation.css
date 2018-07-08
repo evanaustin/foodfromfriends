@@ -6955,6 +6955,11 @@ canvas:focus {
   -moz-border-radius: 50px;
   border-radius: 50px; }
 
+.rating {
+  font-size: 0.75rem;
+  line-height: 2;
+  color: #00c079; }
+
 /* MARGIN */
 .no-margin, .margin-0 {
   margin: 0 !important; }

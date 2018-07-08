@@ -76,19 +76,6 @@ body.map {
                     padding-right: 5px;
                 }
                 
-                div.rating {
-                    padding: 0 3px;
-                    border: 1px solid #f0f0f0;
-                    background-color: #fff;
-                    font-size: 0.75em;
-                    color: #3FC592;
-                    @include rounded(5px);
-                    
-                    i {
-                        line-height: 18px;
-                    }
-                }
-                
                 .small-gray {
                     font-size: 12px;
                     color: #cbcbcb;

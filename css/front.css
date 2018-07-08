@@ -7142,17 +7142,6 @@ body.map {
         line-height: 18px; }
       body.map div.main .card .card-body div.name {
         padding-right: 5px; }
-      body.map div.main .card .card-body div.rating {
-        padding: 0 3px;
-        border: 1px solid #f0f0f0;
-        background-color: #fff;
-        font-size: 0.75em;
-        color: #3FC592;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px; }
-        body.map div.main .card .card-body div.rating i {
-          line-height: 18px; }
       body.map div.main .card .card-body .small-gray {
         font-size: 12px;
         color: #cbcbcb; }
