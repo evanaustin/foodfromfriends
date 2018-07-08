@@ -264,7 +264,7 @@ if (isset($_POST['images'])) {
     ], 'item_images');
 }
 
-$json['link'] = $User->GrowerOperation->link . $Item->link;
+$json['link'] = "{$User->GrowerOperation->link}/{$Item->link}";
 
 echo json_encode($json);
 

@@ -35,12 +35,20 @@ if (isset($Routing->item_type)) {
         }
 
         // Find seller's item that matches this subcategory
+        $where = [
+            'grower_operation_id' => $SellerAccount->id,
+            'is_wholesale' => $wholesale_relationship ? 1 : 0,
+        ];
+
+        if ($Routing->item_type == 'subcategory') {
+            $where['item_subcategory_id']   = $Routing->item_id;
+            $where['item_variety_id']       = 0;
+        } else if ($Routing->item_type == 'variety') {
+            $where['item_subcategory_id']   = $Routing->item_id;
+        }
+
         $items = $SellerAccount->retrieve([
-            'where' => [
-                'grower_operation_id' => $SellerAccount->id,
-                (($Routing->item_type == 'subcategory') ? 'item_subcategory_id' : 'item_variety_id') => $Routing->item_id,
-                'is_wholesale' => $wholesale_relationship ? 1 : 0,
-            ],
+            'where' => $where,
             'order' => 'quantity desc',
             'table' => 'items',
         ]);
