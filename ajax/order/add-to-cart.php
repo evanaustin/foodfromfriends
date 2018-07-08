@@ -138,12 +138,22 @@ if (isset($OrderGrower, $OrderGrower->Items[$Item->id])) {
  * Prepare JSON
  */
 
+if ($OrderGrower->Exchange->type != 'delivery') {
+    $meetup = $SellerAccount->retrieve([
+        'where' => [
+            'id' => $OrderGrower->Exchange->type
+        ],
+        'table' => 'meetups'
+    ]);
+    error_log(json_encode($meetup));
+}
+
 $json['ordergrower'] = [
     'id'		=> $OrderGrower->id,
     'grower_id'	=> $OrderGrower->grower_operation_id,
     'name'		=> $SellerAccount->name,
     'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
-    'exchange'	=> strtolower($OrderGrower->Exchange->type),
+    'exchange'	=> ($OrderGrower->Exchange->type != 'delivery') ? ((!empty($meetup[0]['title'])) ? $meetup[0]['title'] : $meetup[0]['address_line_1']) : 'Delivery',
     'ex_fee'	=> (($OrderGrower->Exchange->fee > 0) ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free')
 ];
 
