@@ -17,7 +17,7 @@ $Gump->validation_rules([
     'city'              => 'required|alpha_space|max_len,35',
     'state'             => 'required|regex,/^[a-zA-Z]{2}$/',
     'zipcode'           => 'required|regex,/^[0-9]{5}$/',
-    'title'             => 'alpha_numeric_space|max_len,100',
+    'title'             => 'regex,/^[a-zA-Z0-9\-\s]*$/|max_len,100',
     'day'               => 'required|max_len,9',
     'start-time'        => 'required|max_len,8',
     'end-time'          => 'required|max_len,8'
@@ -86,6 +86,7 @@ if (!$added) quit('We could not save your exchange location');
 $json['meetup'] = [
     'title'     => $title,
     'address'   => "{$address_line_1} {$address_line_2}, {$city}, {$state}",
+    'day'       => $day,
     'time'      => "{$start_time} &ndash; {$end_time}"
 ];
 
