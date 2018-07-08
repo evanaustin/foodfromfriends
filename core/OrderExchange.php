@@ -114,7 +114,6 @@ class OrderExchange extends Base {
                 $this->city           = $meetup[0]['city'];
                 $this->state          = $meetup[0]['state'];
                 $this->zipcode        = $meetup[0]['zipcode'];
-                $this->time           = "{$meetup[0]['day']} {$meetup[0]['start_time']} - {$meetup[0]['end_time']}";
         }
 
         $this->update([
@@ -122,7 +121,7 @@ class OrderExchange extends Base {
             'address_line_2'    => $this->address_line_2,
             'city'              => $this->city,
             'state'             => $this->state,
-            'zipcode'           => $this->zipcode,
+            'zipcode'           => $this->zipcode
         ]);
     }
 
@@ -175,22 +174,12 @@ class OrderExchange extends Base {
      * Given the exchange method selected for this grower in this order, set the time and instruction details.
      */
     private function set_details() {
-        if ($this->type == 'pickup') {
+        if ($this->type == 'meetup') {
+            $this->time = "{$meetup[0]['day']} {$meetup[0]['start_time']} - {$meetup[0]['end_time']}";
+
             $this->update([
-                'time'          => $this->Seller->Pickup->time,
-                'instructions'  => $this->Seller->Pickup->instructions
+                'time' => $this->time,
             ]);
-    
-            $this->time         = $this->Seller->Pickup->time;
-            $this->instructions = $this->Seller->Pickup->instructions;
-        } else if ($this->type == 'meetup') {
-            $this->update([
-                'time'          => $this->Seller->Meetup->time,
-                'instructions'  => $this->Seller->Meetup->instructions
-            ]);
-    
-            $this->time         = $this->Seller->Meetup->time;
-            $this->instructions = $this->Seller->Meetup->instructions;
         }
     }
 }
