@@ -100,22 +100,21 @@ class OrderExchange extends Base {
                 $this->zipcode        = $this->BuyerAccount->Address->zipcode;
 
                 break;
-            case 'pickup':
-                // use seller address
-                $this->address_line_1 = $this->Seller->address_line_1;
-                $this->address_line_2 = $this->Seller->address_line_2;
-                $this->city           = $this->Seller->city;
-                $this->state          = $this->Seller->state;
-                $this->zipcode        = $this->Seller->zipcode;
-
-                break;
-            case 'meetup':
+            default:
                 // use meetup address
-                $this->address_line_1 = $this->Seller->Meetup->address_line_1;
-                $this->address_line_2 = $this->Seller->Meetup->address_line_2;
-                $this->city           = $this->Seller->Meetup->city;
-                $this->state          = $this->Seller->Meetup->state;
-                $this->zipcode        = $this->Seller->Meetup->zipcode;
+                $meetup = $this->retrieve([
+                    'where' => [
+                        'id' => $this->type,
+                    ],
+                    'table' => 'meetups'
+                ]);
+
+                $this->address_line_1 = $meetup[0]['address_line_1'];
+                $this->address_line_2 = $meetup[0]['address_line_2'];
+                $this->city           = $meetup[0]['city'];
+                $this->state          = $meetup[0]['state'];
+                $this->zipcode        = $meetup[0]['zipcode'];
+                $this->time           = "{$meetup[0]['day']} {$meetup[0]['start_time']} - {$meetup[0]['end_time']}";
         }
 
         $this->update([

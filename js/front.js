@@ -211,7 +211,7 @@ App.Front = function() {
         // Update OrderGrower Exchange type
         $(document).on('change', '#cart .ordergrower-exchange', function(e) {
             var data = {
-                'grower-operation-id': $(this).parents('div.set').data('grower-operation-id'),
+                'seller-id': $(this).parents('div.set').data('grower-operation-id'),
                 'exchange-option': $(this).val()
             };
 
