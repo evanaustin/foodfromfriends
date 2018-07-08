@@ -13,7 +13,7 @@ $_POST = $Gump->sanitize($_POST);
 
 $Gump->validation_rules([
 	'seller-id' => 'required|integer',
-	'exchange-option'   => 'required|alpha'
+	'exchange-option' => 'required|regex,/^[a-zA-Z0-9]+$/'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -24,7 +24,7 @@ if ($validated_data === false) {
 
 $Gump->filter_rules([
 	'seller-id'	=> 'trim|sanitize_numbers',
-	'exchange-option'   => 'trim|sanitize_string'
+	'exchange-option' => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -48,9 +48,18 @@ try {
     
     $OrderGrower->Exchange->set_type($exchange_option);
 
+    if ($OrderGrower->Exchange->type != 'delivery') {
+        $meetups = $OrderGrower->retrieve([
+            'where' => [
+                'id' => $OrderGrower->Exchange->type
+            ],
+            'table' => 'meetups'
+        ]);
+    }
+
 	$json['ordergrower'] = [
 		'id'		=> $OrderGrower->id,
-		'exchange'	=> $OrderGrower->Exchange->type,
+		'exchange'	=> ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : $meetup[0]['address_line_1'],
 		'ex_fee'	=> ($OrderGrower->Exchange->fee > 0 ? _amount($OrderGrower->Exchange->fee) : 'Free'),
 	];
 

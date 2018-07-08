@@ -186,8 +186,7 @@
                         ],
                         'exchange-options' => [
                             'delivery',
-                            'pickup',
-                            'meetup'
+                            'meetups'
                         ],
                         'wholesale' => [
                             'buyers'

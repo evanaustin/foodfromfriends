@@ -89,16 +89,27 @@
                     <div class="line-amount">
                         <?php
 
+                        $meetups = $Grower->retrieve([
+                            'where' => [
+                                'grower_operation_id' => $Grower->id
+                            ],
+                            'table' => 'meetups'
+                        ]);
+
                         $exchange_options_available = [];
                             
                         if ($Grower->Delivery && $Grower->Delivery->is_offered)   $exchange_options_available []= 'delivery';
-                        if ($Grower->Pickup && $Grower->Pickup->is_offered)       $exchange_options_available []= 'pickup';
-                        if ($Grower->Meetup && $Grower->Meetup->is_offered)       $exchange_options_available []= 'meetup';
+                        // if ($Grower->Pickup && $Grower->Pickup->is_offered)       $exchange_options_available []= 'pickup';
+                        if ($meetups) $exchange_options_available []= 'meetup';
 
                         echo "<select class=\"custom-select ordergrower-exchange\" name=\"exchange\">";
                         
-                        foreach($exchange_options_available as $option) {
-                            echo "<option value=\"{$option}\" " . ($OrderGrower->Exchange->type == $option ? "selected" : "") . ">" . ucfirst($option) . "</option>";
+                        if ($Grower->Delivery && $Grower->Delivery->is_offered) {
+                            echo "<option value=\"delivery\" " . ($OrderGrower->Exchange->type == 'delivery' ? "selected" : "") . ">Delivery</option>";
+                        }
+
+                        foreach ($meetups as $meetup) {
+                            echo "<option value=\"{$meetup['id']}\" " . ($OrderGrower->Exchange->type == $meetup['id'] ? "selected" : "") . ">" . (!empty($meetup['title']) ? ucfirst($meetup['title']) : $meetup['address_line_1']) . "</option>";
                         }
                         
                         echo "</select>";

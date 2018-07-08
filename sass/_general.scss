@@ -181,6 +181,12 @@ canvas {
     @include rounded(50px);
 }
 
+.rating {
+    font-size: 0.75rem;
+    line-height: 2;
+    color: $primary;
+}
+
 
 
 /* MARGIN */

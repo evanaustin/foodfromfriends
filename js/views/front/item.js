@@ -8,7 +8,7 @@ App.Front.Item = function() {
         var ex = '.exchange.form-group' + ' ';
 
         // Toggle active exchange option
-        $('#update-cart .exchange-btn').on('click', function() {
+        /* $('#update-cart .exchange-btn').on('click', function() {
             // Trigger sign up first
             if (typeof user === 'undefined' || user.id === null) {
                 var $sign_up_modal = $('#sign-up-modal');
@@ -36,7 +36,7 @@ App.Front.Item = function() {
             $(ex + 'div.form-control-feedback').addClass('hidden').removeClass('danger');
             
             $(this).addClass('active');
-        });
+        }); */
 
 
         // Change package option
@@ -109,7 +109,7 @@ App.Front.Item = function() {
             }
 
             // Make sure exchange option is selected
-            $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
+            /* $active_ex_op = ($(ex + 'button.active').length) ? $(ex + 'button.active') : false;
             var exchange_option;
 
             if (!$active_ex_op) {
@@ -127,10 +127,10 @@ App.Front.Item = function() {
                     name: 'exchange-option', 
                     value: $active_ex_op.data('option')
                 });
-            }
+            } */
 
             // Make sure delivery address is set
-            if (exchange_option == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
+            if ($('input[name="exchange"]') == 'delivery' && (buyer_lat == false || buyer_lng == false)) {
                 $('#edit-delivery-address').attr('data-action', 'update-cart');
                 $('#delivery-address-modal').modal('show');
                 return;
@@ -199,20 +199,18 @@ App.Front.Item = function() {
                                     $cart_item.find('select').append($('<option>').attr('value', i).attr('selected', (i == response.orderitem.quantity) ).text(i));
                                 };
 
-                                var exchange_title = response.ordergrower.exchange.charAt(0).toUpperCase() + response.ordergrower.exchange.slice(1);
-
                                 if ($breakdown.children().length) {
-                                    $breakdown.find('.label.exchange').text(exchange_title);
+                                    $breakdown.find('.label.exchange').text(response.ordergrower.exchange);
                                     $breakdown.find('.rate.exchange-fee').text(response.ordergrower.ex_fee);
                                 } else {
                                     $breakdown.append(
                                         '<div class="line-amount">' +
                                             '<div class="label exchange">' +
-                                                exchange_title +
+                                                response.ordergrower.exchange +
                                             '</div>' +
                                             
                                             '<div class="rate exchange-fee">' +
-                                                ((response.ordergrower.exchange == 'delivery') ? response.ordergrower.ex_fee : 'Free') +
+                                                ((response.ordergrower.exchange == 'Delivery') ? response.ordergrower.ex_fee : 'Free') +
                                             '</div>' +
                                         '</div>'
                                     );

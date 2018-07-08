@@ -28,6 +28,15 @@ if (isset($Routing->seller)) {
             $joined_on->setTimezone(new DateTimeZone('America/New_York'));
         
 
+            // get Seller meetups
+            $meetups = $Seller->retrieve([
+                'where' => [
+                    'grower_operation_id' => $Seller->id
+                ],
+                'table' => 'meetups'
+            ]);
+
+
             // calculate delivery distance
             if (isset($User, $User->BuyerAccount, $User->BuyerAccount->Address, $User->BuyerAccount->Address->latitude, $User->BuyerAccount->Address->longitude)) {
                 $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$Seller->latitude},{$Seller->longitude}&key=" . GOOGLE_MAPS_KEY);
