@@ -93,10 +93,10 @@ App.Front.SellerProfile = function() {
 
             if (items[id].quantity > 0) {
                 $card_body.find('input[type="submit"]')
-                .removeClass('btn-light')
-                .addClass('btn-cta')
-                .val((items[id].in_cart ? 'Update item in basket' : 'Add to basket'))
-                .attr('disabled', false);
+                    .removeClass('btn-light')
+                    .addClass('btn-cta')
+                    .val((items[id].in_cart ? 'Update item in basket' : 'Add to basket'))
+                    .attr('disabled', false);
 
                 $card_body.find('.item-quantity')
                     .removeClass('hidden')
@@ -150,7 +150,7 @@ App.Front.SellerProfile = function() {
             }
 
             // Make sure exchange option is selected
-            if ($form.find('input[name="exchange-option"]').val() == '') {
+            if ($form.find('input[name="exchange"]').val() == '') {
                 $('#set-exchange-option').attr('data-action', $form.attr('id'));
                 $('#exchange-option-modal').modal('show');
                 return;
@@ -216,7 +216,7 @@ App.Front.SellerProfile = function() {
                         
                                             '<div class="item-details">' +
                                                 '<div class="item-price">' +
-                                                response.orderitem.subtotal +
+                                                    response.orderitem.subtotal +
                                                 '</div>' +
                                                 '<a class="remove-item">' +
                                                     '<i class="fa fa-times"></i>' +

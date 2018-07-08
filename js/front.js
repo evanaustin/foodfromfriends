@@ -64,7 +64,7 @@ App.Front = function() {
             App.Util.hideMsg();
             
             if ($('.exchange.bubble').hasClass('selected')) {
-                $('input[name="exchange-option"]').val($('.selected.exchange.bubble').data('exchange-option'));
+                $('input[name="exchange"]').val($('.selected.exchange.bubble').data('exchange'));
                 $('#exchange-option-modal').modal('hide');
                 $('form#' + $(this).data('action')).submit();
             } else {
