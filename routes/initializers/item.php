@@ -44,7 +44,7 @@ if (isset($Routing->item_type)) {
             $where['item_subcategory_id']   = $Routing->item_id;
             $where['item_variety_id']       = 0;
         } else if ($Routing->item_type == 'variety') {
-            $where['item_subcategory_id']   = $Routing->item_id;
+            $where['item_variety_id']   = $Routing->item_id;
         }
 
         $items = $SellerAccount->retrieve([
