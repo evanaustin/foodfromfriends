@@ -402,7 +402,7 @@
                                             <?php foreach ($meetups as $meetup): ?>
                                                 
                                                 <option value="<?= $meetup['id'] ?>" <?php if ($in_cart && $OrderGrower->Exchange->type == $meetup['id']) echo 'selected' ?>>
-                                                    <?= "{$meetup['day']} &bull; " . ((!empty($meetup['title'])) ? $meetup['title'] : $meetup['address_line_1']) ?>
+                                                    <?= ((!empty($meetup['title'])) ? $meetup['title'] : $meetup['address_line_1']) . " &bull; {$meetup['day']}"?>
                                                 </option>
                                             
                                             <?php endforeach ?>
