@@ -169,7 +169,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                <?= ucfirst($OrderGrower->Exchange->type); ?>
+                                <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
                             </div>
 
                             <div class="descriptor">
@@ -180,7 +180,8 @@
                         <div id="exchange-info" class="block animated zoomIn">
                             <div class="callout">
                                 <h6>
-                                    <?= $OrderGrower->Exchange->type; ?> location
+                                    <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
+                                    location
                                 </h6>
                                 
                                 <p>

@@ -73,7 +73,7 @@
                                 </td>
                                 
                                 <td class="exchange-type">
-                                    <?= ucfirst($OrderGrower->Exchange->type); ?>
+                                    <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
                                 </td>
                                 
                                 <td class="buyer">

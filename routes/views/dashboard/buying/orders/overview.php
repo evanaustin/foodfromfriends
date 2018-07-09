@@ -36,11 +36,7 @@
             </div>
         </div>
 
-        <?php
-
-        if (isset($placed) && ($placed != false) && count($placed) > 0) {
-
-            ?>
+        <?php if (isset($placed) && ($placed != false) && count($placed) > 0): ?>
 
             <hr>
 
@@ -48,16 +44,16 @@
 
             <ledger class="orders">
 
-                <?php
+                <?php $i = 1 ?>
 
-                $i = 1;
+                <?php foreach ($placed as $order): ?>
 
-                foreach ($placed as $order) {
-
-                    $Order = new Order([
+                    <?php $Order = new Order([
                         'DB' => $DB,
                         'id' => $order['id']
-                    ]);
+                    ]) ?>
+
+                    <?php
 
                     $seller_count = count($Order->Growers);
 
@@ -101,10 +97,9 @@
                     
                         <ledger class="collapse <?= ($i == 1) ? 'show' : ''; ?>" id="order-<?= $Order->id;?>">
 
-                            <?php
+                            <?php foreach ($Order->Growers as $OrderGrower): ?>
 
-                            foreach ($Order->Growers as $OrderGrower) {
-                                $ThisGrowerOperation = new GrowerOperation([
+                                <?php $ThisGrowerOperation = new GrowerOperation([
                                     'DB' => $DB,
                                     'id' => $OrderGrower->grower_operation_id
                                 ],[
@@ -193,9 +188,7 @@
                                         'message',
                                         'view receipt'
                                     ];
-                                }
-
-                                ?>
+                                } ?>
                                 
                                 <div class="closed record animated fadeIn">
                                     <div class="<?= $tab_highlight; ?>" data-toggle="collapse" data-target="#suborder-<?= $OrderGrower->id;?>" aria-controls="suborder-<?= $OrderGrower->id ;?>" aria-label="Toggle suborder"></div>
@@ -220,26 +213,32 @@
                                         </cell>
 
                                         <cell class="justify-center d-block d-md-flex align-center d-align-left">
-                                            <h6><?= $status; ?></h6>
+                                            <h6>
+                                                <?= $status ?>
+                                            </h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-none d-md-flex">
-                                            <h6><?= "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?></h6>
+                                            <h6>
+                                                <?= "<strong>{$item_count}</strong> item" . (($item_count > 1) ? 's' : ''); ?>
+                                            </h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-none d-md-flex">
-                                            <h6><?= ucfirst($OrderGrower->Exchange->type); ?></h6>
+                                            <h6>
+                                                <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
+                                            </h6>
                                         </cell>
                                         
                                         <cell class="justify-center d-block d-md-flex align-center d-align-left">
-                                            <h6 class="bold"><?php amount($OrderGrower->total); ?></h6>
+                                            <h6 class="bold">
+                                                <?php amount($OrderGrower->total) ?>
+                                            </h6>
                                         </cell>
 
                                         <cell class="actions flexgrow-0">
 
-                                            <?php
-                                            
-                                            foreach ($actions as $action) {
+                                            <?php foreach ($actions as $action) {
                                                 switch($action) {
                                                     case 'message':
                                                         echo '<a href="' . PUBLIC_ROOT . 'dashboard/buying/messages/thread?seller=' . $ThisGrowerOperation->id . '" class="btn btn-muted" data-toggle="tooltip" data-placement="left" data-title="Message seller"><i class="fa fa-envelope"></i></a>';
@@ -257,24 +256,19 @@
                                                         echo '<a class="cancel-order btn btn-danger" data-toggle="tooltip" data-placement="left" data-title="Cancel order" data-ordergrower-id="' . $OrderGrower->id .'"><i class="fa fa-times"></i></a>';
                                                         break;
                                                 }
-                                            }
-                                            
-                                            ?>
+                                            } ?>
 
                                         </cell>
                                     </fable>
                                     
                                     <div class="collapse" id="suborder-<?= $OrderGrower->id;?>">
-                                        <?php
+                                        
+                                        <?php foreach ($OrderGrower->Items as $OrderItem): ?>
 
-                                        foreach ($OrderGrower->Items as $OrderItem) {
-
-                                            $ThisItem = new Item([
+                                            <?php $ThisItem = new Item([
                                                 'DB' => $DB,
                                                 'id' => $OrderItem->item_id
-                                            ]);
-
-                                            ?>
+                                            ]) ?>
 
                                             <div class="item card-alt animated fadeIn">
                                                 <div class="item-image">
@@ -288,7 +282,11 @@
                                                         </a>
 
                                                         <span class="float-right">
-                                                            <small>x</small> <?= $OrderItem->quantity; ?>
+                                                            <small>
+                                                                x
+                                                            </small>
+
+                                                            <?= $OrderItem->quantity; ?>
                                                         </span>
                                                     </h6>
                                                     
@@ -302,27 +300,25 @@
                                                 </div>
                                             </div>
                             
-                                            <?php
-
-                                        }
-
-                                        ?>
+                                        <?php endforeach ?>
                                     
                                         <fable>
                                             <cell class="bold">
-                                                <?= ucfirst($OrderGrower->Exchange->type); ?> details
+                                                <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?> details
                                             </cell>
                                             
                                             <cell class="justify-end bold">
-                                                <?php
-                            
-                                                if ($OrderGrower->Exchange->type == 'delivery') {
-                                                    amount($OrderGrower->Exchange->fee);
-                                                } else {
-                                                    echo 'Free';
-                                                }
                                                 
-                                                ?>
+                                                <?php if ($OrderGrower->Exchange->type == 'delivery'): ?>
+                                                    
+                                                    <?= _amount($OrderGrower->Exchange->fee) ?>
+                                                
+                                                <?php else: ?>
+                                                    
+                                                    Free
+
+                                                <?php endif ?>
+
                                             </cell>
                                         </fable>
 
@@ -332,14 +328,11 @@
                                             </h6>
                                             
                                             <p>
-                                                <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ' ' . $OrderGrower->Exchange->address_line_2 : '') . ', '. $OrderGrower->Exchange->city . ' ' . $OrderGrower->Exchange->state . ' ' . $OrderGrower->Exchange->zipcode; ?>
+                                                <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? " {$OrderGrower->Exchange->address_line_2}" : '') . ", {$OrderGrower->Exchange->city} {$OrderGrower->Exchange->state} {$OrderGrower->Exchange->zipcode}" ?>
                                             </p>
                                         </div>
 
-                                        <?php
-
-                                        if ($OrderGrower->Exchange->type != 'delivery') {
-                                            ?>
+                                        <?php if ($OrderGrower->Exchange->type != 'delivery'): ?>
 
                                             <div class="callout">
                                                 <h6>
@@ -347,58 +340,33 @@
                                                 </h6>
 
                                                 <p>
-                                                    <?= $OrderGrower->Exchange->time; ?>
+                                                    <?= $OrderGrower->Exchange->time ?>
                                                 </p>
                                             </div>
 
-                                            <div class="callout">
-                                                <h6>
-                                                    Instructions
-                                                </h6>
+                                        <?php endif ?>
 
-                                                <p>
-                                                    <?= $OrderGrower->Exchange->instructions; ?>
-                                                </p>
-                                            </div>
-
-                                            <?php
-                                        }
-
-                                        ?>
                                     </div>
                                 </div>
                 
-                                <?php
-
-                            }
-
-                            ?>
+                            <?php endforeach ?>
 
                         </ledger>
                     </div>
 
-                    <?php
+                    <?php $i++ ?>
 
-                    $i++;
-
-                }
-
-                ?>
+                <?php endforeach ?>
 
             </ledger>
 
-            <?php
-
-        } else {
-            ?>
+        <?php else: ?>
             
             <div class="block margin-top-1em strong">
                 You don't have any placed orders
             </div>
 
-            <?php
-        }
+        <?php endif ?>
 
-        ?>
     </div>
 </main>
