@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input type="hidden" id="ordergrower-id" value="<?= $OrderGrower->id; ?>">
+                    <input type="hidden" id="ordergrower-id" value="<?= $OrderGrower->id ?>">
 
                     <div class="controls">
                         <button id="confirm-order" class="btn btn-success">
@@ -57,7 +57,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= "{$day_placed} at {$time_placed}"; ?>
+                                    <?= "{$day_placed} at {$time_placed}" ?>
                                 </p>
                             </div>
 
@@ -67,7 +67,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <span class="warning"><?= $time_until['full']; ?></span>
+                                    <span class="warning"><?= $time_until['full'] ?></span>
                                 </p>
                             </div>
 
@@ -118,7 +118,7 @@
                                 <?php $Item = new Item([
                                     'DB' => $DB,
                                     'id' => $OrderItem->item_id
-                                ]); ?>
+                                ]) ?>
                                 
                                 <div class="item card-alt margin-top-1em animated zoomIn">
                                     <div class="item-image">
@@ -136,12 +136,12 @@
                                                     x
                                                 </small>
 
-                                                <?= $OrderItem->quantity; ?>
+                                                <?= $OrderItem->quantity ?>
                                             </span>
                                         </h6>
                                         
                                         <small class="light-gray">
-                                            <?= $OrderItem->package_metric_title ?>
+                                            <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                             
                                             <span class="float-right">
                                                 <?= _($OrderItem->total) ?>
