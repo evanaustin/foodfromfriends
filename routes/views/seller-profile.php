@@ -96,41 +96,19 @@
 
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$Seller->Pickup || !$Seller->Pickup->is_offered) echo 'inactive' ?>">
-                                                Pickup
-                                            </cell>
-                                        
-                                            <cell class="flexend">
-
-                                                <?php if ($Seller->Pickup && $Seller->Pickup->is_offered): ?>
-                                                    
-                                                    <i class="fa fa-check"></i>
-
-                                                <?php else: ?>
-
-                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/pickup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
-                                                
-                                                <?php endif ?>
-
-                                            </cell>
-                                        </fable>
-                                    </li>
-
-                                    <li class="list-group-item sub">
-                                        <fable>
-                                            <cell class="<?php if (!$Seller->Meetup || !$Seller->Meetup->is_offered) echo 'inactive' ?>">
+                                            <cell class="<?php if (empty($meetups)) echo 'inactive' ?>">
                                                 Meetup
                                             </cell>
                                             
                                             <cell class="justify-content-end">
 
-                                                <?php if ($Seller->Meetup && $Seller->Meetup->is_offered): ?>
+                                                <?php if (!empty($meetups)): ?>
                                                     
                                                     <i class="fa fa-check"></i>
 
                                                 <?php else: ?>
 
-                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetup" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
+                                                    <?= ($is_owner) ? '<a href="' . PUBLIC_ROOT . 'dashboard/selling/exchange-options/meetups" class="btn btn-cta btn-block">Enable</a>' : '<i class="fa fa-times"></i>' ?>
                                                 
                                                 <?php endif ?>
 
@@ -342,28 +320,23 @@
                                                         </div>
 
                                                         <div class="card-body d-flex flex-column">
-                                                            <fable class="card-title margin-btm-50em">
-                                                                <cell>
-                                                                    <h5 class="price dark-gray heavy">
-                                                                        <?= _amount($FirstOption->price) ?>
-                                                                        
-                                                                        <?php if (!empty($FirstOption->measurement) && is_numeric($FirstOption->measurement)): ?>
-                                                                        
-                                                                            <small class="light-gray">
-                                                                                (<?= _amount($FirstOption->price/$FirstOption->measurement) . "/{$FirstOption->metric}" ?>)
-                                                                            </small>
-                                                                        
-                                                                        <?php endif ?>
+                                                            <div class="card-title margin-btm-50em">
+                                                                <h5 class="price dark-gray heavy">
+                                                                    <?= _amount($FirstOption->price) ?>
+                                                                    
+                                                                    <?php if (!empty($FirstOption->measurement) && is_numeric($FirstOption->measurement)): ?>
+                                                                    
+                                                                        <small class="light-gray">
+                                                                            (<?= _amount($FirstOption->price/$FirstOption->measurement) . "/{$FirstOption->metric}" ?>)
+                                                                        </small>
+                                                                    
+                                                                    <?php endif ?>
 
-                                                                    </h5>
-                                                                </cell>
-
-                                                                <cell class="justify-content-end">
-                                                                    <span class="rating small brand">
+                                                                    <small class="rating float-right">
                                                                         <?= stars($FirstOption->average_rating) ?>
-                                                                    </span>
-                                                                </cell>
-                                                            </fable>
+                                                                    </small>
+                                                                </h5>
+                                                            </div>
 
                                                             <div class="title muted margin-btm-50em">
                                                                 <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
@@ -381,7 +354,7 @@
 
                                                             <form id="quick-add-<?= $FirstOption->id ?>" class="quick-add">
                                                                 <input type="hidden" name="seller-id"       value="<?= $Seller->id ?>"/>
-                                                                <input type="hidden" name="exchange-option" value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
+                                                                <input type="hidden" name="exchange"        value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
                                                                 <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
                                                                 <div class="form-group">

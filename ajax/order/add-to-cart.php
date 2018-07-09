@@ -16,7 +16,7 @@ $Gump->validation_rules([
     'seller-id'         => 'required|integer',
     'item-id'           => 'required|integer',
     'quantity'			=> 'required|integer',
-    'exchange-option'   => 'required|alpha',
+    'exchange'          => 'required|regex,/^[a-zA-Z0-9]+$/',
     'distance-miles'    => 'numeric'
 ]);
 
@@ -30,7 +30,7 @@ $Gump->filter_rules([
 	'seller-id'         => 'trim|sanitize_numbers',
 	'item-id'	        => 'trim|sanitize_numbers',
     'quantity'			=> 'trim|sanitize_numbers',
-    'exchange-option'	=> 'trim|sanitize_string',
+    'exchange'	        => 'trim|sanitize_string',
     'distance-miles'    => 'trim|sanitize_string'
 ]);
 
@@ -73,7 +73,7 @@ if ($Item->grower_operation_id != $SellerAccount->id) {
  * Handle delivery exchange selection
  */
 
-if ($exchange_option  == 'delivery') {
+if ($exchange  == 'delivery') {
 
     // ensure User:BuyerAccount:Address is set
     if (!isset($User->BuyerAccount->Address->latitude) || !isset($User->BuyerAccount->Address->longitude)) {
@@ -104,8 +104,8 @@ $Order = $Order->get_cart($User->BuyerAccount->id);
 if (isset($Order->Growers[$SellerAccount->id])) {
     $OrderGrower = $Order->Growers[$SellerAccount->id];
     
-    if ($OrderGrower->Exchange->type != $exchange_option) {
-        $OrderGrower->Exchange->set_type($exchange_option);
+    if ($OrderGrower->Exchange->exchange != $exchange) {
+        $OrderGrower->Exchange->set_type($exchange);
         $json['set_exchange'] = true;
     }
 }
@@ -125,7 +125,7 @@ if (isset($OrderGrower, $OrderGrower->Items[$Item->id])) {
         quit('This item is already in your basket - nothing to update');
     }
 } else {
-    $Order->add_to_cart($SellerAccount, $exchange_option, $Item->id, $quantity);
+    $Order->add_to_cart($SellerAccount, $exchange, $Item->id, $quantity);
     
     $OrderGrower = $Order->Growers[$SellerAccount->id];
     $OrderItem = $OrderGrower->Items[$Item->id];
@@ -138,12 +138,22 @@ if (isset($OrderGrower, $OrderGrower->Items[$Item->id])) {
  * Prepare JSON
  */
 
+if ($OrderGrower->Exchange->type != 'delivery') {
+    $meetup = $SellerAccount->retrieve([
+        'where' => [
+            'id' => $OrderGrower->Exchange->type
+        ],
+        'table' => 'meetups'
+    ]);
+    error_log(json_encode($meetup));
+}
+
 $json['ordergrower'] = [
     'id'		=> $OrderGrower->id,
     'grower_id'	=> $OrderGrower->grower_operation_id,
     'name'		=> $SellerAccount->name,
     'subtotal'	=> '$' . number_format($OrderGrower->total / 100, 2),
-    'exchange'	=> strtolower($OrderGrower->Exchange->type),
+    'exchange'	=> ($OrderGrower->Exchange->type != 'delivery') ? ((!empty($meetup[0]['title'])) ? $meetup[0]['title'] : $meetup[0]['address_line_1']) : 'Delivery',
     'ex_fee'	=> (($OrderGrower->Exchange->fee > 0) ? '$' . number_format($OrderGrower->Exchange->fee / 100, 2) : 'Free')
 ];
 

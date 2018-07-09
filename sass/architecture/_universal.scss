@@ -52,7 +52,7 @@ p {
     z-index: $super-z;
     margin-top: 0.75rem;
     border-color: $edge-color;
-    @include drop-shadow(0, 1px, 3px);
+    @include drop-shadow(0, 10px, 20px);
 }
 
 .dropdown:not(.account-link) {
@@ -100,4 +100,54 @@ p {
     bottom: 0;
     width: 100%;
     height: 100%;
+}
+
+.bootstrap-timepicker-widget {
+    &.dropdown-menu {
+        &:before, &:after {
+            border: 0px;
+        }
+    }
+
+    table td {
+        input {
+            width: 30px;
+            background-color: $superlight-gray;
+            border: 0px;
+            font-weight: 300;
+            color: $muted;
+
+            @include drop-shadow(0, 0, 0);
+            @include rounded($radius);
+            @include transition(all .2s);
+
+            &:focus, &.focused {
+                outline: none;
+                border-color: $lightedge-color;
+                color: $superlight-green;
+                @include transform(translateY(-1px));
+                @include drop-shadow(0, 5px, 10px);
+
+                input, span {
+                    color: $superlight-green;
+                }
+            }
+        }
+
+        a {
+            &:hover {
+                background-color: $primary;
+                border: 0px;
+
+                span.fa {
+                    color: #fff;
+                }
+            }
+
+            span.fa {
+                color: $muted;
+                font-size: 0.85rem;
+            }
+        }
+    }
 }

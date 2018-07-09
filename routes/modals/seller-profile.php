@@ -44,7 +44,7 @@
 
                         <?php $in_range = (isset($distance_miles) && $distance_miles <= $Seller->Delivery->distance); ?>
                         
-                        <div class="exchange callout bubble <?php if (!$in_range) echo 'danger disabled' ?>" data-exchange-option="delivery">
+                        <div class="exchange callout bubble <?php if (!$in_range) echo 'danger disabled' ?>" data-exchange="delivery">
                             <div class="muted font-18 thick">
                                 Delivery
                             </div>
@@ -84,35 +84,7 @@
 
                     <?php endif; ?>
 
-                    <?php if ($Seller->Pickup && $Seller->Pickup->is_offered): ?>
-                        
-                        <div class="exchange callout bubble" data-exchange-option="pickup">
-                            <div class="muted font-18 thick">
-                                Pickup
-                            </div>
-
-                            <div>
-                                <?= $Seller->address_line_1 . (($Seller->address_line_2) ? ", {$Seller->address_line_2}" : '') ?><br>
-                                <?= "{$Seller->city}, {$Seller->state} {$Seller->zipcode}" ?><br>
-                            </div>
-
-                            <?php if (isset($Seller->Pickup->time)): ?>
-                            
-                                <div>
-                                    -
-                                </div>
-                                
-                                <div class="small">
-                                    <?= $Seller->Pickup->time ?>
-                                </div>
-
-                            <?php endif ?>
-
-                        </div>
-
-                    <?php endif; ?>
-
-                    <?php if ($Seller->Meetup && $Seller->Meetup->is_offered): ?>
+                    <?php /* if ($Seller->Meetup && $Seller->Meetup->is_offered): ?>
                         
                         <div class="exchange callout bubble" data-exchange-option="meetup">
                             <div class="muted font-18 thick">
@@ -126,7 +98,34 @@
                             </div>
                         </div>
 
-                    <?php endif; ?>
+                    <?php endif; */ ?>
+
+                    <?php if (!empty($meetups)): ?>
+                            
+                        <?php foreach ($meetups as $meetup): ?>
+                        
+                            <div class="exchange callout bubble" data-exchange="<?= $meetup['id'] ?>">
+                                <div class="muted font-18 thick">
+                                    <i class="fa fa-map-signs" data-toggle="tooltip" data-title="Meet here at the time specified to pick up your order"></i>
+                                    <?= (!empty($meetup['title'])) ? $meetup['title'] : "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
+                                </div>
+                                
+                                <div class="<?php if (empty($meetup['title'])) echo 'hidden' ?>">
+                                    <?= "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
+                                </div>
+                                
+                                <div>
+                                    <?= "{$meetup['city']}, {$meetup['state']}" ?>
+                                </div>
+                                
+                                <div>
+                                    <?= "{$meetup['day']} &bull; {$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
+                                </div>
+                            </div>
+                    
+                        <?php endforeach ?>
+
+                    <?php endif ?>
                     
                     <button type="submit" class="btn btn-block btn-primary">
                         Save <i class="post fa fa-gear loading-icon"></i>

@@ -9,6 +9,7 @@
   "dependencies": {
     "autosize": "^4.0.0",
     "bootbox": "^4.4.0",
+    "bootstrap-timepicker": "^0.5.2",
     "imagesloaded": "^4.1.4",
     "jquery": "^3.3.1",
     "jquery.ui.widget": "^1.10.3",

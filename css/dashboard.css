@@ -6552,9 +6552,9 @@ p a {
   z-index: 999;
   margin-top: 0.75rem;
   border-color: #f5f5f5;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
 
 .dropdown:not(.account-link) .dropdown-item {
   font-size: 0.85rem;
@@ -6581,6 +6581,44 @@ p a {
   bottom: 0;
   width: 100%;
   height: 100%; }
+
+.bootstrap-timepicker-widget.dropdown-menu:before, .bootstrap-timepicker-widget.dropdown-menu:after {
+  border: 0px; }
+.bootstrap-timepicker-widget table td input {
+  width: 30px;
+  background-color: #fafafb;
+  border: 0px;
+  font-weight: 300;
+  color: #636c72;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s; }
+  .bootstrap-timepicker-widget table td input:focus, .bootstrap-timepicker-widget table td input.focused {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.025);
+    color: #00c079;
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+    transform: translateY(-1px);
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }
+    .bootstrap-timepicker-widget table td input:focus input, .bootstrap-timepicker-widget table td input:focus span, .bootstrap-timepicker-widget table td input.focused input, .bootstrap-timepicker-widget table td input.focused span {
+      color: #00c079; }
+.bootstrap-timepicker-widget table td a:hover {
+  background-color: #00c079;
+  border: 0px; }
+  .bootstrap-timepicker-widget table td a:hover span.fa {
+    color: #fff; }
+.bootstrap-timepicker-widget table td a span.fa {
+  color: #636c72;
+  font-size: 0.85rem; }
 
 body.dashboard {
   display: flex;

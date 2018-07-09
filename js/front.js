@@ -64,7 +64,7 @@ App.Front = function() {
             App.Util.hideMsg();
             
             if ($('.exchange.bubble').hasClass('selected')) {
-                $('input[name="exchange-option"]').val($('.selected.exchange.bubble').data('exchange-option'));
+                $('input[name="exchange"]').val($('.selected.exchange.bubble').data('exchange'));
                 $('#exchange-option-modal').modal('hide');
                 $('form#' + $(this).data('action')).submit();
             } else {
@@ -211,7 +211,7 @@ App.Front = function() {
         // Update OrderGrower Exchange type
         $(document).on('change', '#cart .ordergrower-exchange', function(e) {
             var data = {
-                'grower-operation-id': $(this).parents('div.set').data('grower-operation-id'),
+                'seller-id': $(this).parents('div.set').data('grower-operation-id'),
                 'exchange-option': $(this).val()
             };
 
