@@ -161,7 +161,7 @@
 
                                         <?php if ($SellerAccount->Delivery->delivery_type == 'conditional'): ?>
                                             
-                                            <div>Free delivery within: {$SellerAccount->Delivery->free_distance} miles</div>";
+                                            <div>Free delivery within: <?= $SellerAccount->Delivery->free_distance ?> miles</div>
 
                                         <?php endif; ?>
 
