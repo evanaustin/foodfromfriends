@@ -134,15 +134,17 @@ class OrderItem extends Base {
             }
         } else {
             $this->unit_price   = $Item->price;
+            $this->package_type_id = $Item->package_type_id;
             $this->measurement  = $Item->measurement;
             $this->metric_id    = $Item->metric_id;
             $this->total        = $this->quantity * $Item->price;
     
             $this->update([
                 'unit_price'    => $this->unit_price,
+                'package_type_id' => $this->package_type_id,
                 'measurement'   => $this->measurement,
                 'metric_id'     => $this->metric_id,
-                'total'         => $this->total,
+                'total'         => $this->total
             ]);
         }
     }
