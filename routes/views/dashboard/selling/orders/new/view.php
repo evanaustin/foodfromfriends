@@ -1,15 +1,12 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
         
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->days < 1 && $OrderGrower->Status->current == 'not yet confirmed') {
-
-            ?>
+        <?php if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $time_elapsed['diff']->days < 1 && $OrderGrower->Status->current == 'not yet confirmed'): ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        New order <span class="text-muted">(ID: <?= "{$Order->id}0{$OrderGrower->id}"; ?>)</span>
+                        New order <span class="text-muted">(ID: <?= "{$Order->id}0{$OrderGrower->id}" ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
@@ -45,7 +42,7 @@
                     <div class="col-md-4">
                         <div id="order-total" class="block animated zoomIn">
                             <div class="value">
-                                <?php amount($OrderGrower->total); ?>
+                                <?= _amount($OrderGrower->total) ?>
                             </div>
 
                             <div class="descriptor">
@@ -88,7 +85,7 @@
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">
-                                        <?= $BuyerAccount->name; ?>
+                                        <?= $BuyerAccount->name ?>
                                     </h5>
 
                                     <small>
@@ -106,7 +103,7 @@
                     <div class="col-md-4">
                         <div id="items-sold" class="block animated zoomIn">
                             <div class="value">
-                                <?= $items_sold; ?>
+                                <?= $items_sold ?>
                             </div>
 
                             <div class="descriptor">
@@ -131,11 +128,15 @@
                                     <div class="card-body">
                                         <h6 class="strong">
                                             <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>">
-                                                <?= ucfirst($Item->title); ?>
+                                                <?= ucfirst($Item->title) ?>
                                             </a>
 
                                             <span class="float-right">
-                                                <small>x</small> <?= $OrderItem->quantity; ?>
+                                                <small>
+                                                    x
+                                                </small>
+
+                                                <?= $OrderItem->quantity; ?>
                                             </span>
                                         </h6>
                                         
@@ -143,7 +144,7 @@
                                             <?= $OrderItem->package_metric_title ?>
                                             
                                             <span class="float-right">
-                                                <?php amount($OrderItem->total); ?>
+                                                <?= _($OrderItem->total) ?>
                                             </span>
                                         </small>
                                     </div>
@@ -156,7 +157,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                <?= ucfirst($OrderGrower->Exchange->type); ?>
+                                <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
                             </div>
 
                             <div class="descriptor">
@@ -167,11 +168,12 @@
                         <div id="exchange-info" class="block animated zoomIn">
                             <div class="callout">
                                 <h6>
-                                    <?= $OrderGrower->Exchange->type ?> location
+                                    <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
+                                    location
                                 </h6>
                                 
                                 <p>
-                                    <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ', ' . $OrderGrower->Exchange->address_line_2 : ''); ?>
+                                    <?= $OrderGrower->Exchange->address_line_1 . (($OrderGrower->Exchange->address_line_2) ? ", {$OrderGrower->Exchange->address_line_2}" : ''); ?>
                                 </p>
 
                                 <p>
@@ -179,11 +181,7 @@
                                 </p>
                             </div>
 
-                            <?php
-
-                            if ($OrderGrower->Exchange->type == 'delivery') {
-                            
-                                ?>
+                            <?php if ($OrderGrower->Exchange->type == 'delivery'): ?>
                                 
                                 <div class="callout">
                                     <h6>
@@ -191,7 +189,8 @@
                                     </h6>
 
                                     <p>
-                                        <?= $OrderGrower->Exchange->distance ?> miles
+                                        <?= $OrderGrower->Exchange->distance ?>
+                                        miles
                                     </p>
                                 </div>
 
@@ -215,72 +214,32 @@
                                     </p>
                                 </div>
                                 
-                                <?php
-
-                            } else if ($OrderGrower->Exchange->type == 'pickup') {
+                            <?php elseif ($OrderGrower->Exchange->type == 'meetup'): ?>
                                  
-                                 ?>
-
                                 <div class="callout">
                                     <h6>
-                                        Instructions
+                                        Time
                                     </h6>
 
                                     <p>
-                                        <?= $OrderGrower->Exchange->instructions; ?>
+                                        <?= $OrderGrower->Exchange->time ?>
                                     </p>
                                 </div>
 
-                                <div class="callout">
-                                    <h6>
-                                        Availability
-                                    </h6>
+                            <?php endif ?>
 
-                                    <p>
-                                        <?= $OrderGrower->Exchange->time; ?>
-                                    </p>
-                                </div>
-
-                                 <?php
-
-                            } else if ($OrderGrower->Exchange->type == 'meetup') {
-                                 
-                                 ?>
-
-                                <div class="callout">
-                                    <h6>
-                                        Schedule
-                                    </h6>
-
-                                    <p>
-                                        <?= $OrderGrower->Exchange->time; ?>
-                                    </p>
-                                </div>
-
-                                 <?php
-
-                            }
-
-                            ?>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <?php
-
-        } else {
-            
-            ?>
+        <?php else: ?>
 
             <div class="block strong">
                 Oops, looks like you found your way here by mistake &hellip; nothing to see here!
             </div>
 
-            <?php
-            
-        }
+        <?php endif ?>
 
-        ?>
     </div>
 </main>

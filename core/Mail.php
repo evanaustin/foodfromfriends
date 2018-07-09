@@ -288,7 +288,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
 
-    public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $Buyer) {
+    public function new_order_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccount) {
         $subject = "New order - {$GrowerOperation->name}";
         
         $token = [
@@ -298,7 +298,7 @@ class Mail {
 
         $jwt = JWT::encode($token, JWT_KEY);
 
-        $link = urldecode(urlencode((ENV == 'dev' ? 'http://localhost' : '') . PUBLIC_ROOT . 'dashboard/selling/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
+        $link = urldecode(urlencode(PUBLIC_ROOT . 'dashboard/selling/orders/new/view?id=' . $OrderGrower->id . '&token=' . $jwt));
 
         $body = "
             <h1>

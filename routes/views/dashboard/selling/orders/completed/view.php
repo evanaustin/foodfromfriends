@@ -70,7 +70,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= ucfirst($OrderGrower->Exchange->type); ?>
+                                    <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
                                 </p>
                             </div>
                         </div>

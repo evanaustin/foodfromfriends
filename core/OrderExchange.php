@@ -175,6 +175,13 @@ class OrderExchange extends Base {
      */
     private function set_details() {
         if ($this->type == 'meetup') {
+            $meetup = $this->retrieve([
+                'where' => [
+                    'id' => $this->type,
+                ],
+                'table' => 'meetups'
+            ]);
+            
             $this->time = "{$meetup[0]['day']} {$meetup[0]['start_time']} - {$meetup[0]['end_time']}";
 
             $this->update([
