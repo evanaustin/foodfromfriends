@@ -1,15 +1,12 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
-
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->current == 'completed') {
-
-            ?>
+        
+        <?php if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && $OrderGrower->Status->current == 'completed'): ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Completed order <span class="text-muted">(ID: <?= $Order->id . '0' . $OrderGrower->id; ?>)</span>
+                        Completed order <span class="text-muted">(ID: <?= $Order->id . '0' . $OrderGrower->id ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
@@ -25,7 +22,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                <?php amount($OrderGrower->total); ?>
+                                <?= _amount($OrderGrower->total) ?>
                             </div>
 
                             <div class="descriptor">
@@ -40,7 +37,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= $date_placed; ?>
+                                    <?= $date_placed ?>
                                 </p>
                             </div>
                             
@@ -50,7 +47,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= $date_fulfilled; ?>
+                                    <?= $date_fulfilled ?>
                                 </p>
                             </div>
                             
@@ -79,7 +76,7 @@
                     <div class="col-md-4">
                         <div id="items-sold" class="block animated zoomIn">
                             <div class="value">
-                                <?= $items_sold; ?>
+                                <?= $items_sold ?>
                             </div>
 
                             <div class="descriptor">
@@ -88,16 +85,13 @@
                         </div>
 
                         <div id="items">
-                            <?php
+                            
+                            <?php foreach($OrderGrower->Items as $OrderItem): ?>
 
-                            foreach($OrderGrower->Items as $OrderItem) {
-
-                                $Item = new Item([
+                                <?php $Item = new Item([
                                     'DB' => $DB,
                                     'id' => $OrderItem->item_id
-                                ]);
-                                
-                                ?>
+                                ]) ?>
                                 
                                 <div class="item card-alt margin-top-1em animated zoomIn">
                                     <div class="item-image">
@@ -107,29 +101,30 @@
                                     <div class="card-body">
                                         <h6 class="strong">
                                             <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>">
-                                                <?= ucfirst($Item->title); ?>
+                                                <?= ucfirst($Item->title) ?>
                                             </a>
 
                                             <span class="float-right">
-                                                <small>x</small> <?= $OrderItem->quantity; ?>
+                                                <small>
+                                                    x
+                                                </small>
+                                                
+                                                <?= $OrderItem->quantity; ?>
                                             </span>
                                         </h6>
                                         
                                         <small class="light-gray">
-                                            <?= $OrderItem->package_metric_title ?>
+                                            <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                             
                                             <span class="float-right">
-                                                <?php amount($OrderItem->total); ?>
+                                                <?= _amount($OrderItem->total) ?>
                                             </span>
                                         </small>
                                     </div>
                                 </div>
                                 
-                                <?php
+                            <?php endforeach ?>
 
-                            }
-
-                            ?>
                         </div>
                     </div>
 
@@ -157,20 +152,13 @@
                 </div>
             </div>
 
-            <?php
-
-        } else {
-
-            ?>
+        <?php else: ?>
 
             <div class="block strong">
                 Oops, looks like you found your way here by mistake &hellip; nothing to see here!
             </div>
 
-            <?php
+        <?php endif ?>
 
-        }
-
-        ?>
     </div>
 </main>

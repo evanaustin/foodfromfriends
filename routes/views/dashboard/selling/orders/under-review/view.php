@@ -1,15 +1,12 @@
 <!-- cont main -->
     <div class="container animated fadeIn">
-        <?php
         
-        if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && ($OrderGrower->Status->current == 'open for review' || $OrderGrower->Status->current == 'issue reported')) {
-
-            ?>
+        <?php if (isset($OrderGrower) && $OrderGrower->grower_operation_id == $User->GrowerOperation->id && ($OrderGrower->Status->current == 'open for review' || $OrderGrower->Status->current == 'issue reported')): ?>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="page-title">
-                        Under review order <span class="muted">(ID: <?= "{$Order->id}0{$OrderGrower->id}"; ?>)</span>
+                        Under review order <span class="muted">(ID: <?= "{$Order->id}0{$OrderGrower->id}" ?>)</span>
                     </div>
                         
                     <div class="page-description text-muted small">
@@ -25,7 +22,7 @@
                     <div class="col-md-4">
                         <div id="exchange-method" class="block animated zoomIn">
                             <div class="value">
-                                <?php amount($OrderGrower->total); ?>
+                                <?= _amount($OrderGrower->total) ?>
                             </div>
 
                             <div class="descriptor">
@@ -40,7 +37,7 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= $date_placed; ?>
+                                    <?= $date_placed ?>
                                 </p>
                             </div>
                             
@@ -50,17 +47,13 @@
                                 </h6>
                                 
                                 <p>
-                                    <?= $date_fulfilled; ?>
+                                    <?= $date_fulfilled ?>
                                 </p>
                             </div>
                             
-                            <?php
-
-                            if ($OrderGrower->Status->current == 'open for review') {
+                            <?php if ($OrderGrower->Status->current == 'open for review'): ?>
                                 
-                                $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days');
-
-                                ?>
+                                <?php $time_until = \Time::until($OrderGrower->Status->fulfilled_on, '3 days') ?>
 
                                 <div class="callout">
                                     <h6>
@@ -68,13 +61,13 @@
                                     </h6>
                                     
                                     <p>
-                                        <span class="warning"><?= $time_until['full']; ?></span>
+                                        <span class="warning"><?= $time_until['full'] ?></span>
                                     </p>
                                 </div>
 
+                            <?php elseif ($OrderGrower->Status->current == 'issue reported'): ?>
+                                
                                 <?php
-
-                            } else if ($OrderGrower->Status->current == 'issue reported') {
                                 
                                 $reported_on   = new DateTime($OrderGrower->Status->reported_on, new DateTimeZone('UTC'));
                                 $reported_on->setTimezone(new DateTimeZone($User->timezone));
@@ -92,11 +85,7 @@
                                     </p>
                                 </div>
 
-                                <?php
-
-                            }
-
-                            ?>
+                            <?php endif ?>
 
                             <div class="callout">
                                 <h6>
@@ -113,7 +102,7 @@
                     <div class="col-md-4">
                         <div id="items-sold" class="block animated zoomIn">
                             <div class="value">
-                                <?= $items_sold; ?>
+                                <?= $items_sold ?>
                             </div>
 
                             <div class="descriptor">
@@ -122,16 +111,13 @@
                         </div>
 
                         <div id="items">
-                            <?php
+                            
+                            <?php foreach($OrderGrower->Items as $OrderItem): ?>
 
-                            foreach($OrderGrower->Items as $OrderItem) {
-
-                                $Item = new Item([
+                                <?php $Item = new Item([
                                     'DB' => $DB,
                                     'id' => $OrderItem->item_id
-                                ]);
-                                
-                                ?>
+                                ]) ?>
                                 
                                 <div class="item card-alt margin-top-1em animated zoomIn">
                                     <div class="item-image">
@@ -141,29 +127,30 @@
                                     <div class="card-body">
                                         <h6 class="strong">
                                             <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . '/' . $Item->link; ?>">
-                                                <?= ucfirst($Item->title); ?>
+                                                <?= ucfirst($Item->title) ?>
                                             </a>
 
                                             <span class="float-right">
-                                                <small>x</small> <?= $OrderItem->quantity; ?>
+                                                <small>
+                                                    x
+                                                </small>
+                                                
+                                                <?= $OrderItem->quantity ?>
                                             </span>
                                         </h6>
                                         
                                         <small class="light-gray">
-                                            <?= $OrderItem->package_metric_title ?>
+                                            <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                             
                                             <span class="float-right">
-                                                <?php amount($OrderItem->total); ?>
+                                                <?= _amount($OrderItem->total) ?>
                                             </span>
                                         </small>
                                     </div>
                                 </div>
                                 
-                                <?php
+                            <?php endforeach ?>
 
-                            }
-
-                            ?>
                         </div>
                     </div>
 
@@ -174,7 +161,7 @@
 
                                 <div class="user-content flexgrow-0">
                                     <h5 class="bold margin-btm-25em">
-                                        <?= $BuyerAccount->name; ?>
+                                        <?= $BuyerAccount->name ?>
                                     </h5>
 
                                     <small>
@@ -183,7 +170,7 @@
                                 </div>
                             </div>
 
-                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $BuyerAccount->id;?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
+                            <a href="<?= PUBLIC_ROOT . 'dashboard/selling/messages/thread?buyer=' . $BuyerAccount->id ?>" class="btn btn-primary margin-top-1em margin-w-1em" style="display: block;">
                                 Message
                             </a>
                         </div>
@@ -191,20 +178,13 @@
                 </div>
             </div>
 
-            <?php
-
-        } else {
-            
-            ?>
+        <?php else: ?>
 
             <div class="block strong">
                 Oops, looks like you found your way here by mistake &hellip; nothing to see here!
             </div>
 
-            <?php
-            
-        }
+        <?php endif ?>
 
-        ?>
     </div>
 </main>
