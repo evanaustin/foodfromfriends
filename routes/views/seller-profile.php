@@ -168,25 +168,29 @@
                                 <?= $grower_stars ?>
                             </span>
                             
-                            <?php if (count($ratings) > 0): ?>
+                            <?php if (!empty($ratings)): ?>
                                 
                                 <div class="rounded-circle">
                                     <?= count($ratings) ?>
                                 </div>
 
-                            <?php endif; ?>
+                            <?php else: ?>
+
+                                &bull;
+
+                            <?php endif ?>
                             
                             <?php if (isset($Seller->city, $Seller->state)): ?>
                                 
                                 <?= "{$Seller->city}, {$Seller->state}" ?>
                             
-                            <?php endif; ?>
+                            <?php endif ?>
                             
                             <?php if (!empty($distance)): ?>
                                 
                                 &bull; <?= "{$distance[0]} {$distance[1]}" ?> away
 
-                            <?php endif; ?>
+                            <?php endif ?>
 
                         </div>
 
