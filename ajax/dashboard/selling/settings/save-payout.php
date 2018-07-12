@@ -80,20 +80,6 @@ if ($User->GrowerOperation->exists('seller_id', $User->GrowerOperation->id, 'sel
     if (!$added) quit('We could not save your payout settings');
 }
 
-// reinitialize User & Operation for fresh check
-$User = new User([
-    'DB' => $DB,
-    'id' => $USER['id']
-]);
-
-if (!empty($User->GrowerOperation)) {
-    if (isset($_SESSION['user']['active_operation_id']) && $_SESSION['user']['active_operation_id'] != $User->GrowerOperation->id) {
-        $User->GrowerOperation = $User->Operations[$_SESSION['user']['active_operation_id']];
-    }
-}
-
-$User->GrowerOperation->check_active();
-
 echo json_encode($json);
 
 ?>

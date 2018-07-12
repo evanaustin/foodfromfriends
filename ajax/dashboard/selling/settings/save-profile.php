@@ -275,16 +275,6 @@ if (isset($_POST['images'])) {
     }
 }
 
-// Re-initialize User->GrowerOperation
-$User->GrowerOperation = new GrowerOperation([
-    'DB' => $DB,
-    'id' => $User->GrowerOperation->id
-]);
-
-$json['link'] = $User->GrowerOperation->link;
-
-$User->GrowerOperation->check_active();
-
 echo json_encode($json);
 
 ?>
