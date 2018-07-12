@@ -48,10 +48,10 @@ $requirements = [
         'link'      => 'dashboard/selling/items/add-new',
         'status'    => (($item_count > 0) ? 'complete' : 'incomplete'),
     ],
-    'enable at least one exchange option' => [
+    /* 'enable at least one exchange option' => [
         'link'      => 'dashboard/selling/exchange-options/pickup',
         'status'    => (!empty($User->GrowerOperation->Delivery->is_offered) || !empty($User->GrowerOperation->Pickup->is_offered) || !empty($User->GrowerOperation->Meetup->is_offered) ? 'complete' : 'incomplete'),
-    ],
+    ], */
     'set your payout details' => [
         'link'      => 'dashboard/selling/settings/payout-settings',
         'status'    => (!empty($payout_settings) ? 'complete' : 'incomplete'),
