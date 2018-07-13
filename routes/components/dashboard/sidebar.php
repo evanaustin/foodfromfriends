@@ -26,9 +26,14 @@
 
                         <?php if ($buying): ?>
 
-                            <?php foreach ($User->BuyerAccounts as $BuyerAccount): ?>
+                            <?php foreach ($User->BuyerAccounts as $id => $name): ?>
                             
-                                <?php if ($User->BuyerAccount->id == $BuyerAccount->id) continue; ?>
+                                <?php if ($User->BuyerAccount->id == $id) continue ?>
+
+                                <?php $BuyerAccount = new BuyerAccount([
+                                    'DB' => $DB,
+                                    'id' => $id
+                                ]) ?>
 
                                 <a href="<?= PUBLIC_ROOT ?>dashboard/buying/orders/overview" class="dropdown-item switch-buyer-account" data-buyer-account-id="<?= $BuyerAccount->id ?>">
                                     <i class="fa fa-<?= ($BuyerAccount->type == 'individual') ? 'user-circle-o' : 'address-card-o' ?>"></i>

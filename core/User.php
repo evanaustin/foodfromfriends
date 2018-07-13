@@ -102,8 +102,10 @@ class User extends Base {
         $results = $this->DB->run('
             SELECT *
             FROM buyer_account_members btm
+            JOIN buyer_accounts ba
+                on btm.buyer_account_id = ba.id
             WHERE btm.user_id=:user_id 
-                AND permission > 0
+                AND btm.permission > 0
         ', [
             'user_id' => $this->id
         ]);
@@ -112,15 +114,15 @@ class User extends Base {
             foreach ($results as $result) {
                 $id = $result['buyer_account_id'];
 
-                $this->BuyerAccounts[$id] = new BuyerAccount([
-                    'DB' => $this->DB,
-                    'id' => $result['id']
-                ]);
+                $this->BuyerAccounts[$id] = $result['name'];
 
-                $this->BuyerAccounts[$id]->permission = $result['permission'];
+                // $this->BuyerAccounts[$id]->permission = $result['permission'];
 
                 if ($result['is_default']) {
-                    $this->BuyerAccount = $this->BuyerAccounts[$id];
+                    $this->BuyerAccount = new BuyerAccount([
+                        'DB' => $this->DB,
+                        'id' => $result['id']
+                    ]);
                 }
             }
         } else {
@@ -188,7 +190,11 @@ class User extends Base {
     
     public function switch_buyer_account($id) {
         $_SESSION['user']['active_buyer_account_id'] = $id;
-        $this->BuyerAccount = $this->BuyerAccounts[$id];
+        
+        $this->BuyerAccount = new BuyerAccount([
+            'DB' => $this->DB,
+            'id' => $id
+        ]);
 
         return $this->BuyerAccount->id;
     }

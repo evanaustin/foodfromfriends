@@ -140,7 +140,10 @@ if ($LOGGED_IN && !isset($_GET['token'])) {
 
     if (!empty($User->BuyerAccount)) {
         if (isset($_SESSION['user']['active_buyer_account_id']) && $_SESSION['user']['active_buyer_account_id'] != $User->BuyerAccount->id) {
-            $User->BuyerAccount = $User->BuyerAccounts[$_SESSION['user']['active_buyer_account_id']];
+            $User->BuyerAccount = new BuyerAccount([
+                'DB' => $DB,
+                'id' => $_SESSION['user']['active_buyer_account_id']
+            ]);
         } else if (!isset($_SESSION['user']['active_buyer_account_id'])) {
             $_SESSION['user']['active_buyer_account_id'] = $User->BuyerAccount->id;
         }
