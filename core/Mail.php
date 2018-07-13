@@ -605,7 +605,7 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
-    public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccout) {
+    public function reviewed_order_notification($Member, $GrowerOperation, $OrderGrower, $BuyerAccount) {
         $subject = "New review - {$GrowerOperation->name}";
         
         $token = [
