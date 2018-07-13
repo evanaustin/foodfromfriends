@@ -56,6 +56,8 @@
                                 <tbody>
                                     
                                     <?php foreach($wholesale_relationships as $wholesale_relationship): ?>
+                                        
+                                        <?php if ($wholesale_relationship['buyer_account_id'] == 1) continue ?>
 
                                         <?php $BuyerAccount = new BuyerAccount([
                                             'DB' => $DB,
