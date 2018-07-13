@@ -88,10 +88,6 @@
                                                                 <strong>
                                                                     <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?>
                                                                 </strong>
-                                                                
-                                                                <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . "/" . $items[$key]->link ?>" data-toggle="tooltip" data-title="View public item" data-placement="right">
-                                                                    <i class="fa fa-external-link small"></i>
-                                                                </a>
                                                             </h5>
 
                                                             <small>
