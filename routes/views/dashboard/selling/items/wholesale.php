@@ -61,7 +61,9 @@
                             <fable>
                                 <cell>
                                     <h5>
-                                        <strong><?= ucfirst($hashed_categories[$category_id]) ?></strong>
+                                        <strong>
+                                            <?= ucfirst($hashed_categories[$category_id]) ?>
+                                        </strong>
                                     </h5>
                                 </cell>
                             </fable>
@@ -84,9 +86,13 @@
                                                         <div class="user-photo d-none d-md-block" style="background-image: url('<?= (isset($items[$key]->Image->id) ? 'https://s3.amazonaws.com/foodfromfriends/' . ENV . "/item-images/{$items[$key]->Image->filename}.{$items[$key]->Image->ext}" : PUBLIC_ROOT . 'media/placeholders/default-thumbnail.jpg') ?>');"></div>
                                                         
                                                         <div class="user-content">
-                                                            <h5 class="bold margin-btm-25em">
+                                                            <h5 class="bold muted margin-btm-25em">
+                                                                <strong>
+                                                                    <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?>
+                                                                </strong>
+                                                                
                                                                 <a href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . "/" . $items[$key]->link ?>">
-                                                                    <strong><?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?></strong>
+                                                                    <i class="fa fa-external-link small"></i>
                                                                 </a>
                                                             </h5>
 
@@ -215,17 +221,26 @@
                                                                 
                                                                 <cell class="actions flexgrow-0 margin-left-50em">
                                                                     <div class="dropdown">
-                                                                        <a class="btn btn-lg btn-muted dropdown-toggle no-after-border" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                            <i class="fa fa-caret-down"></i>
-                                                                        </a>
+                                                                        <div class="dropdown-toggle no-after-border" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <a class="btn btn-lg btn-muted" data-toggle="tooltip" data-title="Actions" data-placement="right">
+                                                                                <i class="fa fa-caret-down"></i>
+                                                                            </a>
+                                                                        </div>
 
                                                                         <div class="dropdown-menu dropdown-menu-right">
                                                                             <a class="dropdown-item" href="<?= PUBLIC_ROOT ?>dashboard/selling/items/edit?id=<?= $Item->id ?>">
-                                                                                <i class="fa fa-pencil"></i> Edit
+                                                                                <i class="fa fa-pencil"></i>
+                                                                                Edit item
+                                                                            </a>
+
+                                                                            <a class="dropdown-item" href="<?= PUBLIC_ROOT . $User->GrowerOperation->link . "/" . $items[$key]->link ?>">
+                                                                                <i class="fa fa-external-link"></i>
+                                                                                View item
                                                                             </a>
 
                                                                             <a class="remove-item dropdown-item action" href="" data-id="<?= $Item->id ?>">
-                                                                                <i class="fa fa-trash"></i> Delete
+                                                                                <i class="fa fa-trash"></i>
+                                                                                Delete item
                                                                             </a>
                                                                         </div>
                                                                     </div>
