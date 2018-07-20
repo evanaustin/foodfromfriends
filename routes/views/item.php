@@ -194,6 +194,26 @@
                                             <div>
                                                 <?= "{$meetup['day']} &bull; {$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
                                             </div>
+
+                                            <?php if (!empty($meetup['deadline'])): ?>
+                                        
+                                                <div>
+                                                    <?= "Place order <span class=\"warning\">{$meetup['deadline']} hours</span> in advance" ?>
+                                                </div>
+                                            
+                                            <?php endif ?>
+                                            
+                                            <?php if (!empty($meetup['order_minimum'])): ?>
+                                        
+                                                <div>
+                                                    <span class="warning">
+                                                        <?= _amount($meetup['order_minimum']) ?>
+                                                    </span>
+                                                    minimum order
+                                                </div>
+                                            
+                                            <?php endif ?>
+
                                         </div>
                                 
                                     <?php endforeach ?>
@@ -269,7 +289,7 @@
                                         </div>
                                     </div>
                                     
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
 
                             </div>
 
@@ -277,7 +297,9 @@
 
                         <div class="about-grower set d-none d-md-block">
                             <h4 class="margin-btm-50em ">
-                                <bold class="dark-gray">About the seller</bold> 
+                                <bold class="dark-gray">
+                                    About the seller
+                                </bold> 
                             </h4>
 
                             <div class="muted margin-btm-1em">
@@ -292,7 +314,7 @@
                                 <div class="user-content">
                                     <div class="font-18 muted thick">    
                                         <a href="<?= PUBLIC_ROOT . $SellerAccount->link; ?>">
-                                            <?= $SellerAccount->name; ?>
+                                            <?= $SellerAccount->name ?>
                                         </a>
                                     </div>
                                         
@@ -300,7 +322,7 @@
 
                                         <div class="font-85 muted bold margin-btm-50em">
                                             <span class="brand">
-                                                <?= $grower_stars?>
+                                                <?= $grower_stars ?>
                                             </span>
 
                                             &nbsp;&bull;&nbsp;
@@ -322,7 +344,9 @@
                                 <?php elseif (!empty($SellerAccount->bio)): ?>
 
                                 <div class="callout">
-                                    <div><?= $SellerAccount->bio ?></div>
+                                    <div>
+                                        <?= $SellerAccount->bio ?>
+                                    </div>
                                 </div>
 
                             <?php endif ?>
@@ -357,7 +381,7 @@
                                                 <?php $ItemOption = new Item([
                                                     'DB' => $DB,
                                                     'id' => $item['id']
-                                                ]); ?>
+                                                ]) ?>
                                                 
                                                 <option value="<?= $ItemOption->id ?>" <?php if ($ItemOption->id == $Item->id) echo 'selected' ?>>
                                                     <?= $ItemOption->package_metric_title ?>
@@ -457,7 +481,9 @@
 
                                     <?php if ($SellerAccount->Delivery->delivery_type == 'conditional'): ?>
                                         
-                                        <div>Free delivery within: <?= $SellerAccount->Delivery->free_distance ?> miles</div>
+                                        <div>
+                                            <?= "Free delivery within: {$SellerAccount->Delivery->free_distance} miles" ?>
+                                        </div>
 
                                     <?php endif; ?>
 
@@ -466,7 +492,7 @@
                                     </div>
                                 </div>
 
-                            <?php endif; ?>
+                            <?php endif ?>
 
                             <?php if (!empty($meetups)): ?>
                             
@@ -489,6 +515,15 @@
                                         <div>
                                             <?= "{$meetup['day']} &bull; {$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
                                         </div>
+                                        
+                                        <?php if (!empty($meetup['deadline'])): ?>
+                                        
+                                            <div>
+                                                <?= "Place order {$meetup['deadline']} hours in advance of meetup" ?>
+                                            </div>
+                                        
+                                        <?php endif ?>
+
                                     </div>
                             
                                 <?php endforeach ?>
