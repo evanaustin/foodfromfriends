@@ -524,6 +524,17 @@
                                         
                                         <?php endif ?>
 
+                                        <?php if (!empty($meetup['order_minimum'])): ?>
+                                
+                                            <div>
+                                                <span class="warning">
+                                                    <?= _amount($meetup['order_minimum']) ?>
+                                                </span>
+                                                minimum order
+                                            </div>
+                                        
+                                        <?php endif ?>
+
                                     </div>
                             
                                 <?php endforeach ?>
