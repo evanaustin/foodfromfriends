@@ -7,7 +7,7 @@ $settings = [
 if (isset($Routing->seller)) {
 
     // initialize Seller
-    $Seller = new GrowerOperation([
+    $SellerAccount = new GrowerOperation([
         'DB'    => $DB,
         'slug'  => $Routing->seller
     ], [
@@ -15,23 +15,23 @@ if (isset($Routing->seller)) {
         'team'      => true
     ]);
     
-    if (isset($Seller)) {
+    if (isset($SellerAccount)) {
 
         // check if User is owner of Seller
-        $is_owner = isset($User) && ((isset($Seller->Owner) && $Seller->Owner->id == $User->id) || isset($Seller->TeamMembers[$User->id]));
+        $is_owner = isset($User) && ((isset($SellerAccount->Owner) && $SellerAccount->Owner->id == $User->id) || isset($SellerAccount->TeamMembers[$User->id]));
     
 
         // check if Seller is active
-        if ($Seller->is_active || $is_owner) {
+        if ($SellerAccount->is_active || $is_owner) {
             // configure date joined on
-            $joined_on = new DateTime($Seller->created_on, new DateTimeZone('UTC'));
+            $joined_on = new DateTime($SellerAccount->created_on, new DateTimeZone('UTC'));
             $joined_on->setTimezone(new DateTimeZone('America/New_York'));
         
 
             // get Seller meetups
-            $meetups = $Seller->retrieve([
+            $meetups = $SellerAccount->retrieve([
                 'where' => [
-                    'grower_operation_id' => $Seller->id
+                    'grower_operation_id' => $SellerAccount->id
                 ],
                 'table' => 'meetups'
             ]);
@@ -39,7 +39,7 @@ if (isset($Routing->seller)) {
 
             // calculate delivery distance
             if (isset($User, $User->BuyerAccount, $User->BuyerAccount->Address, $User->BuyerAccount->Address->latitude, $User->BuyerAccount->Address->longitude)) {
-                $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$Seller->latitude},{$Seller->longitude}&key=" . GOOGLE_MAPS_KEY);
+                $geocode    = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins={$User->BuyerAccount->Address->latitude},{$User->BuyerAccount->Address->longitude}&destinations={$SellerAccount->latitude},{$SellerAccount->longitude}&key=" . GOOGLE_MAPS_KEY);
                 $output     = json_decode($geocode);
                 $distance   = explode(' ', $output->rows[0]->elements[0]->distance->text);
                 $distance_miles = round((($distance[1] == 'ft') ? $distance[0] / 5280 : $distance[0]), 4);
@@ -51,7 +51,7 @@ if (isset($Routing->seller)) {
                 $wholesale_relationship = $User->BuyerAccount->retrieve([
                     'where' => [
                         'buyer_account_id' => $User->BuyerAccount->id,
-                        'seller_id' => $Seller->id,
+                        'seller_id' => $SellerAccount->id,
                         'status'    => 2
                     ],
                     'table' => 'wholesale_relationships'
@@ -66,7 +66,7 @@ if (isset($Routing->seller)) {
         
 
             // retrieve Seller rating
-            $grower_stars = stars($Seller->average_rating);
+            $grower_stars = stars($SellerAccount->average_rating);
             
 
             // retrieve & hash categories, subcategories, and varieites
@@ -109,13 +109,13 @@ if (isset($Routing->seller)) {
 
             // retrieve & hash items
             if ($wholesale_relationship && (!isset($_GET['retail']) || $_GET['retail'] != 'true')) {
-                $raw_items = $Item->get_items($Seller->id, [
+                $raw_items = $Item->get_items($SellerAccount->id, [
                     'is_wholesale' => 1
                 ]);
                 
                 $wholesale_active = true;
             } else {
-                $raw_items = $Item->get_items($Seller->id, [
+                $raw_items = $Item->get_items($SellerAccount->id, [
                     'is_wholesale' => 0
                 ]);
 
@@ -145,10 +145,10 @@ if (isset($Routing->seller)) {
 
                 $categorized_items[$raw_item['item_category_id']][$raw_item['item_subcategory_id']][$raw_item['item_variety_id']][$raw_item['id']] = $ThisItem;
 
-                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id], $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$ThisItem->id]);
+                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id], $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$ThisItem->id]);
 
                 if ($in_cart) {
-                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$ThisItem->id];
+                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$ThisItem->id];
                 }
 
                 $rate = (!empty($ThisItem->measurement) && is_numeric($ThisItem->measurement)) ? _amount(($ThisItem->measurement >= 1) ? $ThisItem->price/$ThisItem->measurement : bcmul($ThisItem->price, $ThisItem->measurement)) . "/{$ThisItem->metric}" : 0;
@@ -177,15 +177,29 @@ if (isset($Routing->seller)) {
 
 
             // initialize OrderGrower if it exists
-            if (isset($User, $User->BuyerAccount, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id])) {
-                $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id];
+            if (isset($User, $User->BuyerAccount, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id])) {
+                $OrderGrower = $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id];
             }
         
 
-            // retrieve reviews
-            $ratings = $Seller->retrieve([
+            // retrieve SellerAccount exchange options
+            $meetups = $SellerAccount->retrieve([
                 'where' => [
-                    'grower_operation_id' => $Seller->id
+                    'grower_operation_id' => $SellerAccount->id
+                ],
+                'table' => 'meetups'
+            ]);
+
+            $exchange_options_available = [];
+    
+            if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered)   $exchange_options_available []= 'delivery';
+            if ($meetups) $exchange_options_available []= 'meetup';
+
+
+            // retrieve reviews
+            $ratings = $SellerAccount->retrieve([
+                'where' => [
+                    'grower_operation_id' => $SellerAccount->id
                 ],
                 'table' => 'grower_operation_ratings',
                 'recent' => true
@@ -193,7 +207,7 @@ if (isset($Routing->seller)) {
         
 
             // set page title
-            $settings['title'] = "{$Seller->name} | Food From Friends";
+            $settings['title'] = "{$SellerAccount->name} | Food From Friends";
         }
     }
 }
