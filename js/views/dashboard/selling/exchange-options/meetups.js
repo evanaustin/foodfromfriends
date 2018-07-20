@@ -37,7 +37,7 @@ $('#add-meetup').on('submit', function(e) {
                 $form.find('input').val('');
 
                 $('#meetups').removeClass('hidden');
-                $('#meetups').find('tbody:last-child').append('<tr><td>' + response.meetup.title + '</td><td>' + response.meetup.address + '</td><td>' + response.meetup.day + '</td><td>' + response.meetup.time + '</td></tr>')
+                $('#meetups').find('tbody:last-child').append('<tr><td>' + response.meetup.title + '</td><td>' + response.meetup.address + '</td><td>' + response.meetup.day + '</td><td>' + response.meetup.time + '</td><td>' + response.meetup.deadline + ' hours</td><td>' + response.meetup.order_minimum + '</td></tr>')
             },
             function(response) {
                 App.Util.msg(response.error, 'danger');

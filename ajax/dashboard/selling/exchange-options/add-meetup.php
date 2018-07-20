@@ -20,7 +20,9 @@ $Gump->validation_rules([
     'title'             => 'regex,/^[a-zA-Z0-9\-\s]*$/|max_len,100',
     'day'               => 'required|max_len,9',
     'start-time'        => 'required|max_len,8',
-    'end-time'          => 'required|max_len,8'
+    'end-time'          => 'required|max_len,8',
+    'deadline'          => 'integer',
+    'order-minimum'     => 'required|regex,/^[0-9]+.[0-9]{2}$/|min_numeric, 0|max_numeric, 1000000'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -38,7 +40,9 @@ $Gump->filter_rules([
     'title'             => 'trim|sanitize_string',
     'day'               => 'trim|sanitize_string',
     'start-time'        => 'trim|sanitize_string',
-    'end-time'          => 'trim|sanitize_string'
+    'end-time'          => 'trim|sanitize_string',
+    'deadline'          => 'trim|whole_number',
+    'order-minimum'     => 'trim|sanitize_floats'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -78,7 +82,9 @@ $added = $Meetup->add([
     'longitude'             => $lng,
     'day'                   => $day,
     'start_time'            => $start_time,
-    'end_time'              => $end_time
+    'end_time'              => $end_time,
+    'deadline'              => $deadline,
+    'order_minimum'         => $order_minimum * 100
 ]);
 
 if (!$added) quit('We could not save your exchange location');
@@ -87,7 +93,9 @@ $json['meetup'] = [
     'title'     => $title,
     'address'   => "{$address_line_1} {$address_line_2}, {$city}, {$state}",
     'day'       => $day,
-    'time'      => "{$start_time} &ndash; {$end_time}"
+    'time'      => "{$start_time} &ndash; {$end_time}",
+    'deadline'  => $deadline,
+    'order_minimum' => _amount($order_minimum * 100)
 ];
 
 echo json_encode($json);
