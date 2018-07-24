@@ -19,7 +19,7 @@
 
                             <span>
                                 <i class="fa fa-warning"></i> This is only a preview of your seller profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling">here</a> to finish activating your seller account.
                             </span>
 
                         <?php endif; ?>

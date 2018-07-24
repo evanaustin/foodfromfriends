@@ -14,7 +14,7 @@
                         
                         <?php else: ?>
 
-                            <span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.</span>
+                            <span><i class="fa fa-warning"></i> This is only a preview of this item. Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling">here</a> to finish activating your seller account.</span>
                         
                         <?php endif; ?>
 
