@@ -86,7 +86,7 @@
                 ?>
 
                 <div class="breakdown">
-                    <div class="line-amount">
+                    <div class="line-amount" style="flex-direction:column">
                         <?php
 
                         $meetups = $Grower->retrieve([
@@ -109,24 +109,20 @@
                         }
 
                         foreach ($meetups as $meetup) {
-                            echo "<option value=\"{$meetup['id']}\" " . ($OrderGrower->Exchange->type == $meetup['id'] ? "selected" : "") . ">" . (!empty($meetup['title']) ? ucfirst($meetup['title']) : $meetup['address_line_1']) . "</option>";
+                            echo "<option value=\"{$meetup['id']}\" " . ($OrderGrower->Exchange->type == $meetup['id'] ? "selected" : "") . ">" . truncate((!empty($meetup['title']) ? ucfirst($meetup['title']) : $meetup['address_line_1']), 20) . ' &bull; ' . $meetup['day'] . "</option>";
                         }
                         
                         echo "</select>";
 
                         ?>
                         
-                        <div class="rate exchange-fee">
+                        <div class="exchange-fee">
                             <?php
                             
                             if ($OrderGrower->Exchange->type == 'delivery') {
                                 if ($OrderGrower->Exchange->fee > 0) {
                                     amount($OrderGrower->Exchange->fee);
-                                } else {
-                                    echo 'Free';
                                 }
-                            } else {
-                                echo 'Free';
                             }
                             
                             ?>

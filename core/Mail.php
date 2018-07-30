@@ -726,6 +726,39 @@ class Mail {
         return $this->sendgrid->client->mail()->send()->post($mail);
     }
     
+    public function payout_initiation_notification($SellerAccount, $Member, $time, $amount) {
+        $subject = "Payout initiated - {$SellerAccount->name}";
+        
+        $body = "
+            <h1>
+                Payout initiated
+            </h1>
+
+            <hr>
+            
+            <p>
+                Hello, {$Member->first_name}!
+            </p>
+
+            <p>
+                A payout in the amount of <strong>{$amount}</strong> for revenue accrued by {$SellerAccount->name} on Food From Friends between <strong>{$time}</strong> has been initiated and is scheduled to execute with your bank in two days.
+            </p>
+
+            <p>
+                Well done, and keep hustling!
+            </p>
+        ";
+        
+        $content = new SendGrid\Content('text/html', $body);
+        
+        $mail = new SendGrid\Mail($this->from, $subject, $this->to, $content);
+        
+        // Template: Canvas
+        $mail->setTemplateId('02993730-61db-46c5-a806-783072e6fb79');
+
+        return $this->sendgrid->client->mail()->send()->post($mail);
+    }
+    
     /* public function payout_notification() {} */
 
     public function new_wholesale_request($Member, $GrowerOperation, $BuyerAccount) {

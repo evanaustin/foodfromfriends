@@ -12,7 +12,12 @@ class Meetup extends Base {
         $state,
         $zipcode,
         $latitude,
-        $longitude;
+        $longitude,
+        $day,
+        $start_time,
+        $end_time,
+        $order_deadline,
+        $minimum_amount;
 
     protected
         $class_dependencies,

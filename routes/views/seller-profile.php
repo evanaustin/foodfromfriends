@@ -1,14 +1,14 @@
 <main>
     <div class="main container">
 
-        <?php if ((isset($Seller) && $Seller->is_active) || ($is_owner || (isset($User) && $User->id == 1))): ?>
+        <?php if ((isset($SellerAccount) && $SellerAccount->is_active) || ($is_owner || (isset($User) && $User->id == 1))): ?>
 
             <?php if ($is_owner): ?>
 
                 <div class="alerts" style="display:block;">
-                    <div class="alert alert-<?= (($Seller->is_active) ? 'info' : 'warning') ?>">
+                    <div class="alert alert-<?= (($SellerAccount->is_active) ? 'info' : 'warning') ?>">
                         
-                        <?php if ($Seller->is_active): ?>
+                        <?php if ($SellerAccount->is_active): ?>
 
                             <span>
                                 This is your public profile. 
@@ -19,7 +19,7 @@
 
                             <span>
                                 <i class="fa fa-warning"></i> This is only a preview of your seller profile. 
-                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling/">here</a> to finish activating your seller account.
+                                Click <a href="<?= PUBLIC_ROOT ?>dashboard/selling">here</a> to finish activating your seller account.
                             </span>
 
                         <?php endif; ?>
@@ -35,11 +35,11 @@
                     <div class="sidebar-content">
                         <div class="photo box">
 
-                            <?php if (!empty($Seller->filename)): ?>
+                            <?php if (!empty($SellerAccount->filename)): ?>
                                 
                                 <a href="#" data-toggle="modal" data-target="#img-zoom-modal">
 
-                                <?= _img(ENV . "/grower-operation-images/{$Seller->filename}", $Seller->ext, [
+                                <?= _img(ENV . "/grower-operation-images/{$SellerAccount->filename}", $SellerAccount->ext, [
                                     'server'    => 'S3',
                                     'class'     => 'img-fluid'
                                 ]) ?>
@@ -74,13 +74,13 @@
                                 <ul class="list-group">
                                     <li class="list-group-item sub">
                                         <fable>
-                                            <cell class="<?php if (!$Seller->Delivery || !$Seller->Delivery->is_offered) echo 'inactive' ?>">
+                                            <cell class="<?php if (!$SellerAccount->Delivery || !$SellerAccount->Delivery->is_offered) echo 'inactive' ?>">
                                                 Delivery
                                             </cell>
                                             
                                             <cell class="flexend">
                                                 
-                                                <?php if ($Seller->Delivery && $Seller->Delivery->is_offered): ?>
+                                                <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
                                                     
                                                     <i class="fa fa-check"></i>
 
@@ -119,9 +119,9 @@
                             </ul>
                         </div>
 
-                        <div class="<?= (isset($Seller->latitude, $Seller->longitude) ? 'map' : 'photo') ?> box">
+                        <div class="<?= (isset($SellerAccount->latitude, $SellerAccount->longitude) ? 'map' : 'photo') ?> box">
                             
-                            <?php if (isset($Seller->latitude, $Seller->longitude)): ?>
+                            <?php if (isset($SellerAccount->latitude, $SellerAccount->longitude)): ?>
 
                                 <div id="map"></div>
 
@@ -149,11 +149,11 @@
                 <div class="col-12 order-1 col-lg-9 order-lg-2">
                     <div id="main-content">
                         <h2 class="dark-gray bold margin-btm-25em">
-                            <?= $Seller->name ?>
+                            <?= $SellerAccount->name ?>
 
                             <?php //if (!$is_owner): ?>
                             
-                                <a href="<?= PUBLIC_ROOT . "dashboard/buying/messages/thread?seller={$Seller->id}" ?>">
+                                <a href="<?= PUBLIC_ROOT . "dashboard/buying/messages/thread?seller={$SellerAccount->id}" ?>">
                                     <div id="message" class="float-right btn btn-primary" data-toggle="tooltip" data-placement="bottom" data-title="Message">
                                         <i class="fa fa-envelope"></i>
                                     </div>
@@ -180,9 +180,9 @@
 
                             <?php endif ?>
                             
-                            <?php if (isset($Seller->city, $Seller->state)): ?>
+                            <?php if (isset($SellerAccount->city, $SellerAccount->state)): ?>
                                 
-                                <?= "{$Seller->city}, {$Seller->state}" ?>
+                                <?= "{$SellerAccount->city}, {$SellerAccount->state}" ?>
                             
                             <?php endif ?>
                             
@@ -198,10 +198,10 @@
                             Joined in <?= $joined_on->format('F\, Y') ?>
                         </div>
 
-                        <?php if (!empty($Seller->bio)): ?>
+                        <?php if (!empty($SellerAccount->bio)): ?>
                             
                             <p class="muted margin-btm-2em">
-                                <?= $Seller->bio ?>
+                                <?= $SellerAccount->bio ?>
                             </p>
 
                         <?php elseif ($is_owner): ?>
@@ -233,19 +233,19 @@
                             </h4>
 
                             <div class="muted margin-btm-1em">
-                                <?= ($wholesale_active) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $Seller->name ?>
+                                <?= ($wholesale_active) ? 'Wholesale' : 'Retail' ?> items for sale from <?= $SellerAccount->name ?>
 
                                 &nbsp;
 
                                 <?php if ($wholesale_relationship): ?>
                                     
                                     <?php if ($wholesale_active): ?>
-                                        <a href="<?= PUBLIC_ROOT . $Seller->link . '?retail=true' ?>" class="badge badge-secondary">
+                                        <a href="<?= PUBLIC_ROOT . $SellerAccount->link . '?retail=true' ?>" class="badge badge-secondary">
                                             Switch to retail
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
                                     <?php else: ?>
-                                        <a href="<?= PUBLIC_ROOT . $Seller->link ?>" class="badge badge-secondary">
+                                        <a href="<?= PUBLIC_ROOT . $SellerAccount->link ?>" class="badge badge-secondary">
                                             Switch to wholesale
                                             <i class="fa fa-arrow-right"></i>
                                         </a>
@@ -253,7 +253,7 @@
                                         
                                 <?php else: ?>
 
-                                    <a href="#" id="request-wholesale" class="badge badge-secondary" data-seller-id="<?= $Seller->id ?>">
+                                    <a href="#" id="request-wholesale" class="badge badge-secondary" data-seller-id="<?= $SellerAccount->id ?>">
                                         <i class="fa fa-cutlery"></i> Request wholesale pricing
                                     </a>
 
@@ -281,10 +281,10 @@
                                                 $key = array_pop($rev)->id;
                                                 $FirstOption = $options[$key];
 
-                                                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$Seller->id], $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$FirstOption->id]);
+                                                $in_cart = isset($User, $User->BuyerAccount->ActiveOrder, $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id], $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$FirstOption->id]);
 
                                                 if ($in_cart) {
-                                                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$Seller->id]->Items[$FirstOption->id];
+                                                    $OrderItem = $User->BuyerAccount->ActiveOrder->Growers[$SellerAccount->id]->Items[$FirstOption->id];
                                                 }
                                                 
                                                 ?>
@@ -292,7 +292,7 @@
                                                 <div class="col-md-4">
                                                     <div class="item card no-hover animated zoomIn">
                                                         <div class="card-img-top">
-                                                            <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
+                                                            <a href="<?= PUBLIC_ROOT . "{$SellerAccount->link}/{$FirstOption->link}" ?>">
 
                                                                 <?php if (!empty($FirstOption->Image->filename)): ?>
                                                                     
@@ -343,7 +343,7 @@
                                                             </div>
 
                                                             <div class="title muted margin-btm-50em">
-                                                                <a href="<?= PUBLIC_ROOT . "{$Seller->link}/{$FirstOption->link}" ?>">
+                                                                <a href="<?= PUBLIC_ROOT . "{$SellerAccount->link}/{$FirstOption->link}" ?>">
                                                                     <?= $FirstOption->title ?>
                                                                     <!-- <?= ucfirst(((!empty($hashed_varieties[$variety_id])) ? "{$hashed_varieties[$variety_id]}&nbsp;" : '') . $hashed_subcategories[$subcategory_id]) ?> -->
                                                                 </a>
@@ -357,7 +357,7 @@
                                                             </div>
 
                                                             <form id="quick-add-<?= $FirstOption->id ?>" class="quick-add">
-                                                                <input type="hidden" name="seller-id"       value="<?= $Seller->id ?>"/>
+                                                                <input type="hidden" name="seller-id"       value="<?= $SellerAccount->id ?>"/>
                                                                 <input type="hidden" name="exchange"        value="<?php if (isset($OrderGrower, $OrderGrower->Exchange)) echo $OrderGrower->Exchange->type ?>"/>
                                                                 <input type="hidden" name="distance-miles"  value="<?php if (isset($distance_miles)) echo $distance_miles ?>"/>
 
@@ -406,7 +406,7 @@
                             <?php else: ?>
 
                                 <div class="callout">
-                                    <?= $Seller->name ?> doesn't have any <?= ($wholesale_active) ? 'wholesale' : 'retail' ?> items for sale yet
+                                    <?= $SellerAccount->name ?> doesn't have any <?= ($wholesale_active) ? 'wholesale' : 'retail' ?> items for sale yet
                                 </div>
                                 
                                 <?php if ($is_owner): ?>
@@ -420,6 +420,144 @@
                             <?php endif ?>
 
                             </div>
+                        </div>
+
+                        <div class="available-exchange-options set d-none d-md-block">
+                            <h4 class="margin-btm-50em">
+                                <bold class="dark-gray">Exchange options</bold>
+
+                                <?php /* if (!empty($exchange_options_available)): ?>
+                                
+                                    <light class="light-gray">
+                                        (<?= count($exchange_options_available) ?>)
+                                    </light>
+                                
+                                <?php endif; */ ?>
+
+                            </h4>
+
+                            <div class="muted margin-btm-1em">
+                                Meetup locations or delivery options to get your food
+                            </div>
+
+                            <?php if (!empty($exchange_options_available)): ?>
+
+                                <?php if ($SellerAccount->Delivery && $SellerAccount->Delivery->is_offered): ?>
+
+                                    <div class="bubble muted">
+                                        <fable>
+                                            <div class="font-18 thick">
+                                                <i class="fa fa-truck" data-toggle="tooltip" data-title="Request that your order be delivered right to you"></i>
+                                                Delivery
+                                            </div>
+
+                                            <cell class="strong flexend">
+                                                <?= ($SellerAccount->Delivery->delivery_type == 'free' ? 'Free' : _amount($SellerAccount->Delivery->fee) . ' ' . str_replace('-', ' ', $SellerAccount->Delivery->pricing_rate)); ?>
+                                            </cell>
+                                        </fable>
+                                        
+                                        <div>
+                                            Will deliver within <strong><?= $SellerAccount->Delivery->distance ?></strong> miles
+                                        </div>
+
+                                        <?php if ($SellerAccount->Delivery->delivery_type == 'conditional'): ?>
+                                            
+                                            <div>
+                                                Free delivery within <strong><?= $SellerAccount->Delivery->free_distance ?></strong> miles
+                                            </div>
+
+                                        <?php endif; ?>
+                                    </div>
+
+                                <?php endif ?>
+
+                                <?php if (!empty($meetups)): ?>
+                            
+                                    <?php foreach ($meetups as $meetup): ?>
+                                    
+                                        <!-- <div class="row">
+                                            <div class="col-md-"> -->
+                                                <div class="bubble muted margin-btm-1em">
+                                                    <fable>
+                                                        <cell class="font-18 thick">
+                                                            <i class="fa fa-map-signs" data-toggle="tooltip" data-title="Meet here at the time specified to pick up your order"></i>
+                                                            <?= (!empty($meetup['title'])) ? $meetup['title'] : "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
+                                                        </cell>
+                                                        
+                                                        <cell class="flexend">
+                                                            <?= "<strong>{$meetup['day']}s</strong>" ?>
+                                                        </cell>
+                                                    </fable>
+
+                                                    <fable class="margin-0">
+                                                        <cell>
+                                                            <?= "{$meetup['city']}, {$meetup['state']}" ?>
+                                                        </cell>
+
+                                                        <cell class="flexend">
+                                                            <?= "{$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
+                                                        </cell>
+                                                    </fable>
+
+                                                    <fable class="margin-0">
+
+                                                        <?php if (!empty($meetup['deadline'])): ?>
+                                                        
+                                                            <cell>
+                                                                <?= _amount($meetup['order_minimum']) ?>
+                                                                minimum order
+                                                            </cell>
+                                                        
+                                                        <?php endif ?>
+                                                        
+                                                        <?php if (!empty($meetup['order_minimum'])): ?>
+                                                    
+                                                            <cell class="flexend">
+                                                                Order
+                                                                <!-- <span class="warning"> -->
+                                                                    <?= $meetup['deadline'] ?> hours
+                                                                <!-- </span> -->
+                                                                in advance
+                                                            </cell>
+                                                        
+                                                        <?php endif ?>
+
+                                                    </fable>
+
+                                                </div>
+                                            <!-- </div>
+                                        </div> -->
+                                
+                                    <?php endforeach ?>
+
+                                <?php endif ?>
+
+                            <?php else: ?>
+
+                                <div class="callout">
+                                    <?= $SellerAccount->name ?> hasn't enabled any exchange options yet
+                                </div>
+                        
+                                <?php if ($is_owner): ?>
+
+                                    <div class="btn-group">
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/exchange-options/delivery" class="btn btn-cta">
+                                            Enable delivery
+                                        </a>
+
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/exchange-options/pickup" class="btn btn-cta">
+                                            Enable pickup
+                                        </a>
+
+                                        <a href="<?= PUBLIC_ROOT ?>dashboard/selling/exchange-options/meetup" class="btn btn-cta">
+                                            Enable meetup
+                                        </a>
+                                    </div>
+
+                                <?php endif; ?>
+                            
+                            <?php endif; ?>
+                            
                         </div>
                         
                         <?php if (!empty($ratings)): ?>
@@ -481,11 +619,11 @@
 </main>
 
 <script>
-    var lat         = <?= (isset($Seller)) ? number_format($Seller->latitude, 2) : 0 ?>;
-    var lng         = <?= (isset($Seller)) ? number_format($Seller->longitude, 2) : 0 ?>;
+    var lat         = <?= (isset($SellerAccount)) ? number_format($SellerAccount->latitude, 2) : 0 ?>;
+    var lng         = <?= (isset($SellerAccount)) ? number_format($SellerAccount->longitude, 2) : 0 ?>;
     var user        = <?= (isset($User)) ? $User->id : 0 ?>;
-    var seller_name = '<?= $Seller->name ?>';
-    var seller_link = '<?= $Seller->link ?>';
+    var seller_name = '<?= $SellerAccount->name ?>';
+    var seller_link = '<?= $SellerAccount->link ?>';
     var buyer_name  = '<?= (isset($User, $User->BuyerAccount)) ? $User->BuyerAccount->name : '' ?>';
     var items       = <?= json_encode($hashed_items) ?>
 </script>
