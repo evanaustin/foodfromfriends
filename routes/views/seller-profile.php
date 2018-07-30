@@ -490,20 +490,9 @@
                                                     </fable>
 
                                                     <fable class="margin-0">
-
-                                                        <?php if (!empty($meetup['title'])): ?>
-                                                            
-                                                            <cell>
-                                                                <?= "{$meetup['address_line_1']} {$meetup['address_line_2']}" ?>
-                                                            </cell>
-
-                                                        <?php else: ?>
-                                                        
-                                                            <cell>
-                                                                <?= "{$meetup['city']}, {$meetup['state']}" ?>
-                                                            </cell>
-
-                                                        <?php endif ?>
+                                                        <cell>
+                                                            <?= "{$meetup['city']}, {$meetup['state']}" ?>
+                                                        </cell>
 
                                                         <cell class="flexend">
                                                             <?= "{$meetup['start_time']} &ndash; {$meetup['end_time']}" ?>
