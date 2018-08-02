@@ -107,7 +107,7 @@
                                             <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                             
                                             <span class="float-right">
-                                                <?= _amount($OrderItem->total); ?>
+                                                <?= _amount($OrderItem->total) ?>
                                             </span>
                                         </small>
                                     </div>
@@ -128,9 +128,14 @@
                                         <?= $BuyerAccount->name; ?>
                                     </h5>
 
-                                    <small>
-                                        <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
-                                    </small>
+                                    <?php if (!empty($BuyerAccount->Address->city) && !empty($BuyerAccount->Address->city)): ?>
+
+                                        <small>
+                                            <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
+                                        </small>
+
+                                    <?php endif ?>
+
                                 </div>
                             </div>
 

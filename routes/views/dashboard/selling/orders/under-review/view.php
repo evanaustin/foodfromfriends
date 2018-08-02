@@ -164,9 +164,14 @@
                                         <?= $BuyerAccount->name ?>
                                     </h5>
 
-                                    <small>
-                                        <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
-                                    </small>
+                                    <?php if (!empty($BuyerAccount->Address->city) && !empty($BuyerAccount->Address->city)): ?>
+
+                                        <small>
+                                            <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
+                                        </small>
+
+                                    <?php endif ?>
+                                    
                                 </div>
                             </div>
 

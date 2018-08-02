@@ -88,9 +88,14 @@
                                         <?= $BuyerAccount->name ?>
                                     </h5>
 
-                                    <small>
-                                        <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
-                                    </small>
+                                    <?php if (!empty($BuyerAccount->Address->city) && !empty($BuyerAccount->Address->city)): ?>
+
+                                        <small>
+                                            <?= "{$BuyerAccount->Address->city}, {$BuyerAccount->Address->state}" ?>
+                                        </small>
+
+                                    <?php endif ?>
+                                    
                                 </div>
                             </div>
 
@@ -144,7 +149,7 @@
                                             <?= ucfirst(((!empty($OrderItem->measurement) && !empty($OrderItem->metric)) ? "{$OrderItem->measurement} {$OrderItem->metric} {$OrderItem->package_type}" : $OrderItem->package_type)) ?>
                                             
                                             <span class="float-right">
-                                                <?= _($OrderItem->total) ?>
+                                                <?= _amount($OrderItem->total) ?>
                                             </span>
                                         </small>
                                     </div>
@@ -168,8 +173,7 @@
                         <div id="exchange-info" class="block animated zoomIn">
                             <div class="callout">
                                 <h6>
-                                    <?= ($OrderGrower->Exchange->type == 'delivery') ? 'Delivery' : 'Meetup' ?>
-                                    location
+                                    Location
                                 </h6>
                                 
                                 <p>
@@ -214,7 +218,7 @@
                                     </p>
                                 </div>
                                 
-                            <?php elseif ($OrderGrower->Exchange->type == 'meetup'): ?>
+                            <?php elseif (is_numeric($OrderGrower->Exchange->type)): ?>
                                  
                                 <div class="callout">
                                     <h6>
