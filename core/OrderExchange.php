@@ -174,7 +174,7 @@ class OrderExchange extends Base {
      * Given the exchange method selected for this grower in this order, set the time and instruction details.
      */
     private function set_details() {
-        if ($this->type == 'meetup') {
+        if ($this->type != 'delivery') {
             $meetup = $this->retrieve([
                 'where' => [
                     'id' => $this->type,
