@@ -1,0 +1,67 @@
+body.bighousefarm {
+    nav#header {
+        display: none;
+        visibility: hidden;
+    }
+
+    [canvas=container] {
+        top: 0;
+        height: 100%;
+    }
+
+    logo {
+        img {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            width: 200px;
+        }
+    }
+
+    #hero {
+        padding: 22.5rem 0;
+        background: url('../media/bighousefarm/hero.jpg') no-repeat;
+        background-size: cover;
+
+        h1 {
+            font-family: 'Logbond';
+            font-size: 3.5rem;
+            letter-spacing: 1px;
+            line-height: 4rem;
+            color: #fff;
+
+            span {
+                font-family: 'Logbond Outlines';
+            }
+        }
+    }
+
+    .sidekick {
+        &:first-child {
+            padding-top: 15rem;
+            padding-bottom: 2.5rem;
+        }
+        
+        &:last-child {
+            padding-bottom: 15rem;
+        }
+
+        > .row, 
+        > .row .col {
+            display: flex;
+            align-items: center;
+        }
+
+        .match {
+            flex-direction: column;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-family: 'Logbond';
+            color: #3d3d3d;
+            font-size: 1.85rem;
+            letter-spacing: 1.5px;
+        }
+    }
+}
