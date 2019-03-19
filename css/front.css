@@ -6824,109 +6824,108 @@ div.box {
 /**
 * Views
 **/
-main {
+body.home main {
   background-color: #fff;
   padding-bottom: 0; }
-
-.main {
+body.home .main {
   background-color: #fff; }
-  .main h1, .main p, .main .btn {
+  body.home .main h1, body.home .main p, body.home .main .btn {
     position: relative;
     z-index: 99; }
-  .main h1 {
+  body.home .main h1 {
     color: #636c72;
     font-weight: 100;
     text-shadow: 0 0 5px #fff; }
-    .main h1 strong {
+    body.home .main h1 strong {
       color: #4c4c4c;
       text-transform: uppercase; }
     @media (max-width: 576px) {
-      .main h1 {
+      body.home .main h1 {
         margin: 0 1.5rem; } }
     @media (min-width: 576px) {
-      .main h1 {
+      body.home .main h1 {
         font-size: 2rem; } }
     @media (min-width: 768px) {
-      .main h1 {
+      body.home .main h1 {
         font-size: 2.5rem; } }
-  .main p {
+  body.home .main p {
     color: #636c72; }
     @media (max-width: 576px) {
-      .main p {
+      body.home .main p {
         margin: 1.5rem 1.5rem 0;
         font-size: 1.15rem; } }
-  .main .btn {
+  body.home .main .btn {
     margin-top: 1rem; }
-  .main .btn-dark:hover {
+  body.home .main .btn-dark:hover {
     background-color: #4c4c4c;
     border-color: #4c4c4c; }
   @media (max-width: 576px) {
-    .main #hero {
+    body.home .main #hero {
       margin: 3rem 0 6rem; } }
   @media (min-width: 1200px) {
-    .main #hero {
+    body.home .main #hero {
       background: url("../media/homepage/seeds.png") no-repeat;
       background-size: 1000px 666px;
       background-position: top right; } }
-  .main #hero img.veggies {
+  body.home .main #hero img.veggies {
     position: relative;
     z-index: 98;
     max-height: 700px;
     padding-right: 1rem; }
   @media (max-width: 576px) {
-    .main #hero h1 {
+    body.home .main #hero h1 {
       margin: 0;
       font-size: 2rem; } }
   @media (min-width: 576px) {
-    .main #hero h1 {
+    body.home .main #hero h1 {
       font-size: 3rem; } }
   @media (min-width: 768px) {
-    .main #hero h1 {
+    body.home .main #hero h1 {
       font-size: 3.5rem; } }
   @media (min-width: 992px) {
-    .main #hero h1 {
+    body.home .main #hero h1 {
       font-size: 4rem; } }
-  .main #hero img.colorbowl {
+  body.home .main #hero img.colorbowl {
     max-height: 550px; }
   @media (max-width: 576px) {
-    .main #sidekick h1 {
+    body.home .main #sidekick h1 {
       font-size: 2.25rem; } }
-  .main #sidekick #thought img.chard {
+  body.home .main #sidekick #thought img.chard {
     position: absolute;
     z-index: 0;
     max-width: 450px; }
     @media (max-width: 576px) {
-      .main #sidekick #thought img.chard {
+      body.home .main #sidekick #thought img.chard {
         top: -100px;
         left: -250px; } }
     @media (min-width: 576px) {
-      .main #sidekick #thought img.chard {
+      body.home .main #sidekick #thought img.chard {
         top: -75px;
         left: -150px; } }
     @media (min-width: 992px) {
-      .main #sidekick #thought img.chard {
+      body.home .main #sidekick #thought img.chard {
         max-width: 550px;
         left: -100px; } }
     @media (min-width: 1200px) {
-      .main #sidekick #thought img.chard {
+      body.home .main #sidekick #thought img.chard {
         top: -105px; } }
-  .main #sidekick #thought #thought-for-food {
+  body.home .main #sidekick #thought #thought-for-food {
     position: relative;
     z-index: 99;
     margin-top: 6rem; }
     @media (max-width: 576px) {
-      .main #sidekick #thought #thought-for-food {
+      body.home .main #sidekick #thought #thought-for-food {
         margin-top: 5rem;
         text-align: left; }
-        .main #sidekick #thought #thought-for-food h1 {
+        body.home .main #sidekick #thought #thought-for-food h1 {
           margin-right: 2rem;
           text-align: right; } }
     @media (min-width: 576px) {
-      .main #sidekick #thought #thought-for-food {
+      body.home .main #sidekick #thought #thought-for-food {
         margin-top: 10rem;
         text-align: center; } }
     @media (min-width: 768px) {
-      .main #sidekick #thought #thought-for-food {
+      body.home .main #sidekick #thought #thought-for-food {
         margin-top: 10rem;
         -webkit-transform: translateX(50px);
         -moz-transform: translateX(50px);
@@ -6934,7 +6933,7 @@ main {
         -o-transform: translateX(50px);
         transform: translateX(50px); } }
     @media (min-width: 992px) {
-      .main #sidekick #thought #thought-for-food {
+      body.home .main #sidekick #thought #thought-for-food {
         margin-left: 13rem;
         -webkit-transform: translateX(75px);
         -moz-transform: translateX(75px);
@@ -6942,45 +6941,45 @@ main {
         -o-transform: translateX(75px);
         transform: translateX(75px); } }
     @media (min-width: 1200px) {
-      .main #sidekick #thought #thought-for-food {
+      body.home .main #sidekick #thought #thought-for-food {
         -webkit-transform: translateX(125px);
         -moz-transform: translateX(125px);
         -ms-transform: translateX(125px);
         -o-transform: translateX(125px);
         transform: translateX(125px); } }
-  .main #sidekick #thought img.tomatoes {
+  body.home .main #sidekick #thought img.tomatoes {
     position: absolute;
     z-index: 0;
     top: -15px; }
     @media (min-width: 768px) {
-      .main #sidekick #thought img.tomatoes {
+      body.home .main #sidekick #thought img.tomatoes {
         max-height: 700px; } }
     @media (min-width: 992px) {
-      .main #sidekick #thought img.tomatoes {
+      body.home .main #sidekick #thought img.tomatoes {
         max-height: 1200px; } }
   @media (max-width: 576px) {
-    .main #sidekick #model .plate {
+    body.home .main #sidekick #model .plate {
       top: -25px;
       left: -200px; } }
   @media (min-width: 576px) {
-    .main #sidekick #model .plate {
+    body.home .main #sidekick #model .plate {
       position: absolute;
       z-index: 0;
       max-height: 925px;
       top: -150px;
       left: -250px; } }
   @media (min-width: 768px) {
-    .main #sidekick #model .plate {
+    body.home .main #sidekick #model .plate {
       left: -200px; } }
   @media (min-width: 1200px) {
-    .main #sidekick #model .plate {
+    body.home .main #sidekick #model .plate {
       left: -50px; } }
   @media (min-width: 576px) {
-    .main #sidekick #model #model-for-the-future {
+    body.home .main #sidekick #model #model-for-the-future {
       margin-top: 15rem;
       text-align: right; } }
   @media (min-width: 768px) {
-    .main #sidekick #model #model-for-the-future {
+    body.home .main #sidekick #model #model-for-the-future {
       margin-top: 17rem;
       text-align: center;
       -webkit-transform: translateX(-10%);
@@ -6989,7 +6988,7 @@ main {
       -o-transform: translateX(-10%);
       transform: translateX(-10%); } }
   @media (min-width: 992px) {
-    .main #sidekick #model #model-for-the-future {
+    body.home .main #sidekick #model #model-for-the-future {
       margin-top: 15rem;
       margin-right: 2rem;
       -webkit-transform: translateX(8.33%);
@@ -6998,45 +6997,45 @@ main {
       -o-transform: translateX(8.33%);
       transform: translateX(8.33%); } }
   @media (min-width: 1200px) {
-    .main #sidekick #model #model-for-the-future {
+    body.home .main #sidekick #model #model-for-the-future {
       -webkit-transform: translateX(15%);
       -moz-transform: translateX(15%);
       -ms-transform: translateX(15%);
       -o-transform: translateX(15%);
       transform: translateX(15%); }
-      .main #sidekick #model #model-for-the-future p {
+      body.home .main #sidekick #model #model-for-the-future p {
         margin-left: 0.5rem;
         margin-right: 0.5rem; } }
-  .main #sidekick #model img.chard-bunch {
+  body.home .main #sidekick #model img.chard-bunch {
     max-height: 400px;
     margin-top: 4rem; }
     @media (min-width: 768px) {
-      .main #sidekick #model img.chard-bunch {
+      body.home .main #sidekick #model img.chard-bunch {
         margin-top: 0; } }
-  .main #sidekick #platform img.smoothie {
+  body.home .main #sidekick #platform img.smoothie {
     max-width: 325px; }
     @media (max-width: 576px) {
-      .main #sidekick #platform img.smoothie {
+      body.home .main #sidekick #platform img.smoothie {
         margin-top: 2rem; } }
     @media (min-width: 576px) {
-      .main #sidekick #platform img.smoothie {
+      body.home .main #sidekick #platform img.smoothie {
         position: absolute;
         top: -100px; } }
     @media (min-width: 992px) {
-      .main #sidekick #platform img.smoothie {
+      body.home .main #sidekick #platform img.smoothie {
         top: 200px;
         right: 1rem; } }
     @media (min-width: 1200px) {
-      .main #sidekick #platform img.smoothie {
+      body.home .main #sidekick #platform img.smoothie {
         right: 4rem; } }
   @media (max-width: 576px) {
-    .main #sidekick #platform #platform-for-everyone {
+    body.home .main #sidekick #platform #platform-for-everyone {
       margin-top: 4rem; } }
   @media (min-width: 576px) {
-    .main #sidekick #platform #platform-for-everyone {
+    body.home .main #sidekick #platform #platform-for-everyone {
       margin-top: 15rem; } }
   @media (min-width: 768px) {
-    .main #sidekick #platform #platform-for-everyone {
+    body.home .main #sidekick #platform #platform-for-everyone {
       text-align: center;
       -webkit-transform: translateX(15px);
       -moz-transform: translateX(15px);
@@ -7044,7 +7043,7 @@ main {
       -o-transform: translateX(15px);
       transform: translateX(15px); } }
   @media (min-width: 992px) {
-    .main #sidekick #platform #platform-for-everyone {
+    body.home .main #sidekick #platform #platform-for-everyone {
       text-align: left;
       -webkit-transform: translateX(0);
       -moz-transform: translateX(0);
@@ -7052,41 +7051,82 @@ main {
       -o-transform: translateX(0);
       transform: translateX(0); } }
   @media (min-width: 1200px) {
-    .main #sidekick #platform #platform-for-everyone {
+    body.home .main #sidekick #platform #platform-for-everyone {
       margin-top: 16rem; } }
-  .main #sidekick #platform img.chard-bunch {
+  body.home .main #sidekick #platform img.chard-bunch {
     max-height: 400px;
     margin-top: 4rem; }
-  .main #sidekick #action {
+  body.home .main #sidekick #action {
     margin-bottom: 2rem; }
     @media (max-width: 576px) {
-      .main #sidekick #action {
+      body.home .main #sidekick #action {
         margin-top: 2rem; } }
     @media (min-width: 576px) {
-      .main #sidekick #action {
+      body.home .main #sidekick #action {
         margin-top: 5rem; } }
     @media (max-width: 576px) {
-      .main #sidekick #action #practice {
+      body.home .main #sidekick #action #practice {
         margin-top: 2rem; } }
     @media (min-width: 576px) {
-      .main #sidekick #action #practice {
+      body.home .main #sidekick #action #practice {
         margin-top: 7rem; } }
     @media (min-width: 992px) {
-      .main #sidekick #action #practice {
+      body.home .main #sidekick #action #practice {
         margin-top: 10rem; } }
-    .main #sidekick #action #practice h2 {
+    body.home .main #sidekick #action #practice h2 {
       font-weight: 100;
       color: #636c72;
       text-align: center; }
       @media (max-width: 576px) {
-        .main #sidekick #action #practice h2 {
+        body.home .main #sidekick #action #practice h2 {
           margin-bottom: 2rem;
           font-size: 1.75rem; } }
       @media (min-width: 576px) {
-        .main #sidekick #action #practice h2 {
+        body.home .main #sidekick #action #practice h2 {
           margin-bottom: 1rem; } }
-    .main #sidekick #action img.loaf {
+    body.home .main #sidekick #action img.loaf {
       max-height: 450px; }
+
+body.bighousefarm nav#header {
+  display: none;
+  visibility: hidden; }
+body.bighousefarm [canvas=container] {
+  top: 0;
+  height: 100%; }
+body.bighousefarm logo img {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 200px; }
+body.bighousefarm #hero {
+  padding: 22.5rem 0;
+  background: url("../media/bighousefarm/hero.jpg") no-repeat;
+  background-size: cover; }
+  body.bighousefarm #hero h1 {
+    font-family: 'Logbond';
+    font-size: 3.5rem;
+    letter-spacing: 1px;
+    line-height: 4rem;
+    color: #fff; }
+    body.bighousefarm #hero h1 span {
+      font-family: 'Logbond Outlines'; }
+body.bighousefarm .sidekick:first-child {
+  padding-top: 15rem;
+  padding-bottom: 2.5rem; }
+body.bighousefarm .sidekick:last-child {
+  padding-bottom: 15rem; }
+body.bighousefarm .sidekick > .row,
+body.bighousefarm .sidekick > .row .col {
+  display: flex;
+  align-items: center; }
+body.bighousefarm .sidekick .match {
+  flex-direction: column; }
+body.bighousefarm .sidekick p {
+  margin-bottom: 1.5rem;
+  font-family: 'Logbond';
+  color: #3d3d3d;
+  font-size: 1.85rem;
+  letter-spacing: 1.5px; }
 
 body.map {
   background-color: #fafafb; }
