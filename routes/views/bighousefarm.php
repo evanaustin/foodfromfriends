@@ -1,5 +1,5 @@
 <logo>
-    <?= _img('../media/bighousefarm/mini-logo-white','png',[
+    <?= _img('../media/bighousefarm/logo','png',[
         'server' => 'local'
     ]) ?>
 </logo>
