@@ -82,7 +82,7 @@
                                 <input type="text" name="city" class="form-control" placeholder="Enter your city"/>
 
                                 <button type="submit" class="btn btn-block btn-lg btn-cta">
-                                    Count me in
+                                    Join the waitlist
                                 </button>
 
                                 <p class="post-signup">
