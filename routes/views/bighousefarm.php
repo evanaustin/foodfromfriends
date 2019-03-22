@@ -79,7 +79,16 @@
                             <div class="col-md-4 offset-md-4">
                                 <input type="hidden" name="grower-operation-id" value="55"/>
                                 <input type="text" name="email" class="form-control" placeholder="Enter your email"/>
-                                <input type="text" name="city" class="form-control" placeholder="Enter your city"/>
+                                
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <input type="text" name="city" class="form-control" placeholder="Enter your city"/>
+                                    </div>
+
+                                    <div class="col-sm-3" data-toggle="tooltip" data-title="We're available only in the state of Virginia right now">
+                                        <input type="text" name="city" class="form-control" value="VA" disabled>
+                                    </div>
+                                </div>
 
                                 <button type="submit" class="btn btn-block btn-lg btn-cta">
                                     Join the waitlist
