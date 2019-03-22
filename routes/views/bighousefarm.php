@@ -81,8 +81,8 @@
                                         <input type="text" name="city" class="form-control" placeholder="Enter your city"/>
                                     </div>
 
-                                    <div class="col-3" data-toggle="tooltip" data-title="We're available only in the state of Virginia right now">
-                                        <input type="text" name="city" class="form-control" value="VA" disabled>
+                                    <div class="col-3" data-toggle="tooltip" data-title="We currently deliver to VA and NC, but will consider others">
+                                        <input type="text" name="state" class="form-control" placeholder="State" data-parsley-maxlength="2" data-parsley-trigger="change">
                                     </div>
                                 </div>
 

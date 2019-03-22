@@ -12,7 +12,8 @@ $_POST = $Gump->sanitize($_POST);
 $Gump->validation_rules([
     'grower-operation-id'   => 'required|integer',
     'email'                 => 'required|valid_email|max_len,254',
-    'city'                  => 'required|alpha_space'
+    'city'                  => 'required|alpha_space',
+    'state'                 => 'required|alpha|max_len,2'
 ]);
 
 $validated_data = $Gump->run($_POST);
@@ -24,7 +25,8 @@ if ($validated_data === false) {
 $Gump->filter_rules([
 	'grower-operation-id'   => 'trim|whole_number',
 	'email'                 => 'trim|sanitize_email',
-	'city'                  => 'trim|sanitize_string'
+	'city'                  => 'trim|sanitize_string',
+	'state'                 => 'trim|sanitize_string'
 ]);
 
 $prepared_data = $Gump->run($validated_data);
@@ -38,7 +40,8 @@ $User = new User([
 $response = $User->add([
     'grower_operation_id'   => $grower_operation_id,
     'email'                 => $email,
-    'city'                  => $city
+    'city'                  => $city,
+    'state'                 => $state
 ], 'interest_signups');
 
 echo json_encode($json);
