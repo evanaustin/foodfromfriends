@@ -14,6 +14,11 @@
                             Chickens so happy<br>
                             you can <span>taste</span> it
                         </h1>
+
+                        <a href="#interest-signup">
+                            Let me try some
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -63,10 +68,10 @@
                 <div class="container">
                     <form id="interest-signup">
                         <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-center">
-                                    An exciting new way to pre-order your chicken ... coming soon
-                                </p>
+                            <div class="col-md-4 offset-md-4">
+                                <h2 class="text-center">
+                                    Get pasture-raised chicken <span>delivered</span> to your door.
+                                </h2>
                             </div>
                         </div>
 
@@ -74,10 +79,15 @@
                             <div class="col-md-4 offset-md-4">
                                 <input type="hidden" name="grower-operation-id" value="55"/>
                                 <input type="text" name="email" class="form-control" placeholder="Enter your email"/>
+                                <input type="text" name="city" class="form-control" placeholder="Enter your city"/>
 
                                 <button type="submit" class="btn btn-block btn-lg btn-cta">
-                                    Keep me posted
+                                    Count me in
                                 </button>
+
+                                <p class="post-signup">
+                                    We'll notify you when our chicken is available in your area.
+                                </p>
                             </div>
                         </div>
                     </form>

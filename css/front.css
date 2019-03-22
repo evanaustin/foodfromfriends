@@ -7098,22 +7098,32 @@ body.bighousefarm logo img {
   top: 1.5rem;
   left: 1.5rem;
   width: 200px; }
+body.bighousefarm h1, body.bighousefarm h2 {
+  font-family: 'Logbond';
+  letter-spacing: 1px; }
+  body.bighousefarm h1 span, body.bighousefarm h2 span {
+    font-family: 'Logbond Outlines'; }
+body.bighousefarm h1 {
+  font-size: 3.5rem;
+  line-height: 4rem;
+  color: #fff; }
+body.bighousefarm h2 {
+  font-size: 3rem;
+  line-height: 3.5rem;
+  color: #3d3d3d; }
 body.bighousefarm #hero {
   padding: 22.5rem 0;
   background: url("../media/bighousefarm/hero.jpg") no-repeat;
   background-size: cover;
   background-position: right center; }
-  @media (min-width: 768px) {
-    body.bighousefarm #hero {
-      background-position: center center; } }
-  body.bighousefarm #hero h1 {
+  body.bighousefarm #hero a {
+    display: block;
+    font-size: 1.5rem;
     font-family: 'Logbond';
-    font-size: 3.5rem;
+    color: #fff;
     letter-spacing: 1px;
-    line-height: 4rem;
-    color: #fff; }
-    body.bighousefarm #hero h1 span {
-      font-family: 'Logbond Outlines'; }
+    text-align: center;
+    text-decoration: underline; }
 body.bighousefarm .sidekick {
   padding-bottom: 5rem;
   /* > .row, 
@@ -7135,10 +7145,16 @@ body.bighousefarm .sidekick {
 body.bighousefarm form input,
 body.bighousefarm form .btn {
   font-family: 'Logbond';
-  font-size: 1.85rem;
-  letter-spacing: 1.5px; }
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem; }
+body.bighousefarm form input {
+  font-size: 1.25rem; }
 body.bighousefarm form .btn {
-  margin-top: 1rem; }
+  font-size: 1.85rem; }
+body.bighousefarm form .post-signup {
+  display: none;
+  font-size: 1.25rem;
+  text-align: center; }
 
 body.map {
   background-color: #fafafb; }
