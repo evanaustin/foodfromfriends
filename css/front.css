@@ -7101,7 +7101,11 @@ body.bighousefarm logo img {
 body.bighousefarm #hero {
   padding: 22.5rem 0;
   background: url("../media/bighousefarm/hero.jpg") no-repeat;
-  background-size: cover; }
+  background-size: cover;
+  background-position: right center; }
+  @media (min-width: 768px) {
+    body.bighousefarm #hero {
+      background-position: center center; } }
   body.bighousefarm #hero h1 {
     font-family: 'Logbond';
     font-size: 3.5rem;
@@ -7111,16 +7115,17 @@ body.bighousefarm #hero {
     body.bighousefarm #hero h1 span {
       font-family: 'Logbond Outlines'; }
 body.bighousefarm .sidekick {
-  padding-bottom: 5rem; }
+  padding-bottom: 5rem;
+  /* > .row, 
+  > .row .col {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+  } */ }
   body.bighousefarm .sidekick:first-child {
     padding-top: 15rem; }
   body.bighousefarm .sidekick:last-child {
     padding-bottom: 15rem; }
-  body.bighousefarm .sidekick > .row,
-  body.bighousefarm .sidekick > .row .col {
-    display: flex;
-    align-items: center;
-    flex-direction: column; }
   body.bighousefarm .sidekick p {
     margin-bottom: 1.5rem;
     font-family: 'Logbond';

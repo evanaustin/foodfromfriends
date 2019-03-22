@@ -22,6 +22,11 @@ body.bighousefarm {
         padding: 22.5rem 0;
         background: url('../media/bighousefarm/hero.jpg') no-repeat;
         background-size: cover;
+        background-position: right center;
+        
+        @include md() {
+            background-position: center center;
+        }
 
         h1 {
             font-family: 'Logbond';
@@ -47,12 +52,12 @@ body.bighousefarm {
             padding-bottom: 15rem;
         }
 
-        > .row, 
+        /* > .row, 
         > .row .col {
             display: flex;
             align-items: center;
             flex-direction: column;
-        }
+        } */
 
         p {
             margin-bottom: 1.5rem;
