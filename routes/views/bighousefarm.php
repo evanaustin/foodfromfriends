@@ -9,7 +9,7 @@
         <div id="hero">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12 col-lg-6">
                         <h1 class="text-center">
                             Chickens so happy<br>
                             you can <span>taste</span> it
@@ -68,15 +68,11 @@
                 <div class="container">
                     <form id="interest-signup">
                         <div class="row">
-                            <div class="col-md-4 offset-md-4">
+                            <div class="col-12 col-md-8 offset-md-2 col-xl-4 offset-xl-4">
                                 <h2 class="text-center">
                                     Get pasture-raised chicken <span>delivered</span> to your door.
-                                </h2>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-md-4 offset-md-4">
+                                </h2>    
+                            
                                 <input type="hidden" name="grower-operation-id" value="55"/>
                                 <input type="text" name="email" class="form-control" placeholder="Enter your email"/>
                                 
